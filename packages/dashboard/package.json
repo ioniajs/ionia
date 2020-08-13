@@ -1,5 +1,5 @@
 {
-  "name": "@ionia/master",
+  "name": "@ionia/dashboard",
   "version": "0.0.0",
   "description": "> TODO: description",
   "author": "RoyLin <1002591652@qq.com>",
@@ -16,10 +16,9 @@
     "clean": "rm dist/bundle.js",
     "build-dev": "webpack -d --mode development",
     "build-prod": "webpack -p --mode production",
-    "start": "webpack-dev-server --mode development"
+    "start": "webpack-dev-server --hot --mode development"
   },
   "dependencies": {
-    "qiankun": "^2.0.20",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-hot-loader": "^4.12.21"

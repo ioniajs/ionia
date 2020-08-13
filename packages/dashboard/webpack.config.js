@@ -6,22 +6,28 @@ const BundleAnalyzerPlugin = require("webpack-bundle-analyzer")
   .BundleAnalyzerPlugin;
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
+const { name } = require("./package");
 
 const config = {
-  entry: ["./src/index.ts"],
+  entry: ["react-hot-loader/patch", "./src/index.tsx"],
   output: {
-    publicPath: "/",
+    path: path.resolve(__dirname, "dist"),
+    filename: "[name].[contenthash].js",
+    library: `${name}-[name]`,
+    libraryTarget: "umd",
+    jsonpFunction: `webpackJsonp_${name}`,
+    globalObject: "window",
   },
   devServer: {
+    port: 7000,
     contentBase: "./dist",
-    clientLogLevel: "warning",
-    disableHostCheck: true,
-    compress: true,
     headers: {
       "Access-Control-Allow-Origin": "*",
     },
     historyApiFallback: true,
-    overlay: { warnings: false, errors: true },
+    hot: false,
+    watchContentBase: false,
+    liveReload: false,
   },
   module: {
     rules: [
@@ -96,7 +102,7 @@ const config = {
       patterns: [{ from: "index.html" }],
     }),
     new HtmlWebpackPlugin({
-      appMountId: "app",
+      appMountId: "slave-container",
       filename: "index.html",
       template: "index.html",
     }),

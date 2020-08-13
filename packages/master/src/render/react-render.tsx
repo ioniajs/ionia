@@ -10,7 +10,7 @@ function Render(props: any) {
   return (
     <>
       {loading && <h4 className="slave-loading">Loading...</h4>}
-      <div id="slave-viewport" />
+      <div id="slave-container" />
     </>
   );
 }
