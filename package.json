@@ -2,7 +2,8 @@
   "name": "root",
   "private": true,
   "scripts": {
-    "l": "lerna-wizard"
+    "l": "lerna-wizard",
+    "cz": "git-cz"
   },
   "devDependencies": {
     "cz-conventional-changelog": "3.2.0",

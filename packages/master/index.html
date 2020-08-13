@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Ionia Master</title>
+  </head>
+
+  <body>
+    <div class="master">
+      <!-- 标题栏 -->
+      <header class="master-header">
+        <h1>Ionia</h1>
+      </header>
+      <div class="master-main">
+        <!-- 侧边栏 -->
+        <ul class="master-sidemenu">
+          <li onclick="push('/react16')">React16</li>
+          <li onclick="push('/react15')">React15</li>
+          <li onclick="push('/vue')">Vue</li>
+          <li onclick="push('/angular9')">Angular9</li>
+          <li onclick="push('/purehtml')">Purehtml</li>
+        </ul>
+        <!-- 子应用  -->
+        <main id="slave-container"></main>
+      </div>
+    </div>
+
+    <script>
+      function push(slave) {
+        history.pushState(null, slave, slave);
+      }
+    </script>
+  </body>
+</html>
