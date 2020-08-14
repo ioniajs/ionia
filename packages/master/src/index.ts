@@ -1,9 +1,9 @@
 import {
+  initGlobalState,
+  MicroAppStateActions,
   registerMicroApps,
   setDefaultMountApp,
   start,
-  initGlobalState,
-  MicroAppStateActions,
 } from "qiankun";
 import "./index.less";
 
@@ -21,8 +21,14 @@ const apps = [
     activeRule: "/vue",
   },
   {
-    name: "ide",
+    name: "purehtml",
     entry: "//localhost:7002",
+    container: "#slave-container",
+    activeRule: "/purehtml",
+  },
+  {
+    name: "ide",
+    entry: "//localhost:7003",
     container: "#slave-container",
     activeRule: "/ide",
   },

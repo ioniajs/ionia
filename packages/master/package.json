@@ -16,7 +16,7 @@
     "clean": "rm dist/bundle.js",
     "build-dev": "webpack -d --mode development",
     "build-prod": "webpack -p --mode production",
-    "start": "webpack-dev-server --mode development"
+    "start": "webpack-dev-server --watch --mode development"
   },
   "dependencies": {
     "qiankun": "^2.0.20",
