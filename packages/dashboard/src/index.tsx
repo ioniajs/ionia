@@ -1,21 +1,19 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
-
 import App from "./App";
-
-declare const __POWERED_BY_QIANKUN__: any;
+import configs from "@/configs";
 
 function render(props: any) {
   const { container } = props;
   ReactDOM.render(
-    <App name="Dashboard" />,
+    <App />,
     container
       ? container.querySelector("#slave-container")
       : document.getElementById("slave-container")
   );
 }
 
-if (!__POWERED_BY_QIANKUN__) {
+if (!configs.isQiankun) {
   render({});
 }
 
