@@ -15,7 +15,7 @@ function Users() {
   return <h2>Users</h2>;
 }
 
-const App = () => {
+const App = ({ setGlobalState }: any) => {
   return (
     <Router basename={configs.isQiankun ? "/dashboard" : "/"}>
       <div>
@@ -44,6 +44,13 @@ const App = () => {
           </Route>
         </Switch>
       </div>
+      <button
+        onClick={() => {
+          setGlobalState({ application: "dashboard" });
+        }}
+      >
+        Change Global State
+      </button>
     </Router>
   );
 };

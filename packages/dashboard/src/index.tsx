@@ -1,17 +1,18 @@
+import configs from "@/configs";
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 import App from "./App";
-import configs from "@/configs";
+import "./public-path";
 
-function render(props: any) {
+const render = (props: any) => {
   const { container } = props;
   ReactDOM.render(
-    <App />,
+    <App {...props} />,
     container
       ? container.querySelector("#slave-container")
       : document.getElementById("slave-container")
   );
-}
+};
 
 if (!configs.isQiankun) {
   render({});
@@ -23,6 +24,11 @@ export async function bootstrap() {
 
 export async function mount(props: any) {
   console.log("[react16] props from main framework", props);
+
+  props.onGlobalStateChange((state: any, prev: any) => {
+    console.log("【Slave】", state, prev);
+  });
+
   render(props);
 }
 
