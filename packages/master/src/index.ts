@@ -32,6 +32,12 @@ const apps = [
     container: "#slave-container",
     activeRule: "/ide",
   },
+  {
+    name: "cms",
+    entry: "//localhost:7004",
+    container: "#slave-container",
+    activeRule: "/cms",
+  },
 ];
 
 const lifeCycles = {
