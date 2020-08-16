@@ -3,7 +3,7 @@
   "private": true,
   "workspaces": [
     "apps/*",
-    "libs/*"
+    "components/*"
   ],
   "scripts": {
     "ws": "yarn workspaces",
