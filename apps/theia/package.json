@@ -1,0 +1,13 @@
+{
+  "name": "@ionia/theia",
+  "version": "0.0.1",
+  "license": "MIT",
+  "main": "index.html",
+  "scripts": {
+    "start": "cross-env PORT=7002 http-server . --cors"
+  },
+  "devDependencies": {
+    "cross-env": "^7.0.2",
+    "http-server": "^0.12.1"
+  }
+}

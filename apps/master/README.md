@@ -1,15 +1,11 @@
-# umi project
+# `@ionia/master`
 
-## Getting Started
+> TODO: description
 
-Install dependencies,
+## Usage
 
-```bash
-$ yarn
 ```
+const master = require('@ionia/master');
 
-Start the dev server,
-
-```bash
-$ yarn start
+// TODO: DEMONSTRATE API
 ```
