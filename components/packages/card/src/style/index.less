@@ -1,0 +1,143 @@
+@import (reference) '~antd/lib/style/themes/default';
+@pro-card-prefix-cls: ~'@{ant-prefix}-pro-card';
+
+@gradient-min: fade(@card-skeleton-bg, 20%);
+@gradient-max: fade(@card-skeleton-bg, 40%);
+
+.@{pro-card-prefix-cls} {
+  background-color: white;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  border-radius: @card-radius;
+  width: 100%;
+
+  &-border {
+    border: @border-width-base @border-style-base @border-color-split;
+  }
+
+  &-ghost {
+    background-color: transparent;
+  }
+
+  &-split > &-body {
+    padding: 0;
+  }
+
+  &-split-vertical {
+    border-right: @border-width-base @border-style-base @border-color-split;
+  }
+
+  &-split-horizontal {
+    border-bottom: @border-width-base @border-style-base @border-color-split;
+  }
+
+  &-contain-card > &-body {
+    display: flex;
+    flex-direction: row;
+    flex-grow: 1;
+  }
+
+  &-contain-card > &-body-column {
+    flex-direction: column;
+  }
+
+  &-header {
+    display: flex;
+    justify-content: space-between;
+    padding: @padding-md;
+    padding-bottom: 0;
+    &-border {
+      & {
+        padding-bottom: @padding-md;
+      }
+      border-bottom: @border-width-base @border-style-base @border-color-split;
+    }
+
+    &-collapse {
+      & {
+        padding-bottom: @padding-md;
+      }
+    }
+  }
+
+  &-collapsible-icon {
+    color: @icon-color-hover;
+    margin-left: 8px;
+
+    & svg {
+      transition: transform @animation-duration-base;
+    }
+  }
+
+  &-title {
+    font-weight: bold;
+  }
+
+  &-body {
+    display: block;
+    padding: @padding-md;
+    box-sizing: border-box;
+    overflow: hidden;
+
+    &-center {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    &-collapse {
+      display: none;
+    }
+
+    &-ghost {
+      padding: 0;
+      background-color: transparent;
+    }
+  }
+
+  &-loading {
+    overflow: hidden;
+  }
+
+  &-loading &-body {
+    user-select: none;
+  }
+
+  &-loading-content {
+    p {
+      margin: 0;
+    }
+  }
+
+  &-loading-block {
+    height: 14px;
+    margin: 4px 0;
+    background: linear-gradient(90deg, @gradient-min, @gradient-max, @gradient-min);
+    background-size: 600% 600%;
+    border-radius: @card-radius;
+    animation: card-loading 1.4s ease infinite;
+  }
+}
+
+@keyframes card-loading {
+  0%,
+  100% {
+    background-position: 0 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+.loop-grid-columns(@index) when (@index > 0) {
+  .@{pro-card-prefix-cls}-span-@{index} {
+    width: percentage((@index / @grid-columns));
+    flex-grow: 0;
+  }
+  .loop-grid-columns((@index - 1));
+}
+
+.loop-grid-columns(@grid-columns);

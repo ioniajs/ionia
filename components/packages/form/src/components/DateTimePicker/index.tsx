@@ -1,0 +1,29 @@
+import React from 'react';
+
+import ProField from '@ant-design/pro-field';
+import { Form } from 'antd';
+import { DatePickerProps } from 'antd/lib/date-picker';
+import { ProFormItemProps } from '../../interface';
+import { createField } from '../../BaseForm';
+
+/**
+ * 时间日期选择组件
+ * @param
+ */
+const ProFormDateTimePicker: React.FC<ProFormItemProps<DatePickerProps>> = ({
+  fieldProps,
+  ...restProps
+}) => {
+  return (
+    <Form.Item {...restProps}>
+      <ProField
+        text={fieldProps?.value}
+        mode="edit"
+        formItemProps={fieldProps}
+        valueType="dateTimeRange"
+      />
+    </Form.Item>
+  );
+};
+
+export default createField<ProFormItemProps<DatePickerProps>>(ProFormDateTimePicker);
