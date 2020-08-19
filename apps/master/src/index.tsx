@@ -7,6 +7,7 @@ import {
   setDefaultMountApp,
   start,
 } from "qiankun";
+import App from "./App";
 import "./index.less";
 
 const globalState = { application: "ionia" };
@@ -54,21 +55,5 @@ registerMicroApps(apps, lifeCycles);
 setDefaultMountApp("/dashboard");
 
 start();
-
-const App = () => {
-  const push = React.useCallback((slave) => {
-    history.pushState(null, slave, slave);
-  }, []);
-
-  return (
-    <main>
-      <ul className="master-sidemenu">
-        <li onClick={() => push("/dashboard")}>Dashboard</li>
-        <li onClick={() => push("/theia")}>Theia</li>
-      </ul>
-      <section id="slave-container"></section>
-    </main>
-  );
-};
 
 ReactDOM.render(<App />, document.getElementById("master-container"));
