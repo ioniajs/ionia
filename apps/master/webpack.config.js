@@ -1,3 +1,4 @@
+const { resolve } = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const BundleAnalyzerPlugin = require("webpack-bundle-analyzer")
   .BundleAnalyzerPlugin;
@@ -85,6 +86,9 @@ module.exports = {
   },
   resolve: {
     extensions: [".js", ".jsx", ".tsx", ".ts"],
+    alias: {
+      "@": resolve(__dirname, "src"),
+    },
   },
   plugins: [
     new HtmlWebpackPlugin({
