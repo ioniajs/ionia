@@ -1,0 +1,15 @@
+{
+  "name": "@ionia/components",
+  "version": "0.0.1",
+  "main": "es/index.js",
+  "license": "MIT",
+  "scripts": {
+    "dev": "father-build dev",
+    "build": "father-build build"
+  },
+  "devDependencies": {
+    "antd": "^4.4.3",
+    "father-build": "^1.18.1",
+    "react": "^16.11.0"
+  }
+}
