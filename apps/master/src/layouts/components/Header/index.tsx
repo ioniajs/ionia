@@ -10,10 +10,10 @@ const Header: React.FC = () => {
     <AntHeader className="io-header">
       <Logo />
       <Menu theme="dark" mode="horizontal" defaultSelectedKeys={["1"]}>
-        <Menu.Item key="1">门户</Menu.Item>
-        <Menu.Item key="2">商城</Menu.Item>
-        <Menu.Item key="3">政务</Menu.Item>
-        <Menu.Item key="4">办公</Menu.Item>
+        <Menu.Item key="1">数据中心</Menu.Item>
+        <Menu.Item key="2">内容</Menu.Item>
+        <Menu.Item key="3">商城</Menu.Item>
+        <Menu.Item key="4">政务</Menu.Item>
       </Menu>
     </AntHeader>
   );

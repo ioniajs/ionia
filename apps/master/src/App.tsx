@@ -8,7 +8,7 @@ const App: React.FC = () => {
 
   return (
     <BasicLayout>
-      <section id="slave-container"></section>
+      <div id="slave-container"></div>
     </BasicLayout>
   );
 };
