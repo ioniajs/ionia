@@ -1,29 +1,42 @@
-const { resolve } = require("path");
+const { name } = require("./package.json");
+const webpack = require("webpack");
+const path = require("path");
+const CopyPlugin = require("copy-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const LodashModuleReplacementPlugin = require("lodash-webpack-plugin");
 const BundleAnalyzerPlugin = require("webpack-bundle-analyzer")
   .BundleAnalyzerPlugin;
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 
-module.exports = {
-  entry: ["./src/index.tsx"],
+const config = {
+  entry: ["react-hot-loader/patch", "./src/index.tsx"],
   output: {
-    publicPath: "/",
+    path: path.resolve(__dirname, "dist"),
+    filename: "[name].[contenthash].js",
+    library: `${name}-[name]`,
+    libraryTarget: "umd",
+    jsonpFunction: `webpackJsonp_${name}`,
+    globalObject: "window",
   },
   devServer: {
-    port: 7000,
     contentBase: "./dist",
-    clientLogLevel: "warning",
-    disableHostCheck: true,
-    compress: true,
+    port: 7002,
     headers: {
       "Access-Control-Allow-Origin": "*",
     },
     historyApiFallback: true,
-    overlay: { warnings: false, errors: true },
+    hot: false,
+    watchContentBase: false,
+    liveReload: false,
   },
   module: {
     rules: [
+      {
+        test: /\.(js|jsx)$/,
+        use: "babel-loader",
+        exclude: /node_modules/,
+      },
       {
         test: /\.css$/,
         use: [
@@ -39,8 +52,8 @@ module.exports = {
         exclude: /\.module\.css$/,
       },
       {
-        test: /\.(js|jsx)$/,
-        use: "babel-loader",
+        test: /\.ts(x)?$/,
+        loader: "ts-loader",
         exclude: /node_modules/,
       },
       {
@@ -74,11 +87,6 @@ module.exports = {
         ],
       },
       {
-        test: /\.ts(x)?$/,
-        loader: "ts-loader",
-        exclude: /node_modules/,
-      },
-      {
         test: /\.svg$/,
         use: "file-loader",
       },
@@ -98,19 +106,16 @@ module.exports = {
   resolve: {
     extensions: [".js", ".jsx", ".tsx", ".ts"],
     alias: {
-      "@": resolve(__dirname, "src"),
+      "react-dom": "@hot-loader/react-dom",
     },
   },
   plugins: [
     new HtmlWebpackPlugin({
-      appMountId: "app",
       filename: "index.html",
       template: "index.html",
-      minify: {
-        removeComments: true,
-        collapseWhitespace: true,
-      },
     }),
+    new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /en/),
+    new LodashModuleReplacementPlugin(),
     new BundleAnalyzerPlugin({
       analyzerMode: "static",
       openAnalyzer: false,
@@ -130,4 +135,12 @@ module.exports = {
       },
     },
   },
+};
+
+module.exports = (env, argv) => {
+  if (argv.hot) {
+    config.output.filename = "[name].[hash].js";
+  }
+
+  return config;
 };

@@ -6,14 +6,21 @@ import Logo from "../Logo";
 const { Header: AntHeader } = Layout;
 
 const Header: React.FC = () => {
+  const handleMenuSelect = (item: any) => {
+    const slave = item.key;
+    history.pushState(null, slave, slave);
+  };
   return (
     <AntHeader className="io-header">
       <Logo />
-      <Menu theme="dark" mode="horizontal" defaultSelectedKeys={["1"]}>
-        <Menu.Item key="1">数据中心</Menu.Item>
-        <Menu.Item key="2">内容</Menu.Item>
-        <Menu.Item key="3">商城</Menu.Item>
-        <Menu.Item key="4">政务</Menu.Item>
+      <Menu
+        theme="dark"
+        mode="horizontal"
+        defaultSelectedKeys={["/dashboard"]}
+        onSelect={handleMenuSelect}
+      >
+        <Menu.Item key="/dashboard">数据中心</Menu.Item>
+        <Menu.Item key="/user">用户中心</Menu.Item>
       </Menu>
     </AntHeader>
   );
