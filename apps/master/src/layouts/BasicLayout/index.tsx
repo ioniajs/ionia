@@ -1,6 +1,6 @@
 import { Layout, Menu } from "antd";
 import React from "react";
-import Header from "../components/Header";
+import Header from "./components/Header";
 import "./index.less";
 
 const { Sider, Content } = Layout;
