@@ -25,10 +25,10 @@ const apps = [
     activeRule: "/dashboard",
   },
   {
-    name: "theia",
+    name: "user",
     entry: "//localhost:7002",
     container: "#slave-container",
-    activeRule: "/theia",
+    activeRule: "/user",
   },
 ];
 
