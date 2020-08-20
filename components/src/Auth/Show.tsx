@@ -2,9 +2,9 @@ import React from "react";
 import useAccess from "./useAccess";
 
 const Show = ({ when, resource, fallback, children, ...rest }: any) => {
-  const { hasPermission } = useAccess();
+  const { can } = useAccess();
 
-  const show = hasPermission(when, { resource });
+  const show = can(when, { resource });
 
   if (show) {
     return React.Children.map(children, (child) =>

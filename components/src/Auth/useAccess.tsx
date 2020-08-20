@@ -7,7 +7,7 @@ const useAccess = () => {
     context
   );
 
-  const hasPermission = (role: any, opts = {}) => {
+  const can = (role: any, opts = {}) => {
     return React.useMemo(() => checkRole(permissions, resources, role, opts), [
       permissions,
       role,
@@ -15,7 +15,7 @@ const useAccess = () => {
     ]);
   };
 
-  return { isLoaded, hasPermission, define };
+  return { isLoaded, can, define };
 };
 
 export default useAccess;

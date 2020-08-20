@@ -20,7 +20,7 @@ const withAccess = (setter: any) => {
         values = setter;
       }
 
-      const { hasPermission } = useAccess();
+      const { can } = useAccess();
 
       if (!values.permissions) {
         throw new Error("No permissions were passed to withAccess");
@@ -30,7 +30,7 @@ const withAccess = (setter: any) => {
         return <WrappedComponent {...props} />;
       }
 
-      const allowed = hasPermission(values.permissions, {
+      const allowed = can(values.permissions, {
         resource: values.resource,
       });
 

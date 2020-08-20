@@ -5,7 +5,7 @@ import { hot } from "react-hot-loader/root";
 const { Show, useAccess } = Auth;
 
 const App: React.FC = () => {
-  const { hasPermission, define } = useAccess();
+  const { can, define } = useAccess();
 
   React.useEffect(() => {
     define({
@@ -16,7 +16,7 @@ const App: React.FC = () => {
     });
   }, []);
 
-  const userCanWrite = hasPermission("users:write");
+  const userCanWrite = can("users:write");
 
   return (
     <div>
