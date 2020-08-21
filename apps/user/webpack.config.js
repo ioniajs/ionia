@@ -1,7 +1,6 @@
 const { name } = require("./package.json");
 const webpack = require("webpack");
 const { resolve } = require("path");
-const CopyPlugin = require("copy-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const LodashModuleReplacementPlugin = require("lodash-webpack-plugin");
 const BundleAnalyzerPlugin = require("webpack-bundle-analyzer")
@@ -19,6 +18,7 @@ const config = {
     jsonpFunction: `webpackJsonp_${name}`,
     globalObject: "window",
   },
+  devtool: "source-map",
   devServer: {
     contentBase: "./dist",
     port: 7002,

@@ -1,3 +1,4 @@
+import "mobx-react-lite/batchingForReactDom";
 import { GlobalLayout } from "@ionia/libs";
 import { isQiankun, initQiankun } from "@ionia/libs";
 import * as React from "react";
