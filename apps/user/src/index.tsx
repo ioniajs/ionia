@@ -1,9 +1,8 @@
 import { GlobalLayout } from "@ionia/libs";
-import { isQiankun } from "@ionia/libs";
+import { isQiankun, initQiankun } from "@ionia/libs";
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 import App from "./App";
-import "./init";
 
 const containerId = "#slave-container";
 
@@ -21,6 +20,8 @@ const render = (props: any) => {
 
 if (!isQiankun) {
   render({});
+} else {
+  initQiankun();
 }
 
 export async function bootstrap() {}
