@@ -1,5 +1,4 @@
-import * as React from "react";
-import * as ReactDOM from "react-dom";
+import { GlobalLayout } from "@ionia/libs";
 import {
   initGlobalState,
   MicroAppStateActions,
@@ -7,15 +6,12 @@ import {
   setDefaultMountApp,
   start,
 } from "qiankun";
+import * as React from "react";
+import * as ReactDOM from "react-dom";
 import App from "./App";
 import "./index.less";
 
-const globalState = { application: "ionia" };
-const actions: MicroAppStateActions = initGlobalState(globalState);
-
-actions.onGlobalStateChange((state, prev) => {
-  console.log("【Master】", state, prev);
-});
+const actions: MicroAppStateActions = initGlobalState({ title: "ionia" });
 
 const apps = [
   {
@@ -56,4 +52,9 @@ setDefaultMountApp("/dashboard");
 
 start();
 
-ReactDOM.render(<App />, document.getElementById("master-container"));
+ReactDOM.render(
+  <GlobalLayout globalProps={actions}>
+    <App />
+  </GlobalLayout>,
+  document.getElementById("master-container")
+);

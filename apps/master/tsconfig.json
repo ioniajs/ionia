@@ -16,5 +16,5 @@
       "src/*": ["src/*"]
     }
   },
-  "include": ["./src/**/*"]
+  "include": ["./src/**/*", "../../libs/src/contexts"]
 }

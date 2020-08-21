@@ -1,7 +1,7 @@
 import { Layout, Menu } from "antd";
 import React from "react";
-import "./index.less";
 import Logo from "../Logo";
+import "./index.less";
 
 const { Header: AntHeader } = Layout;
 

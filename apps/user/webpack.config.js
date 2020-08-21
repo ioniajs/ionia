@@ -1,6 +1,6 @@
 const { name } = require("./package.json");
 const webpack = require("webpack");
-const path = require("path");
+const { resolve } = require("path");
 const CopyPlugin = require("copy-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const LodashModuleReplacementPlugin = require("lodash-webpack-plugin");
@@ -12,7 +12,7 @@ const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const config = {
   entry: ["react-hot-loader/patch", "./src/index.tsx"],
   output: {
-    path: path.resolve(__dirname, "dist"),
+    path: resolve(__dirname, "dist"),
     filename: "[name].[contenthash].js",
     library: `${name}-[name]`,
     libraryTarget: "umd",
@@ -107,6 +107,7 @@ const config = {
     extensions: [".js", ".jsx", ".tsx", ".ts"],
     alias: {
       "react-dom": "@hot-loader/react-dom",
+      "@": resolve(__dirname, "src"),
     },
   },
   plugins: [

@@ -1,9 +1,9 @@
-import { Layout, Menu } from "antd";
+import { Layout } from "antd";
 import React from "react";
 import Header from "./components/Header";
 import "./index.less";
 
-const { Sider, Content } = Layout;
+const { Content } = Layout;
 
 const BasicLayout: React.FC = ({ children }) => {
   return (

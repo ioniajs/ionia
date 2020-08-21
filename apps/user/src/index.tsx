@@ -1,37 +1,31 @@
-import { Auth } from "@ionia/components";
+import { GlobalLayout } from "@ionia/libs";
+import { isQiankun } from "@ionia/libs";
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 import App from "./App";
 import "./init";
-
-const { AccessProvider } = Auth;
-
-declare const __POWERED_BY_QIANKUN__: any;
 
 const containerId = "#slave-container";
 
 const render = (props: any) => {
   const { container } = props;
   ReactDOM.render(
-    <AccessProvider>
+    <GlobalLayout globalProps={props}>
       <App />
-    </AccessProvider>,
+    </GlobalLayout>,
     container
       ? container.querySelector(containerId)
       : document.querySelector(containerId)
   );
 };
 
-if (!__POWERED_BY_QIANKUN__) {
+if (!isQiankun) {
   render({});
 }
 
-export async function bootstrap() {
-  console.log("[user] react app bootstraped");
-}
+export async function bootstrap() {}
 
 export async function mount(props: any) {
-  console.log("[user] props from main framework", props);
   render(props);
 }
 
