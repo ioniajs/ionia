@@ -7,6 +7,7 @@
     "noImplicitReturns": true,
     "noImplicitAny": true,
     "allowSyntheticDefaultImports": true,
+    "experimentalDecorators": true,
     "module": "es6",
     "moduleResolution": "node",
     "target": "es5",
@@ -16,5 +17,5 @@
       "src/*": ["src/*"]
     }
   },
-  "include": ["./src/**/*", "../../libs/src/contexts"]
+  "include": ["./src/**/*"]
 }
