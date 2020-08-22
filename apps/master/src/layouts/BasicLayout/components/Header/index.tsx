@@ -21,6 +21,7 @@ const Header: React.FC = () => {
       >
         <Menu.Item key="/dashboard">数据中心</Menu.Item>
         <Menu.Item key="/user">用户中心</Menu.Item>
+        <Menu.Item key="/auth">认证中心</Menu.Item>
       </Menu>
     </AntHeader>
   );
