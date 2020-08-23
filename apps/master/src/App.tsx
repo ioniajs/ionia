@@ -1,10 +1,11 @@
 import React from "react";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
-import { useLocation } from "react-use";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import BasicLayout from "./layouts/BasicLayout";
 import BlankLayout from "./layouts/BlankLayout";
 
 interface AppProps {}
+
+const SlaveApp = () => <div id="slave-container"></div>;
 
 const App: React.FC<AppProps> = () => {
   return (
@@ -12,12 +13,12 @@ const App: React.FC<AppProps> = () => {
       <Switch>
         <Route path="/auth">
           <BlankLayout>
-            <div id="slave-container"></div>
+            <SlaveApp />
           </BlankLayout>
         </Route>
         <Route path="/">
           <BasicLayout>
-            <div id="slave-container"></div>
+            <SlaveApp />
           </BasicLayout>
         </Route>
       </Switch>
