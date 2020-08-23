@@ -11,6 +11,7 @@
     "url": "https://github.com/ioniajs/ionia/issues"
   },
   "scripts": {
+    "analyzer": "webpack --report",
     "build:dev": "webpack -d --mode development",
     "build:prod": "webpack -p --mode production",
     "start": "webpack-dev-server"
