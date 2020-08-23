@@ -11,7 +11,9 @@ const App: React.FC<AppProps> = () => {
     <Router>
       <Switch>
         <Route path="/auth">
-          <BlankLayout>Auth</BlankLayout>
+          <BlankLayout>
+            <div id="slave-container"></div>
+          </BlankLayout>
         </Route>
         <Route path="/">
           <BasicLayout>

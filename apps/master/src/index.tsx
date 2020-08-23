@@ -27,6 +27,12 @@ const apps = [
     container: "#slave-container",
     activeRule: "/user",
   },
+  {
+    name: "auth",
+    entry: "//localhost:7003",
+    container: "#slave-container",
+    activeRule: "/auth",
+  },
 ];
 
 const lifeCycles = {
