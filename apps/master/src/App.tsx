@@ -1,22 +1,25 @@
 import React from "react";
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import { useLocation } from "react-use";
 import BasicLayout from "./layouts/BasicLayout";
-import AuthLayout from "./layouts/AuthLayout";
+import BlankLayout from "./layouts/BlankLayout";
 
 interface AppProps {}
 
 const App: React.FC<AppProps> = () => {
-  const { pathname } = useLocation();
   return (
-    <>
-      {pathname?.startsWith("/auth") ? (
-        <AuthLayout>Auth</AuthLayout>
-      ) : (
-        <BasicLayout>
-          <div id="slave-container"></div>
-        </BasicLayout>
-      )}
-    </>
+    <Router>
+      <Switch>
+        <Route path="/auth">
+          <BlankLayout>Auth</BlankLayout>
+        </Route>
+        <Route path="/">
+          <BasicLayout>
+            <div id="slave-container"></div>
+          </BasicLayout>
+        </Route>
+      </Switch>
+    </Router>
   );
 };
 

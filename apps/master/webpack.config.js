@@ -112,7 +112,10 @@ module.exports = {
         collapseWhitespace: true,
       },
     }),
-    new BundleAnalyzerPlugin(),
+    new BundleAnalyzerPlugin({
+      analyzerMode: "static",
+      openAnalyzer: false,
+    }),
     new MiniCssExtractPlugin(),
     new CleanWebpackPlugin(),
   ],
