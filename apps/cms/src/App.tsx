@@ -1,18 +1,41 @@
-import { LockOutlined, UserOutlined } from "@ant-design/icons";
-import { Button, Form, Input } from "antd";
-import { observer } from "mobx-react-lite";
+import { MainLayout, MenuSider } from "@ionia/libs";
+import { Menu } from "antd";
 import * as React from "react";
 import { hot } from "react-hot-loader/root";
-import { MainLayout } from "@ionia/libs";
+import { useLocation, useHistory } from "react-router-dom";
+import routes from "./routes";
 import "./App.less";
 
 const App: React.FC = () => {
-  const onFinish = (values: any) => {
-    console.log("Received values of form: ", values);
+  const history = useHistory();
+  const { pathname } = useLocation();
 
-    history.replaceState(null, "/dashboard", "/dashboard");
+  const handleMenuSelect = (item: any) => {
+    history.push(item.key);
   };
-  return <MainLayout>11</MainLayout>;
+  const renderMenus = () => {
+    return routes.map((m) => (
+      <Menu.Item className="io-menu__item" key={m.key}>
+        {m.name}
+      </Menu.Item>
+    ));
+  };
+
+  return (
+    <MainLayout
+      sider={
+        <MenuSider>
+          <Menu
+            className="io-menu"
+            selectedKeys={[pathname ?? ""]}
+            onSelect={handleMenuSelect}
+          >
+            {renderMenus()}
+          </Menu>
+        </MenuSider>
+      }
+    ></MainLayout>
+  );
 };
 
-export default hot(observer(App));
+export default hot(App);

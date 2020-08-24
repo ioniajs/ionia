@@ -9,6 +9,7 @@ import {
 } from "qiankun";
 import * as React from "react";
 import * as ReactDOM from "react-dom";
+import { BrowserRouter as Router } from "react-router-dom";
 import App from "./App";
 import "./index.less";
 
@@ -67,7 +68,9 @@ const actions: MicroAppStateActions = initGlobalState({ title: "ionia", apps });
 
 ReactDOM.render(
   <GlobalLayout globalProps={actions}>
-    <App />
+    <Router>
+      <App />
+    </Router>
   </GlobalLayout>,
   document.getElementById("master-container")
 );

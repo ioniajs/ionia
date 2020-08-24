@@ -1,16 +1,18 @@
-import React from "react";
 import { Layout } from "antd";
-
+import React, { ReactNode } from "react";
 import "./index.less";
 
-const { Header, Footer, Sider, Content } = Layout;
+const { Content } = Layout;
 
-export const MainLayout = ({ children }: any) => {
+interface MainLayoutProps {
+  children?: ReactNode;
+  sider?: ReactNode;
+}
+
+export const MainLayout = ({ children, sider }: MainLayoutProps) => {
   return (
     <Layout className="io-layout__main">
-      <Sider className="io-layout__main-sider" theme="light">
-        Sider
-      </Sider>
+      {sider}
       <Layout>
         <Content>{children}</Content>
       </Layout>
