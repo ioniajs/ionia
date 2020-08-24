@@ -1,5 +1,5 @@
-import "mobx-react-lite/batchingForReactDom";
 import { GlobalLayout } from "@ionia/libs";
+import "mobx-react-lite/batchingForReactDom";
 import {
   initGlobalState,
   MicroAppStateActions,
@@ -11,6 +11,7 @@ import * as React from "react";
 import * as ReactDOM from "react-dom";
 import { BrowserRouter as Router } from "react-router-dom";
 import App from "./App";
+import "./i18n";
 import "./index.less";
 
 const apps = [

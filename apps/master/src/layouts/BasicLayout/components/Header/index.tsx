@@ -1,6 +1,7 @@
 import { Skeleton, Layout, Menu, Space } from "antd";
 import { RegistrableApp } from "qiankun";
 import React from "react";
+import { useTranslation } from "react-i18next";
 import Logo from "../Logo";
 import "./index.less";
 
@@ -11,6 +12,8 @@ interface HeaderProps {
 }
 
 const Header: React.FC<HeaderProps> = ({ apps }: HeaderProps) => {
+  const { t, i18n } = useTranslation();
+
   const handleMenuSelect = (item: any) => {
     const slave = item.key;
     history.pushState(null, slave, slave);
@@ -26,7 +29,9 @@ const Header: React.FC<HeaderProps> = ({ apps }: HeaderProps) => {
         onSelect={handleMenuSelect}
       >
         {apps.map((app) => (
-          <Menu.Item key={app.activeRule.toString()}>{app.name}</Menu.Item>
+          <Menu.Item key={app.activeRule.toString()}>
+            {t(app.name, { lng: "zh" })}
+          </Menu.Item>
         ))}
       </Menu>
     </AntHeader>
