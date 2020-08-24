@@ -1,7 +1,7 @@
 import { useMount } from "ahooks";
 import React from "react";
-import { Auth } from "../components";
-import { useGlobalStore } from "../hooks";
+import { Auth } from "../../components";
+import { useGlobalStore } from "../../hooks";
 
 const { AccessProvider } = Auth;
 

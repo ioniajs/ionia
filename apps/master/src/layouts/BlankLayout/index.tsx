@@ -6,7 +6,7 @@ const { Content } = Layout;
 
 const AuthLayout: React.FC = ({ children }) => {
   return (
-    <Layout className="io-layout_auth">
+    <Layout className="io-layout__auth">
       <Content>{children}</Content>
     </Layout>
   );

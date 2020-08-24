@@ -12,23 +12,27 @@ import * as ReactDOM from "react-dom";
 import App from "./App";
 import "./index.less";
 
-const actions: MicroAppStateActions = initGlobalState({ title: "ionia" });
-
 const apps = [
   {
-    name: "dashboard",
+    name: "Dashboard",
     entry: "//localhost:7001",
     container: "#slave-container",
     activeRule: "/dashboard",
   },
   {
-    name: "user",
+    name: "CMS",
+    entry: "//localhost:7004",
+    container: "#slave-container",
+    activeRule: "/cms",
+  },
+  {
+    name: "User",
     entry: "//localhost:7002",
     container: "#slave-container",
     activeRule: "/user",
   },
   {
-    name: "auth",
+    name: "Auth",
     entry: "//localhost:7003",
     container: "#slave-container",
     activeRule: "/auth",
@@ -58,6 +62,8 @@ registerMicroApps(apps, lifeCycles);
 setDefaultMountApp("/dashboard");
 
 start();
+
+const actions: MicroAppStateActions = initGlobalState({ title: "ionia", apps });
 
 ReactDOM.render(
   <GlobalLayout globalProps={actions}>

@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "baseUrl": "./",
+    "outDir": "./dist/",
+    "sourceMap": true,
+    "strict": true,
+    "noImplicitReturns": true,
+    "noImplicitAny": true,
+    "allowSyntheticDefaultImports": true,
+    "experimentalDecorators": true,
+    "module": "es6",
+    "moduleResolution": "node",
+    "target": "es5",
+    "allowJs": true,
+    "jsx": "react",
+    "paths": {
+      "src/*": ["src/*"]
+    }
+  },
+  "include": ["./src/**/*"]
+}

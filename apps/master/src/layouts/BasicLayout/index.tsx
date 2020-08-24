@@ -1,14 +1,17 @@
+import { useGlobalStore } from "@ionia/libs";
 import { Layout } from "antd";
 import React from "react";
 import Header from "./components/Header";
 import "./index.less";
+import { observer } from "mobx-react-lite";
 
 const { Content } = Layout;
 
 const BasicLayout: React.FC = ({ children }) => {
+  const globalSotre = useGlobalStore();
   return (
-    <Layout className="io-layout_basic">
-      <Header />
+    <Layout className="io-layout__basic">
+      <Header apps={globalSotre?.state?.apps ?? []} />
       <Layout>
         <Content>{children}</Content>
       </Layout>
@@ -16,4 +19,4 @@ const BasicLayout: React.FC = ({ children }) => {
   );
 };
 
-export default BasicLayout;
+export default observer(BasicLayout);
