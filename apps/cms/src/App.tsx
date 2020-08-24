@@ -2,8 +2,10 @@ import { MainLayout, MenuSider } from "@ionia/libs";
 import { Menu } from "antd";
 import * as React from "react";
 import { hot } from "react-hot-loader/root";
-import { useLocation, useHistory } from "react-router-dom";
+import { Switch, Route, useLocation, useHistory } from "react-router-dom";
 import routes from "./routes";
+import Home from "@/pages/Home";
+import Column from "@/pages/Column";
 import "./App.less";
 
 const App: React.FC = () => {
@@ -34,7 +36,12 @@ const App: React.FC = () => {
           </Menu>
         </MenuSider>
       }
-    ></MainLayout>
+    >
+      <Switch>
+        <Route exact path="/" component={Home} />
+        <Route exact path="/column" component={Column} />
+      </Switch>
+    </MainLayout>
   );
 };
 
