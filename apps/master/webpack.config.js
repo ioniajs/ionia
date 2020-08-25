@@ -4,6 +4,7 @@ const BundleAnalyzerPlugin = require("webpack-bundle-analyzer")
   .BundleAnalyzerPlugin;
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
+const DashboardPlugin = require("webpack-dashboard/plugin");
 
 module.exports = {
   entry: ["./src/index.tsx"],
@@ -118,6 +119,7 @@ module.exports = {
     }),
     new MiniCssExtractPlugin(),
     new CleanWebpackPlugin(),
+    new DashboardPlugin(),
   ],
   optimization: {
     runtimeChunk: "single",

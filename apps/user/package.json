@@ -3,8 +3,9 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "build:dev": "webpack -d --mode development",
-    "build:prod": "webpack -p --mode production",
+    "analyzer": "webpack --report",
+    "build:dev": "webpack-dashboard -- webpack -d --mode development",
+    "build:prod": "webpack-dashboard -- webpack -p --mode production",
     "start": "webpack-dev-server --hot --mode development"
   },
   "dependencies": {
@@ -15,7 +16,8 @@
     "moment": "^2.27.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "react-hot-loader": "^4.12.21"
+    "react-hot-loader": "^4.12.21",
+    "react-router-dom": "^5.2.0"
   },
   "devDependencies": {
     "@babel/core": "^7.11.1",
@@ -44,6 +46,7 @@
     "webpack": "^4.44.1",
     "webpack-bundle-analyzer": "^3.8.0",
     "webpack-cli": "^3.3.12",
+    "webpack-dashboard": "^3.2.1",
     "webpack-dev-server": "^3.11.0"
   }
 }

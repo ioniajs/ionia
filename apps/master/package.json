@@ -1,20 +1,12 @@
 {
   "name": "@ionia/master",
   "version": "0.0.1",
-  "homepage": "https://github.com/ioniajs/ionia#readme",
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/ioniajs/ionia.git"
-  },
-  "bugs": {
-    "url": "https://github.com/ioniajs/ionia/issues"
-  },
+  "private": true,
   "scripts": {
     "analyzer": "webpack --report",
-    "build:dev": "webpack -d --mode development",
-    "build:prod": "webpack -p --mode production",
-    "start": "webpack-dev-server"
+    "build:dev": "webpack-dashboard -- webpack -d --mode development",
+    "build:prod": "webpack-dashboard -- webpack -p --mode production",
+    "start": "webpack-dev-server --hot --mode development"
   },
   "dependencies": {
     "antd": "^4.5.4",
@@ -53,6 +45,7 @@
     "webpack": "^4.44.1",
     "webpack-bundle-analyzer": "^3.8.0",
     "webpack-cli": "^3.3.12",
+    "webpack-dashboard": "^3.2.1",
     "webpack-dev-server": "^3.11.0"
   }
 }

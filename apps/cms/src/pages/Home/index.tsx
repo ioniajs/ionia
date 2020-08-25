@@ -12,7 +12,16 @@ const Home = () => {
           console.log("->", res);
         }}
       >
-        Fetch Contents
+        Fetch
+      </Button>
+      <Button
+        type="primary"
+        onClick={async () => {
+          const res = await Request.post("/contents");
+          console.log("->", res);
+        }}
+      >
+        Create
       </Button>
     </div>
   );
