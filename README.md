@@ -1,4 +1,4 @@
-[English] | [简体中文](./README-zh_CN.md)
+English | [简体中文](./README-zh_CN.md)
 
 <h1 align="center">Ionia</h1>
 
