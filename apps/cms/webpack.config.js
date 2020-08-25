@@ -144,6 +144,5 @@ module.exports = (env, argv) => {
   if (argv.hot) {
     config.output.filename = "[name].[hash].js";
   }
-
   return config;
 };

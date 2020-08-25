@@ -1,7 +1,7 @@
 import { extend } from "umi-request";
 
 const request = extend({
-  prefix: "/api/v1",
+  prefix: "/api",
   timeout: 10000,
   headers: {},
   errorHandler: (error) => {

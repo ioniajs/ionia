@@ -8,7 +8,7 @@ const Home = () => {
       <Button
         type="primary"
         onClick={async () => {
-          const res = await Request.get("/contents");
+          const res = await Request.get("/login");
           console.log("->", res);
         }}
       >
@@ -17,7 +17,11 @@ const Home = () => {
       <Button
         type="primary"
         onClick={async () => {
-          const res = await Request.post("/contents");
+          const res = await Request.post("/login", {
+            data: {
+              username: "roy",
+            },
+          });
           console.log("->", res);
         }}
       >

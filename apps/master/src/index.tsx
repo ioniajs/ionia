@@ -14,6 +14,10 @@ import App from "./App";
 import "./i18n";
 import "./index.less";
 
+if (process.env.NODE_ENV === "development") {
+  require("./mocks/index").default.start();
+}
+
 const apps = [
   {
     name: "Dashboard",
