@@ -1,6 +1,6 @@
-简体中文 | [English](./README.md)
-
 <h1 align="center">Ionia</h1>
+
+简体中文 | [English](./README.md)
 
 微前端快速开发框架
 
