@@ -20,7 +20,7 @@ const Sider: React.FC<SiderProps> = ({ apps }: SiderProps) => {
   };
 
   return (
-    <AntSider className="io-sider" width={80}>
+    <AntSider className="io-sider" width={100}>
       <Logo />
       <Menu
         className="io-sider__menu"
