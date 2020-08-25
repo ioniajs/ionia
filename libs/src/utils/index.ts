@@ -1,4 +1,5 @@
 // @ts-nocheck
+export { default as Request } from "./request";
 
 export const isQiankun = !!window.__POWERED_BY_QIANKUN__;
 

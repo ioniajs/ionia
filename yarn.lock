@@ -15278,7 +15278,7 @@ uglify-to-browserify@~1.0.0:
   resolved "https://registry.npm.taobao.org/uglify-to-browserify/download/uglify-to-browserify-1.0.2.tgz#6e0924d6bda6b5afe349e39a6d632850a0f882b7"
   integrity sha1-bgkk1r2mta/jSeOabWMoUKD4grc=
 
-umi-request@^1.2.14:
+umi-request@^1.2.14, umi-request@^1.3.5:
   version "1.3.5"
   resolved "https://registry.npm.taobao.org/umi-request/download/umi-request-1.3.5.tgz?cache=0&sync_timestamp=1592363222350&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fumi-request%2Fdownload%2Fumi-request-1.3.5.tgz#2af7e9fbaaeed0086c07d8c4876b3af65c084aea"
   integrity sha1-Kvfp+6ru0AhsB9jEh2s69lwISuo=
