@@ -1,8 +1,11 @@
 <h1 align="center">Ionia</h1>
 
-English | [简体中文](./README-zh_CN.md)
-
+<div align="center">
 The rapid development framework for Micro Frontends
+</div>
+<br/>
+
+English | [简体中文](./README-zh_CN.md)
 
 ## ✨ Features
 
