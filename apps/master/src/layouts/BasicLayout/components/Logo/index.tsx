@@ -6,7 +6,9 @@ import "./index.less";
 const Logo: React.FC = () => {
   const globalStore = useGlobalStore();
   return (
-    <div className="io-logo">{globalStore?.state?.title.toUpperCase()}</div>
+    <div className="io-sider__logo">
+      {globalStore?.state?.title.toUpperCase()}
+    </div>
   );
 };
 

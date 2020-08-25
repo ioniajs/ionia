@@ -1,4 +1,4 @@
-import { MainLayout, MenuSider } from "@ionia/libs";
+import { MainLayout, MenuTitle, MenuSider } from "@ionia/libs";
 import { Menu } from "antd";
 import * as React from "react";
 import { hot } from "react-hot-loader/root";
@@ -27,6 +27,7 @@ const App: React.FC = () => {
     <MainLayout
       sider={
         <MenuSider>
+          <MenuTitle>内容管理</MenuTitle>
           <Menu
             className="io-menu"
             selectedKeys={[pathname ?? ""]}

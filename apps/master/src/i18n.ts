@@ -5,7 +5,7 @@ import LanguageDetector from "i18next-browser-languagedetector";
 const resources = {
   en: {
     translation: {
-      Dashboard: "数据中心",
+      Dashboard: "Dashboard",
       CMS: "CMS",
       User: "User",
       Auth: "Auth",
@@ -13,10 +13,10 @@ const resources = {
   },
   zh: {
     translation: {
-      Dashboard: "数据中心",
-      CMS: "内容管理",
-      User: "用户中心",
-      Auth: "认证中心",
+      Dashboard: "总览",
+      CMS: "内容",
+      User: "用户",
+      Auth: "认证",
     },
   },
 };

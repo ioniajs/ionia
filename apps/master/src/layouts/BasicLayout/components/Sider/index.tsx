@@ -5,13 +5,13 @@ import { useTranslation } from "react-i18next";
 import Logo from "../Logo";
 import "./index.less";
 
-const { Header: AntHeader } = Layout;
+const { Sider: AntSider } = Layout;
 
-interface HeaderProps {
+interface SiderProps {
   apps: RegistrableApp[];
 }
 
-const Header: React.FC<HeaderProps> = ({ apps }: HeaderProps) => {
+const Sider: React.FC<SiderProps> = ({ apps }: SiderProps) => {
   const { t, i18n } = useTranslation();
 
   const handleMenuSelect = (item: any) => {
@@ -20,22 +20,25 @@ const Header: React.FC<HeaderProps> = ({ apps }: HeaderProps) => {
   };
 
   return (
-    <AntHeader className="io-header">
+    <AntSider className="io-sider" width={80}>
       <Logo />
       <Menu
+        className="io-sider__menu"
         theme="dark"
-        mode="horizontal"
         defaultSelectedKeys={["/dashboard"]}
         onSelect={handleMenuSelect}
       >
         {apps.map((app) => (
-          <Menu.Item key={app.activeRule.toString()}>
+          <Menu.Item
+            className="io-sider__menu-item"
+            key={app.activeRule.toString()}
+          >
             {t(app.name, { lng: "zh" })}
           </Menu.Item>
         ))}
       </Menu>
-    </AntHeader>
+    </AntSider>
   );
 };
 
-export default Header;
+export default Sider;
