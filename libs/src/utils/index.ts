@@ -1,6 +1,8 @@
 // @ts-nocheck
 export { default as Request } from "./request";
 
+export const isDev = process.env.NODE_ENV === "development";
+
 export const isQiankun = !!window.__POWERED_BY_QIANKUN__;
 
 export const initQiankun = () => {

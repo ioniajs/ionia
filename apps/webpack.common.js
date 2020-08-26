@@ -1,43 +1,15 @@
-const { name } = require("./package.json");
-const webpack = require("webpack");
 const { resolve } = require("path");
+const webpack = require("webpack");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
-const LodashModuleReplacementPlugin = require("lodash-webpack-plugin");
 const BundleAnalyzerPlugin = require("webpack-bundle-analyzer")
   .BundleAnalyzerPlugin;
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const ProgressBarPlugin = require("progress-bar-webpack-plugin");
 
-const config = {
-  entry: ["react-hot-loader/patch", "./src/index.tsx"],
-  output: {
-    path: resolve(__dirname, "dist"),
-    filename: "[name].[contenthash].js",
-    library: `${name}-[name]`,
-    libraryTarget: "umd",
-    jsonpFunction: `webpackJsonp_${name}`,
-    globalObject: "window",
-  },
-  devtool: "source-map",
-  devServer: {
-    contentBase: "./dist",
-    port: 7004,
-    headers: {
-      "Access-Control-Allow-Origin": "*",
-    },
-    historyApiFallback: true,
-    hot: false,
-    watchContentBase: false,
-    liveReload: false,
-  },
+module.exports = {
   module: {
     rules: [
-      {
-        test: /\.(js|jsx)$/,
-        use: "babel-loader",
-        exclude: /node_modules/,
-      },
       {
         test: /\.css$/,
         use: [
@@ -53,8 +25,8 @@ const config = {
         exclude: /\.module\.css$/,
       },
       {
-        test: /\.ts(x)?$/,
-        loader: "ts-loader",
+        test: /\.(js|jsx)$/,
+        use: "babel-loader",
         exclude: /node_modules/,
       },
       {
@@ -88,6 +60,11 @@ const config = {
         ],
       },
       {
+        test: /\.ts(x)?$/,
+        loader: "ts-loader",
+        exclude: /node_modules/,
+      },
+      {
         test: /\.svg$/,
         use: "file-loader",
       },
@@ -106,24 +83,26 @@ const config = {
   },
   resolve: {
     extensions: [".js", ".jsx", ".tsx", ".ts"],
-    alias: {
-      "react-dom": "@hot-loader/react-dom",
-      "@": resolve(__dirname, "src"),
-    },
   },
   plugins: [
     new HtmlWebpackPlugin({
+      appMountId: "app",
       filename: "index.html",
       template: "index.html",
+      minify: {
+        removeComments: true,
+        collapseWhitespace: true,
+      },
     }),
-    new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /en/),
-    new LodashModuleReplacementPlugin(),
     new BundleAnalyzerPlugin({
       analyzerMode: "static",
       openAnalyzer: false,
     }),
     new MiniCssExtractPlugin(),
     new CleanWebpackPlugin(),
+    new webpack.DefinePlugin({
+      NODE_ENV: process.env.NODE_ENV,
+    }),
     new ProgressBarPlugin(),
   ],
   optimization: {
@@ -138,11 +117,4 @@ const config = {
       },
     },
   },
-};
-
-module.exports = (env, argv) => {
-  if (argv.hot) {
-    config.output.filename = "[name].[hash].js";
-  }
-  return config;
 };
