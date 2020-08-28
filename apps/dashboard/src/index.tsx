@@ -12,7 +12,7 @@ const render = (props: any) => {
   const { container } = props;
   ReactDOM.render(
     <GlobalLayout globalProps={props}>
-      <Router basename="/cms">
+      <Router basename="/dashboard">
         <App />
       </Router>
     </GlobalLayout>,
