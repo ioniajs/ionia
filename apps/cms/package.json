@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "preview": "yarn build:prod && npx cross-env PORT=7004 npx http-server ./dist --cors",
+    "preview": "npx cross-env PORT=7004 npx http-server ./dist --cors",
     "analyzer": "webpack --report",
     "build:dev": "webpack -d --config webpack.dev.js",
     "build:prod": "webpack -p --config webpack.prod.js",

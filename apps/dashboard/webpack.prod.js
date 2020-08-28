@@ -7,7 +7,12 @@ module.exports = merge(commonConfig, {
   mode: "production",
   entry: resolve(__dirname, "./src/index.tsx"),
   output: {
-    publicPath: "/",
+    path: resolve(__dirname, "dist"),
+    filename: "[name].[contenthash].js",
+    library: `${name}-[name]`,
+    libraryTarget: "umd",
+    jsonpFunction: `webpackJsonp_${name}`,
+    globalObject: "window",
   },
   resolve: {
     alias: {

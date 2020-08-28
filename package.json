@@ -22,6 +22,12 @@
     "build:cms": "yarn w @ionia/cms build:prod",
     "build:user": "yarn w @ionia/user build:prod",
     "build:auth": "yarn w @ionia/auth build:prod",
+    "preview": "run-p preview:*",
+    "preview:master": "yarn w @ionia/master preview",
+    "preview:dashboard": "yarn w @ionia/dashboard preview",
+    "preview:cms": "yarn w @ionia/cms preview",
+    "preview:user": "yarn w @ionia/user preview",
+    "preview:auth": "yarn w @ionia/auth preview",
     "w": "yarn workspace",
     "ws": "yarn workspaces",
     "cz": "git-cz"

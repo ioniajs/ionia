@@ -6,6 +6,7 @@ const BundleAnalyzerPlugin = require("webpack-bundle-analyzer")
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const ProgressBarPlugin = require("progress-bar-webpack-plugin");
+const LodashModuleReplacementPlugin = require("lodash-webpack-plugin");
 
 module.exports = {
   module: {
@@ -104,6 +105,7 @@ module.exports = {
       NODE_ENV: process.env.NODE_ENV,
     }),
     new ProgressBarPlugin(),
+    new LodashModuleReplacementPlugin(),
   ],
   optimization: {
     runtimeChunk: "single",

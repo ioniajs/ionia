@@ -1,5 +1,3 @@
 node_modules
 .DS_Store
-k8s-config.yaml
-docker-compose.yml
 .env
