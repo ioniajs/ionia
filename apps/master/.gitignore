@@ -13,3 +13,6 @@ node_modules/
 .Trashes
 ehthumbs.db
 Thumbs.db
+
+scripts/*
+!scripts/Dockerfile
