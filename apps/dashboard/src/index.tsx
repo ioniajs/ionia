@@ -11,8 +11,8 @@ const containerId = "#slave-container";
 const render = (props: any) => {
   const { container } = props;
   ReactDOM.render(
-    <GlobalLayout globalProps={props}>
-      <Router basename="/dashboard">
+    <GlobalLayout globalProps={isQiankun ? props : null}>
+      <Router basename={isQiankun ? "/dashboard" : "/"}>
         <App />
       </Router>
     </GlobalLayout>,

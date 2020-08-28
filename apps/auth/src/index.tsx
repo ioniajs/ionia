@@ -10,7 +10,7 @@ const containerId = "#slave-container";
 const render = (props: any) => {
   const { container } = props;
   ReactDOM.render(
-    <GlobalLayout globalProps={props}>
+    <GlobalLayout globalProps={isQiankun ? props : null}>
       <App />
     </GlobalLayout>,
     container

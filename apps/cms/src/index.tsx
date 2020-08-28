@@ -6,13 +6,15 @@ import * as ReactDOM from "react-dom";
 import { BrowserRouter as Router } from "react-router-dom";
 import App from "./App";
 
+import "./index.less";
+
 const containerId = "#slave-container";
 
 const render = (props: any) => {
   const { container } = props;
   ReactDOM.render(
-    <GlobalLayout globalProps={props}>
-      <Router basename="/cms">
+    <GlobalLayout globalProps={isQiankun ? props : null}>
+      <Router basename={isQiankun ? "/cms" : "/"}>
         <App />
       </Router>
     </GlobalLayout>,
