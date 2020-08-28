@@ -1,7 +1,4 @@
 import { isDev, GlobalLayout } from "@ionia/libs";
-import "mobx-react-lite/batchingForReactDom";
-import "core-js/stable";
-import "regenerator-runtime/runtime";
 import {
   initGlobalState,
   MicroAppStateActions,
