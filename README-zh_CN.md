@@ -15,6 +15,14 @@
 - 接口 Mock
 - 权限控制
 
+## 使用
+
+```bash
+$ git clone git@github.com:ioniajs/ionia.git --depth=1 && cd ionia
+
+$ yarn && yarn start
+```
+
 ## 支持
 
 诚邀您参与 ionia 的生态建设（比如：星）

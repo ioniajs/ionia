@@ -1,4 +1,3 @@
-import "mobx-react-lite/batchingForReactDom";
 import { GlobalLayout } from "@ionia/libs";
 import { isQiankun, initQiankun } from "@ionia/libs";
 import * as React from "react";
@@ -10,7 +9,7 @@ const containerId = "#slave-container";
 const render = (props: any) => {
   const { container } = props;
   ReactDOM.render(
-    <GlobalLayout globalProps={props}>
+    <GlobalLayout globalProps={isQiankun ? props : null}>
       <App />
     </GlobalLayout>,
     container

@@ -7,13 +7,21 @@ The rapid development framework for Micro Frontends
 
 English | [简体中文](./README-zh_CN.md)
 
-## ✨ Features
+## Features
 
 - Global state synchronization
 - Common component library
 - Internationalization
 - API Mock
 - Authority control
+
+## Usage
+
+```bash
+$ git clone git@github.com:ioniajs/ionia.git --depth=1 && cd ionia
+
+$ yarn && yarn start
+```
 
 ## Support
 

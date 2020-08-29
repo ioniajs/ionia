@@ -1,4 +1,4 @@
-import { Skeleton, Layout, Menu, Space } from "antd";
+import { Layout, Menu } from "antd";
 import { RegistrableApp } from "qiankun";
 import React from "react";
 import { useTranslation } from "react-i18next";
