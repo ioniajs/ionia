@@ -25,4 +25,4 @@ $ yarn && yarn start
 
 ## 支持
 
-诚邀您参与 ionia 的生态建设（比如：星）
+诚邀您参与 ionia 的生态建设（比如：star）
