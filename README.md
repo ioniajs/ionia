@@ -14,3 +14,7 @@ English | [简体中文](./README-zh_CN.md)
 - Internationalization
 - API Mock
 - Authority control
+
+## Support
+
+We sincerely invite you to participate in the ecological construction of Ionia (e.g. star)
