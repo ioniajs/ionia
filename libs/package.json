@@ -23,6 +23,7 @@
     "lodash": "^4.17.20",
     "qiankun": "^2.0.24",
     "react": "^16.13.1",
+    "reflect-metadata": "^0.1.13",
     "umi-request": "^1.3.5"
   }
 }

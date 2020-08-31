@@ -13,7 +13,7 @@
     "allowJs": true,
     "jsx": "react",
     "paths": {
-      "src/*": ["src/*"]
+      "@/*": ["src/*"]
     }
   },
   "include": ["./src/**/*", "../../libs/src/contexts"]

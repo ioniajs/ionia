@@ -1,12 +1,12 @@
-import { MainLayout, MenuTitle, MenuSider } from "@ionia/libs";
+import Column from "@/pages/Column";
+import Home from "@/pages/Home";
+import { MainLayout, MenuSider, MenuTitle } from "@ionia/libs";
 import { Menu } from "antd";
 import * as React from "react";
 import { hot } from "react-hot-loader/root";
-import { Switch, Route, useLocation, useHistory } from "react-router-dom";
-import routes from "./routes";
-import Home from "@/pages/Home";
-import Column from "@/pages/Column";
+import { Route, Switch, useHistory, useLocation } from "react-router-dom";
 import "./App.less";
+import routes from "./routes";
 
 const App: React.FC = () => {
   const history = useHistory();

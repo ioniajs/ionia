@@ -1,13 +1,14 @@
-import { GlobalLayout } from "@ionia/libs";
-import { isQiankun, initQiankun } from "@ionia/libs";
+import { GlobalLayout, initQiankun, isQiankun } from "@ionia/libs";
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 import { BrowserRouter as Router } from "react-router-dom";
 import App from "./App";
-
 import "./index.less";
+import { initServices } from "./services";
 
 const containerId = "#slave-container";
+
+initServices();
 
 const render = (props: any) => {
   const { container } = props;

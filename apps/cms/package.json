@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "ahooks": "^2.5.0",
+    "inversify": "^5.0.1",
     "lodash": "^4.17.20",
     "moment": "^2.27.0",
     "react": "^16.13.1",
@@ -23,6 +24,7 @@
     "@babel/preset-env": "^7.11.0",
     "@babel/preset-react": "^7.10.4",
     "@hot-loader/react-dom": "^16.13.0+4.12.20",
+    "@types/inversify": "^2.0.33",
     "@types/mockjs": "^1.0.3",
     "@types/react": "^16.9.46",
     "@types/react-dom": "^16.9.8",
