@@ -3,7 +3,6 @@ import { Layout } from "antd";
 import React from "react";
 import Sider from "./components/Sider";
 import "./index.less";
-import { observer } from "mobx-react-lite";
 
 const { Content } = Layout;
 
@@ -19,4 +18,4 @@ const BasicLayout: React.FC = ({ children }) => {
   );
 };
 
-export default observer(BasicLayout);
+export default BasicLayout;

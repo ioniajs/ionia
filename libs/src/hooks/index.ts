@@ -1,1 +1,1 @@
-export * from "./useGlobalStore";
+export { default as useGlobalStore } from "./useGlobalStore";

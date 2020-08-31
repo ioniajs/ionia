@@ -1,6 +1,5 @@
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import { Button, Form, Input } from "antd";
-import { observer } from "mobx-react-lite";
 import * as React from "react";
 import { hot } from "react-hot-loader/root";
 import "./App.less";
@@ -8,7 +7,6 @@ import "./App.less";
 const App: React.FC = () => {
   const onFinish = (values: any) => {
     console.log("Received values of form: ", values);
-
     history.replaceState(null, "/dashboard", "/dashboard");
   };
   return (
@@ -59,4 +57,4 @@ const App: React.FC = () => {
   );
 };
 
-export default hot(observer(App));
+export default hot(App);

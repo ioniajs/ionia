@@ -1,7 +1,17 @@
-import { useContext } from "react";
-import { StoresContext } from "../stores";
+import create from 'zustand';
+import { MicroAppStateActions } from 'qiankun';
 
-export const useGlobalStore = () => {
-  const { globalStore } = useContext(StoresContext);
-  return globalStore;
-};
+interface InitialState {
+  state?: Record<string, any>,  
+  actions?: MicroAppStateActions,  
+  setState: (state: Record<string, any>) => void;
+  setActions: (actions: MicroAppStateActions) => void;
+}
+
+export default create<InitialState>(set => ({
+  setState: (nextState: Record<string, any>) => set(store => { 
+    const state = { ...store.state, ...nextState };
+    return ({ state });
+  }),
+  setActions: (actions: MicroAppStateActions) => set(() => ({ actions }))
+}));

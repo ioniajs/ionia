@@ -1,11 +1,16 @@
 import { useMount } from "ahooks";
 import React from "react";
+import { MicroAppStateActions } from 'qiankun';
 import { Auth } from "../../components";
 import { useGlobalStore } from "../../hooks";
 
 const { AccessProvider } = Auth;
 
-export const GlobalLayout = ({ children, globalProps }: any) => {
+interface GlobalLayoutProps {
+  globalProps: MicroAppStateActions
+}
+
+export const GlobalLayout: React.FC<GlobalLayoutProps> = ({ children, globalProps }) => {
   const globalStore = useGlobalStore();
 
   useMount(() => {

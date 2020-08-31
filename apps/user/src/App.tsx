@@ -1,10 +1,8 @@
-import { Auth } from "@ionia/libs";
-import * as React from "react";
-import { Button } from "antd";
-import { observer } from "mobx-react-lite";
-import { hot } from "react-hot-loader/root";
+import { Auth, useGlobalStore } from "@ionia/libs";
 import { useMount } from "ahooks";
-import { useGlobalStore } from "@ionia/libs";
+import { Button } from "antd";
+import * as React from "react";
+import { hot } from "react-hot-loader/root";
 
 const { Show, useAccess } = Auth;
 
@@ -31,7 +29,7 @@ const App: React.FC = () => {
         <div>User list</div>
         <Button
           type="primary"
-          onClick={() => globalStore.setGlobalState({ title: "User" })}
+          onClick={() => globalStore.actions?.setGlobalState({ title: "User" })}
         >
           Change title
         </Button>
@@ -40,4 +38,4 @@ const App: React.FC = () => {
   );
 };
 
-export default hot(observer(App));
+export default hot(App);

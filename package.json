@@ -6,7 +6,6 @@
     "libs"
   ],
   "scripts": {
-    "postinstall": "yarn libs",
     "libs": "yarn w @ionia/libs build",
     "prestart": "yarn libs",
     "start": "run-p start:*",

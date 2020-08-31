@@ -7175,16 +7175,6 @@ ml-matrix@^6.5.0:
   dependencies:
     ml-array-rescale "^1.3.1"
 
-mobx-react-lite@^2.0.7:
-  version "2.2.0"
-  resolved "https://registry.npm.taobao.org/mobx-react-lite/download/mobx-react-lite-2.2.0.tgz#95eecde237367af1087cc5c51d962ae081b6d1de"
-  integrity sha1-le7N4jc2evEIfMXFHZYq4IG20d4=
-
-mobx@^5.15.6:
-  version "5.15.6"
-  resolved "https://registry.npm.taobao.org/mobx/download/mobx-5.15.6.tgz#24750af56f87bcf9c3cf82ece4c79eb91bb71968"
-  integrity sha1-JHUK9W+HvPnDz4Ls5MeeuRu3GWg=
-
 moment@^2.24.0, moment@^2.25.3, moment@^2.27.0:
   version "2.27.0"
   resolved "https://registry.npm.taobao.org/moment/download/moment-2.27.0.tgz#8bff4e3e26a236220dfe3e36de756b6ebaa0105d"
@@ -11735,3 +11725,8 @@ yargs@~3.10.0:
     cliui "^2.1.0"
     decamelize "^1.0.0"
     window-size "0.1.0"
+
+zustand@^3.0.2:
+  version "3.0.2"
+  resolved "https://registry.npm.taobao.org/zustand/download/zustand-3.0.2.tgz#7e408c93dfbc5db39d9f05009d79b71818e6e13d"
+  integrity sha1-fkCMk9+8XbOdnwUAnXm3GBjm4T0=
