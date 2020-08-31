@@ -1710,6 +1710,13 @@
   resolved "https://registry.npm.taobao.org/@types/html-minifier-terser/download/@types/html-minifier-terser-5.1.0.tgz?cache=0&sync_timestamp=1596839168509&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40types%2Fhtml-minifier-terser%2Fdownload%2F%40types%2Fhtml-minifier-terser-5.1.0.tgz#551a4589b6ee2cc9c1dff08056128aec29b94880"
   integrity sha1-VRpFibbuLMnB3/CAVhKK7Cm5SIA=
 
+"@types/inversify@^2.0.33":
+  version "2.0.33"
+  resolved "https://registry.npm.taobao.org/@types/inversify/download/@types/inversify-2.0.33.tgz#0770dae2299aaee57803f75235e64a99b74f6de0"
+  integrity sha1-B3Da4imaruV4A/dSNeZKmbdPbeA=
+  dependencies:
+    inversify "*"
+
 "@types/js-cookie@2.2.6", "@types/js-cookie@^2.2.6":
   version "2.2.6"
   resolved "https://registry.npm.taobao.org/@types/js-cookie/download/@types/js-cookie-2.2.6.tgz#f1a1cb35aff47bc5cfb05cb0c441ca91e914c26f"
@@ -5954,7 +5961,7 @@ invariant@^2.2.2, invariant@^2.2.4:
   dependencies:
     loose-envify "^1.0.0"
 
-inversify@^5.0.1:
+inversify@*, inversify@^5.0.1:
   version "5.0.1"
   resolved "https://registry.npm.taobao.org/inversify/download/inversify-5.0.1.tgz#500d709b1434896ce5a0d58915c4a4210e34fb6e"
   integrity sha1-UA1wmxQ0iWzloNWJFcSkIQ40+24=
