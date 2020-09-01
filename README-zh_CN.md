@@ -25,6 +25,10 @@ $ git clone git@github.com:ioniajs/ionia.git --depth=1 && cd ionia
 $ yarn && yarn start
 ```
 
+## 架构
+
+![架构](./architecture.png)
+
 ## 支持
 
 诚邀您参与 ionia 的生态建设（比如：star）

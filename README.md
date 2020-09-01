@@ -25,6 +25,10 @@ $ git clone git@github.com:ioniajs/ionia.git --depth=1 && cd ionia
 $ yarn && yarn start
 ```
 
+## Architecture
+
+![Architecture](./architecture.png)
+
 ## Support
 
 We sincerely invite you to participate in the ecological construction of Ionia (e.g. star)
