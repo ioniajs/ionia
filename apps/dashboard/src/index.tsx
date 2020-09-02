@@ -1,43 +1,26 @@
-import { GlobalLayout } from "@ionia/libs";
-import { isQiankun, initQiankun } from "@ionia/libs";
+import { Application, isSlave } from "@ionia/libs";
 import * as React from "react";
-import * as ReactDOM from "react-dom";
 import { BrowserRouter as Router } from "react-router-dom";
 import App from "./App";
 
-const containerId = "#slave-container";
+const app = new Application(
+  (
+    <Router basename={isSlave ? "/dashboard" : "/"}>
+      <App />
+    </Router>
+  )
+);
 
-const render = (props: any) => {
-  const { container } = props;
-  ReactDOM.render(
-    <GlobalLayout globalProps={isQiankun ? props : null}>
-      <Router basename={isQiankun ? "/dashboard" : "/"}>
-        <App />
-      </Router>
-    </GlobalLayout>,
-    container
-      ? container.querySelector(containerId)
-      : document.querySelector(containerId)
-  );
-};
+app.start();
 
-if (!isQiankun) {
-  render({});
-} else {
-  initQiankun();
+export async function bootstrap() {
+  await app.bootstrap();
 }
 
-export async function bootstrap() {}
-
 export async function mount(props: any) {
-  render(props);
+  await app.mount(props);
 }
 
 export async function unmount(props: any) {
-  const { container } = props;
-  ReactDOM.unmountComponentAtNode(
-    container
-      ? container.querySelector(containerId)
-      : document.querySelector(containerId)
-  );
+  await app.unmount(props);
 }

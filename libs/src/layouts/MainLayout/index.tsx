@@ -4,12 +4,15 @@ import "./index.less";
 
 const { Content } = Layout;
 
-interface MainLayoutProps {
+export interface MenuItem {}
+
+export interface MainLayoutProps {
   children?: ReactNode;
   sider?: ReactNode;
+  menus?: MenuItem[];
 }
 
-export const MainLayout = ({ children, sider }: MainLayoutProps) => {
+export const MainLayout = ({ children, sider, menus }: MainLayoutProps) => {
   return (
     <Layout className="io-layout__main">
       {sider}
