@@ -9,6 +9,7 @@ export class UserService {
 
   @validator(UserLoginReq)
   async login(data: UserLoginReq) {
+    console.log("-00", this);
     return await this.http.post("/login", { data });
   }
 }

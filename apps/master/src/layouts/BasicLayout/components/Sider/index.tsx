@@ -2,7 +2,6 @@ import { Layout, Menu } from "antd";
 import { RegistrableApp } from "qiankun";
 import React from "react";
 import { useTranslation } from "react-i18next";
-import Logo from "../Logo";
 import "./index.less";
 
 const { Sider: AntSider } = Layout;
@@ -21,7 +20,6 @@ const Sider: React.FC<SiderProps> = ({ apps }: SiderProps) => {
 
   return (
     <AntSider className="io-sider" width={100}>
-      <Logo />
       <Menu
         className="io-sider__menu"
         theme="dark"
