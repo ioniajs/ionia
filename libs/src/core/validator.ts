@@ -8,9 +8,8 @@ export function validator(cls: ClassType<any>) {
   return (target: any, key: string, descriptor: PropertyDescriptor) => {
     const value = descriptor.value;
 
-    descriptor.value = async (params: any) => {
+    descriptor.value = async function (params: any) {
       const instance = plainToClass(cls, params);
-
       const errors = await validate(instance);
 
       if (errors && errors.length > 0) {
@@ -28,7 +27,7 @@ export function validator(cls: ClassType<any>) {
         );
       }
 
-      return value(params);
+      return value.apply(this, params);
     };
   };
 }
