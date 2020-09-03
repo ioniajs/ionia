@@ -10,8 +10,8 @@ export interface SlaveAppProps extends MicroAppStateActions {
 
 class Application {
   constructor(
-    private readonly app: React.ReactNode,
-    private readonly containerId: string = "#slave-container"
+    private readonly root: React.ReactNode,
+    private readonly containerId: string = "#app"
   ) {}
 
   start(callback?: Function): void {
@@ -41,7 +41,7 @@ class Application {
   private render(props?: SlaveAppProps) {
     const { container } = props ?? {};
     ReactDOM.render(
-      <GlobalLayout globalProps={props}>{this.app}</GlobalLayout>,
+      <GlobalLayout globalProps={props}>{this.root}</GlobalLayout>,
       container
         ? container.querySelector(this.containerId)
         : document.querySelector(this.containerId)

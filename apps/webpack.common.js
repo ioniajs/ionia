@@ -87,12 +87,21 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      appMountId: "app",
+      title: "Ionia",
       filename: "index.html",
-      template: "index.html",
+      templateContent: `<!DOCTYPE html>
+      <html lang="en">
+        <head>
+          <meta charset="UTF-8" />
+        </head>
+        <body>
+          <div id="app" />
+        </body>
+      </html>`,
       minify: {
         removeComments: true,
         collapseWhitespace: true,
+        minifyCSS: true,
       },
     }),
     new BundleAnalyzerPlugin({

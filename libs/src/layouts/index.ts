@@ -1,2 +1,3 @@
-export * from "./MainLayout";
+export * from "./BlankLayout";
 export * from "./GlobalLayout";
+export * from "./MainLayout";

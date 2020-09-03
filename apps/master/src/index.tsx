@@ -1,22 +1,39 @@
-import { isDev, GlobalLayout } from "@ionia/libs";
-import {
-  initGlobalState,
-  MicroAppStateActions,
-  registerMicroApps,
-  setDefaultMountApp,
-  start,
-} from "qiankun";
+import { isDev, MasterApplication } from "@ionia/libs";
 import * as React from "react";
-import * as ReactDOM from "react-dom";
 import { BrowserRouter as Router } from "react-router-dom";
-import apps from "./slave-app";
 import App from "./App";
 import "./i18n";
-import "./index.less";
 
 if (isDev) {
   require("./mocks/index").default.start();
 }
+
+const apps = [
+  {
+    name: "Dashboard",
+    entry: "//localhost:7001",
+    container: "#slave-container",
+    activeRule: "/dashboard",
+  },
+  {
+    name: "CMS",
+    entry: "//localhost:7004",
+    container: "#slave-container",
+    activeRule: "/cms",
+  },
+  {
+    name: "User",
+    entry: "//localhost:7002",
+    container: "#slave-container",
+    activeRule: "/user",
+  },
+  {
+    name: "Auth",
+    entry: "//localhost:7003",
+    container: "#slave-container",
+    activeRule: "/auth",
+  },
+];
 
 const lifeCycles = {
   beforeLoad: [
@@ -36,19 +53,13 @@ const lifeCycles = {
   ],
 };
 
-registerMicroApps(apps, lifeCycles);
-
-setDefaultMountApp("/dashboard");
-
-start();
-
-const actions: MicroAppStateActions = initGlobalState({ title: "ionia", apps });
-
-ReactDOM.render(
-  <GlobalLayout globalProps={actions}>
+new MasterApplication(
+  (
     <Router>
       <App />
     </Router>
-  </GlobalLayout>,
-  document.getElementById("master-container")
-);
+  ),
+  apps,
+  "/dashboard",
+  lifeCycles
+).start();

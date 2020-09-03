@@ -4,12 +4,10 @@ import "./index.less";
 
 const { Content } = Layout;
 
-const AuthLayout: React.FC = ({ children }) => {
+export const BlankLayout: React.FC = ({ children }) => {
   return (
-    <Layout className="io-layout__auth">
+    <Layout className="io-layout__blank">
       <Content>{children}</Content>
     </Layout>
   );
 };
-
-export default AuthLayout;
