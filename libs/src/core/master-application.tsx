@@ -23,8 +23,8 @@ class MasterApplication {
     private readonly root: React.ReactNode,
     private readonly apps: Partial<RegistrableApp<{}>>[],
     private readonly defaultMount: string,
-    private readonly lifeCycles: FrameworkLifeCycles<{}>,
     private readonly globalState: Record<string, any> = {},
+    private readonly lifeCycles: FrameworkLifeCycles<{}> = {},
     private readonly containerId: string = "app"
   ) {
     this.apps = this.apps.map((app) => ({

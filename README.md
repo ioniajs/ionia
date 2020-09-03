@@ -39,7 +39,7 @@ import App from "./App";
 import "./i18n";
 
 if (isDev) {
-  require("./mocks/index").default.start();
+  require("./mocks").default.start();
 }
 
 const apps = [
@@ -95,8 +95,8 @@ new MasterApplication(
   ),
   apps,
   "/dashboard",
-  lifeCycles,
-  initGlobalState
+  initGlobalState,
+  lifeCycles
 ).start();
 ```
 
