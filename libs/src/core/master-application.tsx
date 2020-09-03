@@ -21,14 +21,18 @@ class MasterApplication {
 
   constructor(
     private readonly root: React.ReactNode,
-    private readonly apps: RegistrableApp<{}>[],
+    private readonly apps: Partial<RegistrableApp<{}>>[],
     private readonly defaultMount: string,
     private readonly lifeCycles: FrameworkLifeCycles<{}>,
     private readonly globalState: Record<string, any> = {},
     private readonly containerId: string = "app"
   ) {
+    this.apps = this.apps.map((app) => ({
+      container: "#slave-container",
+      ...app,
+    }));
     this.actions = initGlobalState({ ...this.globalState, apps: this.apps });
-    registerMicroApps(this.apps, this.lifeCycles);
+    registerMicroApps(this.apps as RegistrableApp<{}>[], this.lifeCycles);
     setDefaultMountApp(this.defaultMount);
   }
 

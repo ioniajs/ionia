@@ -16,7 +16,7 @@ const config = merge(commonConfig, {
   devtool: "source-map",
   devServer: {
     contentBase: "./dist",
-    port: 7004,
+    port: 7002,
     headers: {
       "Access-Control-Allow-Origin": "*",
     },

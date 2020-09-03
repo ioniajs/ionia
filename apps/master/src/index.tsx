@@ -12,25 +12,21 @@ const apps = [
   {
     name: "Dashboard",
     entry: "//localhost:7001",
-    container: "#slave-container",
     activeRule: "/dashboard",
   },
   {
     name: "CMS",
-    entry: "//localhost:7004",
-    container: "#slave-container",
+    entry: "//localhost:7002",
     activeRule: "/cms",
   },
   {
     name: "User",
-    entry: "//localhost:7002",
-    container: "#slave-container",
+    entry: "//localhost:7003",
     activeRule: "/user",
   },
   {
     name: "Auth",
-    entry: "//localhost:7003",
-    container: "#slave-container",
+    entry: "//localhost:7004",
     activeRule: "/auth",
   },
 ];
