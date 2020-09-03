@@ -36,7 +36,7 @@ export default () => {
       values: [18, 34],
     },
   ];
-  const config = {
+  const config: any = {
     title: {
       visible: true,
       text: "为区间条形图配置label样式",

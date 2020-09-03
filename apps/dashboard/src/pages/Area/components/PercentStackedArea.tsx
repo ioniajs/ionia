@@ -109,7 +109,7 @@ export default () => {
       value: 628,
     },
   ];
-  const config = {
+  const config: any = {
     title: {
       visible: true,
       text: "百分比堆叠面积图",

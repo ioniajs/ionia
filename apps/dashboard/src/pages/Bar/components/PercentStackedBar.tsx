@@ -109,7 +109,7 @@ export default () => {
       value: 628,
     },
   ];
-  const config = {
+  const config: any = {
     title: {
       visible: true,
       text: "百分比堆叠条形图",
@@ -121,7 +121,7 @@ export default () => {
     color: ["#2582a1", "#f88c24", "#c52125", "#87f4d0"],
     label: {
       visible: true,
-      formatter: (v) => {
+      formatter: (v: any) => {
         return v.toFixed(2);
       },
     },

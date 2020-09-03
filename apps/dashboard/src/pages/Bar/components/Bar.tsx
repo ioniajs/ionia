@@ -24,7 +24,7 @@ export default () => {
       pv: 8500,
     },
   ];
-  const config = {
+  const config: any = {
     title: {
       visible: true,
       text: "基础条形图",

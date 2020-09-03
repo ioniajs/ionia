@@ -186,7 +186,7 @@ export default () => {
       销售额: 103523.308,
     },
   ];
-  const config = {
+  const config: any = {
     forceFit: true,
     title: {
       visible: true,
@@ -205,7 +205,7 @@ export default () => {
       offset: 0,
       visible: true,
       position: "middle",
-      formatter: (v) => Math.round(v / 10000) + "万",
+      formatter: (v: any) => Math.round(v / 10000) + "万",
     },
   };
   return <StackedBar {...config} />;

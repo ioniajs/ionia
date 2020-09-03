@@ -16,7 +16,7 @@ export default () => {
         console.log("fetch data failed", error);
       });
   };
-  const config = {
+  const config: any = {
     title: {
       visible: true,
       text: "基础面积图",

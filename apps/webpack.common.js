@@ -39,7 +39,7 @@ module.exports = {
               ],
               "@babel/preset-react",
             ],
-            plugins: ["react-hot-loader/babel"],
+            plugins: ["@babel/transform-runtime", "react-hot-loader/babel"],
           },
         },
         exclude: /node_modules/,

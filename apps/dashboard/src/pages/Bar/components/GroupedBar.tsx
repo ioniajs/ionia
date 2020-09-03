@@ -54,7 +54,7 @@ export default () => {
       value: 100,
     },
   ];
-  const config = {
+  const config: any = {
     title: {
       visible: true,
       text: "分组条形图",
@@ -65,7 +65,8 @@ export default () => {
     groupField: "type",
     color: ["#1383ab", "#c52125"],
     label: {
-      formatter: (v) => `${v}`.replace(/\d{1,3}(?=(\d{3})+$)/g, (s) => `${s},`),
+      formatter: (v: any) =>
+        `${v}`.replace(/\d{1,3}(?=(\d{3})+$)/g, (s: any) => `${s},`),
     },
   };
   return <GroupedBar {...config} />;

@@ -14,7 +14,7 @@ export default () => {
         console.log("fetch data failed", error);
       });
   };
-  const config = {
+  const config: any = {
     title: {
       visible: true,
       text: "堆叠面积图-areaLabel",
