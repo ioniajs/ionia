@@ -8,7 +8,7 @@
     "analyzer": "webpack --report",
     "build:dev": "webpack -d --config webpack.dev.js",
     "build:prod": "webpack -p --config webpack.prod.js",
-    "start": "webpack-dev-server --hot --config webpack.dev.js"
+    "start": "webpack-dev-server --hot --config webpack.dev.js --open"
   },
   "dependencies": {
     "antd": "^4.6.1",
