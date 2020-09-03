@@ -1,21 +1,25 @@
 import { Menu as AntMenu } from "antd";
 import React from "react";
-import { useHistory, useLocation } from "react-router-dom";
+import { useHistory, useLocation, RouteProps } from "react-router-dom";
 import "./index.less";
 
-export interface MenuProps {
-  routes: any[];
+export interface MenuItem extends RouteProps {
+  key?: string;
 }
 
-const renderMenus = (routes: any[]) => {
-  return routes.map((m: any) => (
+export interface MenuProps {
+  menus: MenuItem[];
+}
+
+const renderMenus = (menus: any[]) => {
+  return menus.map((m: any) => (
     <AntMenu.Item className="io-menu__item" key={m.key}>
       {m.name}
     </AntMenu.Item>
   ));
 };
 
-const Menu: React.FC<MenuProps> = ({ routes }) => {
+const Menu: React.FC<MenuProps> = ({ menus }) => {
   const history = useHistory();
   const { pathname } = useLocation();
 
@@ -29,7 +33,7 @@ const Menu: React.FC<MenuProps> = ({ routes }) => {
       selectedKeys={[pathname ?? ""]}
       onSelect={handleMenuSelect}
     >
-      {renderMenus(routes)}
+      {renderMenus(menus)}
     </AntMenu>
   );
 };

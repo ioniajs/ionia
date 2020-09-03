@@ -1,4 +1,7 @@
+import Home from "@/pages/Home";
+import Column from "@/pages/Column";
+
 export default [
-  { key: "/", name: "内容管理" },
-  { key: "/column", name: "栏目管理" },
+  { exact: true, path: "/", name: "内容管理", component: Home },
+  { exact: true, path: "/column", name: "栏目管理", component: Column },
 ];

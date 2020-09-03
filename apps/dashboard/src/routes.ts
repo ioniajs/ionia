@@ -1,4 +1,7 @@
+import Area from "./pages/Area";
+import Bar from "./pages/Bar";
+
 export default [
-  { key: "/", name: "内容管理" },
-  { key: "/column", name: "栏目管理" },
+  { exact: true, path: "/", name: "面积图", component: Area },
+  { exact: true, path: "/bar", name: "条形图", component: Bar },
 ];

@@ -1,14 +1,10 @@
-import React, { Suspense } from "react";
-import { Loading } from "@ionia/libs";
+import { SlaveLayout } from "@ionia/libs";
+import * as React from "react";
+import { hot } from "react-hot-loader/root";
+import routes from "./routes";
 
-const Trend = React.lazy(() => import("./components/Trend"));
-
-export default () => {
-  return (
-    <div>
-      <Suspense fallback={<Loading />}>
-        <Trend />
-      </Suspense>
-    </div>
-  );
+const App: React.FC = () => {
+  return <SlaveLayout menus={routes} />;
 };
+
+export default hot(App);
