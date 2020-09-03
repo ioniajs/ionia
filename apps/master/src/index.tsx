@@ -49,6 +49,10 @@ const lifeCycles = {
   ],
 };
 
+const initGlobalState = {
+  title: "Ionia",
+};
+
 new MasterApplication(
   (
     <Router>
@@ -57,5 +61,6 @@ new MasterApplication(
   ),
   apps,
   "/dashboard",
-  lifeCycles
+  lifeCycles,
+  initGlobalState
 ).start();
