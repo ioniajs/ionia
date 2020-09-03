@@ -27,7 +27,21 @@ module.exports = {
       },
       {
         test: /\.(js|jsx)$/,
-        use: "babel-loader",
+        use: {
+          loader: "babel-loader",
+          options: {
+            presets: [
+              [
+                "@babel/preset-env",
+                {
+                  modules: false,
+                },
+              ],
+              "@babel/preset-react",
+            ],
+            plugins: ["react-hot-loader/babel"],
+          },
+        },
         exclude: /node_modules/,
       },
       {
@@ -41,7 +55,13 @@ module.exports = {
               modules: true,
             },
           },
-          "postcss-loader",
+          {
+            loader: "postcss-loader",
+            options: {
+              ident: "postcss",
+              plugins: (loader) => [require("autoprefixer")()],
+            },
+          },
         ],
         include: /\.module\.css$/,
       },
