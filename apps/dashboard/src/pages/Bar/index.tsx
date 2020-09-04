@@ -2,37 +2,30 @@ import ChartCol from "@/components/ChartCol";
 import { Row } from "antd";
 import React from "react";
 import { Loading } from "@ionia/libs";
-import Loadable from "react-loadable";
+import loadable from "@loadable/component";
 
-const BasicBar = Loadable({
-  loader: () => import("./components/Bar"),
-  loading: () => <Loading />,
-  delay: 300,
+const BasicBar = loadable(() => import("./components/Bar"), {
+  fallback: <Loading />,
 });
 
-const RangeBar = Loadable({
-  loader: () => import("./components/RangeBar"),
-  loading: () => <Loading />,
-  delay: 300,
+const RangeBar = loadable(() => import("./components/RangeBar"), {
+  fallback: <Loading />,
 });
 
-const GroupedBar = Loadable({
-  loader: () => import("./components/GroupedBar"),
-  loading: () => <Loading />,
-  delay: 300,
+const GroupedBar = loadable(() => import("./components/GroupedBar"), {
+  fallback: <Loading />,
 });
 
-const StackedBar = Loadable({
-  loader: () => import("./components/StackedBar"),
-  loading: () => <Loading />,
-  delay: 300,
+const StackedBar = loadable(() => import("./components/StackedBar"), {
+  fallback: <Loading />,
 });
 
-const PercentStackedBar = Loadable({
-  loader: () => import("./components/PercentStackedBar"),
-  loading: () => <Loading />,
-  delay: 300,
-});
+const PercentStackedBar = loadable(
+  () => import("./components/PercentStackedBar"),
+  {
+    fallback: <Loading />,
+  }
+);
 
 const Bar = () => {
   return (
