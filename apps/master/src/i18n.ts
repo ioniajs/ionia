@@ -14,7 +14,7 @@ const resources = {
   },
   zh: {
     translation: {
-      Dashboard: "总览",
+      Dashboard: "仪表盘",
       CMS: "内容",
       User: "用户",
       Auth: "认证",
