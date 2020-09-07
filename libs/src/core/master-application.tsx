@@ -16,12 +16,16 @@ export interface MasterAppProps extends MicroAppStateActions {
   container?: any;
 }
 
+export type IoniaApp<T extends Object = {}> = Partial<RegistrableApp<T>> & {
+  hideInMenu?: boolean;
+};
+
 class MasterApplication {
   public readonly actions: MicroAppStateActions;
 
   constructor(
     private readonly root: React.ReactNode,
-    private readonly apps: Partial<RegistrableApp<{}>>[],
+    private readonly apps: IoniaApp<{}>[],
     private readonly defaultMount: string,
     private readonly globalState: Record<string, any> = {},
     private readonly lifeCycles: FrameworkLifeCycles<{}> = {},

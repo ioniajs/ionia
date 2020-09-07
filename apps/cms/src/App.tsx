@@ -7,7 +7,7 @@ import { Route, Switch } from "react-router-dom";
 import routes from "./routes";
 
 const App: React.FC = () => {
-  return <SlaveLayout menus={routes} />;
+  return <SlaveLayout />;
 };
 
 export default hot(App);

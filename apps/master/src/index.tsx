@@ -1,4 +1,5 @@
 import { isDev, MasterApplication } from "@ionia/libs";
+import { IoniaApp } from "@ionia/libs/es/core/master-application";
 import * as React from "react";
 import { BrowserRouter as Router } from "react-router-dom";
 import App from "./App";
@@ -8,7 +9,7 @@ if (isDev) {
   require("./mocks").default.start();
 }
 
-const apps = [
+const apps: IoniaApp<{}>[] = [
   {
     name: "Dashboard",
     entry: "//localhost:7001",
@@ -23,11 +24,13 @@ const apps = [
     name: "User",
     entry: "//localhost:7003",
     activeRule: "/user",
+    hideInMenu: true,
   },
   {
     name: "Auth",
     entry: "//localhost:7004",
     activeRule: "/auth",
+    hideInMenu: true,
   },
 ];
 

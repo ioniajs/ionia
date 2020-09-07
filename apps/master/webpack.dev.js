@@ -4,9 +4,9 @@ const { merge } = require("webpack-merge");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 const commonConfig = require("../webpack.common.js");
 
-module.exports = merge(commonConfig, {
+const config = merge(commonConfig, {
   mode: "development",
-  entry: resolve(__dirname, "./src/index.tsx"),
+  entry: ["react-hot-loader/patch", resolve(__dirname, "./src/index.tsx")],
   output: {
     publicPath: "/",
   },
@@ -29,3 +29,10 @@ module.exports = merge(commonConfig, {
     }),
   ],
 });
+
+module.exports = (env, argv) => {
+  if (argv.hot) {
+    config.output.filename = "[name].[hash].js";
+  }
+  return config;
+};
