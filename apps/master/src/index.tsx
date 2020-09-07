@@ -6,7 +6,7 @@ import App from "./App";
 import "./i18n";
 
 if (isDev) {
-  require("./mocks").default.start();
+  require("../mocks").default.start();
 }
 
 const apps: IoniaApp<{}>[] = [

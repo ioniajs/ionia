@@ -16,5 +16,5 @@
       "@/*": ["src/*"]
     }
   },
-  "include": ["./src/**/*", "../../libs/src/contexts"]
+  "include": ["./src/**/*", "../../libs/src/contexts", "mocks"]
 }
