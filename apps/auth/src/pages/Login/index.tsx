@@ -48,7 +48,7 @@ const Login = () => {
             <Checkbox className="remember">自动登录</Checkbox>
           </Form.Item>
 
-          <Link className="forgot" to="/auth/forgot">
+          <Link className="forgot" to="/forgot">
             忘记密码
           </Link>
         </Form.Item>
@@ -64,7 +64,7 @@ const Login = () => {
         <AlipayCircleOutlined className="icon" />
         <TaobaoCircleOutlined className="icon" />
         <WeiboCircleOutlined className="icon" />
-        <Link className="register" to="/auth/register">
+        <Link className="register" to="/register">
           注册账户
         </Link>
       </div>
