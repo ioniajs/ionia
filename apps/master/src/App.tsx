@@ -1,12 +1,7 @@
-import {
-  UserOutlined,
-  SettingOutlined,
-  LogoutOutlined,
-} from "@ant-design/icons";
+import GlobalHeader from "@/components/GlobalHeader";
 import ProLayout, { SettingDrawer } from "@ant-design/pro-layout";
 import { BlankLayout, isDev, SlaveApp, useGlobalStore } from "@ionia/libs";
 import { IoniaApp } from "@ionia/libs/es/core/master-application";
-import { Menu, Dropdown, Button, Avatar } from "antd";
 import React, { useMemo } from "react";
 import { hot } from "react-hot-loader/root";
 import { useTranslation } from "react-i18next";
@@ -59,24 +54,6 @@ const App: React.FC<AppProps> = () => {
     <div onClick={() => history.push(m.path)}>{m.name}</div>
   );
 
-  const menus = (
-    <Menu onClick={() => {}}>
-      <Menu.Item key="center">
-        <UserOutlined />
-        个人中心
-      </Menu.Item>
-      <Menu.Item key="settings">
-        <SettingOutlined />
-        个人设置
-      </Menu.Item>
-      <Menu.Divider />
-      <Menu.Item key="logout">
-        <LogoutOutlined />
-        退出登录
-      </Menu.Item>
-    </Menu>
-  );
-
   return (
     <Switch>
       <Route path="/auth">
@@ -95,11 +72,7 @@ const App: React.FC<AppProps> = () => {
           menuProps={{
             selectedKeys: [selectedApp],
           }}
-          rightContentRender={() => (
-            <Dropdown overlay={menus}>
-              <Avatar size="small" icon={<UserOutlined />} />
-            </Dropdown>
-          )}
+          rightContentRender={() => <GlobalHeader />}
         >
           <SlaveApp />
           {isDev && <SettingDrawer />}

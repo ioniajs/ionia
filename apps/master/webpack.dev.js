@@ -23,6 +23,11 @@ const config = merge(commonConfig, {
     historyApiFallback: true,
     overlay: { warnings: false, errors: true },
   },
+  resolve: {
+    alias: {
+      "@": resolve(__dirname, "src"),
+    },
+  },
   plugins: [
     new CopyWebpackPlugin({
       patterns: [{ from: resolve(__dirname, "./mockServiceWorker.js") }],
