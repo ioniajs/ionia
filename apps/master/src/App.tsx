@@ -33,10 +33,12 @@ const App: React.FC<AppProps> = () => {
 
   const selectedApp = useMemo(
     () =>
-      `/${location.pathname
-        .split("/")
-        .filter((p) => !!p)
-        .shift()}`,
+      `/${
+        location.pathname
+          .split("/")
+          .filter((p) => !!p)
+          .shift() ?? ""
+      }`,
     [location.pathname]
   );
 

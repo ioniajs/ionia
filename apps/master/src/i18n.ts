@@ -7,13 +7,13 @@ const resources = {
   en: {
     translation: {
       Dashboard: "Dashboard",
-      User: "User",
+      Hero: "Hero",
     },
   },
   zh: {
     translation: {
       Dashboard: "仪表盘",
-      User: "用户",
+      Hero: "英雄",
     },
   },
 };

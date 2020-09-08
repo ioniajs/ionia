@@ -1,4 +1,4 @@
 import { setupWorker } from "msw";
-import user from "./user";
+import hero from "./hero";
 
-export default setupWorker(...user);
+export default setupWorker(...hero);
