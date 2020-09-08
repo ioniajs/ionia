@@ -25,7 +25,6 @@ const apps: IoniaApp<{}>[] = [
     name: "User",
     entry: "//localhost:7003",
     activeRule: "/user",
-    hideInMenu: true,
   },
 ];
 

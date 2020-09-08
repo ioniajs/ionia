@@ -1,17 +1,17 @@
 import GlobalHeader from "@/components/GlobalHeader";
 import ProLayout, { SettingDrawer } from "@ant-design/pro-layout";
+import { BasicLayoutProps } from "@ant-design/pro-layout/es/BasicLayout";
 import { BlankLayout, isDev, SlaveApp, useGlobalStore } from "@ionia/libs";
 import { IoniaApp } from "@ionia/libs/es/core/master-application";
+import { MenuInfo } from "rc-menu/es/interface";
 import React, { useMemo } from "react";
-import { hot } from "react-hot-loader/root";
 import { useTranslation } from "react-i18next";
 import { Route, Switch, useHistory, useLocation } from "react-router-dom";
 import "./App.less";
 
 interface AppProps {}
 
-const defaultSettings: any = {
-  title: "Ionia",
+const defaultSettings: Partial<BasicLayoutProps> = {
   logo:
     "https://gw.alipayobjects.com/mdn/rms_b5fcc5/afts/img/A*1NHAQYduQiQAAAAAAAAAAABkARQnAQ",
   navTheme: "dark",
@@ -50,9 +50,7 @@ const App: React.FC<AppProps> = () => {
     [globalStore.state?.apps]
   );
 
-  const menuItemRender = (m: { name: string; path: string }) => (
-    <div onClick={() => history.push(m.path)}>{m.name}</div>
-  );
+  const handleMenuClick = (path: string) => history.push(path);
 
   return (
     <Switch>
@@ -65,12 +63,13 @@ const App: React.FC<AppProps> = () => {
         <ProLayout
           {...defaultSettings}
           className="io-layout"
+          title={globalStore.state?.title}
           route={{
             routes,
           }}
-          menuItemRender={menuItemRender}
           menuProps={{
             selectedKeys: [selectedApp],
+            onClick: (m: MenuInfo) => handleMenuClick(m.key.toString()),
           }}
           rightContentRender={() => <GlobalHeader />}
         >
@@ -82,4 +81,4 @@ const App: React.FC<AppProps> = () => {
   );
 };
 
-export default hot(App);
+export default App;
