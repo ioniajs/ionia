@@ -1,59 +1,42 @@
-import { LockOutlined, UserOutlined } from "@ant-design/icons";
-import { Button, Form, Input } from "antd";
-import * as React from "react";
+import { DefaultFooter } from "@ant-design/pro-layout";
+import { BlankLayout, LangSelector } from "@ionia/libs";
+import React from "react";
 import { hot } from "react-hot-loader/root";
+import { Link, Route, Switch } from "react-router-dom";
 import "./App.less";
+import Login from "./pages/Login";
 
-const App: React.FC = () => {
-  const onFinish = (values: any) => {
-    console.log("Received values of form: ", values);
-    history.replaceState(null, "/dashboard", "/dashboard");
-  };
+const App = () => {
   return (
-    <div className="io-page-auth">
-      <div className="io-form__container">
-        <div className="io-logo" />
-        <div className="io-form__wrapper">
-          <Form
-            className="io-form"
-            name="login"
-            initialValues={{ username: "ionia" }}
-            onFinish={onFinish}
-          >
-            <Form.Item
-              name="username"
-              rules={[
-                { required: true, message: "Please input your Username!" },
-              ]}
-            >
-              <Input
-                size="large"
-                prefix={<UserOutlined />}
-                placeholder="Username"
-              />
-            </Form.Item>
-            <Form.Item
-              name="password"
-              rules={[
-                { required: true, message: "Please input your Password!" },
-              ]}
-            >
-              <Input
-                prefix={<LockOutlined />}
-                type="password"
-                size="large"
-                placeholder="Password"
-              />
-            </Form.Item>
-            <Form.Item>
-              <Button type="primary" size="large" block htmlType="submit">
-                Login
-              </Button>
-            </Form.Item>
-          </Form>
+    <BlankLayout>
+      <div className="io-layout__auth">
+        <div className="lang">
+          <LangSelector />
+        </div>
+        <div className="content">
+          <div className="top">
+            <div className="header">
+              <Link to="/">
+                <img
+                  className="logo"
+                  alt="logo"
+                  src="https://gw.alipayobjects.com/mdn/rms_b5fcc5/afts/img/A*1NHAQYduQiQAAAAAAAAAAABkARQnAQ"
+                />
+                <span className="title">Ionia</span>
+              </Link>
+            </div>
+            <div className="desc">微前端快速开发框架</div>
+            <Switch>
+              <Route exact path="/" component={Login} />
+            </Switch>
+          </div>
+          <DefaultFooter
+            links={[]}
+            copyright={` ${new Date().getFullYear()} IoniaJS`}
+          />
         </div>
       </div>
-    </div>
+    </BlankLayout>
   );
 };
 

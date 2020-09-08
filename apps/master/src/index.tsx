@@ -16,20 +16,15 @@ const apps: IoniaApp<{}>[] = [
     activeRule: "/dashboard",
   },
   {
-    name: "CMS",
+    name: "Auth",
     entry: "//localhost:7002",
-    activeRule: "/cms",
+    activeRule: "/auth",
+    hideInMenu: true,
   },
   {
     name: "User",
     entry: "//localhost:7003",
     activeRule: "/user",
-    hideInMenu: true,
-  },
-  {
-    name: "Auth",
-    entry: "//localhost:7004",
-    activeRule: "/auth",
     hideInMenu: true,
   },
 ];

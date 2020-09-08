@@ -1,8 +1,15 @@
-import { Application } from "@ionia/libs";
+import { Application, isSlave } from "@ionia/libs";
 import * as React from "react";
+import { BrowserRouter as Router } from "react-router-dom";
 import App from "./App";
 
-const app = new Application(<App />);
+const app = new Application(
+  (
+    <Router basename={isSlave ? "/auth" : "/"}>
+      <App />
+    </Router>
+  )
+);
 
 app.start();
 

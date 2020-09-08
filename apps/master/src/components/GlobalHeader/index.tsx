@@ -1,6 +1,6 @@
+import { LangSelector } from "@ionia/libs";
 import * as React from "react";
 import AvatarDropdown from "./AvatarDropdown";
-import LangSelector from "./LangSelector";
 import "./index.less";
 
 export interface GlobalHeaderProps {}

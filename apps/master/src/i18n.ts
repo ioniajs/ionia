@@ -7,17 +7,13 @@ const resources = {
   en: {
     translation: {
       Dashboard: "Dashboard",
-      CMS: "CMS",
       User: "User",
-      Auth: "Auth",
     },
   },
   zh: {
     translation: {
       Dashboard: "仪表盘",
-      CMS: "内容",
       User: "用户",
-      Auth: "认证",
     },
   },
 };
