@@ -1,6 +1,7 @@
 import { HomeOutlined, ReloadOutlined } from "@ant-design/icons";
 import { Button, Dropdown, Menu, Tabs, Tooltip } from "antd";
 import * as React from "react";
+import { useHistory } from "react-router-dom";
 import "./index.less";
 
 const { TabPane } = Tabs;
@@ -8,6 +9,7 @@ const { TabPane } = Tabs;
 export interface NavBarProps {}
 
 const NavBar: React.FC<NavBarProps> = ({ children }) => {
+  const history = useHistory();
   const menu = (
     <Menu>
       <Menu.Item key="1">关闭其它</Menu.Item>
@@ -24,20 +26,20 @@ const NavBar: React.FC<NavBarProps> = ({ children }) => {
           left: (
             <Tooltip title="首页" placement="bottomLeft">
               <Button
-                onContextMenu={(e) => e.stopPropagation()}
                 className="io-btn--home"
                 type="primary"
                 icon={<HomeOutlined />}
+                onContextMenu={(e) => e.stopPropagation()}
               />
             </Tooltip>
           ),
           right: (
             <Tooltip title="刷新" placement="bottomRight">
               <Button
-                onContextMenu={(e) => e.stopPropagation()}
                 className="io-btn--reload"
                 type="primary"
                 icon={<ReloadOutlined />}
+                onContextMenu={(e) => e.stopPropagation()}
               />
             </Tooltip>
           ),
