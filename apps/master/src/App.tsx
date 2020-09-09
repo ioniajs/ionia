@@ -1,11 +1,10 @@
 import GlobalHeader from "@/components/GlobalHeader";
-import NavBar from "@/components/NavBar";
 import ProLayout, { SettingDrawer } from "@ant-design/pro-layout";
 import { BasicLayoutProps } from "@ant-design/pro-layout/es/BasicLayout";
 import { isDev, SlaveApp, useGlobalStore } from "@ionia/libs";
 import { IoniaApp } from "@ionia/libs/es/core/master-application";
 import { MenuInfo } from "rc-menu/es/interface";
-import React, { useMemo } from "react";
+import React, { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Route, Switch, useHistory, useLocation } from "react-router-dom";
 import "./App.less";
@@ -27,6 +26,7 @@ const defaultSettings: Partial<BasicLayoutProps> = {
 };
 
 const App: React.FC<AppProps> = () => {
+  const [show, setShow] = useState(true);
   const { t } = useTranslation();
   const globalStore = useGlobalStore();
   const history = useHistory();
@@ -57,7 +57,7 @@ const App: React.FC<AppProps> = () => {
 
   return (
     <Switch>
-      <Route path="/auth">
+      <Route exact path="/auth">
         <SlaveApp />
       </Route>
       <Route path="/">
@@ -74,9 +74,7 @@ const App: React.FC<AppProps> = () => {
           }}
           rightContentRender={() => <GlobalHeader />}
         >
-          <NavBar>
-            <SlaveApp />
-          </NavBar>
+          <SlaveApp />
           {isDev && <SettingDrawer />}
         </ProLayout>
       </Route>

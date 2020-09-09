@@ -6,14 +6,14 @@ import LanguageDetector from "i18next-browser-languagedetector";
 const resources = {
   en: {
     translation: {
-      Dashboard: "Dashboard",
-      Hero: "Hero",
+      dashboard: "Dashboard",
+      hero: "Hero",
     },
   },
   zh: {
     translation: {
-      Dashboard: "仪表盘",
-      Hero: "英雄",
+      dashboard: "仪表盘",
+      hero: "英雄",
     },
   },
 };

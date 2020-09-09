@@ -4,6 +4,7 @@ import ProTable, { ProColumns } from "@ant-design/pro-table";
 import { Button, Result } from "antd";
 import React, { useEffect, useState } from "react";
 import { Hero } from "@/models";
+import { useHistory } from "react-router-dom";
 
 const valueEnum: any = {
   0: "close",
@@ -67,6 +68,7 @@ const columns: ProColumns<Hero>[] = [
 ];
 
 export default () => {
+  const history = useHistory();
   const [loading, setLoading] = useState(true);
   const [dataSource, setDataSource] = useState<Hero[]>([]);
   useEffect(() => {
@@ -116,7 +118,7 @@ export default () => {
       dateFormatter="string"
       headerTitle="英雄列表"
       toolBarRender={() => [
-        <Button key="3" type="primary">
+        <Button key="3" type="primary" onClick={() => history.push("detail/1")}>
           <PlusOutlined />
           新建
         </Button>,

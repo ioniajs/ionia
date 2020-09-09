@@ -11,18 +11,18 @@ if (isDev) {
 
 const apps: IoniaApp<{}>[] = [
   {
-    name: "Dashboard",
+    name: "dashboard",
     entry: "//localhost:7001",
     activeRule: "/dashboard",
   },
   {
-    name: "Auth",
+    name: "auth",
     entry: "//localhost:7002",
     activeRule: "/auth",
     hideInMenu: true,
   },
   {
-    name: "Hero",
+    name: "hero",
     entry: "//localhost:7003",
     activeRule: "/hero",
   },

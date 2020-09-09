@@ -1,4 +1,5 @@
 import {
+  FrameworkConfiguration,
   FrameworkLifeCycles,
   initGlobalState,
   MicroAppStateActions,
@@ -6,7 +7,6 @@ import {
   RegistrableApp,
   setDefaultMountApp,
   start,
-  FrameworkConfiguration,
 } from "qiankun";
 import * as React from "react";
 import * as ReactDOM from "react-dom";

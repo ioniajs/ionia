@@ -1,19 +1,37 @@
-import { HomeOutlined, ReloadOutlined } from "@ant-design/icons";
+import { ReloadOutlined } from "@ant-design/icons";
 import { Button, Dropdown, Menu, Tabs, Tooltip } from "antd";
-import * as React from "react";
-import { useHistory } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useHistory, useLocation } from "react-router-dom";
 import "./index.less";
 
 const { TabPane } = Tabs;
 
-export interface NavBarProps {}
+export interface Route {
+  pathname: string;
+  state?: any;
+  content?: React.ReactNode;
+}
 
-const NavBar: React.FC<NavBarProps> = ({ children }) => {
+const NavBar: React.FC<{}> = () => {
+  const [routes, setRoutes] = useState<Route[]>([]);
   const history = useHistory();
+  const location = useLocation();
+
+  useEffect(() => {
+    return history.listen((location) => {
+      setRoutes((state) => {
+        if (state.findIndex((r) => r.pathname === location.pathname) >= 0) {
+          return state;
+        }
+        return [...state, { ...location }];
+      });
+    });
+  }, []);
+
   const menu = (
     <Menu>
-      <Menu.Item key="1">关闭其它</Menu.Item>
-      <Menu.Item key="2">关闭所有</Menu.Item>
+      <Menu.Item key="other">关闭其它</Menu.Item>
+      <Menu.Item key="all">关闭所有</Menu.Item>
     </Menu>
   );
   return (
@@ -23,16 +41,16 @@ const NavBar: React.FC<NavBarProps> = ({ children }) => {
         hideAdd
         type="editable-card"
         tabBarExtraContent={{
-          left: (
-            <Tooltip title="首页" placement="bottomLeft">
-              <Button
-                className="io-btn--home"
-                type="primary"
-                icon={<HomeOutlined />}
-                onContextMenu={(e) => e.stopPropagation()}
-              />
-            </Tooltip>
-          ),
+          // left: (
+          //   <Tooltip title="首页" placement="bottomLeft">
+          //     <Button
+          //       className="io-btn--home"
+          //       type="primary"
+          //       icon={<HomeOutlined />}
+          //       onContextMenu={(e) => e.stopPropagation()}
+          //     />
+          //   </Tooltip>
+          // ),
           right: (
             <Tooltip title="刷新" placement="bottomRight">
               <Button
@@ -51,10 +69,21 @@ const NavBar: React.FC<NavBarProps> = ({ children }) => {
             </div>
           </Dropdown>
         )}
+        activeKey={location.pathname}
+        onChange={(activeKey: string) => {
+          const r = routes.find((r) => r.pathname === activeKey);
+          if (r) {
+            history.push(r.pathname, r.state);
+          }
+        }}
       >
-        {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15].map((i) => (
-          <TabPane tab={`Tab-${i}`} key={i} className="io-container--content">
-            {children}
+        {routes.map((r) => (
+          <TabPane
+            tab={r.pathname}
+            key={r.pathname}
+            className="io-container--content"
+          >
+            {r.content}
           </TabPane>
         ))}
       </Tabs>
