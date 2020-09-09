@@ -1,8 +1,9 @@
 import { PlusOutlined } from "@ant-design/icons";
 import { PageContainer } from "@ant-design/pro-layout";
 import ProTable, { ProColumns } from "@ant-design/pro-table";
-import { Button, Card, Descriptions, Result } from "antd";
+import { Button, Result } from "antd";
 import React, { useEffect, useState } from "react";
+import { Hero } from "@/models";
 
 const valueEnum: any = {
   0: "close",
@@ -11,16 +12,7 @@ const valueEnum: any = {
   3: "error",
 };
 
-export interface TableListItem {
-  key: number;
-  name: string;
-  status: string;
-  updatedAt: number;
-  createdAt: number;
-  progress: number;
-  money: number;
-}
-const tableListDataSource: TableListItem[] = [];
+const tableListDataSource: Hero[] = [];
 
 for (let i = 0; i < 2; i += 1) {
   tableListDataSource.push({
@@ -34,7 +26,7 @@ for (let i = 0; i < 2; i += 1) {
   });
 }
 
-const columns: ProColumns<TableListItem>[] = [
+const columns: ProColumns<Hero>[] = [
   {
     title: "序号",
     dataIndex: "index",
@@ -76,81 +68,59 @@ const columns: ProColumns<TableListItem>[] = [
 
 export default () => {
   const [loading, setLoading] = useState(true);
-  const [dataSource, setDataSource] = useState<TableListItem[]>([]);
+  const [dataSource, setDataSource] = useState<Hero[]>([]);
   useEffect(() => {
     setTimeout(() => {
       setLoading(false);
       setDataSource(tableListDataSource);
-    }, 5000);
+    }, 1000);
   }, []);
 
   return (
-    <PageContainer title="英雄列表">
-      <ProTable<TableListItem>
-        columns={columns}
-        rowKey="key"
-        pagination={{
-          showSizeChanger: true,
-        }}
-        tableRender={(_: any, dom: any) => (
+    <ProTable<Hero>
+      columns={columns}
+      rowKey="key"
+      pagination={{
+        showSizeChanger: true,
+      }}
+      tableRender={(_: any, dom: any) => (
+        <div
+          style={{
+            display: "flex",
+            width: "100%",
+          }}
+        >
+          <Result status="404" title="404" subTitle="404" />
           <div
             style={{
-              display: "flex",
-              width: "100%",
+              flex: 1,
             }}
           >
-            <Result status="404" title="404" subTitle="404" />
-            <div
-              style={{
-                flex: 1,
-              }}
-            >
-              {dom}
-            </div>
+            {dom}
           </div>
-        )}
-        tableExtraRender={(_: any, data: any) => (
-          <Card>
-            <Descriptions size="small" column={3}>
-              <Descriptions.Item label="Row">{data.length}</Descriptions.Item>
-              <Descriptions.Item label="Created">Lili Qu</Descriptions.Item>
-              <Descriptions.Item label="Association">
-                <a>421421</a>
-              </Descriptions.Item>
-              <Descriptions.Item label="Creation Time">
-                2017-01-10
-              </Descriptions.Item>
-              <Descriptions.Item label="Effective Time">
-                2017-10-10
-              </Descriptions.Item>
-              <Descriptions.Item label="Remarks">
-                Gonghu Road, Xihu District, Hangzhou, Zhejiang, China
-              </Descriptions.Item>
-            </Descriptions>
-          </Card>
-        )}
-        loading={loading}
-        dataSource={dataSource}
-        options={{
-          density: true,
-          reload: () => {
-            setLoading(true);
-            setTimeout(() => {
-              setLoading(false);
-            }, 1000);
-          },
-          fullScreen: true,
-          setting: true,
-        }}
-        dateFormatter="string"
-        headerTitle="dataSource 和 loading"
-        toolBarRender={() => [
-          <Button key="3" type="primary">
-            <PlusOutlined />
-            新建
-          </Button>,
-        ]}
-      />
-    </PageContainer>
+        </div>
+      )}
+      loading={loading}
+      dataSource={dataSource}
+      options={{
+        density: true,
+        reload: () => {
+          setLoading(true);
+          setTimeout(() => {
+            setLoading(false);
+          }, 1000);
+        },
+        fullScreen: true,
+        setting: true,
+      }}
+      dateFormatter="string"
+      headerTitle="英雄列表"
+      toolBarRender={() => [
+        <Button key="3" type="primary">
+          <PlusOutlined />
+          新建
+        </Button>,
+      ]}
+    />
   );
 };

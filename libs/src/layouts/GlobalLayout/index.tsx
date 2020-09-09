@@ -1,4 +1,5 @@
 import { useMount } from "ahooks";
+import { Layout } from "antd";
 import { MicroAppStateActions } from "qiankun";
 import React from "react";
 import { Auth } from "../../components";
@@ -27,5 +28,9 @@ export const GlobalLayout: React.FC<GlobalLayoutProps> = ({
     }
   });
 
-  return <AccessProvider>{children}</AccessProvider>;
+  return (
+    <AccessProvider>
+      <Layout className="io-layout__blank">{children}</Layout>
+    </AccessProvider>
+  );
 };

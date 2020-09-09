@@ -1,7 +1,7 @@
 import GlobalHeader from "@/components/GlobalHeader";
 import ProLayout, { SettingDrawer } from "@ant-design/pro-layout";
 import { BasicLayoutProps } from "@ant-design/pro-layout/es/BasicLayout";
-import { BlankLayout, isDev, SlaveApp, useGlobalStore } from "@ionia/libs";
+import { isDev, SlaveApp, useGlobalStore } from "@ionia/libs";
 import { IoniaApp } from "@ionia/libs/es/core/master-application";
 import { MenuInfo } from "rc-menu/es/interface";
 import React, { useMemo } from "react";
@@ -57,9 +57,7 @@ const App: React.FC<AppProps> = () => {
   return (
     <Switch>
       <Route path="/auth">
-        <BlankLayout>
-          <SlaveApp />
-        </BlankLayout>
+        <SlaveApp />
       </Route>
       <Route path="/">
         <ProLayout
