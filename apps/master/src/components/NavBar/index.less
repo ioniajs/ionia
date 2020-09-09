@@ -1,0 +1,35 @@
+.io-nav-bar {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  .ant-tabs-nav {
+    margin-bottom: 0 !important;
+    .ant-tabs-tab {
+      padding: 6px 10px !important;
+      border-radius: 0 !important;
+    }
+    .ant-tabs-nav-operations {
+      display: none !important;
+    }
+  }
+  .io-container--nav {
+    .io-btn--home {
+      width: 60px;
+      margin: 0 4px;
+    }
+    .io-btn--reload {
+      width: 60px;
+      margin: 0 4px;
+    }
+  }
+  .io-container--content {
+    flex: 1;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    scrollbar-width: none; /* firefox */
+    -ms-overflow-style: none; /* IE 10+ */
+    &::-webkit-scrollbar {
+      display: none; /* Chrome Safari */
+    }
+  }
+}

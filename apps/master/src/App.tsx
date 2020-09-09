@@ -1,4 +1,5 @@
 import GlobalHeader from "@/components/GlobalHeader";
+import NavBar from "@/components/NavBar";
 import ProLayout, { SettingDrawer } from "@ant-design/pro-layout";
 import { BasicLayoutProps } from "@ant-design/pro-layout/es/BasicLayout";
 import { isDev, SlaveApp, useGlobalStore } from "@ionia/libs";
@@ -73,7 +74,9 @@ const App: React.FC<AppProps> = () => {
           }}
           rightContentRender={() => <GlobalHeader />}
         >
-          <SlaveApp />
+          <NavBar>
+            <SlaveApp />
+          </NavBar>
           {isDev && <SettingDrawer />}
         </ProLayout>
       </Route>
