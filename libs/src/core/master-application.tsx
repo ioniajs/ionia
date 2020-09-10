@@ -18,6 +18,7 @@ export interface MasterAppProps extends MicroAppStateActions {
 
 export type IoniaApp<T extends Object = {}> = Partial<RegistrableApp<T>> & {
   hideInMenu?: boolean;
+  container?: string;
 };
 
 class MasterApplication {
@@ -32,7 +33,7 @@ class MasterApplication {
     private readonly containerId: string = "app"
   ) {
     this.apps = this.apps.map((app) => ({
-      container: "#slave-container",
+      container: app.container ?? "#slave-container",
       ...app,
     }));
     this.actions = initGlobalState({ ...this.globalState, apps: this.apps });

@@ -4,12 +4,13 @@ import { BasicLayoutProps } from "@ant-design/pro-layout/es/BasicLayout";
 import { isDev, SlaveApp, useGlobalStore } from "@ionia/libs";
 import { IoniaApp } from "@ionia/libs/es/core/master-application";
 import { MenuInfo } from "rc-menu/es/interface";
-import React, { useMemo, useState } from "react";
+import React, { useMemo } from "react";
 import { useTranslation } from "react-i18next";
-import { Route, Switch, useHistory, useLocation } from "react-router-dom";
+import CacheRoute, { CacheSwitch } from "react-router-cache-route";
+import { useHistory, useLocation } from "react-router-dom";
 import "./App.less";
 
-interface AppProps {}
+export interface AppProps {}
 
 const defaultSettings: Partial<BasicLayoutProps> = {
   logo:
@@ -26,7 +27,6 @@ const defaultSettings: Partial<BasicLayoutProps> = {
 };
 
 const App: React.FC<AppProps> = () => {
-  const [show, setShow] = useState(true);
   const { t } = useTranslation();
   const globalStore = useGlobalStore();
   const history = useHistory();
@@ -56,15 +56,16 @@ const App: React.FC<AppProps> = () => {
   const handleMenuClick = (path: string) => history.push(path);
 
   return (
-    <Switch>
-      <Route exact path="/auth">
+    <CacheSwitch>
+      <CacheRoute exact path="/auth">
         <SlaveApp />
-      </Route>
-      <Route path="/">
+      </CacheRoute>
+      <CacheRoute path="/">
         <ProLayout
           {...defaultSettings}
           className="io-layout"
           title={globalStore.state?.title}
+          breadcrumbRender={() => []}
           route={{
             routes,
           }}
@@ -77,8 +78,8 @@ const App: React.FC<AppProps> = () => {
           <SlaveApp />
           {isDev && <SettingDrawer />}
         </ProLayout>
-      </Route>
-    </Switch>
+      </CacheRoute>
+    </CacheSwitch>
   );
 };
 
