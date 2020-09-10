@@ -32,17 +32,6 @@ const App: React.FC<AppProps> = () => {
   const history = useHistory();
   const location = useLocation();
 
-  const selectedApp = useMemo(
-    () =>
-      `/${
-        location.pathname
-          .split("/")
-          .filter((p) => !!p)
-          .shift() ?? ""
-      }`,
-    [location.pathname]
-  );
-
   const routes = useMemo(
     () =>
       globalStore.state?.apps.map((app: IoniaApp) => ({
@@ -52,8 +41,6 @@ const App: React.FC<AppProps> = () => {
       })),
     [globalStore.state?.apps]
   );
-
-  const handleMenuClick = (path: string) => history.push(path);
 
   return (
     <CacheSwitch>
@@ -65,15 +52,14 @@ const App: React.FC<AppProps> = () => {
           {...defaultSettings}
           className="io-layout"
           title={globalStore.state?.title}
-          breadcrumbRender={() => []}
+          rightContentRender={() => <GlobalHeader />}
+          location={location}
           route={{
             routes,
           }}
           menuProps={{
-            selectedKeys: [selectedApp],
-            onClick: (m: MenuInfo) => handleMenuClick(m.key.toString()),
+            onClick: (m: MenuInfo) => history.push(m.key.toString()),
           }}
-          rightContentRender={() => <GlobalHeader />}
         >
           <SlaveApp />
           {isDev && <SettingDrawer />}
