@@ -25,13 +25,15 @@ const App = () => {
 
   return (
     <ProLayout
+      logo={false}
+      title="英雄"
       navTheme="light"
       breadcrumbRender={() => []}
-      menuHeaderRender={false}
       headerRender={false}
       siderWidth={120}
       headerTitleRender={false}
       collapsedButtonRender={false}
+      disableContentMargin
       route={{
         routes: routes.filter((r) => !r.hideInMenu),
       }}

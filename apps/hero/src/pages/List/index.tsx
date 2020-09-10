@@ -1,9 +1,9 @@
+import { Hero } from "@/models";
 import { PlusOutlined } from "@ant-design/icons";
 import { PageContainer } from "@ant-design/pro-layout";
 import ProTable, { ProColumns } from "@ant-design/pro-table";
 import { Button, Result } from "antd";
 import React, { useEffect, useState } from "react";
-import { Hero } from "@/models";
 import { useHistory } from "react-router-dom";
 
 const valueEnum: any = {
@@ -79,50 +79,61 @@ export default () => {
   }, []);
 
   return (
-    <ProTable<Hero>
-      columns={columns}
-      rowKey="key"
-      pagination={{
-        showSizeChanger: true,
+    <PageContainer
+      title={false}
+      breadcrumb={{
+        routes: [{ path: "/", breadcrumbName: "英雄列表" }],
       }}
-      tableRender={(_: any, dom: any) => (
-        <div
-          style={{
-            display: "flex",
-            width: "100%",
-          }}
-        >
-          <Result status="404" title="404" subTitle="404" />
+    >
+      <ProTable<Hero>
+        columns={columns}
+        rowKey="key"
+        pagination={{
+          showSizeChanger: true,
+        }}
+        tableRender={(_: any, dom: any) => (
           <div
             style={{
-              flex: 1,
+              display: "flex",
+              width: "100%",
             }}
           >
-            {dom}
+            <Result status="404" title="404" subTitle="404" />
+            <div
+              style={{
+                flex: 1,
+              }}
+            >
+              {dom}
+            </div>
           </div>
-        </div>
-      )}
-      loading={loading}
-      dataSource={dataSource}
-      options={{
-        density: true,
-        reload: () => {
-          setLoading(true);
-          setTimeout(() => {
-            setLoading(false);
-          }, 1000);
-        },
-        fullScreen: true,
-        setting: true,
-      }}
-      dateFormatter="string"
-      headerTitle="英雄列表"
-      toolBarRender={() => [
-        <Button key="3" type="primary" onClick={() => history.push("detail/1")}>
-          <PlusOutlined />
-          新建
-        </Button>,
-      ]}
-    />
+        )}
+        loading={loading}
+        dataSource={dataSource}
+        options={{
+          density: true,
+          reload: () => {
+            setLoading(true);
+            setTimeout(() => {
+              setLoading(false);
+            }, 1000);
+          },
+          fullScreen: true,
+          setting: true,
+        }}
+        dateFormatter="string"
+        headerTitle="英雄列表"
+        toolBarRender={() => [
+          <Button
+            key="3"
+            type="primary"
+            onClick={() => history.push("detail/1")}
+          >
+            <PlusOutlined />
+            新建
+          </Button>,
+        ]}
+      />
+    </PageContainer>
   );
 };
