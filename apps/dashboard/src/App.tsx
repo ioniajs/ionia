@@ -1,15 +1,16 @@
+import DashboardHeader from "@/components/DashboardHeader";
+import DashboardStatistics from "@/components/DashboardStatistics";
+import { PageContainer } from "@ant-design/pro-layout";
 import * as React from "react";
 import { hot } from "react-hot-loader/root";
-import { Route, Switch } from "react-router-dom";
-import routes from "./routes";
+import "./App.less";
 
 const App = () => {
   return (
-    <Switch>
-      {routes.map((m) => (
-        <Route {...m} />
-      ))}
-    </Switch>
+    <PageContainer
+      content={<DashboardHeader />}
+      extraContent={<DashboardStatistics />}
+    ></PageContainer>
   );
 };
 

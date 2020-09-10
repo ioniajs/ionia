@@ -12,7 +12,7 @@ const resources = {
   },
   zh: {
     translation: {
-      dashboard: "仪表盘",
+      dashboard: "概况",
       hero: "英雄",
     },
   },
