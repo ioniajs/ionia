@@ -1,6 +1,7 @@
 import { isDev, MasterApplication } from "@ionia/libs";
 import { IoniaApp } from "@ionia/libs/es/core/master-application";
 import * as React from "react";
+import { DashboardOutlined, UserOutlined } from "@ant-design/icons";
 import { BrowserRouter as Router } from "react-router-dom";
 import App from "./App";
 import "./i18n";
@@ -14,6 +15,7 @@ const apps: IoniaApp<{}>[] = [
     name: "dashboard",
     entry: "//localhost:7001",
     activeRule: "/dashboard",
+    icon: <DashboardOutlined />,
   },
   {
     name: "auth",
@@ -25,6 +27,7 @@ const apps: IoniaApp<{}>[] = [
     name: "hero",
     entry: "//localhost:7003",
     activeRule: "/hero",
+    icon: <UserOutlined />,
   },
 ];
 

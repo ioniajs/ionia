@@ -38,6 +38,7 @@ const App: React.FC<AppProps> = () => {
         path: app.activeRule,
         name: app.name ? t(app.name) : "",
         hideInMenu: app.hideInMenu,
+        icon: app.icon,
       })),
     [globalStore.state?.apps]
   );

@@ -19,6 +19,7 @@ export interface MasterAppProps extends MicroAppStateActions {
 export type IoniaApp<T extends Object = {}> = Partial<RegistrableApp<T>> & {
   hideInMenu?: boolean;
   container?: string;
+  icon?: any;
 };
 
 class MasterApplication {
