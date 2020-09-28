@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
-    "baseUrl": "./",
-    "outDir": "./dist/",
+    "baseUrl": "",
+    "outDir": "dist",
     "sourceMap": true,
     "strict": true,
     "noImplicitReturns": true,
@@ -17,5 +17,5 @@
       "@/*": ["src/*"]
     }
   },
-  "include": ["./src/**/*"]
+  "include": ["src/**/*"]
 }

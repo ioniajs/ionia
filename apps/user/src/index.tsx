@@ -5,7 +5,7 @@ import App from "./App";
 
 const app = new Application(
   (
-    <Router basename={isSlave ? "/hero" : "/"}>
+    <Router basename={isSlave ? "/user" : "/"}>
       <App />
     </Router>
   )
