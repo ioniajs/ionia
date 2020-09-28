@@ -79,12 +79,7 @@ export default () => {
   }, []);
 
   return (
-    <PageContainer
-      title={false}
-      breadcrumb={{
-        routes: [{ path: "/", breadcrumbName: "英雄列表" }],
-      }}
-    >
+    <PageContainer pageHeaderRender={() => <div></div>}>
       <ProTable<Hero>
         columns={columns}
         rowKey="key"

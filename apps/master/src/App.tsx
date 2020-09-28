@@ -1,8 +1,8 @@
 import GlobalHeader from "@/components/GlobalHeader";
-import ProLayout, { SettingDrawer } from "@ant-design/pro-layout";
+import { DashboardOutlined, UserOutlined } from "@ant-design/icons";
+import ProLayout, { MenuDataItem } from "@ant-design/pro-layout";
 import { BasicLayoutProps } from "@ant-design/pro-layout/es/BasicLayout";
-import { isDev, SlaveApp, useGlobalStore } from "@ionia/libs";
-import { IoniaApp } from "@ionia/libs/es/core/master-application";
+import { SlaveApp, useGlobalStore } from "@ionia/libs";
 import { MenuInfo } from "rc-menu/es/interface";
 import React from "react";
 import CacheRoute, { CacheSwitch } from "react-router-cache-route";
@@ -24,12 +24,43 @@ const defaultSettings: Partial<BasicLayoutProps> = {
   disableContentMargin: true,
 };
 
+export interface SlaveAppRoute {
+  key: string;
+  menus: MenuDataItem[];
+}
+
+const routeMaps: SlaveAppRoute[] = [
+  {
+    key: "/dashboard",
+    menus: [
+      {
+        name: "仪表盘",
+        path: "/dashboard",
+        icon: <DashboardOutlined />,
+      },
+    ],
+  },
+  {
+    key: "/user",
+    menus: [
+      {
+        name: "用户管理",
+        path: "/user",
+        icon: <UserOutlined />,
+      },
+      {
+        name: "用户分类",
+        path: "/user/category",
+        icon: <UserOutlined />,
+      },
+    ],
+  },
+];
+
 const App: React.FC<AppProps> = () => {
   const globalStore = useGlobalStore();
   const history = useHistory();
   const location = useLocation();
-
-  const routes: IoniaApp[] = [];
 
   return (
     <CacheSwitch>
@@ -43,15 +74,15 @@ const App: React.FC<AppProps> = () => {
           title={globalStore.state?.title}
           rightContentRender={() => <GlobalHeader />}
           location={location}
-          route={{
-            routes,
-          }}
+          menuDataRender={() =>
+            routeMaps.find((r) => location.pathname.startsWith(r.key))?.menus ??
+            []
+          }
           menuProps={{
             onClick: (m: MenuInfo) => history.push(m.key.toString()),
           }}
         >
           <SlaveApp />
-          {isDev && <SettingDrawer />}
         </ProLayout>
       </CacheRoute>
     </CacheSwitch>
