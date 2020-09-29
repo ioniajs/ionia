@@ -12,12 +12,13 @@ import "./App.less";
 export interface AppProps {}
 
 const defaultSettings: Partial<BasicLayoutProps> = {
-  logo:
-    "https://gw.alipayobjects.com/mdn/rms_b5fcc5/afts/img/A*1NHAQYduQiQAAAAAAAAAAABkARQnAQ",
-  navTheme: "dark",
-  layout: "side",
+  logo: false,
+  headerTitleRender: false,
+  layout: "mix",
   contentWidth: "Fluid",
+  navTheme: "light",
   fixedHeader: true,
+  fixSiderbar: true,
   headerHeight: 48,
   primaryColor: "#1890ff",
   splitMenus: false,
@@ -58,7 +59,6 @@ const routeMaps: SlaveAppRoute[] = [
 ];
 
 const App: React.FC<AppProps> = () => {
-  const globalStore = useGlobalStore();
   const history = useHistory();
   const location = useLocation();
 
@@ -71,7 +71,6 @@ const App: React.FC<AppProps> = () => {
         <ProLayout
           {...defaultSettings}
           className="io-layout"
-          title={globalStore.state?.title}
           rightContentRender={() => <GlobalHeader />}
           location={location}
           menuDataRender={() =>
