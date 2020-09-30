@@ -2,7 +2,7 @@ import GlobalHeader from "@/components/GlobalHeader";
 import { DashboardOutlined, UserOutlined } from "@ant-design/icons";
 import ProLayout, { MenuDataItem } from "@ant-design/pro-layout";
 import { BasicLayoutProps } from "@ant-design/pro-layout/es/BasicLayout";
-import { SlaveApp, useGlobalStore } from "@ionia/libs";
+import { SlaveApp } from "@ionia/libs";
 import { MenuInfo } from "rc-menu/es/interface";
 import React from "react";
 import CacheRoute, { CacheSwitch } from "react-router-cache-route";
