@@ -9,7 +9,7 @@ export function getRoutes() {
   {
     "path": "/",
     "component": (props) => require('react').createElement(require('../../../../node_modules/@umijs/preset-dumi/lib/themes/default/layout.js').default, {
-      ...{"menus":{"*":{"*":[{"path":"/","title":"快速上手","meta":{"order":0}},{"title":"开发规范","path":"/standard","meta":{"order":1},"children":[{"path":"/standard/git","title":"协作规范","meta":{"order":0}},{"path":"/standard/code","title":"编码规范","meta":{"order":1}},{"path":"/standard/style","title":"样式规范","meta":{"order":2}},{"path":"/standard/component","title":"组件规范","meta":{"order":3}},{"path":"/standard/protocol","title":"协议规范","meta":{"order":4}},{"path":"/standard/test","title":"测试规范","meta":{"order":5}},{"path":"/standard/document","title":"文档规范","meta":{"order":6}},{"path":"/standard/business","title":"业务规范","meta":{"order":7}},{"path":"/standard/version","title":"版本规范","meta":{"order":8}}]},{"title":"基础架构","path":"/architecture","meta":{},"children":[{"path":"/architecture/structure","title":"架构分层","meta":{"order":0}},{"path":"/architecture/workspace","title":"工作区","meta":{"order":1}},{"path":"/architecture/micro-front-end","title":"微前端","meta":{"order":2}},{"path":"/architecture/component","title":"组件库","meta":{"order":3}},{"path":"/architecture/business-component","title":"业务组件","meta":{"order":4}},{"path":"/architecture/request","title":"网络请求","meta":{"order":5}},{"path":"/architecture/layout","title":"布局","meta":{"order":6}},{"path":"/architecture/route","title":"路由","meta":{"order":7}},{"path":"/architecture/tab-navigation","title":"页签导航","meta":{"order":8}},{"path":"/architecture/verification","title":"参数校验","meta":{"order":9}},{"path":"/architecture/exception","title":"异常捕获","meta":{"order":10}},{"path":"/architecture/proxy","title":"开发代理","meta":{"order":11}},{"path":"/architecture/mock","title":"接口模拟","meta":{"order":12}},{"path":"/architecture/state","title":"状态管理","meta":{"order":13}}]},{"title":"权限控制","path":"/auth","meta":{},"children":[{"path":"/auth/route","title":"路由权限","meta":{"order":0}},{"path":"/auth/feature","title":"功能权限","meta":{"order":1}},{"path":"/auth/api","title":"接口权限","meta":{"order":2}}]}]}},"locales":[],"navs":{},"title":"开发手册","mode":"doc"},
+      ...{"menus":{"*":{"*":[{"path":"/","title":"快速上手","meta":{"order":0}},{"title":"开发规范","path":"/standard","meta":{"order":1},"children":[{"path":"/standard/git","title":"协作规范","meta":{"order":0}},{"path":"/standard/code","title":"编码规范","meta":{"order":1}},{"path":"/standard/style","title":"样式规范","meta":{"order":2}},{"path":"/standard/component","title":"组件规范","meta":{"order":3}},{"path":"/standard/protocol","title":"协议规范","meta":{"order":4}},{"path":"/standard/test","title":"测试规范","meta":{"order":5}},{"path":"/standard/document","title":"文档规范","meta":{"order":6}},{"path":"/standard/version","title":"版本规范","meta":{"order":8}}]},{"title":"基础架构","path":"/architecture","meta":{},"children":[{"path":"/architecture/structure","title":"架构分层","meta":{"order":0}},{"path":"/architecture/workspace","title":"工作区","meta":{"order":1}},{"path":"/architecture/micro-front-end","title":"微前端","meta":{"order":2}},{"path":"/architecture/component","title":"组件库","meta":{"order":3}},{"path":"/architecture/business-component","title":"业务组件","meta":{"order":4}},{"path":"/architecture/request","title":"网络请求","meta":{"order":5}},{"path":"/architecture/layout","title":"布局","meta":{"order":6}},{"path":"/architecture/route","title":"路由","meta":{"order":7}},{"path":"/architecture/tab-navigation","title":"页签导航","meta":{"order":8}},{"path":"/architecture/verification","title":"参数校验","meta":{"order":9}},{"path":"/architecture/exception","title":"异常捕获","meta":{"order":10}},{"path":"/architecture/proxy","title":"开发代理","meta":{"order":11}},{"path":"/architecture/mock","title":"接口模拟","meta":{"order":12}},{"path":"/architecture/state","title":"状态管理","meta":{"order":13}}]},{"title":"权限控制","path":"/auth","meta":{},"children":[{"path":"/auth/route","title":"路由权限","meta":{"order":0}},{"path":"/auth/feature","title":"功能权限","meta":{"order":1}},{"path":"/auth/api","title":"接口权限","meta":{"order":2}}]}]}},"locales":[],"navs":{},"title":"开发手册","mode":"doc"},
       ...props,
     }),
     "routes": [
@@ -424,29 +424,6 @@ export function getRoutes() {
         "title": "路由权限"
       },
       {
-        "path": "/standard/business",
-        "component": require('../../../docs/standard/business.md').default,
-        "exact": true,
-        "meta": {
-          "filePath": "docs/standard/business.md",
-          "updatedTime": 1601435777079,
-          "title": "业务规范",
-          "group": {
-            "title": "开发规范",
-            "path": "/standard"
-          },
-          "order": 7,
-          "slugs": [
-            {
-              "depth": 1,
-              "value": "业务规范",
-              "heading": "业务规范"
-            }
-          ]
-        },
-        "title": "业务规范"
-      },
-      {
         "path": "/standard/code",
         "component": require('../../../docs/standard/code.md').default,
         "exact": true,
@@ -663,7 +640,7 @@ export function getRoutes() {
         "exact": true,
         "meta": {
           "filePath": "docs/standard/style.md",
-          "updatedTime": 1601435471281,
+          "updatedTime": 1601452603000,
           "title": "样式规范",
           "group": {
             "title": "开发规范",
@@ -675,6 +652,21 @@ export function getRoutes() {
               "depth": 1,
               "value": "样式规范",
               "heading": "样式规范"
+            },
+            {
+              "depth": 2,
+              "value": "常用的 CSS 类名",
+              "heading": "常用的-css-类名"
+            },
+            {
+              "depth": 2,
+              "value": "BEM",
+              "heading": "bem"
+            },
+            {
+              "depth": 2,
+              "value": "属性的书写顺序",
+              "heading": "属性的书写顺序"
             }
           ]
         },
@@ -709,7 +701,7 @@ export function getRoutes() {
         "exact": true,
         "meta": {
           "filePath": "docs/standard/version.md",
-          "updatedTime": 1601451727206,
+          "updatedTime": 1601452603000,
           "title": "版本规范",
           "group": {
             "title": "开发规范",
@@ -721,6 +713,81 @@ export function getRoutes() {
               "depth": 1,
               "value": "版本规范",
               "heading": "版本规范"
+            },
+            {
+              "depth": 2,
+              "value": "摘要",
+              "heading": "摘要"
+            },
+            {
+              "depth": 2,
+              "value": "简介",
+              "heading": "简介"
+            },
+            {
+              "depth": 2,
+              "value": "语义化版本控制规范（SemVer）",
+              "heading": "语义化版本控制规范（semver）"
+            },
+            {
+              "depth": 2,
+              "value": "为什么要使用语义化的版本控制？",
+              "heading": "为什么要使用语义化的版本控制？"
+            },
+            {
+              "depth": 2,
+              "value": "FAQ",
+              "heading": "faq"
+            },
+            {
+              "depth": 3,
+              "value": "在 0.y.z 初始开发阶段，我该如何进行版本控制？",
+              "heading": "在-0yz-初始开发阶段，我该如何进行版本控制？"
+            },
+            {
+              "depth": 3,
+              "value": "如何判断发布 1.0.0 版本的时机？",
+              "heading": "如何判断发布-100-版本的时机？"
+            },
+            {
+              "depth": 3,
+              "value": "这不会阻碍快速开发和迭代吗？",
+              "heading": "这不会阻碍快速开发和迭代吗？"
+            },
+            {
+              "depth": 3,
+              "value": "对于公共 API，若即使是最小但不向下兼容的改变都需要产生新的主版本号，岂不是很快就达到 42.0.0 版？",
+              "heading": "对于公共-api，若即使是最小但不向下兼容的改变都需要产生新的主版本号，岂不是很快就达到-4200-版？"
+            },
+            {
+              "depth": 3,
+              "value": "为整个公共 API 写文件太费事了！",
+              "heading": "为整个公共-api-写文件太费事了！"
+            },
+            {
+              "depth": 3,
+              "value": "万一不小心把一个不兼容的改版当成了次版本号发行了该怎么办？",
+              "heading": "万一不小心把一个不兼容的改版当成了次版本号发行了该怎么办？"
+            },
+            {
+              "depth": 3,
+              "value": "如果我更新了自己的依赖但没有改变公共 API 该怎么办？",
+              "heading": "如果我更新了自己的依赖但没有改变公共-api-该怎么办？"
+            },
+            {
+              "depth": 3,
+              "value": "如果我变更了公共 API 但无意中未遵循版本号的改动怎么办呢？（意即在修订等级的发布中，误将重大且不兼容的改变加到代码之中）",
+              "heading": "如果我变更了公共-api-但无意中未遵循版本号的改动怎么办呢？（意即在修订等级的发布中，误将重大且不兼容的改变加到代码之中）"
+            },
+            {
+              "depth": 3,
+              "value": "我该如何处理即将弃用的功能？",
+              "heading": "我该如何处理即将弃用的功能？"
+            },
+            {
+              "depth": 3,
+              "value": "语义化版本对于版本的字串长度是否有限制呢？",
+              "heading": "语义化版本对于版本的字串长度是否有限制呢？"
             }
           ]
         },
