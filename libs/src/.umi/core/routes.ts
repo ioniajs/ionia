@@ -475,7 +475,7 @@ export function getRoutes() {
         "exact": true,
         "meta": {
           "filePath": "docs/standard/document.md",
-          "updatedTime": 1601435653608,
+          "updatedTime": 1601452603000,
           "title": "文档规范",
           "group": {
             "title": "开发规范",
@@ -487,6 +487,171 @@ export function getRoutes() {
               "depth": 1,
               "value": "文档规范",
               "heading": "文档规范"
+            },
+            {
+              "depth": 2,
+              "value": "标题",
+              "heading": "标题"
+            },
+            {
+              "depth": 3,
+              "value": "层级",
+              "heading": "层级"
+            },
+            {
+              "depth": 3,
+              "value": "原则",
+              "heading": "原则"
+            },
+            {
+              "depth": 2,
+              "value": "文本",
+              "heading": "文本"
+            },
+            {
+              "depth": 3,
+              "value": "字间距",
+              "heading": "字间距"
+            },
+            {
+              "depth": 3,
+              "value": "句子",
+              "heading": "句子"
+            },
+            {
+              "depth": 3,
+              "value": "写作风格",
+              "heading": "写作风格"
+            },
+            {
+              "depth": 3,
+              "value": "英文处理",
+              "heading": "英文处理"
+            },
+            {
+              "depth": 2,
+              "value": "段落",
+              "heading": "段落"
+            },
+            {
+              "depth": 3,
+              "value": "原则",
+              "heading": "原则-1"
+            },
+            {
+              "depth": 3,
+              "value": "引用",
+              "heading": "引用"
+            },
+            {
+              "depth": 2,
+              "value": "数值",
+              "heading": "数值"
+            },
+            {
+              "depth": 3,
+              "value": "半角数字",
+              "heading": "半角数字"
+            },
+            {
+              "depth": 3,
+              "value": "千分号",
+              "heading": "千分号"
+            },
+            {
+              "depth": 3,
+              "value": "货币",
+              "heading": "货币"
+            },
+            {
+              "depth": 3,
+              "value": "数值范围",
+              "heading": "数值范围"
+            },
+            {
+              "depth": 3,
+              "value": "变化程度的表示法",
+              "heading": "变化程度的表示法"
+            },
+            {
+              "depth": 2,
+              "value": "标点符号",
+              "heading": "标点符号"
+            },
+            {
+              "depth": 3,
+              "value": "原则",
+              "heading": "原则-2"
+            },
+            {
+              "depth": 3,
+              "value": "句号",
+              "heading": "句号"
+            },
+            {
+              "depth": 3,
+              "value": "逗号",
+              "heading": "逗号"
+            },
+            {
+              "depth": 3,
+              "value": "顿号",
+              "heading": "顿号"
+            },
+            {
+              "depth": 3,
+              "value": "分号",
+              "heading": "分号"
+            },
+            {
+              "depth": 3,
+              "value": "引号",
+              "heading": "引号"
+            },
+            {
+              "depth": 3,
+              "value": "括号",
+              "heading": "括号"
+            },
+            {
+              "depth": 3,
+              "value": "冒号",
+              "heading": "冒号"
+            },
+            {
+              "depth": 3,
+              "value": "省略号",
+              "heading": "省略号"
+            },
+            {
+              "depth": 3,
+              "value": "感叹号",
+              "heading": "感叹号"
+            },
+            {
+              "depth": 3,
+              "value": "破折号",
+              "heading": "破折号"
+            },
+            {
+              "depth": 3,
+              "value": "连接号",
+              "heading": "连接号"
+            },
+            {
+              "depth": 2,
+              "value": "文档体系",
+              "heading": "文档体系"
+            },
+            {
+              "depth": 3,
+              "value": "结构",
+              "heading": "结构"
+            },
+            {
+              "depth": 3,
+              "value": "文件名",
+              "heading": "文件名"
             }
           ]
         },
@@ -617,7 +782,7 @@ export function getRoutes() {
         "exact": true,
         "meta": {
           "filePath": "docs/standard/protocol.md",
-          "updatedTime": 1601435569730,
+          "updatedTime": 1601452603000,
           "title": "协议规范",
           "group": {
             "title": "开发规范",
@@ -629,6 +794,41 @@ export function getRoutes() {
               "depth": 1,
               "value": "协议规范",
               "heading": "协议规范"
+            },
+            {
+              "depth": 2,
+              "value": "协议类型",
+              "heading": "协议类型"
+            },
+            {
+              "depth": 2,
+              "value": "接口路径规范",
+              "heading": "接口路径规范"
+            },
+            {
+              "depth": 2,
+              "value": "版本控制规范",
+              "heading": "版本控制规范"
+            },
+            {
+              "depth": 2,
+              "value": "接口命名规范",
+              "heading": "接口命名规范"
+            },
+            {
+              "depth": 3,
+              "value": "具体接口命名，通常有以下两种方式：",
+              "heading": "具体接口命名，通常有以下两种方式："
+            },
+            {
+              "depth": 2,
+              "value": "请求参数规范",
+              "heading": "请求参数规范"
+            },
+            {
+              "depth": 2,
+              "value": "返回数据规范",
+              "heading": "返回数据规范"
             }
           ]
         },
@@ -678,7 +878,7 @@ export function getRoutes() {
         "exact": true,
         "meta": {
           "filePath": "docs/standard/test.md",
-          "updatedTime": 1601435605003,
+          "updatedTime": 1601452603000,
           "title": "测试规范",
           "group": {
             "title": "开发规范",
@@ -690,6 +890,26 @@ export function getRoutes() {
               "depth": 1,
               "value": "测试规范",
               "heading": "测试规范"
+            },
+            {
+              "depth": 2,
+              "value": "单元测试是一门伟大的学科，它可以减少 40% - 80% 的 bug。单元测试的主要好处有:",
+              "heading": "单元测试是一门伟大的学科，它可以减少-40---80-的-bug。单元测试的主要好处有"
+            },
+            {
+              "depth": 2,
+              "value": "无论你使用的是什么框架，下面的小窍门将帮助你编写更好、更可测试、更可读、更可组合的 UI 组件：",
+              "heading": "无论你使用的是什么框架，下面的小窍门将帮助你编写更好、更可测试、更可读、更可组合的-ui-组件："
+            },
+            {
+              "depth": 2,
+              "value": "使用纯组件",
+              "heading": "使用纯组件"
+            },
+            {
+              "depth": 2,
+              "value": "单元测试有状态的组件",
+              "heading": "单元测试有状态的组件"
             }
           ]
         },
