@@ -1949,7 +1949,7 @@ export function getRoutes() {
         "exact": true,
         "meta": {
           "filePath": "docs/standard/typescript.md",
-          "updatedTime": 1601562903036,
+          "updatedTime": 1601562998000,
           "title": "TypeScript 规范",
           "group": {
             "title": "开发规范",
@@ -2026,6 +2026,41 @@ export function getRoutes() {
               "depth": 2,
               "value": "风格",
               "heading": "风格"
+            },
+            {
+              "depth": 2,
+              "value": "条件语句的 5 条守则",
+              "heading": "条件语句的-5-条守则"
+            },
+            {
+              "depth": 3,
+              "value": "1. 多重判断时使用 Array.includes",
+              "heading": "1-多重判断时使用-arrayincludes"
+            },
+            {
+              "depth": 3,
+              "value": "2. 更少的嵌套，尽早 return",
+              "heading": "2-更少的嵌套，尽早-return"
+            },
+            {
+              "depth": 3,
+              "value": "3. 使用默认参数和解构",
+              "heading": "3-使用默认参数和解构"
+            },
+            {
+              "depth": 3,
+              "value": "4. 倾向于对象遍历而不是 Switch 语句",
+              "heading": "4-倾向于对象遍历而不是-switch-语句"
+            },
+            {
+              "depth": 3,
+              "value": "4. 重构语法",
+              "heading": "4-重构语法"
+            },
+            {
+              "depth": 3,
+              "value": "5. 对 所有/部分 判断使用 Array.every & Array.some",
+              "heading": "5-对-所有部分-判断使用-arrayevery--arraysome"
             }
           ]
         },
