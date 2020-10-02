@@ -6,7 +6,8 @@
   "scripts": {
     "build": "father-build build",
     "start": "father-build build --watch",
-    "docs": "dumi dev"
+    "dev": "dumi dev",
+    "docs": "dumi build"
   },
   "devDependencies": {
     "@types/inversify": "^2.0.33",

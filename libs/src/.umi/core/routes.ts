@@ -1695,7 +1695,7 @@ export function getRoutes() {
         "exact": true,
         "meta": {
           "filePath": "docs/standard/react.md",
-          "updatedTime": 1601561906842,
+          "updatedTime": 1601562998000,
           "title": "React 规范",
           "group": {
             "title": "开发规范",
@@ -1707,6 +1707,46 @@ export function getRoutes() {
               "depth": 1,
               "value": "React 规范",
               "heading": "react-规范"
+            },
+            {
+              "depth": 2,
+              "value": "目录结构",
+              "heading": "目录结构"
+            },
+            {
+              "depth": 2,
+              "value": "容器和组件",
+              "heading": "容器和组件"
+            },
+            {
+              "depth": 2,
+              "value": "拆分和组合代码",
+              "heading": "拆分和组合代码"
+            },
+            {
+              "depth": 2,
+              "value": "UI 组件",
+              "heading": "ui-组件"
+            },
+            {
+              "depth": 1,
+              "value": "组件命名",
+              "heading": "组件命名"
+            },
+            {
+              "depth": 2,
+              "value": "便于在项目中搜索文件",
+              "heading": "便于在项目中搜索文件"
+            },
+            {
+              "depth": 2,
+              "value": "可以避免在引入时重复名称",
+              "heading": "可以避免在引入时重复名称"
+            },
+            {
+              "depth": 2,
+              "value": "页面（Screen）",
+              "heading": "页面（screen）"
             },
             {
               "depth": 2,
@@ -1785,8 +1825,8 @@ export function getRoutes() {
             },
             {
               "depth": 2,
-              "value": "Hooks 规范",
-              "heading": "hooks-规范"
+              "value": "Hooks",
+              "heading": "hooks"
             },
             {
               "depth": 3,
@@ -1949,7 +1989,7 @@ export function getRoutes() {
         "exact": true,
         "meta": {
           "filePath": "docs/standard/typescript.md",
-          "updatedTime": 1601562998000,
+          "updatedTime": 1601564223000,
           "title": "TypeScript 规范",
           "group": {
             "title": "开发规范",
@@ -2009,16 +2049,6 @@ export function getRoutes() {
             },
             {
               "depth": 2,
-              "value": "错误提示信息",
-              "heading": "错误提示信息"
-            },
-            {
-              "depth": 2,
-              "value": "错误提示信息代码",
-              "heading": "错误提示信息代码"
-            },
-            {
-              "depth": 2,
               "value": "普通方法",
               "heading": "普通方法"
             },
@@ -2051,11 +2081,6 @@ export function getRoutes() {
               "depth": 3,
               "value": "4. 倾向于对象遍历而不是 Switch 语句",
               "heading": "4-倾向于对象遍历而不是-switch-语句"
-            },
-            {
-              "depth": 3,
-              "value": "4. 重构语法",
-              "heading": "4-重构语法"
             },
             {
               "depth": 3,

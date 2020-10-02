@@ -6,6 +6,7 @@
     "libs"
   ],
   "scripts": {
+    "docs": "yarn w @ionia/libs docs",
     "libs:dev": "yarn w @ionia/libs start",
     "libs:build": "yarn w @ionia/libs build",
     "prestart": "yarn libs:build",
