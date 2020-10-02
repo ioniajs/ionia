@@ -1,3 +1,5 @@
+[![Netlify Status](https://api.netlify.com/api/v1/badges/55a3e918-3150-4294-b581-d04f326a9f2a/deploy-status)](https://app.netlify.com/sites/ionia/deploys)
+
 <h1 align="center">Ionia（艾欧尼亚）</h1>
 
 <div align="center">
@@ -14,8 +16,6 @@ English | [简体中文](./README-zh_CN.md)
 - Internationalization
 - API Mock
 - Authority control
-- Dependency injection
-- Aspect-oriented programming
 
 ## Usage
 

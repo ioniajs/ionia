@@ -1,3 +1,5 @@
+[![Netlify Status](https://api.netlify.com/api/v1/badges/55a3e918-3150-4294-b581-d04f326a9f2a/deploy-status)](https://app.netlify.com/sites/ionia/deploys)
+
 <h1 align="center">艾欧尼亚（Ionia）</h1>
 
 <div align="center">
@@ -14,8 +16,6 @@
 - 国际化
 - 接口 Mock
 - 权限控制
-- 依赖注入
-- 面向切面编程
 
 ## 使用
 
