@@ -19,7 +19,7 @@ export function getRoutes() {
         "exact": true,
         "meta": {
           "filePath": "docs/index.md",
-          "updatedTime": 1601452603000,
+          "updatedTime": 1601622345000,
           "title": "快速上手",
           "order": 0,
           "slugs": [
@@ -81,7 +81,7 @@ export function getRoutes() {
         "exact": true,
         "meta": {
           "filePath": "docs/architecture/component.md",
-          "updatedTime": 1601452603000,
+          "updatedTime": 1601738531000,
           "title": "组件库",
           "group": {
             "title": "基础架构",
@@ -1219,7 +1219,7 @@ export function getRoutes() {
         "exact": true,
         "meta": {
           "filePath": "docs/standard/html.md",
-          "updatedTime": 1601562998000,
+          "updatedTime": 1601767347000,
           "title": "HTML 规范",
           "group": {
             "title": "开发规范",
