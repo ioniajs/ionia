@@ -33,7 +33,7 @@ $ yarn libs:dev
 ## 启动文档
 
 ```shell
-$ yarn docs
+$ yarn docs:dev
 ```
 
 访问 http://localhost:8000/
