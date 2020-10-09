@@ -1,4 +1,3 @@
-import { DashboardOutlined, UserOutlined } from "@ant-design/icons";
 import { isDev, MasterApplication } from "@ionia/libs";
 import { IoniaApp } from "@ionia/libs/es/core/master-application";
 import * as React from "react";

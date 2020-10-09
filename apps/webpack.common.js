@@ -1,5 +1,3 @@
-const { resolve } = require("path");
-const webpack = require("webpack");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const BundleAnalyzerPlugin = require("webpack-bundle-analyzer")
   .BundleAnalyzerPlugin;
@@ -130,9 +128,6 @@ module.exports = {
     }),
     new MiniCssExtractPlugin(),
     new CleanWebpackPlugin(),
-    new webpack.DefinePlugin({
-      NODE_ENV: process.env.NODE_ENV,
-    }),
     new ProgressBarPlugin(),
     new LodashModuleReplacementPlugin(),
   ],
