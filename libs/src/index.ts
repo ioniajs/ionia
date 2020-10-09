@@ -1,6 +1,6 @@
 import "reflect-metadata";
 import { loggerConfigs } from "./configs";
-import { Logger } from "./logger";
+import { Logger } from "./utils";
 export * from "./components";
 export { default as configs } from "./configs";
 export * from "./core";

@@ -1,4 +1,4 @@
-import { LoggerLevels, LoggerOptions } from "../logger";
+import { LoggerLevels, LoggerOptions } from "../utils";
 
 export default {
   level: LoggerLevels.debug,
