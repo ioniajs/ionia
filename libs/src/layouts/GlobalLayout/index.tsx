@@ -30,7 +30,7 @@ export const GlobalLayout: React.FC<GlobalLayoutProps> = ({
 
   return (
     <AccessProvider>
-      <Layout className="io-layout__blank">{children}</Layout>
+      <Layout className="io-layout__global">{children}</Layout>
     </AccessProvider>
   );
 };

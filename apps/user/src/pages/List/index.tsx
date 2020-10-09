@@ -79,7 +79,7 @@ export default () => {
   }, []);
 
   return (
-    <PageContainer pageHeaderRender={() => <div></div>}>
+    <PageContainer pageHeaderRender={() => null}>
       <ProTable<Hero>
         columns={columns}
         rowKey="key"

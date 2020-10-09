@@ -10,7 +10,7 @@ const App = () => {
     <PageContainer
       content={<DashboardHeader />}
       extraContent={<DashboardStatistics />}
-    ></PageContainer>
+    />
   );
 };
 

@@ -5,12 +5,7 @@ import React from "react";
 
 export default () => {
   return (
-    <PageContainer
-      title={false}
-      breadcrumb={{
-        routes: [{ path: "/category", breadcrumbName: "英雄分类" }],
-      }}
-    >
+    <PageContainer pageHeaderRender={() => null}>
       <ProCard split="vertical">
         <ProCard title={<div>111</div>} colSpan="30%">
           左侧内容
