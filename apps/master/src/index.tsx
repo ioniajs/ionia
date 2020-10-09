@@ -1,4 +1,4 @@
-import { isDev, MasterApplication } from "@ionia/libs";
+import { isDev, logger, MasterApplication } from "@ionia/libs";
 import { IoniaApp } from "@ionia/libs/es/core/master-application";
 import * as React from "react";
 import { BrowserRouter as Router } from "react-router-dom";
@@ -31,17 +31,17 @@ const apps: IoniaApp<{}>[] = [
 const lifeCycles = {
   beforeLoad: [
     (app: any): any => {
-      console.log("[LifeCycle] before load %c%s", "color: green;", app.name);
+      logger.debug("[LifeCycle] before load %c%s", "color: green;", app.name);
     },
   ],
   beforeMount: [
     (app: any): any => {
-      console.log("[LifeCycle] before mount %c%s", "color: green;", app.name);
+      logger.debug("[LifeCycle] before mount %c%s", "color: green;", app.name);
     },
   ],
   afterUnmount: [
     (app: any): any => {
-      console.log("[LifeCycle] after unmount %c%s", "color: green;", app.name);
+      logger.debug("[LifeCycle] after unmount %c%s", "color: green;", app.name);
     },
   ],
 };
