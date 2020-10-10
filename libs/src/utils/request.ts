@@ -1,4 +1,4 @@
-import configs from "@/configs";
+import configs from "../configs";
 import { extend } from "umi-request";
 
 const request = extend({
