@@ -32,7 +32,7 @@ $ yarn && yarn start
 ## Master application
 
 ```ts
-import { isDev, MasterApplication } from "@ionia/libs";
+import { isDev, logger, MasterApplication } from "@ionia/libs";
 import { IoniaApp } from "@ionia/libs/es/core/master-application";
 import * as React from "react";
 import { BrowserRouter as Router } from "react-router-dom";
@@ -45,43 +45,37 @@ if (isDev) {
 
 const apps: IoniaApp<{}>[] = [
   {
-    name: "Dashboard",
+    name: "dashboard",
     entry: "//localhost:7001",
     activeRule: "/dashboard",
   },
   {
-    name: "CMS",
+    name: "auth",
     entry: "//localhost:7002",
-    activeRule: "/cms",
-  },
-  {
-    name: "User",
-    entry: "//localhost:7003",
-    activeRule: "/user",
-    hideInMenu: true,
-  },
-  {
-    name: "Auth",
-    entry: "//localhost:7004",
     activeRule: "/auth",
     hideInMenu: true,
+  },
+  {
+    name: "user",
+    entry: "//localhost:7003",
+    activeRule: "/user",
   },
 ];
 
 const lifeCycles = {
   beforeLoad: [
     (app: any): any => {
-      console.log("[LifeCycle] before load %c%s", "color: green;", app.name);
+      logger.debug("[LifeCycle] before load %c%s", "color: green;", app.name);
     },
   ],
   beforeMount: [
     (app: any): any => {
-      console.log("[LifeCycle] before mount %c%s", "color: green;", app.name);
+      logger.debug("[LifeCycle] before mount %c%s", "color: green;", app.name);
     },
   ],
   afterUnmount: [
     (app: any): any => {
-      console.log("[LifeCycle] after unmount %c%s", "color: green;", app.name);
+      logger.debug("[LifeCycle] after unmount %c%s", "color: green;", app.name);
     },
   ],
 };

@@ -19,7 +19,7 @@ export function getRoutes() {
         "exact": true,
         "meta": {
           "filePath": "docs/index.md",
-          "updatedTime": 1601622345000,
+          "updatedTime": 1602049835000,
           "title": "快速上手",
           "order": 0,
           "slugs": [
