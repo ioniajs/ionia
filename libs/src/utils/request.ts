@@ -1,38 +1,40 @@
+import configs from "@/configs";
 import { extend } from "umi-request";
 
 const request = extend({
-  prefix: "/api",
+  prefix: `${configs.API_PREFIX}`,
   timeout: 10000,
   headers: {},
   errorHandler: (error) => {
-    console.error(error);
+    console.error("网络错误：", error.response, error.message, error.data);
     throw error;
   },
 });
 
-// request.use(async (ctx, next) => {
-//   console.log("a1");
-//   await next();
-//   console.log("a2");
-// });
+request.use(async (ctx, next) => {
+  // try {
+  //   const token = await AsyncStorage.getItem("token");
+  //   if (!!token) {
+  //     ctx.req.options.headers = {
+  //       ...ctx.req.options.headers,
+  //       Authorization: `Bearer ${token}`,
+  //     };
+  //   }
+  // } catch (err) {}
 
-// request.use(async (ctx, next) => {
-//   console.log("b1");
-//   await next();
-//   console.log("b2");
-// });
+  // if (isDev) {
+  //   console.log("REQUEST --->", ctx.req.url, ctx.req.options);
+  // }
 
-// request.interceptors.request.use((url, options) => {
-//   console.log("request interceptor", url);
-//   return {
-//     url,
-//     options,
-//   };
-// });
+  await next();
 
-// request.interceptors.response.use((response, options) => {
-//   console.log("response interceptor", response);
-//   return response;
-// });
+  // if (ctx.res.code !== StatusCodes.OK) {
+  //   toast(ctx.res.message);
+  // }
+
+  // ctx.res.isSuccess = ctx.res.isSuccess ?? ctx.res.issuccess;
+  // delete ctx.res.issuccess;
+  // console.log("RESPONSE <---", ctx.res);
+});
 
 export default request;
