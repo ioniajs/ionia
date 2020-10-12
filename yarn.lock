@@ -13457,6 +13457,13 @@ react-dom@^16.13.1:
     prop-types "^15.6.2"
     scheduler "^0.19.1"
 
+react-error-boundary@^3.0.2:
+  version "3.0.2"
+  resolved "https://registry.npm.taobao.org/react-error-boundary/download/react-error-boundary-3.0.2.tgz#74399a4d9a68bfede1f3f4261ea0aabfc65d9868"
+  integrity sha1-dDmaTZpov+3h8/QmHqCqv8ZdmGg=
+  dependencies:
+    "@babel/runtime" "^7.11.2"
+
 react-error-overlay@6.0.7:
   version "6.0.7"
   resolved "https://registry.npm.taobao.org/react-error-overlay/download/react-error-overlay-6.0.7.tgz?cache=0&sync_timestamp=1600297028323&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Freact-error-overlay%2Fdownload%2Freact-error-overlay-6.0.7.tgz#1dcfb459ab671d53f660a991513cb2f0a0553108"
