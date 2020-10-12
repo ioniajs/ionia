@@ -4855,6 +4855,11 @@ cipher-base@^1.0.0, cipher-base@^1.0.1, cipher-base@^1.0.3:
     inherits "^2.0.1"
     safe-buffer "^5.0.1"
 
+class-transformer-validator@^0.9.1:
+  version "0.9.1"
+  resolved "https://registry.npm.taobao.org/class-transformer-validator/download/class-transformer-validator-0.9.1.tgz#81af4bab5e13ce619a25a74cc70f723a8c4e2779"
+  integrity sha1-ga9Lq14TzmGaJadMxw9yOoxOJ3k=
+
 class-transformer@^0.3.1:
   version "0.3.1"
   resolved "https://registry.npm.taobao.org/class-transformer/download/class-transformer-0.3.1.tgz#ee681a5439ff2230fc57f5056412d3befa70d597"

@@ -1,6 +1,7 @@
 // @ts-nocheck
 export * from "./logger";
 export { default as Request } from "./request";
+export * from "./validator";
 
 export const isDev = process.env.NODE_ENV === "development";
 
