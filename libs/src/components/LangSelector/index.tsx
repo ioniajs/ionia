@@ -11,12 +11,10 @@ const menus = (
   </Menu>
 );
 
-const LangSelector: React.FC<LangSelectorProps> = () => {
+export const LangSelector: React.FC<LangSelectorProps> = () => {
   return (
     <Dropdown overlay={menus}>
       <TranslationOutlined style={{ fontSize: 18 }} />
     </Dropdown>
   );
 };
-
-export default LangSelector;

@@ -5,8 +5,6 @@ export interface LoadingProps {
   loading?: boolean;
 }
 
-const Loading: React.FC<LoadingProps> = ({ loading = true }) => (
+export const Loading: React.FC<LoadingProps> = ({ loading = true }) => (
   <Spin spinning={loading} />
 );
-
-export default Loading;
