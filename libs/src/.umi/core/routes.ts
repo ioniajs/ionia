@@ -98,6 +98,11 @@ export function getRoutes() {
               "heading": "将项目从github克隆下来"
             },
             {
+              "depth": 3,
+              "value": "项目提交步骤",
+              "heading": "项目提交步骤"
+            },
+            {
               "depth": 2,
               "value": "下载Cmder终端",
               "heading": "下载cmder终端"
