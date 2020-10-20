@@ -1,6 +1,6 @@
 // @ts-nocheck
 import React from 'react';
-import { ApplyPluginsType } from '/Users/roylin/Desktop/code/ionia/node_modules/@umijs/runtime';
+import { ApplyPluginsType } from 'C:/Users/zhuliequn/Desktop/ionia/node_modules/@umijs/runtime';
 import * as umiExports from './umiExports';
 import { plugin } from './plugin';
 
@@ -9,7 +9,7 @@ export function getRoutes() {
   {
     "path": "/",
     "component": (props) => require('react').createElement(require('../../../../node_modules/@umijs/preset-dumi/lib/themes/default/layout.js').default, {
-      ...{"menus":{"*":{"*":[{"path":"/","title":"快速上手","meta":{"order":0}},{"title":"开发规范","path":"/standard","meta":{"order":1},"children":[{"path":"/standard/git","title":"协作规范","meta":{"order":0}},{"path":"/standard/html","title":"HTML 规范","meta":{"order":1}},{"path":"/standard/css","title":"CSS 规范","meta":{"order":2}},{"path":"/standard/typescript","title":"TypeScript 规范","meta":{"order":3}},{"path":"/standard/react","title":"React 规范","meta":{"order":4}},{"path":"/standard/security","title":"安全规范","meta":{"order":5}},{"path":"/standard/license","title":"协议规范","meta":{"order":6}},{"path":"/standard/test","title":"测试规范","meta":{"order":7}},{"path":"/standard/version","title":"版本规范","meta":{"order":8}},{"path":"/standard/document","title":"文档规范","meta":{"order":9}}]},{"title":"基础架构","path":"/architecture","meta":{},"children":[{"path":"/architecture/structure","title":"架构分层","meta":{"order":0}},{"path":"/architecture/workspace","title":"工作区","meta":{"order":1}},{"path":"/architecture/micro-front-end","title":"微前端","meta":{"order":2}},{"path":"/architecture/component","title":"组件库","meta":{"order":3}},{"path":"/architecture/business-component","title":"业务组件","meta":{"order":4}},{"path":"/architecture/request","title":"网络请求","meta":{"order":5}},{"path":"/architecture/layout","title":"布局","meta":{"order":6}},{"path":"/architecture/route","title":"路由","meta":{"order":7}},{"path":"/architecture/tab-navigation","title":"页签导航","meta":{"order":8}},{"path":"/architecture/verification","title":"参数校验","meta":{"order":9}},{"path":"/architecture/exception","title":"异常捕获","meta":{"order":10}},{"path":"/architecture/proxy","title":"开发代理","meta":{"order":11}},{"path":"/architecture/mock","title":"接口模拟","meta":{"order":12}},{"path":"/architecture/state","title":"状态管理","meta":{"order":13}}]},{"title":"权限控制","path":"/auth","meta":{},"children":[{"path":"/auth/route","title":"路由权限","meta":{"order":0}},{"path":"/auth/feature","title":"功能权限","meta":{"order":1}},{"path":"/auth/api","title":"接口权限","meta":{"order":2}}]}]}},"locales":[],"navs":{},"title":"开发手册","mode":"doc"},
+      ...{"menus":{"*":{"*":[{"path":"/","title":"快速上手","meta":{"order":0}},{"path":"/rely","title":"开发环境搭建","meta":{"order":1}},{"title":"开发规范","path":"/standard","meta":{"order":1},"children":[{"path":"/standard/git","title":"协作规范","meta":{"order":0}},{"path":"/standard/html","title":"HTML 规范","meta":{"order":1}},{"path":"/standard/css","title":"CSS 规范","meta":{"order":2}},{"path":"/standard/typescript","title":"TypeScript 规范","meta":{"order":3}},{"path":"/standard/react","title":"React 规范","meta":{"order":4}},{"path":"/standard/security","title":"安全规范","meta":{"order":5}},{"path":"/standard/license","title":"协议规范","meta":{"order":6}},{"path":"/standard/test","title":"测试规范","meta":{"order":7}},{"path":"/standard/version","title":"版本规范","meta":{"order":8}},{"path":"/standard/document","title":"文档规范","meta":{"order":9}}]},{"title":"基础架构","path":"/architecture","meta":{},"children":[{"path":"/architecture/workspace","title":"工作区","meta":{"order":1}},{"path":"/architecture/micro-front-end","title":"微前端","meta":{"order":2}},{"path":"/architecture/component","title":"组件库","meta":{"order":3}},{"path":"/architecture/business-component","title":"业务组件","meta":{"order":4}},{"path":"/architecture/request","title":"网络请求","meta":{"order":5}},{"path":"/architecture/layout","title":"布局","meta":{"order":6}},{"path":"/architecture/route","title":"路由","meta":{"order":7}},{"path":"/architecture/tab-navigation","title":"页签导航","meta":{"order":8}},{"path":"/architecture/verification","title":"参数校验","meta":{"order":9}},{"path":"/architecture/exception","title":"异常捕获","meta":{"order":10}},{"path":"/architecture/proxy","title":"开发代理","meta":{"order":11}},{"path":"/architecture/mock","title":"接口模拟","meta":{"order":12}},{"path":"/architecture/state","title":"状态管理","meta":{"order":13}}]},{"title":"权限控制","path":"/auth","meta":{},"children":[{"path":"/auth/route","title":"路由权限","meta":{"order":0}},{"path":"/auth/feature","title":"功能权限","meta":{"order":1}},{"path":"/auth/api","title":"接口权限","meta":{"order":2}}]}]}},"locales":[],"navs":{},"title":"开发手册","mode":"doc"},
       ...props,
     }),
     "routes": [
@@ -51,6 +51,85 @@ export function getRoutes() {
           ]
         },
         "title": "快速上手"
+      },
+      {
+        "path": "/rely",
+        "component": require('../../../docs/rely.md').default,
+        "exact": true,
+        "meta": {
+          "filePath": "docs/rely.md",
+          "updatedTime": 1603160881000,
+          "title": "开发环境搭建",
+          "order": 1,
+          "slugs": [
+            {
+              "depth": 1,
+              "value": "开发环境搭建",
+              "heading": "开发环境搭建"
+            },
+            {
+              "depth": 2,
+              "value": "yarn、yrm的安装",
+              "heading": "yarn、yrm的安装"
+            },
+            {
+              "depth": 3,
+              "value": "安装yarn",
+              "heading": "安装yarn"
+            },
+            {
+              "depth": 3,
+              "value": "安装yrm",
+              "heading": "安装yrm"
+            },
+            {
+              "depth": 2,
+              "value": "git的使用",
+              "heading": "git的使用"
+            },
+            {
+              "depth": 3,
+              "value": "git本地与服务器进行绑定",
+              "heading": "git本地与服务器进行绑定"
+            },
+            {
+              "depth": 3,
+              "value": "将项目从GitHub克隆下来",
+              "heading": "将项目从github克隆下来"
+            },
+            {
+              "depth": 2,
+              "value": "下载Cmder终端",
+              "heading": "下载cmder终端"
+            },
+            {
+              "depth": 2,
+              "value": "VScode环境搭建",
+              "heading": "vscode环境搭建"
+            },
+            {
+              "depth": 3,
+              "value": "安装插件",
+              "heading": "安装插件"
+            },
+            {
+              "depth": 3,
+              "value": "代码风格",
+              "heading": "代码风格"
+            },
+            {
+              "depth": 2,
+              "value": "统一提交代码格式",
+              "heading": "统一提交代码格式"
+            },
+            {
+              "depth": 3,
+              "value": "安装Commitizen cli工具",
+              "heading": "安装commitizen-cli工具"
+            }
+          ]
+        },
+        "title": "开发环境搭建"
       },
       {
         "path": "/architecture/business-component",
@@ -283,29 +362,6 @@ export function getRoutes() {
         "title": "状态管理"
       },
       {
-        "path": "/architecture/structure",
-        "component": require('../../../docs/architecture/structure.md').default,
-        "exact": true,
-        "meta": {
-          "filePath": "docs/architecture/structure.md",
-          "updatedTime": 1601452603000,
-          "title": "架构分层",
-          "group": {
-            "title": "基础架构",
-            "path": "/architecture"
-          },
-          "order": 0,
-          "slugs": [
-            {
-              "depth": 1,
-              "value": "架构分层",
-              "heading": "架构分层"
-            }
-          ]
-        },
-        "title": "架构分层"
-      },
-      {
         "path": "/architecture/tab-navigation",
         "component": require('../../../docs/architecture/tab-navigation.md').default,
         "exact": true,
@@ -449,7 +505,7 @@ export function getRoutes() {
         "exact": true,
         "meta": {
           "filePath": "docs/standard/css.md",
-          "updatedTime": 1601562998000,
+          "updatedTime": 1602311371000,
           "title": "CSS 规范",
           "group": {
             "title": "开发规范",
@@ -2213,7 +2269,7 @@ export function getRoutes() {
         "path": "/architecture",
         "meta": {},
         "exact": true,
-        "redirect": "/architecture/structure"
+        "redirect": "/architecture/workspace"
       },
       {
         "path": "/auth",
