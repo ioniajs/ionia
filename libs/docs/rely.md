@@ -27,15 +27,15 @@ $ yrm use taobao
 
 ### git本地与服务器进行绑定
 
-绑定用户名：输入
+绑定用户名输入：
 
 $ git config --global user.name "你注册github的账号" 
 
-绑定邮箱：输入
+绑定邮箱输入：
 
 $ git config --global user.email "你注册github的邮箱" 
 
-创建 SSH KEY ，输入 
+创建 SSH KEY 输入： 
 
 $ ssh-keygen -t rsa -C "你的邮箱号码"。
 
@@ -64,6 +64,18 @@ url为项目服务器地址或github地址。
 看到上面显示100%就克隆好了。
 
 访问  https://jingyan.baidu.com/article/642c9d343c7ee0644b46f76a.html
+
+### 项目提交步骤
+
+第一步：在本地新建分支。
+
+$ git branch -b [分支名]
+
+第二步：推送到远程仓库。
+
+$ git push --set-upstream origin [分支名]
+
+第三步：在github上发起合并分支请求。
 
 ## 下载Cmder终端
 
