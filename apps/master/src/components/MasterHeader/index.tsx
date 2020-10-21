@@ -7,14 +7,30 @@ import { useHistory, useLocation } from "react-router";
 import AvatarDropdown from "./AvatarDropdown";
 import "./index.less";
 
-export interface GlobalHeaderProps {}
+export enum MasterHeaderTheme {
+  Light = 'light'
+}
+
+export interface MasterHeaderProps {
+  theme?: MasterHeaderTheme;
+}
 
 export interface RouteMenu {
   key: string;
   name: string;
 }
 
-const GlobalHeader: React.FC<GlobalHeaderProps> = () => {
+const getThemeStyles = (theme: MasterHeaderTheme = MasterHeaderTheme.Light): React.CSSProperties => {
+  switch (theme) {
+    case MasterHeaderTheme.Light:
+    default:
+      return {
+        background: '#fff'
+      }
+  }
+}
+
+const MasterHeader: React.FC<MasterHeaderProps> = ({ theme }) => {
   const globalStore = useGlobalStore();
   const location = useLocation();
   const history = useHistory();
@@ -28,12 +44,14 @@ const GlobalHeader: React.FC<GlobalHeaderProps> = () => {
       })) ?? [];
   const selectedKey = routes?.find((r) => location.pathname.startsWith(r.key));
 
+  const themeStyles = getThemeStyles(theme);
+
   return (
-    <div className="io-global__header">
-      <div className="io-global__header-left">
+    <div className="io-master__header" style={themeStyles}>
+      <div className="io-master__header-left">
         <Menu
           mode="horizontal"
-          theme="dark"
+          theme="light"
           selectedKeys={selectedKey ? [selectedKey.key] : []}
         >
           {routes.map((r) => (
@@ -49,14 +67,14 @@ const GlobalHeader: React.FC<GlobalHeaderProps> = () => {
           ))}
         </Menu>
       </div>
-      <div className="io-global__header-right">
-        <span className="io-global__header--item">
+      <div className="io-master__header-right">
+        <span className="io-master__header--item">
           <Switch checkedChildren="LTR" unCheckedChildren="RTL" />
         </span>
-        <span className="io-global__header--item">
+        <span className="io-master__header--item">
           <AvatarDropdown />
         </span>
-        <span className="io-global__header--item">
+        <span className="io-master__header--item">
           <LangSelector />
         </span>
       </div>
@@ -64,4 +82,4 @@ const GlobalHeader: React.FC<GlobalHeaderProps> = () => {
   );
 };
 
-export default GlobalHeader;
+export default MasterHeader;

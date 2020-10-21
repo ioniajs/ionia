@@ -1,4 +1,4 @@
-import GlobalHeader from "@/components/GlobalHeader";
+import GlobalHeader from "@/components/MasterHeader";
 import { DashboardOutlined, UserOutlined } from "@ant-design/icons";
 import ProLayout, { MenuDataItem } from "@ant-design/pro-layout";
 import { BasicLayoutProps } from "@ant-design/pro-layout/es/BasicLayout";
@@ -8,8 +8,9 @@ import React from "react";
 import CacheRoute, { CacheSwitch } from "react-router-cache-route";
 import { useHistory, useLocation } from "react-router-dom";
 import "./App.less";
+import MasterLayout from "./Layouts/MasterLayout";
 
-export interface AppProps {}
+export interface AppProps { }
 
 const defaultSettings: Partial<BasicLayoutProps> = {
   logo: false,
@@ -17,6 +18,7 @@ const defaultSettings: Partial<BasicLayoutProps> = {
   layout: "mix",
   contentWidth: "Fluid",
   navTheme: "light",
+  headerTheme: 'light',
   fixedHeader: true,
   fixSiderbar: true,
   headerHeight: 48,
@@ -68,10 +70,10 @@ const App: React.FC<AppProps> = () => {
         <SlaveApp />
       </CacheRoute>
       <CacheRoute path="/">
-        <ProLayout
+        {/* <ProLayout
           {...defaultSettings}
           className="io-layout"
-          rightContentRender={() => <GlobalHeader />}
+          headerRender={() => <GlobalHeader />}
           location={location}
           menuDataRender={() =>
             routeMaps.find((r) => location.pathname.startsWith(r.key))?.menus ??
@@ -82,7 +84,10 @@ const App: React.FC<AppProps> = () => {
           }}
         >
           <SlaveApp />
-        </ProLayout>
+        </ProLayout> */}
+        <MasterLayout>
+          <SlaveApp />
+        </MasterLayout>
       </CacheRoute>
     </CacheSwitch>
   );

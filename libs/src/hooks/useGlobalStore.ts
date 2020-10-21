@@ -8,9 +8,9 @@ interface InitialState {
   setActions: (actions: MicroAppStateActions) => void;
 }
 
-const globalStore = create<InitialState>((set) => ({
+const globalStore: any = create((set) => ({
   setState: (nextState: Record<string, any>) =>
-    set((store) => {
+    set((store: any) => {
       const state = { ...store.state, ...nextState };
       return { state };
     }),

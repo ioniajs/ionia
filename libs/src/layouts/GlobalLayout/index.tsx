@@ -1,10 +1,10 @@
+import { useGlobalStore } from "../../hooks";
 import { useMount } from "ahooks";
 import { Layout } from "antd";
 import { MicroAppStateActions } from "qiankun";
 import React from "react";
 import { ErrorBoundary } from "react-error-boundary";
 import { Auth, ErrorFallback } from "../../components";
-import { useGlobalStore } from "../../hooks";
 import "./index.less";
 
 const { AccessProvider } = Auth;
@@ -18,7 +18,6 @@ export const GlobalLayout: React.FC<GlobalLayoutProps> = ({
   globalProps,
 }) => {
   const globalStore = useGlobalStore();
-
   useMount(() => {
     if (globalProps) {
       globalStore.setActions(globalProps);
@@ -32,7 +31,7 @@ export const GlobalLayout: React.FC<GlobalLayoutProps> = ({
   return (
     <ErrorBoundary
       FallbackComponent={ErrorFallback}
-      onReset={() => {}}
+      onReset={() => { }}
       resetKeys={[]}
     >
       <AccessProvider>
