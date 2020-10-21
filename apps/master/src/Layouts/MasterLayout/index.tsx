@@ -1,5 +1,6 @@
 import MasterContent from '@/components/MasterContent';
 import MasterHeader, { MasterHeaderTheme } from '@/components/MasterHeader';
+import MasterMenu from '@/components/MasterMenu';
 import MasterNavTab from '@/components/MasterNavTab';
 import MasterSider from '@/components/MasterSider';
 import { Layout } from 'antd';
@@ -19,7 +20,9 @@ const MasterLayout = ({
         <Layout className="io-layout__master">
             <MasterHeader theme={headerTheme} />
             <Layout>
-                <MasterSider>Sider</MasterSider>
+                <MasterSider>
+                    <MasterMenu />
+                </MasterSider>
                 <Layout>
                     <MasterNavTab />
                     <MasterContent>{children}</MasterContent>

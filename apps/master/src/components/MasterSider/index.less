@@ -1,5 +1,14 @@
 .io-master__sider {
     margin: 24px;
-    padding: 8px 16px;
+    padding: 16px 8px;
     border-radius: 2px;
+    .ant-layout-sider-children {
+        overflow-y: auto;
+        -ms-overflow-style : none;
+        overflow: -moz-scrollbars-none;
+        &::-webkit-scrollbar {
+            display: none;
+        }
+    }
 } 
+

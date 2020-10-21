@@ -1,6 +1,6 @@
 import { LangSelector, useGlobalStore } from "@ionia/libs";
 import { IoniaApp } from "@ionia/libs/es/core/master-application";
-import { Menu, Switch } from "antd";
+import { Anchor, Menu, Switch } from "antd";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { useHistory, useLocation } from "react-router";
@@ -47,42 +47,43 @@ const MasterHeader: React.FC<MasterHeaderProps> = ({ theme }) => {
   const themeStyles = getThemeStyles(theme);
 
   return (
-    <div className="io-master__header" style={themeStyles}>
-      <div className="io-master__title">
-        <h1 className="logo">JEECMS</h1>
-        <i className="collapse">=</i>
-      </div>
-      <div className="io-master__header-left">
-        <Menu
-          mode="horizontal"
-          theme="light"
-          selectedKeys={selectedKey ? [selectedKey.key] : []}
-        >
-          {routes.map((r) => (
-            <Menu.Item
+    <Anchor className="io-master__anchor">
+      <div className="io-master__header" style={themeStyles}>
+        <div className="io-master__title">
+          <h1 className="logo">JEECMS</h1>
+          <i className="collapse">=</i>
+        </div>
+        <div className="io-master__header-left">
+          {routes.map(r =>
+            <span
               key={r.key}
-              onClick={(e) => {
-                if (selectedKey?.key === e.key) return;
-                history.push(e.key.toString());
+              className={`io-master__header--item ${selectedKey?.key === r.key ? 'active' : ''}`}
+              onClick={() => {
+                if (selectedKey?.key === r.key) return;
+                history.push(r.key.toString());
               }}
             >
-              {r.name}
-            </Menu.Item>
-          ))}
-        </Menu>
+              <span className="text">{r.name}</span>
+              <span className="text-bottom-line" />
+            </span>
+          )}
+        </div>
+        <div className="io-master__header-right">
+          <span className="io-master__header--item">
+            <Switch checkedChildren="LTR" unCheckedChildren="RTL" />
+          </span>
+          <span className="io-master__header--item">
+            <AvatarDropdown />
+          </span>
+          <span className="io-master__header--item">
+            <LangSelector />
+          </span>
+          <span className="io-master__header--item">
+            <span className="text">JEECMS演示站</span>
+          </span>
+        </div>
       </div>
-      <div className="io-master__header-right">
-        <span className="io-master__header--item">
-          <Switch checkedChildren="LTR" unCheckedChildren="RTL" />
-        </span>
-        <span className="io-master__header--item">
-          <AvatarDropdown />
-        </span>
-        <span className="io-master__header--item">
-          <LangSelector />
-        </span>
-      </div>
-    </div>
+    </Anchor>
   );
 };
 
