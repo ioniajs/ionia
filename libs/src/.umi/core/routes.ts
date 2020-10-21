@@ -257,7 +257,7 @@ export function getRoutes() {
         "exact": true,
         "meta": {
           "filePath": "docs/architecture/mock.md",
-          "updatedTime": 1603241224000,
+          "updatedTime": 1603242137000,
           "title": "接口模拟",
           "group": {
             "title": "基础架构",
@@ -353,7 +353,7 @@ export function getRoutes() {
         "exact": true,
         "meta": {
           "filePath": "docs/architecture/request.md",
-          "updatedTime": 1601452603000,
+          "updatedTime": 1603251203000,
           "title": "网络请求",
           "group": {
             "title": "基础架构",
@@ -365,6 +365,61 @@ export function getRoutes() {
               "depth": 1,
               "value": "网络请求",
               "heading": "网络请求"
+            },
+            {
+              "depth": 2,
+              "value": "umi请求介绍",
+              "heading": "umi请求介绍"
+            },
+            {
+              "depth": 2,
+              "value": "安装",
+              "heading": "安装"
+            },
+            {
+              "depth": 2,
+              "value": "示例",
+              "heading": "示例"
+            },
+            {
+              "depth": 3,
+              "value": "执行get请求",
+              "heading": "执行get请求"
+            },
+            {
+              "depth": 3,
+              "value": "执行post请求",
+              "heading": "执行post请求"
+            },
+            {
+              "depth": 3,
+              "value": "创建一个实例",
+              "heading": "创建一个实例"
+            },
+            {
+              "depth": 2,
+              "value": "响应模式",
+              "heading": "响应模式"
+            },
+            {
+              "depth": 3,
+              "value": "当options.getResponse === false时，响应模式将为'data'",
+              "heading": "当optionsgetresponse--false时，响应模式将为data"
+            },
+            {
+              "depth": 3,
+              "value": "当options.getResponse === true时，响应模式为{data，response}",
+              "heading": "当optionsgetresponse--true时，响应模式为data，response"
+            },
+            {
+              "depth": 2,
+              "value": "错误处理",
+              "heading": "错误处理"
+            },
+            {
+              "depth": 2,
+              "value": "详细文档",
+              "heading": "详细文档"
             }
           ]
         },
