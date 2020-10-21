@@ -269,6 +269,71 @@ export function getRoutes() {
               "depth": 1,
               "value": "接口模拟",
               "heading": "接口模拟"
+            },
+            {
+              "depth": 2,
+              "value": "msw介绍",
+              "heading": "msw介绍"
+            },
+            {
+              "depth": 2,
+              "value": "msw的工作原理",
+              "heading": "msw的工作原理"
+            },
+            {
+              "depth": 2,
+              "value": "msw安装",
+              "heading": "msw安装"
+            },
+            {
+              "depth": 2,
+              "value": "模拟REST API",
+              "heading": "模拟rest-api"
+            },
+            {
+              "depth": 3,
+              "value": "请求处理程序",
+              "heading": "请求处理程序"
+            },
+            {
+              "depth": 3,
+              "value": "响应解析器",
+              "heading": "响应解析器"
+            },
+            {
+              "depth": 2,
+              "value": "模拟GraphQL API",
+              "heading": "模拟graphql-api"
+            },
+            {
+              "depth": 3,
+              "value": "请求处理程序",
+              "heading": "请求处理程序-1"
+            },
+            {
+              "depth": 3,
+              "value": "响应解析器",
+              "heading": "响应解析器-1"
+            },
+            {
+              "depth": 2,
+              "value": "Mock介绍",
+              "heading": "mock介绍"
+            },
+            {
+              "depth": 3,
+              "value": "Mock规则",
+              "heading": "mock规则"
+            },
+            {
+              "depth": 3,
+              "value": "生成的Mock数据",
+              "heading": "生成的mock数据"
+            },
+            {
+              "depth": 2,
+              "value": "相关文档",
+              "heading": "相关文档"
             }
           ]
         },
