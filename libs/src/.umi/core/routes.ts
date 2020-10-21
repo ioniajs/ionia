@@ -58,7 +58,7 @@ export function getRoutes() {
         "exact": true,
         "meta": {
           "filePath": "docs/rely.md",
-          "updatedTime": 1603160881000,
+          "updatedTime": 1603182077000,
           "title": "开发环境搭建",
           "order": 1,
           "slugs": [

@@ -77,6 +77,12 @@ $ git push --set-upstream origin [分支名]
 
 第三步：在github上发起合并分支请求。
 
+![GitFlow](./pr.png)
+
+点击 Compare & pull request ,选择审核人，点击提交。
+
+![GitFlow](./person.png)
+
 ## 下载Cmder终端
 
 访问 https://cmder.net/
