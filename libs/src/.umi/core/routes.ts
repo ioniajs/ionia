@@ -257,7 +257,7 @@ export function getRoutes() {
         "exact": true,
         "meta": {
           "filePath": "docs/architecture/mock.md",
-          "updatedTime": 1603241224000,
+          "updatedTime": 1603242137000,
           "title": "接口模拟",
           "group": {
             "title": "基础架构",
@@ -353,7 +353,7 @@ export function getRoutes() {
         "exact": true,
         "meta": {
           "filePath": "docs/architecture/request.md",
-          "updatedTime": 1601452603000,
+          "updatedTime": 1603251203000,
           "title": "网络请求",
           "group": {
             "title": "基础架构",
