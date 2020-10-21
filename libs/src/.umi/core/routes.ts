@@ -58,7 +58,7 @@ export function getRoutes() {
         "exact": true,
         "meta": {
           "filePath": "docs/rely.md",
-          "updatedTime": 1603160881000,
+          "updatedTime": 1603182077000,
           "title": "开发环境搭建",
           "order": 1,
           "slugs": [
@@ -257,7 +257,7 @@ export function getRoutes() {
         "exact": true,
         "meta": {
           "filePath": "docs/architecture/mock.md",
-          "updatedTime": 1603241224000,
+          "updatedTime": 1603242137000,
           "title": "接口模拟",
           "group": {
             "title": "基础架构",
