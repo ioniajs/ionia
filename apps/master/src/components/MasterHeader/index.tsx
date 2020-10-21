@@ -48,6 +48,10 @@ const MasterHeader: React.FC<MasterHeaderProps> = ({ theme }) => {
 
   return (
     <div className="io-master__header" style={themeStyles}>
+      <div className="io-master__title">
+        <h1 className="logo">JEECMS</h1>
+        <i className="collapse">=</i>
+      </div>
       <div className="io-master__header-left">
         <Menu
           mode="horizontal"
