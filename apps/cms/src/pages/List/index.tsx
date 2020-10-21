@@ -1,6 +1,6 @@
 import { Hero } from "@/models";
 import { PlusOutlined } from "@ant-design/icons";
-import { PageContainer } from "@ant-design/pro-layout";
+import { PageContainer } from "@ionia/libs";
 import ProTable, { ProColumns } from "@ant-design/pro-table";
 import { Button, Result } from "antd";
 import React, { useEffect, useState } from "react";
@@ -79,7 +79,7 @@ export default () => {
   }, []);
 
   return (
-    <PageContainer pageHeaderRender={() => null}>
+    <PageContainer>
       <ProTable<Hero>
         columns={columns}
         rowKey="key"
