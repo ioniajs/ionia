@@ -97,24 +97,6 @@ ctx，一组有助于在模拟响应中设置状态代码，标头，数据等�
 
 ![GitFlow](./mock-img/response4.png)
 
-## Mock介绍
-
-Mock是一个高效、易用、功能强大的API管理平台，旨在为开发、产品、测试人员提供更优雅的接口管理服务。基于yapi二次开发，引入友互通单点登录，文档参考yapi官方文档即可。
-
-### Mock规则
-
-通过学习一些简单的 Mock 模板规则即可轻松编写接口，这将大大提高定义接口的效率，并且无需为编写 Mock 数据烦恼: 所有的数据都可以实时随机生成。
-
-![GitFlow](./mock-img/rule.png)
-
-### 生成的Mock数据
-
-生成的 Mock 数据可以直接用 ajax 请求使用，也可以通过服务器代理使用（不需要修改项目一行代码）。
-
-![GitFlow](./mock-img/data.png)
-
 ## 相关文档
 
-msw： https://github.com/mswjs/msw
-
-Yapi官方文档： https://hellosean1025.github.io/yapi/documents/index.html
+访问  https://github.com/mswjs/msw

@@ -257,7 +257,7 @@ export function getRoutes() {
         "exact": true,
         "meta": {
           "filePath": "docs/architecture/mock.md",
-          "updatedTime": 1601452603000,
+          "updatedTime": 1603241224000,
           "title": "接口模拟",
           "group": {
             "title": "基础架构",
@@ -314,21 +314,6 @@ export function getRoutes() {
               "depth": 3,
               "value": "响应解析器",
               "heading": "响应解析器-1"
-            },
-            {
-              "depth": 2,
-              "value": "Mock介绍",
-              "heading": "mock介绍"
-            },
-            {
-              "depth": 3,
-              "value": "Mock规则",
-              "heading": "mock规则"
-            },
-            {
-              "depth": 3,
-              "value": "生成的Mock数据",
-              "heading": "生成的mock数据"
             },
             {
               "depth": 2,
