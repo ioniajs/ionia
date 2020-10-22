@@ -257,7 +257,7 @@ export function getRoutes() {
         "exact": true,
         "meta": {
           "filePath": "docs/architecture/mock.md",
-          "updatedTime": 1603242137000,
+          "updatedTime": 1603258854000,
           "title": "接口模拟",
           "group": {
             "title": "基础架构",
@@ -512,6 +512,76 @@ export function getRoutes() {
               "depth": 1,
               "value": "参数校验",
               "heading": "参数校验"
+            },
+            {
+              "depth": 2,
+              "value": "class-transformer",
+              "heading": "class-transformer"
+            },
+            {
+              "depth": 3,
+              "value": "class-transformer是什么？",
+              "heading": "class-transformer是什么？"
+            },
+            {
+              "depth": 3,
+              "value": "安装步骤",
+              "heading": "安装步骤"
+            },
+            {
+              "depth": 3,
+              "value": "方法",
+              "heading": "方法"
+            },
+            {
+              "depth": 2,
+              "value": "class-validator",
+              "heading": "class-validator"
+            },
+            {
+              "depth": 3,
+              "value": "背景和介绍",
+              "heading": "背景和介绍"
+            },
+            {
+              "depth": 3,
+              "value": "安装",
+              "heading": "安装"
+            },
+            {
+              "depth": 3,
+              "value": "方法",
+              "heading": "方法-1"
+            },
+            {
+              "depth": 2,
+              "value": "class-transformer-validator",
+              "heading": "class-transformer-validator"
+            },
+            {
+              "depth": 3,
+              "value": "class-transformer-validator介绍",
+              "heading": "class-transformer-validator介绍"
+            },
+            {
+              "depth": 3,
+              "value": "安装",
+              "heading": "安装-1"
+            },
+            {
+              "depth": 3,
+              "value": "用法",
+              "heading": "用法"
+            },
+            {
+              "depth": 3,
+              "value": "API参考",
+              "heading": "api参考"
+            },
+            {
+              "depth": 3,
+              "value": "参数和类型",
+              "heading": "参数和类型"
             }
           ]
         },
