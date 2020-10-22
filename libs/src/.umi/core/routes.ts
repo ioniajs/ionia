@@ -200,6 +200,36 @@ export function getRoutes() {
               "depth": 1,
               "value": "异常捕获",
               "heading": "异常捕获"
+            },
+            {
+              "depth": 2,
+              "value": "错误边界介绍",
+              "heading": "错误边界介绍"
+            },
+            {
+              "depth": 2,
+              "value": "目的",
+              "heading": "目的"
+            },
+            {
+              "depth": 3,
+              "value": "注意，错误边界无法捕获以下场景中产生的错误：",
+              "heading": "注意，错误边界无法捕获以下场景中产生的错误："
+            },
+            {
+              "depth": 3,
+              "value": "用法",
+              "heading": "用法"
+            },
+            {
+              "depth": 3,
+              "value": "错误边界应该放置在哪？",
+              "heading": "错误边界应该放置在哪？"
+            },
+            {
+              "depth": 3,
+              "value": "未捕获错误（Uncaught Errors）的新行为",
+              "heading": "未捕获错误（uncaught-errors）的新行为"
             }
           ]
         },
@@ -500,7 +530,7 @@ export function getRoutes() {
         "exact": true,
         "meta": {
           "filePath": "docs/architecture/verification.md",
-          "updatedTime": 1601452603000,
+          "updatedTime": 1603337481000,
           "title": "参数校验",
           "group": {
             "title": "基础架构",
