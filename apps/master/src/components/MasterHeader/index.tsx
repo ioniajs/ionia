@@ -51,7 +51,7 @@ const MasterHeader: React.FC<MasterHeaderProps> = ({ theme }) => {
       <div className="io-master__header" style={themeStyles}>
         <div className="io-master__title">
           <h1 className="logo">JEECMS</h1>
-          <i className="collapse">=</i>
+          <i className="iconfont iconnavigation" />
         </div>
         <div className="io-master__header-left">
           {routes.map(r =>
