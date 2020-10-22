@@ -111,6 +111,7 @@ module.exports = {
       <html lang="en">
         <head>
           <meta charset="UTF-8" />
+          <link rel="stylesheet" type="text/css" href="//at.alicdn.com/t/font_2147785_md51qwol8s.css" />
         </head>
         <body>
           <div id="app" />

@@ -8,6 +8,7 @@ import React from "react";
 import CacheRoute, { CacheSwitch } from "react-router-cache-route";
 import { useHistory, useLocation } from "react-router-dom";
 import "./App.less";
+import { hot } from "react-hot-loader/root";
 import MasterLayout from "./Layouts/MasterLayout";
 
 export interface AppProps { }
@@ -93,4 +94,4 @@ const App: React.FC<AppProps> = () => {
   );
 };
 
-export default App;
+export default hot(App);
