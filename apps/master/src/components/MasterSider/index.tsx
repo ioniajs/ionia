@@ -11,7 +11,11 @@ export interface MasterSiderProps {
 
 const MasterSider = ({ children }: MasterSiderProps) => {
     return (
-        <Sider theme="light" width={216} className="io-master__sider">{children}</Sider>
+        <div className="io-master__sider-wrapper collapse">
+            <Sider theme="light" className="io-master__sider collapse" >
+                {children}
+            </Sider>
+        </div>
     );
 }
 
