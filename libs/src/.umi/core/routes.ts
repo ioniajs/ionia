@@ -623,7 +623,7 @@ export function getRoutes() {
         "exact": true,
         "meta": {
           "filePath": "docs/architecture/workspace.md",
-          "updatedTime": 1601452603000,
+          "updatedTime": 1603178470000,
           "title": "工作区",
           "group": {
             "title": "基础架构",
