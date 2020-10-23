@@ -97,6 +97,10 @@ module.exports = {
 					},
 				],
 			},
+			{
+				test: /\.(ttf|ttc|eot|woff|woff2)/,
+				use: 'file-loader',
+			}
 		],
 	},
 	resolve: {

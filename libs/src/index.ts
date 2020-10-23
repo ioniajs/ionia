@@ -1,3 +1,4 @@
+import "./global.less";
 import 'reflect-metadata';
 import loggerConfigs from './configs/logger';
 import { Logger } from './utils';

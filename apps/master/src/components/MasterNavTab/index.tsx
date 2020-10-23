@@ -6,17 +6,32 @@ export interface MasterNavTabProps {}
 const MasterNavTab = () => {
 	return (
 		<div className='io-master__nav-tab'>
-			<div className='extra'>
+			{/* <div className='extra'>
 				<i className='iconfont icon-doubleleft' />
 			</div>
 			<div className='tabs'>
-				<div className='tab'>1</div>
-				<div className='tab'>2</div>
-				<div className='tab'>3</div>
+				<NavTab active />
+				<NavTab />
+				<NavTab />
+				<NavTab />
+				<NavTab />
+				<NavTab />
+				<NavTab />
+				<NavTab />
+				<NavTab />
+				<NavTab />
+				<NavTab />
+				<NavTab />
+				<NavTab />
+				<NavTab />
+				<NavTab />
+				<NavTab />
+				<NavTab />
+				<NavTab />
 			</div>
 			<div className='extra'>
 				<i className='iconfont icon-doubleright' />
-			</div>
+			</div> */}
 		</div>
 	);
 };

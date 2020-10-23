@@ -56,9 +56,9 @@ const apps: IoniaApp<{}>[] = [
 		hideInMenu: true,
 	},
 	{
-		name: 'user',
+		name: 'cms',
 		entry: '//localhost:7003',
-		activeRule: '/user',
+		activeRule: '/cms',
 	},
 ];
 
