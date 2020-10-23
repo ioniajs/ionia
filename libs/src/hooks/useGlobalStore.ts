@@ -1,16 +1,16 @@
 import create from "zustand";
 import { MicroAppStateActions } from "qiankun";
 
-interface InitialState {
+type globalStore = {
   state?: Record<string, any>;
   actions?: MicroAppStateActions;
   setState: (state: Record<string, any>) => void;
   setActions: (actions: MicroAppStateActions) => void;
 }
 
-const globalStore: any = create((set) => ({
+const globalStore = create<globalStore>((set) => ({
   setState: (nextState: Record<string, any>) =>
-    set((store: any) => {
+    set(store => {
       const state = { ...store.state, ...nextState };
       return { state };
     }),

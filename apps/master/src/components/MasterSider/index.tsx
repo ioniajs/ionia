@@ -1,3 +1,4 @@
+import { useThemeStore } from '@ionia/libs';
 import { Layout } from 'antd';
 import React from 'react';
 
@@ -10,9 +11,14 @@ export interface MasterSiderProps {
 }
 
 const MasterSider = ({ children }: MasterSiderProps) => {
+
+    const menuStyles = useThemeStore(state => state.menuStyles);
+
     return (
-        <div className="io-master__sider-wrapper collapse">
-            <Sider theme="light" className="io-master__sider collapse" >
+        <div className={`io-master__sider-wrapper ${menuStyles.collapse ? 'collapse' : ''}`}>
+            <Sider
+                theme="light"
+                className={`io-master__sider ${menuStyles.collapse ? 'collapse' : ''}`} >
                 {children}
             </Sider>
         </div>
