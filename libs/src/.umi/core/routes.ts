@@ -257,7 +257,7 @@ export function getRoutes() {
         "exact": true,
         "meta": {
           "filePath": "docs/architecture/mock.md",
-          "updatedTime": 1603242137000,
+          "updatedTime": 1603258854000,
           "title": "接口模拟",
           "group": {
             "title": "基础架构",
@@ -272,23 +272,23 @@ export function getRoutes() {
             },
             {
               "depth": 2,
-              "value": "msw介绍",
-              "heading": "msw介绍"
+              "value": "msw 介绍",
+              "heading": "msw-介绍"
             },
             {
               "depth": 2,
-              "value": "msw的工作原理",
-              "heading": "msw的工作原理"
+              "value": "msw 的工作原理",
+              "heading": "msw-的工作原理"
             },
             {
               "depth": 2,
-              "value": "msw安装",
-              "heading": "msw安装"
+              "value": "msw 安装",
+              "heading": "msw-安装"
             },
             {
               "depth": 2,
-              "value": "模拟REST API",
-              "heading": "模拟rest-api"
+              "value": "模拟 REST API",
+              "heading": "模拟-rest-api"
             },
             {
               "depth": 3,
@@ -302,8 +302,8 @@ export function getRoutes() {
             },
             {
               "depth": 2,
-              "value": "模拟GraphQL API",
-              "heading": "模拟graphql-api"
+              "value": "模拟 GraphQL API",
+              "heading": "模拟-graphql-api"
             },
             {
               "depth": 3,
