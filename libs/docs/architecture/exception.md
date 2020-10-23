@@ -15,7 +15,7 @@ order: 10
 
 ## 目的
 
-在某些ui崩溃的时候，不至于整个webapp崩溃。
+在某些 UI 崩溃的时候，不至于整个 Webapp 崩溃。
 
 ### 注意，错误边界无法捕获以下场景中产生的错误：
 
@@ -31,7 +31,7 @@ order: 10
 
 如果一个 class 组件中定义了 static getDerivedStateFromError() 或 componentDidCatch() 这两个生命周期方法中的任意一个（或两个）时，那么它就变成一个错误边界。
 
-当抛出错误后，请使用 static getDerivedStateFromError() 渲染备用 UI ，使用 componentDidCatch() 打印错误信息。
+当抛出错误后，请使用 static getDerivedStateFromError() 渲染备用 UI，使用 componentDidCatch() 打印错误信息。
 
 ```js
 class ErrorBoundary extends React.Component {
