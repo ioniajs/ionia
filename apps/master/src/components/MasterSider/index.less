@@ -4,8 +4,10 @@
     @slider-collapse-width: 62px !important;
     display: flex;
     position: relative;
-    width: calc(@slider-width + @wrapper-margin * 2);    
-    .io-master__sider {        
+    width: calc(@slider-width + (@wrapper-margin * 2));    
+    .io-master__sider {    
+        min-width: @slider-width;
+        max-width: @slider-width;    
         margin: @wrapper-margin; 
         padding: 16px 8px;
         border-radius: 2px;
@@ -41,6 +43,6 @@
         }
     }
     &.collapse {
-        width: calc(@slider-collapse-width + @wrapper-margin * 2);    
+        width: calc(@slider-collapse-width + (@wrapper-margin * 2));    
     }
 }
