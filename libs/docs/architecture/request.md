@@ -7,9 +7,9 @@ order: 5
 
 # 网络请求
 
-## umi请求介绍
+## umi-request 介绍
 
-网络请求库基于fetch封装，结合了fetch和axios的功能，为开发人员提供了统一的api调用方法，简化了用法，并提供了诸如缓存，超时，字符编码处理和错误处理之类的常用功能。
+网络请求库基于 fetch 封装，结合了 fetch 和 axios 的功能，为开发人员提供了统一的 api 调用方法，简化了用法，并提供了诸如缓存、超时、字符编码处理和错误处理之类的常用功能。
 
 ## 安装
 
@@ -17,7 +17,7 @@ $ npm install --save umi-request
 
 ## 示例
 
-### 执行get请求
+### 执行 get 请求
 
 ```js
 import request from 'umi-request';
@@ -45,7 +45,7 @@ request
   });
 ```
 
-### 执行post请求
+### 执行 post 请求
 
 ```js
 request
@@ -85,7 +85,7 @@ request
   });
 ```
 
-umi-request封装使用简单案例：  http://www.siyuweb.com/javascript/3649.html
+umi-request 封装使用简单案例：  http://www.siyuweb.com/javascript/3649.html
 
 参数详细介绍请阅读文档：  https://github.com/umijs/umi-request#readme
 
@@ -96,21 +96,21 @@ umi-request封装使用简单案例：  http://www.siyuweb.com/javascript/3649.h
 ```js
 { 
   //'data'是服务器
-  数据提供的响应：{ } ，
+  数据提供的响应：{ }，
 
   //'status'是来自服务器响应
-  状态的HTTP状态代码：200 ，
+  状态的HTTP状态代码：200，
 
   //'statusText'是
-  来自服务器响应状态的HTTP状态消息服务器响应statusText：'OK' ，
+  来自服务器响应状态的HTTP状态消息服务器响应statusText：'OK'，
 
   //'headers'服务器响应的标头
   //所有标头名称均为小写
-  标头：{ } ，
+  标头：{ }，
 }
 ```
 
-### 当options.getResponse === false时，响应模式将为'data'
+### 当 options.getResponse === false 时，响应模式将为 'data'
 
 ```js
 request.get('/api/v1/xxx', { getResponse: false }).then(function(data) {
@@ -118,7 +118,7 @@ request.get('/api/v1/xxx', { getResponse: false }).then(function(data) {
 });
 ```
 
-### 当options.getResponse === true时，响应模式为{data，response}
+### 当 options.getResponse === true 时，响应模式为 '{data，response}'
 
 ```js
 request.get('/api/v1/xxx', { getResponse: true }).then(function({ data, response }) {
@@ -129,7 +129,7 @@ request.get('/api/v1/xxx', { getResponse: true }).then(function({ data, response
 });
 ```
 
-可以从errorerrorHandler或request.catch中的对象获取响应。
+可以从 errorerrorHandler 或 request.catch 中的对象获取响应。
 
 ## 错误处理
 
