@@ -58,7 +58,7 @@ export function getRoutes() {
         "exact": true,
         "meta": {
           "filePath": "docs/rely.md",
-          "updatedTime": 1603182077000,
+          "updatedTime": 1603243694000,
           "title": "开发环境搭建",
           "order": 1,
           "slugs": [
@@ -383,7 +383,7 @@ export function getRoutes() {
         "exact": true,
         "meta": {
           "filePath": "docs/architecture/request.md",
-          "updatedTime": 1603251203000,
+          "updatedTime": 1603256906000,
           "title": "网络请求",
           "group": {
             "title": "基础架构",
@@ -398,8 +398,8 @@ export function getRoutes() {
             },
             {
               "depth": 2,
-              "value": "umi请求介绍",
-              "heading": "umi请求介绍"
+              "value": "umi-request 介绍",
+              "heading": "umi-request-介绍"
             },
             {
               "depth": 2,
@@ -413,13 +413,13 @@ export function getRoutes() {
             },
             {
               "depth": 3,
-              "value": "执行get请求",
-              "heading": "执行get请求"
+              "value": "执行 get 请求",
+              "heading": "执行-get-请求"
             },
             {
               "depth": 3,
-              "value": "执行post请求",
-              "heading": "执行post请求"
+              "value": "执行 post 请求",
+              "heading": "执行-post-请求"
             },
             {
               "depth": 3,
@@ -433,13 +433,13 @@ export function getRoutes() {
             },
             {
               "depth": 3,
-              "value": "当options.getResponse === false时，响应模式将为'data'",
-              "heading": "当optionsgetresponse--false时，响应模式将为data"
+              "value": "当 options.getResponse === false 时，响应模式将为 'data'",
+              "heading": "当-optionsgetresponse--false-时，响应模式将为-data"
             },
             {
               "depth": 3,
-              "value": "当options.getResponse === true时，响应模式为{data，response}",
-              "heading": "当optionsgetresponse--true时，响应模式为data，response"
+              "value": "当 options.getResponse === true 时，响应模式为 '{data，response}'",
+              "heading": "当-optionsgetresponse--true-时，响应模式为-data，response"
             },
             {
               "depth": 2,
