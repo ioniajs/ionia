@@ -1,1 +1,1 @@
-export * from "./GlobalLayout";
+export * from './GlobalLayout';

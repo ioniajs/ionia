@@ -1,7 +1,7 @@
 ---
 title: TypeScript 规范
 group:
-  title: 开发规范
+    title: 开发规范
 order: 3
 ---
 
@@ -105,9 +105,9 @@ order: 3
 ```js
 // condition
 function test(fruit) {
-  if (fruit == "apple" || fruit == "strawberry") {
-    console.log("red");
-  }
+	if (fruit == 'apple' || fruit == 'strawberry') {
+		console.log('red');
+	}
 }
 ```
 
@@ -117,11 +117,11 @@ function test(fruit) {
 
 ```js
 function test(fruit) {
-  const redFruits = ["apple", "strawberry", "cherry", "cranberries"];
+	const redFruits = ['apple', 'strawberry', 'cherry', 'cranberries'];
 
-  if (redFruits.includes(fruit)) {
-    console.log("red");
-  }
+	if (redFruits.includes(fruit)) {
+		console.log('red');
+	}
 }
 ```
 
@@ -131,39 +131,39 @@ function test(fruit) {
 
 让我们拓展上一个例子让它包含两个条件。
 
-- 如果没有传入参数 fruit，抛出错误
-- 接受 quantity 参数，并且在 quantity 大于 10 时打印出来
+-   如果没有传入参数 fruit，抛出错误
+-   接受 quantity 参数，并且在 quantity 大于 10 时打印出来
 
 ```js
 function test(fruit, quantity) {
-  const redFruits = ["apple", "strawberry", "cherry", "cranberries"];
+	const redFruits = ['apple', 'strawberry', 'cherry', 'cranberries'];
 
-  // 条件 1: fruit 必须有值
-  if (fruit) {
-    // 条件 2: 必须是red的
-    if (redFruits.includes(fruit)) {
-      console.log("red");
+	// 条件 1: fruit 必须有值
+	if (fruit) {
+		// 条件 2: 必须是red的
+		if (redFruits.includes(fruit)) {
+			console.log('red');
 
-      // 条件 3: quantity大于10
-      if (quantity > 10) {
-        console.log("big quantity");
-      }
-    }
-  } else {
-    throw new Error("No fruit!");
-  }
+			// 条件 3: quantity大于10
+			if (quantity > 10) {
+				console.log('big quantity');
+			}
+		}
+	} else {
+		throw new Error('No fruit!');
+	}
 }
 
 // 测试结果
 test(null); // error: No fruits
-test("apple"); // print: red
-test("apple", 20); // print: red, big quantity
+test('apple'); // print: red
+test('apple', 20); // print: red, big quantity
 ```
 
 在上面的代码, 我们有:
 
-- 1 个 if/else 语句筛选出无效的语句
-- 3 层 if 嵌套语句 (条件 1, 2 & 3)
+-   1 个 if/else 语句筛选出无效的语句
+-   3 层 if 嵌套语句 (条件 1, 2 & 3)
 
 我个人遵循的规则一般是在发现无效条件时，**尽早 Return**。
 
@@ -171,20 +171,20 @@ test("apple", 20); // print: red, big quantity
 /_ 当发现无效语句时，尽早Return _/;
 
 function test(fruit, quantity) {
-  const redFruits = ["apple", "strawberry", "cherry", "cranberries"];
+	const redFruits = ['apple', 'strawberry', 'cherry', 'cranberries'];
 
-  // 条件 1: 尽早抛出错误
-  if (!fruit) throw new Error("No fruit!");
+	// 条件 1: 尽早抛出错误
+	if (!fruit) throw new Error('No fruit!');
 
-  // 条件 2: 必须是红色的
-  if (redFruits.includes(fruit)) {
-    console.log("red");
+	// 条件 2: 必须是红色的
+	if (redFruits.includes(fruit)) {
+		console.log('red');
 
-    // 条件 3: 必须是大质量的
-    if (quantity > 10) {
-      console.log("big quantity");
-    }
-  }
+		// 条件 3: 必须是大质量的
+		if (quantity > 10) {
+			console.log('big quantity');
+		}
+	}
 }
 ```
 
@@ -196,19 +196,19 @@ function test(fruit, quantity) {
 /_ 当发现无效语句时，尽早Return _/;
 
 function test(fruit, quantity) {
-  const redFruits = ["apple", "strawberry", "cherry", "cranberries"];
+	const redFruits = ['apple', 'strawberry', 'cherry', 'cranberries'];
 
-  // 条件 1: 尽早抛出错误
-  if (!fruit) throw new Error("No fruit!");
-  // 条件 2: 当水果不是红色时停止继续执行
-  if (!redFruits.includes(fruit)) return;
+	// 条件 1: 尽早抛出错误
+	if (!fruit) throw new Error('No fruit!');
+	// 条件 2: 当水果不是红色时停止继续执行
+	if (!redFruits.includes(fruit)) return;
 
-  console.log("red");
+	console.log('red');
 
-  // 条件 3: 必须是大质量的
-  if (quantity > 10) {
-    console.log("big quantity");
-  }
+	// 条件 3: 必须是大质量的
+	if (quantity > 10) {
+		console.log('big quantity');
+	}
 }
 ```
 
@@ -218,13 +218,13 @@ function test(fruit, quantity) {
 
 但对于我，我会保留先前的版本(包含两层嵌套)。这是因为:
 
-- 代码比较短且直接，包含 if 嵌套的更清晰
-- 倒置判断条件可能加重思考的负担(增加认知载荷)
+-   代码比较短且直接，包含 if 嵌套的更清晰
+-   倒置判断条件可能加重思考的负担(增加认知载荷)
 
 因此，应当**尽力减少嵌套和尽早 return，但不要过度**。如果你感兴趣的话，可以看一下关于这个话题的一篇文章和 StackOverflow 上的讨论。
 
-- [Avoid Else, Return Early](http://blog.timoxley.com/post/47041269194/avoid-else-return-early) by Tim Oxley
-- [StackOverflow discussion](https://softwareengineering.stackexchange.com/questions/18454/should-i-return-from-a-function-early-or-use-an-if-statement) on if/else coding style
+-   [Avoid Else, Return Early](http://blog.timoxley.com/post/47041269194/avoid-else-return-early) by Tim Oxley
+-   [StackOverflow discussion](https://softwareengineering.stackexchange.com/questions/18454/should-i-return-from-a-function-early-or-use-an-if-statement) on if/else coding style
 
 ### 3. 使用默认参数和解构
 
@@ -232,30 +232,30 @@ function test(fruit, quantity) {
 
 ```js
 function test(fruit, quantity) {
-  if (!fruit) return;
-  // 如果 quantity 参数没有传入，设置默认值为 1
-  const q = quantity || 1;
+	if (!fruit) return;
+	// 如果 quantity 参数没有传入，设置默认值为 1
+	const q = quantity || 1;
 
-  console.log(`We have ${q} ${fruit}!`);
+	console.log(`We have ${q} ${fruit}!`);
 }
 
 //test results
-test("banana"); // We have 1 banana!
-test("apple", 2); // We have 2 apple!
+test('banana'); // We have 1 banana!
+test('apple', 2); // We have 2 apple!
 ```
 
 实际上，我们可以通过声明 默认函数参数 来消除变量 q。
 
 ```js
 function test(fruit, quantity = 1) {
-  // 如果 quantity 参数没有传入，设置默认值为 1
-  if (!fruit) return;
-  console.log(`We have ${quantity} ${fruit}!`);
+	// 如果 quantity 参数没有传入，设置默认值为 1
+	if (!fruit) return;
+	console.log(`We have ${quantity} ${fruit}!`);
 }
 
 //test results
-test("banana"); // We have 1 banana!
-test("apple", 2); // We have 2 apple!
+test('banana'); // We have 1 banana!
+test('apple', 2); // We have 2 apple!
 ```
 
 这更加直观，不是吗？注意，每个声明都有自己的[默认参数](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Default_parameters).
@@ -266,18 +266,18 @@ test("apple", 2); // We have 2 apple!
 
 ```js
 function test(fruit) {
-  // 当值存在时打印 fruit 的值
-  if (fruit && fruit.name) {
-    console.log(fruit.name);
-  } else {
-    console.log("unknown");
-  }
+	// 当值存在时打印 fruit 的值
+	if (fruit && fruit.name) {
+		console.log(fruit.name);
+	} else {
+		console.log('unknown');
+	}
 }
 
 //test results
 test(undefined); // unknown
 test({}); // unknown
-test({ name: "apple", color: "red" }); // apple
+test({ name: 'apple', color: 'red' }); // apple
 ```
 
 看上面这个例子，我们想打印 fruit 对象中可能存在的 name 属性。否则我们将打印 unknown。我们可以通过默认参数以及解构从而避免判断条件 `fruit && fruit.name`
@@ -286,13 +286,13 @@ test({ name: "apple", color: "red" }); // apple
 // 解构 - 仅仅获取 name 属性
 // 为其赋默认值为空对象
 function test({ name } = {}) {
-  console.log(name || "unknown");
+	console.log(name || 'unknown');
 }
 
 // test results
 test(undefined); // unknown
 test({}); // unknown
-test({ name: "apple", color: "red" }); // apple
+test({ name: 'apple', color: 'red' }); // apple
 ```
 
 由于我们只需要 `name` 属性，我们可以用 `{name}` 解构出参数，然后我们就能使用变量 `name` 代替 `fruit.name`。
@@ -301,8 +301,8 @@ test({ name: "apple", color: "red" }); // apple
 
 如果你不介意使用第三方库，这有一些方式减少 null 的检查:
 
-- 使用 [Lodash get](https://lodash.com/docs/4.17.10#get)函数
-- 使用 Facebook 开源的[idx](https://github.com/facebookincubator/idx)库(with Babeljs)
+-   使用 [Lodash get](https://lodash.com/docs/4.17.10#get)函数
+-   使用 Facebook 开源的[idx](https://github.com/facebookincubator/idx)库(with Babeljs)
 
 这是一个使用 Lodash 的例子:
 
@@ -326,35 +326,35 @@ test({ name: 'apple', color: 'red' }); // apple
 
 ```js
 function test(color) {
-  // 使用条件语句来寻找对应颜色的水果
-  switch (color) {
-    case "red":
-      return ["apple", "strawberry"];
-    case "yellow":
-      return ["banana", "pineapple"];
-    case "purple":
-      return ["grape", "plum"];
-    default:
-      return [];
-  }
+	// 使用条件语句来寻找对应颜色的水果
+	switch (color) {
+		case 'red':
+			return ['apple', 'strawberry'];
+		case 'yellow':
+			return ['banana', 'pineapple'];
+		case 'purple':
+			return ['grape', 'plum'];
+		default:
+			return [];
+	}
 }
 
 // test results
 test(null); // []
-test("yellow"); // ['banana', 'pineapple']
+test('yellow'); // ['banana', 'pineapple']
 ```
 
 上面的代码看起来没有错误，但是我找到了一些累赘。用对象遍历实现相同的结果，语法看起来更简洁:
 
 ```js
 const fruitColor = {
-  red: ["apple", "strawberry"],
-  yellow: ["banana", "pineapple"],
-  purple: ["grape", "plum"],
+	red: ['apple', 'strawberry'],
+	yellow: ['banana', 'pineapple'],
+	purple: ['grape', 'plum'],
 };
 
 function test(color) {
-  return fruitColor[color] || [];
+	return fruitColor[color] || [];
 }
 ```
 
@@ -362,12 +362,12 @@ function test(color) {
 
 ```js
 const fruitColor = new Map()
-  .set("red", ["apple", "strawberry"])
-  .set("yellow", ["banana", "pineapple"])
-  .set("purple", ["grape", "plum"]);
+	.set('red', ['apple', 'strawberry'])
+	.set('yellow', ['banana', 'pineapple'])
+	.set('purple', ['grape', 'plum']);
 
 function test(color) {
-  return fruitColor.get(color) || [];
+	return fruitColor.get(color) || [];
 }
 ```
 
@@ -383,16 +383,16 @@ Todd Motto 有一篇关于 switch 语句对比对象遍历的更深入的文章�
 
 ```js
 const fruits = [
-  { name: "apple", color: "red" },
-  { name: "strawberry", color: "red" },
-  { name: "banana", color: "yellow" },
-  { name: "pineapple", color: "yellow" },
-  { name: "grape", color: "purple" },
-  { name: "plum", color: "purple" },
+	{ name: 'apple', color: 'red' },
+	{ name: 'strawberry', color: 'red' },
+	{ name: 'banana', color: 'yellow' },
+	{ name: 'pineapple', color: 'yellow' },
+	{ name: 'grape', color: 'purple' },
+	{ name: 'plum', color: 'purple' },
 ];
 
 function test(color) {
-  return fruits.filter((f) => f.color == color);
+	return fruits.filter(f => f.color == color);
 }
 ```
 
@@ -404,21 +404,21 @@ function test(color) {
 
 ```js
 const fruits = [
-  { name: "apple", color: "red" },
-  { name: "banana", color: "yellow" },
-  { name: "grape", color: "purple" },
+	{ name: 'apple', color: 'red' },
+	{ name: 'banana', color: 'yellow' },
+	{ name: 'grape', color: 'purple' },
 ];
 
 function test() {
-  let isAllRed = true;
+	let isAllRed = true;
 
-  // 条件：所有水果都是红色
-  for (let f of fruits) {
-    if (!isAllRed) break;
-    isAllRed = f.color == "red";
-  }
+	// 条件：所有水果都是红色
+	for (let f of fruits) {
+		if (!isAllRed) break;
+		isAllRed = f.color == 'red';
+	}
 
-  console.log(isAllRed); // false
+	console.log(isAllRed); // false
 }
 ```
 
@@ -426,15 +426,15 @@ function test() {
 
 ```js
 const fruits = [
-  { name: "apple", color: "red" },
-  { name: "banana", color: "yellow" },
-  { name: "grape", color: "purple" },
+	{ name: 'apple', color: 'red' },
+	{ name: 'banana', color: 'yellow' },
+	{ name: 'grape', color: 'purple' },
 ];
 
 function test() {
-  const isAllRed = fruits.every((f) => f.color == "red");
+	const isAllRed = fruits.every(f => f.color == 'red');
 
-  console.log(isAllRed); // false
+	console.log(isAllRed); // false
 }
 ```
 
@@ -442,15 +442,15 @@ function test() {
 
 ```js
 const fruits = [
-  { name: "apple", color: "red" },
-  { name: "banana", color: "yellow" },
-  { name: "grape", color: "purple" },
+	{ name: 'apple', color: 'red' },
+	{ name: 'banana', color: 'yellow' },
+	{ name: 'grape', color: 'purple' },
 ];
 
 function test() {
-  // 条件：任何一个水果是红色
-  const isAnyRed = fruits.some((f) => f.color == "red");
+	// 条件：任何一个水果是红色
+	const isAnyRed = fruits.some(f => f.color == 'red');
 
-  console.log(isAnyRed); // true
+	console.log(isAnyRed); // true
 }
 ```

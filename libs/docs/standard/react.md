@@ -1,7 +1,7 @@
 ---
 title: React 规范
 group:
-  title: 开发规范
+    title: 开发规范
 order: 4
 ---
 
@@ -39,10 +39,10 @@ src
 
 但是这个方式会导致下面这些问题：
 
-- **主观的规则** 你不清楚什么是容器而什么是组件，这两者的差异是主观定义的。如果在你的团队里去推行，让所有的开发者能够相同地赞成和评判这两者是非常困难的。
-- **没有考虑组件的变化** 即使你决定了一个组件适用于某种特定的种类，在项目的周期内很容易发生变化，最终迫使你把它从 `components` 挪到 `containers` 目录下，反之亦然。
-- **允许两个组件使用同一个名字** 组件在应用中的命名应该是声明式且唯一的，从而避免对相同命名组件的职责产生困惑。但上面的方式为两个组件可以拥有相同命名打开了一个缺口，一个可以是容器，另一个可以是展示型组件。
-- **效率低下** 即使你在实现一个独立特性时，也不得不经常在 containers 和 components 目录下来回切换，因为一个独立特性有两种不同类型的组件是再正常不过的事情了。
+-   **主观的规则** 你不清楚什么是容器而什么是组件，这两者的差异是主观定义的。如果在你的团队里去推行，让所有的开发者能够相同地赞成和评判这两者是非常困难的。
+-   **没有考虑组件的变化** 即使你决定了一个组件适用于某种特定的种类，在项目的周期内很容易发生变化，最终迫使你把它从 `components` 挪到 `containers` 目录下，反之亦然。
+-   **允许两个组件使用同一个名字** 组件在应用中的命名应该是声明式且唯一的，从而避免对相同命名组件的职责产生困惑。但上面的方式为两个组件可以拥有相同命名打开了一个缺口，一个可以是容器，另一个可以是展示型组件。
+-   **效率低下** 即使你在实现一个独立特性时，也不得不经常在 containers 和 components 目录下来回切换，因为一个独立特性有两种不同类型的组件是再正常不过的事情了。
 
 有一种基于这种方式的变种方式，在模块的目录下保持着两个目录的分离。
 
@@ -133,17 +133,17 @@ const MyComponent = () => {};
 我最初使用 React 的时候喜欢用完整的名字来命名文件，但是这样会导致相同的部分重复太多次，同时引入时的路径太长。来看看这两种方式的区别：
 
 ```js
-import ScreensUserForm from "./screens/User/UserForm";
+import ScreensUserForm from './screens/User/UserForm';
 // vs
-import ScreensUserForm from "./screens/User/Form";
+import ScreensUserForm from './screens/User/Form';
 ```
 
 在上面的例子中，我们看不出来明显的优势。但是应用复杂度上升一点时就能够看到区别了。我们来看看下面这个我实际项目中的例子：
 
 ```js
-import MediaPlanViewChannel from "/MediaPlan/MediaPlanView/MediaPlanViewChannel.jsx";
+import MediaPlanViewChannel from '/MediaPlan/MediaPlanView/MediaPlanViewChannel.jsx';
 // vs
-import MediaPlanViewChannel from "./MediaPlan/View/Channel";
+import MediaPlanViewChannel from './MediaPlan/View/Channel';
 ```
 
 现在想象一下一个文件名中重复五到十次。
@@ -172,21 +172,21 @@ src
 Root.jsx 的代码可能像下面这样：
 
 ```js
-import React, { Component } from "react";
-import { Router } from "react-router";
-import { Redirect, Route, Switch } from "react-router-dom";
+import React, { Component } from 'react';
+import { Router } from 'react-router';
+import { Redirect, Route, Switch } from 'react-router-dom';
 
-import ScreensUserForm from "./User/Form";
-import ScreensUserList from "./User/List";
+import ScreensUserForm from './User/Form';
+import ScreensUserList from './User/List';
 
 const ScreensRoot = () => (
-  <Router>
-    <Switch>
-      <Route path="/user/list" component={ScreensUserList} />
-      <Route path="/user/create" component={ScreensUserForm} />
-      <Route path="/user/:id" component={ScreensUserForm} />
-    </Switch>
-  </Router>
+	<Router>
+		<Switch>
+			<Route path='/user/list' component={ScreensUserList} />
+			<Route path='/user/create' component={ScreensUserForm} />
+			<Route path='/user/:id' component={ScreensUserForm} />
+		</Switch>
+	</Router>
 );
 
 export default ScreensRoot;
@@ -215,14 +215,14 @@ src
 如果你对一个页面长什么样子还有疑问，看看下面的示例，它就是用户表单的页面。
 
 ```js
-import React from "react";
-import UserForm from "../../components/User/Form/Form";
+import React from 'react';
+import UserForm from '../../components/User/Form/Form';
 
 const ScreensUserForm = ({ match: { params } }) => (
-  <div>
-    <h1>{`${!params.id ? "Create" : "Update"}`} User</h1>
-    <UserForm id={params.id} />
-  </div>
+	<div>
+		<h1>{`${!params.id ? 'Create' : 'Update'}`} User</h1>
+		<UserForm id={params.id} />
+	</div>
 );
 
 export default ScreensUserForm;
@@ -249,33 +249,33 @@ src
 
 ## Basic Rules 基本规范
 
-- 每个文件只写一个模块.
-  - 但是多个[无状态模块](https://facebook.github.io/react/docs/reusable-components.html#stateless-functions)可以放在单个文件中. eslint: [`react/no-multi-comp`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/no-multi-comp.md#ignorestateless).
-- 推荐使用 JSX 语法.
-- 不要使用 `React.createElement`，除非从一个非 JSX 的文件中初始化你的 app.
+-   每个文件只写一个模块.
+    -   但是多个[无状态模块](https://facebook.github.io/react/docs/reusable-components.html#stateless-functions)可以放在单个文件中. eslint: [`react/no-multi-comp`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/no-multi-comp.md#ignorestateless).
+-   推荐使用 JSX 语法.
+-   不要使用 `React.createElement`，除非从一个非 JSX 的文件中初始化你的 app.
 
 ## 创建模块
 
 Class vs React.createClass vs stateless
 
-- 如果你的模块有内部状态或者是`refs`, 推荐使用 `class extends React.Component` 而不是 `React.createClass`.
-  eslint: [`react/prefer-es6-class`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/prefer-es6-class.md) [`react/prefer-stateless-function`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/prefer-stateless-function.md)
+-   如果你的模块有内部状态或者是`refs`, 推荐使用 `class extends React.Component` 而不是 `React.createClass`.
+    eslint: [`react/prefer-es6-class`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/prefer-es6-class.md) [`react/prefer-stateless-function`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/prefer-stateless-function.md)
 
 ```js
 // bad
 const Listing = React.createClass({
-  // ...
-  render() {
-    return <div>{this.state.hello}</div>;
-  },
+	// ...
+	render() {
+		return <div>{this.state.hello}</div>;
+	},
 });
 
 // good
 class Listing extends React.Component {
-  // ...
-  render() {
-    return <div>{this.state.hello}</div>;
-  }
+	// ...
+	render() {
+		return <div>{this.state.hello}</div>;
+	}
 }
 ```
 
@@ -284,9 +284,9 @@ class Listing extends React.Component {
 ```js
 // bad
 class Listing extends React.Component {
-  render() {
-    return <div>{this.props.hello}</div>;
-  }
+	render() {
+		return <div>{this.props.hello}</div>;
+	}
 }
 
 // bad (relying on function name inference is discouraged)
@@ -294,30 +294,30 @@ const Listing = ({ hello }) => <div>{hello}</div>;
 
 // good
 function Listing({ hello }) {
-  return <div>{hello}</div>;
+	return <div>{hello}</div>;
 }
 ```
 
 ## Mixins
 
-- [不要使用 mixins](https://facebook.github.io/react/blog/2016/07/13/mixins-considered-harmful.html).
+-   [不要使用 mixins](https://facebook.github.io/react/blog/2016/07/13/mixins-considered-harmful.html).
 
 > 为什么? Mixins 会增加隐式的依赖，导致命名冲突，并且会以雪球式增加复杂度。在大多数情况下 Mixins 可以被更好的方法替代，如：组件化，高阶组件，工具模块等。
 
 ## Naming 命名
 
-- **扩展名**: React 模块使用 `.jsx` 扩展名.
+-   **扩展名**: React 模块使用 `.jsx` 扩展名.
 
-- **文件名**: 文件名使用帕斯卡命名. 如, `ReservationCard.jsx`.
+-   **文件名**: 文件名使用帕斯卡命名. 如, `ReservationCard.jsx`.
 
-- **引用命名**: React 模块名使用帕斯卡命名，实例使用骆驼式命名. eslint: [`react/jsx-pascal-case`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-pascal-case.md)
+-   **引用命名**: React 模块名使用帕斯卡命名，实例使用骆驼式命名. eslint: [`react/jsx-pascal-case`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-pascal-case.md)
 
 ```js
 // bad
-import reservationCard from "./ReservationCard";
+import reservationCard from './ReservationCard';
 
 // good
-import ReservationCard from "./ReservationCard";
+import ReservationCard from './ReservationCard';
 
 // bad
 const ReservationItem = <ReservationCard />;
@@ -326,48 +326,48 @@ const ReservationItem = <ReservationCard />;
 const reservationItem = <ReservationCard />;
 ```
 
-- **模块命名**: 模块使用当前文件名一样的名称. 比如 `ReservationCard.jsx` 应该包含名为 `ReservationCard`的模块. 但是，如果整个文件夹是一个模块，使用 `index.js`作为入口文件，然后直接使用 `index.js` 或者文件夹名作为模块的名称:
+-   **模块命名**: 模块使用当前文件名一样的名称. 比如 `ReservationCard.jsx` 应该包含名为 `ReservationCard`的模块. 但是，如果整个文件夹是一个模块，使用 `index.js`作为入口文件，然后直接使用 `index.js` 或者文件夹名作为模块的名称:
 
 ```js
 // bad
-import Footer from "./Footer/Footer";
+import Footer from './Footer/Footer';
 
 // bad
-import Footer from "./Footer/index";
+import Footer from './Footer/index';
 
 // good
-import Footer from "./Footer";
+import Footer from './Footer';
 ```
 
-- **高阶模块命名**: 对于生成一个新的模块，其中的模块名 `displayName` 应该为高阶模块名和传入模块名的组合. 例如, 高阶模块 `withFoo()`, 当传入一个 `Bar` 模块的时候， 生成的模块名 `displayName` 应该为 `withFoo(Bar)`.
+-   **高阶模块命名**: 对于生成一个新的模块，其中的模块名 `displayName` 应该为高阶模块名和传入模块名的组合. 例如, 高阶模块 `withFoo()`, 当传入一个 `Bar` 模块的时候， 生成的模块名 `displayName` 应该为 `withFoo(Bar)`.
 
-  > 为什么？一个模块的 `displayName` 可能会在开发者工具或者错误信息中使用到，因此有一个能清楚的表达这层关系的值能帮助我们更好的理解模块发生了什么，更好的 Debug.
+    > 为什么？一个模块的 `displayName` 可能会在开发者工具或者错误信息中使用到，因此有一个能清楚的表达这层关系的值能帮助我们更好的理解模块发生了什么，更好的 Debug.
 
 ```js
 // bad
 export default function withFoo(WrappedComponent) {
-  return function WithFoo(props) {
-    return <WrappedComponent {...props} foo />;
-  };
+	return function WithFoo(props) {
+		return <WrappedComponent {...props} foo />;
+	};
 }
 
 // good
 export default function withFoo(WrappedComponent) {
-  function WithFoo(props) {
-    return <WrappedComponent {...props} foo />;
-  }
+	function WithFoo(props) {
+		return <WrappedComponent {...props} foo />;
+	}
 
-  const wrappedComponentName =
-    WrappedComponent.displayName || WrappedComponent.name || "Component";
+	const wrappedComponentName =
+		WrappedComponent.displayName || WrappedComponent.name || 'Component';
 
-  WithFoo.displayName = `withFoo(${wrappedComponentName})`;
-  return WithFoo;
+	WithFoo.displayName = `withFoo(${wrappedComponentName})`;
+	return WithFoo;
 }
 ```
 
-- **属性命名**: 避免使用 DOM 相关的属性来用作其他的用途。
+-   **属性命名**: 避免使用 DOM 相关的属性来用作其他的用途。
 
-  > 为什么？对于`style` 和 `className`这样的属性名，我们都会默认它们代表一些特殊的含义，如元素的样式，CSS class 的名称。在你的应用中使用这些属性来表示其他的含义会使你的代码更难阅读，更难维护，并且可能会引起 bug。
+    > 为什么？对于`style` 和 `className`这样的属性名，我们都会默认它们代表一些特殊的含义，如元素的样式，CSS class 的名称。在你的应用中使用这些属性来表示其他的含义会使你的代码更难阅读，更难维护，并且可能会引起 bug。
 
 ```js
   // bad
@@ -379,13 +379,13 @@ export default function withFoo(WrappedComponent) {
 
 ## Declaration 声明模块
 
-- 不要使用 `displayName` 来命名 React 模块，而是使用引用来命名模块， 如 class 名称.
+-   不要使用 `displayName` 来命名 React 模块，而是使用引用来命名模块， 如 class 名称.
 
 ```js
 // bad
 export default React.createClass({
-  displayName: "ReservationCard",
-  // stuff goes here
+	displayName: 'ReservationCard',
+	// stuff goes here
 });
 
 // good
@@ -394,7 +394,7 @@ export default class ReservationCard extends React.Component {}
 
 ## Alignment 代码对齐
 
-- 遵循以下的 JSX 语法缩进/格式. eslint: [`react/jsx-closing-bracket-location`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-closing-bracket-location.md) [`react/jsx-closing-tag-location`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-closing-tag-location.md)
+-   遵循以下的 JSX 语法缩进/格式. eslint: [`react/jsx-closing-bracket-location`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-closing-bracket-location.md) [`react/jsx-closing-tag-location`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-closing-tag-location.md)
 
 ```js
   // bad
@@ -421,9 +421,9 @@ export default class ReservationCard extends React.Component {}
 
 ## Quotes 单引号还是双引号
 
-- 对于 JSX 属性值总是使用双引号(`"`), 其他均使用单引号(`'`). eslint: [`jsx-quotes`](http://eslint.org/docs/rules/jsx-quotes)
+-   对于 JSX 属性值总是使用双引号(`"`), 其他均使用单引号(`'`). eslint: [`jsx-quotes`](http://eslint.org/docs/rules/jsx-quotes)
 
-  > 为什么? HTML 属性也是用双引号, 因此 JSX 的属性也遵循此约定.
+    > 为什么? HTML 属性也是用双引号, 因此 JSX 的属性也遵循此约定.
 
 ```js
   // bad
@@ -441,7 +441,7 @@ export default class ReservationCard extends React.Component {}
 
 ## Spacing 空格
 
-- 总是在自动关闭的标签前加一个空格，正常情况下也不需要换行. eslint: [`no-multi-spaces`](http://eslint.org/docs/rules/no-multi-spaces), [`react/jsx-tag-spacing`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-tag-spacing.md)
+-   总是在自动关闭的标签前加一个空格，正常情况下也不需要换行. eslint: [`no-multi-spaces`](http://eslint.org/docs/rules/no-multi-spaces), [`react/jsx-tag-spacing`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-tag-spacing.md)
 
 ```js
   // bad
@@ -458,7 +458,7 @@ export default class ReservationCard extends React.Component {}
   <Foo />
 ```
 
-- 不要在 JSX `{}` 引用括号里两边加空格. eslint: [`react/jsx-curly-spacing`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-curly-spacing.md)
+-   不要在 JSX `{}` 引用括号里两边加空格. eslint: [`react/jsx-curly-spacing`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-curly-spacing.md)
 
 ```js
   // bad
@@ -470,7 +470,7 @@ export default class ReservationCard extends React.Component {}
 
 ## Props 属性
 
-- JSX 属性名使用骆驼式风格`camelCase`.
+-   JSX 属性名使用骆驼式风格`camelCase`.
 
 ```js
   // bad
@@ -486,7 +486,7 @@ export default class ReservationCard extends React.Component {}
   />
 ```
 
-- 如果属性值为 `true`, 可以直接省略. eslint: [`react/jsx-boolean-value`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-boolean-value.md)
+-   如果属性值为 `true`, 可以直接省略. eslint: [`react/jsx-boolean-value`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-boolean-value.md)
 
 ```js
   // bad
@@ -503,7 +503,7 @@ export default class ReservationCard extends React.Component {}
   <Foo hidden />
 ```
 
-- `<img>` 标签总是添加 `alt` 属性. 如果图片以 presentation(感觉是以类似 PPT 方式显示?)方式显示，`alt` 可为空, 或者`<img>` 要包含`role="presentation"`. eslint: [`jsx-a11y/alt-text`](https://github.com/evcohen/eslint-plugin-jsx-a11y/blob/master/docs/rules/alt-text.md)
+-   `<img>` 标签总是添加 `alt` 属性. 如果图片以 presentation(感觉是以类似 PPT 方式显示?)方式显示，`alt` 可为空, 或者`<img>` 要包含`role="presentation"`. eslint: [`jsx-a11y/alt-text`](https://github.com/evcohen/eslint-plugin-jsx-a11y/blob/master/docs/rules/alt-text.md)
 
 ```js
   // bad
@@ -519,9 +519,9 @@ export default class ReservationCard extends React.Component {}
   <img src="hello.jpg" role="presentation" />
 ```
 
-- 不要在 `alt` 值里使用如 "image", "photo", or "picture"包括图片含义这样的词， 中文也一样. eslint: [`jsx-a11y/img-redundant-alt`](https://github.com/evcohen/eslint-plugin-jsx-a11y/blob/master/docs/rules/img-redundant-alt.md)
+-   不要在 `alt` 值里使用如 "image", "photo", or "picture"包括图片含义这样的词， 中文也一样. eslint: [`jsx-a11y/img-redundant-alt`](https://github.com/evcohen/eslint-plugin-jsx-a11y/blob/master/docs/rules/img-redundant-alt.md)
 
-  > 为什么? 屏幕助读器已经把 `img` 标签标注为图片了, 所以没有必要再在 `alt` 里说明了.
+    > 为什么? 屏幕助读器已经把 `img` 标签标注为图片了, 所以没有必要再在 `alt` 里说明了.
 
 ```js
   // bad
@@ -531,7 +531,7 @@ export default class ReservationCard extends React.Component {}
   <img src="hello.jpg" alt="Me waving hello" />
 ```
 
-- 使用有效正确的 aria `role`属性值 [ARIA roles](https://www.w3.org/TR/wai-aria/roles#usage_intro). eslint: [`jsx-a11y/aria-role`](https://github.com/evcohen/eslint-plugin-jsx-a11y/blob/master/docs/rules/aria-role.md)
+-   使用有效正确的 aria `role`属性值 [ARIA roles](https://www.w3.org/TR/wai-aria/roles#usage_intro). eslint: [`jsx-a11y/aria-role`](https://github.com/evcohen/eslint-plugin-jsx-a11y/blob/master/docs/rules/aria-role.md)
 
 ```js
   // bad - not an ARIA role
@@ -544,7 +544,7 @@ export default class ReservationCard extends React.Component {}
   <div role="button" />
 ```
 
-- 不要在标签上使用 `accessKey` 属性. eslint: [`jsx-a11y/no-access-key`](https://github.com/evcohen/eslint-plugin-jsx-a11y/blob/master/docs/rules/no-access-key.md)
+-   不要在标签上使用 `accessKey` 属性. eslint: [`jsx-a11y/no-access-key`](https://github.com/evcohen/eslint-plugin-jsx-a11y/blob/master/docs/rules/no-access-key.md)
 
 > 为什么? 屏幕助读器在键盘快捷键与键盘命令时造成的不统一性会导致阅读性更加复杂.
 
@@ -556,69 +556,69 @@ export default class ReservationCard extends React.Component {}
 <div />
 ```
 
-- 避免使用数组的 index 来作为属性`key`的值，推荐使用唯一 ID. ([为什么?](https://medium.com/@robinpokorny/index-as-a-key-is-an-anti-pattern-e0349aece318))
+-   避免使用数组的 index 来作为属性`key`的值，推荐使用唯一 ID. ([为什么?](https://medium.com/@robinpokorny/index-as-a-key-is-an-anti-pattern-e0349aece318))
 
 ```js
 // bad
 {
-  todos.map((todo, index) => <Todo {...todo} key={index} />);
+	todos.map((todo, index) => <Todo {...todo} key={index} />);
 }
 
 // good
 {
-  todos.map((todo) => <Todo {...todo} key={todo.id} />);
+	todos.map(todo => <Todo {...todo} key={todo.id} />);
 }
 ```
 
-- 对于所有非必须的属性，总是手动去定义`defaultProps`属性.
+-   对于所有非必须的属性，总是手动去定义`defaultProps`属性.
 
 > 为什么? propTypes 可以作为模块的文档说明, 并且声明 defaultProps 的话意味着阅读代码的人不需要去假设一些默认值。更重要的是, 显示的声明默认属性可以让你的模块跳过属性类型的检查.
 
 ```js
 // bad
 function SFC({ foo, bar, children }) {
-  return (
-    <div>
-      {foo}
-      {bar}
-      {children}
-    </div>
-  );
+	return (
+		<div>
+			{foo}
+			{bar}
+			{children}
+		</div>
+	);
 }
 SFC.propTypes = {
-  foo: PropTypes.number.isRequired,
-  bar: PropTypes.string,
-  children: PropTypes.node,
+	foo: PropTypes.number.isRequired,
+	bar: PropTypes.string,
+	children: PropTypes.node,
 };
 
 // good
 function SFC({ foo, bar, children }) {
-  return (
-    <div>
-      {foo}
-      {bar}
-      {children}
-    </div>
-  );
+	return (
+		<div>
+			{foo}
+			{bar}
+			{children}
+		</div>
+	);
 }
 SFC.propTypes = {
-  foo: PropTypes.number.isRequired,
-  bar: PropTypes.string,
-  children: PropTypes.node,
+	foo: PropTypes.number.isRequired,
+	bar: PropTypes.string,
+	children: PropTypes.node,
 };
 SFC.defaultProps = {
-  bar: "",
-  children: null,
+	bar: '',
+	children: null,
 };
 ```
 
-- 尽可能少地使用扩展运算符
+-   尽可能少地使用扩展运算符
 
 > 为什么? 除非你很想传递一些不必要的属性。对于 React v15.6.1 和更早的版本，你可以[给 DOM 传递一些无效的 HTML 属性](https://doc.react-china.org/blog/2017/09/08/dom-attributes-in-react-16.html)
 
 例外情况:
 
-- 使用了变量提升的高阶组件
+-   使用了变量提升的高阶组件
 
 ```js
 function HOC(WrappedComponent) {
@@ -635,7 +635,7 @@ function HOC(WrappedComponent) {
 }
 ```
 
-- 只有在清楚明白扩展对象时才使用扩展运算符。这非常有用尤其是在使用 Mocha 测试组件的时候。
+-   只有在清楚明白扩展对象时才使用扩展运算符。这非常有用尤其是在使用 Mocha 测试组件的时候。
 
 ```js
 export default function Foo {
@@ -666,7 +666,7 @@ render() {
 
 ## Refs
 
-- 总是在 Refs 里使用回调函数. eslint: [`react/no-string-refs`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/no-string-refs.md)
+-   总是在 Refs 里使用回调函数. eslint: [`react/no-string-refs`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/no-string-refs.md)
 
 ```js
   // bad
@@ -682,7 +682,7 @@ render() {
 
 ## Parentheses 括号
 
-- 将多行的 JSX 标签写在 `()`里. eslint: [`react/jsx-wrap-multilines`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-wrap-multilines.md)
+-   将多行的 JSX 标签写在 `()`里. eslint: [`react/jsx-wrap-multilines`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-wrap-multilines.md)
 
 ```js
   // bad
@@ -710,7 +710,7 @@ render() {
 
 ## Tags 标签
 
-- 对于没有子元素的标签来说总是自己关闭标签. eslint: [`react/self-closing-comp`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/self-closing-comp.md)
+-   对于没有子元素的标签来说总是自己关闭标签. eslint: [`react/self-closing-comp`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/self-closing-comp.md)
 
 ```js
   // bad
@@ -720,7 +720,7 @@ render() {
   <Foo className="stuff" />
 ```
 
-- 如果模块有多行的属性， 关闭标签时新建一行. eslint: [`react/jsx-closing-bracket-location`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-closing-bracket-location.md)
+-   如果模块有多行的属性， 关闭标签时新建一行. eslint: [`react/jsx-closing-bracket-location`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-closing-bracket-location.md)
 
 ```js
   // bad
@@ -737,26 +737,23 @@ render() {
 
 ## Methods 函数
 
-- 使用箭头函数来获取本地变量.
+-   使用箭头函数来获取本地变量.
 
 ```js
 function ItemList(props) {
-  return (
-    <ul>
-      {props.items.map((item, index) => (
-        <Item
-          key={item.key}
-          onClick={() => doSomethingWith(item.name, index)}
-        />
-      ))}
-    </ul>
-  );
+	return (
+		<ul>
+			{props.items.map((item, index) => (
+				<Item key={item.key} onClick={() => doSomethingWith(item.name, index)} />
+			))}
+		</ul>
+	);
 }
 ```
 
-- 当在 `render()` 里使用事件处理方法时，提前在构造函数里把 `this` 绑定上去. eslint: [`react/jsx-no-bind`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-no-bind.md)
+-   当在 `render()` 里使用事件处理方法时，提前在构造函数里把 `this` 绑定上去. eslint: [`react/jsx-no-bind`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-no-bind.md)
 
-  > 为什么? 在每次 `render` 过程中， 再调用 `bind` 都会新建一个新的函数，浪费资源.
+    > 为什么? 在每次 `render` 过程中， 再调用 `bind` 都会新建一个新的函数，浪费资源.
 
 ```js
   // bad
@@ -788,9 +785,9 @@ function ItemList(props) {
   }
 ```
 
-- 在 React 模块中，不要给所谓的私有函数添加 `_` 前缀，本质上它并不是私有的.
+-   在 React 模块中，不要给所谓的私有函数添加 `_` 前缀，本质上它并不是私有的.
 
-  > 为什么？`_` 下划线前缀在某些语言中通常被用来表示私有变量或者函数。但是不像其他的一些语言，在 JS 中没有原生支持所谓的私有变量，所有的变量函数都是共有的。尽管你的意图是使它私有化，在之前加上下划线并不会使这些变量私有化，并且所有的属性（包括有下划线前缀及没有前缀的）都应该被视为是共有的。了解更多详情请查看 Issue [#1024](https://github.com/airbnb/javascript/issues/1024), 和 [#490](https://github.com/airbnb/javascript/issues/490) 。
+    > 为什么？`_` 下划线前缀在某些语言中通常被用来表示私有变量或者函数。但是不像其他的一些语言，在 JS 中没有原生支持所谓的私有变量，所有的变量函数都是共有的。尽管你的意图是使它私有化，在之前加上下划线并不会使这些变量私有化，并且所有的属性（包括有下划线前缀及没有前缀的）都应该被视为是共有的。了解更多详情请查看 Issue [#1024](https://github.com/airbnb/javascript/issues/1024), 和 [#490](https://github.com/airbnb/javascript/issues/490) 。
 
 ```js
   // bad
@@ -812,7 +809,7 @@ function ItemList(props) {
   }
 ```
 
-- 在 `render` 方法中总是确保 `return` 返回值. eslint: [`react/require-render-return`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/require-render-return.md)
+-   在 `render` 方法中总是确保 `return` 返回值. eslint: [`react/require-render-return`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/require-render-return.md)
 
 ```js
   // bad
@@ -828,7 +825,7 @@ function ItemList(props) {
 
 ## Ordering React 模块生命周期
 
-- `class extends React.Component` 的生命周期函数:
+-   `class extends React.Component` 的生命周期函数:
 
 1. 可选的 `static` 方法
 1. `constructor` 构造函数
@@ -845,34 +842,34 @@ function ItemList(props) {
 1. _可选的 render 方法_ 如 `renderNavigation()` 或 `renderProfilePicture()`
 1. `render` render() 方法
 
-- 如何定义 `propTypes`, `defaultProps`, `contextTypes`, 等等其他属性...
+-   如何定义 `propTypes`, `defaultProps`, `contextTypes`, 等等其他属性...
 
 ```js
-import React from "react";
-import PropTypes from "prop-types";
+import React from 'react';
+import PropTypes from 'prop-types';
 
 const propTypes = {
-  id: PropTypes.number.isRequired,
-  url: PropTypes.string.isRequired,
-  text: PropTypes.string,
+	id: PropTypes.number.isRequired,
+	url: PropTypes.string.isRequired,
+	text: PropTypes.string,
 };
 
 const defaultProps = {
-  text: "Hello World",
+	text: 'Hello World',
 };
 
 class Link extends React.Component {
-  static methodsAreOk() {
-    return true;
-  }
+	static methodsAreOk() {
+		return true;
+	}
 
-  render() {
-    return (
-      <a href={this.props.url} data-id={this.props.id}>
-        {this.props.text}
-      </a>
-    );
-  }
+	render() {
+		return (
+			<a href={this.props.url} data-id={this.props.id}>
+				{this.props.text}
+			</a>
+		);
+	}
 }
 
 Link.propTypes = propTypes;
@@ -881,7 +878,7 @@ Link.defaultProps = defaultProps;
 export default Link;
 ```
 
-- `React.createClass` 的生命周期函数，与使用 class 稍有不同: eslint: [`react/sort-comp`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/sort-comp.md)
+-   `React.createClass` 的生命周期函数，与使用 class 稍有不同: eslint: [`react/sort-comp`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/sort-comp.md)
 
 1. `displayName` 设定模块名称
 1. `propTypes` 设置属性的类型
@@ -907,7 +904,7 @@ export default Link;
 
 ## isMounted
 
-- 不要再使用 `isMounted`. eslint: [`react/no-is-mounted`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/no-is-mounted.md)
+-   不要再使用 `isMounted`. eslint: [`react/no-is-mounted`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/no-is-mounted.md)
 
 > 为什么? [`isMounted` 反人类设计模式:()][anti-pattern], 在 ES6 classes 中无法使用， 官方将在未来的版本里删除此方法.
 
