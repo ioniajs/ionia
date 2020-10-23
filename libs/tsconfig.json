@@ -1,21 +1,21 @@
 {
-  "compilerOptions": {
-    "baseUrl": "./",
-    "target": "esnext",
-    "module": "esnext",
-    "moduleResolution": "node",
-    "jsx": "preserve",
-    "esModuleInterop": true,
-    "experimentalDecorators": true,
-    "strict": true,
-    "forceConsistentCasingInFileNames": true,
-    "noImplicitReturns": true,
-    "suppressImplicitAnyIndexErrors": true,
-    "declaration": true,
-    "skipLibCheck": true,
-    "paths": {
-      "@/*": ["src/*"]
-    }
-  },
-  "include": ["./src/**/*"]
+	"compilerOptions": {
+		"baseUrl": "./",
+		"target": "esnext",
+		"module": "esnext",
+		"moduleResolution": "node",
+		"jsx": "preserve",
+		"esModuleInterop": true,
+		"experimentalDecorators": true,
+		"strict": true,
+		"forceConsistentCasingInFileNames": true,
+		"noImplicitReturns": true,
+		"suppressImplicitAnyIndexErrors": true,
+		"declaration": true,
+		"skipLibCheck": true,
+		"paths": {
+			"@/*": ["src/*"]
+		}
+	},
+	"include": ["./src/**/*"]
 }

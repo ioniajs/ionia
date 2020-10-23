@@ -1,7 +1,7 @@
 ---
 title: 测试规范
 group:
-  title: 开发规范
+    title: 开发规范
 order: 7
 ---
 
@@ -9,10 +9,10 @@ order: 7
 
 ## 单元测试是一门伟大的学科，它可以减少 40% - 80% 的 bug。单元测试的主要好处有:
 
-- 改善应用的结构和可维护性。
-- 通过在实现细节之前关注开发人员体验（API），可以获得更好的 API 和可组合性。
-- 提供快速的文件保存反馈，告诉你更改是否有效。 这可以替代 console.log() 操作，仅在 UI 中单击就可以测试更改。单元测试的新手可能会在 TDD 过程上多花 15% 30% 的时间，因为他们需要知道如何去测试各种组件，但是有经验的 TDD 开发者会- 因使用 TDD 而节省开发时间。
-- 提供了一个很好的安全保障，可以在添加功能或重构现有功能时增强你的信心。
+-   改善应用的结构和可维护性。
+-   通过在实现细节之前关注开发人员体验（API），可以获得更好的 API 和可组合性。
+-   提供快速的文件保存反馈，告诉你更改是否有效。 这可以替代 console.log() 操作，仅在 UI 中单击就可以测试更改。单元测试的新手可能会在 TDD 过程上多花 15% 30% 的时间，因为他们需要知道如何去测试各种组件，但是有经验的 TDD 开发者会- 因使用 TDD 而节省开发时间。
+-   提供了一个很好的安全保障，可以在添加功能或重构现有功能时增强你的信心。
 
 但是有些东西比其他的更容易进行单元测试。具体来说，单元测试对纯函数非常有用：纯函数是一种给定相同输入，总是返回相同的值，并且没有副作用的函数。
 通常，针对 UI 组件的单元测试不容易进行，测试先行的方法使得坚持使用 TDD 的原则变得更加困难。
@@ -22,20 +22,18 @@ order: 7
 
 ## 无论你使用的是什么框架，下面的小窍门将帮助你编写更好、更可测试、更可读、更可组合的 UI 组件：
 
-- 使用纯组件编写 UI 代码： 鉴于相同的 props 总是渲染同一个组件，如果你需要从应用中获取 state，你可以使用一个容器组件来包裹这些纯组件，并使用容器组件管理 state 和副作用。
-- 在 reducer 纯函数中隔离应用程序逻辑/业务规则。
-- 使用容器组件隔离副作用。
+-   使用纯组件编写 UI 代码： 鉴于相同的 props 总是渲染同一个组件，如果你需要从应用中获取 state，你可以使用一个容器组件来包裹这些纯组件，并使用容器组件管理 state 和副作用。
+-   在 reducer 纯函数中隔离应用程序逻辑/业务规则。
+-   使用容器组件隔离副作用。
 
 ## 使用纯组件
 
 纯组件是一种给定相同的 props，始终渲染出相同的 UI，并且没有任何副作用的组件。比如：
 
 ```js
-import React from "react";
+import React from 'react';
 
-const Hello = ({ userName }) => (
-  <div className="greeting">Hello, {userName}!</div>
-);
+const Hello = ({ userName }) => <div className='greeting'>Hello, {userName}!</div>;
 
 export default Hello;
 ```
@@ -51,22 +49,22 @@ npm install --save-dev riteway
 一旦你有一个将标记渲染成 Cheerio 对象的渲染函数，你就可以编写如下的组件测试了：
 
 ```js
-import { describe } from "riteway";
-import render from "riteway/render-component";
-import React from "react";
+import { describe } from 'riteway';
+import render from 'riteway/render-component';
+import React from 'react';
 
-import Hello from "../hello";
+import Hello from '../hello';
 
-describe("Hello component", async (assert) => {
-  const userName = "Spiderman";
-  const $ = render(<Hello userName={userName} />);
+describe('Hello component', async assert => {
+	const userName = 'Spiderman';
+	const $ = render(<Hello userName={userName} />);
 
-  assert({
-    given: "a username",
-    should: "Render a greeting to the correct username.",
-    actual: $(".greeting").html().trim(),
-    expected: `Hello, ${userName}!`,
-  });
+	assert({
+		given: 'a username',
+		should: 'Render a greeting to the correct username.',
+		actual: $('.greeting').html().trim(),
+		expected: `Hello, ${userName}!`,
+	});
 });
 ```
 
@@ -74,9 +72,9 @@ describe("Hello component", async (assert) => {
 答案是：将组件的 state 和副作用从展示组件中隔离出去。为了实现这一目标，你可以将 state 和副作用封装在一个容器组件中，然后通过 props 将 state 传递到纯组件中。
 但是 hooks API 不也是这样做的吗？使得我们拥有平铺的组件层次结构，并忽略所有的组件嵌套内容。呃...，两者不完全是一样的。将代码保存在三个不同的 bucket 中，并将这些 bucket 彼此隔离，这仍然还是一个好主意。
 
-- 展示/UI 组件
-- 程序逻辑/业务规则 —— 这一部分处理用户需要解决的问题。
-- 副作用（I/O、网络、磁盘等等。）
+-   展示/UI 组件
+-   程序逻辑/业务规则 —— 这一部分处理用户需要解决的问题。
+-   副作用（I/O、网络、磁盘等等。）
 
 根据我的经验，如果你将展示/UI 问题与程序逻辑和副作用分开，你会觉得更加轻松。对于我来说，这个经验法则始终适用于我曾经使用的每种语言和每个框架，包括 React hooks。
 让我们通过构建一个点击计数器来演示有 state 的组件。首先，我们将构建 UI 组件。它应该显示类似 “Clicks：13” 的内容，告诉你单击按钮的次数。按钮只有点击功能。
@@ -86,52 +84,50 @@ describe("Hello component", async (assert) => {
 让我们来看下面两个单元测试，它们可以确保我们从 props 中提取点击计数。创建一个新文件，click-counter/click-counter-component.test.js：
 
 ```js
-import { describe } from "riteway";
-import render from "riteway/render-component";
-import React from "react";
+import { describe } from 'riteway';
+import render from 'riteway/render-component';
+import React from 'react';
 
-import ClickCounter from "../click-counter/click-counter-component";
+import ClickCounter from '../click-counter/click-counter-component';
 
-describe("ClickCounter component", async (assert) => {
-  const createCounter = (clickCount) =>
-    render(<ClickCounter clicks={clickCount} />);
-  {
-    const count = 3;
-    const $ = createCounter(count);
+describe('ClickCounter component', async assert => {
+	const createCounter = clickCount => render(<ClickCounter clicks={clickCount} />);
+	{
+		const count = 3;
+		const $ = createCounter(count);
 
-    assert({
-      given: "a click count",
-      should: "render the correct number of clicks.",
-      actual: parseInt($(".clicks-count").html().trim(), 10),
-      expected: count,
-    });
-  }
+		assert({
+			given: 'a click count',
+			should: 'render the correct number of clicks.',
+			actual: parseInt($('.clicks-count').html().trim(), 10),
+			expected: count,
+		});
+	}
 
-  {
-    const count = 5;
-    const $ = createCounter(count);
+	{
+		const count = 5;
+		const $ = createCounter(count);
 
-    assert({
-      given: "a click count",
-      should: "render the correct number of clicks.",
-      actual: parseInt($(".clicks-count").html().trim(), 10),
-      expected: count,
-    });
-  }
+		assert({
+			given: 'a click count',
+			should: 'render the correct number of clicks.',
+			actual: parseInt($('.clicks-count').html().trim(), 10),
+			expected: count,
+		});
+	}
 });
 ```
 
 我会新建一些工厂函数让编写测试变得更简单。在本例中，createCounter 将单击次数的数值进行注入, 并使用该次数返回渲染后的组件：
 
 ```js
-const createCounter = (clickCount) =>
-  render(<ClickCounter clicks={clickCount} />);
+const createCounter = clickCount => render(<ClickCounter clicks={clickCount} />);
 ```
 
 编写测试后，就是创建 ClickCounter 显示组件的时候了。我已经将显示组件和 click-counter-component.js 测试文件放在同一个文件夹中。首先，让我们编写一个组件 fragment 来监视测试是否失败：
 
 ```js
-import React, { Fragment } from "react";
+import React, { Fragment } from 'react';
 
 export default () => <Fragment></Fragment>;
 ```
@@ -139,12 +135,12 @@ export default () => <Fragment></Fragment>;
 如果保存并测试我们创建的测试，会得到一个 TypeError 错误，该错误最终会触发 Node 的 UnhandledPromiseRejectionWarning 错误，Node 不会在额外的段落发出 DeprecationWarning 这种恼人的警告，而是抛出 UnhandledPromiseRejectionError。得到 TypeError 错误是由于我们的 selection 返回了我 null，并且我们尝试在它上面应用 .trim() 方法。让我们通过渲染期望的选择器来解决这个问题：
 
 ```js
-import React, { Fragment } from "react";
+import React, { Fragment } from 'react';
 
 export default () => (
-  <Fragment>
-    <span className="clicks-count">3</span>
-  </Fragment>
+	<Fragment>
+		<span className='clicks-count'>3</span>
+	</Fragment>
 );
 ```
 
@@ -165,12 +161,12 @@ not ok 3 Given a click count: should render the correct number of clicks.
 为了解决这一问题，把 count 作为一个 prop，并在 JSX 中使用 prop 的动态值：
 
 ```js
-import React, { Fragment } from "react";
+import React, { Fragment } from 'react';
 
 export default ({ clicks }) => (
-  <Fragment>
-    <span className="clicks-count">{clicks}</span>
-  </Fragment>
+	<Fragment>
+		<span className='clicks-count'>{clicks}</span>
+	</Fragment>
 );
 ```
 
@@ -195,14 +191,14 @@ ok 3 Given a click count: should render the correct number of clicks.
 
 ```js
 {
-  const $ = createCounter(0);
+	const $ = createCounter(0);
 
-  assert({
-    given: "expected props",
-    should: "render the click button.",
-    actual: $(".click-button").length,
-    expected: 1,
-  });
+	assert({
+		given: 'expected props',
+		should: 'render the click button.',
+		actual: $('.click-button').length,
+		expected: 1,
+	});
 }
 ```
 
@@ -221,10 +217,10 @@ not ok 4 Given expected props: should render the click button
 
 ```js
 export default ({ clicks }) => (
-  <Fragment>
-    <span className="clicks-count">{clicks}</span>
-    <button className="click-button">Click</button>
-  </Fragment>
+	<Fragment>
+		<span className='clicks-count'>{clicks}</span>
+		<button className='click-button'>Click</button>
+	</Fragment>
 );
 ```
 
@@ -259,17 +255,17 @@ ok 4 Given expected props: should render the click button.
 首先，我将为 state reducers 创建一个新的测试文件。我将把它放在同一个文件夹中，但使用不同的文件名。将这个测试文件命名为 click-counter/click-counter-reducer.test.js：
 
 ```js
-import { describe } from "riteway";
+import { describe } from 'riteway';
 
-import { reducer, click } from "../click-counter/click-counter-reducer";
+import { reducer, click } from '../click-counter/click-counter-reducer';
 
-describe("click counter reducer", async (assert) => {
-  assert({
-    given: "no arguments",
-    should: "return the valid initial state",
-    actual: reducer(),
-    expected: 0,
-  });
+describe('click counter reducer', async assert => {
+	assert({
+		given: 'no arguments',
+		should: 'return the valid initial state',
+		actual: reducer(),
+		expected: 0,
+	});
 });
 ```
 
@@ -306,17 +302,17 @@ const reducer = () => 0;
 
 ```js
 assert({
-  given: "initial state and a click action",
-  should: "add a click to the count",
-  actual: reducer(undefined, click()),
-  expected: 1,
+	given: 'initial state and a click action',
+	should: 'add a click to the count',
+	actual: reducer(undefined, click()),
+	expected: 1,
 });
 
 assert({
-  given: "a click count and a click action",
-  should: "add a click to the count",
-  actual: reducer(3, click()),
-  expected: 4,
+	given: 'a click count and a click action',
+	should: 'add a click to the count',
+	actual: reducer(3, click()),
+	expected: 4,
 });
 ```
 
@@ -326,16 +322,16 @@ assert({
 
 ```js
 const click = () => ({
-  type: "click-counter/click",
+	type: 'click-counter/click',
 });
 
 const reducer = (state = 0, { type } = {}) => {
-  switch (type) {
-    case click().type:
-      return state + 1;
-    default:
-      return state;
-  }
+	switch (type) {
+		case click().type:
+			return state + 1;
+		default:
+			return state;
+	}
 };
 
 export { reducer, click };
@@ -366,14 +362,14 @@ ok 7 Given a click count and a click action: should add a click to the count
 再往前走一步：将我们的行为与组件联系起来，可以是使用容器组件实现这一点。index.js 文件会把其余的文件进行合并，该文件类似下面的样式：
 
 ```js
-import React, { useReducer } from "react";
+import React, { useReducer } from 'react';
 
-import Counter from "./click-counter-component";
-import { reducer, click } from "./click-counter-reducer";
+import Counter from './click-counter-component';
+import { reducer, click } from './click-counter-reducer';
 
 export default () => {
-  const [clicks, dispatch] = useReducer(reducer, reducer());
-  return <Counter clicks={clicks} onClick={() => dispatch(click())} />;
+	const [clicks, dispatch] = useReducer(reducer, reducer());
+	return <Counter clicks={clicks} onClick={() => dispatch(click())} />;
 };
 ```
 
@@ -381,15 +377,15 @@ export default () => {
 截至目前，我们还没有在浏览器中查看任何组件，也没有设置任何样式。为了使我们的计数变得更加清晰，下面将添加一些标记和空间到 ClickCounter 组件中。 我还会绑定 onClick 函数。代码如下所示：
 
 ```js
-import React, { Fragment } from "react";
+import React, { Fragment } from 'react';
 
 export default ({ clicks, onClick }) => (
-  <Fragment>
-    Clicks: <span className="clicks-count">{clicks}</span>&nbsp;
-    <button className="click-button" onClick={onClick}>
-      Click
-    </button>
-  </Fragment>
+	<Fragment>
+		Clicks: <span className='clicks-count'>{clicks}</span>&nbsp;
+		<button className='click-button' onClick={onClick}>
+			Click
+		</button>
+	</Fragment>
 );
 ```
 

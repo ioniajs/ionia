@@ -8,51 +8,47 @@ import { ApplyPluginsType } from 'C:/Users/zhuliequn/Desktop/ionia/node_modules/
 import { renderClient } from 'C:/Users/zhuliequn/Desktop/ionia/node_modules/@umijs/renderer-react/dist/index.js';
 import { getRoutes } from './core/routes';
 
-
-
-
-const getClientRender = (args: { hot?: boolean; routes?: any[] } = {}) => plugin.applyPlugins({
-  key: 'render',
-  type: ApplyPluginsType.compose,
-  initialValue: () => {
-    const opts = plugin.applyPlugins({
-      key: 'modifyClientRenderOpts',
-      type: ApplyPluginsType.modify,
-      initialValue: {
-        routes: args.routes || getRoutes(),
-        plugin,
-        history: createHistory(args.hot),
-        isServer: process.env.__IS_SERVER,
-        rootElement: 'root',
-        defaultTitle: `开发手册`,
-      },
-    });
-    return renderClient(opts);
-  },
-  args,
-});
+const getClientRender = (args: { hot?: boolean; routes?: any[] } = {}) =>
+	plugin.applyPlugins({
+		key: 'render',
+		type: ApplyPluginsType.compose,
+		initialValue: () => {
+			const opts = plugin.applyPlugins({
+				key: 'modifyClientRenderOpts',
+				type: ApplyPluginsType.modify,
+				initialValue: {
+					routes: args.routes || getRoutes(),
+					plugin,
+					history: createHistory(args.hot),
+					isServer: process.env.__IS_SERVER,
+					rootElement: 'root',
+					defaultTitle: `开发手册`,
+				},
+			});
+			return renderClient(opts);
+		},
+		args,
+	});
 
 const clientRender = getClientRender();
 export default clientRender();
 
-
-    window.g_umi = {
-      version: '3.2.22',
-    };
-  
+window.g_umi = {
+	version: '3.2.22',
+};
 
 // hot module replacement
 // @ts-ignore
 if (module.hot) {
-  // @ts-ignore
-  module.hot.accept('./core/routes', () => {
-    const ret = require('./core/routes');
-    if (ret.then) {
-      ret.then(({ getRoutes }) => {
-        getClientRender({ hot: true, routes: getRoutes() })();
-      });
-    } else {
-      getClientRender({ hot: true, routes: ret.getRoutes() })();
-    }
-  });
+	// @ts-ignore
+	module.hot.accept('./core/routes', () => {
+		const ret = require('./core/routes');
+		if (ret.then) {
+			ret.then(({ getRoutes }) => {
+				getClientRender({ hot: true, routes: getRoutes() })();
+			});
+		} else {
+			getClientRender({ hot: true, routes: ret.getRoutes() })();
+		}
+	});
 }

@@ -1,4 +1,4 @@
-import * as React from "react";
-import "./index.less";
+import * as React from 'react';
+import './index.less';
 
-export const SlaveApp = () => <div id="slave-container"></div>;
+export const SlaveApp = () => <div id='slave-container'></div>;

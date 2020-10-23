@@ -1,7 +1,7 @@
 ---
 title: HTML 规范
 group:
-  title: 开发规范
+    title: 开发规范
 order: 1
 ---
 
@@ -21,8 +21,8 @@ HTML 作为描述网页结构的超文本标记语言，一直有着广泛的应
 
 ```html
 <ul>
-  <li>first</li>
-  <li>second</li>
+	<li>first</li>
+	<li>second</li>
 </ul>
 ```
 
@@ -99,8 +99,8 @@ IE 浏览器会混淆元素的 id 和 name 属性， document.getElementById 可
 <input name="foo" />
 <div id="foo"></div>
 <script>
-  // IE6 将显示 INPUT
-  alert(document.getElementById("foo").tagName);
+	// IE6 将显示 INPUT
+	alert(document.getElementById('foo').tagName);
 </script>
 ```
 
@@ -145,14 +145,14 @@ IE 浏览器会混淆元素的 id 和 name 属性， document.getElementById 可
 ```html
 <!-- good -->
 <ul>
-  <li>first</li>
-  <li>second</li>
+	<li>first</li>
+	<li>second</li>
 </ul>
 
 <!-- bad -->
 <ul>
-  <li>first</li>
-  <li>second</li>
+	<li>first</li>
+	<li>second</li>
 </ul>
 ```
 
@@ -170,33 +170,33 @@ IE 浏览器会混淆元素的 id 和 name 属性， document.getElementById 可
 
 下面是常见标签语义
 
-- p - 段落
-- h1,h2,h3,h4,h5,h6 - 层级标题
-- strong,em - 强调
-- ins - 插入
-- del - 删除
-- abbr - 缩写
-- code - 代码标识
-- cite - 引述来源作品的标题
-- q - 引用
-- blockquote - 一段或长篇引用
-- ul - 无序列表
-- ol - 有序列表
-- dl,dt,dd - 定义列表
+-   p - 段落
+-   h1,h2,h3,h4,h5,h6 - 层级标题
+-   strong,em - 强调
+-   ins - 插入
+-   del - 删除
+-   abbr - 缩写
+-   code - 代码标识
+-   cite - 引述来源作品的标题
+-   q - 引用
+-   blockquote - 一段或长篇引用
+-   ul - 无序列表
+-   ol - 有序列表
+-   dl,dt,dd - 定义列表
 
 示例：
 
 ```html
 <!-- good -->
 <p>
-  Esprima serves as an important <strong>building block</strong> for some
-  JavaScript language tools.
+	Esprima serves as an important <strong>building block</strong> for some JavaScript language
+	tools.
 </p>
 
 <!-- bad -->
 <div>
-  Esprima serves as an important <span class="strong">building block</span> for
-  some JavaScript language tools.
+	Esprima serves as an important <span class="strong">building block</span> for some JavaScript
+	language tools.
 </div>
 ```
 
@@ -216,7 +216,7 @@ IE 浏览器会混淆元素的 id 和 name 属性， document.getElementById 可
 
 <!-- bad -->
 <span class="avatar">
-  <img src="image.png" />
+	<img src="image.png" />
 </span>
 ```
 
@@ -229,12 +229,12 @@ IE 浏览器会混淆元素的 id 和 name 属性， document.getElementById 可
 ```html
 <!-- good -->
 <table cellspacing="0">
-  ...
+	...
 </table>
 
 <!-- bad -->
 <table cellspacing="0">
-  ...
+	...
 </table>
 ```
 
@@ -319,13 +319,13 @@ IE 浏览器会混淆元素的 id 和 name 属性， document.getElementById 可
 
 ```html
 <html>
-  <head>
-    <meta charset="UTF-8" />
-    ......
-  </head>
-  <body>
-    ......
-  </body>
+	<head>
+		<meta charset="UTF-8" />
+		......
+	</head>
+	<body>
+		......
+	</body>
 </html>
 ```
 
@@ -373,8 +373,8 @@ UTF-8 编码具有更广泛的适应性。BOM 在使用程序或工具处理文�
 
 ```html
 <body>
-  <!-- a lot of elements -->
-  <script src="init-behavior.js"></script>
+	<!-- a lot of elements -->
+	<script src="init-behavior.js"></script>
 </body>
 ```
 
@@ -406,8 +406,8 @@ title 中如果包含 ascii 之外的字符，浏览器需要知道字符编码�
 
 ```html
 <head>
-  <meta charset="UTF-8" />
-  <title>页面标题</title>
+	<meta charset="UTF-8" />
+	<title>页面标题</title>
 </head>
 ```
 
@@ -487,9 +487,7 @@ src 取值为空，会导致部分浏览器重新加载一次当前页面，参�
 示例：
 
 ```html
-<label
-  ><input type="checkbox" name="confirm" value="on" /> 我已确认上述条款</label
->
+<label><input type="checkbox" name="confirm" value="on" /> 我已确认上述条款</label>
 
 <label for="username">用户名：</label>
 <input type="textbox" name="username" id="username" />
@@ -528,28 +526,28 @@ button 元素的默认 type 为 submit，如果被置于 form 元素中，点击
 ```html
 <!-- good -->
 <style>
-  .buttons .button-group {
-    float: right;
-  }
+	.buttons .button-group {
+		float: right;
+	}
 </style>
 
 <div class="buttons">
-  <div class="button-group">
-    <button type="submit">提交</button>
-    <button type="button">取消</button>
-  </div>
+	<div class="button-group">
+		<button type="submit">提交</button>
+		<button type="button">取消</button>
+	</div>
 </div>
 
 <!-- bad -->
 <style>
-  .buttons button {
-    float: right;
-  }
+	.buttons button {
+		float: right;
+	}
 </style>
 
 <div class="buttons">
-  <button type="button">取消</button>
-  <button type="submit">提交</button>
+	<button type="button">取消</button>
+	<button type="submit">提交</button>
 </div>
 ```
 
@@ -563,8 +561,8 @@ button 元素的默认 type 为 submit，如果被置于 form 元素中，点击
 
 ```html
 <form action="/login" method="post">
-  <p><input name="username" type="text" placeholder="用户名" /></p>
-  <p><input name="password" type="password" placeholder="密码" /></p>
+	<p><input name="username" type="text" placeholder="用户名" /></p>
+	<p><input name="password" type="password" placeholder="密码" /></p>
 </form>
 ```
 
@@ -588,15 +586,15 @@ button 元素的默认 type 为 submit，如果被置于 form 元素中，点击
 
 音频应尽可能覆盖到如下格式：
 
-- MP3
-- WAV
-- Ogg
+-   MP3
+-   WAV
+-   Ogg
 
 视频应尽可能覆盖到如下格式：
 
-- MP4
-- WebM
-- Ogg
+-   MP4
+-   WebM
+-   Ogg
 
 #### [建议] 在支持 `HTML5` 的浏览器中优先使用 `audio` 和 `video` 标签来定义音视频元素。
 
@@ -606,19 +604,19 @@ button 元素的默认 type 为 submit，如果被置于 form 元素中，点击
 
 ```html
 <audio controls>
-  <source src="audio.mp3" type="audio/mpeg" />
-  <source src="audio.ogg" type="audio/ogg" />
-  <object width="100" height="50" data="audio.mp3">
-    <embed width="100" height="50" src="audio.swf" />
-  </object>
+	<source src="audio.mp3" type="audio/mpeg" />
+	<source src="audio.ogg" type="audio/ogg" />
+	<object width="100" height="50" data="audio.mp3">
+		<embed width="100" height="50" src="audio.swf" />
+	</object>
 </audio>
 
 <video width="100" height="50" controls>
-  <source src="video.mp4" type="video/mp4" />
-  <source src="video.ogg" type="video/ogg" />
-  <object width="100" height="50" data="video.mp4">
-    <embed width="100" height="50" src="video.swf" />
-  </object>
+	<source src="video.mp4" type="video/mp4" />
+	<source src="video.ogg" type="video/ogg" />
+	<object width="100" height="50" data="video.mp4">
+		<embed width="100" height="50" src="video.swf" />
+	</object>
 </video>
 ```
 
@@ -629,9 +627,7 @@ button 元素的默认 type 为 submit，如果被置于 form 元素中，点击
 示例：
 
 ```html
-<object width="100" height="50" data="something.swf">
-  DO NOT SUPPORT THIS TAG
-</object>
+<object width="100" height="50" data="something.swf">DO NOT SUPPORT THIS TAG</object>
 ```
 
 ## 8 模板中的 HTML
@@ -644,22 +640,22 @@ button 元素的默认 type 为 submit，如果被置于 form 元素中，点击
 <!-- good -->
 {if $display == true}
 <div>
-  <ul>
-    {foreach $item_list as $item}
-    <li>{$item.name}</li>
-    <li>{/foreach}</li>
-  </ul>
+	<ul>
+		{foreach $item_list as $item}
+		<li>{$item.name}</li>
+		<li>{/foreach}</li>
+	</ul>
 </div>
 {/if}
 
 <!-- bad -->
 {if $display == true}
 <div>
-  <ul>
-    {foreach $item_list as $item}
-    <li>{$item.name}</li>
-    <li>{/foreach}</li>
-  </ul>
+	<ul>
+		{foreach $item_list as $item}
+		<li>{$item.name}</li>
+		<li>{/foreach}</li>
+	</ul>
 </div>
 {/if}
 ```
@@ -683,27 +679,27 @@ button 元素的默认 type 为 submit，如果被置于 form 元素中，点击
 ```html
 <!-- good -->
 <table>
-  {foreach $item_list as $item_group}
-  <tr>
-    {foreach $item_group as $item}
-    <td>{ $item.name }</td>
-    {/foreach}
-  </tr>
+	{foreach $item_list as $item_group}
+	<tr>
+		{foreach $item_group as $item}
+		<td>{ $item.name }</td>
+		{/foreach}
+	</tr>
 
-  <tr>
-    {/foreach}
-  </tr>
+	<tr>
+		{/foreach}
+	</tr>
 </table>
 
 <!-- bad -->
 <table>
-  <tr>
-    {foreach $item_list as $item}
-    <td>{ $item.name }</td>
-    {if $item@iteration is div by 5}
-  </tr>
-  <tr>
-    {/if} {/foreach}
-  </tr>
+	<tr>
+		{foreach $item_list as $item}
+		<td>{ $item.name }</td>
+		{if $item@iteration is div by 5}
+	</tr>
+	<tr>
+		{/if} {/foreach}
+	</tr>
 </table>
 ```
