@@ -580,6 +580,16 @@ export function getRoutes() {
               "depth": 1,
               "value": "工作区",
               "heading": "工作区"
+            },
+            {
+              "depth": 2,
+              "value": "apps",
+              "heading": "apps"
+            },
+            {
+              "depth": 2,
+              "value": "libs",
+              "heading": "libs"
             }
           ]
         },
