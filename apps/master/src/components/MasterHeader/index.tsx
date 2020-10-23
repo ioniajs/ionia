@@ -5,6 +5,8 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 import { useHistory, useLocation } from "react-router";
 import AvatarDropdown from "./AvatarDropdown";
+import Logo from "./Logo";
+
 import "./index.less";
 
 export enum MasterHeaderTheme {
@@ -49,10 +51,7 @@ const MasterHeader: React.FC<MasterHeaderProps> = ({ theme }) => {
   return (
     <Anchor className="io-master__anchor">
       <div className="io-master__header" style={themeStyles}>
-        <div className="io-master__title">
-          <h1 className="logo">JEECMS</h1>
-          <i className="iconfont iconnavigation" />
-        </div>
+        <Logo />
         <div className="io-master__header-left">
           {routes.map(r =>
             <span
