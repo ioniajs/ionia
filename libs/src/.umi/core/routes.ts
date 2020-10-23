@@ -188,7 +188,7 @@ export function getRoutes() {
         "exact": true,
         "meta": {
           "filePath": "docs/architecture/exception.md",
-          "updatedTime": 1603354987000,
+          "updatedTime": 1603418666000,
           "title": "异常捕获",
           "group": {
             "title": "基础架构",
@@ -287,7 +287,7 @@ export function getRoutes() {
         "exact": true,
         "meta": {
           "filePath": "docs/architecture/mock.md",
-          "updatedTime": 1603258854000,
+          "updatedTime": 1603414923000,
           "title": "接口模拟",
           "group": {
             "title": "基础架构",
@@ -383,7 +383,7 @@ export function getRoutes() {
         "exact": true,
         "meta": {
           "filePath": "docs/architecture/request.md",
-          "updatedTime": 1603256906000,
+          "updatedTime": 1603416211000,
           "title": "网络请求",
           "group": {
             "title": "基础架构",
@@ -496,6 +496,21 @@ export function getRoutes() {
               "depth": 1,
               "value": "状态管理",
               "heading": "状态管理"
+            },
+            {
+              "depth": 2,
+              "value": "Zustand 介绍",
+              "heading": "zustand-介绍"
+            },
+            {
+              "depth": 2,
+              "value": "Zustand 安装",
+              "heading": "zustand-安装"
+            },
+            {
+              "depth": 2,
+              "value": "Zustand 使用方法",
+              "heading": "zustand-使用方法"
             }
           ]
         },
@@ -530,7 +545,7 @@ export function getRoutes() {
         "exact": true,
         "meta": {
           "filePath": "docs/architecture/verification.md",
-          "updatedTime": 1603337481000,
+          "updatedTime": 1603418134000,
           "title": "参数校验",
           "group": {
             "title": "基础架构",
@@ -623,7 +638,7 @@ export function getRoutes() {
         "exact": true,
         "meta": {
           "filePath": "docs/architecture/workspace.md",
-          "updatedTime": 1603178470000,
+          "updatedTime": 1603419976000,
           "title": "工作区",
           "group": {
             "title": "基础架构",
