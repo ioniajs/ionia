@@ -9,37 +9,38 @@ order: 9
 
 ## class-transformer
 
-### class-transformer是什么？
+### class-transformer 是什么？
 
-简单来说，class-transformer是一个方便的json对象转化成class的工具。
+简单来说，class-transformer 是一个把 json 对象转化成 class 的工具。
 
-在我们日常web开发中经常碰到需要json 到类的处理，因为json 就是普通的数据，没有处理能力，class 具有业务处理能力， 
-但是需要数据的支持，class-transformer 刚好做为了一个桥接的工具 ，我们可以通过rest api 获取rest数据，然后通过类库 
-转换为class，直接就具有的业务操作能力，简化我们的开发。
+在我们日常 web 开发中经常碰到需要处理 json 数据，因为 json 就是普通的数据，没有处理能力，class 具有业务处理能力，但是需要数据的支持，class-transformer 刚好做为了一个桥接的工具 ，我们可以通过 rest api 获取 rest 数据，然后通过类库转换为 class，直接就具有业务操作能力，简化我们的开发。
 
-例如，您有一个users.json正在加载的用户列表：
+例如，您有一个 users.json 正在加载用户列表：
 
-[ 
-  { “ id ”：1，
-     “ firstName ”：“ Johny ”，
-     “ lastName ”：“笼”，
-     “年龄”：27 
-  }，
-  { “ id ”：2，
-     “ firstName ”：“ Ismoil ”，
-     “ lastName ”：”索莫尼“，
-     ”
-    
-    age “：50 
-  }，
-  { ” id “：3，
-     ” firstName “：” Luke “，
-     ” lastName “：” Dacascos “，
-     ” age “：12 
-  } 
+```js
+[
+  {
+    "id": 1,
+    "firstName": "Johny",
+    "lastName": "Cage",
+    "age": 27
+  },
+  {
+    "id": 2,
+    "firstName": "Ismoil",
+    "lastName": "Somoni",
+    "age": 50
+  },
+  {
+    "id": 3,
+    "firstName": "Luke",
+    "lastName": "Dacascos",
+    "age": 12
+  }
 ]
+```
 
-并且有一个User类：
+并且有一个 User 类：
 
 ```js
 export class User {
@@ -58,7 +59,7 @@ export class User {
 }
 ```
 
-您假设User要从users.json文件下载类型的用户，并且可能要编写以下代码：
+您假设 User 要从 users.json 文件下载类型的用户，并且可能要编写以下代码：
 
 ```js
 fetch('users.json').then((users: User[]) => {
@@ -68,13 +69,13 @@ fetch('users.json').then((users: User[]) => {
 });
 ```
 
-在此代码中users[0].id，您可以使用users[0].firstName和users[0].lastName。但是，您不能使用，users[0].getName()或者users[0].isAdult()因为“用户”实际上是普通javascript对象而不是User对象实例的数组。
+在此代码中 users[0].id，您可以使用 users[0].firstName 和 users[0].lastName。但是，您不能使用，users[0].getName() 或者 users[0].isAdult() 因为“用户”实际上是普通 javascript 对象而不是 User 对象实例的数组。
 
-如何使对象users实例数组User代替普通的javascript对象？解决方案是创建User对象的新实例，然后将所有属性手动复制到新对象。但是，一旦您拥有更复杂的对象层次结构，事情可能很快就会出错。
+如何使对象 users 实例数组 User 代替普通的 javascript 对象？解决方案是创建 User 对象的新实例，然后将所有属性手动复制到新对象。但是，一旦您拥有更复杂的对象层次结构，事情可能很快就会出错。
 
-是的，您可以使用class-transformer。该库的目的是帮助您将简单的javascript对象映射到您拥有的类的实例。
+是的，您可以使用 class-transformer。该库的目的是帮助您将简单的 javascript 对象映射到您拥有的类的实例。
 
-该库还非常适合您的API中公开的模型，因为它提供了出色的工具来控制您的模型在API中公开的内容。这是示例：
+该库还非常适合您的 API 中公开的模型，因为它提供了出色的工具来控制您的模型在API中公开的内容，这是示例：
 
 ```js
 fetch('users.json').then((users: Object[]) => {
@@ -83,7 +84,7 @@ fetch('users.json').then((users: Object[]) => {
 });
 ```
 
-现在您可以使用users[0].getName()和users[0].isAdult()方法。
+现在您可以使用 users[0].getName() 和 users[0].isAdult() 方法。
 
 ### 安装步骤
 
@@ -95,17 +96,17 @@ $ npm install class-transformer --save
 
 $ npm install reflect-metadata --save
 
-并确保将其导入到全球范围内，例如app.ts：
+并确保将其导入到全球范围内，例如 app.ts：
 
 ```js
 import 'reflect-metadata';
 ```
 
-3.使用了ES6功能，如果您使用的是旧版本的node.js，则可能需要安装es6-shim：
+3.使用了 ES6 功能，如果您使用的是旧版本的 node.js，则可能需要安装 es6-shim：
 
 $ npm install es6-shim --save
 
-并将其导入到app.ts等全球位置：
+并将其导入到 app.ts 等全球位置：
 
 ```js
 import 'es6-shim';
@@ -119,7 +120,7 @@ import 'es6-shim';
 
 ### 背景和介绍
 
-class-validator是一个方便的数据校验工具。
+class-validator 是一个方便的数据校验工具。
 
 访问 https://zhuanlan.zhihu.com/p/87039375
 
@@ -127,7 +128,7 @@ class-validator是一个方便的数据校验工具。
 
 $ npm install class-validator --save
 
-注意：使用class-validator时，请至少使用npm @ 6。从npm @ 6起，依赖关系树被展平，这是class-validator正常运行所必需的。
+注意：使用 class-validator 时，请至少使用npm @ 6。从npm @ 6起，依赖关系树被展平，这是 class-validator 正常运行所必需的。
 
 ### 方法
 
@@ -139,15 +140,15 @@ https://github.com/typestack/class-validator
 
 ## class-transformer-validator
 
-### class-transformer-validator介绍
+### class-transformer-validator 介绍
 
-class-transformer-validator是一个简单的用于class-transformer和class-validator的插件，将它们组合成一个美观且对程序员友好的API。
+class-transformer-validator 是一个简单的用于 class-transformer 和 class-validator 的插件，将它们组合成一个美观且对程序员友好的 API。
 
 ### 安装
 
 $ npm install class-transformer-validator --save
 
-这个软件包只是一个简单的插件/包装器，因此您也必须安装所需的模块，即class-transformer和class-validator，因为没有它们就无法工作。请参阅上述文档安装class-transformer和class-validator。
+这个软件包只是一个简单的插件/包装器，因此您也必须安装所需的模块，即 class-transformer 和 class-validator，因为没有它们就无法工作。请参阅上述文档安装 class-transformer 和 class-validator。
 
 ### 用法
 
@@ -155,7 +156,7 @@ $ npm install class-transformer-validator --save
 import { IsEmail } from "class-validator";
 import { transformAndValidate } from "class-transformer-validator";
 
-// declare the class using class-validator decorators
+// 使用class-validator修饰符声明类。
 class User {
   @IsEmail()
   public email: string;
@@ -165,54 +166,54 @@ class User {
   }
 }
 
-// then load the JSON string from any part of your app
+// 然后从应用程序中加载JSON字符串
 const userJson: string = loadJsonFromSomething();
 
-// transform the JSON to class instance and validate it correctness
+// 将JSON转换为类实例并验证其正确性
 transformAndValidate(User, userJson)
   .then((userObject: User) => {
-    // now you can access all your class prototype method
-    console.log(`Hello ${userObject.hello()}`); // prints "Hello World!" on console
+    // 现在您可以访问所有的类原型方法
+    console.log(`Hello ${userObject.hello()}`); // 在控制台打印“Hello World!
   })
   .catch(err => {
-    // here you can handle error on transformation (invalid JSON)
-    // or validation error (e.g. invalid email property)
+    // 处理转换错误(无效JSON)
+    // 或验证错误(例如无效的电子邮件属性)
     console.error(err);
   });
 ```
 
-您还可以转换和验证普通的JS对象（例如，来自express req.body）。使用ES7 async / await语法：
+您还可以转换和验证普通的 JS 对象（例如，来自 express req.body）。使用 ES7 async / await 语法：
 
 ```js
 async (req, res) => {
   try {
-    // transform and validate request body
+    // 验证请求
     const userObject = await transformAndValidate(User, req.body);
-    // infered type of userObject is User, you can access all class prototype properties and methods
+    // 推断的userObject类型为User，您可以访问所有类原型属性和方法
   } catch (err) {
-    // your error handling
+    // 错误请求
     console.error(err);
   }
 };
 ```
 
-自发布以来，0.3.0您还可以传递对象数组-所有对象都将使用给定的类验证约束进行验证：
+自发布以来，0.3.0 还可以传递对象数组-所有对象都将使用给定的类验证约束进行验证：
 
 ```js
 async (req, res) => {
   try {
-    // transform and validate request body - array of User objects
+    // 转换验证用户对象的数组
     const userObjects = await transformAndValidate(User, req.body);
     userObjects.forEach(user => console.log(`Hello ${user.hello()}`));
   } catch (err) {
-    // your error handling
+    // 错误请求
   }
 };
 ```
 
 ### API参考
 
-该transformAndValidate函数具有三个重载：
+该 transformAndValidate 函数具有三个重载：
 
 ```js
 function transformAndValidate<T extends object>(
@@ -232,7 +233,7 @@ function transformAndValidate<T extends object>(
 ): Promise<T[]>;
 ```
 
-请注意，如果您验证json字符串，则返回类型为Promiseof T，T[]因此，如果您知道json的形状，则需要声明返回的类型：
+请注意，如果您验证 json 字符串，则返回类型为 Promiseof T，T[] 因此，如果您知道 json 的形状，则需要声明返回的类型：
 
 ```js
 const users = (await transformAndValidate(
@@ -241,7 +242,7 @@ const users = (await transformAndValidate(
 )) as User[];
 ```
 
-或者，您可以使用Array.isArray方法在运行时检查类型。
+或者，您可以使用 Array.isArray 方法在运行时检查类型。
 
 ### 参数和类型
 
@@ -253,9 +254,9 @@ type ClassType<T> = {
 };
 ```
 
-jsonString -包含JSON的普通字符串。
+jsonString -包含 JSON 的普通字符串。
 
-object-类型为普通的JS对象object（在TypeScript 2.2中引入），在尝试传递数字，布尔值，空值或未定义时会出现编译时错误，但在传递函数时会出现运行时错误。
+object -类型为普通的 JS 对象 object（在TypeScript 2.2中引入），在尝试传递数字，布尔值，空值或未定义时会出现编译时错误，但在传递函数时会出现运行时错误。
 
 array -如上所述的普通JS对象数组。
 
