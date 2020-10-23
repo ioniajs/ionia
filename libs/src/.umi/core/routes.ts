@@ -188,7 +188,7 @@ export function getRoutes() {
         "exact": true,
         "meta": {
           "filePath": "docs/architecture/exception.md",
-          "updatedTime": 1601452603000,
+          "updatedTime": 1603354987000,
           "title": "异常捕获",
           "group": {
             "title": "基础架构",
