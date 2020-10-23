@@ -550,8 +550,8 @@ export function getRoutes() {
             },
             {
               "depth": 3,
-              "value": "class-transformer是什么？",
-              "heading": "class-transformer是什么？"
+              "value": "class-transformer 是什么？",
+              "heading": "class-transformer-是什么？"
             },
             {
               "depth": 3,
@@ -590,8 +590,8 @@ export function getRoutes() {
             },
             {
               "depth": 3,
-              "value": "class-transformer-validator介绍",
-              "heading": "class-transformer-validator介绍"
+              "value": "class-transformer-validator 介绍",
+              "heading": "class-transformer-validator-介绍"
             },
             {
               "depth": 3,
