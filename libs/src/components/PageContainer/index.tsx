@@ -1,15 +1,11 @@
 import React from 'react';
 
-import "./index.less";
+import './index.less';
 
 export interface PageContainerProps {
-    children: React.ReactNode;
+	children: React.ReactNode;
 }
 
 export const PageContainer = ({ children }: PageContainerProps) => {
-    return (
-        <section>
-            {children}
-        </section>
-    );
-}
+	return <section>{children}</section>;
+};

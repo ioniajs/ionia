@@ -1,20 +1,20 @@
 {
-  "compilerOptions": {
-    "baseUrl": "./",
-    "outDir": "./dist/",
-    "sourceMap": true,
-    "strict": true,
-    "noImplicitReturns": true,
-    "noImplicitAny": true,
-    "allowSyntheticDefaultImports": true,
-    "module": "es6",
-    "moduleResolution": "node",
-    "target": "es5",
-    "allowJs": true,
-    "jsx": "react",
-    "paths": {
-      "@/*": ["src/*"]
-    }
-  },
-  "include": ["./src/**/*", "../../libs/src/contexts", "mocks"]
+	"compilerOptions": {
+		"baseUrl": "./",
+		"outDir": "./dist/",
+		"sourceMap": true,
+		"strict": true,
+		"noImplicitReturns": true,
+		"noImplicitAny": true,
+		"allowSyntheticDefaultImports": true,
+		"module": "es6",
+		"moduleResolution": "node",
+		"target": "es5",
+		"allowJs": true,
+		"jsx": "react",
+		"paths": {
+			"@/*": ["src/*"]
+		}
+	},
+	"include": ["./src/**/*", "../../libs/src/contexts", "mocks"]
 }

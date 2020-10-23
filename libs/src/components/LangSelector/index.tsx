@@ -1,20 +1,20 @@
-import { TranslationOutlined } from "@ant-design/icons";
-import { Dropdown, Menu } from "antd";
-import * as React from "react";
+import { TranslationOutlined } from '@ant-design/icons';
+import { Dropdown, Menu } from 'antd';
+import * as React from 'react';
 
 export interface LangSelectorProps {}
 
 const menus = (
-  <Menu onClick={() => {}}>
-    <Menu.Item key="zh-CN">简体中文</Menu.Item>
-    <Menu.Item key="en-US">English</Menu.Item>
-  </Menu>
+	<Menu onClick={() => {}}>
+		<Menu.Item key='zh-CN'>简体中文</Menu.Item>
+		<Menu.Item key='en-US'>English</Menu.Item>
+	</Menu>
 );
 
 export const LangSelector: React.FC<LangSelectorProps> = () => {
-  return (
-    <Dropdown overlay={menus}>
-      <TranslationOutlined style={{ fontSize: 18 }} />
-    </Dropdown>
-  );
+	return (
+		<Dropdown overlay={menus}>
+			<TranslationOutlined style={{ fontSize: 18 }} />
+		</Dropdown>
+	);
 };

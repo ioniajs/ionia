@@ -1,31 +1,32 @@
 .io-master__header {
-    .io-master__logo {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        width: 216px;
-        padding-right: 12px;
-        margin-right: 24px;        
-        .logo {
-            height: 20px;
-            font-size: 28px;
-            font-family: Microsoft YaHei;
-            font-weight: 800;
-            font-style: italic;
-            color: #1C6CD8;
-            line-height: 30px;
-        }
-        .collapse {
-            width: 18px;
-            height: 16px;      
-            color: #1C6CD8;
-        }
-        &.collapse {
-            justify-content: center;
-            width: 62px;
-            .logo {
-                display: none;
-            }            
-        }
-    }
+	.io-master__logo {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		width: 216px;
+		padding-right: 12px;
+		margin-right: 24px;
+		transition: width 0.2s;
+		.logo {
+			height: 20px;
+			font-size: 28px;
+			font-family: Microsoft YaHei;
+			font-weight: 800;
+			font-style: italic;
+			color: #1c6cd8;
+			line-height: 30px;
+		}
+		.collapse {
+			width: 18px;
+			height: 16px;
+			color: #1c6cd8;
+		}
+		&.collapse {
+			justify-content: center;
+			width: 62px;
+			.logo {
+				display: none;
+			}
+		}
+	}
 }
