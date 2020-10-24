@@ -1,7 +1,7 @@
 ---
 title: 参数校验
 group:
-  title: 基础架构
+    title: 基础架构
 order: 9
 ---
 
@@ -19,43 +19,43 @@ order: 9
 
 ```js
 [
-  {
-    "id": 1,
-    "firstName": "Johny",
-    "lastName": "Cage",
-    "age": 27
-  },
-  {
-    "id": 2,
-    "firstName": "Ismoil",
-    "lastName": "Somoni",
-    "age": 50
-  },
-  {
-    "id": 3,
-    "firstName": "Luke",
-    "lastName": "Dacascos",
-    "age": 12
-  }
-]
+	{
+		id: 1,
+		firstName: 'Johny',
+		lastName: 'Cage',
+		age: 27,
+	},
+	{
+		id: 2,
+		firstName: 'Ismoil',
+		lastName: 'Somoni',
+		age: 50,
+	},
+	{
+		id: 3,
+		firstName: 'Luke',
+		lastName: 'Dacascos',
+		age: 12,
+	},
+];
 ```
 
 并且有一个 User 类：
 
 ```js
 export class User {
-  id: number;
-  firstName: string;
-  lastName: string;
-  age: number;
+	id: number;
+	firstName: string;
+	lastName: string;
+	age: number;
 
-  getName() {
-    return this.firstName + ' ' + this.lastName;
-  }
+	getName() {
+		return this.firstName + ' ' + this.lastName;
+	}
 
-  isAdult() {
-    return this.age > 36 && this.age < 60;
-  }
+	isAdult() {
+		return this.age > 36 && this.age < 60;
+	}
 }
 ```
 
@@ -63,9 +63,9 @@ export class User {
 
 ```js
 fetch('users.json').then((users: User[]) => {
-  // 您可以在此处使用users，类型提示也将对您可用
-  // 但user实际上不是User类的实例
-  // 这意味着您不能使用User类的方法
+	// 您可以在此处使用users，类型提示也将对您可用
+	// 但user实际上不是User类的实例
+	// 这意味着您不能使用User类的方法
 });
 ```
 
@@ -75,12 +75,12 @@ fetch('users.json').then((users: User[]) => {
 
 是的，您可以使用 class-transformer。该库的目的是帮助您将简单的 javascript 对象映射到您拥有的类的实例。
 
-该库还非常适合您的 API 中公开的模型，因为它提供了出色的工具来控制您的模型在API中公开的内容，这是示例：
+该库还非常适合您的 API 中公开的模型，因为它提供了出色的工具来控制您的模型在 API 中公开的内容，这是示例：
 
 ```js
 fetch('users.json').then((users: Object[]) => {
-  const realUsers = plainToClass(User, users);
-  // 现在realUsers中的每个用户都是User类的实例
+	const realUsers = plainToClass(User, users);
+	// 现在realUsers中的每个用户都是User类的实例
 });
 ```
 
@@ -90,11 +90,11 @@ fetch('users.json').then((users: Object[]) => {
 
 1.安装模块：
 
-$ npm install class-transformer --save
+\$ npm install class-transformer --save
 
 2.安装 reflect-metadata
 
-$ npm install reflect-metadata --save
+\$ npm install reflect-metadata --save
 
 并确保将其导入到全球范围内，例如 app.ts：
 
@@ -104,7 +104,7 @@ import 'reflect-metadata';
 
 3.使用了 ES6 功能，如果您使用的是旧版本的 node.js，则可能需要安装 es6-shim：
 
-$ npm install es6-shim --save
+\$ npm install es6-shim --save
 
 并将其导入到 app.ts 等全球位置：
 
@@ -126,13 +126,13 @@ class-validator 是一个方便的数据校验工具。
 
 ### 安装
 
-$ npm install class-validator --save
+\$ npm install class-validator --save
 
-注意：使用 class-validator 时，请至少使用npm @ 6。从npm @ 6起，依赖关系树被展平，这是 class-validator 正常运行所必需的。
+注意：使用 class-validator 时，请至少使用 npm @ 6。从 npm @ 6 起，依赖关系树被展平，这是 class-validator 正常运行所必需的。
 
 ### 方法
 
-参考文档： 
+参考文档：
 
 https://segmentfault.com/a/1190000025123187
 
@@ -146,7 +146,7 @@ class-transformer-validator 是一个简单的用于 class-transformer 和 class
 
 ### 安装
 
-$ npm install class-transformer-validator --save
+\$ npm install class-transformer-validator --save
 
 这个软件包只是一个简单的插件/包装器，因此您也必须安装所需的模块，即 class-transformer 和 class-validator，因为没有它们就无法工作。请参阅上述文档安装 class-transformer 和 class-validator。
 
@@ -186,14 +186,14 @@ transformAndValidate(User, userJson)
 
 ```js
 async (req, res) => {
-  try {
-    // 验证请求
-    const userObject = await transformAndValidate(User, req.body);
-    // 推断的userObject类型为User，您可以访问所有类原型属性和方法
-  } catch (err) {
-    // 错误请求
-    console.error(err);
-  }
+	try {
+		// 验证请求
+		const userObject = await transformAndValidate(User, req.body);
+		// 推断的userObject类型为User，您可以访问所有类原型属性和方法
+	} catch (err) {
+		// 错误请求
+		console.error(err);
+	}
 };
 ```
 
@@ -201,17 +201,17 @@ async (req, res) => {
 
 ```js
 async (req, res) => {
-  try {
-    // 转换验证用户对象的数组
-    const userObjects = await transformAndValidate(User, req.body);
-    userObjects.forEach(user => console.log(`Hello ${user.hello()}`));
-  } catch (err) {
-    // 错误请求
-  }
+	try {
+		// 转换验证用户对象的数组
+		const userObjects = await transformAndValidate(User, req.body);
+		userObjects.forEach(user => console.log(`Hello ${user.hello()}`));
+	} catch (err) {
+		// 错误请求
+	}
 };
 ```
 
-### API参考
+### API 参考
 
 该 transformAndValidate 函数具有三个重载：
 
@@ -250,22 +250,21 @@ classType -类符号，可以使用调用的构造函数 new。
 
 ```js
 type ClassType<T> = {
-  new (...args: any[]): T;
+	new(...args: any[]): T,
 };
 ```
 
 jsonString -包含 JSON 的普通字符串。
 
-object -类型为普通的 JS 对象 object（在TypeScript 2.2中引入），在尝试传递数字，布尔值，空值或未定义时会出现编译时错误，但在传递函数时会出现运行时错误。
+object -类型为普通的 JS 对象 object（在 TypeScript 2.2 中引入），在尝试传递数字，布尔值，空值或未定义时会出现编译时错误，但在传递函数时会出现运行时错误。
 
-array -如上所述的普通JS对象数组。
+array -如上所述的普通 JS 对象数组。
 
 options -可选选项对象，它具有两个可选属性。
 
 ```js
 interface TransformValidationOptions {
-  validator?: ValidatorOptions;
-  transformer?: ClassTransformOptions;
+	validator?: ValidatorOptions;
+	transformer?: ClassTransformOptions;
 }
 ```
-

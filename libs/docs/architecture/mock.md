@@ -1,7 +1,7 @@
 ---
 title: 接口模拟
 group:
-  title: 基础架构
+    title: 基础架构
 order: 12
 ---
 
@@ -21,38 +21,38 @@ Mock Service Worker 是一个使用 Service Worker API 拦截实际请求的 API
 
 ```js
 // src/mocks.js
-import { setupWorker, rest } from 'msw'
+import { setupWorker, rest } from 'msw';
 const worker = setupWorker(
-  rest.post('/login', (req, res, ctx) => {
-    const isAuthenticated = sessionStorage.getItem('username')
-    if (!isAuthenticated) {
-      return res(
-        ctx.status(403),
-        ctx.json({
-          errorMessage: 'Not authenticated',
-        }),
-      )
-    }
-    return res(
-      ctx.json({
-        firstName: 'John',
-      }),
-    )
-  }),
-)
-// 
-worker.start()
+	rest.post('/login', (req, res, ctx) => {
+		const isAuthenticated = sessionStorage.getItem('username');
+		if (!isAuthenticated) {
+			return res(
+				ctx.status(403),
+				ctx.json({
+					errorMessage: 'Not authenticated',
+				})
+			);
+		}
+		return res(
+			ctx.json({
+				firstName: 'John',
+			})
+		);
+	})
+);
+//
+worker.start();
 ```
 
 ## msw 安装
 
 在项目的根目录中运行以下命令：
 
-$ npm install msw --save-dev
+\$ npm install msw --save-dev
 
 或者
 
-$ yarn add msw --dev
+\$ yarn add msw --dev
 
 ## 模拟 REST API
 
@@ -70,13 +70,13 @@ GET /user，以返回有关已登录用户的信息。
 
 ```js
 // src/mocks/handlers.js
-import { rest } from 'msw'
+import { rest } from 'msw';
 export const handlers = [
-  // 处理POST /登录请求
-  rest.post('/login', null),
-  // 处理GET /用户请求
-  rest.get('/user', null),
-]
+	// 处理POST /登录请求
+	rest.post('/login', null),
+	// 处理GET /用户请求
+	rest.get('/user', null),
+];
 ```
 
 ### 响应解析器
@@ -95,37 +95,37 @@ ctx，一组有助于设置模拟响应的状态码，标题，正文等的函�
 
 ```js
 // src/mocks/handlers.js
-import { rest } from 'msw'
+import { rest } from 'msw';
 export const handlers = [
-  rest.post('/login', (req, res, ctx) => {
-    // 在会话中坚持用户的身份验证
-    sessionStorage.setItem('is-authenticated', true)
-    return res(
-      // 回应200状态码
-      ctx.status(200),
-    )
-  }),
-  rest.get('/user', (req, res, ctx) => {
-    // 检查用户是否在此会话中通过了身份验证
-    const isAuthenticated = sessionStorage.getItem('is-authenticated')
-    if (!isAuthenticated) {
-      // 如果未通过身份验证，则返回403错误
-      return res(
-        ctx.status(403),
-        ctx.json({
-          errorMessage: 'Not authorized',
-        }),
-      )
-    }
-    // 如果通过身份验证，则返回模拟的用户详细信息
-    return res(
-      ctx.status(200),
-      ctx.json({
-        username: 'admin',
-      }),
-    )
-  }),
-]
+	rest.post('/login', (req, res, ctx) => {
+		// 在会话中坚持用户的身份验证
+		sessionStorage.setItem('is-authenticated', true);
+		return res(
+			// 回应200状态码
+			ctx.status(200)
+		);
+	}),
+	rest.get('/user', (req, res, ctx) => {
+		// 检查用户是否在此会话中通过了身份验证
+		const isAuthenticated = sessionStorage.getItem('is-authenticated');
+		if (!isAuthenticated) {
+			// 如果未通过身份验证，则返回403错误
+			return res(
+				ctx.status(403),
+				ctx.json({
+					errorMessage: 'Not authorized',
+				})
+			);
+		}
+		// 如果通过身份验证，则返回模拟的用户详细信息
+		return res(
+			ctx.status(200),
+			ctx.json({
+				username: 'admin',
+			})
+		);
+	}),
+];
 ```
 
 ## 模拟 GraphQL API
@@ -144,13 +144,13 @@ GetUserInfo 查询，以返回有关已登录用户的信息。
 
 ```js
 // src/mocks/handlers.js
-import { graphql } from 'msw'
+import { graphql } from 'msw';
 export const handlers = [
-  // 处理“登录”突变
-  graphql.mutation('Login', null),
-  // 处理“ GetUserInfo”查询
-  graphql.query('GetUserInfo', null),
-]
+	// 处理“登录”突变
+	graphql.mutation('Login', null),
+	// 处理“ GetUserInfo”查询
+	graphql.query('GetUserInfo', null),
+];
 ```
 
 ### 响应解析器
@@ -165,7 +165,7 @@ res，用于创建模拟响应的功能实用程序；
 
 ctx，一组有助于在模拟响应中设置状态代码，标头，数据等的函数。
 
-在GraphQL中，我们在查询/变异声明本身中描述了预期的响应。让我们设计两个操作的响应形状：
+在 GraphQL 中，我们在查询/变异声明本身中描述了预期的响应。让我们设计两个操作的响应形状：
 
 ```js
 // 使用给定的用户名进行身份验证
@@ -188,47 +188,47 @@ query GetUserInfo() {
 
 ```js
 // src/mocks/handlers.js
-import { graphql } from 'msw'
+import { graphql } from 'msw';
 export const handlers = [
-  // 处理“登录”突变
-  graphql.mutation('Login', (req, res, ctx) => {
-    const { username } = req.variables
-    sessionStorage.setItem('is-authenticated', username)
-    return res(
-      ctx.data({
-        login: {
-          username,
-        },
-      }),
-    )
-  }),
-  // 处理“ GetUserInfo”查询
-  graphql.query('GetUserInfo', (req, res, ctx) => {
-    const authenticatedUser = sessionStorage.getItem('is-authenticated')
-    if (!authenticatedUser) {
-      // 如果未通过身份验证，则返回错误
-      return res(
-        ctx.errors([
-          {
-            message: 'Not authenticated',
-            errorType: 'AuthenticationError',
-          },
-        ]),
-      )
-    }
-    // 通过身份验证后，使用查询有效负载进行响应
-    return res(
-      ctx.data({
-        user: {
-          username: authenticatedUser,
-          firstName: 'John',
-        },
-      }),
-    )
-  }),
-]
+	// 处理“登录”突变
+	graphql.mutation('Login', (req, res, ctx) => {
+		const { username } = req.variables;
+		sessionStorage.setItem('is-authenticated', username);
+		return res(
+			ctx.data({
+				login: {
+					username,
+				},
+			})
+		);
+	}),
+	// 处理“ GetUserInfo”查询
+	graphql.query('GetUserInfo', (req, res, ctx) => {
+		const authenticatedUser = sessionStorage.getItem('is-authenticated');
+		if (!authenticatedUser) {
+			// 如果未通过身份验证，则返回错误
+			return res(
+				ctx.errors([
+					{
+						message: 'Not authenticated',
+						errorType: 'AuthenticationError',
+					},
+				])
+			);
+		}
+		// 通过身份验证后，使用查询有效负载进行响应
+		return res(
+			ctx.data({
+				user: {
+					username: authenticatedUser,
+					firstName: 'John',
+				},
+			})
+		);
+	}),
+];
 ```
 
 ## 相关文档
 
-访问  https://github.com/mswjs/msw
+访问 https://github.com/mswjs/msw

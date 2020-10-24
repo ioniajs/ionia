@@ -1,7 +1,7 @@
 ---
 title: 网络请求
 group:
-  title: 基础架构
+    title: 基础架构
 order: 5
 ---
 
@@ -13,7 +13,7 @@ order: 5
 
 ## 安装
 
-$ npm install --save umi-request
+\$ npm install --save umi-request
 
 ## 示例
 
@@ -23,43 +23,43 @@ $ npm install --save umi-request
 import request from 'umi-request';
 
 request
-  .get('/api/v1/xxx?id=1')
-  .then(function(response) {
-    console.log(response);
-  })
-  .catch(function(error) {
-    console.log(error);
-  });
+	.get('/api/v1/xxx?id=1')
+	.then(function (response) {
+		console.log(response);
+	})
+	.catch(function (error) {
+		console.log(error);
+	});
 // use options.params
 request
-  .get('/api/v1/xxx', {
-    params: {
-      id: 1,
-    },
-  })
-  .then(function(response) {
-    console.log(response);
-  })
-  .catch(function(error) {
-    console.log(error);
-  });
+	.get('/api/v1/xxx', {
+		params: {
+			id: 1,
+		},
+	})
+	.then(function (response) {
+		console.log(response);
+	})
+	.catch(function (error) {
+		console.log(error);
+	});
 ```
 
 ### 执行 post 请求
 
 ```js
 request
-  .post('/api/v1/user', {
-    data: {
-      name: 'Mike',
-    },
-  })
-  .then(function(response) {
-    console.log(response);
-  })
-  .catch(function(error) {
-    console.log(error);
-  });
+	.post('/api/v1/user', {
+		data: {
+			name: 'Mike',
+		},
+	})
+	.then(function (response) {
+		console.log(response);
+	})
+	.catch(function (error) {
+		console.log(error);
+	});
 ```
 
 ### 创建一个实例
@@ -68,33 +68,33 @@ request
 import { extend } from 'umi-request';
 
 const request = extend({
-  prefix: '/api/v1',
-  timeout: 1000,
-  headers: {
-    'Content-Type': 'multipart/form-data',
-  },
+	prefix: '/api/v1',
+	timeout: 1000,
+	headers: {
+		'Content-Type': 'multipart/form-data',
+	},
 });
 
 request
-  .get('/user')
-  .then(function(response) {
-    console.log(response);
-  })
-  .catch(function(error) {
-    console.log(error);
-  });
+	.get('/user')
+	.then(function (response) {
+		console.log(response);
+	})
+	.catch(function (error) {
+		console.log(error);
+	});
 ```
 
-umi-request 封装使用简单案例：  http://www.siyuweb.com/javascript/3649.html
+umi-request 封装使用简单案例： http://www.siyuweb.com/javascript/3649.html
 
-参数详细介绍请阅读文档：  https://github.com/umijs/umi-request#readme
+参数详细介绍请阅读文档： https://github.com/umijs/umi-request#readme
 
 ## 响应模式
 
 请求的响应包含以下信息：
 
 ```js
-{ 
+{
   //'data'是服务器
   数据提供的响应：{ }，
 
@@ -113,19 +113,19 @@ umi-request 封装使用简单案例：  http://www.siyuweb.com/javascript/3649.
 ### 当 options.getResponse === false 时，响应模式将为 'data'
 
 ```js
-request.get('/api/v1/xxx', { getResponse: false }).then(function(data) {
-  console.log(data);
+request.get('/api/v1/xxx', { getResponse: false }).then(function (data) {
+	console.log(data);
 });
 ```
 
 ### 当 options.getResponse === true 时，响应模式为 '{data，response}'
 
 ```js
-request.get('/api/v1/xxx', { getResponse: true }).then(function({ data, response }) {
-  console.log(data);
-  console.log(response.status);
-  console.log(response.statusText);
-  console.log(response.headers);
+request.get('/api/v1/xxx', { getResponse: true }).then(function ({ data, response }) {
+	console.log(data);
+	console.log(response.status);
+	console.log(response.statusText);
+	console.log(response.headers);
 });
 ```
 
@@ -135,26 +135,26 @@ request.get('/api/v1/xxx', { getResponse: true }).then(function({ data, response
 
 ```js
 import request, { extend } from 'umi-request';
-const errorHandler = function(error) {
-  const codeMap = {
-    '021': 'An error has occurred',
-    '022': 'It’s a big mistake,',
-  };
-  if (error.response) {
-    // 请求已发出，服务器用状态代码响应
-    // 超出了2xx的范围
-    console.log(error.response.status);
-    console.log(error.response.headers);
-    console.log(error.data);
-    console.log(error.request);
-    console.log(codeMap[error.data.status]);
-  } else {
-    //发出请求，但未收到响应，或者在设置请求时发生错误。
-    console.log(error.message);
-  }
-  throw error;//如果抛出。该错误将继续引发。
-  //返回{some：'data'}; 如果返回，则返回该值作为返回值。如果不写，则等于返回undefined，可以在处理结果时判断响应是否具有值。
-  //返回{some：'data'}; 
+const errorHandler = function (error) {
+	const codeMap = {
+		'021': 'An error has occurred',
+		'022': 'It’s a big mistake,',
+	};
+	if (error.response) {
+		// 请求已发出，服务器用状态代码响应
+		// 超出了2xx的范围
+		console.log(error.response.status);
+		console.log(error.response.headers);
+		console.log(error.data);
+		console.log(error.request);
+		console.log(codeMap[error.data.status]);
+	} else {
+		//发出请求，但未收到响应，或者在设置请求时发生错误。
+		console.log(error.message);
+	}
+	throw error; //如果抛出。该错误将继续引发。
+	//返回{some：'data'}; 如果返回，则返回该值作为返回值。如果不写，则等于返回undefined，可以在处理结果时判断响应是否具有值。
+	//返回{some：'data'};
 };
 // 1.统一处理
 const extendRequest = extend({ errorHandler });
@@ -163,12 +163,12 @@ const extendRequest = extend({ errorHandler });
 request('/api/v1/xxx', { errorHandler });
 // 3.如果未配置errorHandler，则响应将被直接视为promise，并将被捕获。
 requestrequest('/api/v1/xxx')
-  .then(function(response) {
-    console.log(response);
-  })
-  .catch(function(error) {
-    return errorHandler(error);
-  });
+	.then(function (response) {
+		console.log(response);
+	})
+	.catch(function (error) {
+		return errorHandler(error);
+	});
 ```
 
 ## 详细文档

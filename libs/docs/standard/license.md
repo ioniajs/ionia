@@ -1,7 +1,7 @@
 ---
 title: 协议规范
 group:
-  title: 开发规范
+    title: 开发规范
 order: 6
 ---
 
@@ -14,12 +14,12 @@ order: 6
 现在市面上的开源协议至少有上百种，经过开源促进会（Open Source Initiative）认可的开源协议也多达 70 多种。
 这里介绍 6 种常见的开源协议：
 
-- BSD（Berkeley Software Distribution license）
-- MIT（Massachusetts Institute of Technology）
-- Apache Licence 2.0
-- GPL（General Public License）
-- LGPL（Lesser General Public License）
-- Mozilla（Mozilla Public License）
+-   BSD（Berkeley Software Distribution license）
+-   MIT（Massachusetts Institute of Technology）
+-   Apache Licence 2.0
+-   GPL（General Public License）
+-   LGPL（Lesser General Public License）
+-   Mozilla（Mozilla Public License）
 
 首先看一张图：
 ![License](./license.png)
@@ -34,9 +34,9 @@ BSD 源自加州大学伯克利分校，是自由软件中使用最广泛的许�
 
 当你发布使用了 BSD 协议的代码，或以 BSD 协议代码为基础做二次开发时，需要满足以下三个条件：
 
-- 如果再发布的产品中包含源代码，则在源代码中必须带有原来代码中的 BSD 协议；
-- 如果再发布的是二进制类库/软件，则需要在类库/软件的文档和版权声明中包含原来代码中的 BSD 协议；
-- 不可以使用开源代码的作者/机构名字和原来产品的名字做市场推广；
+-   如果再发布的产品中包含源代码，则在源代码中必须带有原来代码中的 BSD 协议；
+-   如果再发布的是二进制类库/软件，则需要在类库/软件的文档和版权声明中包含原来代码中的 BSD 协议；
+-   不可以使用开源代码的作者/机构名字和原来产品的名字做市场推广；
 
 BSD 鼓励代码共享，但需要尊重代码作者的著作权。
 BSD 允许使用者修改和重新发布代码，也允许基于 BSD 代码上开发商业软件的发布和销售，因此很多公司企业在选用开源产品的时候都首选 BSD 协议（因为遵循 BSD 协议的代码完全可控，必要的时候可以修改或者二次开发）。
@@ -92,11 +92,11 @@ Apache Licence 也是对商业应用友好的许可，使用者也可以在需�
 
 需要满足的条件与 BSD 类似：
 
-- 需要给使用代码的用户拷贝一份 Apache Licence
-- 如果你修改了代码，需要再被修改的文件中说明。
-- 在延伸的代码中（修改和有源代码衍生的代码中）需要带有原来代码中的协议，商标，专利声明和其他原来作者规定需要包含的说明。
-- 如果再发布的产品中包含一个 Notice 文件，则在 Notice 文件中需要带有 Apache Licence。你可以在 Notice 中增加自己的许可，但不可以表现为对 Apache Licence 构成更改。
-- 你可以在 Notice 中增加自己的许可，但不可以表现为对 Apache Licence 构成更改。
+-   需要给使用代码的用户拷贝一份 Apache Licence
+-   如果你修改了代码，需要再被修改的文件中说明。
+-   在延伸的代码中（修改和有源代码衍生的代码中）需要带有原来代码中的协议，商标，专利声明和其他原来作者规定需要包含的说明。
+-   如果再发布的产品中包含一个 Notice 文件，则在 Notice 文件中需要带有 Apache Licence。你可以在 Notice 中增加自己的许可，但不可以表现为对 Apache Licence 构成更改。
+-   你可以在 Notice 中增加自己的许可，但不可以表现为对 Apache Licence 构成更改。
 
 ### Apache Licence 2.0 许可条款
 
@@ -184,5 +184,5 @@ Mozilla 允许使用者在自己已有的源代码库上加一个接口，除了
 
 ### 使用 MPL 前提条件：
 
-- 经 MPL 许可证发布的源代码的修改也要以 MPL 许可证的方式再许可出来；
-- 如果修改了代码，需要有一个专门文件描述对源代码程序的修改时间和修改方式；
+-   经 MPL 许可证发布的源代码的修改也要以 MPL 许可证的方式再许可出来；
+-   如果修改了代码，需要有一个专门文件描述对源代码程序的修改时间和修改方式；

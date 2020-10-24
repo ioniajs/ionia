@@ -20,91 +20,90 @@ $ npm install zustand
 先创建一个 store:
 
 ```js
-import create from 'zustand'
+import create from 'zustand';
 
 const useStore = create(set => ({
-  bears: 0,
-  increasePopulation: () => set(state => ({ bears: state.bears + 1 })),
-  removeAllBears: () => set({ bears: 0 })
-}))
+	bears: 0,
+	increasePopulation: () => set(state => ({ bears: state.bears + 1 })),
+	removeAllBears: () => set({ bears: 0 }),
+}));
 ```
 
 然后绑定组件，可以在任何地方使用该挂钩，不需要提供程序。选择您的状态，组件将在更改时重新呈现。
 
-```js
+```jsx
+import React from 'react'
+import useStore from './zustand/useStore'
+
 function BearCounter() {
-    const bears = useStore(state => state.bears)
-    const increasePopulation = useStore(state => state.increasePopulation)
-    const removeAllBears = useStore(state => state.removeAllBears)
-    return (
-        <div>
-            <h1>{bears} around here ...</h1>
-            <button onClick={increasePopulation}>one up</button>
-            <button onClick={removeAllBears}>clear</button>
-        </div>
-    )
+	const bears = useStore(state => state.bears);
+	const increasePopulation = useStore(state => state.increasePopulation);
+	const removeAllBears = useStore(state => state.removeAllBears);
+	return (
+		<div>
+			<h1>{bears} around here ...</h1>
+			<button onClick={increasePopulation}>one up</button>
+			<button onClick={removeAllBears}>clear</button>
+		</div>
+	);
 }
+export default BearCounter
 ```
 
-如下图所示，点击 one up 让数字 +1，点击 clear 使数字清零。
-
-![GitFlow](./demo.png)
+点击 one up 让数字 +1，点击 clear 使数字清零。
 
 请记住，它将导致组件在每次状态更改时进行更新。
 
 ```js
-const state = useStore()
+const state = useStore();
 ```
 
-您也可以从多个store中获取：
+您也可以从多个 store 中获取：
 
 再创建一个 carStore:
 
 ```js
-import create from 'zustand'
+import create from 'zustand';
 
 const carStore = create(set => ({
-    carNumber: 0,
-    increaseNumber: () => set(state => ({ carNumber: state.carNumber + 1 })),
-    reduceNumber: () => set(state => ({ carNumber: state.carNumber - 1 })),
-    removeNumber: () => set({ carNumber: 0 }),
-}))
+	carNumber: 0,
+	increaseNumber: () => set(state => ({ carNumber: state.carNumber + 1 })),
+	reduceNumber: () => set(state => ({ carNumber: state.carNumber - 1 })),
+	removeNumber: () => set({ carNumber: 0 }),
+}));
 ```
 
-```js
+```jsx
 import React from 'react'
-import useStore from '../zustand/useStroe'
-import carStore from '../zustand/carStroe'
+import useStore from './zustand/useStore'
+import carStore from './zustand/carStore'
 
 function BearCounter() {
-    const bears = useStore(state => state.bears)
-    const increasePopulation = useStore(state => state.increasePopulation)
-    const removeAllBears = useStore(state => state.removeAllBears)
-    const carNumber = carStore(state => state.carNumber)
-    const increaseNumber = carStore(state => state.increaseNumber)
-    const reduceNumber = carStore(state => state.reduceNumber)
-    const removeNumber = carStore(state => state.removeNumber)
-    return (
-        <div>
-            <div>
-                <h1>{bears} around here ...</h1>
-                <button onClick={increasePopulation}>one up</button>
-                <button onClick={removeAllBears}>clear</button>
-            </div>
-            <div>
-                <h1>{carNumber} Car Number ...</h1>  
-                <button onClick={increaseNumber}>car up</button>
-                <button onClick={reduceNumber}>car down</button>
-                <button onClick={removeNumber}>clear</button>
-            </div>
-            
-        </div>
-    )
+	const bears = useStore(state => state.bears);
+	const increasePopulation = useStore(state => state.increasePopulation);
+	const removeAllBears = useStore(state => state.removeAllBears);
+	const carNumber = carStore(state => state.carNumber);
+	const increaseNumber = carStore(state => state.increaseNumber);
+	const reduceNumber = carStore(state => state.reduceNumber);
+	const removeNumber = carStore(state => state.removeNumber);
+	return (
+		<div>
+			<div>
+				<h1>{bears} around here ...</h1>
+				<button onClick={increasePopulation}>one up</button>
+				<button onClick={removeAllBears}>clear</button>
+			</div>
+			<div>
+				<h1>{carNumber} Car Number ...</h1>
+				<button onClick={increaseNumber}>car up</button>
+				<button onClick={reduceNumber}>car down</button>
+				<button onClick={removeNumber}>clear</button>
+			</div>
+		</div>
+	);
 }
+export default BearCounter
 ```
 
-效果如下：
-
-![GitFlow](./demo2.png)
-
 详细用法请阅读文档： https://github.com/pmndrs/zustand
+

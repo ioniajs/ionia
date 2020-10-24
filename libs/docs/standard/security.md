@@ -1,7 +1,7 @@
 ---
 title: 安全规范
 group:
-  title: 开发规范
+    title: 开发规范
 order: 5
 ---
 
@@ -35,8 +35,8 @@ fis-plus 默认开启 xss 转义功能，需要编译时加`-o`参数
 
 背景知识：
 
-- [CSRF 简单介绍及利用方法](http://drops.wooyun.org/papers/155)
-- [Cross-Site Request Forgery (CSRF)](https://www.owasp.org/index.php/Cross-Site_Request_Forgery_%28CSRF%29)
+-   [CSRF 简单介绍及利用方法](http://drops.wooyun.org/papers/155)
+-   [Cross-Site Request Forgery (CSRF)](https://www.owasp.org/index.php/Cross-Site_Request_Forgery_%28CSRF%29)
 
 ## Cookie 使用
 

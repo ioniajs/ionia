@@ -1,7 +1,7 @@
 ---
 title: 工作区
 group:
-  title: 基础架构
+    title: 基础架构
 order: 1
 ---
 
@@ -21,11 +21,11 @@ node_modules :项目所需依赖。
 
 src :源码目录。
 
-pages :页面文件，pages中包含App.less、App.tsx(App主界面)和index.tsx(入口文件)。
+pages :页面文件，pages 中包含 App.less、App.tsx(App 主界面)和 index.tsx(入口文件)。
 
-package.json :package配置文件。
+package.json :package 配置文件。
 
-tsconfig.json :ts配置文件。
+tsconfig.json :ts 配置文件。
 
 webpack.dev.js、webpack.prod.js :项目中 webpack 的开发和生产版本。
 
@@ -35,7 +35,7 @@ webpack.dev.js、webpack.prod.js :项目中 webpack 的开发和生产版本。
 
 主应用项目相对于子应用项目多了一些模块：
 
-mocks :用来模拟http协议接口。
+mocks :用来模拟 http 协议接口。
 
 plugins :插件模块。
 
