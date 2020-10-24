@@ -372,6 +372,41 @@ export function getRoutes() {
               "depth": 1,
               "value": "开发代理",
               "heading": "开发代理"
+            },
+            {
+              "depth": 2,
+              "value": "代理是什么？",
+              "heading": "代理是什么？"
+            },
+            {
+              "depth": 2,
+              "value": "service worker",
+              "heading": "service-worker"
+            },
+            {
+              "depth": 3,
+              "value": "service worker 是什么？",
+              "heading": "service-worker-是什么？"
+            },
+            {
+              "depth": 3,
+              "value": "service worker 基本特征",
+              "heading": "service-worker-基本特征"
+            },
+            {
+              "depth": 3,
+              "value": "service worker 生命周期",
+              "heading": "service-worker-生命周期"
+            },
+            {
+              "depth": 3,
+              "value": "浏览器的兼容性",
+              "heading": "浏览器的兼容性"
+            },
+            {
+              "depth": 3,
+              "value": "注册安装",
+              "heading": "注册安装"
             }
           ]
         },
@@ -484,7 +519,7 @@ export function getRoutes() {
         "exact": true,
         "meta": {
           "filePath": "docs/architecture/state.md",
-          "updatedTime": 1603502280000,
+          "updatedTime": 1603502700000,
           "title": "状态管理",
           "group": {
             "title": "基础架构",
