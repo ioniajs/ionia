@@ -484,7 +484,7 @@ export function getRoutes() {
         "exact": true,
         "meta": {
           "filePath": "docs/architecture/state.md",
-          "updatedTime": 1603446915000,
+          "updatedTime": 1603502280000,
           "title": "状态管理",
           "group": {
             "title": "基础架构",
