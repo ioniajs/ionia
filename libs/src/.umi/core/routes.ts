@@ -360,7 +360,7 @@ export function getRoutes() {
         "exact": true,
         "meta": {
           "filePath": "docs/architecture/proxy.md",
-          "updatedTime": 1603432272000,
+          "updatedTime": 1603511936000,
           "title": "开发代理",
           "group": {
             "title": "基础架构",

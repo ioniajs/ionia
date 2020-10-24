@@ -9,7 +9,7 @@ import { renderClient } from 'C:/Users/zhuliequn/Desktop/ionia/node_modules/@umi
 import { getRoutes } from './core/routes';
 
 
-
+require('../global.less');
 
 const getClientRender = (args: { hot?: boolean; routes?: any[] } = {}) => plugin.applyPlugins({
   key: 'render',
