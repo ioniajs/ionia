@@ -19,17 +19,17 @@ service worker 是一个服务器与浏览器之间的中间人角色，如果�
 
 ### service worker 基本特征
 
-· 无法操作DOM
+· 无法操作 DOM
 
-· 只能使用HTTPS以及localhost
+· 只能使用 HTTPS 以及 localhost
 
 · 可以拦截全站请求从而控制你的应用
 
-· 与主线程独立不会被阻塞（不要再应用加载时注册sw）
+· 与主线程独立不会被阻塞（不要再应用加载时注册 sw）
 
-· 完全异步，无法使用XHR和localStorage
+· 完全异步，无法使用 XHR 和 localStorage
 
-· 一旦被 install，就永远存在，除非被 uninstall或者dev模式手动删除
+· 一旦被 install，就永远存在，除非被 uninstall 或者 dev 模式手动删除
 
 · 独立上下文
 
@@ -64,13 +64,14 @@ waiting:
 ```js
 // index.js
 if ('serviceWorker' in window.navigator) {
-  navigator.serviceWorker.register('./sw.js', { scope: './' })
-    .then(function (reg) {
-      console.log('success', reg);
-    })
-    .catch(function (err) {
-      console.log('fail', err);
-    });
+	navigator.serviceWorker
+		.register('./sw.js', { scope: './' })
+		.then(function (reg) {
+			console.log('success', reg);
+		})
+		.catch(function (err) {
+			console.log('fail', err);
+		});
 }
 ```
 
@@ -81,7 +82,7 @@ register 方法返回一个 Promise。如果注册失败，可以通过 catch �
 ```js
 // sw.js
 this.addEventListener('install', function (event) {
-  console.log('Service Worker install');
+	console.log('Service Worker install');
 });
 ```
 
@@ -90,7 +91,7 @@ this.addEventListener('install', function (event) {
 ```js
 // sw.js
 this.addEventListener('activate', function (event) {
-  console.log('Service Worker activate');
+	console.log('Service Worker activate');
 });
 ```
 
