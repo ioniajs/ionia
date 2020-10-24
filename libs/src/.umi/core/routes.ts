@@ -19,7 +19,7 @@ export function getRoutes() {
         "exact": true,
         "meta": {
           "filePath": "docs/env.md",
-          "updatedTime": 1603441695665,
+          "updatedTime": 1603432272000,
           "title": "环境搭建",
           "order": 1,
           "slugs": [
@@ -142,7 +142,7 @@ export function getRoutes() {
         "exact": true,
         "meta": {
           "filePath": "docs/architecture/business-component.md",
-          "updatedTime": 1601452603000,
+          "updatedTime": 1603432272000,
           "title": "业务组件",
           "group": {
             "title": "基础架构",
@@ -165,7 +165,7 @@ export function getRoutes() {
         "exact": true,
         "meta": {
           "filePath": "docs/architecture/component.md",
-          "updatedTime": 1601738531000,
+          "updatedTime": 1603432272000,
           "title": "组件库",
           "group": {
             "title": "基础架构",
@@ -188,7 +188,7 @@ export function getRoutes() {
         "exact": true,
         "meta": {
           "filePath": "docs/architecture/exception.md",
-          "updatedTime": 1603418666000,
+          "updatedTime": 1603432272000,
           "title": "异常捕获",
           "group": {
             "title": "基础架构",
@@ -241,7 +241,7 @@ export function getRoutes() {
         "exact": true,
         "meta": {
           "filePath": "docs/architecture/layout.md",
-          "updatedTime": 1601452603000,
+          "updatedTime": 1603432272000,
           "title": "布局",
           "group": {
             "title": "基础架构",
@@ -264,7 +264,7 @@ export function getRoutes() {
         "exact": true,
         "meta": {
           "filePath": "docs/architecture/micro-front-end.md",
-          "updatedTime": 1601452603000,
+          "updatedTime": 1603432272000,
           "title": "微前端",
           "group": {
             "title": "基础架构",
@@ -287,7 +287,7 @@ export function getRoutes() {
         "exact": true,
         "meta": {
           "filePath": "docs/architecture/mock.md",
-          "updatedTime": 1603414923000,
+          "updatedTime": 1603432272000,
           "title": "接口模拟",
           "group": {
             "title": "基础架构",
@@ -360,7 +360,7 @@ export function getRoutes() {
         "exact": true,
         "meta": {
           "filePath": "docs/architecture/proxy.md",
-          "updatedTime": 1601452603000,
+          "updatedTime": 1603432272000,
           "title": "开发代理",
           "group": {
             "title": "基础架构",
@@ -383,7 +383,7 @@ export function getRoutes() {
         "exact": true,
         "meta": {
           "filePath": "docs/architecture/request.md",
-          "updatedTime": 1603416211000,
+          "updatedTime": 1603432272000,
           "title": "网络请求",
           "group": {
             "title": "基础架构",
@@ -461,7 +461,7 @@ export function getRoutes() {
         "exact": true,
         "meta": {
           "filePath": "docs/architecture/route.md",
-          "updatedTime": 1601452603000,
+          "updatedTime": 1603432272000,
           "title": "路由",
           "group": {
             "title": "基础架构",
@@ -484,7 +484,7 @@ export function getRoutes() {
         "exact": true,
         "meta": {
           "filePath": "docs/architecture/state.md",
-          "updatedTime": 1603439504000,
+          "updatedTime": 1603502280000,
           "title": "状态管理",
           "group": {
             "title": "基础架构",
@@ -522,7 +522,7 @@ export function getRoutes() {
         "exact": true,
         "meta": {
           "filePath": "docs/architecture/tab-navigation.md",
-          "updatedTime": 1601452603000,
+          "updatedTime": 1603432272000,
           "title": "页签导航",
           "group": {
             "title": "基础架构",
@@ -545,7 +545,7 @@ export function getRoutes() {
         "exact": true,
         "meta": {
           "filePath": "docs/architecture/verification.md",
-          "updatedTime": 1603418134000,
+          "updatedTime": 1603432272000,
           "title": "参数校验",
           "group": {
             "title": "基础架构",
@@ -638,7 +638,7 @@ export function getRoutes() {
         "exact": true,
         "meta": {
           "filePath": "docs/architecture/workspace.md",
-          "updatedTime": 1603419976000,
+          "updatedTime": 1603432272000,
           "title": "工作区",
           "group": {
             "title": "基础架构",
@@ -671,7 +671,7 @@ export function getRoutes() {
         "exact": true,
         "meta": {
           "filePath": "docs/auth/api.md",
-          "updatedTime": 1601452603000,
+          "updatedTime": 1603432272000,
           "title": "接口权限",
           "group": {
             "title": "权限控制",
@@ -694,7 +694,7 @@ export function getRoutes() {
         "exact": true,
         "meta": {
           "filePath": "docs/auth/feature.md",
-          "updatedTime": 1601452603000,
+          "updatedTime": 1603432272000,
           "title": "功能权限",
           "group": {
             "title": "权限控制",
@@ -717,7 +717,7 @@ export function getRoutes() {
         "exact": true,
         "meta": {
           "filePath": "docs/auth/route.md",
-          "updatedTime": 1601452603000,
+          "updatedTime": 1603432272000,
           "title": "路由权限",
           "group": {
             "title": "权限控制",
@@ -740,7 +740,7 @@ export function getRoutes() {
         "exact": true,
         "meta": {
           "filePath": "docs/standard/css.md",
-          "updatedTime": 1602311371000,
+          "updatedTime": 1603432272000,
           "title": "CSS 规范",
           "group": {
             "title": "开发规范",
@@ -1203,7 +1203,7 @@ export function getRoutes() {
         "exact": true,
         "meta": {
           "filePath": "docs/standard/document.md",
-          "updatedTime": 1601562998000,
+          "updatedTime": 1603432272000,
           "title": "文档规范",
           "group": {
             "title": "开发规范",
@@ -1391,7 +1391,7 @@ export function getRoutes() {
         "exact": true,
         "meta": {
           "filePath": "docs/standard/git.md",
-          "updatedTime": 1601452603000,
+          "updatedTime": 1603432272000,
           "title": "协作规范",
           "group": {
             "title": "开发规范",
@@ -1510,7 +1510,7 @@ export function getRoutes() {
         "exact": true,
         "meta": {
           "filePath": "docs/standard/html.md",
-          "updatedTime": 1601767347000,
+          "updatedTime": 1603432272000,
           "title": "HTML 规范",
           "group": {
             "title": "开发规范",
@@ -1908,7 +1908,7 @@ export function getRoutes() {
         "exact": true,
         "meta": {
           "filePath": "docs/standard/license.md",
-          "updatedTime": 1601562998000,
+          "updatedTime": 1603432272000,
           "title": "协议规范",
           "group": {
             "title": "开发规范",
@@ -2006,7 +2006,7 @@ export function getRoutes() {
         "exact": true,
         "meta": {
           "filePath": "docs/standard/react.md",
-          "updatedTime": 1601620044000,
+          "updatedTime": 1603432272000,
           "title": "React 规范",
           "group": {
             "title": "开发规范",
@@ -2159,7 +2159,7 @@ export function getRoutes() {
         "exact": true,
         "meta": {
           "filePath": "docs/standard/security.md",
-          "updatedTime": 1601562998000,
+          "updatedTime": 1603432272000,
           "title": "安全规范",
           "group": {
             "title": "开发规范",
@@ -2257,7 +2257,7 @@ export function getRoutes() {
         "exact": true,
         "meta": {
           "filePath": "docs/standard/test.md",
-          "updatedTime": 1601562998000,
+          "updatedTime": 1603432272000,
           "title": "测试规范",
           "group": {
             "title": "开发规范",
@@ -2300,7 +2300,7 @@ export function getRoutes() {
         "exact": true,
         "meta": {
           "filePath": "docs/standard/typescript.md",
-          "updatedTime": 1601620044000,
+          "updatedTime": 1603432272000,
           "title": "TypeScript 规范",
           "group": {
             "title": "开发规范",
@@ -2408,7 +2408,7 @@ export function getRoutes() {
         "exact": true,
         "meta": {
           "filePath": "docs/standard/version.md",
-          "updatedTime": 1601456058000,
+          "updatedTime": 1603432272000,
           "title": "版本规范",
           "group": {
             "title": "开发规范",
