@@ -17,7 +17,6 @@ export function BizTable<T, U extends ParamsType>(props: BizTableProps<T, U>) {
 			}}
 			search={{
 				defaultColsNumber: 4,
-				optionRender: ({ searchText, resetText }, { form }) => [],
 			}}
 			{...props}
 		/>
