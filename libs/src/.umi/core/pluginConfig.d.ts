@@ -147,9 +147,13 @@ export interface IConfigFromPlugins {
   runtimePublicPath?: boolean;
   ssr?: {
     /**
-     * remove window.g_initialProps in html, to force execing Page getInitialProps  functions
+     * force execing Page getInitialProps functions
      */
     forceInitial?: boolean;
+    /**
+     * remove window.g_initialProps in html
+     */
+    removeWindowInitialProps?: boolean;
     /**
      * disable serve-side render in umi dev mode.
      */

@@ -1,6 +1,6 @@
 // @ts-nocheck
 import React from 'react';
-import { ApplyPluginsType } from 'C:/Users/zhuliequn/Desktop/ionia/node_modules/@umijs/runtime';
+import { ApplyPluginsType } from 'D:/ioniajs/ionia/node_modules/@umijs/runtime';
 import * as umiExports from './umiExports';
 import { plugin } from './plugin';
 
@@ -177,6 +177,41 @@ export function getRoutes() {
               "depth": 1,
               "value": "组件库",
               "heading": "组件库"
+            },
+            {
+              "depth": 2,
+              "value": "Ant Design 介绍",
+              "heading": "ant-design-介绍"
+            },
+            {
+              "depth": 2,
+              "value": "Ant Design 特性",
+              "heading": "ant-design-特性"
+            },
+            {
+              "depth": 2,
+              "value": "Ant Design 安装",
+              "heading": "ant-design-安装"
+            },
+            {
+              "depth": 2,
+              "value": "浏览器引入 Ant Design",
+              "heading": "浏览器引入-ant-design"
+            },
+            {
+              "depth": 2,
+              "value": "Ant Design 使用",
+              "heading": "ant-design-使用"
+            },
+            {
+              "depth": 3,
+              "value": "定制主题",
+              "heading": "定制主题"
+            },
+            {
+              "depth": 3,
+              "value": "多语言转换",
+              "heading": "多语言转换"
             }
           ]
         },
@@ -287,7 +322,7 @@ export function getRoutes() {
         "exact": true,
         "meta": {
           "filePath": "docs/architecture/mock.md",
-          "updatedTime": 1603432272000,
+          "updatedTime": 1603521647000,
           "title": "接口模拟",
           "group": {
             "title": "基础架构",
@@ -302,17 +337,17 @@ export function getRoutes() {
             },
             {
               "depth": 2,
-              "value": "msw 介绍",
+              "value": "MSW 介绍",
               "heading": "msw-介绍"
             },
             {
               "depth": 2,
-              "value": "msw 的工作原理",
+              "value": "MSW 的工作原理",
               "heading": "msw-的工作原理"
             },
             {
               "depth": 2,
-              "value": "msw 安装",
+              "value": "MSW 安装",
               "heading": "msw-安装"
             },
             {
@@ -360,7 +395,7 @@ export function getRoutes() {
         "exact": true,
         "meta": {
           "filePath": "docs/architecture/proxy.md",
-          "updatedTime": 1603432272000,
+          "updatedTime": 1603521647000,
           "title": "开发代理",
           "group": {
             "title": "基础架构",
@@ -519,7 +554,7 @@ export function getRoutes() {
         "exact": true,
         "meta": {
           "filePath": "docs/architecture/state.md",
-          "updatedTime": 1603502700000,
+          "updatedTime": 1603521647000,
           "title": "状态管理",
           "group": {
             "title": "基础架构",
