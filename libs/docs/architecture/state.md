@@ -1,7 +1,7 @@
 ---
 title: 状态管理
 group:
-  title: 基础架构
+    title: 基础架构
 order: 13
 ---
 
@@ -13,7 +13,7 @@ Zustand 是一个小型，快速且可扩展的功能块状态管理工具。
 
 ## Zustand 安装
 
-$ npm install zustand
+\$ npm install zustand
 
 ## Zustand 使用方法
 
@@ -32,8 +32,8 @@ const useStore = create(set => ({
 然后绑定组件，可以在任何地方使用该挂钩，不需要提供程序。选择您的状态，组件将在更改时重新呈现。
 
 ```jsx
-import React from 'react'
-import useStore from './zustand/useStore'
+import React from 'react';
+import useStore from './zustand/useStore';
 
 function BearCounter() {
 	const bears = useStore(state => state.bears);
@@ -47,7 +47,7 @@ function BearCounter() {
 		</div>
 	);
 }
-export default BearCounter
+export default BearCounter;
 ```
 
 点击 one up 让数字 +1，点击 clear 使数字清零。
@@ -74,9 +74,9 @@ const carStore = create(set => ({
 ```
 
 ```jsx
-import React from 'react'
-import useStore from './zustand/useStore'
-import carStore from './zustand/carStore'
+import React from 'react';
+import useStore from './zustand/useStore';
+import carStore from './zustand/carStore';
 
 function BearCounter() {
 	const bears = useStore(state => state.bears);
@@ -102,8 +102,7 @@ function BearCounter() {
 		</div>
 	);
 }
-export default BearCounter
+export default BearCounter;
 ```
 
 详细用法请阅读文档： https://github.com/pmndrs/zustand
-

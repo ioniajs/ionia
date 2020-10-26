@@ -7,13 +7,13 @@ order: 12
 
 # 接口模拟
 
-## msw 介绍
+## MSW 介绍
 
 Mock Service Worker 是一个使用 Service Worker API 拦截实际请求的 API 模拟库。
 
 由于 Service Worker 是所有现代浏览器附带的标准 API。将 Mock Service Worker 集成到您的应用程序或测试设置中，不需要任何额外的配置，而是放置一个 worker 文件并声明模拟。
 
-## msw 的工作原理
+## MSW 的工作原理
 
 借助 Mock Service Worker，您可以使用声明式请求处理程序根据 URL，RegExp 或自定义条件捕获请求，并提供一个响应解析器函数，该函数返回模拟的响应。
 
@@ -44,7 +44,7 @@ const worker = setupWorker(
 worker.start();
 ```
 
-## msw 安装
+## MSW 安装
 
 在项目的根目录中运行以下命令：
 
