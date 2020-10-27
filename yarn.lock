@@ -2368,13 +2368,6 @@
   dependencies:
     "@types/node" "*"
 
-"@types/inversify@^2.0.33":
-  version "2.0.33"
-  resolved "https://registry.npm.taobao.org/@types/inversify/download/@types/inversify-2.0.33.tgz#0770dae2299aaee57803f75235e64a99b74f6de0"
-  integrity sha1-B3Da4imaruV4A/dSNeZKmbdPbeA=
-  dependencies:
-    inversify "*"
-
 "@types/is-glob@^4.0.1":
   version "4.0.1"
   resolved "https://registry.npm.taobao.org/@types/is-glob/download/@types/is-glob-4.0.1.tgz#a93eec1714172c8eb3225a1cc5eb88c2477b7d00"
@@ -8922,11 +8915,6 @@ invariant@^2.2.2:
   integrity sha1-YQ88ksk1nOHbYW5TgAjSP/NRWOY=
   dependencies:
     loose-envify "^1.0.0"
-
-inversify@*, inversify@^5.0.1:
-  version "5.0.1"
-  resolved "https://registry.npm.taobao.org/inversify/download/inversify-5.0.1.tgz#500d709b1434896ce5a0d58915c4a4210e34fb6e"
-  integrity sha1-UA1wmxQ0iWzloNWJFcSkIQ40+24=
 
 invert-kv@^3.0.0:
   version "3.0.1"
