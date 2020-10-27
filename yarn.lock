@@ -2368,13 +2368,6 @@
   dependencies:
     "@types/node" "*"
 
-"@types/inversify@^2.0.33":
-  version "2.0.33"
-  resolved "https://registry.npm.taobao.org/@types/inversify/download/@types/inversify-2.0.33.tgz#0770dae2299aaee57803f75235e64a99b74f6de0"
-  integrity sha1-B3Da4imaruV4A/dSNeZKmbdPbeA=
-  dependencies:
-    inversify "*"
-
 "@types/is-glob@^4.0.1":
   version "4.0.1"
   resolved "https://registry.npm.taobao.org/@types/is-glob/download/@types/is-glob-4.0.1.tgz#a93eec1714172c8eb3225a1cc5eb88c2477b7d00"
@@ -8923,11 +8916,6 @@ invariant@^2.2.2:
   dependencies:
     loose-envify "^1.0.0"
 
-inversify@*, inversify@^5.0.1:
-  version "5.0.1"
-  resolved "https://registry.npm.taobao.org/inversify/download/inversify-5.0.1.tgz#500d709b1434896ce5a0d58915c4a4210e34fb6e"
-  integrity sha1-UA1wmxQ0iWzloNWJFcSkIQ40+24=
-
 invert-kv@^3.0.0:
   version "3.0.1"
   resolved "https://registry.npm.taobao.org/invert-kv/download/invert-kv-3.0.1.tgz#a93c7a3d4386a1dc8325b97da9bb1620c0282523"
@@ -13594,7 +13582,7 @@ react-universal-interface@^0.6.2:
   resolved "https://registry.npm.taobao.org/react-universal-interface/download/react-universal-interface-0.6.2.tgz#5e8d438a01729a4dbbcbeeceb0b86be146fe2b3b"
   integrity sha1-Xo1DigFymk27y+7OsLhr4Ub+Kzs=
 
-react-use@^15.3.3:
+react-use@^15.3.3, react-use@^15.3.4:
   version "15.3.4"
   resolved "https://registry.npm.taobao.org/react-use/download/react-use-15.3.4.tgz#f853d310bd71f75b38900a8caa3db93f6dc6e872"
   integrity sha1-+FPTEL1x91s4kAqMqj25P23G6HI=

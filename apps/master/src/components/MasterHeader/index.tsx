@@ -1,13 +1,12 @@
 import { LangSelector, useGlobalStore } from '@ionia/libs';
 import { IoniaApp } from '@ionia/libs/es/core/master-application';
-import { Anchor, Menu, Switch } from 'antd';
+import { Anchor } from 'antd';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useHistory, useLocation } from 'react-router';
 import AvatarDropdown from './AvatarDropdown';
-import Logo from './Logo';
-
 import './index.less';
+import Logo from './Logo';
 
 export enum MasterHeaderTheme {
 	Light = 'light',
@@ -72,9 +71,7 @@ const MasterHeader: React.FC<MasterHeaderProps> = ({ theme }) => {
 					))}
 				</div>
 				<div className='io-master__header-right'>
-					<span className='io-master__header--item'>
-						<Switch checkedChildren='LTR' unCheckedChildren='RTL' />
-					</span>
+					<span className='io-master__header--item'></span>
 					<span className='io-master__header--item'>
 						<AvatarDropdown />
 					</span>
