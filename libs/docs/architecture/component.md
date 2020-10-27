@@ -93,6 +93,7 @@ import DynamicAntdTheme from 'dynamic-antd-theme';
 	<DynamicAntdTheme />
 </div>;
 ```
+
 效果如下所示，随着左边颜色的选择，主题颜色也随之改变：
 
 ![GitFlow](./antddemo.png)
@@ -107,9 +108,9 @@ antd 提供了一个 React 组件 ConfigProvider 用于全局配置国际化文�
 import zhCN from 'antd/es/locale/zh_CN';
 
 return (
-  <ConfigProvider locale={zhCN}>
-    <App />
-  </ConfigProvider>
+	<ConfigProvider locale={zhCN}>
+		<App />
+	</ConfigProvider>
 );
 ```
 

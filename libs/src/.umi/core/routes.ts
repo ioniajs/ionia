@@ -142,7 +142,7 @@ export function getRoutes() {
         "exact": true,
         "meta": {
           "filePath": "docs/architecture/business-component.md",
-          "updatedTime": 1603432272000,
+          "updatedTime": 1603760956000,
           "title": "业务组件",
           "group": {
             "title": "基础架构",
@@ -180,7 +180,7 @@ export function getRoutes() {
         "exact": true,
         "meta": {
           "filePath": "docs/architecture/component.md",
-          "updatedTime": 1603432272000,
+          "updatedTime": 1603704832000,
           "title": "组件库",
           "group": {
             "title": "基础架构",
