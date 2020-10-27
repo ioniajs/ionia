@@ -9,7 +9,7 @@ export function getRoutes() {
   {
     "path": "/",
     "component": (props) => require('react').createElement(require('../../../../node_modules/@umijs/preset-dumi/lib/themes/default/layout.js').default, {
-      ...{"menus":{"*":{"*":[{"path":"/","title":"快速上手","meta":{"order":0}},{"path":"/env","title":"环境搭建","meta":{"order":1}},{"title":"开发规范","path":"/standard","meta":{"order":1},"children":[{"path":"/standard/git","title":"协作规范","meta":{"order":0}},{"path":"/standard/html","title":"HTML 规范","meta":{"order":1}},{"path":"/standard/css","title":"CSS 规范","meta":{"order":2}},{"path":"/standard/typescript","title":"TypeScript 规范","meta":{"order":3}},{"path":"/standard/react","title":"React 规范","meta":{"order":4}},{"path":"/standard/security","title":"安全规范","meta":{"order":5}},{"path":"/standard/license","title":"协议规范","meta":{"order":6}},{"path":"/standard/test","title":"测试规范","meta":{"order":7}},{"path":"/standard/version","title":"版本规范","meta":{"order":8}},{"path":"/standard/document","title":"文档规范","meta":{"order":9}}]},{"title":"基础架构","path":"/architecture","meta":{},"children":[{"path":"/architecture/workspace","title":"工作区","meta":{"order":1}},{"path":"/architecture/micro-front-end","title":"微前端","meta":{"order":2}},{"path":"/architecture/component","title":"组件库","meta":{"order":3}},{"path":"/architecture/business-component","title":"业务组件","meta":{"order":4}},{"path":"/architecture/request","title":"网络请求","meta":{"order":5}},{"path":"/architecture/layout","title":"布局","meta":{"order":6}},{"path":"/architecture/route","title":"路由","meta":{"order":7}},{"path":"/architecture/tab-navigation","title":"页签导航","meta":{"order":8}},{"path":"/architecture/verification","title":"参数校验","meta":{"order":9}},{"path":"/architecture/exception","title":"异常捕获","meta":{"order":10}},{"path":"/architecture/proxy","title":"开发代理","meta":{"order":11}},{"path":"/architecture/mock","title":"接口模拟","meta":{"order":12}},{"path":"/architecture/state","title":"状态管理","meta":{"order":13}}]},{"title":"权限控制","path":"/auth","meta":{},"children":[{"path":"/auth/route","title":"路由权限","meta":{"order":0}},{"path":"/auth/feature","title":"功能权限","meta":{"order":1}},{"path":"/auth/api","title":"接口权限","meta":{"order":2}}]}]}},"locales":[],"navs":{},"title":"开发手册","mode":"doc"},
+      ...{"menus":{"*":{"*":[{"path":"/","title":"快速上手","meta":{"order":0}},{"path":"/env","title":"环境搭建","meta":{"order":1}},{"title":"开发规范","path":"/standard","meta":{"order":1},"children":[{"path":"/standard/git","title":"协作规范","meta":{"order":0}},{"path":"/standard/html","title":"HTML 规范","meta":{"order":1}},{"path":"/standard/css","title":"CSS 规范","meta":{"order":2}},{"path":"/standard/typescript","title":"TypeScript 规范","meta":{"order":3}},{"path":"/standard/react","title":"React 规范","meta":{"order":4}},{"path":"/standard/security","title":"安全规范","meta":{"order":5}},{"path":"/standard/license","title":"协议规范","meta":{"order":6}},{"path":"/standard/test","title":"测试规范","meta":{"order":7}},{"path":"/standard/version","title":"版本规范","meta":{"order":8}},{"path":"/standard/document","title":"文档规范","meta":{"order":9}}]},{"title":"基础架构","path":"/architecture","meta":{},"children":[{"path":"/architecture/workspace","title":"工作区","meta":{"order":1}},{"path":"/architecture/webpack","title":"Webpack","meta":{"order":1.5}},{"path":"/architecture/micro-front-end","title":"微前端","meta":{"order":2}},{"path":"/architecture/component","title":"组件库","meta":{"order":3}},{"path":"/architecture/business-component","title":"业务组件","meta":{"order":4}},{"path":"/architecture/request","title":"网络请求","meta":{"order":5}},{"path":"/architecture/layout","title":"布局","meta":{"order":6}},{"path":"/architecture/route","title":"路由","meta":{"order":7}},{"path":"/architecture/tab-navigation","title":"页签导航","meta":{"order":8}},{"path":"/architecture/verification","title":"参数校验","meta":{"order":9}},{"path":"/architecture/exception","title":"异常捕获","meta":{"order":10}},{"path":"/architecture/proxy","title":"开发代理","meta":{"order":11}},{"path":"/architecture/mock","title":"接口模拟","meta":{"order":12}},{"path":"/architecture/state","title":"状态管理","meta":{"order":13}}]},{"title":"权限控制","path":"/auth","meta":{},"children":[{"path":"/auth/route","title":"路由权限","meta":{"order":0}},{"path":"/auth/feature","title":"功能权限","meta":{"order":1}},{"path":"/auth/api","title":"接口权限","meta":{"order":2}}]}]}},"locales":[],"navs":{},"title":"开发手册","mode":"doc"},
       ...props,
     }),
     "routes": [
@@ -180,7 +180,7 @@ export function getRoutes() {
         "exact": true,
         "meta": {
           "filePath": "docs/architecture/component.md",
-          "updatedTime": 1603704832000,
+          "updatedTime": 1603761473000,
           "title": "组件库",
           "group": {
             "title": "基础架构",
@@ -716,6 +716,59 @@ export function getRoutes() {
           ]
         },
         "title": "参数校验"
+      },
+      {
+        "path": "/architecture/webpack",
+        "component": require('../../../docs/architecture/webpack.md').default,
+        "exact": true,
+        "meta": {
+          "filePath": "docs/architecture/webpack.md",
+          "updatedTime": 1603784279658,
+          "title": "Webpack",
+          "group": {
+            "title": "基础架构",
+            "path": "/architecture"
+          },
+          "order": 1.5,
+          "slugs": [
+            {
+              "depth": 1,
+              "value": "Webpack",
+              "heading": "webpack"
+            },
+            {
+              "depth": 2,
+              "value": "Webpack 介绍",
+              "heading": "webpack-介绍"
+            },
+            {
+              "depth": 2,
+              "value": "入口(entry)",
+              "heading": "入口entry"
+            },
+            {
+              "depth": 2,
+              "value": "出口(output)",
+              "heading": "出口output"
+            },
+            {
+              "depth": 2,
+              "value": "loader",
+              "heading": "loader"
+            },
+            {
+              "depth": 2,
+              "value": "插件(plugins)",
+              "heading": "插件plugins"
+            },
+            {
+              "depth": 2,
+              "value": "Webpack 在项目中的应用",
+              "heading": "webpack-在项目中的应用"
+            }
+          ]
+        },
+        "title": "Webpack"
       },
       {
         "path": "/architecture/workspace",
