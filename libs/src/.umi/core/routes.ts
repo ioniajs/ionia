@@ -154,6 +154,21 @@ export function getRoutes() {
               "depth": 1,
               "value": "业务组件",
               "heading": "业务组件"
+            },
+            {
+              "depth": 2,
+              "value": "ProComponents 介绍",
+              "heading": "procomponents-介绍"
+            },
+            {
+              "depth": 2,
+              "value": "ProComponents 安装",
+              "heading": "procomponents-安装"
+            },
+            {
+              "depth": 2,
+              "value": "相关文档",
+              "heading": "相关文档"
             }
           ]
         },
