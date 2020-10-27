@@ -1,6 +1,6 @@
 import { useThemeStore } from '@ionia/libs';
 import { Layout } from 'antd';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 import './index.less';
 
@@ -12,12 +12,30 @@ export interface MasterSiderProps {
 
 const MasterSider = ({ children }: MasterSiderProps) => {
 	const menuStyles = useThemeStore(state => state.menuStyles);
+	const [collapse, setCollapse] = useState(false);
+
+	useEffect(() => {
+		setCollapse(menuStyles.collapse);
+	}, [menuStyles.collapse]);
 
 	return (
-		<div className={`io-master__sider-wrapper ${menuStyles.collapse ? 'collapse' : ''}`}>
+		<div
+			className={`io-master__sider-wrapper ${menuStyles.collapse ? 'collapse' : ''}`}
+			onMouseEnter={() => {
+				if (menuStyles.collapse) {
+					setCollapse(false);
+				}
+			}}
+			onMouseLeave={() => {
+				if (menuStyles.collapse) {
+					setCollapse(true);
+				}
+			}}
+		>
 			<Sider
-				theme='light'
 				className={`io-master__sider ${menuStyles.collapse ? 'collapse' : ''}`}
+				theme='light'
+				collapsed={collapse}
 			>
 				{children}
 			</Sider>

@@ -15,9 +15,7 @@ export function BizTable<T, U extends ParamsType>(props: BizTableProps<T, U>) {
 				setting: true,
 				fullScreen: true,
 			}}
-			search={{
-				defaultColsNumber: 4,
-			}}
+			search={false}
 			{...props}
 		/>
 	);
