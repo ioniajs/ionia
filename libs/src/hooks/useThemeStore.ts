@@ -1,4 +1,5 @@
 import create from 'zustand';
+import { changeAntdTheme, generateThemeColor } from './utils';
 
 interface ThemeMenuStyles {
 	collapse: boolean;
@@ -7,6 +8,7 @@ interface ThemeMenuStyles {
 type ThemeStore = {
 	menuStyles: ThemeMenuStyles;
 	setMenuStyles: (styles: ThemeMenuStyles) => void;
+	changeTheme: (themColor: string) => void;
 };
 
 const themeStore = create<ThemeStore>(set => ({
@@ -17,6 +19,9 @@ const themeStore = create<ThemeStore>(set => ({
 		set(state => ({
 			menuStyles: { ...state.menuStyles, ...styles },
 		})),
+	changeTheme: (themColor: string) => {
+		changeAntdTheme(generateThemeColor(themColor));
+	},
 }));
 
 export default themeStore;

@@ -7,7 +7,7 @@ export interface TitleProps {}
 
 const Logo: React.FC<TitleProps> = () => {
 	const [collapse, setCollapse] = useLocalStorage('io-master-sider-collapse', false);
-	const { menuStyles, setMenuStyles } = useThemeStore();
+	const { menuStyles, setMenuStyles, changeTheme } = useThemeStore();
 
 	useMount(() => {
 		setMenuStyles({ collapse: !!collapse });
@@ -19,7 +19,9 @@ const Logo: React.FC<TitleProps> = () => {
 
 	return (
 		<div className={`io-master__logo ${menuStyles.collapse ? 'collapse' : ''}`}>
-			<h1 className='logo'>JEECMS</h1>
+			<h1 className='logo' onClick={() => changeTheme('#c60918')}>
+				JEECMS
+			</h1>
 			<i
 				className='iconfont icon-navigation'
 				onClick={() =>
