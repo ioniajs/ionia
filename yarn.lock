@@ -13594,7 +13594,7 @@ react-universal-interface@^0.6.2:
   resolved "https://registry.npm.taobao.org/react-universal-interface/download/react-universal-interface-0.6.2.tgz#5e8d438a01729a4dbbcbeeceb0b86be146fe2b3b"
   integrity sha1-Xo1DigFymk27y+7OsLhr4Ub+Kzs=
 
-react-use@^15.3.3:
+react-use@^15.3.3, react-use@^15.3.4:
   version "15.3.4"
   resolved "https://registry.npm.taobao.org/react-use/download/react-use-15.3.4.tgz#f853d310bd71f75b38900a8caa3db93f6dc6e872"
   integrity sha1-+FPTEL1x91s4kAqMqj25P23G6HI=
