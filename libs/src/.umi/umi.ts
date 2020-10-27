@@ -4,12 +4,12 @@ import '@@/core/devScripts';
 import { plugin } from './core/plugin';
 import './core/pluginRegister';
 import { createHistory } from './core/history';
-import { ApplyPluginsType } from 'C:/Users/zhuliequn/Desktop/ionia/node_modules/@umijs/runtime';
-import { renderClient } from 'C:/Users/zhuliequn/Desktop/ionia/node_modules/@umijs/renderer-react/dist/index.js';
+import { ApplyPluginsType } from 'D:/ioniajs/ionia/node_modules/@umijs/runtime';
+import { renderClient } from 'D:/ioniajs/ionia/node_modules/@umijs/renderer-react/dist/index.js';
 import { getRoutes } from './core/routes';
 
 
-
+require('../global.less');
 
 const getClientRender = (args: { hot?: boolean; routes?: any[] } = {}) => plugin.applyPlugins({
   key: 'render',
@@ -37,7 +37,7 @@ export default clientRender();
 
 
     window.g_umi = {
-      version: '3.2.22',
+      version: '3.2.24',
     };
   
 
