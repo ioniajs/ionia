@@ -1,7 +1,7 @@
 ---
 title: CSS 规范
 group:
-  title: 开发规范
+    title: 开发规范
 order: 2
 ---
 
@@ -31,8 +31,8 @@ UTF-8 编码具有更广泛的适应性。BOM 在使用程序或工具处理文�
 
 ```css
 .selector {
-  margin: 0;
-  padding: 0;
+	margin: 0;
+	padding: 0;
 }
 ```
 
@@ -80,16 +80,15 @@ font-family: Arial, sans-serif;
 background: transparent url(aVeryVeryVeryLongUrlIsPlacedHere) no-repeat 0 0;
 
 /* 可重复多次的属性，每次重复一行 */
-background-image: url(aVeryVeryVeryLongUrlIsPlacedHere)
-  url(anotherVeryVeryVeryLongUrlIsPlacedHere);
+background-image: url(aVeryVeryVeryLongUrlIsPlacedHere) url(anotherVeryVeryVeryLongUrlIsPlacedHere);
 
 /* 类似函数的属性值可以根据函数调用的缩进进行 */
 background-image: -webkit-gradient(
-  linear,
-  left bottom,
-  left top,
-  color-stop(0.04, rgb(88, 94, 124)),
-  color-stop(0.52, rgb(115, 123, 162))
+	linear,
+	left bottom,
+	left top,
+	color-stop(0.04, rgb(88, 94, 124)),
+	color-stop(0.52, rgb(115, 123, 162))
 );
 ```
 
@@ -104,14 +103,14 @@ background-image: -webkit-gradient(
 .post,
 .page,
 .comment {
-  line-height: 1.5;
+	line-height: 1.5;
 }
 
 /* bad */
 .post,
 .page,
 .comment {
-  line-height: 1.5;
+	line-height: 1.5;
 }
 ```
 
@@ -122,28 +121,28 @@ background-image: -webkit-gradient(
 ```css
 /* good */
 main > nav {
-  padding: 10px;
+	padding: 10px;
 }
 
 label + input {
-  margin-left: 5px;
+	margin-left: 5px;
 }
 
 input:checked ~ button {
-  background-color: #69c;
+	background-color: #69c;
 }
 
 /* bad */
 main > nav {
-  padding: 10px;
+	padding: 10px;
 }
 
 label + input {
-  margin-left: 5px;
+	margin-left: 5px;
 }
 
 input:checked ~ button {
-  background-color: #69c;
+	background-color: #69c;
 }
 ```
 
@@ -157,13 +156,13 @@ input:checked ~ button {
 
 ```css
 /* good */
-article[character="juliet"] {
-  voice-family: "Vivien Leigh", victoria, female;
+article[character='juliet'] {
+	voice-family: 'Vivien Leigh', victoria, female;
 }
 
 /* bad */
-article[character="juliet"] {
-  voice-family: "Vivien Leigh", victoria, female;
+article[character='juliet'] {
+	voice-family: 'Vivien Leigh', victoria, female;
 }
 ```
 
@@ -176,14 +175,14 @@ article[character="juliet"] {
 ```css
 /* good */
 .selector {
-  margin: 0;
-  padding: 0;
+	margin: 0;
+	padding: 0;
 }
 
 /* bad */
 .selector {
-  margin: 0;
-  padding: 0;
+	margin: 0;
+	padding: 0;
 }
 ```
 
@@ -194,12 +193,12 @@ article[character="juliet"] {
 ```css
 /* good */
 .selector {
-  margin: 0;
+	margin: 0;
 }
 
 /* bad */
 .selector {
-  margin: 0;
+	margin: 0;
 }
 ```
 
@@ -219,13 +218,13 @@ article[character="juliet"] {
 /* good */
 #error,
 .danger-message {
-  font-color: #c00;
+	font-color: #c00;
 }
 
 /* bad */
 dialog#error,
 p.danger-message {
-  font-color: #c00;
+	font-color: #c00;
 }
 ```
 
@@ -256,14 +255,14 @@ p.danger-message {
 ```css
 /* good */
 .post {
-  font: 12px/1.5 arial, sans-serif;
+	font: 12px/1.5 arial, sans-serif;
 }
 
 /* bad */
 .post {
-  font-family: arial, sans-serif;
-  font-size: 12px;
-  line-height: 1.5;
+	font-family: arial, sans-serif;
+	font-size: 12px;
+	line-height: 1.5;
 }
 ```
 
@@ -278,27 +277,27 @@ border / margin / padding 等缩写会同时设置多个属性的值，容易覆
 ```css
 /* centering <article class="page"> horizontally and highlight featured ones */
 article {
-  margin: 5px;
-  border: 1px solid #999;
+	margin: 5px;
+	border: 1px solid #999;
 }
 
 /* good */
 .page {
-  margin-right: auto;
-  margin-left: auto;
+	margin-right: auto;
+	margin-left: auto;
 }
 
 .featured {
-  border-color: #69c;
+	border-color: #69c;
 }
 
 /* bad */
 .page {
-  margin: 5px auto; /* introducing redundancy */
+	margin: 5px auto; /* introducing redundancy */
 }
 
 .featured {
-  border: 1px solid #69c; /* introducing redundancy */
+	border: 1px solid #69c; /* introducing redundancy */
 }
 ```
 
@@ -308,10 +307,10 @@ article {
 
 解释：
 
-- Formatting Model 相关属性包括：`position` / `top` / `right` / `bottom` / `left` / `float` / `display` / `overflow` 等
-- Box Model 相关属性包括：`border` / `margin` / `padding` / `width` / `height` 等
-- Typographic 相关属性包括：`font` / `line-height` / `text-align` / `word-wrap` 等
-- Visual 相关属性包括：`background` / `color` / `transition` / `list-style` 等
+-   Formatting Model 相关属性包括：`position` / `top` / `right` / `bottom` / `left` / `float` / `display` / `overflow` 等
+-   Box Model 相关属性包括：`border` / `margin` / `padding` / `width` / `height` 等
+-   Typographic 相关属性包括：`font` / `line-height` / `text-align` / `word-wrap` 等
+-   Visual 相关属性包括：`background` / `color` / `transition` / `list-style` 等
 
 另外，如果包含 `content` 属性，应放在最前面。
 
@@ -319,27 +318,27 @@ article {
 
 ```css
 .sidebar {
-  /* formatting model: positioning schemes / offsets / z-indexes / display / ...  */
-  position: absolute;
-  top: 50px;
-  left: 0;
-  overflow-x: hidden;
+	/* formatting model: positioning schemes / offsets / z-indexes / display / ...  */
+	position: absolute;
+	top: 50px;
+	left: 0;
+	overflow-x: hidden;
 
-  /* box model: sizes / margins / paddings / borders / ...  */
-  width: 200px;
-  padding: 5px;
-  border: 1px solid #ddd;
+	/* box model: sizes / margins / paddings / borders / ...  */
+	width: 200px;
+	padding: 5px;
+	border: 1px solid #ddd;
 
-  /* typographic: font / aligns / text styles / ... */
-  font-size: 14px;
-  line-height: 20px;
+	/* typographic: font / aligns / text styles / ... */
+	font-size: 14px;
+	line-height: 20px;
 
-  /* visual: colors / shadows / gradients / ... */
-  background: #f5f5f5;
-  color: #333;
-  -webkit-transition: color 1s;
-  -moz-transition: color 1s;
-  transition: color 1s;
+	/* visual: colors / shadows / gradients / ... */
+	background: #f5f5f5;
+	color: #333;
+	-webkit-transition: color 1s;
+	-moz-transition: color 1s;
+	transition: color 1s;
 }
 ```
 
@@ -351,9 +350,9 @@ article {
 
 触发 BFC 的方式很多，常见的有：
 
-- float 非 none
-- position 非 static
-- overflow 非 visible
+-   float 非 none
+-   position 非 static
+-   overflow 非 visible
 
 如希望使用更小副作用的清除浮动方法，参见 [A new micro clearfix hack](http://nicolasgallagher.com/micro-clearfix-hack/) 一文。
 
@@ -407,25 +406,25 @@ article {
 
 ```css
 /* good */
-html[lang|="zh"] q:before {
-  font-family: "Microsoft YaHei", sans-serif;
-  content: "“";
+html[lang|='zh'] q:before {
+	font-family: 'Microsoft YaHei', sans-serif;
+	content: '“';
 }
 
-html[lang|="zh"] q:after {
-  font-family: "Microsoft YaHei", sans-serif;
-  content: "”";
+html[lang|='zh'] q:after {
+	font-family: 'Microsoft YaHei', sans-serif;
+	content: '”';
 }
 
 /* bad */
-html[lang|="zh"] q:before {
-  font-family: "Microsoft YaHei", sans-serif;
-  content: "“";
+html[lang|='zh'] q:before {
+	font-family: 'Microsoft YaHei', sans-serif;
+	content: '“';
 }
 
-html[lang|="zh"] q:after {
-  font-family: "Microsoft YaHei", sans-serif;
-  content: "”";
+html[lang|='zh'] q:after {
+	font-family: 'Microsoft YaHei', sans-serif;
+	content: '”';
 }
 ```
 
@@ -438,12 +437,12 @@ html[lang|="zh"] q:after {
 ```css
 /* good */
 panel {
-  opacity: 0.8;
+	opacity: 0.8;
 }
 
 /* bad */
 panel {
-  opacity: 0.8;
+	opacity: 0.8;
 }
 ```
 
@@ -455,7 +454,7 @@ panel {
 
 ```css
 body {
-  background: url(bg.png);
+	background: url(bg.png);
 }
 ```
 
@@ -465,7 +464,7 @@ body {
 
 ```css
 body {
-  background: url(//baidu.com/img/bg.png) no-repeat 0 0;
+	background: url(//baidu.com/img/bg.png) no-repeat 0 0;
 }
 ```
 
@@ -478,12 +477,12 @@ body {
 ```css
 /* good */
 body {
-  padding: 0 5px;
+	padding: 0 5px;
 }
 
 /* bad */
 body {
-  padding: 0px 5px;
+	padding: 0px 5px;
 }
 ```
 
@@ -500,14 +499,14 @@ body {
 ```css
 /* good */
 .success {
-  box-shadow: 0 0 2px rgba(0, 128, 0, 0.3);
-  border-color: #008000;
+	box-shadow: 0 0 2px rgba(0, 128, 0, 0.3);
+	border-color: #008000;
 }
 
 /* bad */
 .success {
-  box-shadow: 0 0 2px rgba(0, 128, 0, 0.3);
-  border-color: rgb(0, 128, 0);
+	box-shadow: 0 0 2px rgba(0, 128, 0, 0.3);
+	border-color: rgb(0, 128, 0);
 }
 ```
 
@@ -518,12 +517,12 @@ body {
 ```css
 /* good */
 .success {
-  background-color: #aca;
+	background-color: #aca;
 }
 
 /* bad */
 .success {
-  background-color: #aaccaa;
+	background-color: #aaccaa;
 }
 ```
 
@@ -534,12 +533,12 @@ body {
 ```css
 /* good */
 .success {
-  color: #90ee90;
+	color: #90ee90;
 }
 
 /* bad */
 .success {
-  color: lightgreen;
+	color: lightgreen;
 }
 ```
 
@@ -550,20 +549,20 @@ body {
 ```css
 /* good */
 .success {
-  background-color: #aca;
-  color: #90ee90;
+	background-color: #aca;
+	color: #90ee90;
 }
 
 /* good */
 .success {
-  background-color: #aca;
-  color: #90ee90;
+	background-color: #aca;
+	color: #90ee90;
 }
 
 /* bad */
 .success {
-  background-color: #aca;
-  color: #90ee90;
+	background-color: #aca;
+	color: #90ee90;
 }
 ```
 
@@ -580,12 +579,12 @@ body {
 ```css
 /* good */
 body {
-  background-position: center top; /* 50% 0% */
+	background-position: center top; /* 50% 0% */
 }
 
 /* bad */
 body {
-  background-position: top; /* 50% 0% */
+	background-position: top; /* 50% 0% */
 }
 ```
 
@@ -614,7 +613,7 @@ body {
 
 ```css
 h1 {
-  font-family: "Microsoft YaHei";
+	font-family: 'Microsoft YaHei';
 }
 ```
 
@@ -629,13 +628,13 @@ h1 {
 ```css
 /* Display according to platform */
 .article {
-  font-family: Arial, sans-serif;
+	font-family: Arial, sans-serif;
 }
 
 /* Specific for most platforms */
 h1 {
-  font-family: "Helvetica Neue", Arial, "Hiragino Sans GB",
-    "WenQuanYi Micro Hei", "Microsoft YaHei", sans-serif;
+	font-family: 'Helvetica Neue', Arial, 'Hiragino Sans GB', 'WenQuanYi Micro Hei',
+		'Microsoft YaHei', sans-serif;
 }
 ```
 
@@ -646,20 +645,20 @@ h1 {
 ```css
 /* good */
 body {
-  font-family: Arial, sans-serif;
+	font-family: Arial, sans-serif;
 }
 
 h1 {
-  font-family: Arial, "Microsoft YaHei", sans-serif;
+	font-family: Arial, 'Microsoft YaHei', sans-serif;
 }
 
 /* bad */
 body {
-  font-family: arial, sans-serif;
+	font-family: arial, sans-serif;
 }
 
 h1 {
-  font-family: Arial, "Microsoft YaHei", sans-serif;
+	font-family: Arial, 'Microsoft YaHei', sans-serif;
 }
 ```
 
@@ -696,12 +695,12 @@ CSS 的字重分 100 – 900 共九档，但目前受字体本身质量和浏览
 ```css
 /* good */
 h1 {
-  font-weight: 700;
+	font-weight: 700;
 }
 
 /* bad */
 h1 {
-  font-weight: bold;
+	font-weight: bold;
 }
 ```
 
@@ -719,7 +718,7 @@ h1 {
 
 ```css
 .container {
-  line-height: 1.5;
+	line-height: 1.5;
 }
 ```
 
@@ -732,12 +731,12 @@ h1 {
 ```css
 /* good */
 .box {
-  transition: color 1s, border-color 1s;
+	transition: color 1s, border-color 1s;
 }
 
 /* bad */
 .box {
-  transition: all 1s;
+	transition: all 1s;
 }
 ```
 
@@ -747,10 +746,10 @@ h1 {
 
 见[本文](http://www.html5rocks.com/en/tutorials/speed/high-performance-animations/)，在可能的情况下应选择这样四种变换：
 
-- `transform: translate(npx, npx);`
-- `transform: scale(n);`
-- `transform: rotate(ndeg);`
-- `opacity: 0..1;`
+-   `transform: translate(npx, npx);`
+-   `transform: scale(n);`
+-   `transform: rotate(ndeg);`
+-   `opacity: 0..1;`
 
 典型的，可以使用 translate 来代替 left 作为动画属性。
 
@@ -759,19 +758,19 @@ h1 {
 ```css
 /* good */
 .box {
-  transition: transform 1s;
+	transition: transform 1s;
 }
 .box:hover {
-  transform: translate(20px); /* move right for 20px */
+	transform: translate(20px); /* move right for 20px */
 }
 
 /* bad */
 .box {
-  left: 0;
-  transition: left 1s;
+	left: 0;
+	transition: left 1s;
 }
 .box:hover {
-  left: 20px; /* move right for 20px */
+	left: 20px; /* move right for 20px */
 }
 ```
 
@@ -785,17 +784,17 @@ h1 {
 /* Good */
 /* header styles */
 @media (...) {
-  /* header styles */
+	/* header styles */
 }
 
 /* main styles */
 @media (...) {
-  /* main styles */
+	/* main styles */
 }
 
 /* footer styles */
 @media (...) {
-  /* footer styles */
+	/* footer styles */
 }
 
 /* Bad */
@@ -804,9 +803,9 @@ h1 {
 /* footer styles */
 
 @media (...) {
-  /* header styles */
-  /* main styles */
-  /* footer styles */
+	/* header styles */
+	/* main styles */
+	/* footer styles */
 }
 ```
 
@@ -816,11 +815,11 @@ h1 {
 
 ```css
 @media (-webkit-min-device-pixel-ratio: 2),
-  /* Webkit-based browsers */ (min--moz-device-pixel-ratio: 2),
-  /* Older Firefox browsers (prior to firefox 16) */ (min-resolution: 2dppx),
-  /* The standard way */ (min-resolution: 192dpi) {
-  /* dppx fallback */
-  /* Retina-specific stuff here */
+	/* Webkit-based browsers */ (min--moz-device-pixel-ratio: 2),
+	/* Older Firefox browsers (prior to firefox 16) */ (min-resolution: 2dppx),
+	/* The standard way */ (min-resolution: 192dpi) {
+	/* dppx fallback */
+	/* Retina-specific stuff here */
 }
 ```
 
@@ -840,9 +839,9 @@ h1 {
 
 ```css
 .box {
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
 }
 ```
 
@@ -865,14 +864,14 @@ h1 {
 ```css
 /* IE 7 */
 *:first-child + html #header {
-  margin-top: 3px;
-  padding: 5px;
+	margin-top: 3px;
+	padding: 5px;
 }
 
 /* IE 6 */
 * html #header {
-  margin-top: 5px;
-  padding: 4px;
+	margin-top: 5px;
+	padding: 4px;
 }
 ```
 
@@ -882,14 +881,14 @@ h1 {
 
 ```css
 .box {
-  _display: inline; /* fix double margin */
-  float: left;
-  margin-left: 20px;
+	_display: inline; /* fix double margin */
+	float: left;
+	margin-left: 20px;
 }
 
 .container {
-  overflow: hidden;
-  *zoom: 1; /* triggering hasLayout */
+	overflow: hidden;
+	*zoom: 1; /* triggering hasLayout */
 }
 ```
 
@@ -899,19 +898,19 @@ h1 {
 
 ## 9 常用的 CSS 类名
 
-- 包裹类： container, wrapper, outer, inner, box, header, footer, main, content, aside, page, section, block
+-   包裹类： container, wrapper, outer, inner, box, header, footer, main, content, aside, page, section, block
 
-- 状态类： primary, secondary, success, danger, warning, info, error, Link, light, dark, disabled, active, checked, loading
+-   状态类： primary, secondary, success, danger, warning, info, error, Link, light, dark, disabled, active, checked, loading
 
-- 尺寸类： large, middle, small, bigger, smaller
+-   尺寸类： large, middle, small, bigger, smaller
 
-- 组件类： card, list, picture, carousel, swiper, menu, navs, badge, hint, modal, dialog
+-   组件类： card, list, picture, carousel, swiper, menu, navs, badge, hint, modal, dialog
 
-- 位置类： first, last, current, prev, next, forward, back
+-   位置类： first, last, current, prev, next, forward, back
 
-- 文本类： title, desc, content, date, author, category，label，tag
+-   文本类： title, desc, content, date, author, category，label，tag
 
-- 人物类： avatar, name, age, post, intro
+-   人物类： avatar, name, age, post, intro
 
 ## 10 BEM
 

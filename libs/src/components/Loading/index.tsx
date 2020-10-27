@@ -1,10 +1,8 @@
-import React from "react";
-import { Spin } from "antd";
+import React from 'react';
+import { Spin } from 'antd';
 
 export interface LoadingProps {
-  loading?: boolean;
+	loading?: boolean;
 }
 
-export const Loading: React.FC<LoadingProps> = ({ loading = true }) => (
-  <Spin spinning={loading} />
-);
+export const Loading: React.FC<LoadingProps> = ({ loading = true }) => <Spin spinning={loading} />;
