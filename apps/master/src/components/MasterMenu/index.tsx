@@ -1,4 +1,5 @@
 import { AppstoreOutlined, CalendarOutlined, LinkOutlined, MailOutlined } from '@ant-design/icons';
+import { useGlobalStore } from '@ionia/libs';
 import { Menu } from 'antd';
 import React from 'react';
 import './index.less';
@@ -8,6 +9,10 @@ const { SubMenu } = Menu;
 export interface MasterMenuProps {}
 
 const MasterMenu = ({}: MasterMenuProps) => {
+	const globalStore = useGlobalStore();
+
+	console.log('----', globalStore.state);
+
 	return (
 		<div className='io-master__menu'>
 			<Menu
