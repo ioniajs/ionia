@@ -2,16 +2,14 @@ import { AppstoreOutlined, CalendarOutlined, LinkOutlined, MailOutlined } from '
 import { useGlobalStore } from '@ionia/libs';
 import { Menu } from 'antd';
 import React from 'react';
+import routesMap from '../../routes';
 import './index.less';
 
 const { SubMenu } = Menu;
 
-export interface MasterMenuProps {}
-
-const MasterMenu = ({}: MasterMenuProps) => {
+const MasterMenu = () => {
 	const globalStore = useGlobalStore();
-
-	console.log('----', globalStore.state);
+	const routes = routesMap[globalStore.state?.currentApp ?? 'cms'];
 
 	return (
 		<div className='io-master__menu'>
