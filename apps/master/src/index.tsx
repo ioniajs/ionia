@@ -21,6 +21,11 @@ const apps: IoniaApp<{}>[] = [
 		entry: '//localhost:7002',
 		activeRule: '/cms',
 	},
+	{
+		name: 'shop',
+		entry: '//localhost:7003',
+		activeRule: '/shop',
+	},
 ];
 
 const lifeCycles = {

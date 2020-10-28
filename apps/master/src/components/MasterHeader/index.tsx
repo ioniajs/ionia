@@ -1,7 +1,7 @@
 import { LangSelector, useGlobalStore } from '@ionia/libs';
 import { IoniaApp } from '@ionia/libs/es/core/master-application';
 import { Anchor } from 'antd';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useHistory, useLocation } from 'react-router';
 import AvatarDropdown from './AvatarDropdown';
@@ -19,6 +19,7 @@ export interface MasterHeaderProps {
 export interface RouteMenu {
 	key: string;
 	name: string;
+	appName: string;
 }
 
 const getThemeStyles = (
@@ -45,9 +46,16 @@ const MasterHeader: React.FC<MasterHeaderProps> = ({ theme }) => {
 			.map((app: IoniaApp) => ({
 				key: app.activeRule,
 				name: app.name ? t(app.name) : '',
+				appName: app.name,
 			})) ?? [];
 	const selectedKey = routes?.find(r => location.pathname.startsWith(r.key));
 	const themeStyles = getThemeStyles(theme);
+
+	useEffect(() => {
+		if (selectedKey) {
+			globalStore.setState({ currentApp: selectedKey.appName });
+		}
+	}, [location.pathname]);
 
 	return (
 		<Anchor className='io-master__anchor'>
