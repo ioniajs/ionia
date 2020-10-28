@@ -83,19 +83,16 @@ module.exports = {
 				exclude: /node_modules/,
 			},
 			{
-				test: /\.svg$/,
-				use: 'file-loader',
-			},
-			{
-				test: /\.png$/,
-				use: [
-					{
-						loader: 'url-loader',
-						options: {
-							mimetype: 'image/png',
-						},
-					},
-				],
+				test: /\.(jpg|jpeg|gif|png|svg)$/,
+				use: {
+					loader: 'url-loader',
+					options: {
+						esModule: false,
+						limit: 1024 * 1,
+						name: '[name].[hash:8].[ext]',
+						outputPath: 'images/'
+					}
+				  }
 			},
 			{
 				test: /\.(ttf|ttc|eot|woff|woff2)/,
