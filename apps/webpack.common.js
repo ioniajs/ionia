@@ -117,6 +117,7 @@ module.exports = {
           	<link rel="stylesheet" type="text/css" href="//at.alicdn.com/t/font_2147785_md51qwol8s.css" />
         </head>
 		<body>
+			<link rel="stylesheet/less" type="text/css" href="theme.less" /> 
 			<div id="app" />
         </body>
       </html>`,
