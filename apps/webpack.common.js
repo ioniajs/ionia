@@ -112,12 +112,13 @@ module.exports = {
 			filename: 'index.html',
 			templateContent: `<!DOCTYPE html>
       <html lang="en">
-        <head>
-          <meta charset="UTF-8" />
-          <link rel="stylesheet" type="text/css" href="//at.alicdn.com/t/font_2147785_md51qwol8s.css" />
+    	<head>
+          	<meta charset="UTF-8" />
+          	<link rel="stylesheet" type="text/css" href="//at.alicdn.com/t/font_2147785_md51qwol8s.css" />
         </head>
-        <body>
-          <div id="app" />
+		<body>
+			<link rel="stylesheet/less" type="text/css" href="theme.less" /> 
+			<div id="app" />
         </body>
       </html>`,
 			minify: {

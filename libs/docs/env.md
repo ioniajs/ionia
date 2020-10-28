@@ -93,13 +93,20 @@ url 为项目服务器地址或 github 地址。
 
 ### 安装插件
 
-在 VScode 左边导航栏中找到拓展，然后搜索 Atom One Dark Theme、 Material Icon Theme、 Bracket Pair Colorizer 2、ES7 React/Redux/GraphQL/React-Native snippets 并下载。
+在 VScode 左边导航栏中找到拓展，然后搜索 Prettier - Code formatter
+、Atom One Dark Theme、 Material Icon Theme、 Bracket Pair Colorizer 2、ES7 React/Redux/GraphQL/React-Native snippets 并下载。
 
 ### 代码风格
 
 在左边导航栏最下面的管理中搜索“连”字，然后点击“在 settings.json 中编辑”，把"editor.fontLigatures"改为 true。
 
 在左边导航栏最下面的管理中点击设置，常用设置中 font-size 改为 16，颜色主题改成“Atom One Dark”。
+
+在设置中搜索 format,勾选 Editor: Format On Save。
+
+![GitFlow](./search.png)
+
+![GitFlow](./save.png)
 
 ## 统一提交代码格式
 

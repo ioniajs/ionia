@@ -723,7 +723,7 @@ export function getRoutes() {
         "exact": true,
         "meta": {
           "filePath": "docs/architecture/webpack.md",
-          "updatedTime": 1603784279658,
+          "updatedTime": 1603784392000,
           "title": "Webpack",
           "group": {
             "title": "基础架构",
