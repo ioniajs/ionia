@@ -19,7 +19,7 @@ export function getRoutes() {
         "exact": true,
         "meta": {
           "filePath": "docs/env.md",
-          "updatedTime": 1603432272000,
+          "updatedTime": 1603517287000,
           "title": "环境搭建",
           "order": 1,
           "slugs": [
