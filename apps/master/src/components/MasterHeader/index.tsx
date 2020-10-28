@@ -38,6 +38,7 @@ const MasterHeader: React.FC<MasterHeaderProps> = ({ theme }) => {
 	const location = useLocation();
 	const history = useHistory();
 	const { t } = useTranslation();
+
 	const routes: RouteMenu[] =
 		globalStore.state?.apps
 			?.filter((app: IoniaApp) => !app.hideInMenu)
@@ -46,7 +47,6 @@ const MasterHeader: React.FC<MasterHeaderProps> = ({ theme }) => {
 				name: app.name ? t(app.name) : '',
 			})) ?? [];
 	const selectedKey = routes?.find(r => location.pathname.startsWith(r.key));
-
 	const themeStyles = getThemeStyles(theme);
 
 	return (
