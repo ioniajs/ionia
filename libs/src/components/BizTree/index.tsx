@@ -37,11 +37,11 @@ const treeData = [
 ];
 
 export function BizTree() {
-	const onSelect = (selectedKeys, info) => {
+	const onSelect = (selectedKeys: any, info: any) => {
 		console.log('selected', selectedKeys, info);
 	};
 
-	const onCheck = (checkedKeys, info) => {
+	const onCheck = (checkedKeys: any, info: any) => {
 		console.log('onCheck', checkedKeys, info);
 	};
 	return (
