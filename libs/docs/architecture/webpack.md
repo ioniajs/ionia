@@ -109,7 +109,142 @@ module.exports = config;
 
 定义一些规则来解析我们的 jsx，js，css，图片，字体等。
 
-![GitFlow](./ruler.png)
+### css 在 webpack 中定义的解析规则
+
+```js
+rules: [
+	{
+		test: /\.css$/, //定义正则，识别出哪些文件会被转换
+		use: [
+			MiniCssExtractPlugin.loader, //将css提取为独立的文件的插件
+			{
+				loader: 'css-loader', //配置css-loader
+				options: {
+					//options 为可以配置的选项
+					importLoaders: 1, //用于配置[css-loader作用于@import的资源之前]有多少个loader
+				},
+			},
+			'postcss-loader', //配置postcss-loader
+		],
+		exclude: /\.module\.css$/, //表示除了该文件外
+	},
+];
+
+rules: [
+	{
+		test: /\.css$/, //定义正则，识别出哪些文件会被转换
+		use: [
+			MiniCssExtractPlugin.loader, //将css提取为独立的文件的插件
+			{
+				loader: 'css-loader', //配置css-loader
+				options: {
+					importLoaders: 1, //用于配置[css-loader作用于@import的资源之前]有多少个loader
+					modules: true,
+				},
+			},
+			{
+				loader: 'postcss-loader', //配置postcss-loader
+				options: {
+					ident: 'postcss',
+					plugins: loader => [require('autoprefixer')()], //postcss调用autoprefixer插件
+				},
+			},
+		],
+		include: /\.module\.css$/, //表示包含该文件
+	},
+];
+```
+
+### js | jsx 在 webpack 中定义的解析规则
+
+```js
+rules: [
+	{
+		test: /\.(js|jsx)$/, //定义正则，识别出哪些文件会被转换
+		use: {
+			loader: 'babel-loader', //配置label-loader
+			options: {
+				presets: [
+					//字段设定转码规则
+					[
+						'@babel/preset-env', //使用这个预设，会根据浏览器来选择插件转化ES5
+						{
+							modules: false, //关闭js | jsx modules功能
+						},
+					],
+					'@babel/preset-react', //转义react的jsx语法
+				],
+				plugins: ['@babel/transform-runtime', 'react-hot-loader/babel'], //配置插件,用于扩展webpack功能
+			},
+		},
+		exclude: /node_modules/, //表示除了该文件外
+	},
+];
+```
+
+### less 在 webpack 中定义的解析规则
+
+```js
+rules: [
+	{
+		test: /\.less$/, //定义正则，识别出哪些文件会被转换
+		use: [
+			MiniCssExtractPlugin.loader, //将css提取为独立的文件的插件
+			'css-loader', //配置css-loader
+			{
+				loader: 'less-loader', //配置less-loader
+				options: {
+					lessOptions: {
+						//Less的可选项
+						javascriptEnabled: true, //开启内联的js
+					},
+				},
+			},
+		],
+	},
+];
+```
+
+### ts(x)在 webpack 中定义的规则解析
+
+```js
+rules: [
+	{
+		test: /\.ts(x)?$/, //定义正则，识别出哪些文件会被转换
+		loader: 'ts-loader', //配置ts-loader
+		exclude: /node_modules/, //表示除了该文件外
+	},
+];
+```
+
+### svg 在 webpack 中定义的解析规则
+
+```js
+rules: [
+	{
+		test: /\.svg$/, //定义正则，识别出那些文件会被转换
+		use: 'file-loader', //在进行转换时，使用对应文件类型的loader
+	},
+];
+```
+
+### png 在 webpack 中定义的解析规则
+
+```js
+rules: [
+	{
+		test: /\.png$/, //定义正则，识别出那些文件会被转换
+		use: [
+			{
+				loader: 'url-loader', //配置url-loader
+				options: {
+					mimetype: 'image/png', //设置文件的MIME类型。如果未指定，则文件扩展名将用于查找MIME类型。
+				},
+			},
+		],
+	},
+];
+```
 
 在导入语句没带文件后缀时，Webpack 会自动带上后缀后去尝试访问文件是否存在:
 
@@ -119,8 +254,56 @@ resolve: {
     },
 ```
 
-![GitFlow](./optimization.png)
+### 优化配置
 
-下面是开发环境的 webpack 配置：
+```js
+optimization: { //优化,根据所选的内容运行优化mode，可以手动配置和替代
+	runtimeChunk: 'single', //会生成一个唯一单独的runtime.js文件,就是manifest
+	splitChunks: { //根据不同的配置来分割打包出来的bundle
+		cacheGroups: { //缓存策略
+			vendor: {
+				test: /[\\/]node_modules[\\/]/, //正则匹配文件
+				name: 'vendors', //重写文件名称
+				chunks: 'all', //用于标识打包(优化前)有哪些modules被用于优化到不同的chunks中，值类型为string，有效值为'all','async','initial',提供'all'表示优化后的chunks可以包括异步和非异步modules
+			},
+		},
+	},
+},
 
-![GitFlow](./devcof.png)
+```
+
+### 下面是开发环境的 webpack 配置：
+
+```js
+const config = merge(commonConfig, {
+	mode: 'development',
+	entry: ['react-hot-loader/patch', resolve(__dirname, './src/index.tsx')], //入口文件，指定一个或者多个不同的入口起点
+	output: {
+		//指定webpack的输出位置
+		publicPath: '/', //配置项目中所有资源指定一个基础路径，也就是公共路径
+	},
+	devtool: 'source-map', //此选项控制是否生成，以及如何生成source map
+	devServer: {
+		port: 7000, //提供访问的端口号
+		contentBase: './dist', //告诉服务器从哪里提供内容
+		clientLogLevel: 'warning', //开发工具控制台显示信息
+		disableHostCheck: true, //设置为true时，此选项将绕过主机检查
+		compress: true, //对所有请求都启用gzip压缩
+		headers: {
+			'Access-Control-Allow-Origin': '*', //在所有响应中添加首部内容
+		},
+		historyApiFallback: true, //当使用HTML5 History API时，任意的404响应都可能需要被替代为index.html
+		overlay: { warnings: false, errors: true }, //出现编译器错误或警告时，在浏览器中显示全屏覆盖
+	},
+	resolve: {
+		alias: {
+			'@': resolve(__dirname, 'src'), //配置项通过别名来把原导入路径映射成一个新的导入路径
+		},
+	},
+	plugins: [
+		new CopyWebpackPlugin({
+			patterns: [{ from: resolve(__dirname, './mockServiceWorker.js') }], //配置插件
+		}),
+	],
+});
+```
