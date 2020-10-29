@@ -5,3 +5,4 @@ export * from './SlaveApp';
 export * from './ErrorFallback';
 export * from './PageContainer';
 export * from './BizTable';
+export * from './BizTree';

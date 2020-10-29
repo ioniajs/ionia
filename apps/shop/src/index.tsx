@@ -5,7 +5,7 @@ import App from './App';
 
 const app = new Application(
 	(
-		<Router basename={isSlave ? '/dashboard' : '/'}>
+		<Router basename={isSlave ? '/shop' : '/'}>
 			<App />
 		</Router>
 	)
