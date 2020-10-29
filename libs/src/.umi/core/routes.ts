@@ -19,7 +19,7 @@ export function getRoutes() {
         "exact": true,
         "meta": {
           "filePath": "docs/env.md",
-          "updatedTime": 1603517287000,
+          "updatedTime": 1603868762000,
           "title": "环境搭建",
           "order": 1,
           "slugs": [
@@ -60,8 +60,13 @@ export function getRoutes() {
             },
             {
               "depth": 3,
-              "value": "项目提交步骤",
-              "heading": "项目提交步骤"
+              "value": "代码提交到本地步骤",
+              "heading": "代码提交到本地步骤"
+            },
+            {
+              "depth": 3,
+              "value": "项目提交远程仓库步骤",
+              "heading": "项目提交远程仓库步骤"
             },
             {
               "depth": 2,
