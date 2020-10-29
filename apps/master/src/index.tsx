@@ -11,20 +11,20 @@ if (isDev) {
 
 const apps: IoniaApp<{}>[] = [
 	{
-		name: 'dashboard',
-		entry: '//localhost:7001',
-		activeRule: '/dashboard',
-	},
-	{
 		name: 'auth',
-		entry: '//localhost:7002',
+		entry: '//localhost:7001',
 		activeRule: '/auth',
 		hideInMenu: true,
 	},
 	{
 		name: 'cms',
-		entry: '//localhost:7003',
+		entry: '//localhost:7002',
 		activeRule: '/cms',
+	},
+	{
+		name: 'shop',
+		entry: '//localhost:7003',
+		activeRule: '/shop',
 	},
 ];
 
@@ -57,7 +57,7 @@ new MasterApplication(
 		</Router>
 	),
 	apps,
-	'/dashboard',
+	'/cms',
 	initGlobalState,
 	lifeCycles
 ).start();

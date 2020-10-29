@@ -1,32 +1,30 @@
 {
-	"name": "@ionia/dashboard",
+	"name": "@ionia/shop",
 	"version": "0.0.1",
 	"private": true,
 	"scripts": {
-		"preview": "npx cross-env PORT=7001 npx http-server ./dist --cors",
+		"preview": "npx cross-env PORT=7003 npx http-server ./dist --cors",
 		"analyzer": "webpack --report",
 		"build:dev": "webpack -d --config webpack.dev.js",
 		"build:prod": "webpack -p --config webpack.prod.js",
 		"start": "webpack-dev-server --hot --config webpack.dev.js"
 	},
 	"dependencies": {
-		"@ant-design/charts": "^0.9.13",
-		"@loadable/component": "^5.13.1",
+		"@ant-design/pro-table": "^2.7.1",
 		"ahooks": "^2.5.0",
 		"lodash": "^4.17.20",
 		"moment": "^2.27.0",
 		"react": "^16.13.1",
 		"react-dom": "^16.13.1",
 		"react-hot-loader": "^4.12.21",
-		"react-router-dom": "^5.2.0"
+		"react-router-dom": "^5.2.0",
+		"zustand": "^3.0.2"
 	},
 	"devDependencies": {
 		"@babel/core": "^7.11.1",
 		"@babel/preset-env": "^7.11.0",
 		"@babel/preset-react": "^7.10.4",
 		"@hot-loader/react-dom": "^16.13.0+4.12.20",
-		"@types/loadable__component": "^5.13.0",
-		"@types/mockjs": "^1.0.3",
 		"@types/react": "^16.9.46",
 		"@types/react-dom": "^16.9.8",
 		"autoprefixer": "^9.8.6",
@@ -36,6 +34,7 @@
 		"css-loader": "^4.2.1",
 		"file-loader": "^6.0.0",
 		"html-webpack-plugin": "^4.3.0",
+		"http-server": "^0.12.3",
 		"less": "^3.12.2",
 		"less-loader": "^6.2.0",
 		"lodash-webpack-plugin": "^0.11.5",

@@ -1,14 +1,14 @@
 {
 	"compilerOptions": {
-		"baseUrl": "./",
-		"outDir": "./dist/",
+		"baseUrl": "",
+		"outDir": "dist",
 		"sourceMap": true,
 		"strict": true,
 		"noImplicitReturns": true,
 		"noImplicitAny": true,
 		"allowSyntheticDefaultImports": true,
 		"experimentalDecorators": true,
-		"module": "esnext",
+		"module": "es6",
 		"moduleResolution": "node",
 		"target": "es5",
 		"allowJs": true,
@@ -17,5 +17,5 @@
 			"@/*": ["src/*"]
 		}
 	},
-	"include": ["./src/**/*"]
+	"include": ["src/**/*"]
 }
