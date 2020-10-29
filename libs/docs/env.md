@@ -63,15 +63,37 @@ url 为项目服务器地址或 github 地址。
 
 看到上面显示 100%就克隆好了。
 
+克隆好之后进入项目目录，输入：
+
+\$ yarn
+
+依赖下载好后，根据协作规范创建分支开始开发。
+
 访问 https://jingyan.baidu.com/article/642c9d343c7ee0644b46f76a.html
 
-### 项目提交步骤
+### 代码提交到本地步骤
+
+查看代码变动:
+
+\$ git status
+
+将代码从工作区提交到暂存区：
+
+\$ git add .
+
+提交代码：
+
+\$ git cz
+
+git cz 教程参考文档： https://segmentfault.com/a/1190000020924364?utm_source=tag-newest
+
+### 项目提交远程仓库步骤
 
 第一步：在本地新建分支。
 
 \$ git branch -b [分支名]
 
-第二步：推送到远程仓库。
+第二步：推送到远程仓库(推送到远程仓库前 git pull 拉取代码)。
 
 \$ git push --set-upstream origin [分支名]
 
@@ -79,7 +101,7 @@ url 为项目服务器地址或 github 地址。
 
 ![GitFlow](./pr.png)
 
-点击 Compare & pull request ,选择审核人，点击提交。
+不要提交到主分支，切换到 develop 分支后，点击 Compare & pull request ,选择审核人，点击提交。
 
 ![GitFlow](./person.png)
 
