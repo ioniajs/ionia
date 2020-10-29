@@ -1,11 +1,10 @@
 import React from 'react';
 
-interface IconProps {
+export interface IconProps {
 	name: string;
+	onClick?: () => void;
 }
 
-const Icon = ({ name }: IconProps) => {
-	return <i className={`iconfont ${name}`} />;
+export const Icon = ({ name, ...reset }: IconProps) => {
+	return <i className={`iconfont ${name}`} {...reset} />;
 };
-
-export default Icon;
