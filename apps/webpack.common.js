@@ -83,19 +83,16 @@ module.exports = {
 				exclude: /node_modules/,
 			},
 			{
-				test: /\.svg$/,
-				use: 'file-loader',
-			},
-			{
-				test: /\.png$/,
-				use: [
-					{
-						loader: 'url-loader',
-						options: {
-							mimetype: 'image/png',
-						},
-					},
-				],
+				test: /\.(jpg|jpeg|gif|png|svg)$/,
+				use: {
+					loader: 'url-loader',
+					options: {
+						esModule: false,
+						limit: 1024 * 1,
+						name: '[name].[hash:8].[ext]',
+						outputPath: 'images/'
+					}
+				  }
 			},
 			{
 				test: /\.(ttf|ttc|eot|woff|woff2)/,
@@ -114,7 +111,7 @@ module.exports = {
       <html lang="en">
     	<head>
           	<meta charset="UTF-8" />
-          	<link rel="stylesheet" type="text/css" href="//at.alicdn.com/t/font_2147785_md51qwol8s.css" />
+          	<link rel="stylesheet" type="text/css" href="//at.alicdn.com/t/font_2147785_glifoaqt1.css" />
         </head>
 		<body>
 			<link rel="stylesheet/less" type="text/css" href="theme.less" /> 

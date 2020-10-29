@@ -9,4 +9,9 @@ module.exports = merge(commonConfig, {
 	output: {
 		publicPath: '/',
 	},
+	resolve: {
+		alias: {
+			'@': resolve(__dirname, 'src'),
+		},
+	},
 });
