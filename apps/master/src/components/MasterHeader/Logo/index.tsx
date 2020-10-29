@@ -1,4 +1,4 @@
-import { useThemeStore } from '@ionia/libs';
+import { Icon, useThemeStore } from '@ionia/libs';
 import React, { useEffect } from 'react';
 import { useLocalStorage, useMount } from 'react-use';
 import './index.less';
@@ -22,8 +22,8 @@ const Logo: React.FC<TitleProps> = () => {
 			<h1 className='logo' onClick={() => changeTheme('#1C6CD8')}>
 				JEECMS
 			</h1>
-			<i
-				className='iconfont icon-navigation'
+			<Icon
+				name='icon-navigation'
 				onClick={() =>
 					setMenuStyles({
 						collapse: !menuStyles.collapse,
