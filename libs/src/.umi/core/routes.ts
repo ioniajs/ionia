@@ -1,6 +1,6 @@
 // @ts-nocheck
 import React from 'react';
-import { ApplyPluginsType } from 'D:/ioniajs/ionia/node_modules/@umijs/runtime';
+import { ApplyPluginsType } from 'C:/Users/Administrator/Desktop/ionia/node_modules/@umijs/runtime';
 import * as umiExports from './umiExports';
 import { plugin } from './plugin';
 
@@ -19,7 +19,7 @@ export function getRoutes() {
         "exact": true,
         "meta": {
           "filePath": "docs/env.md",
-          "updatedTime": 1603432272000,
+          "updatedTime": 1603517287000,
           "title": "环境搭建",
           "order": 1,
           "slugs": [
@@ -765,6 +765,46 @@ export function getRoutes() {
               "depth": 2,
               "value": "Webpack 在项目中的应用",
               "heading": "webpack-在项目中的应用"
+            },
+            {
+              "depth": 3,
+              "value": "css 在 webpack 中定义的解析规则",
+              "heading": "css-在-webpack-中定义的解析规则"
+            },
+            {
+              "depth": 3,
+              "value": "js | jsx 在 webpack 中定义的解析规则",
+              "heading": "js--jsx-在-webpack-中定义的解析规则"
+            },
+            {
+              "depth": 3,
+              "value": "less 在 webpack 中定义的解析规则",
+              "heading": "less-在-webpack-中定义的解析规则"
+            },
+            {
+              "depth": 3,
+              "value": "ts(x)在 webpack 中定义的规则解析",
+              "heading": "tsx在-webpack-中定义的规则解析"
+            },
+            {
+              "depth": 3,
+              "value": "svg 在 webpack 中定义的解析规则",
+              "heading": "svg-在-webpack-中定义的解析规则"
+            },
+            {
+              "depth": 3,
+              "value": "png 在 webpack 中定义的解析规则",
+              "heading": "png-在-webpack-中定义的解析规则"
+            },
+            {
+              "depth": 3,
+              "value": "优化配置",
+              "heading": "优化配置"
+            },
+            {
+              "depth": 3,
+              "value": "下面是开发环境的 webpack 配置：",
+              "heading": "下面是开发环境的-webpack-配置："
             }
           ]
         },
