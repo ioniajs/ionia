@@ -19,7 +19,7 @@ const Logo: React.FC<TitleProps> = () => {
 
 	return (
 		<div className={`io-master__logo ${menuStyles.collapse ? 'collapse' : ''}`}>
-			<h1 className='logo' onClick={() => changeTheme('#c60918')}>
+			<h1 className='logo' onClick={() => changeTheme('#1C6CD8')}>
 				JEECMS
 			</h1>
 			<i
