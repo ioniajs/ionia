@@ -111,7 +111,7 @@ module.exports = {
       <html lang="en">
     	<head>
           	<meta charset="UTF-8" />
-          	<link rel="stylesheet" type="text/css" href="//at.alicdn.com/t/font_2147785_md51qwol8s.css" />
+          	<link rel="stylesheet" type="text/css" href="//at.alicdn.com/t/font_2147785_glifoaqt1.css" />
         </head>
 		<body>
 			<link rel="stylesheet/less" type="text/css" href="theme.less" /> 
