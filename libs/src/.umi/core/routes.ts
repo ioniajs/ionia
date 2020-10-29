@@ -19,7 +19,7 @@ export function getRoutes() {
         "exact": true,
         "meta": {
           "filePath": "docs/env.md",
-          "updatedTime": 1603432272000,
+          "updatedTime": 1603517287000,
           "title": "环境搭建",
           "order": 1,
           "slugs": [
@@ -326,6 +326,41 @@ export function getRoutes() {
               "depth": 1,
               "value": "微前端",
               "heading": "微前端"
+            },
+            {
+              "depth": 2,
+              "value": "什么是微前端？",
+              "heading": "什么是微前端？"
+            },
+            {
+              "depth": 2,
+              "value": "qiankun 介绍",
+              "heading": "qiankun-介绍"
+            },
+            {
+              "depth": 2,
+              "value": "qiankun 安装",
+              "heading": "qiankun-安装"
+            },
+            {
+              "depth": 2,
+              "value": "qiankun 使用",
+              "heading": "qiankun-使用"
+            },
+            {
+              "depth": 3,
+              "value": "在主应用中注册微应用",
+              "heading": "在主应用中注册微应用"
+            },
+            {
+              "depth": 3,
+              "value": "微应用",
+              "heading": "微应用"
+            },
+            {
+              "depth": 2,
+              "value": "qiankun API",
+              "heading": "qiankun-api"
             }
           ]
         },
