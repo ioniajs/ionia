@@ -1,4 +1,4 @@
-import { LangSelector, useGlobalStore} from '@ionia/libs';
+import { LangSelector, useGlobalStore } from '@ionia/libs';
 import { IoniaApp } from '@ionia/libs/es/core/master-application';
 import { Anchor } from 'antd';
 import React, { useEffect } from 'react';
@@ -66,8 +66,9 @@ const MasterHeader: React.FC<MasterHeaderProps> = ({ theme }) => {
 					{routes.map(r => (
 						<span
 							key={r.key}
-							className={`io-master__header--item ${selectedKey?.key === r.key ? 'active' : ''
-								}`}
+							className={`io-master__header--item ${
+								selectedKey?.key === r.key ? 'active' : ''
+							}`}
 							onClick={() => {
 								if (selectedKey?.key === r.key) return;
 								history.push(r.key.toString());
@@ -80,7 +81,7 @@ const MasterHeader: React.FC<MasterHeaderProps> = ({ theme }) => {
 				</div>
 				<div className='io-master__header-right'>
 					<span className='io-master__header--item'>
-						<ThemeColor/>
+						<ThemeColor />
 					</span>
 					<span className='io-master__header--item'>
 						<AvatarDropdown />
