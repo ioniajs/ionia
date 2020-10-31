@@ -1,0 +1,58 @@
+.io-theme-color-card {
+	width: 368px;
+	height: 203px;
+	box-shadow: 0px 4px 16px 0px rgba(0, 0, 0, 0.15);
+	border-radius: 2px;
+	.ant-dropdown-menu-head {
+		border-bottom: 1px solid #d9d9d9;
+		.ant-dropdown-menu-head-title {
+			width: 50px;
+			height: 14px;
+			font-size: 14px;
+			font-family: PingFang SC;
+			font-weight: 500;
+			color: #000000;
+			line-height: 30px;
+			margin-left: 15px;
+			margin-bottom: 13px;
+		}
+	}
+	.io-prev--colors {
+		display: flex;
+		flex-direction: column;
+		margin: 16px 26px;
+		.row {
+			display: flex;
+			justify-content: space-around;
+			width: 100%;
+			.item {
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
+				align-items: center;
+				& > div {
+					display: flex;
+					justify-content: center;
+					align-items: center;
+					width: 32px;
+					height: 32px;
+				}
+				&.white {
+					& > div {
+						border: 1px solid #d9d9d9;
+					}
+				}
+				& > p {
+					font-size: 14px;
+					font-family: PingFang SC;
+					color: #000000;
+					line-height: 30px;
+					cursor: pointer;
+				}
+			}
+		}
+	}
+	.icon-select {
+		color: #ffffff;
+	}
+}

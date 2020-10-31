@@ -7,6 +7,7 @@ import { useHistory, useLocation } from 'react-router';
 import AvatarDropdown from './AvatarDropdown';
 import './index.less';
 import Logo from './Logo';
+import ThemeColor from './ThemeColor';
 
 export enum MasterHeaderTheme {
 	Light = 'light',
@@ -79,7 +80,9 @@ const MasterHeader: React.FC<MasterHeaderProps> = ({ theme }) => {
 					))}
 				</div>
 				<div className='io-master__header-right'>
-					<span className='io-master__header--item'></span>
+					<span className='io-master__header--item'>
+						<ThemeColor />
+					</span>
 					<span className='io-master__header--item'>
 						<AvatarDropdown />
 					</span>

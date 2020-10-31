@@ -111,6 +111,14 @@ git cz 教程参考文档： https://segmentfault.com/a/1190000020924364?utm_sou
 
 点击 Download Full, 下载 cmder.zip ，下载完解压即可使用。
 
+## 下载 Fira_code 字体
+
+访问 https://github.com/tonsky/FiraCode/releases
+
+![GitFlow](./Fira_code.png)
+
+下载全选文件解压安装就可以使用了。
+
 ## VScode 环境搭建
 
 ### 安装插件
