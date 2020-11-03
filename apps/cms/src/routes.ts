@@ -3,7 +3,7 @@ import Detail from '@/pages/Detail';
 import List from '@/pages/List';
 
 export default [
-	{ key: '/', path: '/',component: List },
+	{ key: '/', path: '/', component: List },
 	{
 		key: '/category',
 		path: '/category',

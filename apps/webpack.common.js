@@ -90,9 +90,9 @@ module.exports = {
 						esModule: false,
 						limit: 1024 * 1,
 						name: '[name].[hash:8].[ext]',
-						outputPath: 'images/'
-					}
-				  }
+						outputPath: 'images/',
+					},
+				},
 			},
 			{
 				test: /\.(ttf|ttc|eot|woff|woff2)/,
