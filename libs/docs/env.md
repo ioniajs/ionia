@@ -5,6 +5,13 @@ order: 1
 
 # 环境搭建
 
+
+## 下载 Cmder 终端
+
+访问 https://cmder.net/
+
+点击 Download Full, 下载 cmder.zip ，下载完解压即可使用。
+
 ## yarn、yrm 的安装
 
 ### 安装 yarn
@@ -104,12 +111,6 @@ git cz 教程参考文档： https://segmentfault.com/a/1190000020924364?utm_sou
 不要提交到主分支，切换到 develop 分支后，点击 Compare & pull request ,选择审核人，点击提交。
 
 ![GitFlow](./person.png)
-
-## 下载 Cmder 终端
-
-访问 https://cmder.net/
-
-点击 Download Full, 下载 cmder.zip ，下载完解压即可使用。
 
 ## 下载 Fira_code 字体
 
