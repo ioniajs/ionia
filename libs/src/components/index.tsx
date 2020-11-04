@@ -7,4 +7,4 @@ export * from './Loading';
 export * from './PageContainer';
 export * from './SlaveApp';
 export * from './VideoPlayer';
-export * from './Audio';
+export * from './AudioPlayer';

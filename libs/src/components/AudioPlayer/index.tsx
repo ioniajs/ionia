@@ -14,7 +14,7 @@ import ReactAudioPlayer from 'react-audio-player';
 // import { withSoundCloudAudio } from 'react-soundplayer/addons';
 import React, { useState, useRef } from 'react';
 
-interface AudioProps extends UploadProps {
+interface AudioPlayerProps extends UploadProps {
 	text?: string;
 	loadingTip?: string;
 	width?: number;
@@ -27,7 +27,7 @@ interface AudioProps extends UploadProps {
 
 const { Dragger } = Upload;
 
-export const Audio: React.FC<AudioProps> = props => {
+export const AudioPlayer: React.FC<AudioPlayerProps> = props => {
 	const audioPlayer = useRef<any>(null);
 	const [loading, setLoading] = useState<boolean>(false);
 	const [played, setPlayed] = useState<boolean>(false); // 音频是否播放
