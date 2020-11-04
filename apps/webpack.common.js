@@ -9,20 +9,6 @@ module.exports = {
 	module: {
 		rules: [
 			{
-				test: /\.css$/,
-				use: [
-					MiniCssExtractPlugin.loader,
-					{
-						loader: 'css-loader',
-						options: {
-							importLoaders: 1,
-						},
-					},
-					'postcss-loader',
-				],
-				exclude: /\.module\.css$/,
-			},
-			{
 				test: /\.(js|jsx)$/,
 				use: {
 					loader: 'babel-loader',
@@ -49,18 +35,11 @@ module.exports = {
 						loader: 'css-loader',
 						options: {
 							importLoaders: 1,
-							modules: true,
 						},
 					},
-					{
-						loader: 'postcss-loader',
-						options: {
-							ident: 'postcss',
-							plugins: loader => [require('autoprefixer')()],
-						},
-					},
+					'postcss-loader',
 				],
-				include: /\.module\.css$/,
+				exclude: /\.module\.css$/,
 			},
 			{
 				test: /\.less$/,
