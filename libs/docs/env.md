@@ -5,7 +5,6 @@ order: 1
 
 # 环境搭建
 
-
 ## 下载 Cmder 终端
 
 访问 https://cmder.net/
@@ -17,6 +16,50 @@ order: 1
 ### 安装 yarn
 
 \$ npm install -g yarn
+
+#### yarn 常用命令
+
+初始化一个新项目：
+
+\$ yarn init
+
+添加依赖包：
+
+\$ yarn add [package]
+
+\$ yarn add [package]@[version]
+
+\$ yarn add [package]@[tag]
+
+您可以通过指定依赖项版本或 标记来指定要安装的软件包版本:
+
+\$ yarn add [package]@[version]
+
+\$ yarn add [package]@[tag]
+
+将依赖项分别添加到 devDependencies(开发依赖)、peerDependencies(对等依赖) 和 optionalDependencies(可选依赖) 类别中：
+
+\$ yarn add [package] --dev
+
+\$ yarn add [package] --peer
+
+\$ yarn add [package] --optional
+
+升级依赖：
+
+\$ yarn upgrade [package]
+
+\$ yarn upgrade [package]@[version]
+
+\$ yarn upgrade [package]@[tag]
+
+删除依赖：
+
+\$ yarn remove [package]
+
+安装项目的全部依赖:
+
+\$ yarn
 
 ### 安装 yrm
 
@@ -44,7 +87,7 @@ order: 1
 
 创建 SSH KEY 输入：
 
-\$ ssh-keygen -t rsa -C "你的邮箱号码"。
+\$ ssh-keygen -t rsa -C "你的邮箱号码"
 
 登陆 GitHub，打开“settings”，“SSH and GPG keys”，然后点“New SSH Key”，填上 Title，在 Key 文本框里粘贴 id_rsa.pub 文件的内容。
 
