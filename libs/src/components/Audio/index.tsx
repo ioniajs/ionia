@@ -12,7 +12,7 @@ import { UploadFile } from 'antd/lib/upload/interface';
 import ReactAudioPlayer from 'react-audio-player';
 // import { PlayButton } from 'react-soundplayer/components';
 // import { withSoundCloudAudio } from 'react-soundplayer/addons';
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 
 interface AudioProps extends UploadProps {
 	text?: string;
@@ -27,26 +27,8 @@ interface AudioProps extends UploadProps {
 
 const { Dragger } = Upload;
 
-const clientId = 'YOUR CLIENT ID';
-const resolveUrl = 'https://soundcloud.com/ksmtk/chronemics';
-
-// const Player = withSoundCloudAudio((props: any) => {
-// 	let { track, currentTime } = props;
-
-// 	return (
-// 		<div className='custom-player'>
-// 			<PlayButton
-// 				className='custom-player-btn'
-// 				onPlayClick={() => {
-// 					console.log('play button clicked!');
-// 				}}
-// 				{...props}
-// 			/>
-// 		</div>
-// 	);
-// });
-
 export const Audio: React.FC<AudioProps> = props => {
+	const audioPlayer = useRef<any>(null);
 	const [loading, setLoading] = useState<boolean>(false);
 	const [played, setPlayed] = useState<boolean>(false); // 音频是否播放
 	const showUploadList = {
@@ -55,6 +37,8 @@ export const Audio: React.FC<AudioProps> = props => {
 			<PlayCircleOutlined
 				onClick={() => {
 					setPlayed(!played);
+					console.log(audioPlayer, audioPlayer.current, 'current');
+					audioPlayer.current?.props?.onPlay();
 				}}
 			/>
 		),
@@ -104,12 +88,18 @@ export const Audio: React.FC<AudioProps> = props => {
 	} = props;
 	return (
 		<div>
-			<ReactAudioPlayer src='my_audio_file.ogg' autoPlay controls />
-			{/* <Player
-				clientId={clientId}
-				resolveUrl={resolveUrl}
-				onReady={() => console.log('track is loaded!')}
-			/> */}
+			<ReactAudioPlayer
+				ref={audioPlayer}
+				src={'https://storage.googleapis.com/media-session/elephants-dream/the-wires.mp3'}
+				// autoPlay
+				controls
+				onPlay={e => {
+					console.log(e, '点击play');
+				}}
+				onPause={e => {
+					console.log(e, '点击暂停');
+				}}
+			/>
 			<Upload
 				showUploadList={showUploadList}
 				defaultFileList={defaultFileList}
