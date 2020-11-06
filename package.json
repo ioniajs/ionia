@@ -39,5 +39,8 @@
 		"commitizen": {
 			"path": "./node_modules/cz-conventional-changelog"
 		}
+	},
+	"gitHooks": {
+		"pre-commit": "validate-commit-msg"
 	}
 }
