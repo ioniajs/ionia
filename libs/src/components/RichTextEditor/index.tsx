@@ -1,5 +1,6 @@
 // @ts-nocheck
 import React, { useState, useRef } from 'react';
+import { Form, Modal, Button, Radio, Input, Checkbox } from 'antd';
 import BraftEditor, { ControlType, ExtendControlType, EditorState } from 'braft-editor';
 import {
 	FileTextOutlined,
@@ -11,6 +12,7 @@ import {
 import 'braft-editor/dist/index.css';
 import { ContentUtils } from 'braft-utils';
 // import Table from './table';
+import './index.less';
 
 // const Table = require('braft-extensions/dist/table');
 
@@ -22,10 +24,13 @@ export interface BraftEditorProps {
 export const RichTextEditor: React.FC<BraftEditorProps> = props => {
 	const { onChange, value } = props;
 	const [stripPastedStyles, setStripPastedStyles] = useState<boolean>(false);
-	const [editorState, setEditorState] = useState<any>(null);
+	const [editorState, setEditorState] = useState<any>(BraftEditor.createEditorState());
+	const [searchForm] = Form.useForm();
+	const [searchVisible, setSearchVisible] = useState<boolean>(false);
+	const [searchRadioVal, setSearchRadioVal] = useState<number>(1);
 	// const editorInstance = useRef<any>(null);
 
-	// const copyStyles = ['BOLD', 'ITALIC', 'UNDERLINE', 'FONTSIZE-30', 'COLOR-C0392B'];
+	const copyStyles = ['BOLD', 'ITALIC', 'UNDERLINE', 'FONTSIZE-30', 'COLOR-C0392B'];
 
 	const controls: ControlType[] = [
 		'undo',
@@ -106,18 +111,60 @@ export const RichTextEditor: React.FC<BraftEditorProps> = props => {
 		'separator',
 		{
 			key: 'search',
-			type: 'button',
+			type: 'modal',
 			title: '查词替换',
 			className: 'search',
-			html: null,
 			text: <SearchOutlined />,
-			onClick: () => {
-				console.log(editorState, 'editorState');
-				const val = editorState.replace(editorState, 'fffffff');
-				console.log(val, 'vava');
-				setEditorState(val);
-				// setEditorState(editorState.replace(editorState, 'fffffff'));
+			modal: {
+				id: 'modal-1',
+				title: '查词替换',
+				onConfirm: () => {}, // 确定替换
+				bottomText: (
+					<div>
+						<Button>上一个</Button>
+						<Button className='io-rich-text-editor-seabut'>下一个</Button>
+						{searchRadioVal === 2 && (
+							<Button className='io-rich-text-editor-seabut'>替换</Button>
+						)}
+						{searchRadioVal === 2 && (
+							<Button className='io-rich-text-editor-seabut'>全部替换</Button>
+						)}
+					</div>
+				),
+				showConfirm: false,
+				showCancel: false,
+				children: (
+					<Form form={searchForm} style={{ width: 400, padding: '0 10px' }}>
+						<Radio.Group
+							onChange={e => {
+								setSearchRadioVal(e.target.value);
+							}}
+						>
+							<Radio value={1}>查找</Radio>
+							<Radio value={2}>替换</Radio>
+						</Radio.Group>
+						<Form.Item label='查找' name='searchWord'>
+							<Input />
+						</Form.Item>
+						{searchRadioVal === 2 && (
+							<Form.Item label='替换' name='exchangeWord'>
+								<Input />
+							</Form.Item>
+						)}
+						<Form.Item label='区分大小写'>
+							<Checkbox />
+						</Form.Item>
+					</Form>
+				),
 			},
+			// onClick: () => {
+			// setSearchVisible(true);
+			// console.log(editorState, 'editorState');
+			// const val = editorState.replace(editorState, 'fffffff');
+			// console.log(val, 'vava');
+			// setEditorState(val);
+			// // setEditorState(editorState.replace(editorState, 'fffffff'));
+			// },
 		},
 		'separator',
 		{
@@ -132,7 +179,7 @@ export const RichTextEditor: React.FC<BraftEditorProps> = props => {
 				console.log(ContentUtils.insertText(editorState, '||||'));
 
 				setEditorState((prevState: EditorState) =>
-					ContentUtils.insertText(prevState, '|||||')
+					ContentUtils.insertText(prevState, '|||||||||||||')
 				);
 				// setEditorState(editorState.replace(editorState, 'fffffff'));
 			},
@@ -153,6 +200,7 @@ export const RichTextEditor: React.FC<BraftEditorProps> = props => {
 	};
 	return (
 		<BraftEditor
+			className='io-rich-text-editor'
 			{...editorProps}
 			controls={controls}
 			extendControls={extendControls}
