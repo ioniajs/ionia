@@ -2,7 +2,7 @@ import routes from '@/routes';
 import { message } from 'antd';
 import ProCard from '@ant-design/pro-card';
 import { PageContainer } from '@ant-design/pro-layout';
-import { VideoPlayer, Audio, RichTextEditor } from '@ionia/libs';
+import { VideoPlayer, RichTextEditor } from '@ionia/libs';
 import React from 'react';
 
 export default () => {
@@ -19,7 +19,7 @@ export default () => {
 						/>
 					</div> */}
 					{/* <div>
-						<Audio
+						<AudioPlayer
 						// onSuccess={info => {
 						// 	console.log(info, 'iiiii');
 						// 	if (info.file.response.isSuccess) {
@@ -31,11 +31,13 @@ export default () => {
 						// onFail={() => message.error('上传失败')}
 						/>
 					</div> */}
+				</ProCard>
+				<ProCard>
+					111
 					<div>
 						<RichTextEditor />
 					</div>
 				</ProCard>
-				<ProCard>111</ProCard>
 			</ProCard>
 		</PageContainer>
 	);
