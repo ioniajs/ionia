@@ -41,6 +41,7 @@
 		}
 	},
 	"gitHooks": {
-		"pre-commit": "validate-commit-msg"
+		"pre-commit": "yarn format",
+		"commit-msg": "validate-commit-msg"
 	}
 }
