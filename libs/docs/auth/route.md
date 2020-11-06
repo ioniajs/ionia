@@ -14,41 +14,37 @@ order: 0
 首先写一个简单的路由：
 
 ```jsx
-import React from "react";
-import {
-  BrowserRouter as Router,
-  Route,
-  Link,
-} from "react-router-dom";
+import React from 'react';
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 
 export default function Permissions() {
-  return (
-    <Router>
-      <div>
-        <ul>
-          <li>
-            <Link to="/public">Public Page</Link>
-          </li>
-          <li>
-            <Link to="/protected">Protected Page</Link>
-          </li>
-        </ul>
-          <Route path="/public">
-            <PublicPage />
-          </Route>
-          <Route path="/protected">
-            <ProtectedPage />
-          </Route>
-      </div>
-    </Router>
-  );
+	return (
+		<Router>
+			<div>
+				<ul>
+					<li>
+						<Link to='/public'>Public Page</Link>
+					</li>
+					<li>
+						<Link to='/protected'>Protected Page</Link>
+					</li>
+				</ul>
+				<Route path='/public'>
+					<PublicPage />
+				</Route>
+				<Route path='/protected'>
+					<ProtectedPage />
+				</Route>
+			</div>
+		</Router>
+	);
 }
 function PublicPage() {
-  return <h3>Public</h3>;
+	return <h3>Public</h3>;
 }
 
 function ProtectedPage() {
-  return <h3>Protected</h3>;
+	return <h3>Protected</h3>;
 }
 ```
 
@@ -65,99 +61,101 @@ isAuthenticated 为 true 则有权限访问 ProtectedPage 页面，否则只能�
 成品效果如下：
 
 ```jsx
-import React from "react";
+import React from 'react';
 import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link,
-  Redirect,
-  useHistory,
-  useLocation
-} from "react-router-dom";
+	BrowserRouter as Router,
+	Switch,
+	Route,
+	Link,
+	Redirect,
+	useHistory,
+	useLocation,
+} from 'react-router-dom';
 
 export default function Permissions() {
-  return (
-    <Router>
-      <div>
-        <ul>
-          <li>
-            <Link to="/public">Public Page</Link>
-          </li>
-          <li>
-            <Link to="/protected">Protected Page</Link>
-          </li>
-        </ul>
+	return (
+		<Router>
+			<div>
+				<ul>
+					<li>
+						<Link to='/public'>Public Page</Link>
+					</li>
+					<li>
+						<Link to='/protected'>Protected Page</Link>
+					</li>
+				</ul>
 
-        <Switch>
-          <Route path="/public">
-            <PublicPage />
-          </Route>
-          <Route path="/login">
-            <LoginPage />
-          </Route>
-          <PrivateRoute path="/protected">
-            <ProtectedPage />
-          </PrivateRoute>
-        </Switch>
-      </div>
-    </Router>
-  );
+				<Switch>
+					<Route path='/public'>
+						<PublicPage />
+					</Route>
+					<Route path='/login'>
+						<LoginPage />
+					</Route>
+					<PrivateRoute path='/protected'>
+						<ProtectedPage />
+					</PrivateRoute>
+				</Switch>
+			</div>
+		</Router>
+	);
 }
 
 const fakeAuth = {
-  isAuthenticated: false,
-  authenticate(cb) {
-    fakeAuth.isAuthenticated = true;
-    setTimeout(cb, 100); 
-  },
-  signout(cb) {
-    fakeAuth.isAuthenticated = false;
-    setTimeout(cb, 100);
-  }
+	isAuthenticated: false,
+	authenticate(cb) {
+		fakeAuth.isAuthenticated = true;
+		setTimeout(cb, 100);
+	},
+	signout(cb) {
+		fakeAuth.isAuthenticated = false;
+		setTimeout(cb, 100);
+	},
 };
 
 function PrivateRoute({ children }) {
-  return (
-    <Route
-      render={({ location }) =>
-        fakeAuth.isAuthenticated ? ( children ) : (
-          <Redirect
-            to={{
-              pathname: "/login",
-              state: { from: location }
-            }}
-          />
-        )
-      }
-    />
-  );
+	return (
+		<Route
+			render={({ location }) =>
+				fakeAuth.isAuthenticated ? (
+					children
+				) : (
+					<Redirect
+						to={{
+							pathname: '/login',
+							state: { from: location },
+						}}
+					/>
+				)
+			}
+		/>
+	);
 }
 
 function PublicPage() {
-  return <h3>Public</h3>;
+	return <h3>Public</h3>;
 }
 
 function ProtectedPage() {
-  return <h3>Protected</h3>;
+	return <h3>Protected</h3>;
 }
 
 function LoginPage() {
-  let history = useHistory();
-  let location = useLocation();
+	let history = useHistory();
+	let location = useLocation();
 
-  let { from } = location.state || { from: { pathname: "/" } };
-  let login = () => {
-    fakeAuth.authenticate(() => {
-      history.replace(from);
-    });
-  };
+	let { from } = location.state || { from: { pathname: '/' } };
+	let login = () => {
+		fakeAuth.authenticate(() => {
+			history.replace(from);
+		});
+	};
 
-  return (
-    <div>
-      <p>You must log in to view the page at {from.pathname}</p>
-      <button onClick={login}>Log in</button>
-    </div>
-  );
+	return (
+		<div>
+			<p>You must log in to view the page at {from.pathname}</p>
+			<button onClick={login}>Log in</button>
+		</div>
+	);
 }
 ```
