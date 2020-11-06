@@ -1,4 +1,5 @@
 import React from 'react';
+import { BizTable, PageContainer } from '@ionia/libs';
 import './index.less';
 
 export interface MasterNavTabProps {}
