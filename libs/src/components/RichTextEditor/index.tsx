@@ -1,23 +1,43 @@
 // @ts-nocheck
-import React, { useState, useRef } from 'react';
-import BraftEditor, { ControlType, ExtendControlType, EditorState } from 'braft-editor';
 import {
-	FileTextOutlined,
 	ClearOutlined,
+	FileTextOutlined,
 	OneToOneOutlined,
 	SearchOutlined,
 } from '@ant-design/icons';
-// import Table from 'braft-extensions/dist/table';
+import BraftEditor, { ControlType, EditorState, ExtendControlType } from 'braft-editor';
 import 'braft-editor/dist/index.css';
+import Table from 'braft-extensions/dist/table';
+import ColorPicker from 'braft-extensions/dist/color-picker';
+import 'braft-extensions/dist/table.css';
+import 'braft-extensions/dist/color-picker.css';
 import { ContentUtils } from 'braft-utils';
-// import Table from './table';
-
-// const Table = require('braft-extensions/dist/table');
+import React, { useState } from 'react';
 
 export interface BraftEditorProps {
 	onChange?: (editorState: EditorState) => void;
 	value?: EditorState;
 }
+
+BraftEditor.use(
+	Table({
+		defaultColumns: 3, // 默认列数
+		defaultRows: 3, // 默认行数
+		withDropdown: false, // 插入表格前是否弹出下拉菜单
+		columnResizable: false, // 是否允许拖动调整列宽，默认false
+		exportAttrString: '', // 指定输出HTML时附加到table标签上的属性字符串
+		includeEditors: ['editor-id-1'], // 指定该模块对哪些BraftEditor生效，不传此属性则对所有BraftEditor有效
+		excludeEditors: ['editor-id-2'], // 指定该模块对哪些BraftEditor无效
+	})
+);
+
+BraftEditor.use(
+	ColorPicker({
+		includeEditors: ['editor-id-1'], // 指定该模块对哪些BraftEditor生效，不传此属性则对所有BraftEditor有效
+		excludeEditors: ['editor-id-2'], // 指定该模块对哪些BraftEditor无效
+		theme: 'light', // 指定取色器样式主题，支持dark和light两种样式
+	})
+);
 
 export const RichTextEditor: React.FC<BraftEditorProps> = props => {
 	const { onChange, value } = props;
@@ -65,6 +85,7 @@ export const RichTextEditor: React.FC<BraftEditorProps> = props => {
 		'clear',
 		'separator',
 		'fullscreen',
+		'table',
 	];
 
 	const extendControls: ExtendControlType[] = [
@@ -138,21 +159,14 @@ export const RichTextEditor: React.FC<BraftEditorProps> = props => {
 			},
 		},
 	];
-	const options = {
-		defaultColumns: 3, // 默认列数
-		defaultRows: 3, // 默认行数
-		withDropdown: false, // 插入表格前是否弹出下拉菜单
-		columnResizable: false, // 是否允许拖动调整列宽，默认false
-		exportAttrString: '', // 指定输出HTML时附加到table标签上的属性字符串
-		includeEditors: ['editor-id-1'], // 指定该模块对哪些BraftEditor生效，不传此属性则对所有BraftEditor有效
-		excludeEditors: ['editor-id-2'], // 指定该模块对哪些BraftEditor无效
-	};
-	// BraftEditor.use(Table(options));
+
 	const editorProps = {
 		stripPastedStyles: stripPastedStyles,
 	};
+
 	return (
 		<BraftEditor
+			id='editor-id-1'
 			{...editorProps}
 			controls={controls}
 			extendControls={extendControls}
