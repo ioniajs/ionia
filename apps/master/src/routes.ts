@@ -16,11 +16,4 @@ export default {
 			name: '内容分类',
 		},
 	],
-	shop: [
-		{ path: '/shop', name: '商品列表' },
-		{
-			path: '/shop/category',
-			name: '商品分类',
-		},
-	],
 } as Record<string, IoniaMenuRoute[]>;

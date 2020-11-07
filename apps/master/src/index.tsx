@@ -22,9 +22,9 @@ const apps: IoniaApp<{}>[] = [
 		activeRule: '/cms',
 	},
 	{
-		name: 'shop',
+		name: 'ide',
 		entry: '//localhost:7003',
-		activeRule: '/shop',
+		activeRule: '/ide',
 	},
 ];
 

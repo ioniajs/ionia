@@ -4,7 +4,6 @@
 	@slider-collapse-width: 62px !important;
 	display: flex;
 	position: relative;
-	width: calc(@slider-width + (@wrapper-margin * 2));
 	.io-master__sider {
 		min-width: @slider-width;
 		max-width: @slider-width;
@@ -24,7 +23,7 @@
 		}
 		.ant-menu-inline {
 			.ant-menu-item {
-				width: calc(100%);
+				width: 100%;
 			}
 		}
 		&.collapse {
@@ -46,6 +45,7 @@
 		}
 	}
 	&.collapse {
-		width: @slider-collapse-width + 154px;
+		min-width: 110px;
+		max-width: 110px;
 	}
 }
