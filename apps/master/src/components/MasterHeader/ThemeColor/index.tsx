@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import './index.less';
 
 const colorsTop = [
-	{ name: '经典白', color: '#ffffff' },
+	{ name: '经典白', color: '#2593ff' },
 	{ name: '科技蓝', color: '#2593fc' },
 	{ name: '极客蓝', color: '#206fee' },
 	{ name: '希望青', color: '#2cc5bd' },
@@ -20,7 +20,7 @@ const colorsBottom = [
 ];
 
 const ThemeColor = () => {
-	const [color, setColor] = useState('#ffffff');
+	const [color, setColor] = useState('#2593ff');
 	const { changeTheme } = useThemeStore();
 
 	useEffect(() => {
@@ -39,12 +39,7 @@ const ThemeColor = () => {
 								onClick={() => setColor(c.color)}
 							>
 								<div style={{ background: c.color }}>
-									{color === c.color && (
-										<i
-											style={{ color: index === 0 ? '#1C6CD8' : '#ffffff' }}
-											className='iconfont icon-select'
-										/>
-									)}
+									{color === c.color && <i className='iconfont icon-select' />}
 								</div>
 								<p>{c.name}</p>
 							</div>

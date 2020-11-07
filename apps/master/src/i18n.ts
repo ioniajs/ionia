@@ -7,13 +7,13 @@ const resources = {
 	en: {
 		translation: {
 			cms: 'CMS',
-			shop: 'Shop',
+			ide: 'IDE',
 		},
 	},
 	zh: {
 		translation: {
 			cms: '内容',
-			shop: '商城',
+			ide: 'IDE',
 		},
 	},
 };
