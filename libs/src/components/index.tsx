@@ -9,3 +9,5 @@ export * from './SlaveApp';
 export * from './VideoPlayer';
 export * from './RichTextEditor';
 export * from './AudioPlayer';
+export * from './BizForm';
+export * from './BizPage';
