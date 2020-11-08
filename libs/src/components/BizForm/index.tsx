@@ -19,6 +19,7 @@ const layout = {
 export const BizForm: React.FC<BizFormProps> = props => {
 	const {
 		children,
+		// tabList,
 		onSubmit,
 		renderActions = true,
 		onFinish,

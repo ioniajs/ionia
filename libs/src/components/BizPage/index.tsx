@@ -16,7 +16,7 @@ interface IoRoutesArray {
 }
 interface IoBreadCrumbObj {
 	routes?: Array<IoRoutesArray>;
-	className?: string
+	className?: string;
 }
 interface BizPageProps {
 	tableList?: Array<IoTabListArray>;
@@ -37,12 +37,12 @@ export const BizPage: React.FC<BizPageProps> = props => {
 					className: 'io-bizpage-header',
 					onBack: () => history.back(),
 					title: <span style={{ display: 'none' }}>详情</span>,
-					backIcon: (
-						showBackBut ? <Button className='cms-detail-back_but' size='small'>
+					backIcon: showBackBut ? (
+						<Button className='cms-detail-back_but' size='small'>
 							<LeftOutlined />
 							返回
 						</Button>
-						:
+					) : (
 						<span />
 					),
 					// breadcrumb: {
@@ -52,25 +52,25 @@ export const BizPage: React.FC<BizPageProps> = props => {
 					// 	],
 					// 	className: 'io-bizpage-breadcrumb',
 					// },
-					breadcrumb: headerBreadCrumb
+					breadcrumb: headerBreadCrumb,
 				}}
 			>
 				<div className='io-bizpage-content'>
-					
-					{tableList && <ProCard
-						tabs={{
-							tabPosition,
-							activeKey: tab,
-							onChange: key => {
-								setTab(key);
-							},
-						}}
-					>
-						{(tableList || []).map((item: IoTabListArray, index: number) => {
-							return (
-								<ProCard.TabPane key={item.key} tab={item.tab}>
-									{item.component}
-									{/* <BizForm>
+					{tableList && (
+						<ProCard
+							tabs={{
+								tabPosition,
+								activeKey: tab,
+								onChange: key => {
+									setTab(key);
+								},
+							}}
+						>
+							{(tableList || []).map((item: IoTabListArray, index: number) => {
+								return (
+									<ProCard.TabPane key={item.key} tab={item.tab}>
+										{item.component}
+										{/* <BizForm>
 										<Form.Item
 											name='userName'
 											label='用户名'
@@ -100,10 +100,11 @@ export const BizPage: React.FC<BizPageProps> = props => {
 											<span>192.168.255.255</span>
 										</Form.Item>
 									</BizForm> */}
-								</ProCard.TabPane>
-							)
-						})}
-					</ProCard>}
+									</ProCard.TabPane>
+								);
+							})}
+						</ProCard>
+					)}
 					{!tableList && commonComponent}
 				</div>
 			</PageContainer>
