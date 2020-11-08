@@ -9,7 +9,7 @@ export interface BizFormProps extends ProFormProps {
 	onSubmit?: () => void;
 	onCancel?: () => void;
 	butLoading?: boolean;
-	// tabList?: any;
+	onFinish?: () => Promise<void>;
 }
 
 const layout = {
@@ -19,23 +19,14 @@ const layout = {
 export const BizForm: React.FC<BizFormProps> = props => {
 	const {
 		children,
+		// tabList,
 		onSubmit,
 		renderActions = true,
+		onFinish,
 		onCancel = () => history.back(),
-		// tabList = [
-		// 	{
-		// 		key: 'basic',
-		// 		tab: '基本信息',
-		// 	},
-		// 	{
-		// 		key: 'permission',
-		// 		tab: '用户权限',
-		// 	},
-		// ],
 		...reset
 	} = props;
 	return (
-		// <ProForm submitter={false}>
 		<div className='io-biz-form'>
 			<Form scrollToFirstError {...layout} {...reset}>
 				{renderActions && (
@@ -53,6 +44,7 @@ export const BizForm: React.FC<BizFormProps> = props => {
 							htmlType='submit'
 							className='io-biz-form_subbut'
 							size='small'
+							onClick={onFinish}
 						>
 							保存
 						</Button>
@@ -60,7 +52,6 @@ export const BizForm: React.FC<BizFormProps> = props => {
 				)}
 				{children}
 			</Form>
-			{/* </ProForm> */}
 		</div>
 	);
 };
