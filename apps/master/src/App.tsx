@@ -8,7 +8,10 @@ import MasterLayout from './layouts/MasterLayout';
 const App = () => {
 	return (
 		<CacheSwitch>
-			<CacheRoute exact path='/auth'>
+			<CacheRoute path='/auth'>
+				<SlaveApp />
+			</CacheRoute>
+			<CacheRoute path='/ide'>
 				<SlaveApp />
 			</CacheRoute>
 			<CacheRoute path='/'>
