@@ -2,14 +2,14 @@ import routes from '@/routes';
 import { message } from 'antd';
 import ProCard from '@ant-design/pro-card';
 import { PageContainer } from '@ant-design/pro-layout';
-import { VideoPlayer, RichTextEditor } from '@ionia/libs';
+import { VideoPlayer, RichTextEditor, PictureCropper } from '@ionia/libs';
 import React from 'react';
 
 export default () => {
 	return (
 		<PageContainer pageHeaderRender={() => null}>
 			<ProCard split='vertical'>
-				<ProCard title={<div>111</div>} colSpan='30%'>
+				<ProCard title={<div>111</div>} colSpan='60%'>
 					左侧内容
 					{/* <div>
 						<VideoPlayer
@@ -31,6 +31,11 @@ export default () => {
 						// onFail={() => message.error('上传失败')}
 						/>
 					</div> */}
+					<PictureCropper
+						src={
+							'https://raw.githubusercontent.com/roadmanfong/react-cropper/master/example/img/child.jpg'
+						}
+					/>
 				</ProCard>
 				<ProCard>
 					111
