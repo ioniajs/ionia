@@ -5,6 +5,7 @@
 	border-radius: 2px;
 	background-color: #fff;
 	.ant-tabs-nav-list {
+		margin-left: 38px;
 		.ant-tabs-tab {
 			margin-right: 13px;
 			padding: 9px 10px;
@@ -21,6 +22,14 @@
 					font-size: 8px;
 				}
 			}
+		}
+		.io-master__nav-tab-pane {
+			.icon-close {
+				display: none;
+			}
+		}
+		.ant-tabs-tab:hover .io-master__nav-tab-pane > .icon-close {
+			display: block;
 		}
 		.ant-tabs-tab-active {
 			.ant-tabs-tab-btn {

@@ -41,7 +41,10 @@ const MasterNavTab = () => {
 										<i className='iconfont icon-close' />
 									</span>
 								) : (
-									'tab-1'
+									<div className='io-master__nav-tab-pane'>
+										<span>tab-1</span>
+										<i className='iconfont icon-close'></i>
+									</div>
 								)
 							}
 							key={i}
