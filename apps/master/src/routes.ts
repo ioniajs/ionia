@@ -17,5 +17,9 @@ export default {
 			name: '内容分类',
 			icon: 'icon-Column',
 		},
+		{
+			path: '/cms/demo',
+			name: '组件演示',
+		},
 	],
 } as Record<string, IoniaMenuRoute[]>;
