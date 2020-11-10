@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Tabs } from 'antd';
+import { Dropdown, Menu, Tabs } from 'antd';
+import { CloseOutlined } from '@ant-design/icons';
 import './index.less';
 import { render } from 'react-dom';
 
@@ -8,20 +9,47 @@ const { TabPane } = Tabs;
 export interface MasterNavTabProps {}
 
 const MasterNavTab = () => {
-	const tabContent = [
-		<span>
-			{`Tab-${1}`}
-			<i className='iconfont icon-close' />
-		</span>,
-	];
-
+	const [activeKey, setActiveKey] = useState<string>('1');
+	const menuItems = (
+		<Menu>
+			<Menu.Item>
+				<div>刷新</div>
+			</Menu.Item>
+			<Menu.Item>
+				<div>关闭当前页签</div>
+			</Menu.Item>
+			<Menu.Item>
+				<div>关闭所有页签</div>
+			</Menu.Item>
+		</Menu>
+	);
 	return (
 		<div className='io-master__nav-tab'>
-			<Tabs defaultActiveKey='1'>
-				{[...Array.from({ length: 30 }, (v, i) => i)].map(i => (
-					<TabPane tab={tabContent} key={i} disabled={i === 28} />
-				))}
-			</Tabs>
+			<Dropdown overlay={menuItems} trigger={['contextMenu']}>
+				<Tabs
+					defaultActiveKey='1'
+					onChange={key => {
+						setActiveKey(key);
+					}}
+				>
+					{[...Array.from({ length: 30 }, (v, i) => i)].map(i => (
+						<TabPane
+							tab={
+								i === Number(activeKey) ? (
+									<span>
+										tab-1
+										<i className='iconfont icon-close' />
+									</span>
+								) : (
+									'tab-1'
+								)
+							}
+							key={i}
+							disabled={i === 28}
+						/>
+					))}
+				</Tabs>
+			</Dropdown>
 		</div>
 	);
 };

@@ -34,6 +34,12 @@
 			height: calc(100vh - 96px);
 			min-width: @slider-collapse-width;
 			max-width: @slider-collapse-width;
+			i {
+				margin-right: 20px;
+			}
+			span {
+				display: none;
+			}
 		}
 	}
 	&:hover {
@@ -41,6 +47,12 @@
 			&.collapse {
 				min-width: @slider-width;
 				max-width: @slider-width;
+				i {
+					margin-right: 0;
+				}
+				span {
+					display: inline-block;
+				}
 			}
 		}
 	}
