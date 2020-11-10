@@ -11,3 +11,4 @@ export * from './RichTextEditor';
 export * from './AudioPlayer';
 export * from './BizForm';
 export * from './BizPage';
+export * from './PictureCropper';
