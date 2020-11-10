@@ -1,6 +1,7 @@
 import Category from '@/pages/Category';
 import Detail from '@/pages/Detail';
 import List from '@/pages/List';
+import Demo from '@/pages/Demo';
 
 export default [
 	{ key: '/', path: '/', component: List },
@@ -14,5 +15,10 @@ export default [
 		path: '/detail/:id',
 		hideInMenu: true,
 		component: Detail,
+	},
+	{
+		key: '/demo',
+		path: '/demo',
+		component: Demo,
 	},
 ];
