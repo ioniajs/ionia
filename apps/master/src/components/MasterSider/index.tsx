@@ -23,7 +23,7 @@ const MasterSider = ({ children }: MasterSiderProps) => {
 			className={`io-master__sider-wrapper ${menuStyles.collapse ? 'collapse' : ''}`}
 			onMouseEnter={() => {
 				if (menuStyles.collapse) {
-					setCollapse(false);
+					setCollapse(false);				
 				}
 			}}
 			onMouseLeave={() => {
