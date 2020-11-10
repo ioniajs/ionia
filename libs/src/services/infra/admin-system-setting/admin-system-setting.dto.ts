@@ -1,4 +1,4 @@
-//#region  保存系统设置
+//#region  保存系统设置DTO
 export interface SysConfigDTO {
 	allowAudioTypes: string[]; // 允许上传的音频类型
 	allowDocTypes: string[]; // 允许上传的文档类型
