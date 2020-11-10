@@ -8,7 +8,7 @@ const colorsTop = [
 	{ name: '科技蓝', color: '#2593fc' },
 	{ name: '极客蓝', color: '#206fee' },
 	{ name: '希望青', color: '#2cc5bd' },
-	{ name: '经典白', color: '#31af70' },
+	{ name: '清新绿', color: '#31af70' },
 ];
 
 const colorsBottom = [
