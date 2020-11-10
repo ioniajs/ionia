@@ -25,7 +25,7 @@ const defaultSrc =
 	'https://raw.githubusercontent.com/roadmanfong/react-cropper/master/example/img/child.jpg';
 
 export const PictureCropper: React.FC<PictureCropperProps> = props => {
-	const { src } = props;
+	const { src = defaultSrc } = props;
 	const [cropForm] = Form.useForm();
 	const [image, setImage] = useState<string | undefined>(src);
 	const [cropper, setCropper] = useState<any>();
