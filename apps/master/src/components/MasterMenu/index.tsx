@@ -12,13 +12,13 @@ const generateMenus = (menuData: IoniaMenuRoute[]): ReactNode => {
 		return menuData.map(item => {
 			if (item.children && item.children.length > 0) {
 				return (
-					<SubMenu key={item.path}  title={item.name}>
+					<SubMenu key={item.path} title={item.name}>
 						{generateMenus(item.children)}
 					</SubMenu>
 				);
 			}
 			return (
-				<Menu.Item key={item.path} icon={<i className={`iconfont ${item.icon}`}/>}>
+				<Menu.Item key={item.path} icon={<i className={`iconfont ${item.icon}`} />}>
 					<Link to={item.path}>{item.name}</Link>
 				</Menu.Item>
 			);

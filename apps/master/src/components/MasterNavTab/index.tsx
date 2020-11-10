@@ -22,19 +22,34 @@ const MasterNavTab = () => {
 				<div>关闭所有页签</div>
 			</Menu.Item>
 		</Menu>
-	)
+	);
 	return (
 		<div className='io-master__nav-tab'>
 			<Dropdown overlay={menuItems} trigger={['contextMenu']}>
-				<Tabs defaultActiveKey='1' onChange={(key) => { setActiveKey(key)  }}>
+				<Tabs
+					defaultActiveKey='1'
+					onChange={key => {
+						setActiveKey(key);
+					}}
+				>
 					{[...Array.from({ length: 30 }, (v, i) => i)].map(i => (
-						<TabPane tab={i === Number(activeKey) ? 
-						<span>tab-1<i className='iconfont icon-close' />
-						</span> : 'tab-1'} key={i} disabled={i === 28} />
+						<TabPane
+							tab={
+								i === Number(activeKey) ? (
+									<span>
+										tab-1
+										<i className='iconfont icon-close' />
+									</span>
+								) : (
+									'tab-1'
+								)
+							}
+							key={i}
+							disabled={i === 28}
+						/>
 					))}
 				</Tabs>
 			</Dropdown>
-
 		</div>
 	);
 };
