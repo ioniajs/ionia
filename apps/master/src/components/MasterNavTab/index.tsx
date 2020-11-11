@@ -37,7 +37,7 @@ const MasterNavTab = () => {
 					onChange={key => {
 						// setActiveKey(key);
 						console.log(key, 'cccc');
-						globalStore.setState({currentTab : key})
+						globalStore.setState({ currentTab: key });
 					}}
 				>
 					{tabs.map((i: any, index: number) => (
@@ -46,23 +46,23 @@ const MasterNavTab = () => {
 								i.key === currentTab ? (
 									<span>
 										{i.name}
-										<i onClick={ () => {
-											// const temp = tabs.filter((t: any) => { return 
-											// 	i.key !== t.key
-											// });
-											// console.log(temp);
-											const temp = tabs.splice(index, 1);
-											// const last = tabs[0].key;
-											// console.log(last, tabs, 'llll');
-											// console.log(temp, tabs[tabs.length -1].key, 'ttt');
-											// globalStore.setState({ currentTab: tabs[tabs.length -1].key});
-											// // console.log(tabs);
-											// // console.log(i);
-											
-											
-											}
-										} className='iconfont icon-close' />
-									</span>									
+										<i
+											onClick={() => {
+												// const temp = tabs.filter((t: any) => { return
+												// 	i.key !== t.key
+												// });
+												// console.log(temp);
+												const temp = tabs.splice(index, 1);
+												// const last = tabs[0].key;
+												// console.log(last, tabs, 'llll');
+												// console.log(temp, tabs[tabs.length -1].key, 'ttt');
+												// globalStore.setState({ currentTab: tabs[tabs.length -1].key});
+												// // console.log(tabs);
+												// // console.log(i);
+											}}
+											className='iconfont icon-close'
+										/>
+									</span>
 								) : (
 									<div className='io-master__nav-tab-pane'>
 										<span>{i.name}</span>
@@ -78,7 +78,6 @@ const MasterNavTab = () => {
 		</div>
 	);
 };
-
 
 {
 	/* <div className='io-master__nav-tab'>

@@ -80,8 +80,8 @@ const MasterHeader: React.FC<MasterHeaderProps> = ({ theme }) => {
 					))}
 				</div>
 				<div className='io-master__header-right'>
-						<ThemeColor />
-						<AvatarDropdown />
+					<ThemeColor />
+					<AvatarDropdown />
 					<span className='io-master__header--item'>
 						<LangSelector />
 					</span>

@@ -18,13 +18,21 @@ const MasterMenu = () => {
 			return menuData.map(item => {
 				if (item.children && item.children.length > 0) {
 					return (
-						<SubMenu key={item.path} title={item.name} icon={<i className={`iconfont ${item.icon}`} />}>
+						<SubMenu
+							key={item.path}
+							title={item.name}
+							icon={<i className={`iconfont ${item.icon}`} />}
+						>
 							{generateMenus(item.children)}
 						</SubMenu>
 					);
 				}
 				return (
-					<Menu.Item key={item.path} icon={<i className={`iconfont ${item.icon}`}/>} attr-name={item.name}>
+					<Menu.Item
+						key={item.path}
+						icon={<i className={`iconfont ${item.icon}`} />}
+						attr-name={item.name}
+					>
 						<Link to={item.path}>{item.name}</Link>
 					</Menu.Item>
 				);
@@ -42,15 +50,15 @@ const MasterMenu = () => {
 				selectedKeys={[location.pathname.toString()]}
 				defaultOpenKeys={[location.pathname.toString()]}
 				onClick={(item: any) => {
-					if(tabs.findIndex((t: any) => t.key === item.key) < 0) {
+					if (tabs.findIndex((t: any) => t.key === item.key) < 0) {
 						tabs.push({
 							...item,
-							name: item.item.props['attr-name']
-						});	
-					}				
+							name: item.item.props['attr-name'],
+						});
+					}
 					globalStore.setState({
 						currentTab: item.key,
-						tabs
+						tabs,
 					});
 				}}
 			>

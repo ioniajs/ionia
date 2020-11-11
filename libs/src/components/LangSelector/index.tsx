@@ -1,7 +1,7 @@
 import { TranslationOutlined } from '@ant-design/icons';
 import { Dropdown, Menu } from 'antd';
 import * as React from 'react';
-import './index.less'
+import './index.less';
 
 export interface LangSelectorProps {}
 
@@ -15,7 +15,7 @@ const menus = (
 export const LangSelector: React.FC<LangSelectorProps> = () => {
 	return (
 		<Dropdown overlay={menus}>
-				<TranslationOutlined style={{ fontSize: 18 }} />
+			<TranslationOutlined style={{ fontSize: 18 }} />
 		</Dropdown>
 	);
 };
