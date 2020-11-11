@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import './index.less';
 
 const colorsTop = [
-	{ name: '经典白', color: '#2593ff' },
+	{ name: '简洁蓝', color: '#2593ff' },
 	{ name: '科技蓝', color: '#2593fc' },
 	{ name: '极客蓝', color: '#206fee' },
 	{ name: '希望青', color: '#2cc5bd' },
@@ -64,7 +64,9 @@ const ThemeColor = () => {
 
 	return (
 		<Dropdown overlay={card}>
-			<i className='iconfont icon-Themecolor' />
+			<span className='io-master__header--item'>
+				<i className='iconfont icon-Themecolor' />
+			</span>
 		</Dropdown>
 	);
 };

@@ -21,5 +21,9 @@ export default {
 			path: '/cms/demo',
 			name: '组件演示',
 		},
+		{
+			path: '/cms/practicebase',
+			name: '实践阵地',
+		},
 	],
 } as Record<string, IoniaMenuRoute[]>;
