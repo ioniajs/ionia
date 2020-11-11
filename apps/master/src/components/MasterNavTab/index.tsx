@@ -2,14 +2,20 @@ import React, { useState } from 'react';
 import { Dropdown, Menu, Tabs } from 'antd';
 import { CloseOutlined } from '@ant-design/icons';
 import './index.less';
+import { useGlobalStore } from '@ionia/libs';
 import { render } from 'react-dom';
+import { SplitChunksPlugin } from 'webpack';
 
 const { TabPane } = Tabs;
 
 export interface MasterNavTabProps {}
 
 const MasterNavTab = () => {
-	const [activeKey, setActiveKey] = useState<string>('1');
+	const globalStore = useGlobalStore();
+	const currentTab: string = globalStore?.state?.currentTab ?? '/';
+	const tabs: any[] = globalStore?.state?.tabs ?? [];
+	console.log(currentTab, 'rrrr');
+
 	const menuItems = (
 		<Menu>
 			<Menu.Item>
@@ -27,28 +33,44 @@ const MasterNavTab = () => {
 		<div className='io-master__nav-tab'>
 			<Dropdown overlay={menuItems} trigger={['contextMenu']}>
 				<Tabs
-					defaultActiveKey='1'
+					activeKey={currentTab}
 					onChange={key => {
-						setActiveKey(key);
+						// setActiveKey(key);
+						console.log(key, 'cccc');
+						globalStore.setState({currentTab : key})
 					}}
 				>
-					{[...Array.from({ length: 30 }, (v, i) => i)].map(i => (
+					{tabs.map((i: any, index: number) => (
 						<TabPane
 							tab={
-								i === Number(activeKey) ? (
+								i.key === currentTab ? (
 									<span>
-										tab-1
-										<i className='iconfont icon-close' />
-									</span>
+										{i.name}
+										<i onClick={ () => {
+											// const temp = tabs.filter((t: any) => { return 
+											// 	i.key !== t.key
+											// });
+											// console.log(temp);
+											const temp = tabs.splice(index, 1);
+											// const last = tabs[0].key;
+											// console.log(last, tabs, 'llll');
+											// console.log(temp, tabs[tabs.length -1].key, 'ttt');
+											// globalStore.setState({ currentTab: tabs[tabs.length -1].key});
+											// // console.log(tabs);
+											// // console.log(i);
+											
+											
+											}
+										} className='iconfont icon-close' />
+									</span>									
 								) : (
 									<div className='io-master__nav-tab-pane'>
-										<span>tab-1</span>
+										<span>{i.name}</span>
 										<i className='iconfont icon-close'></i>
 									</div>
 								)
 							}
-							key={i}
-							disabled={i === 28}
+							key={i.key}
 						/>
 					))}
 				</Tabs>
@@ -56,6 +78,8 @@ const MasterNavTab = () => {
 		</div>
 	);
 };
+
+
 {
 	/* <div className='io-master__nav-tab'>
 			<div className='extra'>

@@ -2,6 +2,7 @@ import Category from '@/pages/Category';
 import Detail from '@/pages/Detail';
 import List from '@/pages/List';
 import Demo from '@/pages/Demo';
+import PracticeBase from '@/pages/PracticeBase';
 
 export default [
 	{ key: '/', path: '/', component: List },
@@ -20,5 +21,10 @@ export default [
 		key: '/demo',
 		path: '/demo',
 		component: Demo,
+	},
+	{
+		key: '/practicebase',
+		path: '/practicebase',
+		component: PracticeBase,
 	},
 ];

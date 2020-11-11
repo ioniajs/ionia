@@ -37,7 +37,9 @@ const AvatarDropdown: React.FC<AvatarDropdownProps> = () => {
 
 	return (
 		<Dropdown overlay={menus}>
-			<Avatar size='small' icon={<UserOutlined />} />
+			<span className='io-master__header--item'>
+				<Avatar size='small' icon={<UserOutlined />} />
+			</span>
 		</Dropdown>
 	);
 };
