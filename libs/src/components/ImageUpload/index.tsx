@@ -41,6 +41,7 @@ export const ImageUpload: React.FC<ImageUploadProps> = props => {
 			},
 		],
 		onAdd,
+		onRemove,
 		// action = config.uploadUrl,
 		beforeUpload,
 		itemRender,
@@ -78,12 +79,16 @@ export const ImageUpload: React.FC<ImageUploadProps> = props => {
 	};
 
 	const handleChange = ({ file, fileList }: UploadChangeParam<UploadFile<any>>) => {
+		console.log(file, 'filefile');
 		const { status } = file;
 		setState({ ...state, fileList });
 
 		if (status === 'done') {
 			onAdd && onAdd(file);
 		}
+	};
+	const handleRemove = async (file: UploadFile) => {
+		// await onRemove(file)
 	};
 
 	const { fileList, previewVisible, previewImage, previewTitle } = state;
@@ -103,7 +108,7 @@ export const ImageUpload: React.FC<ImageUploadProps> = props => {
 					return false;
 				}}
 				itemRender={(originNode, file, fileList) => {
-					console.log(originNode, file, fileList);
+					// console.log(originNode, file, fileList);
 					if (file.status !== 'error' && file.status !== 'uploading') {
 						return (
 							<div className='io-item-success-mask'>
@@ -126,8 +131,8 @@ export const ImageUpload: React.FC<ImageUploadProps> = props => {
 													className='io-mask-icon'
 												/>
 												<DeleteOutlined
-													onClick={file => {
-														console.log(file);
+													onClick={async () => {
+														await handleRemove(file);
 													}}
 													className='io-mask-icon'
 												/>
@@ -161,6 +166,8 @@ export const ImageUpload: React.FC<ImageUploadProps> = props => {
 				onCancel={() => {
 					setCropVisible(false);
 				}}
+				cancelText='取消'
+				okText='确认'
 				width='868px'
 			>
 				<PictureCropper
