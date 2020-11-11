@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, forwardRef, useEffect } from 'react';
 import { Button, Input, Form, Row, Col } from 'antd';
 import {
 	PlusOutlined,
@@ -19,24 +19,39 @@ interface CropBox {
 }
 interface PictureCropperProps {
 	src?: string;
+	ref?: any;
 }
 
 const defaultSrc =
 	'https://raw.githubusercontent.com/roadmanfong/react-cropper/master/example/img/child.jpg';
 
-export const PictureCropper: React.FC<PictureCropperProps> = props => {
+export const PictureCropper: React.FC<PictureCropperProps> = forwardRef((props, ref: any) => {
 	const { src = defaultSrc } = props;
+	const cropInstance = useRef<any>(null);
 	const [cropForm] = Form.useForm();
 	const [image, setImage] = useState<string | undefined>(src);
 	const [cropper, setCropper] = useState<any>();
 	const [cropData, setCropData] = useState('#');
 	const [addNewCropSize, setAddNewCropSize] = useState<boolean>(false);
 	const [cropBoxList, setCropBoxList] = useState<Array<CropBox>>([{ width: 60, height: 60 }]);
-	logger.debug(cropData, 'cropDatacropData');
+	// logger.debug(cropData, 'cropDatacropData');
+	const images = document.getElementById('crop');
+	// useEffect(() => {
+	// 	cropper.addEventListener('zoom', (event: any) => {
+	// 		// Zoom in
+	// 		if (event.detail.ratio > event.detail.oldRatio) {
+	// 			event.preventDefault(); // Prevent zoom in
+	// 		}
+
+	// 		console.log('出发发发发');
+	// 	});
+	// }, [cropper]);
 	return (
 		<div className='io-piccropper-container'>
 			<div className='io-picropper-left'>
 				<Cropper
+					id='crop'
+					ref={ref}
 					style={{ height: 420, width: '100%' }}
 					initialAspectRatio={1}
 					preview='.img-preview'
@@ -81,14 +96,14 @@ export const PictureCropper: React.FC<PictureCropperProps> = props => {
 						<UndoOutlined
 							className='io-piccropper-rotate-undo'
 							onClick={() => {
-								cropper.rotate(-30);
+								cropper.rotate(-10);
 							}}
 						/>
 						&nbsp;&nbsp;
 						<RedoOutlined
 							className='io-piccropper-rotate-redo'
 							onClick={() => {
-								cropper.rotate(30);
+								cropper.rotate(10);
 							}}
 						/>
 					</div>
@@ -284,8 +299,9 @@ export const PictureCropper: React.FC<PictureCropperProps> = props => {
 			<div>
 				<Button
 					onClick={() => {
-						logger.debug(cropper.getCroppedCanvas().toDataURL(), 'xxxxxxxx');
+						// logger.debug(cropper.getCroppedCanvas().toDataURL(), 'xxxxxxxx');
 						if (typeof cropper !== 'undefined') {
+							console.log(cropper.getCroppedCanvas(), 'getgetget');
 							setCropData(cropper.getCroppedCanvas().toDataURL());
 						}
 					}}
@@ -295,4 +311,4 @@ export const PictureCropper: React.FC<PictureCropperProps> = props => {
 			</div>
 		</div>
 	);
-};
+});
