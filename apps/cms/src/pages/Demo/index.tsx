@@ -1,7 +1,7 @@
 import React from 'react';
 import { PageContainer } from '@ant-design/pro-layout';
 import ProCard from '@ant-design/pro-card';
-import { ImageUpload } from '@ionia/libs';
+import { ImageUpload, AnnexUpload } from '@ionia/libs';
 
 export default () => {
 	return (
@@ -15,6 +15,11 @@ export default () => {
 					onRemove={async (info: any) => {
 						console.log(info, 'iiii');
 					}}
+				/>
+				<AnnexUpload
+				// onChange={({ file, fileList }: any) => {
+				// 	console.log(file, fileList, 'dddddd');
+				// }}
 				/>
 			</ProCard>
 		</PageContainer>
