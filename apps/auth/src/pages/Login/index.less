@@ -1,10 +1,88 @@
 @import '~antd/es/style/themes/default.less';
 
+.login {
+	display: flex;
+	width: 100%;
+	min-height: 100vh;
+	align-items: center;
+	justify-content: center;
+}
+
 .io-page__login {
-	width: 368px;
-	margin: 0 auto;
+	display: flex;
+	width: 880px;
+	height: 584px;
 	@media screen and (max-width: @screen-sm) {
 		width: 95%;
+	}
+
+	.login-left {
+		background-color: #fff;
+		width: 420px;
+		height: 584px;
+		padding: 80px 0;
+		box-sizing: border-box;
+
+		.logo {
+			padding: 0 60px;
+
+			p {
+				margin-top: 6px;
+				color: #262626;
+				font-size: 15px;
+				font-weight: 400;
+			}
+		}
+
+		.ant-form-item-control-input-content {
+			border-bottom: 1px solid #eeeeee;
+		}
+
+		.ant-form-item-control-input-content:hover {
+			border-bottom: 1px solid @primary-color;
+		}
+
+		.ant-form {
+			height: 360px;
+			position: relative;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			flex-direction: column;
+
+			.submit-button {
+				position: absolute;
+				left: 60px;
+				bottom: 0;
+				height: 40px;
+
+				.ant-form-item-control-input-content:hover {
+					border-bottom: none !important;
+				}
+			}
+		}
+	}
+
+	.code {
+		.ant-form-item-control-input-content {
+			display: flex;
+
+			.code-img {
+				width: 40%;
+			}
+		}
+	}
+
+	.login-right {
+		background: @primary-color;
+		flex: 1;
+		height: 584px;
+	}
+
+	.ant-form-item {
+		width: 292px;
+		margin: 0 auto;
+		height: 82px;
 	}
 
 	.icon {
@@ -39,8 +117,14 @@
 
 	.io-form__login {
 		.icon__prefix {
-			color: @disabled-color;
+			color: @primary-color;
 			font-size: @font-size-base;
+		}
+
+		.ant-input-prefix {
+			i {
+				color: @primary-color;
+			}
 		}
 
 		.remember {
@@ -51,4 +135,24 @@
 			float: right;
 		}
 	}
+}
+
+.ant-form-item-explain-error {
+	text-align: left;
+}
+
+.anticon-eye-invisible {
+	color: #8c8c8c !important;
+}
+
+.anticon-eye-invisible:hover {
+	color: #595959 !important;
+}
+
+.ant-input-password-icon {
+	color: #8c8c8c !important;
+}
+
+.ant-input-affix-wrapper-lg {
+	padding: 6.5px 0px;
 }
