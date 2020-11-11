@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { Upload, Modal, Tooltip } from 'antd';
 import { UploadOutlined, ScissorOutlined, EyeOutlined, DeleteOutlined } from '@ant-design/icons';
 import { DndProvider, useDrag, useDrop, createDndContext } from 'react-dnd';
@@ -22,9 +22,11 @@ interface ImageUploadProps extends UploadProps {
 	onAdd?: (file: UploadFile) => void;
 	limit?: number;
 	beforeUpload?: (file: UploadFile) => boolean;
+	onRemove: (file: UploadFile) => void;
 }
 
 export const ImageUpload: React.FC<ImageUploadProps> = props => {
+	const cropRef = useRef<any>(null);
 	const {
 		fileList: defaultFileList = [
 			{
@@ -87,8 +89,9 @@ export const ImageUpload: React.FC<ImageUploadProps> = props => {
 			onAdd && onAdd(file);
 		}
 	};
-	const handleRemove = async (file: UploadFile) => {
+	const handleRemove = (file: UploadFile) => {
 		// await onRemove(file)
+		onRemove(file);
 	};
 
 	const { fileList, previewVisible, previewImage, previewTitle } = state;
@@ -120,21 +123,25 @@ export const ImageUpload: React.FC<ImageUploadProps> = props => {
 										/>
 										<a href='#'>
 											<div className='io-upload-img-mask'>
-												<ScissorOutlined
+												<i
+													className='iconfont icon-border io-mask-icon'
 													onClick={() => {
 														setCropVisible(!cropVisible);
 													}}
-													className='io-mask-icon'
+													title='Crop file'
+													// className=''
 												/>
-												<EyeOutlined
+												<i
+													className='iconfont icon-eye1 io-mask-icon'
 													onClick={file => handlePreview(file)}
-													className='io-mask-icon'
+													title='Preview file'
 												/>
-												<DeleteOutlined
+												<i
+													className='iconfont icon-delete io-mask-icon'
+													title='Remove file'
 													onClick={async () => {
 														await handleRemove(file);
 													}}
-													className='io-mask-icon'
 												/>
 											</div>
 										</a>
@@ -162,19 +169,27 @@ export const ImageUpload: React.FC<ImageUploadProps> = props => {
 			</Modal>
 			<Modal
 				title='图片裁剪'
+				width='868px'
 				visible={cropVisible}
 				onCancel={() => {
 					setCropVisible(false);
 				}}
 				cancelText='取消'
 				okText='确认'
-				width='868px'
+				onOk={() => {
+					console.log(cropRef.current, 'cropRef.current');
+					console.log(cropRef.current.cropper.getCroppedCanvas().toDataUrl());
+				}}
 			>
-				<PictureCropper
-					src={
-						'https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=320188414,720873459&fm=26&gp=0.jpg'
-					}
-				/>
+				<div className='io-pic-cropper-modal-container'>
+					<PictureCropper
+						ref={cropRef}
+						src={
+							'https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=320188414,720873459&fm=26&gp=0.jpg'
+						}
+						// onFinsh
+					/>
+				</div>
 			</Modal>
 		</div>
 	);
