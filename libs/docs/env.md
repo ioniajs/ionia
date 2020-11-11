@@ -161,7 +161,7 @@ git cz 教程参考文档： https://segmentfault.com/a/1190000020924364?utm_sou
 
 ![GitFlow](./Fira_code.png)
 
-下载全选ttf文件右键安装就可以使用了。
+下载全选 ttf 文件右键安装就可以使用了。
 
 ![GitFlow](./ttfont.png)
 
