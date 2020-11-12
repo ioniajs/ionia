@@ -35,7 +35,7 @@ export default () => {
 				renderActions={() => (
 					<>
 						<div className='io-space-item'>
-						<Form/>	
+							<Form />
 						</div>
 						<div className='io-space-item'>
 							<Button type='default'>启用</Button>

@@ -1,10 +1,13 @@
 import React, { useState, useRef } from 'react';
 import ReactPlayer from 'react-player';
-import { Button } from 'antd';
+import { Button, Modal } from 'antd';
+import './index.less';
 
 export interface PlayerProps {
-	url?: string[];
-	// playing?: boolean;
+	url?: string;
+	visible?: boolean;
+	onCancel?: () => void;
+	playing?: boolean;
 	// loop?: boolean;
 	// controls?: boolean;
 	// light?: boolean;
@@ -23,10 +26,10 @@ export interface PlayerProps {
 }
 
 export const VideoPlayer: React.FC<PlayerProps> = props => {
-	const { url } = props;
+	const { url, visible, onCancel, playing } = props;
 
 	const player = useRef<any>(null);
-	const [playing, setPlaying] = useState<boolean>(false);
+	const [play, setPlaying] = useState<boolean | undefined>(playing);
 	const [loop, setLoop] = useState<boolean>(true);
 	const [played, setPlayed] = useState<number>(0);
 	const [seeking, setSeeking] = useState<boolean>(false);
@@ -44,7 +47,7 @@ export const VideoPlayer: React.FC<PlayerProps> = props => {
 	};
 
 	const setPlayingFun = () => {
-		setPlaying(!playing);
+		setPlaying(!play);
 	};
 
 	const handleOnProgress = (state: any) => {
@@ -57,33 +60,42 @@ export const VideoPlayer: React.FC<PlayerProps> = props => {
 	const onPause = () => {};
 
 	return (
-		<div>
-			<ReactPlayer
-				url={url}
-				ref={player}
-				loop={loop}
-				width='100%'
-				height='100%'
-				playing={playing}
-				onPause={onPause}
-				// onPlay={onPlay}
-				onSeek={(e: any) => console.log('onSeek', e)}
-				onProgress={handleOnProgress}
-			/>
-			<Button onClick={setPlayingFun}>{playing ? 'Pause' : 'Play'}</Button>
+		<Modal
+			className='io-videoplayer-modal'
+			visible={visible}
+			title='视频播放'
+			onCancel={onCancel}
+			footer={null}
+			width={784}
+		>
 			<div>
-				<span>Seek</span>
-				<input
-					type='range'
-					min={0}
-					max={0.999999}
-					step='any'
-					value={played}
-					onMouseDown={onMouseDown}
-					onChange={onChange}
-					onMouseUp={handleSeekMouseUp}
+				<ReactPlayer
+					url={url}
+					ref={player}
+					loop={loop}
+					width='100%'
+					height='100%'
+					playing={play}
+					onPause={onPause}
+					// onPlay={onPlay}
+					onSeek={(e: any) => console.log('onSeek', e)}
+					onProgress={handleOnProgress}
 				/>
+				{/* <Button onClick={setPlayingFun}>{play ? 'Pause' : 'Play'}</Button>
+				<div>
+					<span>Seek</span>
+					<input
+						type='range'
+						min={0}
+						max={0.999999}
+						step='any'
+						value={played}
+						onMouseDown={onMouseDown}
+						onChange={onChange}
+						onMouseUp={handleSeekMouseUp}
+					/>
+				</div> */}
 			</div>
-		</div>
+		</Modal>
 	);
 };
