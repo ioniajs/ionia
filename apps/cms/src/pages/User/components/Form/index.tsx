@@ -78,14 +78,13 @@ const residences = [
 // }
 
 export default () => {
-
 	const [form] = Form.useForm();
 
-	form.getFieldValue
+	form.getFieldValue;
 
 	return (
 		<ModalForm
-		form={form}
+			form={form}
 			layout='horizontal'
 			title='新建用户'
 			width='530px'
@@ -100,17 +99,18 @@ export default () => {
 			submitter={{
 				// 完全自定义整个区域
 				render: (props, doms) => {
-				  return (
-				<div className='btn-submitter'>
-					<Button type='default'  >取消</Button>
-					<Button type="primary"  >保存并分配权限</Button>
-					<Button type="primary"  >保存并继续新建</Button>
-					<Button type="primary"  htmlType="submit">保存</Button>
-				</div>
-				
-				  );
+					return (
+						<div className='btn-submitter'>
+							<Button type='default'>取消</Button>
+							<Button type='primary'>保存并分配权限</Button>
+							<Button type='primary'>保存并继续新建</Button>
+							<Button type='primary' htmlType='submit'>
+								保存
+							</Button>
+						</div>
+					);
 				},
-			  }}
+			}}
 		>
 			<ProFormText
 				name='username'
@@ -128,14 +128,19 @@ export default () => {
 				name='confirm'
 				label='重复密码'
 				placeholder='请输入重复密码'
-				rules={[{ required: true }, { validator: (rule:any, value:string, callback:any) => {
-					const oldVal = form.getFieldValue('cipher')
-					if(oldVal!==value){
-						callback(new Error('两次密码输入不一致'));
-					}else{
-						callback()
-					}
-				 }}]}
+				rules={[
+					{ required: true },
+					{
+						validator: (rule: any, value: string, callback: any) => {
+							const oldVal = form.getFieldValue('cipher');
+							if (oldVal !== value) {
+								callback(new Error('两次密码输入不一致'));
+							} else {
+								callback();
+							}
+						},
+					},
+				]}
 			/>
 			<Form.Item name='orgId' label='所属阵地' rules={[{ required: true }]}>
 				<Cascader options={residences} placeholder='请选择所属阵地' />
@@ -150,8 +155,12 @@ export default () => {
 			<ProFormText name='realName' label='真实姓名' placeholder='请输入姓名' />
 			<ProFormText name='telephone' label='联系方式' placeholder='请输入联系方式' />
 			<ProFormText name='email' label='电子邮箱' placeholder='请输入电子邮箱' />
-			<ProFormSwitch name='status' label='用户状态' tooltip='禁用状态下的用户无法登录系统' initialValue={true} />
-			
+			<ProFormSwitch
+				name='status'
+				label='用户状态'
+				tooltip='禁用状态下的用户无法登录系统'
+				initialValue={true}
+			/>
 		</ModalForm>
 	);
 };
