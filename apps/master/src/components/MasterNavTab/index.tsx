@@ -1,10 +1,7 @@
-import React, { useState } from 'react';
-import { Dropdown, Menu, Tabs } from 'antd';
-import { CloseOutlined } from '@ant-design/icons';
-import './index.less';
 import { useGlobalStore } from '@ionia/libs';
-import { render } from 'react-dom';
-import { SplitChunksPlugin } from 'webpack';
+import { Dropdown, Menu, Tabs } from 'antd';
+import React, { useEffect, useState } from 'react';
+import './index.less';
 
 const { TabPane } = Tabs;
 
@@ -14,7 +11,14 @@ const MasterNavTab = () => {
 	const globalStore = useGlobalStore();
 	const currentTab: string = globalStore?.state?.currentTab ?? '/';
 	const tabs: any[] = globalStore?.state?.tabs ?? [];
-	console.log(currentTab, 'rrrr');
+
+	const [tempKey, setTempKey] = useState<string | null>();
+
+	useEffect(() => {
+		globalStore.setState({ currentTab: tempKey });
+		console.log('1111', tempKey);
+		console.log('2222', currentTab);
+	}, [tempKey]);
 
 	const menuItems = (
 		<Menu>
@@ -35,12 +39,10 @@ const MasterNavTab = () => {
 				<Tabs
 					activeKey={currentTab}
 					onChange={key => {
-						// setActiveKey(key);
-						console.log(key, 'cccc');
 						globalStore.setState({ currentTab: key });
 					}}
 				>
-					{tabs.map((i: any, index: number) => (
+					{tabs.map((i: any) => (
 						<TabPane
 							tab={
 								i.key === currentTab ? (
@@ -48,17 +50,20 @@ const MasterNavTab = () => {
 										{i.name}
 										<i
 											onClick={() => {
-												// const temp = tabs.filter((t: any) => { return
-												// 	i.key !== t.key
-												// });
-												// console.log(temp);
-												const temp = tabs.splice(index, 1);
-												// const last = tabs[0].key;
-												// console.log(last, tabs, 'llll');
-												// console.log(temp, tabs[tabs.length -1].key, 'ttt');
-												// globalStore.setState({ currentTab: tabs[tabs.length -1].key});
-												// // console.log(tabs);
-												// // console.log(i);
+												const currentIndex = tabs.findIndex(
+													item => item.key === i.key
+												);
+												const prevTab =
+													tabs[
+														currentIndex - 1 < 0
+															? currentIndex + 1
+															: currentIndex - 1
+													];
+												// console.log('@@@', currentIndex);
+												setTempKey(prevTab.key);
+												globalStore.setState({
+													tabs: tabs.filter(item => item.key !== i.key),
+												});
 											}}
 											className='iconfont icon-close'
 										/>
