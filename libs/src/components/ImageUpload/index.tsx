@@ -63,7 +63,6 @@ export const ImageUpload: React.FC<ImageUploadProps> = props => {
 		previewImage: '',
 		previewTitle: '',
 	});
-	const [cropVisible, setCropVisible] = useState<boolean>(false);
 
 	const handleCancel = () => setState({ ...state, previewVisible: false });
 
@@ -93,6 +92,8 @@ export const ImageUpload: React.FC<ImageUploadProps> = props => {
 		// await onRemove(file)
 		onRemove(file);
 	};
+	const [cropVisible, setCropVisible] = useState<boolean>(false);
+	const [cropImgSrc, setCropImgSrc] = useState<string>();
 
 	const { fileList, previewVisible, previewImage, previewTitle } = state;
 	return (
@@ -127,6 +128,7 @@ export const ImageUpload: React.FC<ImageUploadProps> = props => {
 													className='iconfont icon-border io-mask-icon'
 													onClick={() => {
 														setCropVisible(!cropVisible);
+														setCropImgSrc(file?.url);
 													}}
 													title='Crop file'
 													// className=''
@@ -167,7 +169,17 @@ export const ImageUpload: React.FC<ImageUploadProps> = props => {
 			>
 				<img alt='example' style={{ width: '100%' }} src={previewImage} />
 			</Modal>
-			<Modal
+			<PictureCropper
+				visible={cropVisible}
+				// src={cropImgSrc}
+				src={
+					'https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=320188414,720873459&fm=26&gp=0.jpg'
+				}
+				oncancel={() => {
+					setCropVisible(false);
+				}}
+			/>
+			{/* <Modal
 				title='图片裁剪'
 				width='868px'
 				visible={cropVisible}
@@ -190,7 +202,7 @@ export const ImageUpload: React.FC<ImageUploadProps> = props => {
 						// onFinsh
 					/>
 				</div>
-			</Modal>
+			</Modal> */}
 		</div>
 	);
 };
