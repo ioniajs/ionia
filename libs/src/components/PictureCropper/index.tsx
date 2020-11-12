@@ -38,7 +38,6 @@ export const PictureCropper: React.FC<PictureCropperProps> = forwardRef((props, 
 	const [addNewCropSize, setAddNewCropSize] = useState<boolean>(false);
 	const [cropBoxList, setCropBoxList] = useState<Array<CropBox>>([{ width: 60, height: 60 }]);
 	return (
-		
 		<Modal
 			visible={visible}
 			title='图片裁剪'
@@ -46,7 +45,9 @@ export const PictureCropper: React.FC<PictureCropperProps> = forwardRef((props, 
 			onCancel={oncancel}
 			cancelText='取消'
 			okText='确认'
-			onOk={() => {console.log(cropper.getCroppedCanvas().toDataURL(), 'cccc')}}
+			onOk={() => {
+				console.log(cropper.getCroppedCanvas().toDataURL(), 'cccc');
+			}}
 		>
 			<div className='io-pic-cropper-modal-container'>
 				<div className='io-piccropper-container'>
@@ -149,10 +150,14 @@ export const PictureCropper: React.FC<PictureCropperProps> = forwardRef((props, 
 															const cropHeightValue =
 																cropBoxValue.height * rateValue;
 															const cropTopValue = Math.round(
-																(containerData.height - cropHeightValue) / 2
+																(containerData.height -
+																	cropHeightValue) /
+																	2
 															);
 															const cropLefttValue = Math.round(
-																(containerData.width - cropWidthValue) / 2
+																(containerData.width -
+																	cropWidthValue) /
+																	2
 															);
 															cropper.setCropBoxData({
 																top: cropTopValue,
@@ -269,16 +274,21 @@ export const PictureCropper: React.FC<PictureCropperProps> = forwardRef((props, 
 															size='small'
 															style={{ marginLeft: '8px' }}
 															onClick={() => {
-																const tempValue = cropForm.getFieldsValue([
-																	'usedWidth',
-																	'usedHeight',
-																]);
+																const tempValue = cropForm.getFieldsValue(
+																	['usedWidth', 'usedHeight']
+																);
 																logger.debug(tempValue, 'retet');
 																const param = {
-																	width: Number(tempValue.usedWidth),
-																	height: Number(tempValue.usedHeight),
+																	width: Number(
+																		tempValue.usedWidth
+																	),
+																	height: Number(
+																		tempValue.usedHeight
+																	),
 																};
-																setCropBoxList(cropBoxList.concat(param));
+																setCropBoxList(
+																	cropBoxList.concat(param)
+																);
 																setAddNewCropSize(false);
 																cropForm.setFieldsValue({
 																	usedWidth: '',

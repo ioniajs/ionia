@@ -63,14 +63,14 @@ export const ImageUpload: React.FC<ImageUploadProps> = props => {
 		previewImage: '',
 		previewTitle: '',
 	});
-	
+
 	const handleCancel = () => setState({ ...state, previewVisible: false });
-	
+
 	const handlePreview = async (file: any) => {
 		if (!file.url && !file.preview) {
 			file.preview = await getBase64(file.originFileObj);
 		}
-		
+
 		setState({
 			...state,
 			previewImage: file.url || file.preview,
@@ -78,12 +78,12 @@ export const ImageUpload: React.FC<ImageUploadProps> = props => {
 			previewTitle: file.name || file.url.substring(file.url.lastIndexOf('/') + 1),
 		});
 	};
-	
+
 	const handleChange = ({ file, fileList }: UploadChangeParam<UploadFile<any>>) => {
 		console.log(file, 'filefile');
 		const { status } = file;
 		setState({ ...state, fileList });
-		
+
 		if (status === 'done') {
 			onAdd && onAdd(file);
 		}
@@ -172,8 +172,12 @@ export const ImageUpload: React.FC<ImageUploadProps> = props => {
 			<PictureCropper
 				visible={cropVisible}
 				// src={cropImgSrc}
-				src={'https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=320188414,720873459&fm=26&gp=0.jpg'}
-				oncancel={() => { setCropVisible(false)}}
+				src={
+					'https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=320188414,720873459&fm=26&gp=0.jpg'
+				}
+				oncancel={() => {
+					setCropVisible(false);
+				}}
 			/>
 			{/* <Modal
 				title='图片裁剪'
