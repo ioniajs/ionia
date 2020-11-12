@@ -1,7 +1,6 @@
 import { TranslationOutlined } from '@ant-design/icons';
 import { Dropdown, Menu } from 'antd';
 import * as React from 'react';
-import './index.less';
 
 export interface LangSelectorProps {}
 

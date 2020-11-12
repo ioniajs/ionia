@@ -3,7 +3,7 @@ import Detail from '@/pages/Detail';
 import List from '@/pages/List';
 import Demo from '@/pages/Demo';
 import PracticeBase from '@/pages/PracticeBase';
-
+import User from '@/pages/User'
 export default [
 	{ key: '/', path: '/', component: List },
 	{
@@ -16,6 +16,11 @@ export default [
 		path: '/detail/:id',
 		hideInMenu: true,
 		component: Detail,
+	},
+	{
+		key: '/user',
+		path: '/user',
+		component: User,
 	},
 	{
 		key: '/demo',
