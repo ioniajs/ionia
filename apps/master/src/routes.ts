@@ -18,6 +18,11 @@ export default {
 			icon: 'icon-Column',
 		},
 		{
+			path: '/cms/user',
+			name: '用户列表',
+			icon: 'icon-Column',
+		},
+		{
 			path: '/cms/demo',
 			name: '组件演示',
 		},

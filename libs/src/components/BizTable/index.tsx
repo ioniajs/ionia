@@ -1,13 +1,18 @@
 import { ParamsType } from '@ant-design/pro-provider';
 import ProTable, { ProTableProps } from '@ant-design/pro-table';
 import { Button, Input } from 'antd';
-import React from 'react';
+import React, { ReactNode } from 'react';
 import { BizTree } from '../BizTree';
 import './index.less';
 
-export interface BizTableProps<T, U extends ParamsType> extends ProTableProps<T, U> {}
+export interface BizTableProps<T, U extends ParamsType> extends ProTableProps<T, U> {
+	renderActions?: () => ReactNode;
+}
 
-export function BizTable<T, U extends ParamsType>(props: BizTableProps<T, U>) {
+export function BizTable<T, U extends ParamsType>({
+	renderActions,
+	...reset
+}: BizTableProps<T, U>) {
 	return (
 		<ProTable<T, U>
 			className='io-biz-table'
@@ -21,18 +26,7 @@ export function BizTable<T, U extends ParamsType>(props: BizTableProps<T, U>) {
 			toolbar={{
 				search: (
 					<div className='io-biz-table__action-container'>
-						<div className='io-space-item'>
-							<Button type='primary'>新建</Button>
-						</div>
-						<div className='io-space-item'>
-							<Button type='default'>启用</Button>
-						</div>
-						<div className='io-space-item'>
-							<Button type='default'>禁用</Button>
-						</div>
-						<div className='io-space-item'>
-							<Button type='default'>删除</Button>
-						</div>
+						{renderActions && renderActions()}
 					</div>
 				),
 				actions: [
@@ -58,7 +52,7 @@ export function BizTable<T, U extends ParamsType>(props: BizTableProps<T, U>) {
 					<div className='io-table-container__content'>{dom}</div>
 				</div>
 			)}
-			{...props}
+			{...reset}
 		/>
 	);
 }
