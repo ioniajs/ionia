@@ -1,6 +1,6 @@
 import ProCard from '@ant-design/pro-card';
 import { PageContainer } from '@ant-design/pro-layout';
-import { AnnexUpload, ImagePreview, ImageUpload, VideoUpload } from '@ionia/libs';
+import { AnnexUpload, ImagePreview, AudioUpload, ImageUpload, VideoUpload } from '@ionia/libs';
 import { Button } from 'antd';
 import React from 'react';
 
@@ -32,6 +32,13 @@ export default () => {
 				>
 					<Button type='primary'>图片预览</Button>
 				</ImagePreview>
+				{/* <VideoUpload /> */}
+				<AudioUpload
+					onAdd={async (file: any) => {
+						console.log(file, 'ffff');
+					}}
+				/>
+				{/* <AudioPlayer /> */}
 			</ProCard>
 		</PageContainer>
 	);

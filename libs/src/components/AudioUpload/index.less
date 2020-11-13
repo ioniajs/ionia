@@ -1,0 +1,69 @@
+.io-audio-upload-container {
+	.io-audio-upload {
+		.io-audio-upload-but {
+			padding: 4px 19px;
+			margin-bottom: 24px;
+		}
+		.io-audio-upload-success-container {
+			position: relative;
+			.io-audio-upload-list {
+				width: 488px;
+				height: 22px;
+				background-color: #f5f5f5;
+				.io-success-item-icon {
+					color: #8c8c8c;
+					line-height: 22px;
+					cursor: pointer;
+				}
+				.icon-setting,
+				.icon-attachment {
+					margin-left: 4px;
+					float: left;
+				}
+				.icon-delete {
+					float: right;
+					margin-right: 4px;
+				}
+				.icon-timeout,
+				.icon-play-circle {
+					float: right;
+					margin-right: 18px;
+				}
+				.io-audio-upload-file-name {
+					display: inline-block;
+					width: 240px;
+					height: 22px;
+					font-size: 14px;
+					font-family: PingFang SC;
+					font-weight: 400;
+					color: #262626;
+					line-height: 22px;
+					margin-left: 7px;
+					white-space: nowrap;
+					overflow: hidden;
+					text-overflow: ellipsis;
+				}
+			}
+			.io-audio-upload-success-mask {
+				position: absolute;
+				top: 0;
+				left: 0;
+				width: 488px;
+				height: 22px;
+				opacity: 0;
+				background: #f5f5f5;
+			}
+		}
+		.io-audio-upload-success-container a:hover .io-audio-upload-success-mask {
+			opacity: 0.8;
+		}
+		.io-audio-upload-list-other {
+			width: 488px;
+		}
+		.ant-tooltip-inner {
+			display: none;
+		}
+		.io-audio-upload-tooltip {
+		}
+	}
+}

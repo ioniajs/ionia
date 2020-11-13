@@ -1,13 +1,15 @@
 import { LogoutOutlined, SettingOutlined, UserOutlined } from '@ant-design/icons';
 import { Avatar, Dropdown, Menu } from 'antd';
-import * as React from 'react';
+import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import './index.less';
+import ChangePsdForm from './components';
 
 export interface AvatarDropdownProps {}
 
 const AvatarDropdown: React.FC<AvatarDropdownProps> = () => {
 	const history = useHistory();
+	const [modalVisible, setModalVisible] = useState(false);
 	const onEdit = () => {
 		console.log('123');
 	};
@@ -29,9 +31,15 @@ const AvatarDropdown: React.FC<AvatarDropdownProps> = () => {
 			</div>
 			<Menu.Divider />
 			<div className='info-bottom'>
-				<p className='cursor' onClick={onEdit}>
+				<p className='cursor psd' onClick={onEdit}>
 					<i className='iconfont icon-edit'></i>
-					<span>修改密码</span>
+					<span
+						onClick={() => {
+							setModalVisible(true);
+						}}
+					>
+						修改密码
+					</span>
 				</p>
 				<p className='cursor' onClick={onExit}>
 					<i className='iconfont icon-dropout'></i>
@@ -42,12 +50,18 @@ const AvatarDropdown: React.FC<AvatarDropdownProps> = () => {
 	);
 
 	return (
-		<Dropdown overlay={menus}>
-			<span className='io-master__header--item'>
-				<Avatar size='small' icon={<UserOutlined />} />
-				<span className='icon-name'>User</span>
-			</span>
-		</Dropdown>
+		<>
+			<Dropdown overlay={menus}>
+				<span className='io-master__header--item'>
+					<Avatar size='small' icon={<UserOutlined />} />
+					<span className='icon-name'>User</span>
+				</span>
+			</Dropdown>
+			<ChangePsdForm
+				modalVisible={modalVisible}
+				setModalVisible={setModalVisible}
+			></ChangePsdForm>
+		</>
 	);
 };
 

@@ -72,6 +72,7 @@ export const BizModalForm = ({
 			title={title}
 			width={width}
 			visible={visible}
+			className='io-libs__from'
 			validateMessages={validateMessages}
 			modalProps={{
 				onCancel: toClose,
