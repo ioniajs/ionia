@@ -1,12 +1,12 @@
 import { ParamsType } from '@ant-design/pro-provider';
 import ProTable, { ProTableProps } from '@ant-design/pro-table';
 import { Button, Input } from 'antd';
-import React, { ReactNode } from 'react';
+import React, { useState } from 'react';
 import { BizTree } from '../BizTree';
 import './index.less';
 
 export interface BizTableProps<T, U extends ParamsType> extends ProTableProps<T, U> {
-	renderActions?: () => ReactNode;
+	renderActions?: () => React.ReactNode;
 }
 
 export function BizTable<T, U extends ParamsType>({
