@@ -22,9 +22,11 @@ export default () => {
 				// }}
 				/>
 				{/* <VideoUpload /> */}
-				<AudioUpload onAdd = {async (file:any) => {
-					console.log(file, 'ffff');
-				}} />
+				<AudioUpload
+					onAdd={async (file: any) => {
+						console.log(file, 'ffff');
+					}}
+				/>
 				{/* <AudioPlayer /> */}
 			</ProCard>
 		</PageContainer>

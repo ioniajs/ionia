@@ -1,25 +1,33 @@
 //@ts-nocheck
 import ReactAudioPlayer from 'react-audio-player';
 import { PlayButton } from 'react-soundplayer/components';
-import { withSoundCloudAudio, withCustomAudio  } from 'react-soundplayer/addons';
+import { withSoundCloudAudio, withCustomAudio } from 'react-soundplayer/addons';
 import React, { useState } from 'react';
 
 interface AudioPlayerProps {
-	ref?: any
+	ref?: any;
 	src?: string;
 	playing?: boolean;
 }
 
 const clientId = 'YOUR CLIENT ID';
 
-export const AudioPlayer: React.FC<AudioPlayerProps> = (props) => {
+export const AudioPlayer: React.FC<AudioPlayerProps> = props => {
 	const { src, playing } = props;
 	const [played, setPlayed] = useState<boolean>(false); // 音频是否播放
-	
-	const AWSSoundPlayer = 	withCustomAudio(() => {
-		return <PlayButton playing={playing} onTogglePlay={() => {setPlayed(!played); console.log('点击没')}} />
+
+	const AWSSoundPlayer = withCustomAudio(() => {
+		return (
+			<PlayButton
+				playing={playing}
+				onTogglePlay={() => {
+					setPlayed(!played);
+					console.log('点击没');
+				}}
+			/>
+		);
 	});
-	 
+
 	return (
 		<div>
 			<AWSSoundPlayer clientId={clientId} resolveUrl={src} />
@@ -37,7 +45,6 @@ export const AudioPlayer: React.FC<AudioPlayerProps> = (props) => {
 				}}
 			/>
 			 */}
-			 
 		</div>
 	);
 };
