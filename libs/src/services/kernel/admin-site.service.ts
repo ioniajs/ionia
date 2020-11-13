@@ -4,9 +4,9 @@ import { AdminSiteDTO, AdminSiteBatchSaveDTO, AdminSiteSortDTO } from './admin-s
 
 /**
  * 创建站点
- * @param data 创建站点DTO
+ * @param data 新建站点DTO
  */
-export async function createAdminSite(data: AdminSiteDTO): Promise<JcResult<AdminSiteDTO>> {
+export async function createAdminSite(data: AdminSiteDTO): Promise<JcResult<object>> {
 	return request.post('/module-kernel/cmsmanager/sites', {
 		data,
 	});
@@ -18,7 +18,7 @@ export async function createAdminSite(data: AdminSiteDTO): Promise<JcResult<Admi
  */
 export async function createAdminSiteBatchSave(
 	data: AdminSiteBatchSaveDTO
-): Promise<JcResult<AdminSiteBatchSaveDTO>> {
+): Promise<JcResult<object>> {
 	return request.post('/module-kernel/cmsmanager/sites/batch', {
 		data,
 	});
@@ -28,7 +28,7 @@ export async function createAdminSiteBatchSave(
  * 站点排序
  * @param data 站点排序DTO
  */
-export async function sortAdminSite(data: AdminSiteSortDTO): Promise<JcResult<AdminSiteSortDTO>> {
+export async function sortAdminSite(data: AdminSiteSortDTO): Promise<JcResult<object>> {
 	return request.post('/module-kernel/cmsmanager/sites/sort', {
 		data,
 	});

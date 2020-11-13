@@ -6,7 +6,7 @@ import { SysConfigVO } from './admin-system-setting.vo';
  * 保存系统设置
  * @param data 保存系统设置 DTO
  */
-export async function saveSystemSetting(data: SysConfigDTO): Promise<JcResult<SysConfigDTO>> {
+export async function saveSystemSetting(data: SysConfigDTO): Promise<JcResult<object>> {
 	return request.post('/module-infra/cmsmanager/sysConfig', {
 		data,
 	});

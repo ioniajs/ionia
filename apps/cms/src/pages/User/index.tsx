@@ -1,8 +1,9 @@
 import { ProColumns } from '@ant-design/pro-table';
-import { BizTable, PageContainer } from '@ionia/libs';
+import { BizTable, PageContainer, BizTree } from '@ionia/libs';
 import React, { useState } from 'react';
 import { Button } from 'antd';
-import Form from './components/Form';
+import UserForm from './Form';
+
 export interface TableListItem {
 	key: number;
 	name: string;
@@ -35,7 +36,7 @@ export default () => {
 				renderActions={() => (
 					<>
 						<div className='io-space-item'>
-							<Form />
+							<UserForm />
 						</div>
 						<div className='io-space-item'>
 							<Button type='default'>启用</Button>
@@ -48,8 +49,9 @@ export default () => {
 						</div>
 					</>
 				)}
+				renderSider={() => <BizTree />}
 				columns={columns}
-				request={(params, sort, filter) => {
+				request={params => {
 					console.log(params);
 					return new Promise(resolve => resolve());
 				}}

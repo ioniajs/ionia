@@ -8,7 +8,10 @@ export default () => {
 		<PageContainer pageHeaderRender={() => null}>
 			<ProCard>
 				<div>
-					<Button>返回</Button>
+					<Button>
+						<i className='iconfont icon-left' />
+						返回
+					</Button>
 				</div>
 			</ProCard>
 		</PageContainer>
