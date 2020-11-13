@@ -57,7 +57,10 @@ const AvatarDropdown: React.FC<AvatarDropdownProps> = () => {
 					<span className='icon-name'>User</span>
 				</span>
 			</Dropdown>
-			<ChangePsdForm modalVisible={modalVisible} setModalVisible={setModalVisible}></ChangePsdForm>
+			<ChangePsdForm
+				modalVisible={modalVisible}
+				setModalVisible={setModalVisible}
+			></ChangePsdForm>
 		</>
 	);
 };
