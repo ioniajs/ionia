@@ -15,3 +15,4 @@ export * from './PictureCropper';
 export * from './ImageUpload';
 export * from './AnnexUpload';
 export * from './VideoUpload';
+export * from './AudioUpload';

@@ -13457,7 +13457,7 @@ react-simple-audio@^1.0.9-beta:
   resolved "https://registry.yarnpkg.com/react-simple-audio/-/react-simple-audio-1.0.9-beta.tgz#3edaf6150e5a26e6b69114b4d7cd020013e04bb6"
   integrity sha512-ncoKs+n72zumvRUtcsksNw47k+vMc00y5/1xflADGYBbuxMiQK+JbaVxSJMHRyv9Ef0bEa+vlpNfY0Cgw98I+g==
 
-react-soundplayer@^1.0.5:
+react-soundplayer@1.0.5:
   version "1.0.5"
   resolved "https://registry.yarnpkg.com/react-soundplayer/-/react-soundplayer-1.0.5.tgz#5152ca6824c938cdafdeb16a05be20db7bba6afb"
   integrity sha512-g4OjyDehFtSK2nPueuS7phwo/ppLYvZcWdGv6Ah3mcJPouOlHbYaFKt6kT3kuce4IiFUN8Ns7tGCbaeWgecCKg==

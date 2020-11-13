@@ -1,7 +1,7 @@
 import React from 'react';
 import { PageContainer } from '@ant-design/pro-layout';
 import ProCard from '@ant-design/pro-card';
-import { ImageUpload, AnnexUpload, VideoUpload } from '@ionia/libs';
+import { ImageUpload, AnnexUpload, VideoUpload, AudioUpload, AudioPlayer } from '@ionia/libs';
 
 export default () => {
 	return (
@@ -16,12 +16,16 @@ export default () => {
 						console.log(info, 'iiii');
 					}}
 				/> */}
-				{/* <AnnexUpload
+				<AnnexUpload
 				// onChange={({ file, fileList }: any) => {
 				// 	console.log(file, fileList, 'dddddd');
 				// }}
-				/> */}
-				<VideoUpload />
+				/>
+				{/* <VideoUpload /> */}
+				<AudioUpload onAdd = {async (file:any) => {
+					console.log(file, 'ffff');
+				}} />
+				{/* <AudioPlayer /> */}
 			</ProCard>
 		</PageContainer>
 	);
