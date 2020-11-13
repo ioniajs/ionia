@@ -2,36 +2,42 @@ import { LogoutOutlined, SettingOutlined, UserOutlined } from '@ant-design/icons
 import { Avatar, Dropdown, Menu } from 'antd';
 import * as React from 'react';
 import { useHistory } from 'react-router-dom';
+import './index.less';
 
 export interface AvatarDropdownProps {}
 
 const AvatarDropdown: React.FC<AvatarDropdownProps> = () => {
 	const history = useHistory();
+	const onEdit = () => {
+		console.log('123');
+	};
+	const onExit = () => {
+		history.replace('/auth');
+	};
 	const menus = (
-		<Menu
-			onClick={e => {
-				switch (e.key) {
-					case 'logout':
-						history.push('/auth');
-						break;
-					default:
-						break;
-				}
-			}}
-		>
-			<Menu.Item key='center'>
-				<UserOutlined />
-				个人中心
-			</Menu.Item>
-			<Menu.Item key='settings'>
-				<SettingOutlined />
-				个人设置
-			</Menu.Item>
+		<Menu className='user-info'>
+			<div className='info-header'>
+				<p className='info-title'>最近登录</p>
+				<p>
+					<i className='iconfont icon-time-circle'></i>
+					<span className='info-time'>2020-11-13</span>
+				</p>
+				<p>
+					<span>IP</span>
+					<span className='info-time'>120.12.12</span>
+				</p>
+			</div>
 			<Menu.Divider />
-			<Menu.Item key='logout'>
-				<LogoutOutlined />
-				退出登录
-			</Menu.Item>
+			<div className='info-bottom'>
+				<p className='cursor' onClick={onEdit}>
+					<i className='iconfont icon-edit'></i>
+					<span>修改密码</span>
+				</p>
+				<p className='cursor' onClick={onExit}>
+					<i className='iconfont icon-dropout'></i>
+					<span>退出登录</span>
+				</p>
+			</div>
 		</Menu>
 	);
 
@@ -39,6 +45,7 @@ const AvatarDropdown: React.FC<AvatarDropdownProps> = () => {
 		<Dropdown overlay={menus}>
 			<span className='io-master__header--item'>
 				<Avatar size='small' icon={<UserOutlined />} />
+				<span className='icon-name'>User</span>
 			</span>
 		</Dropdown>
 	);
