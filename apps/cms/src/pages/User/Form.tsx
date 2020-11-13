@@ -69,7 +69,6 @@ export default () => {
 	return (
 		<BizModalForm
 			form={form}
-			layout='horizontal'
 			title='新建用户'
 			onFinish={async values => {
 				await waitTime(2000);
