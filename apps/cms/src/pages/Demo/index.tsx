@@ -1,7 +1,8 @@
-import React from 'react';
-import { PageContainer } from '@ant-design/pro-layout';
 import ProCard from '@ant-design/pro-card';
-import { ImageUpload, AnnexUpload, VideoUpload } from '@ionia/libs';
+import { PageContainer } from '@ant-design/pro-layout';
+import { AnnexUpload, ImagePreview, ImageUpload, VideoUpload } from '@ionia/libs';
+import { Button } from 'antd';
+import React from 'react';
 
 export default () => {
 	return (
@@ -24,6 +25,13 @@ export default () => {
 				/>
 				<div style={{ margin: '20px' }}>dads</div>
 				<VideoUpload />
+				<ImagePreview url='https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png' />
+				<ImagePreview
+					title='图片预览'
+					url='https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png'
+				>
+					<Button type='primary'>图片预览</Button>
+				</ImagePreview>
 			</ProCard>
 		</PageContainer>
 	);

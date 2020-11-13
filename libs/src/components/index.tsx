@@ -7,6 +7,7 @@ export * from './BizPage';
 export * from './BizTable';
 export * from './BizTree';
 export * from './ErrorFallback';
+export * from './ImagePreview';
 export * from './ImageUpload';
 export * from './LangSelector';
 export * from './Loading';
