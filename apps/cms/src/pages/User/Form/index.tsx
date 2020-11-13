@@ -2,7 +2,6 @@ import { ProFormSelect, ProFormSwitch, ProFormText } from '@ant-design/pro-form'
 import { BizModalForm } from '@ionia/libs';
 import { Button, Cascader, Form, message } from 'antd';
 import React from 'react';
-import './index.less';
 
 const waitTime = (time: number = 100) => {
 	return new Promise(resolve => {
