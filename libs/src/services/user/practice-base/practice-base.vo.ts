@@ -1,4 +1,4 @@
-import { UserVO, PicVO } from '../reuse.vo';
+import { UserVO, PicVO } from '../../reuse.vo';
 //#region  阵地详情VO
 export interface OrgDetailsVO {
 	address: string; // 地址
@@ -18,7 +18,7 @@ export interface OrgDetailsVO {
 }
 //#endregion
 
-//#region  阵地详情 VO
+//#region  阵地资源详情 VO
 export interface OrgResourceVO {
 	id: string; // 阵地id
 	title: string; // 资源标题
