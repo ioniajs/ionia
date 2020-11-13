@@ -109,7 +109,7 @@ export const VideoUpload: React.FC<VideoUploadProps> = props => {
 												onClick={() => {
 													// setCropVisible(!cropVisible);
 												}}
-												title='Crop file'
+												title='Play'
 												// className=''
 											/>
 											<i

@@ -39,6 +39,7 @@ export const PictureCropper: React.FC<PictureCropperProps> = forwardRef((props, 
 	const [cropBoxList, setCropBoxList] = useState<Array<CropBox>>([{ width: 60, height: 60 }]);
 	return (
 		<Modal
+			className='io-pic-cropper-modal'
 			visible={visible}
 			title='图片裁剪'
 			width='868px'
@@ -46,6 +47,7 @@ export const PictureCropper: React.FC<PictureCropperProps> = forwardRef((props, 
 			cancelText='取消'
 			okText='确认'
 			onOk={() => {
+				oncancel && oncancel();
 				console.log(cropper.getCroppedCanvas().toDataURL(), 'cccc');
 			}}
 		>
@@ -252,7 +254,7 @@ export const PictureCropper: React.FC<PictureCropperProps> = forwardRef((props, 
 													</Form.Item>
 												</Col>
 												<Col>
-													<span style={{ textAlign: 'center' }}>
+													<span className='io-add-size-character'>
 														&nbsp;*&nbsp;
 													</span>
 												</Col>
