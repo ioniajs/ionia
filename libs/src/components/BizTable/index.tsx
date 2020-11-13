@@ -1,16 +1,17 @@
 import { ParamsType } from '@ant-design/pro-provider';
 import ProTable, { ProTableProps } from '@ant-design/pro-table';
 import { Button, Input } from 'antd';
-import React, { useState } from 'react';
-import { BizTree } from '../BizTree';
+import React, { ReactNode } from 'react';
 import './index.less';
 
 export interface BizTableProps<T, U extends ParamsType> extends ProTableProps<T, U> {
-	renderActions?: () => React.ReactNode;
+	renderActions?: () => ReactNode;
+	renderSider?: () => ReactNode;
 }
 
 export function BizTable<T, U extends ParamsType>({
 	renderActions,
+	renderSider,
 	...reset
 }: BizTableProps<T, U>) {
 	return (
@@ -46,9 +47,9 @@ export function BizTable<T, U extends ParamsType>({
 			}}
 			tableRender={(_, dom) => (
 				<div className='io-table-container'>
-					<div className='io-table-container__sider'>
-						<BizTree />
-					</div>
+					{renderSider && (
+						<div className='io-table-container__sider'>{renderSider()}</div>
+					)}
 					<div className='io-table-container__content'>{dom}</div>
 				</div>
 			)}

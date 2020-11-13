@@ -1,7 +1,7 @@
 import { ProColumns } from '@ant-design/pro-table';
-import { BizTable, PageContainer } from '@ionia/libs';
-import { Button } from 'antd';
+import { BizTable, PageContainer, BizTree } from '@ionia/libs';
 import React, { useState } from 'react';
+import { Button } from 'antd';
 import { BizForm } from './components/Form';
 
 export interface TableListItem {
@@ -30,7 +30,7 @@ const columns: ProColumns<TableListItem>[] = [
 ];
 
 export default () => {
-	const [title] = useState('新建用户');
+	const [title, setTitle] = useState('新建用户');
 	return (
 		<PageContainer>
 			<BizTable
@@ -50,6 +50,7 @@ export default () => {
 						</div>
 					</>
 				)}
+				renderSider={() => <BizTree />}
 				columns={columns}
 				request={params => {
 					console.log(params);
