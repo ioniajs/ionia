@@ -16,13 +16,13 @@ export default () => {
 						console.log(info, 'iiii');
 					}}
 				/>
-				<div style={{ margin: '20px'}}/>
+				<div style={{ margin: '20px' }} />
 				<AnnexUpload
 				// onChange={({ file, fileList }: any) => {
 				// 	console.log(file, fileList, 'dddddd');
 				// }}
 				/>
-				<div style={{ margin: '20px'}}>dads</div>
+				<div style={{ margin: '20px' }}>dads</div>
 				<VideoUpload />
 			</ProCard>
 		</PageContainer>
