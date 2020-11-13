@@ -8,19 +8,21 @@ export default () => {
 		<PageContainer pageHeaderRender={() => null}>
 			<ProCard>
 				<div>Demo</div>
-				{/* <ImageUpload
+				<ImageUpload
 					onAdd={async (file: any) => {
 						console.log(file, 'ffffff');
 					}}
 					onRemove={async (info: any) => {
 						console.log(info, 'iiii');
 					}}
-				/> */}
-				{/* <AnnexUpload
+				/>
+				<div style={{ margin: '20px'}}/>
+				<AnnexUpload
 				// onChange={({ file, fileList }: any) => {
 				// 	console.log(file, fileList, 'dddddd');
 				// }}
-				/> */}
+				/>
+				<div style={{ margin: '20px'}}>dads</div>
 				<VideoUpload />
 			</ProCard>
 		</PageContainer>
