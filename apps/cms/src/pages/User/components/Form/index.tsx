@@ -1,9 +1,4 @@
-import {
-	ModalForm,
-
-	ProFormSelect,
-	ProFormSwitch, ProFormText
-} from '@ant-design/pro-form';
+import { ModalForm, ProFormSelect, ProFormSwitch, ProFormText } from '@ant-design/pro-form';
 import { Button, Cascader, Form, message } from 'antd';
 import React, { useState } from 'react';
 import './index.less';
@@ -70,10 +65,8 @@ const residences = [
 ];
 
 // export default () => {
-export const BizForm: React.FC<BizFormProps> = (props) => {
-	const {
-		title
-	} = props;
+export const BizForm: React.FC<BizFormProps> = props => {
+	const { title } = props;
 
 	const [form] = Form.useForm();
 	const [visible, setVisible] = useState(false);
