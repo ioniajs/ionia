@@ -3,3 +3,13 @@ export interface JcResult<T> {
 	data: T;
 	message: string;
 }
+
+export interface Page<T> {
+	content: T[];
+	pageNo: number;
+	pageSize: number;
+	pages: number;
+	total: number;
+}
+
+// JcResult<Page<Vo>>
