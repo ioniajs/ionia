@@ -1,12 +1,9 @@
-import { ModalForm, ProFormSelect, ProFormSwitch, ProFormText } from '@ant-design/pro-form';
+import { ProFormSelect, ProFormSwitch, ProFormText } from '@ant-design/pro-form';
+import { BizModalForm } from '@ionia/libs';
 import { Button, Cascader, Form, message } from 'antd';
-import React, { useState } from 'react';
+import React from 'react';
 import './index.less';
-import { validateMessages } from './rule';
 
-interface BizFormProps {
-	title?: string;
-}
 const waitTime = (time: number = 100) => {
 	return new Promise(resolve => {
 		setTimeout(() => {
@@ -14,6 +11,7 @@ const waitTime = (time: number = 100) => {
 		}, time);
 	});
 };
+
 const options = [
 	{
 		value: '1',
@@ -64,64 +62,36 @@ const residences = [
 	},
 ];
 
-// export default () => {
-export const BizForm: React.FC<BizFormProps> = props => {
-	const { title } = props;
-
+export default () => {
 	const [form] = Form.useForm();
-	const [visible, setVisible] = useState(false);
-	const onCancel = () => {
-		setVisible(false);
-	};
 	const onCreate = () => {
 		form.resetFields();
 	};
 	return (
-		<ModalForm
+		<BizModalForm
 			form={form}
 			layout='horizontal'
-			title={title}
-			width='530px'
-			visible={visible}
-			trigger={
-				<Button
-					type='primary'
-					onClick={() => {
-						setVisible(true);
-					}}
-				>
-					新建
-				</Button>
-			}
+			title='新建用户'
 			onFinish={async values => {
 				await waitTime(2000);
 				console.log(values);
 				message.success('提交成功！');
 				return true;
 			}}
-			validateMessages={validateMessages}
-			modalProps={{
-				onCancel,
-			}}
-			submitter={{
-				// 完全自定义整个区域
-				render: (_props, _doms) => {
-					return (
-						<div className='btn-submitter'>
-							<Button type='default' onClick={onCancel}>
-								取消
-							</Button>
-							<Button type='primary'>保存并分配权限</Button>
-							<Button type='primary' onClick={onCreate}>
-								保存并继续新建
-							</Button>
-							<Button type='primary' htmlType='submit'>
-								保存
-							</Button>
-						</div>
-					);
-				},
-			}}
+			renderSubmitter={({ close }) => (
+				<div className='btn-submitter'>
+					<Button type='default' onClick={close}>
+						取消
+					</Button>
+					<Button type='default'>保存并分配权限</Button>
+					<Button type='default' onClick={onCreate}>
+						保存并继续新建
+					</Button>
+					<Button type='primary' htmlType='submit'>
+						保存
+					</Button>
+				</div>
+			)}
 		>
 			<ProFormText
 				name='username'
@@ -204,6 +174,6 @@ export const BizForm: React.FC<BizFormProps> = props => {
 				tooltip='禁用状态下的用户无法登录系统'
 				initialValue={true}
 			/>
-		</ModalForm>
+		</BizModalForm>
 	);
 };

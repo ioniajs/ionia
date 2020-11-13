@@ -2,7 +2,7 @@ import { ProColumns } from '@ant-design/pro-table';
 import { BizTable, PageContainer, BizTree } from '@ionia/libs';
 import React, { useState } from 'react';
 import { Button } from 'antd';
-import { BizForm } from './components/Form';
+import UserForm from './Form';
 
 export interface TableListItem {
 	key: number;
@@ -30,14 +30,13 @@ const columns: ProColumns<TableListItem>[] = [
 ];
 
 export default () => {
-	const [title, setTitle] = useState('新建用户');
 	return (
 		<PageContainer>
 			<BizTable
 				renderActions={() => (
 					<>
 						<div className='io-space-item'>
-							<BizForm title={title} />
+							<UserForm />
 						</div>
 						<div className='io-space-item'>
 							<Button type='default'>启用</Button>
