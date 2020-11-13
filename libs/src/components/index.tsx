@@ -17,3 +17,4 @@ export * from './RichTextEditor';
 export * from './SlaveApp';
 export * from './VideoPlayer';
 export * from './VideoUpload';
+export * from './AudioUpload';
