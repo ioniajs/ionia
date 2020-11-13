@@ -80,7 +80,6 @@ export const BizForm: React.FC<BizFormProps> = props => {
 		<ModalForm
 			form={form}
 			layout='horizontal'
-			// title='新建用户'
 			title={title}
 			width='530px'
 			visible={visible}

@@ -14,3 +14,4 @@ export * from './BizPage';
 export * from './PictureCropper';
 export * from './ImageUpload';
 export * from './AnnexUpload';
+export * from './VideoUpload';

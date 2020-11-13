@@ -7,10 +7,12 @@ import './index.less';
 
 export interface BizTableProps<T, U extends ParamsType> extends ProTableProps<T, U> {
 	renderActions?: () => ReactNode;
+	renderSider?: () => ReactNode;
 }
 
 export function BizTable<T, U extends ParamsType>({
 	renderActions,
+	renderSider,
 	...reset
 }: BizTableProps<T, U>) {
 	return (
@@ -46,9 +48,9 @@ export function BizTable<T, U extends ParamsType>({
 			}}
 			tableRender={(_, dom) => (
 				<div className='io-table-container'>
-					<div className='io-table-container__sider'>
-						<BizTree />
-					</div>
+					{renderSider && (
+						<div className='io-table-container__sider'>{renderSider()}</div>
+					)}
 					<div className='io-table-container__content'>{dom}</div>
 				</div>
 			)}
