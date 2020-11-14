@@ -6,7 +6,7 @@ export interface UserSaveDTO {
 	orgId: string; //所属阵地
 	realName: string; // 真实姓名
 	roleIds: string[]; // 角色id集合
-	status: string; //状态(1启用 0禁用)
+	status: number; //状态(1启用 0禁用)
 	telephone: string; // 联系方式
 	username: string; // 用户名
 }

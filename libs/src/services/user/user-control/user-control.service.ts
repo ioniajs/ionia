@@ -7,7 +7,7 @@ import {
 	UserUpdateDTO,
 	UserUpdateStatusDTO,
 } from './user-control.dto';
-
+import { IdsDTO } from '../../reuse.dto';
 import { UserViewVO } from './user-control.vo';
 
 /**
@@ -22,7 +22,7 @@ export async function addUser(data: UserSaveDTO): Promise<JcResult<boolean>> {
 /**
  * 修改密码
  */
-export async function updatePassword(data: UserUpdateCipherDTO): Promise<JcResult<boolean>> {
+export async function modPassword(data: UserUpdateCipherDTO): Promise<JcResult<boolean>> {
 	return request.post('/module-user/cmsmanager/users/update/cipher', {
 		data,
 	});
@@ -31,7 +31,7 @@ export async function updatePassword(data: UserUpdateCipherDTO): Promise<JcResul
 /**
  * 修改自己的密码
  */
-export async function updateMePassword(data: UserUpdateCipherMeDTO): Promise<JcResult<boolean>> {
+export async function modMePassword(data: UserUpdateCipherMeDTO): Promise<JcResult<boolean>> {
 	return request.post('/module-user/cmsmanager/users/update/cipher/me', {
 		data,
 	});
@@ -41,7 +41,7 @@ export async function updateMePassword(data: UserUpdateCipherMeDTO): Promise<JcR
  * 修改用户
  */
 
-export async function updateUser(data: UserUpdateDTO): Promise<JcResult<boolean>> {
+export async function modUser(data: UserUpdateDTO): Promise<JcResult<boolean>> {
 	return request.post('/module-user/cmsmanager/users/update', {
 		data,
 	});
@@ -50,7 +50,7 @@ export async function updateUser(data: UserUpdateDTO): Promise<JcResult<boolean>
 /**
  * 修改状态
  */
-export async function updateStatus(data: UserUpdateStatusDTO): Promise<JcResult<boolean>> {
+export async function modUserStatus(data: UserUpdateStatusDTO): Promise<JcResult<boolean>> {
 	return request.post('/module-user/cmsmanager/users/update/status', {
 		data,
 	});
@@ -61,4 +61,22 @@ export async function updateStatus(data: UserUpdateStatusDTO): Promise<JcResult<
  */
 export async function userDetail(): Promise<JcResult<UserViewVO>> {
 	return request.get('/module-user/cmsmanager/users', {});
+}
+
+/**
+ * 删除用户
+ */
+export async function deleteUser(data: IdsDTO): Promise<JcResult<boolean>> {
+	return request.post('/module-user/cmsmanager/users/delete', {
+		data,
+	});
+}
+
+/**
+ * 批量添加用户
+ */
+export async function bacthAddUser(data: UserSaveDTO): Promise<JcResult<boolean>> {
+	return request('/module-user/cmsmanager/users/save/batch', {
+		data,
+	});
 }

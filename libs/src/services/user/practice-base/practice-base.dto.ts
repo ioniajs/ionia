@@ -1,4 +1,4 @@
-import { UserDTO, PicDTO } from '../reuse.dto';
+import { UserDTO, PicDTO } from '../../reuse.dto';
 
 //#region
 export interface OrgBatchChildDTO {
@@ -17,7 +17,7 @@ export interface OrgBatchDTO {
 }
 //#endregion
 
-//#region  新建阵地
+//#region  新建阵地 | 修改阵地
 export interface OrgDTO {
 	address: string; // 地址
 	area: string; // 地区
@@ -36,12 +36,13 @@ export interface OrgDTO {
 }
 //#endregion
 
-//#region 新增阵地资源
+//#region 新增阵地资源 | 修改阵地资源
 export interface OrgResourceDTO {
-	id: string; // 阵地资源ID, 修改必传
+	id?: string; // 阵地资源ID, 修改必传
 	introduce: string; // 资源介绍
 	picId: string; // 图片id
 	title: string; // 标题
+	orgId: string; // 阵地id
 }
 //#endregion
 
@@ -49,5 +50,13 @@ export interface OrgResourceDTO {
 export interface OrgUserDTO {
 	id: string; //阵地ID
 	userIds: string[]; //用户ids
+}
+//#endregion
+
+//#region 阵地排序
+export interface SortDto {
+	nextId: string; // 向上排序的id值
+	orgId: string; // 阵地ID
+	toId: string; // 向下排序的id值
 }
 //#endregion
