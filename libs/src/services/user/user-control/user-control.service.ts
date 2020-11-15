@@ -8,7 +8,7 @@ import {
 	UserUpdateStatusDTO,
 } from './user-control.dto';
 import { IdsDTO } from '../../reuse.dto';
-import { UserViewVO } from './user-control.vo';
+import { UserViewVO, UserMatchVO } from './user-control.vo';
 
 /**
  *  添加用户
@@ -76,7 +76,32 @@ export async function deleteUser(data: IdsDTO): Promise<JcResult<boolean>> {
  * 批量添加用户
  */
 export async function bacthAddUser(data: UserSaveDTO): Promise<JcResult<boolean>> {
-	return request('/module-user/cmsmanager/users/save/batch', {
+	return request.post('/module-user/cmsmanager/users/save/batch', {
 		data,
+	});
+}
+
+/**
+ * 用户名模糊匹配用户
+ */
+export interface NameDim {
+	username: string; // 用户名
+}
+export async function userNameDim(params: NameDim): Promise<JcResult<UserMatchVO>> {
+	return request.get('/module-user/cmsmanager/users/list/match', {
+		params,
+	});
+}
+
+/**
+ * 检验名称是否可用 true 可用 false 不可用
+ */
+export interface VerifyName {
+	id: string; //id
+	username: string; // username
+}
+export async function userVerifyName(params: VerifyName): Promise<JcResult<boolean>> {
+	return request.get('/module-user/cmsmanager/users/unique/username', {
+		params,
 	});
 }
