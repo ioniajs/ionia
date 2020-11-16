@@ -1,0 +1,38 @@
+@import '~antd/es/style/themes/default.less';
+
+.io-error-page {
+	display: flex;
+	flex: 1;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	min-width: 1030px;
+	min-height: calc(100vh - 160px);
+	padding: 24px;
+	background-color: #ffffff;
+	img {
+		width: 223px;
+		height: 183px;
+		margin-right: 40px;
+	}
+	.io-error-page__hint {
+		font-size: 24px;
+		font-family: PingFang SC;
+		font-weight: 500;
+		color: @primary-color;
+		margin: 24px 0 14px 0;
+	}
+	.io-error-page__message {
+		font-size: 16px;
+		font-family: PingFang SC;
+		font-weight: 400;
+		color: #262626;
+	}
+	i {
+		vertical-align: middle;
+	}
+	span {
+		line-height: 21px;
+		vertical-align: middle;
+	}
+}

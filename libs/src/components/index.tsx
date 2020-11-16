@@ -17,4 +17,7 @@ export * from './RichTextEditor';
 export * from './SlaveApp';
 export * from './VideoPlayer';
 export * from './VideoUpload';
+export * from './AudioUpload';
+export * from './BizPageModule';
 export * from './Watermark';
+export * from './ErrorPage';
