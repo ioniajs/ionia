@@ -103,6 +103,7 @@ export default [
 	}),
 	//用户分页
 	rest.get('/module-user/cmsmanager/users/page', (req, res, ctx) => {
+		const { pageNo, pageSize } = req.params;
 		return res(
 			ctx.json({
 				code: 200,
