@@ -222,8 +222,8 @@ export default [
 			})
 		);
 	}),
-	//修改状态
-	rest.post('/module-user/cmsmanager/users/{id}}', (req, res, ctx) => {
+	//用户详情
+	rest.post('/module-user/cmsmanager/users/:id', (req, res, ctx) => {
 		return res(
 			ctx.json({
 				code: 200,
