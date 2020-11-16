@@ -8,7 +8,7 @@ const App = () => {
 		<CacheSwitch>
 			{routes.map((m: any) => (
 				<CacheRoute
-					key={m.key}
+					key={m.path}
 					cacheKey={m.path}
 					exact={m.exact ?? true}
 					path={m.path}

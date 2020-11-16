@@ -10,11 +10,16 @@ export interface AvatarDropdownProps {}
 const AvatarDropdown: React.FC<AvatarDropdownProps> = () => {
 	const history = useHistory();
 	const [modalVisible, setModalVisible] = useState(false);
+	const [visible, setVisible] = useState(false);
 	const onEdit = () => {
 		console.log('123');
 	};
 	const onExit = () => {
+		setVisible(false);
 		history.replace('/auth');
+	};
+	const onVisibleChange = () => {
+		setVisible(!visible);
 	};
 	const menus = (
 		<Menu className='user-info'>
@@ -51,7 +56,7 @@ const AvatarDropdown: React.FC<AvatarDropdownProps> = () => {
 
 	return (
 		<>
-			<Dropdown overlay={menus}>
+			<Dropdown overlay={menus} visible={visible} onVisibleChange={onVisibleChange}>
 				<span className='io-master__header--item'>
 					<Avatar size='small' icon={<UserOutlined />} />
 					<span className='icon-name'>User</span>

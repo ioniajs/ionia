@@ -32,7 +32,7 @@ export default [
 		);
 	}),
 	//站点扩展配置详情
-	rest.get(`/module-kernel/cmsmanager/sites/cfg/{id}`, (req, res, ctx) => {
+	rest.get(`/module-kernel/cmsmanager/sites/cfg/:id`, (req, res, ctx) => {
 		return res(
 			ctx.json({
 				code: 200,
@@ -114,7 +114,7 @@ export default [
 		);
 	}),
 	//禁用站点
-	rest.post('/module-kernel/cmsmanager/sites/disable/{id}', (req, res, ctx) => {
+	rest.post('/module-kernel/cmsmanager/sites/disable/:id', (req, res, ctx) => {
 		return res(
 			ctx.json({
 				code: 200,
@@ -124,7 +124,7 @@ export default [
 		);
 	}),
 	//启用站点
-	rest.post('/module-kernel/cmsmanager/sites/enable/{id}', (req, res, ctx) => {
+	rest.post('/module-kernel/cmsmanager/sites/enable/:id', (req, res, ctx) => {
 		return res(
 			ctx.json({
 				code: 200,
@@ -159,7 +159,7 @@ export default [
 		);
 	}),
 	//回收站删除
-	rest.post('/module-kernel/cmsmanager/sites/recycle/delete/{id}', (req, res, ctx) => {
+	rest.post('/module-kernel/cmsmanager/sites/recycle/delete/:id', (req, res, ctx) => {
 		return res(
 			ctx.json({
 				code: 200,
@@ -169,7 +169,7 @@ export default [
 		);
 	}),
 	//回收站还原
-	rest.post('/module-kernel/cmsmanager/sites/recycle/revert/{id}', (req, res, ctx) => {
+	rest.post('/module-kernel/cmsmanager/sites/recycle/revert/:id', (req, res, ctx) => {
 		return res(
 			ctx.json({
 				code: 200,
@@ -251,7 +251,7 @@ export default [
 		);
 	}),
 	//站点详情
-	rest.get('/module-kernel/cmsmanager/sites/{id}', (req, res, ctx) => {
+	rest.get('/module-kernel/cmsmanager/sites/:id', (req, res, ctx) => {
 		return res(
 			ctx.json({
 				code: 200,

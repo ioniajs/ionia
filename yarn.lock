@@ -13459,8 +13459,8 @@ react-simple-audio@^1.0.9-beta:
 
 react-soundplayer@^1.0.5:
   version "1.0.5"
-  resolved "https://registry.npm.taobao.org/react-soundplayer/download/react-soundplayer-1.0.5.tgz#5152ca6824c938cdafdeb16a05be20db7bba6afb"
-  integrity sha1-UVLKaCTJOM2v3rFqBb4g23u6avs=
+  resolved "https://registry.npmjs.org/react-soundplayer/-/react-soundplayer-1.0.5.tgz#5152ca6824c938cdafdeb16a05be20db7bba6afb"
+  integrity sha512-g4OjyDehFtSK2nPueuS7phwo/ppLYvZcWdGv6Ah3mcJPouOlHbYaFKt6kT3kuce4IiFUN8Ns7tGCbaeWgecCKg==
   dependencies:
     classnames "^2.2.5"
     hoist-non-react-statics "^2.3.1"

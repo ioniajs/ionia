@@ -1,5 +1,5 @@
 import { ProColumns } from '@ant-design/pro-table';
-import { BizTable, PageContainer } from '@ionia/libs';
+import { BizTable } from '@ionia/libs';
 import React from 'react';
 
 export interface TableListItem {
@@ -28,14 +28,12 @@ const columns: ProColumns<TableListItem>[] = [
 
 export default () => {
 	return (
-		<PageContainer>
-			<BizTable
-				columns={columns}
-				request={(params, sort, filter) => {
-					console.log(params);
-					return new Promise(resolve => resolve());
-				}}
-			/>
-		</PageContainer>
+		<BizTable
+			columns={columns}
+			request={(params, sort, filter) => {
+				console.log(params);
+				return new Promise(resolve => resolve());
+			}}
+		/>
 	);
 };

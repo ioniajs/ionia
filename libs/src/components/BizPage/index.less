@@ -1,18 +1,56 @@
-.io-biz-page-container {
+.io-biz-page {
+	display: flex;
+	flex: 1;
+	flex-direction: column;
+	min-width: 1030px;
+	padding: 0 24px 24px 24px;
 	background-color: #fff;
-	height: auto;
-	.io-bizpage-content {
-		margin-top: -20px;
-	}
-	.io-bizpage-header {
-		.ant-page-header-heading {
-			// display: inline-block;
-			float: left;
-			margin-top: -4px;
+	.io-biz-page__header {
+		display: flex;
+		flex-direction: column;
+		width: 100%;
+		cursor: pointer;
+		.ant-btn {
+			display: inline-flex;
+			justify-content: center;
+			align-items: center;
+		}
+		.io-biz-page__header-container {
+			display: flex;
+			flex-direction: row;
+			align-items: center;
+			margin-top: 24px;
+		}
+		.io-biz-page__tips {
+			margin-top: 24px;
+			.io-biz-page__tips-title {
+				display: flex;
+				align-items: center;
+				margin-bottom: 8px;
+				color: #1c6cd8;
+				line-height: 14px;
+				i {
+					margin-left: 8px;
+				}
+			}
+			.io-biz-page__tips-info {
+				border: none;
+				background: #fafafa;
+				.ant-alert-message {
+					color: #8c8c8c;
+				}
+			}
+		}
+		.io-biz-page__actions {
+			display: flex;
+			align-items: center;
+			margin-top: 24px;
 		}
 	}
-	.io-bizpage-breadcrumb {
-		display: inline-block;
-		margin-left: -12px;
+	.io-biz-page__body {
+		margin-top: 24px;
+	}
+	.io-biz-page__body--tabs {
+		margin-top: 12px;
 	}
 }

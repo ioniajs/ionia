@@ -103,6 +103,7 @@ export default [
 	}),
 	//用户分页
 	rest.get('/module-user/cmsmanager/users/page', (req, res, ctx) => {
+		const { pageNo, pageSize } = req.params;
 		return res(
 			ctx.json({
 				code: 200,
@@ -222,8 +223,8 @@ export default [
 			})
 		);
 	}),
-	//修改状态
-	rest.post('/module-user/cmsmanager/users/{id}}', (req, res, ctx) => {
+	//用户详情
+	rest.post('/module-user/cmsmanager/users/:id', (req, res, ctx) => {
 		return res(
 			ctx.json({
 				code: 200,

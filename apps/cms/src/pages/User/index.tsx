@@ -1,5 +1,5 @@
 import { ProColumns } from '@ant-design/pro-table';
-import { BizTable, BizTree, PageContainer } from '@ionia/libs';
+import { BizTable, BizTree } from '@ionia/libs';
 import { Button } from 'antd';
 import React from 'react';
 import UserForm from './Form';
@@ -71,31 +71,29 @@ const columns: ProColumns<TableListItem>[] = [
 
 export default () => {
 	return (
-		<PageContainer>
-			<BizTable
-				renderActions={() => (
-					<>
-						<div className='io-space-item'>
-							<UserForm />
-						</div>
-						<div className='io-space-item'>
-							<Button type='default'>批量新建</Button>
-						</div>
-						<div className='io-space-item'>
-							<Button type='default'>批量删除</Button>
-						</div>
-						<div className='io-space-item'>
-							<Button type='default'>导入</Button>
-						</div>
-					</>
-				)}
-				renderSider={() => <BizTree />}
-				columns={columns}
-				request={params => {
-					console.log(params);
-					return new Promise(resolve => resolve());
-				}}
-			/>
-		</PageContainer>
+		<BizTable
+			renderActions={() => (
+				<>
+					<div className='io-space-item'>
+						<UserForm />
+					</div>
+					<div className='io-space-item'>
+						<Button type='default'>启用</Button>
+					</div>
+					<div className='io-space-item'>
+						<Button type='default'>禁用</Button>
+					</div>
+					<div className='io-space-item'>
+						<Button type='default'>删除</Button>
+					</div>
+				</>
+			)}
+			renderSider={() => <BizTree />}
+			columns={columns}
+			request={params => {
+				console.log(params);
+				return new Promise(resolve => resolve());
+			}}
+		/>
 	);
 };
