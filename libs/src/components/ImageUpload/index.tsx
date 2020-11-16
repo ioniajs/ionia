@@ -22,26 +22,29 @@ interface ImageUploadProps extends UploadProps {
 	onAdd?: (file: UploadFile) => void;
 	limit?: number;
 	beforeUpload?: (file: UploadFile) => boolean;
-	onRemove: (file: UploadFile) => void;
+	onRemove?: (file: UploadFile) => void;
 }
 
 export const ImageUpload: React.FC<ImageUploadProps> = props => {
 	const cropRef = useRef<any>(null);
 	const {
-		fileList: defaultFileList = [
-			{
-				uid: '-xxx',
-				percent: 50,
-				name: 'image.png',
-				status: 'uploading',
-				url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
-			},
-			{
-				uid: '-5',
-				name: 'image.png',
-				status: 'error',
-			},
-		],
+		// fileList: defaultFileList = [
+		// 	{
+		// 		uid: '-xxx',
+		// 		percent: 50,
+		// 		name: 'image.png',
+		// 		status: 'uploading',
+		// 		url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
+		// 	},
+		// 	{
+		// 		uid: '-5',
+		// 		name: 'image.png',
+		// 		status: 'error',
+		// 	},
+		// ],
+		limit = 1,
+		action = 'https://www.mocky.io/v2/5cc8019d300000980a055e76',
+		fileList: defaultFileList = [],
 		onAdd,
 		onRemove,
 		// action = config.uploadUrl,
@@ -90,7 +93,7 @@ export const ImageUpload: React.FC<ImageUploadProps> = props => {
 	};
 	const handleRemove = (file: UploadFile) => {
 		// await onRemove(file)
-		onRemove(file);
+		onRemove && onRemove(file);
 	};
 	const [cropVisible, setCropVisible] = useState<boolean>(false);
 	const [cropImgSrc, setCropImgSrc] = useState<string>();
@@ -100,6 +103,7 @@ export const ImageUpload: React.FC<ImageUploadProps> = props => {
 		<div>
 			<Upload
 				accept='image/*'
+				action={action}
 				className='io-image-upload'
 				multiple={true}
 				listType='picture-card'
@@ -107,19 +111,21 @@ export const ImageUpload: React.FC<ImageUploadProps> = props => {
 				onPreview={handlePreview}
 				onChange={handleChange}
 				progress={progress}
-				beforeUpload={() => {
-					console.log('111');
-					return false;
-				}}
+				// beforeUpload={() => {
+				// 	console.log('111');
+				// 	return true;
+				// }}
 				itemRender={(originNode, file, fileList) => {
-					// console.log(originNode, file, fileList);
-					if (file.status !== 'error' && file.status !== 'uploading') {
+					console.log(originNode, file, fileList);
+					// if (file.status !== 'error' && file.status !== 'uploading') {
+					if (file.status === 'done') {
 						return (
 							<div className='io-item-success-mask'>
 								<div className='io-item-success-origin-node'>
 									<div className='io-upload-success-img'>
 										<img
-											src='https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=320188414,720873459&fm=26&gp=0.jpg'
+											// src='https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=320188414,720873459&fm=26&gp=0.jpg'
+											src={file?.response?.url}
 											className='io-upload-img'
 										/>
 										<a href='#'>
@@ -156,10 +162,10 @@ export const ImageUpload: React.FC<ImageUploadProps> = props => {
 				}}
 				{...reset}
 			>
-				<div>
+				{fileList.length < limit ? <div>
 					<UploadOutlined />
 					<div className='ant-upload-text'>上传图片</div>
-				</div>
+				</div> : null}
 			</Upload>
 			<Modal
 				visible={previewVisible}

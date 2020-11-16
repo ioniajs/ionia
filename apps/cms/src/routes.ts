@@ -4,6 +4,8 @@ import List from '@/pages/List';
 import Demo from '@/pages/Demo';
 import PracticeBase from '@/pages/PracticeBase';
 import User from '@/pages/User';
+import SysSetting from '@/pages/SysSetting';
+
 export default [
 	{ key: '/', path: '/', component: List },
 	{
@@ -31,5 +33,10 @@ export default [
 		key: '/practicebase',
 		path: '/practicebase',
 		component: PracticeBase,
+	},
+	{
+		key: '/syssetting',
+		path: '/syssetting',
+		component: SysSetting,
 	},
 ];

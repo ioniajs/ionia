@@ -30,5 +30,9 @@ export default {
 			path: '/cms/practicebase',
 			name: '实践阵地',
 		},
+		{
+			path: '/cms/setting',
+			name: '系统设置'
+		}
 	],
 } as Record<string, IoniaMenuRoute[]>;
