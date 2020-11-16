@@ -39,7 +39,7 @@ export default {
 			name: '系统设置',
 		},
 		{
-			path: '/cms/notpagefound',
+			path: '/cms/notpage',
 			name: '404报错',
 		},
 	],

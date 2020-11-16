@@ -20,3 +20,4 @@ export * from './VideoUpload';
 export * from './AudioUpload';
 export * from './BizPageModule';
 export * from './Watermark';
+export * from './ErrorPage';

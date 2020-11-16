@@ -3,10 +3,10 @@ import Demo from '@/pages/Demo';
 import DemoDetail from '@/pages/Demo/Detail';
 import Detail from '@/pages/Detail';
 import List from '@/pages/List';
+import NotPage from '@/pages/NotPage';
 import PracticeBase from '@/pages/PracticeBase';
-import User from '@/pages/User';
 import SysSetting from '@/pages/SysSetting';
-import NotPageFound from '@/pages/NotPageFound';
+import User from '@/pages/User';
 
 export default [
 	{ path: '/', component: List },
@@ -41,8 +41,8 @@ export default [
 		component: SysSetting,
 	},
 	{
-		key: '/notpagefound',
-		path: '/notpagefound',
-		component: NotPageFound,
+		key: '/notpage',
+		path: '/notpage',
+		component: NotPage,
 	},
 ];
