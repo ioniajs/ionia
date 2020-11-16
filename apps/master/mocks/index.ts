@@ -7,4 +7,4 @@ import upload from './upload';
 import user from './user';
 import role from './role';
 
-export default setupWorker(...hero, ...config, ...login, ...site, ...upload, ...user,...role);
+export default setupWorker(...hero, ...config, ...login, ...site, ...upload, ...user, ...role);
