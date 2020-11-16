@@ -12,7 +12,6 @@ export * from './ImagePreview';
 export * from './ImageUpload';
 export * from './LangSelector';
 export * from './Loading';
-export * from './PageContainer';
 export * from './PictureCropper';
 export * from './RichTextEditor';
 export * from './SlaveApp';
