@@ -1,7 +1,7 @@
 import request from '../../../utils/request';
 import { JcResult } from '../../base';
 import { UserLoginDto } from './login.dto';
-import {UserLoginVO} from './login.vo'
+import { UserLoginVO } from './login.vo';
 /**
  * 登录
  * @param data 登录 DTO

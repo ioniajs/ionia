@@ -40,9 +40,9 @@ const Login = () => {
 		if (code == 200) {
 			setLoginText('登录成功');
 			setStatus('complete');
-			setTimeout(()=>{
+			setTimeout(() => {
 				history.pushState(null, '', '/dashboard');
-			},2000)
+			}, 2000);
 		}
 	};
 

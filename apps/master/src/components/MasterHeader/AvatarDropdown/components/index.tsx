@@ -1,13 +1,13 @@
-import { Modal, Form, Input,message } from 'antd';
+import { Modal, Form, Input, message } from 'antd';
 import { useForm } from 'antd/lib/form/Form';
 import React, { useState } from 'react';
 import './index.less';
-import {modMePassword,logger} from '@ionia/libs';
+import { modMePassword, logger } from '@ionia/libs';
 
-interface updateForm{
-	oldCipher:string;
-	newCipher:string;
-	confirm:string;
+interface updateForm {
+	oldCipher: string;
+	newCipher: string;
+	confirm: string;
 }
 
 export default (props: any) => {
@@ -21,10 +21,10 @@ export default (props: any) => {
 		setModalVisible(false);
 		form.resetFields();
 	};
-	const onFinish = async(values: updateForm) => {
+	const onFinish = async (values: updateForm) => {
 		console.log(values);
-		const { data, code }  = await modMePassword(values)
-		if(code==200){
+		const { data, code } = await modMePassword(values);
+		if (code == 200) {
 			message.success('修改成功');
 			setModalVisible(false);
 			form.resetFields();

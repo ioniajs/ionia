@@ -5,7 +5,7 @@ export interface UserLoginDto {
 	grant_type: string; // oauth2鉴权方式，如password
 	cipher: string; // 密码
 	username: string; // 用户名
-	captcha?:string;
-	sessionId?:string
+	captcha?: string;
+	sessionId?: string;
 }
 //#endregion
