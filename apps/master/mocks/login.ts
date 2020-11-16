@@ -16,4 +16,16 @@ export default [
 			})
 		);
 	}),
+
+	rest.get('/module-infra/captcha',(req,res,ctx)=>{
+		return res(
+			ctx.json({
+				code: 200,
+				message: '成功',
+				data: {
+					
+				},
+			})
+		)
+	})
 ];
