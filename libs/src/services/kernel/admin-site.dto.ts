@@ -4,7 +4,7 @@ export interface TreeSiteDTO {
 	dir: string; // 站点目录
 	domain: string[]; // 站点域名
 	name: string; // 站点名称
-	status: string; // 状态(0关 1开)
+	status: number; // 状态(0关 1开)
 }
 //#endregion
 
@@ -27,7 +27,7 @@ export interface AdminSiteDTO {
 	seoDesc: string; // seo描述
 	seoKeyWord: string; // seo关键字
 	seoTitle: string; // seo标题
-	status: string; // 状态(0关 1开)
+	status: number; // 状态(0关 1开)
 }
 //#endregion
 

@@ -35,7 +35,7 @@ export interface UserUpdateDTO {
 	orgId: string; //所属阵地
 	realName: string; //真实姓名
 	roleIds: string[]; // 角色id集合
-	status: string; // 状态（1 启用 0 禁用）
+	status: number; // 状态（1 启用 0 禁用）
 	telephone: string; // 联系方式
 }
 //#endregion
@@ -43,7 +43,7 @@ export interface UserUpdateDTO {
 //#region 修改状态
 export interface UserUpdateStatusDTO {
 	id: string; // 用户id
-	status: string; // 状态（1 启用 0 禁用）
+	status: number; // 状态（1 启用 0 禁用）
 }
 
 //#endregion

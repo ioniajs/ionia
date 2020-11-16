@@ -1,12 +1,12 @@
 import { CheckCircleOutlined, LoadingOutlined } from '@ant-design/icons';
-import { getSystemSetting, logger } from '@ionia/libs';
+import { getSystemSetting, logger, userLogin } from '@ionia/libs';
 import { useLocalStorageState, useMount } from 'ahooks';
 import { Button, Form, Input } from 'antd';
 import React, { useState } from 'react';
 import './index.less';
 
 interface LoginForm {
-	password: string;
+	cipher: string;
 	username: string;
 }
 
@@ -26,14 +26,24 @@ const Login = () => {
 		logger.debug(data);
 	});
 
-	const onFinish = (values: LoginForm) => {
+	const onFinish = async (values: LoginForm) => {
+		logger.debug('Success:', values);
 		setLoginText('登录中');
 		setStatus('open');
-		setTimeout(() => {
+		const { data, code } = await userLogin({
+			...values,
+			client_id: 'jeecms_manager',
+			client_secret: 'w0EN3jdQrR3Ux0hNZWDaQ2w79mbv3p2eLvbke4GfzibFT5E',
+			grant_type: 'password',
+		});
+
+		if (code == 200) {
+			setLoginText('登录成功');
 			setStatus('complete');
-			history.pushState(null, '', '/dashboard');
-		}, 3000);
-		logger.debug('Success:', values);
+			setTimeout(() => {
+				history.pushState(null, '', '/dashboard');
+			}, 2000);
+		}
 	};
 
 	return (
@@ -67,7 +77,7 @@ const Login = () => {
 						</Form.Item>
 
 						<Form.Item
-							name='password'
+							name='cipher'
 							rules={[
 								{ required: true, message: '请输入密码' },
 								{ max: 120, message: '不可超过120个字数' },

@@ -54,7 +54,7 @@ export interface OrgUserDTO {
 //#endregion
 
 //#region 阵地排序
-export interface SortDto {
+export interface SortDTO {
 	nextId: string; // 向上排序的id值
 	orgId: string; // 阵地ID
 	toId: string; // 向下排序的id值

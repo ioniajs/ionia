@@ -1,13 +1,13 @@
 import request from '../../../utils/request';
 import { JcResult } from '../../base';
-// import { SysConfigDTO } from './admin-system-setting.dto';
-// import {SysConfigVO} from './admin-system-setting.vo'
+import { UserLoginDto } from './login.dto';
+import { UserLoginVO } from './login.vo';
 /**
  * 登录
  * @param data 登录 DTO
  */
-// export async function saveSystemSetting(data: SysConfigDTO): Promise<JcResult<SysConfigDTO>> {
-// 	return request.post('/module-infra/cmsmanager/sysConfig', {
-// 		data,
-// 	});
-// }
+export async function userLogin(data: UserLoginDto): Promise<JcResult<UserLoginVO>> {
+	return request.post('/module-user/oauth/token', {
+		data,
+	});
+}
