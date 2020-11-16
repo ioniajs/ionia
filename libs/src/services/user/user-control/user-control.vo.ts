@@ -25,7 +25,7 @@ export interface UserPageVO {
 	position: string; // 阵地
 	realName: string; // 姓名
 	roleNames: string; // 角色名称
-	status: string; // 状态（1启用 0禁用）
+	status: number; // 状态（1启用 0禁用）
 	telephone: string; // 联系方式
 	updateUser: string; //最后更新人
 	username: string; // 用户名
@@ -43,7 +43,7 @@ export interface UserViewVO {
 	orgNodeIds: string[]; // 所属阵地节点id
 	realName: string; // 真实姓名
 	roleIds: string[]; // 角色id
-	status: string; // 状态（1启用 0禁用)
+	status: number; // 状态（1启用 0禁用)
 	telephone: string; // 联系方式
 	updateTime: string; // 更新时间
 	updateUser: string; // 更新人

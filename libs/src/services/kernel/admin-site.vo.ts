@@ -10,7 +10,7 @@ export interface AdminSiteDetailVO {
 	seoDesc: string; // 站点SEO描述
 	seoKeyWord: string; // 站点SEO关键字
 	seoTitle: string; // 站点SEO标题
-	status: string; // 站点状态
+	status: number; // 站点状态
 }
 //#endregion
 
@@ -30,7 +30,7 @@ export interface AdminSiteTreeVO {
 	domian: string[]; // 站点域名
 	id: string; // 站点id
 	name: string; // 站点名称
-	status: string; // 状态 (0关 1开)
+	status: number; // 状态 (0关 1开)
 }
 //#endregion
 
