@@ -1,9 +1,12 @@
-import { Alert, Breadcrumb } from 'antd';
+import { Alert, Breadcrumb, Tabs } from 'antd';
+import { TabPaneProps } from 'antd/lib/tabs';
 import React, { ReactNode, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { GobackButton } from './GobackButton';
 import './index.less';
 import { SaveButton } from './SaveButton';
+
+const { TabPane } = Tabs;
 
 interface BreadcrumbItem {
 	path?: string;
@@ -18,17 +21,20 @@ interface BizPageProps {
 	renderActions?: () => ReactNode;
 	onGoback?: () => void;
 	onSave?: () => void;
+	tabList?: TabPaneProps[];
 }
 
 export const BizPage = ({
 	children,
 	breadcrumbs,
 	tips,
+	tabList,
 	renderActions,
 	onGoback,
 	onSave,
 	showActions = true,
 }: BizPageProps) => {
+	const [activeKey, setActiveKey] = useState<string>();
 	const [tipsVisible, setTipsVisible] = useState<boolean>(true);
 
 	const defaultRenderActions = () => (
@@ -41,15 +47,27 @@ export const BizPage = ({
 	return (
 		<div className='io-biz-page'>
 			<div className='io-biz-page__header'>
-				{breadcrumbs && (
-					<Breadcrumb className='io-biz-page__breadcrumb'>
-						{breadcrumbs.map((item, index) => (
-							<Breadcrumb.Item key={index}>
-								{item.path ? <Link to={item.path}>{item.name}</Link> : item.name}
-							</Breadcrumb.Item>
-						))}
-					</Breadcrumb>
-				)}
+				<div className='io-biz-page__header-container'>
+					{showActions && tabList && (
+						<GobackButton
+							onGoback={onGoback}
+							style={{ marginRight: 32, height: 24, width: 60 }}
+						/>
+					)}
+					{breadcrumbs && (
+						<Breadcrumb>
+							{breadcrumbs.map((item, index) => (
+								<Breadcrumb.Item key={index}>
+									{item.path ? (
+										<Link to={item.path}>{item.name}</Link>
+									) : (
+										item.name
+									)}
+								</Breadcrumb.Item>
+							))}
+						</Breadcrumb>
+					)}
+				</div>
 				{tips && (
 					<div className='io-biz-page__tips'>
 						<div
@@ -64,13 +82,22 @@ export const BizPage = ({
 						{tipsVisible && <Alert className='io-biz-page__tips-info' message={tips} />}
 					</div>
 				)}
-				{showActions && (
+				{showActions && !tabList && (
 					<div className='io-biz-page__actions'>
 						{renderActions ? renderActions() : defaultRenderActions()}
 					</div>
 				)}
 			</div>
-			<div className='io-biz-page__body'>{children}</div>
+			{children && !tabList && <div className='io-biz-page__body'>{children}</div>}
+			{tabList && (
+				<div className='io-biz-page__body--tabs'>
+					<Tabs activeKey={activeKey} onChange={key => setActiveKey(key)}>
+						{tabList.map(t => (
+							<TabPane key={t.tabKey} {...t} />
+						))}
+					</Tabs>
+				</div>
+			)}
 		</div>
 	);
 };
