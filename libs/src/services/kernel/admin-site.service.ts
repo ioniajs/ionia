@@ -114,7 +114,6 @@ export async function recycleSiteDetail(id: string): Promise<JcResult<object>> {
 /**
  * 回收站还原
  */
-
 export async function recycleSiteRestore(id: string): Promise<JcResult<object>> {
 	return request.post(`/module-kernel/cmsmanager/sites/recycle/revert/${id}`);
 }
@@ -122,14 +121,17 @@ export async function recycleSiteRestore(id: string): Promise<JcResult<object>> 
 /**
  * 获取站点树
  */
-// export async function gainSiteTree(data: ) {
-
-// }
+export async function gainSiteTree(searchStr: string): Promise<JcResult<AdminSiteTreeVO>> {
+	return request.get(`/module-kernel/cmsmanager/sites/tree`, {
+		params: {
+			searchStr: searchStr,
+		},
+	});
+}
 
 /**
  * 修改站点
  */
-
 export async function amendSite(data: AdminSiteDTO): Promise<JcResult<object>> {
 	return request.post('/module-kernel/cmsmanager/sites/update', {});
 }
@@ -137,7 +139,32 @@ export async function amendSite(data: AdminSiteDTO): Promise<JcResult<object>> {
 /**
  * 站点详情
  */
-
 export async function siteDetail(id: string): Promise<JcResult<AdminSiteDetailVO>> {
 	return request.get(`/module-kernel/cmsmanager/sites/${id}`);
+}
+
+/**
+ * 校验站点目录，true通过，false不通过
+ */
+export interface SiteCatalogue {
+	dir: string; //站点目录
+	siteId: string; // 站点id
+}
+export async function verifySiteCatalogue(params: SiteCatalogue): Promise<JcResult<boolean>> {
+	return request.get('/module-kernel/cmsmanager/sites/dir/unique', {
+		params,
+	});
+}
+
+/**
+ * 校验站点名称，true通过，false不通过
+ */
+export interface SiteName {
+	name: string; //站点名称
+	siteId: string; // 站点id
+}
+export async function verifySiteName(params: SiteName): Promise<JcResult<boolean>> {
+	return request.get('/module-kernel/cmsmanager/sites/name/unique', {
+		params,
+	});
 }
