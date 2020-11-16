@@ -1,6 +1,6 @@
 import request from '../../../utils/request';
-import { JcResult } from '../../base';
-import { OrgDTO, OrgBatchDTO, OrgResourceDTO, OrgUserDTO, SortDto } from './practice-base.dto';
+import { JcResult, Page } from '../../base';
+import { OrgDTO, OrgBatchDTO, OrgResourceDTO, OrgUserDTO, SortDTO } from './practice-base.dto';
 import { IdsDTO } from '../../reuse.dto';
 import { OrgResourceVO, OrgDetailsVO, OrgVO, OrgSmallVO } from './practice-base.vo';
 /**
@@ -79,7 +79,7 @@ export async function positionResourceDetail(id: string): Promise<JcResult<OrgRe
 /**
  * 阵地排序
  */
-export async function positionSort(data: SortDto): Promise<JcResult<boolean>> {
+export async function positionSort(data: SortDTO): Promise<JcResult<boolean>> {
 	return request.post('/module-user/cmsmanager/org/sort', {
 		data,
 	});
@@ -118,7 +118,7 @@ export interface PositionList {
 	isAll: boolean; // 是否包含下级阵地
 	parentId: string; // 父级ID
 }
-export async function positionList(params: PositionList): Promise<JcResult<OrgVO>> {
+export async function positionList(params: PositionList): Promise<JcResult<OrgVO[]>> {
 	return request.get('/module-user/cmsmanager/org/list', {
 		params,
 	});
@@ -130,7 +130,7 @@ export async function positionList(params: PositionList): Promise<JcResult<OrgVO
 export interface PositionPull {
 	parentId: string; // 父级ID
 }
-export async function positionPullList(params: PositionPull): Promise<JcResult<OrgSmallVO>> {
+export async function positionPullList(params: PositionPull): Promise<JcResult<OrgSmallVO[]>> {
 	return request.get('/module-user/cmsmanager/org/pull', {
 		params,
 	});
@@ -145,6 +145,24 @@ export interface PositionName {
 }
 export async function verifyPositionName(params: PositionName): Promise<JcResult<boolean>> {
 	return request.get('/module-user/cmsmanager/org/unique', {
+		params,
+	});
+}
+
+/**
+ * 阵地资源列表分页
+ */
+export interface PoListPaging {
+	orgId: string; // 阵地id
+	pageNo: string; // 页码, 从1开始计数
+	pageSize: number; // 页面大小
+	pageSort: string; // 排序字段, 格式: name desc,createTime asc
+	title: string; // 标题
+}
+export async function positionalListPaging(
+	params: PoListPaging
+): Promise<JcResult<Page<OrgResourceVO>>> {
+	return request.get('/module-user/cmsmanager/org/resource/page', {
 		params,
 	});
 }

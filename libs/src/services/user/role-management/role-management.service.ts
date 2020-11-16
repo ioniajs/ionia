@@ -1,8 +1,8 @@
 import request from '../../../utils/request';
-import { JcResult } from '../../base';
+import { JcResult, Page } from '../../base';
 import { RoleOperatingDTO, RoleMoveDTO } from './role-management.dto';
 import { IdsDTO } from '../../reuse.dto';
-import { RoleViewVO } from './role-management.vo';
+import { RoleViewVO, RolePageVO } from './role-management.vo';
 /**
  * 添加角色
  */
@@ -16,7 +16,9 @@ export async function addRole(data: RoleOperatingDTO): Promise<JcResult<boolean>
  * 删除角色
  */
 export async function deleteRole(data: IdsDTO): Promise<JcResult<boolean>> {
-	return request.post('/module-user/cmsmanager/roles/delete', {});
+	return request.post('/module-user/cmsmanager/roles/delete', {
+		data,
+	});
 }
 
 /**
@@ -71,6 +73,35 @@ export interface VerifyRole {
 }
 export async function roleVerifyName(params: VerifyRole): Promise<JcResult<boolean>> {
 	return request.get('/module-user/cmsmanager/roles/unique/name', {
+		params,
+	});
+}
+
+/**
+ * 角色导入
+ */
+export async function roleUploadFile(params: string): Promise<JcResult<boolean>> {
+	return request.post('/module-user/cmsmanager/roles/import', {
+		data: params,
+		requestType: 'form',
+	});
+}
+
+/**
+ * 角色分页
+ */
+export interface RolePaging {
+	beginUpdateTime: string; // 开始更新时间
+	endUpdateTime: string; // 结束更新时间
+	name: string; // 角色名
+	orgId: string; // 阵地id
+	pageNo: number; // 页码, 从1开始计数
+	pageSize: number; // 页面大小
+	pageSort: string; // 排序字段, 格式: name desc,createTime asc
+	updateUser: string; // 更新人
+}
+export async function rolePaging(params: RolePaging): Promise<JcResult<Page<RolePageVO>>> {
+	return request.get('/module-user/cmsmanager/roles/page', {
 		params,
 	});
 }

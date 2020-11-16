@@ -15,6 +15,8 @@ export async function saveSystemSetting(data: SysConfigDTO): Promise<JcResult<ob
 /**
  * 获取系统设置
  */
-export async function getSystemSetting(): Promise<JcResult<SysConfigVO>> {
-	return request.get('/module-infra/cmsmanager/sysConfig');
+export async function getSystemSetting(params?: object): Promise<JcResult<SysConfigVO>> {
+	return request.get('/module-infra/cmsmanager/sysConfig', {
+		params,
+	});
 }
