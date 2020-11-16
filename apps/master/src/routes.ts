@@ -34,5 +34,9 @@ export default {
 			path: '/cms/practicebase',
 			name: '实践阵地',
 		},
+		{
+			path: '/cms/notpagefound',
+			name: '404报错',
+		},
 	],
 } as Record<string, IoniaMenuRoute[]>;
