@@ -5,7 +5,7 @@ import Detail from '@/pages/Detail';
 import List from '@/pages/List';
 import PracticeBase from '@/pages/PracticeBase';
 import User from '@/pages/User';
-import NotPageFound from '@/pages/NotPageFound';
+import NotPage from '@/pages/NotPage';
 
 export default [
 	{ path: '/', component: List },
@@ -35,8 +35,8 @@ export default [
 		component: PracticeBase,
 	},
 	{
-		key: '/notpagefound',
-		path: '/notpagefound',
-		component: NotPageFound,
+		key: '/notpage',
+		path: '/notpage',
+		component: NotPage,
 	},
 ];

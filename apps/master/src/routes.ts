@@ -35,7 +35,7 @@ export default {
 			name: '实践阵地',
 		},
 		{
-			path: '/cms/notpagefound',
+			path: '/cms/notpage',
 			name: '404报错',
 		},
 	],
