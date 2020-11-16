@@ -1,6 +1,13 @@
 import ProCard from '@ant-design/pro-card';
 import { PageContainer } from '@ant-design/pro-layout';
-import { AnnexUpload, ImagePreview, AudioUpload, ImageUpload, VideoUpload } from '@ionia/libs';
+import {
+	Watermark,
+	AnnexUpload,
+	ImagePreview,
+	AudioUpload,
+	ImageUpload,
+	VideoUpload,
+} from '@ionia/libs';
 import { Button } from 'antd';
 import React from 'react';
 
@@ -39,6 +46,11 @@ export default () => {
 					}}
 				/>
 				{/* <AudioPlayer /> */}
+				<Watermark
+					onChange={(value: number) => {
+						console.log(value);
+					}}
+				/>
 			</ProCard>
 		</PageContainer>
 	);

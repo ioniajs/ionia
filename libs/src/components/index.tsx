@@ -1,5 +1,6 @@
 export * from './AnnexUpload';
 export * from './AudioPlayer';
+export * from './AudioUpload';
 export * as Auth from './Auth';
 export * from './BizForm';
 export * from './BizModalForm';
@@ -17,4 +18,4 @@ export * from './RichTextEditor';
 export * from './SlaveApp';
 export * from './VideoPlayer';
 export * from './VideoUpload';
-export * from './AudioUpload';
+export * from './Watermark';
