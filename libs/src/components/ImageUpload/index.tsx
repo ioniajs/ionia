@@ -162,10 +162,12 @@ export const ImageUpload: React.FC<ImageUploadProps> = props => {
 				}}
 				{...reset}
 			>
-				{fileList.length < limit ? <div>
-					<UploadOutlined />
-					<div className='ant-upload-text'>上传图片</div>
-				</div> : null}
+				{fileList.length < limit ? (
+					<div>
+						<UploadOutlined />
+						<div className='ant-upload-text'>上传图片</div>
+					</div>
+				) : null}
 			</Upload>
 			<Modal
 				visible={previewVisible}

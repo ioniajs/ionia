@@ -32,7 +32,7 @@ export default {
 		},
 		{
 			path: '/cms/setting',
-			name: '系统设置'
-		}
+			name: '系统设置',
+		},
 	],
 } as Record<string, IoniaMenuRoute[]>;
