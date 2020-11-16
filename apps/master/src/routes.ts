@@ -25,6 +25,10 @@ export default {
 		{
 			path: '/cms/demo',
 			name: '组件演示',
+			children: [
+				{ path: '/cms/demo/basic', name: '基础组件' },
+				{ path: '/cms/demo/detail', name: '详情页' },
+			],
 		},
 		{
 			path: '/cms/practicebase',
