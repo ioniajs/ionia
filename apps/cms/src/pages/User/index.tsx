@@ -15,7 +15,7 @@ const columns: ProColumns<TableListItem>[] = [
 		key: 'username',
 		dataIndex: 'username',
 	},
-	{	
+	{
 		title: '姓名',
 		key: 'name',
 		dataIndex: 'name',

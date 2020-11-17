@@ -44,7 +44,7 @@ export default {
 		},
 		{
 			path: '/cms/sitemanage',
-			name: '站点管理'
-		}
+			name: '站点管理',
+		},
 	],
 } as Record<string, IoniaMenuRoute[]>;

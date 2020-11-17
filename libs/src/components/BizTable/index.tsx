@@ -7,7 +7,7 @@ import './index.less';
 export interface BizTableProps<T, U extends ParamsType> extends ProTableProps<T, U> {
 	renderActions?: () => ReactNode;
 	renderSider?: () => ReactNode;
-	inputPlaceholderText?: string,
+	inputPlaceholderText?: string;
 	actionRef?: any;
 }
 
@@ -43,11 +43,18 @@ export function BizTable<T, U extends ParamsType>({
 						style={{ width: 208 }}
 						allowClear
 						placeholder={inputPlaceholderText}
-						onChange={(e) => { 
+						onChange={e => {
 							setSearchStr(e.target.value);
 						}}
 					/>,
-					<Button key='search-button' type='primary' onClick={() => {console.log(actionRef.current, 'ssss'); actionRef?.current?.reload()}}>
+					<Button
+						key='search-button'
+						type='primary'
+						onClick={() => {
+							console.log(actionRef.current, 'ssss');
+							actionRef?.current?.reload();
+						}}
+					>
 						查询
 					</Button>,
 					<Button key='reset-button' type='default'>
@@ -63,12 +70,20 @@ export function BizTable<T, U extends ParamsType>({
 					<div className='io-table-container__content'>{dom}</div>
 				</div>
 			)}
-			request={request ? (params, sort, filter) => { 
-				return request({
-					...params,
-					keyword: searchStr,
-				},sort, filter)
-			} : undefined}
+			request={
+				request
+					? (params, sort, filter) => {
+							return request(
+								{
+									...params,
+									keyword: searchStr,
+								},
+								sort,
+								filter
+							);
+					  }
+					: undefined
+			}
 			{...reset}
 		/>
 	);

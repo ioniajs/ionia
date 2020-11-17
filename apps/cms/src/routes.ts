@@ -50,5 +50,5 @@ export default [
 		key: '/sitemanage',
 		path: '/sitemanage',
 		component: SiteManage,
-	}
+	},
 ];
