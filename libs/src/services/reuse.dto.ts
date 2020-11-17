@@ -7,7 +7,7 @@ export interface UserDTO {
 
 //#region
 export interface IdsDTO {
-	ids: string[]; // ids集合
+	ids?: string[]; // ids集合
 }
 //#endregion
 
