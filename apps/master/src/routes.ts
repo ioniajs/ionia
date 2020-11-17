@@ -35,6 +35,10 @@ export default {
 			name: '实践阵地',
 		},
 		{
+			path: '/cms/syssetting',
+			name: '系统设置',
+		},
+		{
 			path: '/cms/notpage',
 			name: '404报错',
 		},
