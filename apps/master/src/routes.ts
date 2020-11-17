@@ -42,5 +42,9 @@ export default {
 			path: '/cms/notpage',
 			name: '404报错',
 		},
+		{
+			path: '/cms/sitemanage',
+			name: '站点管理'
+		}
 	],
 } as Record<string, IoniaMenuRoute[]>;

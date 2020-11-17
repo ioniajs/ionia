@@ -7,6 +7,7 @@ import NotPage from '@/pages/NotPage';
 import PracticeBase from '@/pages/PracticeBase';
 import SysSetting from '@/pages/SysSetting';
 import User from '@/pages/User';
+import SiteManage from '@/pages/SiteManage';
 
 export default [
 	{ path: '/', component: List },
@@ -45,4 +46,9 @@ export default [
 		path: '/notpage',
 		component: NotPage,
 	},
+	{
+		key: '/sitemanage',
+		path: '/sitemanage',
+		component: SiteManage,
+	}
 ];
