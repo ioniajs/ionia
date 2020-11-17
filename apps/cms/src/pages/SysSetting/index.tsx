@@ -106,7 +106,7 @@ export default () => {
 						});
 						console.log(val, 'dadadad');
 						// 文件类型用中英文逗号分割
-						const temp = val.attachCtlTypes.replace(/[\uff0c]/g, ',').split(',');
+						const temp = val.attachCtlTypes  ? val.attachCtlTypes.replace(/[\uff0c]/g, ',').split(',') : [];
 						const data = {
 							...val,
 							blockSensitiveWord: !!val.blockSensitiveWord,
@@ -116,11 +116,11 @@ export default () => {
 							loginPoster: '0',
 							sysFavicon: '0',
 							sysHeaderLogo: '0',
-							maxAttachSize: Number(val.maxAttachSize),
-							maxAudioSize: Number(val.maxAudioSize),
-							maxDocSize: Number(val.maxDocSize),
-							maxPicSize: Number(val.maxPicSize),
-							maxVideoSize: Number(val.maxVideoSize),
+							maxAttachSize: Number(val.maxAttachSize) || 0,
+							maxAudioSize: Number(val.maxAudioSize) || 0,
+							maxDocSize: Number(val.maxDocSize) || 0,
+							maxPicSize: Number(val.maxPicSize) || 0,
+							maxVideoSize: Number(val.maxVideoSize) || 0,
 							attachCtlTypes: [].concat(temp),
 						};
 						console.log(data, 'dadadad');
@@ -134,7 +134,7 @@ export default () => {
 					<BizForm form={form} renderActions={false}>
 						<Form.Item
 							label='选择默认风格'
-							name='defaultColor'
+							name='defaultStyle'
 							initialValue='1'
 							rules={[{ required: true, message: '请选择默认风格' }]}
 						>
