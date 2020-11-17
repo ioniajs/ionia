@@ -3,9 +3,12 @@ import { Upload, Modal, Tooltip } from 'antd';
 import { UploadOutlined, ScissorOutlined, EyeOutlined, DeleteOutlined } from '@ant-design/icons';
 import { DndProvider, useDrag, useDrop, createDndContext } from 'react-dnd';
 import { UploadProps, UploadChangeParam } from 'antd/lib/upload';
-import { UploadFile } from 'antd/lib/upload/interface';
+import { RcCustomRequestOptions, RcFile, UploadFile } from 'antd/lib/upload/interface';
 import { PictureCropper } from '../PictureCropper';
+import { fileUpload } from '../../services/infra/admin-the-repository';
+import { UploadResultVO } from '../../services/infra/admin-the-repository';
 import './index.less';
+import { fetch } from 'umi-request';
 
 function getBase64(file: any) {
 	return new Promise((resolve, reject) => {
@@ -50,14 +53,14 @@ export const ImageUpload: React.FC<ImageUploadProps> = props => {
 		// action = config.uploadUrl,
 		beforeUpload,
 		itemRender,
-		progress = {
-			showInfo: true,
-			format: (successPercent?: number) => {
-				return '上传中' + successPercent + '%';
-			},
-			strokeWidth: 4,
-			className: 'io-image-upload-progress',
-		},
+		// progress = {
+		// 	showInfo: true,
+		// 	format: (successPercent?: number) => {
+		// 		return '上传中' + successPercent + '%';
+		// 	},
+		// 	strokeWidth: 4,
+		// 	className: 'io-image-upload-progress',
+		// },
 		...reset
 	} = props;
 	const [state, setState] = useState({
@@ -95,6 +98,23 @@ export const ImageUpload: React.FC<ImageUploadProps> = props => {
 		// await onRemove(file)
 		onRemove && onRemove(file);
 	};
+	const handleBeforeUpload = (file: UploadFile) => {
+		const formData = new FormData();
+		console.log(formData, file, 'fff');
+		// formData.append('files', [file])
+		return true;
+	};
+	const onSuccess = (ret: any, file: RcFile) => {
+		console.log('onSuccess', ret, file.name);
+		// setState({ ...state, fileList: fileList.concat(ret) });
+		// onAdd && onAdd(file);
+	};
+	const onError = (err: any) => {
+		console.log('onError', err);
+	};
+	const onProgress = ({ percent }: any, file: any) => {
+		console.log('onProgress', `${percent}%`, file.name);
+	};
 	const [cropVisible, setCropVisible] = useState<boolean>(false);
 	const [cropImgSrc, setCropImgSrc] = useState<string>();
 
@@ -103,18 +123,34 @@ export const ImageUpload: React.FC<ImageUploadProps> = props => {
 		<div>
 			<Upload
 				accept='image/*'
-				action={action}
+				// action={action}
 				className='io-image-upload'
 				multiple={true}
 				listType='picture-card'
 				fileList={fileList}
 				onPreview={handlePreview}
 				onChange={handleChange}
-				progress={progress}
-				// beforeUpload={() => {
-				// 	console.log('111');
-				// 	return true;
-				// }}
+				// progress={progress}
+				// beforeUpload={handleBeforeUpload}
+				customRequest={(options: RcCustomRequestOptions) => {
+					console.log(options, 'oooo');
+					const { file } = options;
+					const formData = new FormData();
+					formData.append('files', file);
+					// fileUpload(formData)
+					// .then(({ data: response }) => {
+					//   onSuccess(response, file);
+					// })
+					// .catch(onError);
+					fetch('/module-infra/res/upload', {
+						method: 'POST',
+						body: formData,
+					})
+						.then(({ data: response }: any) => {
+							onSuccess(response, file);
+						})
+						.catch(onError);
+				}}
 				itemRender={(originNode, file, fileList) => {
 					console.log(originNode, file, fileList);
 					// if (file.status !== 'error' && file.status !== 'uploading') {
@@ -160,7 +196,7 @@ export const ImageUpload: React.FC<ImageUploadProps> = props => {
 					}
 					return originNode;
 				}}
-				{...reset}
+				// {...reset}
 			>
 				{fileList.length < limit ? (
 					<div>
