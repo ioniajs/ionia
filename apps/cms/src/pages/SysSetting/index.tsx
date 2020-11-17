@@ -106,7 +106,9 @@ export default () => {
 						});
 						console.log(val, 'dadadad');
 						// 文件类型用中英文逗号分割
-						const temp = val.attachCtlTypes  ? val.attachCtlTypes.replace(/[\uff0c]/g, ',').split(',') : [];
+						const temp = val.attachCtlTypes
+							? val.attachCtlTypes.replace(/[\uff0c]/g, ',').split(',')
+							: [];
 						const data = {
 							...val,
 							blockSensitiveWord: !!val.blockSensitiveWord,

@@ -103,18 +103,18 @@ export const ImageUpload: React.FC<ImageUploadProps> = props => {
 		console.log(formData, file, 'fff');
 		// formData.append('files', [file])
 		return true;
-	}
+	};
 	const onSuccess = (ret: any, file: RcFile) => {
 		console.log('onSuccess', ret, file.name);
 		// setState({ ...state, fileList: fileList.concat(ret) });
 		// onAdd && onAdd(file);
-	}
+	};
 	const onError = (err: any) => {
 		console.log('onError', err);
-	}
-	const onProgress = ({ percent }:any, file: any) => {
+	};
+	const onProgress = ({ percent }: any, file: any) => {
 		console.log('onProgress', `${percent}%`, file.name);
-	}
+	};
 	const [cropVisible, setCropVisible] = useState<boolean>(false);
 	const [cropImgSrc, setCropImgSrc] = useState<string>();
 
@@ -144,12 +144,12 @@ export const ImageUpload: React.FC<ImageUploadProps> = props => {
 					// .catch(onError);
 					fetch('/module-infra/res/upload', {
 						method: 'POST',
-						body: formData
-						
-					}).then(({ data: response }: any) => {
-						onSuccess(response, file);
+						body: formData,
 					})
-					.catch(onError);
+						.then(({ data: response }: any) => {
+							onSuccess(response, file);
+						})
+						.catch(onError);
 				}}
 				itemRender={(originNode, file, fileList) => {
 					console.log(originNode, file, fileList);
