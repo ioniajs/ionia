@@ -188,54 +188,157 @@ export default [
 			})
 		);
 	}),
-	//站点排序
-	rest.get('/module-kernel/cmsmanager/sites/tree', (req, res, ctx) => {
-		return res(
-			ctx.json({
-				code: 200,
-				data: {
-					children: [
-						{
-							children: [{}],
-							dir: '',
-							domain: [],
-							id: 0,
-							name: '',
-							status: 0,
-						},
-					],
-					dir: '',
-					domain: [],
-					id: 0,
-					name: 'asasa',
-					status: 0,
-				},
-				message: '成功',
-			})
-		);
-	}),
+	// //站点排序
+	// rest.get('/module-kernel/cmsmanager/sites/tree', (req, res, ctx) => {
+	// 	return res(
+	// 		ctx.json({
+	// 			code: 200,
+	// 			data: {
+	// 				children: [
+	// 					{
+	// 						children: [{}],
+	// 						dir: '',
+	// 						domain: [],
+	// 						id: 0,
+	// 						name: '',
+	// 						status: 0,
+	// 					},
+	// 				],
+	// 				dir: '',
+	// 				domain: [],
+	// 				id: 0,
+	// 				name: 'asasa',
+	// 				status: 0,
+	// 			},
+	// 			message: '成功',
+	// 		})
+	// 	);
+	// }),
 	//获取站点树
 	rest.get('/module-kernel/cmsmanager/sites/tree', (req, res, ctx) => {
 		return res(
 			ctx.json({
 				code: 200,
-				data: {
+				data: [{
 					children: [
 						{
-							children: [{}],
+							children: [
+								{
+									dir: '',
+									domain: [],
+									id: 11,
+									name: '南昌市',
+									status: 0,
+								},
+								{
+									dir: '',
+									domain: [],
+									id: 12,
+									name: '九江市',
+									status: 0,
+								},
+								{
+									dir: '',
+									domain: [],
+									id: 13,
+									name: '景德镇市',
+									status: 0,
+								},
+								{
+									dir: '',
+									domain: [],
+									id: 14,
+									name: '赣州市',
+									status: 0,
+								},
+							],
 							dir: '',
 							domain: [],
-							id: 0,
-							name: '',
+							id: 1,
+							name: '江西省',
+							status: 0,
+						},
+						{
+							children: [
+								{
+									dir: '',
+									domain: [],
+									id: 21,
+									name: '长沙市',
+									status: 0,
+								},
+								{
+									dir: '',
+									domain: [],
+									id: 22,
+									name: '株洲市',
+									status: 0,
+								},
+								{
+									dir: '',
+									domain: [],
+									id: 23,
+									name: '景德镇市',
+									status: 0,
+								},
+								{
+									dir: '',
+									domain: [],
+									id: 24,
+									name: '赣州市',
+									status: 0,
+								},
+							],
+							dir: '',
+							domain: [],
+							id: 2,
+							name: '湖南省',
+							status: 0,
+						},
+						{
+							children: [
+								{
+									dir: '',
+									domain: [],
+									id: 31,
+									name: '长沙市',
+									status: 0,
+								},
+								{
+									dir: '',
+									domain: [],
+									id: 32,
+									name: '株洲市',
+									status: 0,
+								},
+								{
+									dir: '',
+									domain: [],
+									id: 33,
+									name: '景德镇市',
+									status: 0,
+								},
+								{
+									dir: '',
+									domain: [],
+									id: 34,
+									name: '赣州市',
+									status: 0,
+								},
+							],
+							dir: '',
+							domain: [],
+							id: 3,
+							name: '山东省',
 							status: 0,
 						},
 					],
 					dir: '',
 					domain: [],
 					id: 0,
-					name: 'asasa',
+					name: '中国',
 					status: 0,
-				},
+				},],
 				message: '成功',
 			})
 		);
