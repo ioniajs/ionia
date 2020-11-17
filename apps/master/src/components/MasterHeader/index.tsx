@@ -8,7 +8,7 @@ import AvatarDropdown from './AvatarDropdown';
 import './index.less';
 import Logo from './Logo';
 import ThemeColor from './ThemeColor';
-import Site from './Site'
+import Site from './Site';
 
 export enum MasterHeaderTheme {
 	Light = 'light',
@@ -87,7 +87,7 @@ const MasterHeader: React.FC<MasterHeaderProps> = ({ theme }) => {
 						<LangSelector />
 					</span>
 					<span className='io-master__header--item'>
-						<Site/>
+						<Site />
 					</span>
 				</div>
 			</div>

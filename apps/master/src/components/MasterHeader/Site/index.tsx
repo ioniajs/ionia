@@ -6,7 +6,6 @@ import React from 'react';
 import './index.less';
 import { DataNode } from 'antd/lib/tree';
 
-
 // interface DataNode {
 // 	dir: string;
 // 	id: string;
@@ -17,24 +16,26 @@ import { DataNode } from 'antd/lib/tree';
 //   }
 
 //   const initTreeDate: DataNode[] = [
-	
+
 //   ];
 
 const dfs = (node: any) => {
-	return node && node.map((n: any) => {
-		if(n && n.children) {
-			n.children = dfs(n.children);
-		}
-		return {
-			...n,
-			title: n.name,
-			key:n.id
-		};		
-	})
-}
+	return (
+		node &&
+		node.map((n: any) => {
+			if (n && n.children) {
+				n.children = dfs(n.children);
+			}
+			return {
+				...n,
+				title: n.name,
+				key: n.id,
+			};
+		})
+	);
+};
 
-const Site : React.FC<{}> =() => {
-
+const Site: React.FC<{}> = () => {
 	const { data } = useRequest(() => gainSiteTree());
 	const treeData: any = data?.data ?? [];
 
@@ -65,5 +66,4 @@ const Site : React.FC<{}> =() => {
 	);
 };
 
-
-export default Site
+export default Site;
