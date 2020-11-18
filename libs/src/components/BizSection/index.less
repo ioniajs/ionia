@@ -1,0 +1,30 @@
+.io-biz-section {
+	margin: 32px 0;
+	padding-bottom: 22px;
+	border-bottom: 1px solid #f0f0f0;
+	background-color: #ffffff;
+
+	&:first-child {
+		margin: 0 0 32px 0;
+	}
+
+	&:last-child {
+		border-bottom: none;
+	}
+
+	.io-biz-section__title {
+		&::before {
+			display: inline-block;
+			width: 2px;
+			height: 16px;
+			margin-right: 8px;
+			background-color: #1c6cd8;
+			content: ' ';
+		}
+		display: inline-flex;
+		align-items: center;
+		font-size: 16px;
+		font-weight: 600;
+		color: #262626;
+	}
+}
