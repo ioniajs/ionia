@@ -101,44 +101,39 @@ export default () => {
 			<BizPage
 				showActions={false}
 				tips='操作说明的文字 ：设置系统所使用的验证码模板，提供邮件或短信两种方式'
-			></BizPage>
-			<BizTable
-				renderActions={() => (
-					<>
-						<div className='io-space-item'>
-							<UserForm />
-						</div>
-						<div className='io-space-item'>
-							<Button
-								onClick={() => history.push('/user/userbatchadd')}
-								type='default'
-							>
-								批量新建
-							</Button>
-						</div>
-						<div className='io-space-item'>
-							<Button onClick={showConfirm} type='default'>
-								批量删除
-							</Button>
-						</div>
-						<div className='io-space-item'>
-							<Button type='default'>导入</Button>
-						</div>
-					</>
-				)}
-				renderSider={() => <BizTree />}
-				columns={columns}
-				request={params => {
-					console.log(params);
-					return new Promise(resolve => resolve());
-				}}
-			/>
-			<Pagination
-				showTotal={total => `共 ${total} 条`}
-				showQuickJumper
-				defaultCurrent={2}
-				total={30}
-			/>
+			>
+				<BizTable
+					renderActions={() => (
+						<>
+							<div className='io-space-item'>
+								<UserForm />
+							</div>
+							<div className='io-space-item'>
+								<Button
+									onClick={() => history.push('/user/userbatchadd')}
+									type='default'
+								>
+									批量新建
+								</Button>
+							</div>
+							<div className='io-space-item'>
+								<Button onClick={showConfirm} type='default'>
+									批量删除
+								</Button>
+							</div>
+							<div className='io-space-item'>
+								<Button type='default'>导入</Button>
+							</div>
+						</>
+					)}
+					renderSider={() => <BizTree />}
+					columns={columns}
+					request={params => {
+						console.log(params);
+						return new Promise(resolve => resolve());
+					}}
+				/>
+			</BizPage>
 		</div>
 	);
 };

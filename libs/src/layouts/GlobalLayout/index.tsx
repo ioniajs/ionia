@@ -1,10 +1,11 @@
 import { useGlobalStore } from '../../hooks';
 import { useMount } from 'ahooks';
-import { Layout } from 'antd';
+import { ConfigProvider, Layout } from 'antd';
 import { MicroAppStateActions } from 'qiankun';
 import React from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 import { Auth, ErrorFallback } from '../../components';
+import zhCN from 'antd/lib/locale/zh_CN';
 import './index.less';
 
 const { AccessProvider } = Auth;
@@ -27,9 +28,11 @@ export const GlobalLayout: React.FC<GlobalLayoutProps> = ({ children, globalProp
 
 	return (
 		<ErrorBoundary FallbackComponent={ErrorFallback} onReset={() => {}} resetKeys={[]}>
-			<AccessProvider>
-				<Layout className='io-layout__global'>{children}</Layout>
-			</AccessProvider>
+			<ConfigProvider locale={zhCN}>
+				<AccessProvider>
+					<Layout className='io-layout__global'>{children}</Layout>
+				</AccessProvider>
+			</ConfigProvider>
 		</ErrorBoundary>
 	);
 };
