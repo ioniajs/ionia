@@ -13,6 +13,7 @@ export default {
 			children: [
 				{ path: '/cms/basic', name: '基础组件' },
 				{ path: '/cms/detail', name: '详情页' },
+				{ path: '/cms/amap', name: '高德地图' },
 			],
 		},
 		{

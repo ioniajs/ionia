@@ -1,3 +1,4 @@
+export * from './AMap';
 export * from './AnnexUpload';
 export * from './AudioPlayer';
 export * from './AudioUpload';
