@@ -1,5 +1,5 @@
 import { ProColumns } from '@ant-design/pro-table';
-import { BizTable, BizTree } from '@ionia/libs';
+import { BizPage, BizTable, BizTree } from '@ionia/libs';
 import { Button } from 'antd';
 import React from 'react';
 import UserForm from '../User/Form';
@@ -71,28 +71,30 @@ const columns: ProColumns<TableListItem>[] = [
 
 export default () => {
 	return (
-		<BizTable
-			renderActions={() => (
-				<>
-					<div className='io-space-item'>
-						<UserForm />
-					</div>
-					<div className='io-space-item'>
-						<Button type='default'>启用</Button>
-					</div>
-					<div className='io-space-item'>
-						<Button type='default'>禁用</Button>
-					</div>
-					<div className='io-space-item'>
-						<Button type='default'>删除</Button>
-					</div>
-				</>
-			)}
-			columns={columns}
-			request={params => {
-				console.log(params);
-				return new Promise(resolve => resolve());
-			}}
-		/>
+		<BizPage showActions={false}>
+			<BizTable
+				renderActions={() => (
+					<>
+						<div className='io-space-item'>
+							<UserForm />
+						</div>
+						<div className='io-space-item'>
+							<Button type='default'>启用</Button>
+						</div>
+						<div className='io-space-item'>
+							<Button type='default'>禁用</Button>
+						</div>
+						<div className='io-space-item'>
+							<Button type='default'>删除</Button>
+						</div>
+					</>
+				)}
+				columns={columns}
+				request={params => {
+					console.log(params);
+					return new Promise(resolve => resolve());
+				}}
+			/>
+		</BizPage>
 	);
 };

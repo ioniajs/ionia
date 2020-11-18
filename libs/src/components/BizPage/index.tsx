@@ -34,7 +34,7 @@ export const BizPage = ({
 	onGoback,
 	onSave,
 	showBreadCrumbs,
-	showActions = true,
+	showActions = false,
 }: BizPageProps) => {
 	const [activeKey, setActiveKey] = useState<string>();
 	const [tipsVisible, setTipsVisible] = useState<boolean>(true);
