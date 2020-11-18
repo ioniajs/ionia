@@ -22,7 +22,6 @@ interface BizPageProps {
 	onGoback?: () => void;
 	onSave?: () => void;
 	tabList?: TabPaneProps[];
-	showBreadCrumbs?: ReactNode;
 }
 
 export const BizPage = ({
@@ -33,7 +32,6 @@ export const BizPage = ({
 	renderActions,
 	onGoback,
 	onSave,
-	showBreadCrumbs,
 	showActions = false,
 }: BizPageProps) => {
 	const [activeKey, setActiveKey] = useState<string>();
@@ -49,29 +47,30 @@ export const BizPage = ({
 	return (
 		<div className='io-biz-page'>
 			<div className='io-biz-page__header'>
-				{showBreadCrumbs && (
-					<div className='io-biz-page__header-container'>
-						{showActions && tabList && (
-							<GobackButton
-								onGoback={onGoback}
-								style={{ marginRight: 32, height: 24, width: 60 }}
-							/>
-						)}
-						{breadcrumbs && (
-							<Breadcrumb>
-								{breadcrumbs.map((item, index) => (
-									<Breadcrumb.Item key={index}>
-										{item.path ? (
-											<Link to={item.path}>{item.name}</Link>
-										) : (
-											item.name
-										)}
-									</Breadcrumb.Item>
-								))}
-							</Breadcrumb>
-						)}
-					</div>
-				)}
+				<div
+					className='io-biz-page__header-container'
+					style={{ marginTop: breadcrumbs ? 24 : 0 }}
+				>
+					{showActions && tabList && (
+						<GobackButton
+							onGoback={onGoback}
+							style={{ marginRight: 32, height: 24, width: 60 }}
+						/>
+					)}
+					{breadcrumbs && (
+						<Breadcrumb>
+							{breadcrumbs.map((item, index) => (
+								<Breadcrumb.Item key={index}>
+									{item.path ? (
+										<Link to={item.path}>{item.name}</Link>
+									) : (
+										item.name
+									)}
+								</Breadcrumb.Item>
+							))}
+						</Breadcrumb>
+					)}
+				</div>
 				{tips && (
 					<div className='io-biz-page__tips'>
 						<div
