@@ -130,7 +130,7 @@ export default () => {
 			request={params => {
 				return gainSiteTree(params.keyword || '');
 			}}
-			postData={(data: AdminSiteTreeVO[]) => [data]}
+			// postData={(data: AdminSiteTreeVO[]) => [data]}
 			// components={}
 			rowSelection={{}}
 			pagination={false}
