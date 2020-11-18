@@ -9,13 +9,11 @@ export default {
 	cms: [
 		{
 			path: '/cms',
-			name: '内容列表',
-			icon: 'icon-content',
-		},
-		{
-			path: '/cms/category',
-			name: '内容分类',
-			icon: 'icon-Column',
+			name: '组件演示',
+			children: [
+				{ path: '/cms/basic', name: '基础组件' },
+				{ path: '/cms/detail', name: '详情页' },
+			],
 		},
 		{
 			path: '/cms/user',
@@ -23,27 +21,15 @@ export default {
 			icon: 'icon-Column',
 		},
 		{
-			path: '/cms/demo',
-			name: '组件演示',
-			children: [
-				{ path: '/cms/demo/basic', name: '基础组件' },
-				{ path: '/cms/demo/detail', name: '详情页' },
-			],
-		},
-		{
 			path: '/cms/practicebase',
 			name: '实践阵地',
 		},
 		{
-			path: '/cms/syssetting',
+			path: '/cms/setting',
 			name: '系统设置',
 		},
 		{
-			path: '/cms/notpage',
-			name: '404报错',
-		},
-		{
-			path: '/cms/sitemanage',
+			path: '/cms/site',
 			name: '站点管理',
 		},
 	],

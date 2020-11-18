@@ -27,7 +27,7 @@ export interface AdminSiteRecycleSummaryVo {
 export interface AdminSiteTreeVO {
 	children: AdminSiteTreeVO[]; // 子级站点
 	dir: string; // 站点目录
-	domian: string[]; // 站点域名
+	domain: string[]; // 站点域名
 	id: string; // 站点id
 	name: string; // 站点名称
 	status: number; // 状态 (0关 1开)
