@@ -5,8 +5,10 @@ import Detail from '@/pages/Detail';
 import List from '@/pages/List';
 import NotPage from '@/pages/NotPage';
 import PracticeBase from '@/pages/PracticeBase';
+import SiteManage from '@/pages/SiteManage';
 import SysSetting from '@/pages/SysSetting';
 import User from '@/pages/User';
+import UserBatchAdd from '@/pages/User/UserBatchAdd';
 
 export default [
 	{ path: '/', component: List },
@@ -22,6 +24,10 @@ export default [
 	{
 		path: '/user',
 		component: User,
+	},
+	{
+		path: '/user/userbatchadd',
+		component: UserBatchAdd,
 	},
 	{
 		path: '/demo/basic',
@@ -44,5 +50,10 @@ export default [
 		key: '/notpage',
 		path: '/notpage',
 		component: NotPage,
+	},
+	{
+		key: '/sitemanage',
+		path: '/sitemanage',
+		component: SiteManage,
 	},
 ];
