@@ -124,7 +124,7 @@ export async function recycleSiteRestore(id: string): Promise<JcResult<object>> 
 export async function gainSiteTree(searchStr?: string): Promise<JcResult<AdminSiteTreeVO[]>> {
 	return request.get(`/module-kernel/cmsmanager/sites/tree`, {
 		params: {
-			searchStr: searchStr,
+			searchStr,
 		},
 	});
 }
