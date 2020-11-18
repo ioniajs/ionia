@@ -40,6 +40,7 @@ export default (props: any) => {
 				onCancel={handleCancel}
 				cancelText='取消'
 				okText='确定'
+				className='io-master_avatar-modal'
 			>
 				<Form form={form} onFinish={onFinish} className='io-master_psdform'>
 					<Form.Item
