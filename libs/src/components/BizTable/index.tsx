@@ -1,7 +1,7 @@
 import { ParamsType } from '@ant-design/pro-provider';
-import ProTable, { ProTableProps, ActionType } from '@ant-design/pro-table';
+import ProTable, { ProTableProps } from '@ant-design/pro-table';
 import { Button, Input } from 'antd';
-import React, { ReactNode, useRef, useState } from 'react';
+import React, { ReactNode, useState } from 'react';
 import './index.less';
 
 export interface BizTableProps<T, U extends ParamsType> extends ProTableProps<T, U> {

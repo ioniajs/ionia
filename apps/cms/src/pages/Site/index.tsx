@@ -4,7 +4,14 @@ import { Button, Switch, Divider, Modal, Tooltip } from 'antd';
 import { DndProvider, useDrag, useDrop, createDndContext } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 // import update from 'immutability-helper';
-import { BizTable, gainSiteTree, disableSite, enableSite, batchDetailSite } from '@ionia/libs';
+import {
+	BizTable,
+	gainSiteTree,
+	disableSite,
+	enableSite,
+	batchDetailSite,
+	BizPage,
+} from '@ionia/libs';
 import { AdminSiteTreeVO } from '@ionia/libs/src/services/kernel/admin-site.vo';
 import { IdsDTO } from '@ionia/libs/src/services/reuse.dto';
 
@@ -137,76 +144,78 @@ export default () => {
 		},
 	];
 	return (
-		<BizTable
-			rowKey='id'
-			actionRef={actionRef}
-			renderActions={() => (
-				<>
-					<div className='io-space-item'>
-						<Button type='primary'>
-							<i className='iconfont icon-plus1' style={{ fontSize: '16px' }} />
-							新建
-						</Button>
-					</div>
-					<div className='io-space-item'>
-						<Button type='default'>批量新建</Button>
-					</div>
-					<div className='io-space-item'>
-						<Button
-							type='default'
-							onClick={() => {
-								Modal.info({
-									title: '是否确认删除',
-									okText: '确定',
-									cancelText: '取消',
-									onOk: async () => {
-										const tempSelRowKeys = selectedRowKeys.map((s: any) =>
-											s.toString()
-										);
-										const batchDelRes = await handleRemove({
-											ids: tempSelRowKeys,
-										});
-										if (batchDelRes === 200) {
-											if (batchDelRes === 200 && actionRef.current) {
-												actionRef.current.reload();
+		<BizPage>
+			<BizTable
+				rowKey='id'
+				actionRef={actionRef}
+				renderActions={() => (
+					<>
+						<div className='io-space-item'>
+							<Button type='primary'>
+								<i className='iconfont icon-plus1' style={{ fontSize: '16px' }} />
+								新建
+							</Button>
+						</div>
+						<div className='io-space-item'>
+							<Button type='default'>批量新建</Button>
+						</div>
+						<div className='io-space-item'>
+							<Button
+								type='default'
+								onClick={() => {
+									Modal.info({
+										title: '是否确认删除',
+										okText: '确定',
+										cancelText: '取消',
+										onOk: async () => {
+											const tempSelRowKeys = selectedRowKeys.map((s: any) =>
+												s.toString()
+											);
+											const batchDelRes = await handleRemove({
+												ids: tempSelRowKeys,
+											});
+											if (batchDelRes === 200) {
+												if (batchDelRes === 200 && actionRef.current) {
+													actionRef.current.reload();
+												}
 											}
-										}
-									},
-								});
-							}}
-						>
-							批量删除
-						</Button>
-					</div>
-					<div className='io-space-item'>
-						<Button type='default'>排序</Button>
-					</div>
-					<div className='io-space-item'>
-						<Button type='default'>站点回收</Button>
-					</div>
-				</>
-			)}
-			inputPlaceholderText={'请输入站点名称/目录'}
-			columns={columns}
-			request={params => {
-				return gainSiteTree(params.keyword || '');
-			}}
-			// postData={(data: AdminSiteTreeVO[]) => [data]}
-			// components={}
-			rowSelection={{
-				selectedRowKeys,
-				onChange: selectedRowKeys => {
-					console.log(selectedRowKeys, 'ssss');
-					setSelectedRowKeys(selectedRowKeys as number[]);
-				},
-				checkStrictly: false,
-				// getCheckboxProps: (record) => ({
-				//   // 在整个详情为部分发货状态下，并且，商品信息为已发货状态下，该条商品信息不可勾选
-				//   disabled: record.Status === 1 && data.Status === 2,
-				//   ProductName: record.ProductName,
-				// }),
-			}}
-			pagination={false}
-		/>
+										},
+									});
+								}}
+							>
+								批量删除
+							</Button>
+						</div>
+						<div className='io-space-item'>
+							<Button type='default'>排序</Button>
+						</div>
+						<div className='io-space-item'>
+							<Button type='default'>站点回收</Button>
+						</div>
+					</>
+				)}
+				inputPlaceholderText={'请输入站点名称/目录'}
+				columns={columns}
+				request={params => {
+					return gainSiteTree(params.keyword || '');
+				}}
+				// postData={(data: AdminSiteTreeVO[]) => [data]}
+				// components={}
+				rowSelection={{
+					selectedRowKeys,
+					onChange: selectedRowKeys => {
+						console.log(selectedRowKeys, 'ssss');
+						setSelectedRowKeys(selectedRowKeys as number[]);
+					},
+					checkStrictly: false,
+					// getCheckboxProps: (record) => ({
+					//   // 在整个详情为部分发货状态下，并且，商品信息为已发货状态下，该条商品信息不可勾选
+					//   disabled: record.Status === 1 && data.Status === 2,
+					//   ProductName: record.ProductName,
+					// }),
+				}}
+				pagination={false}
+			/>
+		</BizPage>
 	);
 };

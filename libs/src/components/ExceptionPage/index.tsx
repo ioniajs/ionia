@@ -3,7 +3,7 @@ import React from 'react';
 import { useHistory } from 'react-router-dom';
 import './index.less';
 
-export interface ErrorPageProps {
+export interface ExceptionPageProps {
 	code?: number;
 }
 
@@ -13,14 +13,14 @@ const messages = {
 	500: '服务器出错了，请联系管理员',
 };
 
-export const ErrorPage = ({ code = 404 }: ErrorPageProps) => {
+export const ExceptionPage = ({ code = 404 }: ExceptionPageProps) => {
 	const history = useHistory();
 	return (
-		<div className='io-error-page'>
+		<div className='io-exception-page'>
 			<img src={require(`../../static/images/${code}.png`)} alt='' />
-			<p className='io-error-page__hint'>{code}</p>
-			<p className='io-error-page__message'>{messages[code]}</p>
-			<Button type='primary' onClick={() => history.go(-1)}>
+			<p className='io-exception-page__hint'>{code}</p>
+			<p className='io-exception-page__message'>{messages[code]}</p>
+			<Button type='primary' onClick={() => history.goBack()}>
 				<i className='iconfont icon-left'></i>
 				<span>返回上一页</span>
 			</Button>

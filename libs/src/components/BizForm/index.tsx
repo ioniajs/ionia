@@ -1,28 +1,25 @@
-import React from 'react';
-import { Button, Form } from 'antd';
 import { LeftOutlined } from '@ant-design/icons';
 import { ProFormProps } from '@ant-design/pro-form';
+import { Button, Form } from 'antd';
+import React from 'react';
 import './index.less';
 
 export interface BizFormProps extends ProFormProps {
 	renderActions?: boolean;
-	onSubmit?: () => void;
 	onCancel?: () => void;
-	butLoading?: boolean;
-	onFinish?: () => Promise<void>;
+	onSubmit?: () => Promise<void>;
 }
 
 const layout = {
 	labelCol: { span: 6 },
 	wrapperCol: { span: 12 },
 };
+
 export const BizForm: React.FC<BizFormProps> = props => {
 	const {
 		children,
-		// tabList,
-		onSubmit,
 		renderActions = true,
-		onFinish,
+		onSubmit,
 		onCancel = () => history.back(),
 		...reset
 	} = props;
@@ -44,7 +41,7 @@ export const BizForm: React.FC<BizFormProps> = props => {
 							htmlType='submit'
 							className='io-biz-form_subbut'
 							size='small'
-							onClick={onFinish}
+							onClick={onSubmit}
 						>
 							保存
 						</Button>
