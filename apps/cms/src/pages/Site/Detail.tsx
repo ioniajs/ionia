@@ -1,10 +1,17 @@
-import React from 'react';
-import { Button, Form, Input, Switch, Cascader, Select, Tooltip } from 'antd';
+import React, { useState } from 'react';
+import { Button, Form, Input, Switch, Cascader, Select, Tooltip, TreeSelect } from 'antd';
 import { InfoCircleOutlined } from '@ant-design/icons';
-import { BizPage, GobackButton, SaveButton, BizForm, ImageUpload } from '@ionia/libs';
+import { BizPage, GobackButton, SaveButton, ImageUpload } from '@ionia/libs';
+import { useMount, useRequest } from '@umijs/hooks';
+import { gainSiteTree, createAdminSite, AdminSiteDTO } from '@ionia/libs/src/services/kernel'
+import { AdminSiteTreeVO } from '@ionia/libs/src/services/kernel/admin-site.vo'
 import './index.less';
 
 const { Option } = Select;
+const layout = {
+	labelCol: { span: 6 },
+	wrapperCol: { span: 12 },
+}
 const selectBefore = (
 	<Select defaultValue='http://' className='select-before'>
 		<Option value='http://'>http://</Option>
@@ -12,8 +19,38 @@ const selectBefore = (
 	</Select>
 );
 
+const handleCreateSites = async (filed: AdminSiteDTO) => {
+	const createRef = await createAdminSite(filed);
+	return createRef;
+}
 export default () => {
 	const [form] = Form.useForm();
+	const [siteTree, setSiteTree] = useState<AdminSiteTreeVO[]>();
+	const [domainList, setDomainList] = useState<number[]>([1])
+	const { run: runsiteTree } = useRequest(gainSiteTree, {
+		manual: true,
+		onSuccess: (result) => {
+			const loop = function (data: any) {
+				return data.map((r: any) => {
+					if (r.children) {
+						r.children = loop(r.children);
+					}
+					return {
+						value: r.id,
+						title: r.name,
+						key: r.id,
+						children: r.children,
+						...r,
+					}
+				})
+			}
+			const tempSiteTree = loop(result.data);
+			setSiteTree(tempSiteTree);
+		}
+	});
+	useMount(() => {
+		runsiteTree();
+	})
 	return (
 		<BizPage
 			breadcrumbs={[{ name: '站点管理' }, { name: '新建' }]}
@@ -22,7 +59,14 @@ export default () => {
 				return (
 					<>
 						<GobackButton />
-						<SaveButton />
+						<SaveButton
+							onSave={async () => {
+								form.validateFields().then(async values => {
+									console.log(values, '保存的数据');
+									// const success = await handleCreateSites(values);
+								})
+							}}
+						/>
 						<Button type='default' className='io-cms-site-save-expand__but'>
 							保存并详细配置
 						</Button>
@@ -33,13 +77,13 @@ export default () => {
 				);
 			}}
 		>
-			<BizForm form={form} renderActions={false} style={{ marginTop: '32px' }}>
+			<Form form={form} style={{ marginTop: '32px' }} {...layout}>
 				<Form.Item
 					name='parentId'
 					label='上级站点'
 					rules={[{ required: true, message: '请选择上级站点' }]}
 				>
-					<Cascader placeholder='请选择上级站点' />
+					<TreeSelect placeholder='请选择上级站点' treeData={siteTree} />
 				</Form.Item>
 				<Form.Item
 					name='name'
@@ -55,12 +99,30 @@ export default () => {
 				>
 					<Input placeholder='请输入站点目录' />
 				</Form.Item>
-				<Form.Item
-					name='domain'
-					label='域名'
-					rules={[{ required: true, message: '请输入域名' }]}
-				>
-					<Input placeholder='请输入域名' addonBefore={selectBefore} />
+				{domainList.map((d: any, i: number) => {
+					return (
+
+						<Form.Item
+							name={`domain_${i}`}
+							label={i !== 0 ? <span style={{ display: 'none' }}>域名</span> : '域名'}
+							rules={[{ required: true, message: '请输入域名' }]}
+							colon={!i}
+						>
+							<Input placeholder='请输入域名' addonBefore={selectBefore} />
+						</Form.Item>
+					)
+				})}
+				<Form.Item name='' label={<span style={{ display: 'none' }}>添加按钮</span>} colon={false}>
+					<Button
+						type='dashed'
+						style={{ width: '100%' }}
+						onClick={() => {
+							setDomainList(domainList.concat(1))
+						}}
+					>
+						<i className='iconfont icon-plus-square' />
+						添加
+					</Button>
 				</Form.Item>
 				<Form.Item name='desc' label='站点描述'>
 					<Input.TextArea
@@ -110,7 +172,7 @@ export default () => {
 						maxLength={500}
 					/>
 				</Form.Item>
-			</BizForm>
+			</Form>
 		</BizPage>
 	);
 };
