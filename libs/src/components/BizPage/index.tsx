@@ -5,6 +5,8 @@ import { Link } from 'react-router-dom';
 import { GobackButton } from './GobackButton';
 import './index.less';
 import { SaveButton } from './SaveButton';
+export * from './GobackButton';
+export * from './SaveButton';
 
 const { TabPane } = Tabs;
 

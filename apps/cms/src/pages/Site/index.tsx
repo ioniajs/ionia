@@ -1,8 +1,9 @@
 import React, { useRef, useState } from 'react';
 import { ProColumns, ActionType } from '@ant-design/pro-table';
-import { Button, Switch, Divider, Modal, Tooltip } from 'antd';
+import { Button, Switch, Divider, Modal, Tooltip, message } from 'antd';
 import { DndProvider, useDrag, useDrop, createDndContext } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
+import { useHistory } from 'react-router-dom';
 // import update from 'immutability-helper';
 import {
 	BizTable,
@@ -32,10 +33,16 @@ const handleUpdate = async (id: string, status: number) => {
 // 删除
 const handleRemove = async (ids: IdsDTO) => {
 	const removeRes = await batchDetailSite(ids);
+	if (removeRes.code !== 200) {
+		message.error('删除失败');
+	} else {
+		message.success('删除成功');
+	}
 	return removeRes.code;
 };
 
 export default () => {
+	const history = useHistory();
 	const actionRef = useRef<ActionType>();
 	const [selectedRowKeys, setSelectedRowKeys] = useState<number[]>([]);
 	const columns: ProColumns<AdminSiteTreeVO>[] = [
@@ -47,7 +54,13 @@ export default () => {
 			render: (_, row) => {
 				return (
 					<Tooltip title={`${row.name}`}>
-						<span>{row.name}</span>
+						<a
+							onClick={() => {
+								history.push(`/site/detail/${row.id}`)
+							}}
+						>
+							{row.name}
+						</a>
 					</Tooltip>
 				);
 			},
@@ -118,8 +131,9 @@ export default () => {
 						<a
 							onClick={async () => {
 								Modal.confirm({
-									title: '是否确定删除',
-									okText: '确定',
+									title: '你确定删除选中站点吗？',
+									content: '删除站点会同时删除其下级站点，删除可在站点回收站中恢复。',
+									okText: '删除',
 									cancelText: '取消',
 									onOk: async () => {
 										const success = await handleRemove({
@@ -151,7 +165,12 @@ export default () => {
 				renderActions={() => (
 					<>
 						<div className='io-space-item'>
-							<Button type='primary'>
+							<Button
+								type='primary'
+								onClick={() => {
+									history.push('/site/create')
+								}}
+							>
 								<i className='iconfont icon-plus1' style={{ fontSize: '16px' }} />
 								新建
 							</Button>
@@ -162,10 +181,12 @@ export default () => {
 						<div className='io-space-item'>
 							<Button
 								type='default'
+								disabled={selectedRowKeys.length === 0}
 								onClick={() => {
 									Modal.info({
-										title: '是否确认删除',
-										okText: '确定',
+										title: '你确定删除选中站点吗？',
+										content: '删除站点会同时删除其下级站点，删除可在站点回收站中恢复。',
+										okText: '删除',
 										cancelText: '取消',
 										onOk: async () => {
 											const tempSelRowKeys = selectedRowKeys.map((s: any) =>
