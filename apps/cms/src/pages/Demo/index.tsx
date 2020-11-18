@@ -1,5 +1,4 @@
 import ProCard from '@ant-design/pro-card';
-import { PageContainer } from '@ant-design/pro-layout';
 import {
 	Watermark,
 	AnnexUpload,
@@ -7,13 +6,15 @@ import {
 	AudioUpload,
 	ImageUpload,
 	VideoUpload,
+	BizPage,
+	BizModal,
 } from '@ionia/libs';
 import { Button } from 'antd';
 import React from 'react';
 
 export default () => {
 	return (
-		<PageContainer pageHeaderRender={() => null}>
+		<BizPage>
 			<ProCard>
 				<div>Demo</div>
 				<ImageUpload
@@ -51,7 +52,8 @@ export default () => {
 						console.log(value);
 					}}
 				/>
+				<BizModal title='位置' />
 			</ProCard>
-		</PageContainer>
+		</BizPage>
 	);
 };

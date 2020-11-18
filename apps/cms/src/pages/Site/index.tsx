@@ -4,7 +4,14 @@ import { Button, Switch, Divider } from 'antd';
 import { DndProvider, useDrag, useDrop, createDndContext } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 // import update from 'immutability-helper';
-import { BizTable, gainSiteTree, disableSite, enableSite, batchDetailSite } from '@ionia/libs';
+import {
+	BizTable,
+	gainSiteTree,
+	disableSite,
+	enableSite,
+	batchDetailSite,
+	BizPage,
+} from '@ionia/libs';
 import { AdminSiteTreeVO } from '@ionia/libs/src/services/kernel/admin-site.vo';
 
 /**
@@ -101,39 +108,41 @@ export default () => {
 		},
 	];
 	return (
-		<BizTable
-			actionRef={actionRef}
-			renderActions={() => (
-				<>
-					<div className='io-space-item'>
-						<Button type='primary'>
-							<i className='iconfont icon-plus1' style={{ fontSize: '16px' }} />
-							新建
-						</Button>
-					</div>
-					<div className='io-space-item'>
-						<Button type='default'>批量新建</Button>
-					</div>
-					<div className='io-space-item'>
-						<Button type='default'>批量删除</Button>
-					</div>
-					<div className='io-space-item'>
-						<Button type='default'>排序</Button>
-					</div>
-					<div className='io-space-item'>
-						<Button type='default'>站点回收</Button>
-					</div>
-				</>
-			)}
-			inputPlaceholderText={'请输入站点名称/目录'}
-			columns={columns}
-			request={params => {
-				return gainSiteTree(params.keyword || '');
-			}}
-			postData={(data: AdminSiteTreeVO[]) => [data]}
-			// components={}
-			rowSelection={{}}
-			pagination={false}
-		/>
+		<BizPage>
+			<BizTable
+				actionRef={actionRef}
+				renderActions={() => (
+					<>
+						<div className='io-space-item'>
+							<Button type='primary'>
+								<i className='iconfont icon-plus1' style={{ fontSize: '16px' }} />
+								新建
+							</Button>
+						</div>
+						<div className='io-space-item'>
+							<Button type='default'>批量新建</Button>
+						</div>
+						<div className='io-space-item'>
+							<Button type='default'>批量删除</Button>
+						</div>
+						<div className='io-space-item'>
+							<Button type='default'>排序</Button>
+						</div>
+						<div className='io-space-item'>
+							<Button type='default'>站点回收</Button>
+						</div>
+					</>
+				)}
+				inputPlaceholderText={'请输入站点名称/目录'}
+				columns={columns}
+				request={params => {
+					return gainSiteTree(params.keyword || '');
+				}}
+				postData={(data: AdminSiteTreeVO[]) => [data]}
+				// components={}
+				rowSelection={{}}
+				pagination={false}
+			/>
+		</BizPage>
 	);
 };

@@ -1,25 +1,20 @@
-import Category from '@/pages/Category';
 import Demo from '@/pages/Demo';
 import DemoDetail from '@/pages/Demo/Detail';
-import Detail from '@/pages/Detail';
-import List from '@/pages/List';
-import NotPage from '@/pages/NotPage';
 import PracticeBase from '@/pages/PracticeBase';
-import SiteManage from '@/pages/SiteManage';
-import SysSetting from '@/pages/SysSetting';
+import Setting from '@/pages/Setting';
+import Site from '@/pages/Site';
 import User from '@/pages/User';
-import UserBatchAdd from '@/pages/User/UserBatchAdd';
+import UserBatchAdd from '@/pages/User/BatchAdd';
+import { ExceptionPage } from '@ionia/libs';
 
 export default [
-	{ path: '/', component: List },
 	{
-		path: '/category',
-		component: Category,
+		path: '/basic',
+		component: Demo,
 	},
 	{
-		path: '/detail/:id',
-		hideInMenu: true,
-		component: Detail,
+		path: '/detail',
+		component: DemoDetail,
 	},
 	{
 		path: '/user',
@@ -30,30 +25,27 @@ export default [
 		component: UserBatchAdd,
 	},
 	{
-		path: '/demo/basic',
-		component: Demo,
-	},
-	{
-		path: '/demo/detail',
-		component: DemoDetail,
-	},
-	{
 		path: '/practicebase',
 		component: PracticeBase,
 	},
 	{
-		key: '/syssetting',
-		path: '/syssetting',
-		component: SysSetting,
+		path: '/setting',
+		component: Setting,
 	},
 	{
-		key: '/notpage',
-		path: '/notpage',
-		component: NotPage,
+		path: '/sit',
+		component: Site,
 	},
 	{
-		key: '/sitemanage',
-		path: '/sitemanage',
-		component: SiteManage,
+		path: '/500',
+		component: ExceptionPage,
+	},
+	{
+		path: '/403',
+		component: ExceptionPage,
+	},
+	{
+		path: '*',
+		component: ExceptionPage,
 	},
 ];
