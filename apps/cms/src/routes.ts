@@ -33,7 +33,7 @@ export default [
 		component: Setting,
 	},
 	{
-		path: '/sit',
+		path: '/site',
 		component: Site,
 	},
 	{
