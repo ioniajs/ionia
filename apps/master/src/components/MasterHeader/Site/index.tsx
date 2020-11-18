@@ -1,23 +1,11 @@
 import { gainSiteTree, logger } from '@ionia/libs';
 import { useRequest } from 'ahooks';
-import { Tree, Dropdown, Menu } from 'antd';
-import { DownOutlined, CarryOutOutlined, FormOutlined } from '@ant-design/icons';
+import { Tree, Select, Spin, Drawer } from 'antd';
+import { RightOutlined, CarryOutOutlined, FormOutlined } from '@ant-design/icons';
 import React, { useState } from 'react';
 import './index.less';
 import { DataNode } from 'antd/lib/tree';
-
-// interface DataNode {
-// 	dir: string;
-// 	id: string;
-// 	name: number;
-// 	domain: string[];
-// 	status:number;
-// 	children?: DataNode[];
-//   }
-
-//   const initTreeDate: DataNode[] = [
-
-//   ];
+const { Option } = Select;
 
 const dfs = (node: any) => {
 	return (
@@ -47,42 +35,65 @@ const Site: React.FC<{}> = () => {
 
 	logger.debug('-->', d);
 
+	const [visible, setVisible] = useState(false);
+	const [siteData, setSiteData] = useState([]);
+	const [value, setValue] = useState([]);
+	const [fetching, setFetching] = useState(false);
 	let sites = ['青山湖人民政府', '青山湖人民政府', '青山湖人民政府'];
-	const menus = (
-		<Menu className='io-master_hader-site'>
-			<div>
-				<p>常用站点</p>
-				<div>
-					{sites.map((item, index) => {
-						return <p key={index}>{item}</p>;
-					})}
-				</div>
-			</div>
-			<Menu.Divider />
-			<div>
-				<p>全部站点</p>
-			</div>
-			{d.length ? (
-				<Tree
-					showLine={{ showLeafIcon: false }}
-					showIcon
-					defaultExpandAll={true}
-					//switcherIcon={<DownOutlined />}
-					treeData={d}
-					className='io-master_hader-tree'
-				/>
-			) : null}
-		</Menu>
-	);
+	const showDrawer = () => {
+		setVisible(true);
+	};
+	const onClose = () => {
+		setVisible(false);
+	};
 
 	return (
-		<>
-			<Dropdown overlay={menus}>
-				<span className='io-master__header--item'>
-					<span className='text'>JEECMS演示站</span>
-				</span>
-			</Dropdown>
-		</>
+		<div className='io-master__header-site'>
+			<div className='io-master__header--item' onMouseOver={showDrawer}>
+				<span className='text'>JEECMS演示站</span>
+			</div>
+			<Drawer
+				placement='right'
+				visible={visible}
+				onClose={onClose}
+				className='io-master__header-site'
+			>
+				<div className='io-master_hader-site_common-site'>
+					<p>常用站点</p>
+					<div>
+						{sites.map((item, index) => {
+							return <p key={index}>{item}</p>;
+						})}
+					</div>
+				</div>
+				<div className='io-master_hader-site_search'>
+					<p>全部站点</p>
+					{/* <Search placeholder='搜索站点名称' enterButton /> */}
+					<Select
+						mode='multiple'
+						labelInValue
+						value={value}
+						placeholder='搜索站点名称'
+						notFoundContent={fetching ? <Spin size='small' /> : null}
+						filterOption={false}
+						style={{ width: '100%' }}
+					>
+						{/* {siteData.map(d => (
+							<Option key={d.value}>{d.text}</Option>
+						))} */}
+					</Select>
+				</div>
+				{d.length ? (
+					<Tree
+						showLine={{ showLeafIcon: false }}
+						showIcon
+						defaultExpandAll={true}
+						treeData={d}
+						className='io-master_hader-tree'
+					/>
+				) : null}
+			</Drawer>
+		</div>
 	);
 };
 
