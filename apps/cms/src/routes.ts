@@ -8,6 +8,7 @@ import PracticeBase from '@/pages/PracticeBase';
 import SysSetting from '@/pages/SysSetting';
 import User from '@/pages/User';
 import SiteManage from '@/pages/SiteManage';
+import UserBatchAdd from '@/pages/User/UserBatchAdd';
 
 export default [
 	{ path: '/', component: List },
@@ -23,6 +24,10 @@ export default [
 	{
 		path: '/user',
 		component: User,
+	},
+	{
+		path: '/user/userbatchadd',
+		component: UserBatchAdd,
 	},
 	{
 		path: '/demo/basic',
