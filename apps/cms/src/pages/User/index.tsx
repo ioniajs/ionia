@@ -1,11 +1,11 @@
-import { ProColumns } from '@ant-design/pro-table';
+import { ProColumns, ActionType } from '@ant-design/pro-table';
 import { ExclamationCircleOutlined } from '@ant-design/icons';
-import { BizTable, BizTree } from '@ionia/libs';
-import { Button, Pagination, Modal } from 'antd';
-import React, { useState } from 'react';
+import { BizTable, BizTree, deleteUser } from '@ionia/libs';
+import { Button, Modal } from 'antd';
+import React, { useRef } from 'react';
 import UserForm from './Form';
 import { BizPage } from '@ionia/libs';
-import { UserPageVO } from '@ionia/libs';
+import { UserPageVO, userPaging } from '@ionia/libs/src/services';
 import { useHistory } from 'react-router-dom';
 import './index.less';
 export interface TableListItem {
@@ -13,68 +13,18 @@ export interface TableListItem {
 	name: string;
 }
 
-const columns: ProColumns<UserPageVO>[] = [
-	{
-		title: '用户名',
-		key: 'username',
-		dataIndex: 'username',
-	},
-	{
-		title: '姓名',
-		key: 'realname',
-		dataIndex: 'realName',
-	},
-	{
-		title: '所属阵地',
-		key: 'belongposition',
-		dataIndex: 'belongPosition',
-	},
-	{
-		title: '所属角色',
-		key: 'belonguser',
-		dataIndex: 'belongUser',
-		filters: [
-			{
-				text: '系统管理员',
-				value: '系统管理员',
-			},
-			{
-				text: '信息录入员',
-				value: '信息录入员',
-			},
-		],
-	},
-	{
-		title: '最后登录时间',
-		key: 'lastlogintime',
-		dataIndex: 'lastLoginTime',
-	},
-	{
-		title: '最后登录IP',
-		key: 'lastloginip',
-		dataIndex: 'lastLoginIp',
-	},
-	{
-		title: '状态',
-		key: 'status',
-		dataIndex: 'status',
-		filters: [
-			{
-				value: '启用',
-				text: '启用',
-			},
-			{
-				text: '禁用',
-				value: '禁用',
-			},
-		],
-	},
-	{
-		title: '操作',
-		key: 'operation',
-		// dataIndex: 'operation',
-	},
-];
+/**
+ *
+ * @param id 修改用户状态
+ */
+// const userStatus = async();
+/**
+ *  删除用户
+ */
+const userRemove = async (id: string) => {
+	const removeRes = await deleteUser({ ids: [id] });
+	return removeRes;
+};
 
 const { confirm } = Modal;
 
@@ -96,6 +46,83 @@ function showConfirm() {
 
 export default () => {
 	const history = useHistory();
+	const actionRef = useRef<ActionType>();
+	const columns: ProColumns<UserPageVO>[] = [
+		{
+			title: '用户名',
+			key: 'username',
+			dataIndex: 'username',
+		},
+		{
+			title: '姓名',
+			key: 'realName',
+			dataIndex: 'realName',
+		},
+		{
+			title: '所属阵地',
+			key: 'org',
+			dataIndex: 'org',
+		},
+		{
+			title: '所属角色',
+			key: 'roleNames',
+			dataIndex: 'roleNames',
+			filters: [
+				{
+					text: '系统管理员',
+					value: '系统管理员',
+				},
+				{
+					text: '信息录入员',
+					value: '信息录入员',
+				},
+			],
+		},
+		{
+			title: '最后登录时间',
+			key: 'lastLoginTime',
+			dataIndex: 'lastLoginTime',
+		},
+		{
+			title: '最后登录IP',
+			key: 'lastLoginIp',
+			dataIndex: 'lastLoginIp',
+		},
+		{
+			title: '状态',
+			key: 'status',
+			dataIndex: 'status',
+			filters: [
+				{
+					value: '启用',
+					text: '启用',
+				},
+				{
+					text: '禁用',
+					value: '禁用',
+				},
+			],
+		},
+		{
+			title: '操作',
+			key: 'operation',
+			dataIndex: 'operation',
+			// render: (_, row) => (
+			// 	<a
+			// 		onClick={async () => {
+			// 			const success = await userRemove(row.toString());
+			// 			if (success) {
+			// 				if (success && actionRef.current) {
+			// 					actionRef.current.reload();
+			// 				}
+			// 			}
+			// 		}}
+			// 	>
+			// 		删除
+			// 	</a>
+			// ),
+		},
+	];
 	return (
 		<div className='io-cms-user'>
 			<BizPage
@@ -128,9 +155,10 @@ export default () => {
 					)}
 					renderSider={() => <BizTree />}
 					columns={columns}
-					request={params => {
-						console.log(params);
-						return new Promise(resolve => resolve());
+					rowSelection={{}}
+					// pagination
+					request={(params, sort, filter) => {
+						return userPaging({}).then(data => ({ data: data.data.content }));
 					}}
 				/>
 			</BizPage>

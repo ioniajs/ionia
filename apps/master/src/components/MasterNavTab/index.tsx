@@ -1,6 +1,7 @@
 import { useGlobalStore } from '@ionia/libs';
 import { Dropdown, Menu, Tabs } from 'antd';
 import React, { useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import './index.less';
 
 const { TabPane } = Tabs;
@@ -8,6 +9,7 @@ const { TabPane } = Tabs;
 export interface MasterNavTabProps {}
 
 const MasterNavTab = () => {
+	const history = useHistory();
 	const globalStore = useGlobalStore();
 	const currentTab: string = globalStore?.state?.currentTab ?? '/';
 	const tabs: any[] = globalStore?.state?.tabs ?? [];
@@ -17,6 +19,10 @@ const MasterNavTab = () => {
 	useEffect(() => {
 		globalStore.setState({ currentTab: tempKey });
 	}, [tempKey]);
+
+	useEffect(() => {
+		history.push(currentTab);
+	}, [currentTab]);
 
 	const menuItems = (
 		<Menu>
