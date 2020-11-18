@@ -6,7 +6,7 @@ import { HTML5Backend } from 'react-dnd-html5-backend';
 // import update from 'immutability-helper';
 import { BizTable, gainSiteTree, disableSite, enableSite, batchDetailSite } from '@ionia/libs';
 import { AdminSiteTreeVO } from '@ionia/libs/src/services/kernel/admin-site.vo';
-import { IdsDTO }from '@ionia/libs/src/services/reuse.dto';
+import { IdsDTO } from '@ionia/libs/src/services/reuse.dto';
 
 /**
  * 启用、禁用
@@ -28,7 +28,6 @@ const handleRemove = async (ids: IdsDTO) => {
 	return removeRes.code;
 };
 
-
 export default () => {
 	const actionRef = useRef<ActionType>();
 	const [selectedRowKeys, setSelectedRowKeys] = useState<number[]>([]);
@@ -38,12 +37,12 @@ export default () => {
 			key: 'name',
 			dataIndex: 'name',
 			ellipsis: true,
-			render:(_, row) => {
+			render: (_, row) => {
 				return (
 					<Tooltip title={`${row.name}`}>
 						<span>{row.name}</span>
 					</Tooltip>
-				)
+				);
 			},
 			width: 400,
 		},
@@ -51,12 +50,12 @@ export default () => {
 			title: '域名',
 			key: 'domain',
 			dataIndex: 'domain',
-			render:(_, row) => {
+			render: (_, row) => {
 				return (
 					<Tooltip title={`${row.domain}`}>
 						<span>{row.domain || '-'}</span>
 					</Tooltip>
-				)
+				);
 			},
 			width: 300,
 		},
@@ -64,12 +63,12 @@ export default () => {
 			title: '站点目录',
 			key: 'dir',
 			dataIndex: 'dir',
-			render:(_, row) => {
+			render: (_, row) => {
 				return (
 					<Tooltip title={`${row.dir}`}>
 						<span>{row.dir || '-'}</span>
 					</Tooltip>
-				)
+				);
 			},
 			width: 400,
 		},
@@ -108,26 +107,30 @@ export default () => {
 					<Divider type='vertical' />
 					<a>复制</a>
 					<Divider type='vertical' />
-					{Number(row.id) !== 0 && <a
-						onClick={async () => {
-							Modal.confirm({
-								title: '是否确定删除',
-								okText: '确定',
-								cancelText: '取消',
-								onOk: async () => {
-									const success = await handleRemove({ids: [row.id.toString()]});
+					{Number(row.id) !== 0 && (
+						<a
+							onClick={async () => {
+								Modal.confirm({
+									title: '是否确定删除',
+									okText: '确定',
+									cancelText: '取消',
+									onOk: async () => {
+										const success = await handleRemove({
+											ids: [row.id.toString()],
+										});
 										if (success === 200) {
 											if (success === 200 && actionRef.current) {
 												actionRef.current.reload();
 											}
 										}
-								}
-							})
-						}}
-					>
-						删除
-					</a>}
-					{Number(row.id) === 0 && <span style={{ color: '#BFBFBF'}}>删除</span>}
+									},
+								});
+							}}
+						>
+							删除
+						</a>
+					)}
+					{Number(row.id) === 0 && <span style={{ color: '#BFBFBF' }}>删除</span>}
 				</>
 			),
 			width: 300,
@@ -150,26 +153,30 @@ export default () => {
 					</div>
 					<div className='io-space-item'>
 						<Button
-						 type='default'
-						 onClick={() => {
-							Modal.info({
-								title: '是否确认删除',
-								okText: '确定',
-								cancelText: '取消',
-								onOk: async () => {
-									const tempSelRowKeys = selectedRowKeys.map((s: any) => s.toString());
-									const  batchDelRes = await handleRemove({ids: tempSelRowKeys});
-									if (batchDelRes === 200) {
-										if (batchDelRes === 200 && actionRef.current) {
-											actionRef.current.reload();
+							type='default'
+							onClick={() => {
+								Modal.info({
+									title: '是否确认删除',
+									okText: '确定',
+									cancelText: '取消',
+									onOk: async () => {
+										const tempSelRowKeys = selectedRowKeys.map((s: any) =>
+											s.toString()
+										);
+										const batchDelRes = await handleRemove({
+											ids: tempSelRowKeys,
+										});
+										if (batchDelRes === 200) {
+											if (batchDelRes === 200 && actionRef.current) {
+												actionRef.current.reload();
+											}
 										}
-									}
-								}
-							})
-						}}
-					>
-						批量删除
-					</Button>
+									},
+								});
+							}}
+						>
+							批量删除
+						</Button>
 					</div>
 					<div className='io-space-item'>
 						<Button type='default'>排序</Button>
@@ -188,17 +195,17 @@ export default () => {
 			// components={}
 			rowSelection={{
 				selectedRowKeys,
-				onChange: (selectedRowKeys) => {
+				onChange: selectedRowKeys => {
 					console.log(selectedRowKeys, 'ssss');
 					setSelectedRowKeys(selectedRowKeys as number[]);
 				},
-				checkStrictly: false
+				checkStrictly: false,
 				// getCheckboxProps: (record) => ({
 				//   // 在整个详情为部分发货状态下，并且，商品信息为已发货状态下，该条商品信息不可勾选
 				//   disabled: record.Status === 1 && data.Status === 2,
 				//   ProductName: record.ProductName,
 				// }),
-			  }}
+			}}
 			pagination={false}
 		/>
 	);
