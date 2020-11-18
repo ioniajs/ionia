@@ -56,7 +56,7 @@ export default () => {
 					<Tooltip title={`${row.name}`}>
 						<a
 							onClick={() => {
-								history.push(`/site/detail/${row.id}`)
+								history.push(`/site/detail/${row.id}`);
 							}}
 						>
 							{row.name}
@@ -132,7 +132,8 @@ export default () => {
 							onClick={async () => {
 								Modal.confirm({
 									title: '你确定删除选中站点吗？',
-									content: '删除站点会同时删除其下级站点，删除可在站点回收站中恢复。',
+									content:
+										'删除站点会同时删除其下级站点，删除可在站点回收站中恢复。',
 									okText: '删除',
 									cancelText: '取消',
 									onOk: async () => {
@@ -168,7 +169,7 @@ export default () => {
 							<Button
 								type='primary'
 								onClick={() => {
-									history.push('/site/create')
+									history.push('/site/create');
 								}}
 							>
 								<i className='iconfont icon-plus1' style={{ fontSize: '16px' }} />
@@ -185,7 +186,8 @@ export default () => {
 								onClick={() => {
 									Modal.info({
 										title: '你确定删除选中站点吗？',
-										content: '删除站点会同时删除其下级站点，删除可在站点回收站中恢复。',
+										content:
+											'删除站点会同时删除其下级站点，删除可在站点回收站中恢复。',
 										okText: '删除',
 										cancelText: '取消',
 										onOk: async () => {
