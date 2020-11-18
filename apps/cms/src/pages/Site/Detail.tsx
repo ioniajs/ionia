@@ -3,15 +3,15 @@ import { Button, Form, Input, Switch, Cascader, Select, Tooltip, TreeSelect } fr
 import { InfoCircleOutlined } from '@ant-design/icons';
 import { BizPage, GobackButton, SaveButton, ImageUpload } from '@ionia/libs';
 import { useMount, useRequest } from '@umijs/hooks';
-import { gainSiteTree, createAdminSite, AdminSiteDTO } from '@ionia/libs/src/services/kernel'
-import { AdminSiteTreeVO } from '@ionia/libs/src/services/kernel/admin-site.vo'
+import { gainSiteTree, createAdminSite, AdminSiteDTO } from '@ionia/libs/src/services/kernel';
+import { AdminSiteTreeVO } from '@ionia/libs/src/services/kernel/admin-site.vo';
 import './index.less';
 
 const { Option } = Select;
 const layout = {
 	labelCol: { span: 6 },
 	wrapperCol: { span: 12 },
-}
+};
 const selectBefore = (
 	<Select defaultValue='http://' className='select-before'>
 		<Option value='http://'>http://</Option>
@@ -22,14 +22,14 @@ const selectBefore = (
 const handleCreateSites = async (filed: AdminSiteDTO) => {
 	const createRef = await createAdminSite(filed);
 	return createRef;
-}
+};
 export default () => {
 	const [form] = Form.useForm();
 	const [siteTree, setSiteTree] = useState<AdminSiteTreeVO[]>();
-	const [domainList, setDomainList] = useState<number[]>([1])
+	const [domainList, setDomainList] = useState<number[]>([1]);
 	const { run: runsiteTree } = useRequest(gainSiteTree, {
 		manual: true,
-		onSuccess: (result) => {
+		onSuccess: result => {
 			const loop = function (data: any) {
 				return data.map((r: any) => {
 					if (r.children) {
@@ -41,16 +41,16 @@ export default () => {
 						key: r.id,
 						children: r.children,
 						...r,
-					}
-				})
-			}
+					};
+				});
+			};
 			const tempSiteTree = loop(result.data);
 			setSiteTree(tempSiteTree);
-		}
+		},
 	});
 	useMount(() => {
 		runsiteTree();
-	})
+	});
 	return (
 		<BizPage
 			breadcrumbs={[{ name: '站点管理' }, { name: '新建' }]}
@@ -64,7 +64,7 @@ export default () => {
 								form.validateFields().then(async values => {
 									console.log(values, '保存的数据');
 									// const success = await handleCreateSites(values);
-								})
+								});
 							}}
 						/>
 						<Button type='default' className='io-cms-site-save-expand__but'>
@@ -101,7 +101,6 @@ export default () => {
 				</Form.Item>
 				{domainList.map((d: any, i: number) => {
 					return (
-
 						<Form.Item
 							name={`domain_${i}`}
 							label={i !== 0 ? <span style={{ display: 'none' }}>域名</span> : '域名'}
@@ -110,14 +109,18 @@ export default () => {
 						>
 							<Input placeholder='请输入域名' addonBefore={selectBefore} />
 						</Form.Item>
-					)
+					);
 				})}
-				<Form.Item name='' label={<span style={{ display: 'none' }}>添加按钮</span>} colon={false}>
+				<Form.Item
+					name=''
+					label={<span style={{ display: 'none' }}>添加按钮</span>}
+					colon={false}
+				>
 					<Button
 						type='dashed'
 						style={{ width: '100%' }}
 						onClick={() => {
-							setDomainList(domainList.concat(1))
+							setDomainList(domainList.concat(1));
 						}}
 					>
 						<i className='iconfont icon-plus-square' />
