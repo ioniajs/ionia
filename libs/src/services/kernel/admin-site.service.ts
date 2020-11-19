@@ -14,6 +14,7 @@ import {
 	AdminSiteRecycleSummaryVo,
 	AdminSiteTreeVO,
 	AdminSiteDetailVO,
+	AdminSiteTree,
 } from './admin-site.vo';
 
 /**
@@ -121,7 +122,7 @@ export async function recycleSiteRestore(id: string): Promise<JcResult<object>> 
 /**
  * 获取站点树
  */
-export async function gainSiteTree(searchStr?: string): Promise<JcResult<AdminSiteTreeVO[]>> {
+export async function gainSiteTree(searchStr?: string): Promise<JcResult<AdminSiteTree>> {
 	return request.get(`/module-kernel/cmsmanager/sites/tree`, {
 		params: {
 			searchStr,
