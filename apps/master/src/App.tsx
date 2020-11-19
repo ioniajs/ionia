@@ -11,9 +11,6 @@ const App = () => {
 			<CacheRoute path='/auth'>
 				<SlaveApp />
 			</CacheRoute>
-			<CacheRoute path='/ide'>
-				<SlaveApp />
-			</CacheRoute>
 			<CacheRoute path='/'>
 				<MasterLayout>
 					<SlaveApp />
