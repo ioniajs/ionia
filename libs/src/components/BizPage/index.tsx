@@ -33,7 +33,7 @@ interface BizPageProps {
 	onGoback?: () => void;
 	onSave?: () => void;
 	tabList?: TabPaneProps[];
-	layout?: LayoutProps,
+	layout?: LayoutProps;
 }
 
 // const layout = {
@@ -54,7 +54,7 @@ export const BizPage = ({
 	layout = {
 		labelCol: { span: 8 },
 		wrapperCol: { span: 12 },
-	}
+	},
 }: BizPageProps) => {
 	const [activeKey, setActiveKey] = useState<string>();
 	const [tipsVisible, setTipsVisible] = useState<boolean>(true);
@@ -87,8 +87,8 @@ export const BizPage = ({
 										{item.path ? (
 											<Link to={item.path}>{item.name}</Link>
 										) : (
-												item.name
-											)}
+											item.name
+										)}
 									</Breadcrumb.Item>
 								))}
 							</Breadcrumb>
