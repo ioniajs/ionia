@@ -7,7 +7,14 @@ interface AMapProps {}
 export const AMap = ({}: AMapProps) => {
 	return (
 		<div className='io-amap'>
-			<Map plugins={['ControlBar']} />
+			<Map
+				// plugins={['ControlBar']}
+				events={{
+					click: () => {
+						console.log('You Clicked The Map');
+					},
+				}}
+			/>
 		</div>
 	);
 };
