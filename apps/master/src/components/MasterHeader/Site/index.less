@@ -2,12 +2,15 @@
 	.ant-drawer-content-wrapper {
 		min-width: 368px;
 		max-width: 720px;
-		// padding: 24px;
+		width: auto !important;
 	}
 	.io-master_hader-site_search {
-		margin: 10px 0;
+		margin: 20px 0;
 		p {
 			margin-bottom: 10px;
+		}
+		.io-master_hader-site_select {
+			display: flex;
 		}
 	}
 	// .ant-drawer-header-no-title .ant-drawer-close{
@@ -18,5 +21,14 @@
 	}
 	.ant-tree-node-content-wrapper-normal {
 		white-space: nowrap;
+	}
+	.io-master_hader-tree {
+		height: 70vh;
+		overflow-y: auto;
+	}
+	.ant-tree-switcher_open {
+		&:first-child {
+			display: none;
+		}
 	}
 }

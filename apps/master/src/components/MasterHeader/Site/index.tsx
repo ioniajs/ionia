@@ -1,42 +1,16 @@
 import { gainSiteTree, logger } from '@ionia/libs';
 import { useRequest } from 'ahooks';
-import { Tree, Select, Spin, Drawer } from 'antd';
-import { RightOutlined, CarryOutOutlined, FormOutlined } from '@ant-design/icons';
+import { Tree, Select, Spin, Drawer, Button } from 'antd';
+import { SearchOutlined } from '@ant-design/icons';
 import React, { useState } from 'react';
 import './index.less';
 import { DataNode } from 'antd/lib/tree';
 const { Option } = Select;
 
-const dfs = (node: any) => {
-	return (
-		node &&
-		node.map((n: any) => {
-			if (n && n.children) {
-				n.children = dfs(n.children);
-			}
-			return {
-				...n,
-				title: n.name,
-				key: n.id,
-			};
-		})
-	);
-};
-
-const Site: React.FC<{}> = () => {
-	const { data } = useRequest(() => gainSiteTree());
-
-	const treeData: any = data?.data ?? [];
-
-	const d = dfs(treeData);
-	// d.map((item:any)=>{
-	// 	item.icon =<CarryOutOutlined/>
-	// })
-
-	logger.debug('-->', d);
-
+export default (props: any) => {
+	const { siteTree } = props;
 	const [visible, setVisible] = useState(false);
-	const [siteData, setSiteData] = useState([]);
+	const [siteData, setSiteData] = useState<any>([]);
 	const [value, setValue] = useState([]);
 	const [fetching, setFetching] = useState(false);
 	let sites = ['青山湖人民政府', '青山湖人民政府', '青山湖人民政府'];
@@ -45,6 +19,20 @@ const Site: React.FC<{}> = () => {
 	};
 	const onClose = () => {
 		setVisible(false);
+	};
+
+	const fetchUser = () => {
+		// const siteData = siteTree.map((user: any) => ({
+		// 	text: `${user.name.first} ${user.name.last}`,
+		// 	value: user.login.username,
+		// }));
+		const siteData = [
+			{ text: 'test', value: 'test' },
+			{ text: 'test1', value: 'test1' },
+			{ text: 'test2', value: 'test2' },
+		];
+		setSiteData(siteData);
+		setFetching(false);
 	};
 
 	return (
@@ -68,27 +56,32 @@ const Site: React.FC<{}> = () => {
 				</div>
 				<div className='io-master_hader-site_search'>
 					<p>全部站点</p>
-					{/* <Search placeholder='搜索站点名称' enterButton /> */}
-					<Select
-						mode='multiple'
-						labelInValue
-						value={value}
-						placeholder='搜索站点名称'
-						notFoundContent={fetching ? <Spin size='small' /> : null}
-						filterOption={false}
-						style={{ width: '100%' }}
-					>
-						{/* {siteData.map(d => (
-							<Option key={d.value}>{d.text}</Option>
-						))} */}
-					</Select>
+					<div className='io-master_hader-site_select'>
+						<Select
+							mode='multiple'
+							labelInValue
+							value={value}
+							placeholder='搜索站点名称'
+							notFoundContent={fetching ? <Spin size='small' /> : null}
+							filterOption={false}
+							style={{ width: '100%' }}
+							onSearch={fetchUser}
+						>
+							{siteData.map((d: any) => (
+								<Option key={d.value} value={d.value}>
+									{d.text}
+								</Option>
+							))}
+						</Select>
+						<Button type='primary' icon={<SearchOutlined />}></Button>
+					</div>
 				</div>
-				{d.length ? (
+				{siteTree.length ? (
 					<Tree
 						showLine={{ showLeafIcon: false }}
 						showIcon
 						defaultExpandAll={true}
-						treeData={d}
+						treeData={siteTree}
 						className='io-master_hader-tree'
 					/>
 				) : null}
@@ -96,5 +89,3 @@ const Site: React.FC<{}> = () => {
 		</div>
 	);
 };
-
-export default Site;
