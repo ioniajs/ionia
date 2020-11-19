@@ -34,6 +34,12 @@ export interface AdminSiteTreeVO {
 }
 //#endregion
 
+export interface AdminSiteTree {
+	commons: AdminSiteTreeVO[];
+	list: AdminSiteTreeVO[];
+	size: number;
+}
+
 //#region 站点扩展配置详情VO
 export interface SiteCfgVO {
 	channelContribute: string; // 栏目投稿
