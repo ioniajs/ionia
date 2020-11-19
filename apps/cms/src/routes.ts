@@ -5,6 +5,7 @@ import Setting from '@/pages/Setting';
 import Site from '@/pages/Site';
 import User from '@/pages/User';
 import UserBatchAdd from '@/pages/User/BatchAdd';
+import SiteDetail from '@/pages/Site/Detail';
 import { ExceptionPage } from '@ionia/libs';
 
 export default [
@@ -33,8 +34,16 @@ export default [
 		component: Setting,
 	},
 	{
-		path: '/sit',
+		path: '/site',
 		component: Site,
+	},
+	{
+		path: '/site/create',
+		component: SiteDetail,
+	},
+	{
+		path: '/site/detail/:id',
+		component: SiteDetail,
 	},
 	{
 		path: '/500',
