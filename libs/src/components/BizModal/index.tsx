@@ -1,7 +1,6 @@
 import { Button, Modal } from 'antd';
 import { ModalProps } from 'antd/lib/modal';
 import React, { ReactNode, useState } from 'react';
-import './index.less';
 
 interface RenderTriggerParams {
 	open: () => void;
@@ -9,9 +8,10 @@ interface RenderTriggerParams {
 
 interface BizModalProps extends ModalProps {
 	renderTrigger?: (params: RenderTriggerParams) => ReactNode;
+	children: ReactNode;
 }
 
-export const BizModal = ({ renderTrigger, ...reset }: BizModalProps) => {
+export const BizModal = ({ renderTrigger, children, ...reset }: BizModalProps) => {
 	const [visible, setVisible] = useState(false);
 
 	const toOpen = () => {
@@ -40,9 +40,7 @@ export const BizModal = ({ renderTrigger, ...reset }: BizModalProps) => {
 				  })
 				: defaultRenderTrigger()}
 			<Modal visible={visible} {...reset} onCancel={toClose}>
-				<p>Some contents...</p>
-				<p>Some contents...</p>
-				<p>Some contents...</p>
+				{children}
 			</Modal>
 		</div>
 	);

@@ -15,20 +15,20 @@ export interface UserMoveInVO {
 
 //#region  用户分页VO
 export interface UserPageVO {
-	createTime?: string; // 创建时间
-	createUser?: string; // 创建人
-	email?: string; // 电子邮箱
-	id?: string; // id
-	lastLoginIp?: string; // 最后登录ip
-	lastLoginTime?: string; // 最后登录时间
-	lastUpdateTime?: string; // 最后更新时间
-	org?: string; // 阵地
-	realName?: string; // 姓名
-	roleNames?: string; // 角色名称
-	status?: number; // 状态（1启用 0禁用）
-	telephone?: string; // 联系方式
-	updateUser?: string; //最后更新人
-	username?: string; // 用户名
+	createTime: string; // 创建时间
+	createUser: string; // 创建人
+	email: string; // 电子邮箱
+	id: string; // id
+	lastLoginIp: string; // 最后登录ip
+	lastLoginTime: string; // 最后登录时间
+	lastUpdateTime: string; // 最后更新时间
+	org: string; // 阵地
+	realName: string; // 姓名
+	roleNames: string; // 角色名称
+	status: number; // 状态（1启用 0禁用）
+	telephone: string; // 联系方式
+	updateUser: string; //最后更新人
+	username: string; // 用户名
 }
 
 //#region 用户详情
