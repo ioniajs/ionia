@@ -75,9 +75,9 @@ const MasterHeader: React.FC<MasterHeaderProps> = ({ theme }) => {
 	}, [location.pathname]);
 
 	const { data } = useRequest(() => gainSiteTree());
-
-	const treeData: any = data?.data ?? [];
-
+	const treeData: any = data?.data.list ?? [];
+	const commons: any = data?.data.commons ?? [];
+	const size: any = data?.data.size ?? 0;
 	const siteTree = useMemo(() => dfs(treeData), [treeData]);
 
 	siteTree.map((item: any) => {
@@ -112,7 +112,7 @@ const MasterHeader: React.FC<MasterHeaderProps> = ({ theme }) => {
 						<LangSelector />
 					</span>
 					<span className='io-master__header--item'>
-						<Site siteTree={siteTree} />
+						<Site siteTree={siteTree} commons={commons} size={size} />
 					</span>
 				</div>
 			</div>

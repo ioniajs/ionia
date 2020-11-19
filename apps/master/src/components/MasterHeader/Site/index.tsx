@@ -1,27 +1,38 @@
-import { gainSiteTree, logger } from '@ionia/libs';
-import { useRequest } from 'ahooks';
+import { gainSiteTree, logger, useGlobalStore } from '@ionia/libs';
+import { useRequest, useLocalStorageState } from 'ahooks';
 import { Tree, Select, Spin, Drawer, Button } from 'antd';
 import { SearchOutlined } from '@ant-design/icons';
 import React, { useState } from 'react';
 import './index.less';
 import { DataNode } from 'antd/lib/tree';
+import { data } from 'msw/lib/types/context';
 const { Option } = Select;
 
 export default (props: any) => {
-	const { siteTree } = props;
-	const [visible, setVisible] = useState(false);
-	const [siteData, setSiteData] = useState<any>([]);
-	const [value, setValue] = useState([]);
+	const { siteTree, commons, size } = props;
+	const [visible, setVisible] = useState(false); //控制抽屉的出现
+	const [siteData, setSiteData] = useState<any>([]); //搜索框的列表值
+	const [value, setValue] = useState([]); //搜索框的值
 	const [fetching, setFetching] = useState(false);
-	let sites = ['青山湖人民政府', '青山湖人民政府', '青山湖人民政府'];
+	//全局存储站点名称
+	const globalStore = useGlobalStore();
+	const siteName = globalStore?.state?.siteName ?? 'JEECMS演示站';
 	const showDrawer = () => {
 		setVisible(true);
 	};
 	const onClose = () => {
 		setVisible(false);
 	};
+	const { data, run } = useRequest(() => gainSiteTree(), {
+		debounceInterval: 500,
+		manual: true,
+	});
 
+	/**
+	 * 搜索
+	 */
 	const fetchUser = () => {
+		run();
 		// const siteData = siteTree.map((user: any) => ({
 		// 	text: `${user.name.first} ${user.name.last}`,
 		// 	value: user.login.username,
@@ -35,10 +46,34 @@ export default (props: any) => {
 		setFetching(false);
 	};
 
+	const handleChange = (value: any) => {
+		// this.setState({
+		//   value,
+		//   data: [],
+		//   fetching: false,
+		// });
+		setValue(value);
+		setSiteData([]);
+		setFetching(false);
+	};
+
+	/**
+	 * @param value
+	 * 修改站点名称
+	 * 关闭抽屉
+	 */
+	const changeSite = (value: any) => {
+		console.log(value);
+		globalStore.setState({
+			siteName: value,
+		});
+		setVisible(false);
+	};
+
 	return (
 		<div className='io-master__header-site'>
 			<div className='io-master__header--item' onMouseOver={showDrawer}>
-				<span className='text'>JEECMS演示站</span>
+				<span className='text'>{siteName}</span>
 			</div>
 			<Drawer
 				placement='right'
@@ -46,45 +81,83 @@ export default (props: any) => {
 				onClose={onClose}
 				className='io-master__header-site'
 			>
-				<div className='io-master_hader-site_common-site'>
-					<p>常用站点</p>
+				{size > 20 && (
 					<div>
-						{sites.map((item, index) => {
-							return <p key={index}>{item}</p>;
+						<div className='io-master_hader-site_common-site'>
+							<p>最新使用</p>
+							<div>
+								{commons.map((item: any, index: any) => {
+									return (
+										<div
+											key={index}
+											className='io-master_hader-site_new'
+											onClick={() => changeSite(item.name)}
+										>
+											{item.name}
+										</div>
+									);
+								})}
+							</div>
+						</div>
+						<div className='io-master_hader-site_search'>
+							<p>全部站点</p>
+							<div className='io-master_hader-site_select'>
+								<Select
+									mode='multiple'
+									labelInValue
+									value={value}
+									autoClearSearchValue
+									defaultActiveFirstOption
+									placeholder='搜索站点名称'
+									notFoundContent={fetching ? <Spin size='small' /> : null}
+									filterOption={false}
+									style={{ width: '100%' }}
+									onSearch={fetchUser}
+									onChange={handleChange}
+								>
+									{siteData.map((d: any) => (
+										<Option key={d.value} value={d.value}>
+											{d.text}
+										</Option>
+									))}
+								</Select>
+								<Button type='primary' icon={<SearchOutlined />}></Button>
+							</div>
+						</div>
+					</div>
+				)}
+				{value.length < 1 && (
+					<div>
+						{siteTree.length ? (
+							<Tree
+								showLine={{ showLeafIcon: false }}
+								showIcon
+								defaultExpandAll={true}
+								treeData={siteTree}
+								className='io-master_hader-tree'
+								onSelect={(selectedKeys, e) => {
+									changeSite(e.node.title);
+								}}
+							/>
+						) : null}
+					</div>
+				)}
+				{value.length > 0 && (
+					<div>
+						{value.map((item: any, index: any) => {
+							return (
+								<div
+									key={index}
+									className='io-master_hader-site_check'
+									onClick={() => changeSite(item.value)}
+								>
+									{item.value}
+								</div>
+							);
 						})}
+						{/* 12131 */}
 					</div>
-				</div>
-				<div className='io-master_hader-site_search'>
-					<p>全部站点</p>
-					<div className='io-master_hader-site_select'>
-						<Select
-							mode='multiple'
-							labelInValue
-							value={value}
-							placeholder='搜索站点名称'
-							notFoundContent={fetching ? <Spin size='small' /> : null}
-							filterOption={false}
-							style={{ width: '100%' }}
-							onSearch={fetchUser}
-						>
-							{siteData.map((d: any) => (
-								<Option key={d.value} value={d.value}>
-									{d.text}
-								</Option>
-							))}
-						</Select>
-						<Button type='primary' icon={<SearchOutlined />}></Button>
-					</div>
-				</div>
-				{siteTree.length ? (
-					<Tree
-						showLine={{ showLeafIcon: false }}
-						showIcon
-						defaultExpandAll={true}
-						treeData={siteTree}
-						className='io-master_hader-tree'
-					/>
-				) : null}
+				)}
 			</Drawer>
 		</div>
 	);
