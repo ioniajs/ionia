@@ -1,3 +1,5 @@
+@import '~antd/es/style/themes/default.less';
+
 .io-amap {
 	width: 827px;
 	height: 527px;
@@ -6,5 +8,13 @@
 	}
 	.amap-copyright {
 		display: none !important;
+	}
+	.amap-container + div {
+		position: absolute;
+		top: 0;
+	}
+	input:focus {
+		outline: none;
+		border-color: @primary-color;
 	}
 }
