@@ -15,6 +15,13 @@ interface BreadcrumbItem {
 	path?: string;
 	name: string;
 }
+interface LayoutColProps {
+	span?: number;
+}
+interface LayoutProps {
+	labelCol?: LayoutColProps;
+	wrapperCol?: LayoutColProps;
+}
 
 interface BizPageProps {
 	form?: FormInstance<any>;
@@ -26,12 +33,13 @@ interface BizPageProps {
 	onGoback?: () => void;
 	onSave?: () => void;
 	tabList?: TabPaneProps[];
+	layout?: LayoutProps,
 }
 
-const layout = {
-	labelCol: { span: 8 },
-	wrapperCol: { span: 12 },
-};
+// const layout = {
+// 	labelCol: { span: 8 },
+// 	wrapperCol: { span: 12 },
+// };
 
 export const BizPage = ({
 	form,
@@ -43,6 +51,10 @@ export const BizPage = ({
 	onGoback,
 	onSave,
 	showActions = false,
+	layout = {
+		labelCol: { span: 8 },
+		wrapperCol: { span: 12 },
+	}
 }: BizPageProps) => {
 	const [activeKey, setActiveKey] = useState<string>();
 	const [tipsVisible, setTipsVisible] = useState<boolean>(true);
@@ -75,8 +87,8 @@ export const BizPage = ({
 										{item.path ? (
 											<Link to={item.path}>{item.name}</Link>
 										) : (
-											item.name
-										)}
+												item.name
+											)}
 									</Breadcrumb.Item>
 								))}
 							</Breadcrumb>
