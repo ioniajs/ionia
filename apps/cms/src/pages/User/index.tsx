@@ -1,11 +1,12 @@
 import { ProColumns, ActionType } from '@ant-design/pro-table';
 import { ExclamationCircleOutlined } from '@ant-design/icons';
 import { BizTable, BizTree, deleteUser } from '@ionia/libs';
-import { Button, Modal } from 'antd';
-import React, { useRef } from 'react';
+import { Button, Modal, Switch } from 'antd';
+import React, { useRef, useState } from 'react';
 import UserForm from './Form';
 import { BizPage } from '@ionia/libs';
-import { UserPageVO, userPaging } from '@ionia/libs/src/services';
+import { UserPageVO, userPaging, modUserStatus } from '@ionia/libs/src/services';
+import { IdsDTO } from '@ionia/libs/src/services/reuse.dto';
 import { useHistory } from 'react-router-dom';
 import './index.less';
 export interface TableListItem {
@@ -17,13 +18,14 @@ export interface TableListItem {
  *
  * @param id 修改用户状态
  */
-// const userStatus = async();
+const userUpdate = async (id: string, status: number) => {};
+
 /**
  *  删除用户
  */
-const userRemove = async (id: string) => {
-	const removeRes = await deleteUser({ ids: [id] });
-	return removeRes;
+const userRemove = async (ids: IdsDTO) => {
+	const removeRes = await deleteUser(ids);
+	return removeRes.code;
 };
 
 const { confirm } = Modal;
@@ -47,6 +49,7 @@ function showConfirm() {
 export default () => {
 	const history = useHistory();
 	const actionRef = useRef<ActionType>();
+	const [selectedRowKeys, setSelectedRowKeys] = useState<number[]>([]);
 	const columns: ProColumns<UserPageVO>[] = [
 		{
 			title: '用户名',
@@ -92,14 +95,30 @@ export default () => {
 			title: '状态',
 			key: 'status',
 			dataIndex: 'status',
+			render: (_, row) => (
+				<Switch
+					checked={row.status === 1}
+					checkedChildren='开启'
+					unCheckedChildren='禁用'
+					onChange={async value => {
+						const success = await modUserStatus({
+							id: row.id.toString(),
+							status: value ? 1 : 0,
+						});
+						if (success.code === 200 && actionRef.current) {
+							actionRef.current.reload();
+						}
+					}}
+				/>
+			),
 			filters: [
 				{
-					value: '启用',
+					value: '1',
 					text: '启用',
 				},
 				{
 					text: '禁用',
-					value: '禁用',
+					value: '0',
 				},
 			],
 		},
@@ -107,20 +126,31 @@ export default () => {
 			title: '操作',
 			key: 'operation',
 			dataIndex: 'operation',
-			// render: (_, row) => (
-			// 	<a
-			// 		onClick={async () => {
-			// 			const success = await userRemove(row.toString());
-			// 			if (success) {
-			// 				if (success && actionRef.current) {
-			// 					actionRef.current.reload();
-			// 				}
-			// 			}
-			// 		}}
-			// 	>
-			// 		删除
-			// 	</a>
-			// ),
+			render: (_, row) => (
+				<a
+					onClick={async () => {
+						if (row) {
+							Modal.confirm({
+								title: '是否确定删除',
+								okText: '确定',
+								cancelText: '取消',
+								onOk: async () => {
+									const success = await userRemove({
+										ids: [row.id],
+									});
+									if (success === 200) {
+										if (success === 200 && actionRef.current) {
+											actionRef.current.reload();
+										}
+									}
+								},
+							});
+						}
+					}}
+				>
+					删除
+				</a>
+			),
 		},
 	];
 	return (
@@ -130,6 +160,8 @@ export default () => {
 				tips='操作说明的文字 ：设置系统所使用的验证码模板，提供邮件或短信两种方式'
 			>
 				<BizTable
+					rowKey='id'
+					actionRef={actionRef}
 					renderActions={() => (
 						<>
 							<div className='io-space-item'>
@@ -155,7 +187,12 @@ export default () => {
 					)}
 					renderSider={() => <BizTree />}
 					columns={columns}
-					rowSelection={{}}
+					rowSelection={{
+						selectedRowKeys,
+						onChange: selectedRowKeys => {
+							setSelectedRowKeys(selectedRowKeys as number[]);
+						},
+					}}
 					// pagination
 					request={(params, sort, filter) => {
 						return userPaging({}).then(data => ({ data: data.data.content }));

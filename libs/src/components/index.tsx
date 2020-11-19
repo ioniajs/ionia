@@ -1,3 +1,4 @@
+export * from './AMap';
 export * from './AnnexUpload';
 export * from './AudioPlayer';
 export * from './AudioUpload';
@@ -20,3 +21,5 @@ export * from './SlaveApp';
 export * from './VideoPlayer';
 export * from './VideoUpload';
 export * from './Watermark';
+export * from './BizPage/GobackButton';
+export * from './BizPage/SaveButton';
