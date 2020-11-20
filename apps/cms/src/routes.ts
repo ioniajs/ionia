@@ -8,7 +8,7 @@ import UserBatchAdd from '@/pages/User/BatchAdd';
 import SiteDetail from '@/pages/Site/Detail';
 import { ExceptionPage } from '@ionia/libs';
 import DemoAMap from './pages/Demo/AMap';
-
+import Role from './pages/Role';
 export default [
 	{
 		path: '/basic',
@@ -49,6 +49,10 @@ export default [
 	{
 		path: '/site/detail/:id',
 		component: SiteDetail,
+	},
+	{
+		path: '/role',
+		component: Role,
 	},
 	{
 		path: '/500',
