@@ -15,6 +15,13 @@ interface BreadcrumbItem {
 	path?: string;
 	name: string;
 }
+interface LayoutColProps {
+	span?: number;
+}
+interface LayoutProps {
+	labelCol?: LayoutColProps;
+	wrapperCol?: LayoutColProps;
+}
 
 interface BizPageProps {
 	form?: FormInstance<any>;
@@ -26,12 +33,13 @@ interface BizPageProps {
 	onGoback?: () => void;
 	onSave?: () => void;
 	tabList?: TabPaneProps[];
+	layout?: LayoutProps;
 }
 
-const layout = {
-	labelCol: { span: 8 },
-	wrapperCol: { span: 12 },
-};
+// const layout = {
+// 	labelCol: { span: 8 },
+// 	wrapperCol: { span: 12 },
+// };
 
 export const BizPage = ({
 	form,
@@ -43,6 +51,10 @@ export const BizPage = ({
 	onGoback,
 	onSave,
 	showActions = false,
+	layout = {
+		labelCol: { span: 8 },
+		wrapperCol: { span: 12 },
+	},
 }: BizPageProps) => {
 	const [activeKey, setActiveKey] = useState<string>();
 	const [tipsVisible, setTipsVisible] = useState<boolean>(true);
@@ -94,7 +106,13 @@ export const BizPage = ({
 								<i className='iconfont icon-info-circle' />
 							</div>
 							{tipsVisible && (
-								<Alert className='io-biz-page__tips-info' message={tips} />
+								<Alert
+									className='io-biz-page__tips-info'
+									message={tips}
+									onClick={() => {
+										setTipsVisible(!tipsVisible);
+									}}
+								/>
 							)}
 						</div>
 					)}

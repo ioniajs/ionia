@@ -1,4 +1,7 @@
 .io-master__header-site {
+	.ant-drawer-header-no-title {
+		margin-bottom: 20px;
+	}
 	.ant-drawer-content-wrapper {
 		min-width: 368px;
 		max-width: 720px;
@@ -23,12 +26,30 @@
 		white-space: nowrap;
 	}
 	.io-master_hader-tree {
-		height: 70vh;
+		height: 67vh;
 		overflow-y: auto;
+		scrollbar-width: none;
+		-ms-overflow-style: none;
+		&::-webkit-scrollbar {
+			display: none;
+		}
 	}
 	.ant-tree-switcher_open {
 		&:first-child {
 			display: none;
+		}
+	}
+	.io-master_hader-site_new {
+		cursor: pointer;
+		font-size: 14px;
+		font-weight: 400;
+		color: #262626;
+		margin-bottom: 10px;
+	}
+	.io-master_hader-site_check {
+		cursor: pointer;
+		&:hover {
+			background: #f5f5f5;
 		}
 	}
 }

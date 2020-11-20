@@ -309,8 +309,8 @@ export default () => {
 				</Form.Item>
 			</BizSection>
 			<BizSection title='敏感词设置'>
-				<Form.Item name='blockSensitiveWord' label='禁止输入敏感词'>
-					<Switch checkedChildren='开启' unCheckedChildren='关闭' defaultChecked />
+				<Form.Item name='blockSensitiveWord' label='禁止输入敏感词' initialValue={1}>
+					<Switch checkedChildren='开启' unCheckedChildren='关闭' />
 				</Form.Item>
 			</BizSection>
 			<BizSection title='其他设置'>
