@@ -271,7 +271,7 @@ export const ExpandChildren = ({ id }: ExpandChildrenProps) => {
 											<ColorsPicker
 												color={contentSignColorValue}
 												onChange={colors => {
-													setContentSignColorValue(colors.color)
+													setContentSignColorValue(colors.color);
 												}}
 											/>
 										</Form.Item>
@@ -421,7 +421,10 @@ export const ExpandChildren = ({ id }: ExpandChildrenProps) => {
 									label='文字颜色'
 									rules={[{ required: true, message: '请选择文字颜色' }]}
 								>
-									<ColorsPicker color={waterMarkColorValue} onChange={(colors) => setWaterMarkColorValue(colors.color)} />
+									<ColorsPicker
+										color={waterMarkColorValue}
+										onChange={colors => setWaterMarkColorValue(colors.color)}
+									/>
 								</Form.Item>
 							</>
 						)}

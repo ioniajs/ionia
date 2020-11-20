@@ -34,7 +34,6 @@ interface BasicChildrenProps {
 	id?: string;
 }
 export const BasicChildren = ({ id }: BasicChildrenProps) => {
-
 	const [basicForm] = Form.useForm();
 	const [expandForm] = Form.useForm();
 	const [siteTree, setSiteTree] = useState<AdminSiteTreeVO[]>();
@@ -94,7 +93,6 @@ export const BasicChildren = ({ id }: BasicChildrenProps) => {
 	}, [siteDetailData]);
 
 	return (
-
 		<>
 			<div className='io-site-detail-basicchildren__div'>
 				<Button
@@ -126,22 +124,22 @@ export const BasicChildren = ({ id }: BasicChildrenProps) => {
 					}}
 				>
 					保存
-					</Button>
+				</Button>
 				<Button type='default' className='io-cms-site-save-expand__but'>
 					预览
-					</Button>
+				</Button>
 				<Button type='default' className='io-cms-site-save-expand__but'>
 					浏览
-					</Button>
+				</Button>
 				<Button type='default' className='io-cms-site-save-expand__but'>
 					权限分配
-					</Button>
+				</Button>
 				<Button type='default' className='io-cms-site-save-expand__but'>
 					发布静态页
-					</Button>
+				</Button>
 				<Button type='default' className='io-cms-site-save-expand__but'>
 					复制
-					</Button>
+				</Button>
 			</div>
 			<Form form={basicForm} className='io-site__form' {...layout1}>
 				<Form.Item name='id' label='站点ID'>
@@ -236,8 +234,8 @@ export const BasicChildren = ({ id }: BasicChildrenProps) => {
 						}}
 					>
 						<i className='iconfont icon-plus-square' />
-							添加
-						</Button>
+						添加
+					</Button>
 				</Form.Item>
 				<Form.Item name='desc' label='站点描述'>
 					<Input.TextArea
@@ -252,7 +250,7 @@ export const BasicChildren = ({ id }: BasicChildrenProps) => {
 					label={
 						<span>
 							状态&nbsp;
-								<Tooltip title='关闭站点后网站前台无法访问'>
+							<Tooltip title='关闭站点后网站前台无法访问'>
 								<InfoCircleOutlined />
 							</Tooltip>
 						</span>
@@ -270,7 +268,7 @@ export const BasicChildren = ({ id }: BasicChildrenProps) => {
 					label={
 						<span>
 							站点标志&nbsp;
-								<Tooltip title='浏览前台网站时，站点标志显示在浏览器页签左侧'>
+							<Tooltip title='浏览前台网站时，站点标志显示在浏览器页签左侧'>
 								<InfoCircleOutlined />
 							</Tooltip>
 						</span>
@@ -294,5 +292,5 @@ export const BasicChildren = ({ id }: BasicChildrenProps) => {
 				</Form.Item>
 			</Form>
 		</>
-	)
-}
+	);
+};
