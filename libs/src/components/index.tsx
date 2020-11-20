@@ -23,3 +23,4 @@ export * from './VideoUpload';
 export * from './Watermark';
 export * from './BizPage/GobackButton';
 export * from './BizPage/SaveButton';
+export * from './ColorPicker';

@@ -40,7 +40,7 @@ export interface AdminSiteSortDTO {
 
 //#region 保存修改站点扩展配置DTO
 export interface SiteCfgDTO {
-	channelContribute: string; // 栏目投稿
+	// channelContribute: string; // 栏目投稿
 	channelNameRep: string; // 栏目名称允许重复
 	channelPage: string; // 列表每页默认显示内容数
 	commentAudit: string; // 评论需要审核
@@ -72,7 +72,7 @@ export interface SiteCfgDTO {
 	staticFtp: string; // 选择FTP
 	staticMemory: string; // 静态文件存储服务器1.本地2.FTP3.OSS
 	staticOss: string; // 选择OSS
-	staticPlatform: string; // 静态页发布平台1.PC2.WAP
+	staticPlatform: string[]; // 静态页发布平台1.PC2.WAP
 	staticServer: string; // 静态化服务
 	staticSize: string; // 生成静态内容列表页数
 	watermarkColor: string; // 文字颜色

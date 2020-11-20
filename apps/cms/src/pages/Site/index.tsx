@@ -220,7 +220,9 @@ export default () => {
 				inputPlaceholderText={'请输入站点名称/目录'}
 				columns={columns}
 				request={params => {
-					return gainSiteTree(params.keyword || '');
+					return gainSiteTree(params.keyword || '').then(data => ({
+						data: data.data.list,
+					}));
 				}}
 				// postData={(data: AdminSiteTreeVO[]) => [data]}
 				// components={}

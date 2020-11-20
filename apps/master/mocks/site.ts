@@ -475,7 +475,7 @@ export default [
 					faviconUrl: '',
 					id: 0,
 					name: '',
-					parentId: 0,
+					parentId: 1,
 					previewUrl: '',
 					seoDesc: '',
 					seoKeyWord: '',
