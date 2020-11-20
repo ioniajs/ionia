@@ -36,6 +36,7 @@
 		"immutability-helper": "^3.1.1",
 		"lodash": "^4.17.20",
 		"qiankun": "^2.0.24",
+		"rc-color-picker": "^1.2.6",
 		"react": "^16.13.1",
 		"react-amap": "^1.2.8",
 		"react-audio-player": "^0.14.0",
