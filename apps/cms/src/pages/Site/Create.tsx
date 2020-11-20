@@ -36,7 +36,7 @@ export default () => {
 		manual: true,
 		onSuccess: result => {
 			const loop = function (data: any) {
-				return data.map((r: any) => {
+				return (data || []).map((r: any) => {
 					if (r.children) {
 						r.children = loop(r.children);
 					}
@@ -49,7 +49,7 @@ export default () => {
 					};
 				});
 			};
-			const tempSiteTree = loop(result.data);
+			const tempSiteTree = loop(result.data.list);
 			setSiteTree(tempSiteTree);
 		},
 	});
@@ -75,6 +75,7 @@ export default () => {
 										parentId: values.parentId,
 										name: values.name,
 										dir: values.dir,
+										modelPath: values.modelPath,
 										domain: tempDomain,
 										desc: values.desc || '',
 										status: !!values.status ? 1 : 0,
@@ -106,6 +107,7 @@ export default () => {
 										parentId: values.parentId,
 										name: values.name,
 										dir: values.dir,
+										modelPath: values.modelPath,
 										domain: tempDomain,
 										desc: values.desc || '',
 										status: !!values.status ? 1 : 0,
@@ -134,7 +136,14 @@ export default () => {
 					label='上级站点'
 					rules={[{ required: true, message: '请选择上级站点' }]}
 				>
-					<TreeSelect placeholder='请选择上级站点' treeData={siteTree} />
+					<TreeSelect
+						placeholder='请选择上级站点'
+						treeData={siteTree}
+						showSearch={true}
+						onSearch={(e) => {
+							runsiteTree(e)
+						}}
+					/>
 				</Form.Item>
 				<Form.Item
 					name='name'
@@ -150,14 +159,36 @@ export default () => {
 						{ required: true, message: '请输入站点目录' },
 						() => ({
 							validator(rule, value) {
-								if (!!value && /^[0-9a-zA-Z]+$/.test(value))
-									return Promise.resolve();
-								return Promise.reject('请输入英文和数字');
+								if (!!value) {
+									if (!!value && /^[0-9a-zA-Z]+$/.test(value))
+										return Promise.resolve();
+									return Promise.reject('请输入英文和数字');
+								}
+								return Promise.reject('');
 							},
 						}),
 					]}
 				>
 					<Input placeholder='请输入站点目录' maxLength={120} />
+				</Form.Item>
+				<Form.Item
+					name='modelPath'
+					label='模板路径'
+					rules={[
+						{ required: true, message: '请输入模板路径' },
+						() => ({
+							validator(rule, value) {
+								if (!!value) {
+									if (!!value && /^[a-zA-Z][a-zA-Z0-9]*$/.test(value))
+										return Promise.resolve();
+									return Promise.reject('请输入英文和数字，并且不以数字开头');
+								}
+								return Promise.reject('');
+							},
+						}),
+					]}
+				>
+					<Input placeholder='请输入模板路径' maxLength={120} />
 				</Form.Item>
 				{domainList.map((d: any, i: number) => {
 					return (
@@ -241,6 +272,6 @@ export default () => {
 					/>
 				</Form.Item>
 			</Form>
-		</BizPage>
+		</BizPage >
 	);
 };

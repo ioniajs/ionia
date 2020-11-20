@@ -5,7 +5,7 @@ import { BizPage, ImageUpload, BizSection } from '@ionia/libs';
 import { useMount, useRequest } from '@umijs/hooks';
 import { gainSiteTree, siteDetail, amendSite, AdminSiteDTO } from '@ionia/libs/src/services/kernel';
 import { AdminSiteTreeVO, AdminSiteDetailVO } from '@ionia/libs/src/services/kernel/admin-site.vo';
-import { ExpandChildren } from './expand';
+import { ExpandChildren } from './Expand';
 import './index.less';
 
 const { Option } = Select;
@@ -59,7 +59,7 @@ export default ({ match }: any) => {
 					};
 				});
 			};
-			const tempSiteTree = loop(result.data);
+			const tempSiteTree = loop(result.data.list);
 			setSiteTree(tempSiteTree);
 		},
 	});
@@ -109,6 +109,7 @@ export default ({ match }: any) => {
 								parentId: values.parentId,
 								name: values.name,
 								dir: values.dir,
+								modelPath: values.modelPath,
 								domain: tempDomain,
 								desc: values.desc || '',
 								status: !!values.status ? 1 : 0,
@@ -151,7 +152,14 @@ export default ({ match }: any) => {
 					label='上级站点'
 					rules={[{ required: true, message: '请选择上级站点' }]}
 				>
-					<TreeSelect placeholder='请选择上级站点' treeData={siteTree} />
+					<TreeSelect
+						showSearch={true}
+						treeData={siteTree}
+						onSearch={(e) => {
+							runsiteTree(e)
+						}}
+						placeholder='请选择上级站点'
+					/>
 				</Form.Item>
 				<Form.Item
 					name='name'
@@ -167,14 +175,36 @@ export default ({ match }: any) => {
 						{ required: true, message: '请输入站点目录' },
 						() => ({
 							validator(rule, value) {
-								if (!!value && /^[0-9a-zA-Z]+$/.test(value))
-									return Promise.resolve();
-								return Promise.reject('请输入英文和数字');
+								if (!!value) {
+									if (!!value && /^[0-9a-zA-Z]+$/.test(value))
+										return Promise.resolve();
+									return Promise.reject('请输入英文和数字');
+								}
+								return Promise.reject('');
 							},
 						}),
 					]}
 				>
 					<Input placeholder='请输入站点目录' maxLength={120} />
+				</Form.Item>
+				<Form.Item
+					name='modelPath'
+					label='模板路径'
+					rules={[
+						{ required: true, message: '请输入模板路径' },
+						() => ({
+							validator(rule, value) {
+								if (!!value) {
+									if (!!value && /^[a-zA-Z][a-zA-Z0-9]*$/.test(value))
+										return Promise.resolve();
+									return Promise.reject('请输入英文和数字，并且不以数字开头');
+								}
+								return Promise.reject('');
+							},
+						}),
+					]}
+				>
+					<Input placeholder='请输入模板路径' maxLength={120} />
 				</Form.Item>
 				{domainList.map((d: any, i: number) => {
 					return (
@@ -229,7 +259,7 @@ export default ({ match }: any) => {
 					}
 					initialValue={1}
 				>
-					<Switch checkedChildren='开启' unCheckedChildren='关闭' />
+					<Switch checkedChildren='开启' unCheckedChildren='关闭' defaultChecked={!!siteDetailData?.status} />
 				</Form.Item>
 				<Form.Item
 					name='favicon'
@@ -272,7 +302,7 @@ export default ({ match }: any) => {
 					tab: '基本信息',
 					children: basicChildren,
 				},
-				{ tabKey: '2', tab: '扩展配置', children: <ExpandChildren /> },
+				{ tabKey: '2', tab: '扩展配置', children: <ExpandChildren id={id} /> },
 			]}
 		/>
 	);
