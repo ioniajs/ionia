@@ -155,8 +155,8 @@ export default ({ match }: any) => {
 					<TreeSelect
 						showSearch={true}
 						treeData={siteTree}
-						onSearch={(e) => {
-							runsiteTree(e)
+						onSearch={e => {
+							runsiteTree(e);
 						}}
 						placeholder='请选择上级站点'
 					/>
@@ -259,7 +259,11 @@ export default ({ match }: any) => {
 					}
 					initialValue={1}
 				>
-					<Switch checkedChildren='开启' unCheckedChildren='关闭' defaultChecked={!!siteDetailData?.status} />
+					<Switch
+						checkedChildren='开启'
+						unCheckedChildren='关闭'
+						defaultChecked={!!siteDetailData?.status}
+					/>
 				</Form.Item>
 				<Form.Item
 					name='favicon'

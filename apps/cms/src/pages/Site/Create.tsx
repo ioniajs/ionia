@@ -140,8 +140,8 @@ export default () => {
 						placeholder='请选择上级站点'
 						treeData={siteTree}
 						showSearch={true}
-						onSearch={(e) => {
-							runsiteTree(e)
+						onSearch={e => {
+							runsiteTree(e);
 						}}
 					/>
 				</Form.Item>
@@ -272,6 +272,6 @@ export default () => {
 					/>
 				</Form.Item>
 			</Form>
-		</BizPage >
+		</BizPage>
 	);
 };
