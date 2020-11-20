@@ -7,6 +7,7 @@ import { UserPageVO, userPaging, modUserStatus } from '@ionia/libs/src/services'
 import { IdsDTO } from '@ionia/libs/src/services/reuse.dto';
 import { useHistory } from 'react-router-dom';
 import './index.less';
+import ModUserPassword from './components';
 export interface TableListItem {
 	key: number;
 	name: string;
@@ -24,7 +25,8 @@ const userRemove = async (ids: IdsDTO) => {
 export default () => {
 	const history = useHistory();
 	const actionRef = useRef<ActionType>();
-	const [modalVisble, setModalVisble] = useState(false);
+	const [modalVisble, setModalVisble] = useState<boolean>(false);
+	const [userName, setUserName] = useState<string>();
 	const [selectedRowKeys, setSelectedRowKeys] = useState<number[]>([]);
 	const columns: ProColumns<UserPageVO>[] = [
 		{
@@ -32,6 +34,7 @@ export default () => {
 			key: 'username',
 			dataIndex: 'username',
 			width: 150,
+			render: username => <a onClick={() => history.push('/user/detail')}>{username}</a>,
 		},
 		{
 			title: '姓名',
@@ -111,9 +114,17 @@ export default () => {
 			title: '操作',
 			key: 'operation',
 			dataIndex: 'operation',
+			width: 130,
 			render: (_, row) => (
 				<>
-					<a>修改密码</a>
+					<a
+						onClick={() => {
+							setModalVisble(true);
+							setUserName(row.username);
+						}}
+					>
+						修改密码
+					</a>
 					<Divider type='vertical' />
 					<a
 						onClick={async () => {
@@ -158,7 +169,7 @@ export default () => {
 							</div>
 							<div className='io-space-item'>
 								<Button
-									onClick={() => history.push('/user/userbatchadd')}
+									onClick={() => history.push('/user/batchadd')}
 									type='default'
 								>
 									批量新建
@@ -212,6 +223,11 @@ export default () => {
 					}}
 				/>
 			</BizPage>
+			<ModUserPassword
+				modalVisble={modalVisble}
+				setModalVisble={setModalVisble}
+				userName={userName}
+			></ModUserPassword>
 		</div>
 	);
 };
