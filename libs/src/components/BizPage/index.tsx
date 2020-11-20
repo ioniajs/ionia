@@ -106,7 +106,13 @@ export const BizPage = ({
 								<i className='iconfont icon-info-circle' />
 							</div>
 							{tipsVisible && (
-								<Alert className='io-biz-page__tips-info' message={tips} />
+								<Alert
+									className='io-biz-page__tips-info'
+									message={tips}
+									onClick={() => {
+										setTipsVisible(!tipsVisible);
+									}}
+								/>
 							)}
 						</div>
 					)}
