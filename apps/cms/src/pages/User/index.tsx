@@ -34,7 +34,9 @@ export default () => {
 			key: 'username',
 			dataIndex: 'username',
 			width: 150,
-			render: username => <a onClick={() => history.push('/user/detail')}>{username}</a>,
+			render: (_, row) => {
+				return <a onClick={() => history.push(`/user/detail/${row.id}`)}>{row.username}</a>;
+			},
 		},
 		{
 			title: '姓名',
