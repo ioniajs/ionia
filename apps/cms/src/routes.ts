@@ -10,6 +10,7 @@ import SiteDetail from '@/pages/Site/Detail';
 import { ExceptionPage } from '@ionia/libs';
 import DemoAMap from './pages/Demo/AMap';
 import Role from './pages/Role';
+import RoleDetail from '@/pages/Role/Detail';
 export default [
 	{
 		path: '/basic',
@@ -54,6 +55,10 @@ export default [
 	{
 		path: '/role',
 		component: Role,
+	},
+	{
+		path: '/role/detail/:id',
+		component: RoleDetail,
 	},
 	{
 		path: '/500',

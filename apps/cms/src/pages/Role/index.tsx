@@ -3,7 +3,7 @@ import { ExclamationCircleOutlined } from '@ant-design/icons';
 import { BizTable, BizTree, deleteUser } from '@ionia/libs';
 import { Button, Modal, Switch } from 'antd';
 import React, { useRef, useState } from 'react';
-import UserForm from './compontent/Form';
+import UserForm from './Add';
 import { RolePageVO, rolePaging, modUserStatus } from '@ionia/libs/src/services';
 import { IdsDTO } from '@ionia/libs/src/services/reuse.dto';
 import { useHistory } from 'react-router-dom';
@@ -54,6 +54,15 @@ export default () => {
 			title: '角色名称',
 			key: 'name',
 			dataIndex: 'name',
+			render: (_, row) => (
+				<a
+					onClick={() => {
+						history.push(`/role/detail/${row.id}`);
+					}}
+				>
+					{row.name}
+				</a>
+			),
 		},
 		{
 			title: '所属阵地',
