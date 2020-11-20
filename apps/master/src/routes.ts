@@ -33,5 +33,9 @@ export default {
 			path: '/cms/site',
 			name: '站点管理',
 		},
+		{
+			path: '/cms/role',
+			name: '角色管理',
+		},
 	],
 } as Record<string, IoniaMenuRoute[]>;
