@@ -1,7 +1,28 @@
 import React, { useState, useEffect } from 'react';
-import { Button, Form, Input, Switch, Select, Tooltip, Checkbox, Radio, Anchor } from 'antd';
+import {
+	Button,
+	Form,
+	Input,
+	Switch,
+	Select,
+	Tooltip,
+	Checkbox,
+	Radio,
+	Anchor,
+	message,
+} from 'antd';
 import { InfoCircleOutlined } from '@ant-design/icons';
-import { BizPage, ImageUpload, BizSection, Watermark } from '@ionia/libs';
+import {
+	BizPage,
+	ImageUpload,
+	BizSection,
+	Watermark,
+	saveUpdateSite,
+	siteConfigDetail,
+	SiteCfgDTO,
+	ColorsPicker,
+} from '@ionia/libs';
+import { useMount, useRequest } from '@umijs/hooks';
 import './index.less';
 
 interface ExpandChildrenProps {
@@ -41,15 +62,78 @@ const watermarkWordSize = [
 	},
 ];
 
+// const handleSaveUpdateSite = async (fileds: SiteCfgDTO) => {
+const handleSaveUpdateSite = async (fileds: any) => {
+	const updateRes = await saveUpdateSite(fileds);
+	if (updateRes.code === 200) {
+		message.success('修改成功');
+	} else {
+		message.error('修改失败');
+	}
+	return updateRes;
+};
+
 export const ExpandChildren = ({ id }: ExpandChildrenProps) => {
 	const [expandForm] = Form.useForm();
+	const [contentSignValue, setContentSignValue] = useState<string>('1'); // 新内容标记
+	const [contentSignTypeValue, setContentSignTypeValue] = useState<string>('1'); // 新内容标记方式
+	const [watermarkTypeValue, setWatermarkTypeValue] = useState<string>('1'); // 水印类型
+	const { data, run } = useRequest(siteConfigDetail, {
+		manual: true,
+	});
+	useMount(() => {
+		if (id !== undefined) {
+			run(id);
+		}
+	});
+	useEffect(() => {
+		if (data?.data) {
+			expandForm.setFieldsValue({
+				...data?.data,
+			});
+			setContentSignValue(data?.data.contentSign);
+			setContentSignTypeValue(data?.data.contentSignType);
+			setWatermarkTypeValue(data?.data.watermarkType);
+		}
+	}, [data?.data]);
 	return (
 		<>
 			<div className='io-site-detail-expandchildren__div'>
 				<BizPage
 					form={expandForm}
 					showActions
-					renderActions={() => <Button type='primary'>保存</Button>}
+					renderActions={() => (
+						<Button
+							type='primary'
+							onClick={() => {
+								expandForm.validateFields().then(async values => {
+									console.log(values, 'vavavavav');
+									const param = {
+										...values,
+										contentLikeLogin: values.contentLikeLogin ? '1' : '0',
+										channelNameRep: values.channelNameRep ? '1' : '0',
+										commentAudit: values.commentAudit ? '1' : '0',
+										commentLink: values.commentLink ? '1' : '0',
+										smtpSsl: values.smtpSsl ? '1' : '0',
+										staticServer: values.staticServer ? '1' : '0',
+										staticContent: values.staticContent ? '1' : '0',
+										staticChannel: values.staticChannel ? '1' : '0',
+										siteLogin: values.siteLogin ? '1' : '0',
+										siteGray: values.siteGray ? '1' : '0',
+										siteRelativePath: values.siteRelativePath ? '1' : '0',
+										sitePush: values.sitePush ? '1' : '0',
+										watermarkLocation: values.watermarkLocation.toString(),
+									};
+									const saveUpdateRes = await handleSaveUpdateSite(param);
+									if (saveUpdateRes) {
+										id !== undefined && run(id);
+									}
+								});
+							}}
+						>
+							保存
+						</Button>
+					)}
 					layout={{
 						labelCol: { span: 11 },
 						wrapperCol: { span: 13 },
@@ -85,7 +169,7 @@ export const ExpandChildren = ({ id }: ExpandChildrenProps) => {
 							</Radio.Group>
 						</Form.Item>
 						<Form.Item
-							name=''
+							name='contentSign'
 							label={
 								<span>
 									新内容标记&nbsp;
@@ -96,55 +180,106 @@ export const ExpandChildren = ({ id }: ExpandChildrenProps) => {
 							}
 							initialValue={'0'}
 						>
-							<Radio.Group>
+							<Radio.Group
+								onChange={e => {
+									setContentSignValue(e.target.value);
+								}}
+							>
 								<Radio value='1'>开启</Radio>
 								<Radio value='0'>不开启</Radio>
 							</Radio.Group>
 						</Form.Item>
-						<Form.Item
-							name='contentDefinition'
-							label={
-								<span>
-									新内容定义&nbsp;
-									<Tooltip title='若设置为1小时，表示发布时间在前1小时范围内的内容都是新内容'>
-										<InfoCircleOutlined className='io-site-detail-expand-info__icon' />
-									</Tooltip>
-								</span>
-							}
-							rules={[{ required: true, message: '请输入新内容定义时间' }]}
-						>
-							<Input
-								addonAfter={
-									<Form.Item
-										name='contentDefinitionType'
-										label=''
-										colon={false}
-										initialValue={'2'}
+						{contentSignValue === '1' && (
+							<>
+								<Form.Item
+									name='contentDefinition'
+									label={
+										<span>
+											新内容定义&nbsp;
+											<Tooltip title='若设置为1小时，表示发布时间在前1小时范围内的内容都是新内容'>
+												<InfoCircleOutlined className='io-site-detail-expand-info__icon' />
+											</Tooltip>
+										</span>
+									}
+									rules={[
+										{
+											required: contentSignValue === '1',
+											message: '请输入新内容定义时间',
+										},
+									]}
+								>
+									<Input
+										addonAfter={
+											<Form.Item
+												name='contentDefinitionType'
+												label=''
+												colon={false}
+												initialValue={'2'}
+											>
+												<Select className='select-after'>
+													<Option value='1'>分钟</Option>
+													<Option value='2'>小时</Option>
+													<Option value='3'>天</Option>
+												</Select>
+											</Form.Item>
+										}
+									/>
+								</Form.Item>
+								<Form.Item
+									name='contentSignType'
+									label='新内容标记方式'
+									initialValue={'1'}
+								>
+									<Radio.Group
+										onChange={e => setContentSignTypeValue(e.target.value)}
 									>
-										<Select className='select-after'>
-											<Option value='1'>分钟</Option>
-											<Option value='2'>小时</Option>
-											<Option value='3'>天</Option>
-										</Select>
+										<Radio value='1'>图片</Radio>
+										<Radio value='2'>文字</Radio>
+									</Radio.Group>
+								</Form.Item>
+								{contentSignTypeValue === '1' && (
+									<Form.Item
+										name='contentSignPic'
+										label='标记图片'
+										rules={[{ required: true, message: '请上传标记图片' }]}
+									>
+										<ImageUpload />
 									</Form.Item>
-								}
-							/>
-						</Form.Item>
-						<Form.Item name='contentSignType' label='新内容标记方式' initialValue={'1'}>
-							<Radio.Group>
-								<Radio value='1'>图片</Radio>
-								<Radio value='2'>文字</Radio>
-							</Radio.Group>
-						</Form.Item>
-						<Form.Item
-							name='contentSignPic'
-							label='标记图片'
-							rules={[{ required: true, message: '请上传标记图片' }]}
-						>
-							<ImageUpload />
-						</Form.Item>
+								)}
+								{contentSignTypeValue === '2' && (
+									<>
+										<Form.Item
+											name='contentSignWord'
+											label='标记文字'
+											rules={[
+												{ required: true, message: '请输入新内容标记文字' },
+											]}
+										>
+											<Input />
+										</Form.Item>
+										<Form.Item
+											name='contentSignColor'
+											label='文字颜色'
+											rules={[
+												{ required: true, message: '请选择新内容文字颜色' },
+											]}
+										>
+											<ColorsPicker
+												onChange={colors => {
+													console.log(colors, 'ccccc');
+												}}
+											/>
+										</Form.Item>
+									</>
+								)}
+							</>
+						)}
 						<Form.Item name='contentLikeLogin' label='点赞需要登录' initialValue={'0'}>
-							<Switch checkedChildren='开启' unCheckedChildren='关闭' />
+							<Switch
+								checkedChildren='开启'
+								unCheckedChildren='关闭'
+								defaultChecked={!!Number(data?.data.contentLikeLogin)}
+							/>
 						</Form.Item>
 					</BizSection>
 					<BizSection title='栏目配置' id='channel'>
@@ -153,7 +288,11 @@ export const ExpandChildren = ({ id }: ExpandChildrenProps) => {
 							label='栏目名称允许重复'
 							initialValue={'0'}
 						>
-							<Switch checkedChildren='开启' unCheckedChildren='关闭' />
+							<Switch
+								checkedChildren='开启'
+								unCheckedChildren='关闭'
+								defaultChecked={!!Number(data?.data.channelNameRep)}
+							/>
 						</Form.Item>
 						<Form.Item
 							name='channelPage'
@@ -186,10 +325,18 @@ export const ExpandChildren = ({ id }: ExpandChildrenProps) => {
 							<Input />
 						</Form.Item>
 						<Form.Item name='commentAudit' label='评论需要审核' initialValue={1}>
-							<Switch checkedChildren='开启' unCheckedChildren='关闭' />
+							<Switch
+								checkedChildren='开启'
+								unCheckedChildren='关闭'
+								defaultChecked={!!Number(data?.data.commentAudit)}
+							/>
 						</Form.Item>
 						<Form.Item name='commentLink' label='允许输入链接' initialValue={0}>
-							<Switch checkedChildren='开启' unCheckedChildren='关闭' />
+							<Switch
+								checkedChildren='开启'
+								unCheckedChildren='关闭'
+								defaultChecked={!!Number(data?.data.commentLink)}
+							/>
 						</Form.Item>
 					</BizSection>
 					<BizSection title='邮件服务配置' id='mail-service'>
@@ -215,7 +362,11 @@ export const ExpandChildren = ({ id }: ExpandChildrenProps) => {
 							<Input />
 						</Form.Item>
 						<Form.Item name='smtpSsl' label='使用SSL协议' initialValue={1}>
-							<Switch checkedChildren='开启' unCheckedChildren='关闭' />
+							<Switch
+								checkedChildren='开启'
+								unCheckedChildren='关闭'
+								defaultChecked={!!Number(data?.data.smtpSsl)}
+							/>
 						</Form.Item>
 						<Form.Item
 							label={<span style={{ display: 'none' }}>邮箱校验</span>}
@@ -226,46 +377,49 @@ export const ExpandChildren = ({ id }: ExpandChildrenProps) => {
 					</BizSection>
 					<BizSection title='水印配置' id='water-mark'>
 						<Form.Item name='watermarkType' label='水印类型' initialValue={'1'}>
-							<Radio.Group>
+							<Radio.Group
+								onChange={e => {
+									setWatermarkTypeValue(e.target.value);
+								}}
+							>
 								<Radio value='1'>图片</Radio>
 								<Radio value='2'>文字</Radio>
 							</Radio.Group>
 						</Form.Item>
-						<Form.Item
-							name='watermarkPic'
-							label='水印图片'
-							rules={[{ required: true, message: '请上传水印图片' }]}
-						>
-							<ImageUpload />
-						</Form.Item>
-						<Form.Item
-							name='watermarkWord'
-							label='水印文字'
-							rules={[{ required: true, message: '请输入水印文字' }]}
-						>
-							<Input />
-						</Form.Item>
-						<Form.Item
-							name='watermarkWordSize'
-							label='文字大小(px)'
-							rules={[{ required: true, message: '请选择文字大小' }]}
-						>
-							<Select options={watermarkWordSize} />
-						</Form.Item>
-						<Form.Item
-							name='watermarkColor'
-							label='文字颜色'
-							rules={[{ required: true, message: '请选择文字颜色' }]}
-						>
-							<Input />
-						</Form.Item>
-						<Form.Item
-							name='watermarkWord'
-							label='水印文字'
-							rules={[{ required: true, message: '请输入水印文字' }]}
-						>
-							<Input />
-						</Form.Item>
+						{watermarkTypeValue === '1' && (
+							<Form.Item
+								name='watermarkPic'
+								label='水印图片'
+								rules={[{ required: true, message: '请上传水印图片' }]}
+							>
+								<ImageUpload />
+							</Form.Item>
+						)}
+						{watermarkTypeValue === '2' && (
+							<>
+								<Form.Item
+									name='watermarkWord'
+									label='水印文字'
+									rules={[{ required: true, message: '请输入水印文字' }]}
+								>
+									<Input />
+								</Form.Item>
+								<Form.Item
+									name='watermarkWordSize'
+									label='文字大小(px)'
+									rules={[{ required: true, message: '请选择文字大小' }]}
+								>
+									<Select options={watermarkWordSize} />
+								</Form.Item>
+								<Form.Item
+									name='watermarkColor'
+									label='文字颜色'
+									rules={[{ required: true, message: '请选择文字颜色' }]}
+								>
+									<Input />
+								</Form.Item>
+							</>
+						)}
 						<Form.Item
 							name='watermarkLocation'
 							label='水印位置'
@@ -287,7 +441,11 @@ export const ExpandChildren = ({ id }: ExpandChildrenProps) => {
 							}
 							initialValue={1}
 						>
-							<Switch checkedChildren='开启' unCheckedChildren='关闭' />
+							<Switch
+								checkedChildren='开启'
+								unCheckedChildren='关闭'
+								defaultChecked={!!Number(data?.data.staticServer)}
+							/>
 						</Form.Item>
 						<Form.Item
 							name='staticPlatform'
@@ -322,14 +480,22 @@ export const ExpandChildren = ({ id }: ExpandChildrenProps) => {
 							label='发布内容时自动生成首页静态页'
 							initialValue={'1'}
 						>
-							<Switch checkedChildren='开启' unCheckedChildren='关闭' />
+							<Switch
+								checkedChildren='开启'
+								unCheckedChildren='关闭'
+								defaultChecked={!!Number(data?.data.staticContent)}
+							/>
 						</Form.Item>
 						<Form.Item
 							name='staticChannel'
 							label='发布内容时自动生成栏目静态页'
 							initialValue={1}
 						>
-							<Switch checkedChildren='开启' unCheckedChildren='关闭' />
+							<Switch
+								checkedChildren='开启'
+								unCheckedChildren='关闭'
+								defaultChecked={!!Number(data?.data.staticChannel)}
+							/>
 						</Form.Item>
 						<Form.Item
 							name='staticSize'
@@ -364,7 +530,11 @@ export const ExpandChildren = ({ id }: ExpandChildrenProps) => {
 							}
 							initialValue={1}
 						>
-							<Switch checkedChildren='开启' unCheckedChildren='关闭' />
+							<Switch
+								checkedChildren='开启'
+								unCheckedChildren='关闭'
+								defaultChecked={!!Number(data?.data.siteLogin)}
+							/>
 						</Form.Item>
 						<Form.Item
 							name='siteGray'
@@ -378,15 +548,27 @@ export const ExpandChildren = ({ id }: ExpandChildrenProps) => {
 							}
 							initialValue={0}
 						>
-							<Switch checkedChildren='开启' unCheckedChildren='关闭' />
+							<Switch
+								checkedChildren='开启'
+								unCheckedChildren='关闭'
+								defaultChecked={!!Number(data?.data.siteGray)}
+							/>
 						</Form.Item>
-						<Form.Item name='' label='使用相对路径' initialValue={'0'}>
-							<Switch checkedChildren='开启' unCheckedChildren='关闭' />
+						<Form.Item name='siteRelativePath' label='使用相对路径' initialValue={'0'}>
+							<Switch
+								checkedChildren='开启'
+								unCheckedChildren='关闭'
+								defaultChecked={!!Number(data?.data.siteRelativePath)}
+							/>
 						</Form.Item>
 					</BizSection>
 					<BizSection title='网站群推送配置' id='site-push'>
 						<Form.Item name='sitePush' label='允许网站群推送' initialValue={1}>
-							<Switch checkedChildren='开启' unCheckedChildren='关闭' />
+							<Switch
+								checkedChildren='开启'
+								unCheckedChildren='关闭'
+								defaultChecked={!!Number(data?.data.sitePush)}
+							/>
 						</Form.Item>
 						<Form.Item name='sitePushCryp' label='密钥'>
 							<Input placeholder='请输入密钥' />
