@@ -13,33 +13,33 @@ import './index.less';
 const treeData = [
 	{
 		title: 'Node1',
-		value: '0-0',
+		value: 1,
 		children: [
 			{
 				title: 'Child Node1',
-				value: '0-0-1',
+				value: 11,
 			},
 			{
 				title: 'Child Node2',
-				value: '0-0-2',
+				value: 12,
 			},
 		],
 	},
 	{
 		title: 'Node2',
-		value: '0-1',
+		value: 2,
 	},
 	{
 		title: 'Node1',
-		value: '0-2',
+		value: 3,
 		children: [
 			{
 				title: 'Child Node1',
-				value: '0-2-1',
+				value: 31,
 			},
 			{
 				title: 'Child Node2',
-				value: '0-2-2',
+				value: 32,
 			},
 		],
 	},

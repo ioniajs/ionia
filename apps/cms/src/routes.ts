@@ -10,7 +10,10 @@ import SiteDetail from '@/pages/Site/Detail/index';
 import SiteBatchCreate from '@/pages/Site/BatchCreate/index';
 import { ExceptionPage } from '@ionia/libs';
 import DemoAMap from './pages/Demo/AMap';
+import UserDetail from './pages/User/Detail';
+
 import Role from './pages/Role';
+import RoleDetail from '@/pages/Role/Detail';
 export default [
 	{
 		path: '/basic',
@@ -29,8 +32,12 @@ export default [
 		component: User,
 	},
 	{
-		path: '/user/userbatchadd',
+		path: '/user/batchadd',
 		component: UserBatchAdd,
+	},
+	{
+		path: '/user/detail',
+		component: UserDetail,
 	},
 	{
 		path: '/practicebase',
@@ -59,6 +66,10 @@ export default [
 	{
 		path: '/role',
 		component: Role,
+	},
+	{
+		path: '/role/detail/:id',
+		component: RoleDetail,
 	},
 	{
 		path: '/500',
