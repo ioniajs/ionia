@@ -91,14 +91,14 @@ export async function roleUploadFile(params: string): Promise<JcResult<boolean>>
  * 角色分页
  */
 export interface RolePaging {
-	beginUpdateTime: string; // 开始更新时间
-	endUpdateTime: string; // 结束更新时间
-	name: string; // 角色名
-	orgId: string; // 阵地id
-	pageNo: number; // 页码, 从1开始计数
-	pageSize: number; // 页面大小
-	pageSort: string; // 排序字段, 格式: name desc,createTime asc
-	updateUser: string; // 更新人
+	beginUpdateTime?: string; // 开始更新时间
+	endUpdateTime?: string; // 结束更新时间
+	name?: string; // 角色名
+	orgId?: string; // 阵地id
+	pageNo?: number; // 页码, 从1开始计数
+	pageSize?: number; // 页面大小
+	pageSort?: string; // 排序字段, 格式: name desc,createTime asc
+	updateUser?: string; // 更新人
 }
 export async function rolePaging(params: RolePaging): Promise<JcResult<Page<RolePageVO>>> {
 	return request.get('/module-user/cmsmanager/roles/page', {
