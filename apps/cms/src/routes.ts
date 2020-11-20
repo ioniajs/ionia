@@ -7,6 +7,7 @@ import User from '@/pages/User';
 import UserBatchAdd from '@/pages/User/BatchAdd';
 import SiteCreate from '@/pages/Site/Create/index';
 import SiteDetail from '@/pages/Site/Detail/index';
+import SiteBatchCreate from '@/pages/Site/BatchCreate/index';
 import { ExceptionPage } from '@ionia/libs';
 import DemoAMap from './pages/Demo/AMap';
 import Role from './pages/Role';
@@ -50,6 +51,10 @@ export default [
 	{
 		path: '/site/detail/:id',
 		component: SiteDetail,
+	},
+	{
+		path: '/site/batch-create',
+		component: SiteBatchCreate,
 	},
 	{
 		path: '/role',

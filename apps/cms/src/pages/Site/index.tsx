@@ -177,7 +177,7 @@ export default () => {
 							</Button>
 						</div>
 						<div className='io-space-item'>
-							<Button type='default'>批量新建</Button>
+							<Button type='default' onClick={() => { history.push('/site/batch-create') }}>批量新建</Button>
 						</div>
 						<div className='io-space-item'>
 							<Button
