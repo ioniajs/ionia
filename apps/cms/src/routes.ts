@@ -9,6 +9,7 @@ import SiteCreate from '@/pages/Site/Create';
 import SiteDetail from '@/pages/Site/Detail';
 import { ExceptionPage } from '@ionia/libs';
 import DemoAMap from './pages/Demo/AMap';
+import UserDetail from './pages/User/Detail';
 
 export default [
 	{
@@ -28,8 +29,12 @@ export default [
 		component: User,
 	},
 	{
-		path: '/user/userbatchadd',
+		path: '/user/batchadd',
 		component: UserBatchAdd,
+	},
+	{
+		path: '/user/detail',
+		component: UserDetail,
 	},
 	{
 		path: '/practicebase',
