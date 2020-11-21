@@ -5,7 +5,6 @@ import './amap.less';
 export default () => {
 	return (
 		<BizPage>
-			<div className='aaaaaaaaaaaaaaaaaaaaaa'></div>
 			<BizModal
 				className='io-amap__content'
 				renderTrigger={({ open }) => (

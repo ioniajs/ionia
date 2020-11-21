@@ -1,6 +1,7 @@
 import { ProFormSelect, ProFormSwitch, ProFormText } from '@ant-design/pro-form';
 import { BizModalForm } from '@ionia/libs';
 import { Button, Cascader, Form, message } from 'antd';
+import { addUser, UserSaveDTO } from '@ionia/libs/src/services';
 import React from 'react';
 
 const waitTime = (time: number = 100) => {
@@ -71,10 +72,12 @@ export default () => {
 			form={form}
 			title='新建用户'
 			onFinish={async values => {
-				await waitTime(2000);
-				console.log(values);
-				message.success('提交成功！');
-				return true;
+				const { data, code } = await addUser(values as UserSaveDTO);
+				if (code == 200) {
+					message.success('提交成功!');
+					form.resetFields();
+					// close();
+				}
 			}}
 			renderSubmitter={({ close }) => (
 				<div className='btn-submitter'>
