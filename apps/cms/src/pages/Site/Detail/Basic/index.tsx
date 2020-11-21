@@ -38,7 +38,7 @@ export const BasicChildren = ({ id }: BasicChildrenProps) => {
 	const [expandForm] = Form.useForm();
 	const [siteTree, setSiteTree] = useState<AdminSiteTreeVO[]>();
 	const [siteDetailData, setSiteDetailData] = useState<AdminSiteDetailVO>();
-	const [domainList, setDomainList] = useState<number[]>([1]);
+	const [domainList, setDomainList] = useState<number[]>([1, 2]);
 	// 获取站点树
 	const { run: runsiteTree } = useRequest(gainSiteTree, {
 		manual: true,
@@ -88,7 +88,7 @@ export const BasicChildren = ({ id }: BasicChildrenProps) => {
 					[`domain_${i}`]: d,
 				});
 			});
-			setDomainList(tempDomainList);
+			setDomainList([0, 1]);
 		}
 	}, [siteDetailData]);
 
