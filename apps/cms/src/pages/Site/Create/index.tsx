@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, Form, Input, Switch, Cascader, Select, Tooltip, TreeSelect, message } from 'antd';
+import { Button, Form, Input, Switch, Select, Tooltip, TreeSelect, message } from 'antd';
 import { InfoCircleOutlined } from '@ant-design/icons';
 import { BizPage, GobackButton, SaveButton, ImageUpload } from '@ionia/libs';
 import { useMount, useRequest } from '@umijs/hooks';
@@ -8,10 +8,12 @@ import { AdminSiteTreeVO } from '@ionia/libs/src/services/kernel/admin-site.vo';
 import './index.less';
 
 const { Option } = Select;
+
 const layout = {
-	labelCol: { span: 6 },
+	labelCol: { span: 7 },
 	wrapperCol: { span: 12 },
 };
+
 const selectBefore = (
 	<Select defaultValue='http://' className='select-before'>
 		<Option value='http://'>http://</Option>
@@ -31,7 +33,6 @@ const handleCreateSites = async (filed: AdminSiteDTO) => {
 export default () => {
 	const [form] = Form.useForm();
 	const [siteTree, setSiteTree] = useState<AdminSiteTreeVO[]>();
-	const [domainList, setDomainList] = useState<number[]>([1]);
 	const { run: runsiteTree } = useRequest(gainSiteTree, {
 		manual: true,
 		onSuccess: result => {
@@ -55,6 +56,7 @@ export default () => {
 	});
 	useMount(() => {
 		runsiteTree();
+		form.setFieldsValue({ domain: [''] })
 	});
 	return (
 		<BizPage
@@ -68,15 +70,12 @@ export default () => {
 							onSave={async () => {
 								form.validateFields().then(async values => {
 									console.log(values, '保存的数据');
-									const tempDomain = domainList.map((d: number, i: number) => {
-										return values[`domain_${d}`];
-									});
 									const param = {
 										parentId: values.parentId,
 										name: values.name,
 										dir: values.dir,
 										modelPath: values.modelPath,
-										domain: tempDomain,
+										domain: values.domain,
 										desc: values.desc || '',
 										status: !!values.status ? 1 : 0,
 										favicon: values.favicon || '',
@@ -100,15 +99,12 @@ export default () => {
 							onClick={() => {
 								form.validateFields().then(async values => {
 									console.log(values, '保存的数据');
-									const tempDomain = domainList.map((d: number, i: number) => {
-										return values[`domain_${d}`];
-									});
 									const param = {
 										parentId: values.parentId,
 										name: values.name,
 										dir: values.dir,
 										modelPath: values.modelPath,
-										domain: tempDomain,
+										domain: values.domain,
 										desc: values.desc || '',
 										status: !!values.status ? 1 : 0,
 										favicon: values.favicon || '',
@@ -119,7 +115,6 @@ export default () => {
 									const success = await handleCreateSites(param);
 									if (success.code === 200) {
 										form.resetFields();
-										setDomainList([]);
 									}
 								});
 							}}
@@ -143,6 +138,7 @@ export default () => {
 						onSearch={e => {
 							runsiteTree(e);
 						}}
+						className='io-cms-site-create-form__item'
 					/>
 				</Form.Item>
 				<Form.Item
@@ -150,7 +146,7 @@ export default () => {
 					label='站点名称'
 					rules={[{ required: true, message: '请输入站点名称' }]}
 				>
-					<Input placeholder='请输入站点名称' maxLength={120} />
+					<Input placeholder='请输入站点名称' maxLength={120} className='io-cms-site-create-form__item' />
 				</Form.Item>
 				<Form.Item
 					name='dir'
@@ -169,7 +165,7 @@ export default () => {
 						}),
 					]}
 				>
-					<Input placeholder='请输入站点目录' maxLength={120} />
+					<Input placeholder='请输入站点目录' maxLength={120} className='io-cms-site-create-form__item' />
 				</Form.Item>
 				<Form.Item
 					name='modelPath'
@@ -188,46 +184,88 @@ export default () => {
 						}),
 					]}
 				>
-					<Input placeholder='请输入模板路径' maxLength={120} />
+					<Input placeholder='请输入模板路径' maxLength={120} className='io-cms-site-create-form__item' />
 				</Form.Item>
-				{domainList.map((d: any, i: number) => {
-					return (
-						<Form.Item
-							name={`domain_${i}`}
-							label={i !== 0 ? <span style={{ display: 'none' }}>域名</span> : '域名'}
-							rules={[{ required: true, message: '请输入域名' }]}
-							colon={!i}
-						>
-							<Input
-								placeholder='请输入域名'
-								addonBefore={selectBefore}
-								maxLength={120}
-							/>
-						</Form.Item>
-					);
-				})}
-				<Form.Item
-					name=''
-					label={<span style={{ display: 'none' }}>添加按钮</span>}
-					colon={false}
-				>
-					<Button
-						type='dashed'
-						style={{ width: '100%' }}
-						onClick={() => {
-							setDomainList(domainList.concat(1));
-						}}
-					>
-						<i className='iconfont icon-plus-square' />
-						添加
-					</Button>
-				</Form.Item>
+				<Form.List name='domain'>
+					{(fields, { add, remove }, { errors }) => {
+						return (
+							<>
+								{fields.map((field, index) => {
+									return (
+										<Form.Item
+											{...layout}
+											label={
+												index === 0 ? (
+													<span>
+														<span className='io-cms-site-copy-label-mark__span'>
+															*
+													</span>
+													域名
+													</span>
+												) : (
+														<span style={{ display: 'none' }}>添加域名</span>
+													)
+											}
+											required={false}
+											key={field.key}
+											colon={index === 0}
+										>
+											<Form.Item
+												{...field}
+												validateTrigger={['onChange', 'onBlur']}
+												rules={[
+													{
+														required: true,
+														message: '请输入域名',
+													},
+												]}
+												noStyle
+											>
+												<Input
+													placeholder='请输入域名'
+													className='io-cms-site-create-form__item'
+													addonBefore={selectBefore}
+												/>
+											</Form.Item>
+											{fields.length > 1 && index > 0 ? (
+												<Button
+													className='io-cms-site-create-domain-delete__but'
+													onClick={() => remove(field.name)}
+												>
+													删除
+												</Button>
+											) : null}
+										</Form.Item>
+									);
+								})}
+								<Form.Item
+									name=''
+									label={<span style={{ display: 'none' }}>添加按钮</span>}
+									colon={false}
+									className='io-cms-site-copy-add__Item'
+								>
+									<Button
+										type='dashed'
+										className='io-cms-site-copy-add__but'
+										onClick={() => add()}
+										style={{ width: '90%' }}
+									>
+										<i className='iconfont icon-plus-square' />
+									添加
+								</Button>
+									<Form.ErrorList errors={errors} />
+								</Form.Item>
+							</>
+						);
+					}}
+				</Form.List>
 				<Form.Item name='desc' label='站点描述'>
 					<Input.TextArea
 						placeholder='请输入站点描述'
 						showCount={true}
 						allowClear={true}
 						maxLength={500}
+						className='io-cms-site-create-form-item_InputArea'
 					/>
 				</Form.Item>
 				<Form.Item
@@ -258,10 +296,10 @@ export default () => {
 					<ImageUpload />
 				</Form.Item>
 				<Form.Item name='seoTitle' label='SEO标题'>
-					<Input placeholder='请输入SEO标题' maxLength={120} />
+					<Input placeholder='请输入SEO标题' maxLength={120} className='io-cms-site-create-form__item' />
 				</Form.Item>
 				<Form.Item name='seoKeyWord' label='SEO关键字'>
-					<Input placeholder='请输入SEO关键字' maxLength={120} />
+					<Input placeholder='请输入SEO关键字' maxLength={120} className='io-cms-site-create-form__item' />
 				</Form.Item>
 				<Form.Item name='seoDesc' label='SEO描述'>
 					<Input.TextArea
@@ -269,6 +307,7 @@ export default () => {
 						showCount={true}
 						allowClear={true}
 						maxLength={500}
+						className='io-cms-site-create-form-item_InputArea'
 					/>
 				</Form.Item>
 			</Form>

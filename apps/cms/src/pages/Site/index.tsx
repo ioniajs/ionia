@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react';
 import { ProColumns, ActionType } from '@ant-design/pro-table';
-import { Button, Switch, Divider, Modal, Tooltip, message } from 'antd';
+import { Button, Switch, Divider, Modal, Tooltip, message, InputNumber } from 'antd';
 import { DndProvider, useDrag, useDrop, createDndContext } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { useHistory } from 'react-router-dom';
@@ -82,17 +82,26 @@ export default () => {
 			width: 300,
 		},
 		{
-			title: '站点目录',
-			key: 'dir',
-			dataIndex: 'dir',
+			title: '模板路径',
+			key: 'modelPath',
+			dataIndex: 'modelPath',
 			render: (_, row) => {
 				return (
-					<Tooltip title={`${row.dir}`}>
-						<span>{row.dir || '-'}</span>
+					<Tooltip title={`${row?.modelPath}`}>
+						<span>{row?.modelPath || '-'}</span>
 					</Tooltip>
 				);
 			},
-			width: 400,
+			width: 300,
+		},
+		{
+			title: '排序值',
+			key: 'sortNo',
+			dataIndex: 'sortNO',
+			render: (_, row) => (
+				<InputNumber />
+			),
+			width: 200
 		},
 		{
 			title: '状态',
@@ -236,8 +245,6 @@ export default () => {
 						data: data.data.list,
 					}));
 				}}
-				// postData={(data: AdminSiteTreeVO[]) => [data]}
-				// components={}
 				rowSelection={{
 					selectedRowKeys,
 					onChange: selectedRowKeys => {
