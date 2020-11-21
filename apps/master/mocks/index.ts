@@ -6,5 +6,15 @@ import site from './site';
 import upload from './upload';
 import user from './user';
 import role from './role';
+import org from './org';
 
-export default setupWorker(...hero, ...config, ...login, ...site, ...upload, ...user, ...role);
+export default setupWorker(
+	...hero,
+	...config,
+	...login,
+	...site,
+	...upload,
+	...user,
+	...role,
+	...org
+);
