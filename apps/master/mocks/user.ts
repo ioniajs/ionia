@@ -293,26 +293,26 @@ export default [
 		);
 	}),
 	//用户详情
-	rest.post('/module-user/cmsmanager/users/:id', (req, res, ctx) => {
+	rest.get('/module-user/cmsmanager/users/:id', (req, res, ctx) => {
 		return res(
 			ctx.json({
 				code: 200,
 				data: {
-					createTime: '',
-					createUser: '',
-					email: '',
-					id: 0,
-					lastLoginIp: '',
-					lastLoginTime: '',
-					orgId: 0,
-					orgNodeIds: [],
-					realName: '',
-					roleIds: [],
-					status: 0,
-					telephone: '',
-					updateTime: '',
-					updateUser: '',
-					username: '',
+					createTime: '2020-11-20 15:36',
+					createUser: '江西宋小宝',
+					email: '11111@qq.com',
+					id: '1',
+					lastLoginIp: '192.168.0.144',
+					lastLoginTime: '2020-11-21 8:30',
+					orgId: '2',
+					orgNodeIds: ['0'],
+					realName: '江西赵四',
+					roleIds: ['审核员'],
+					status: 1,
+					telephone: '18700777700',
+					updateTime: '2020-11-20 4:30',
+					updateUser: '江西谢宝庆',
+					username: '江西刘能',
 				},
 				message: '成功',
 			})

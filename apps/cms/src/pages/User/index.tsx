@@ -206,9 +206,6 @@ export default () => {
 									批量删除
 								</Button>
 							</div>
-							<div className='io-space-item'>
-								<Button type='default'>导入</Button>
-							</div>
 						</>
 					)}
 					renderSider={() => <BizTree />}
