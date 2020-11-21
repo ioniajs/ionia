@@ -164,7 +164,11 @@ export const BasicChildren = ({ id }: BasicChildrenProps) => {
 					label='站点名称'
 					rules={[{ required: true, message: '请输入站点名称' }]}
 				>
-					<Input placeholder='请输入站点名称' maxLength={120} className='io-cms-site-detail-basic-form__item' />
+					<Input
+						placeholder='请输入站点名称'
+						maxLength={120}
+						className='io-cms-site-detail-basic-form__item'
+					/>
 				</Form.Item>
 				<Form.Item
 					name='dir'
@@ -183,7 +187,11 @@ export const BasicChildren = ({ id }: BasicChildrenProps) => {
 						}),
 					]}
 				>
-					<Input placeholder='请输入站点目录' maxLength={120} className='io-cms-site-detail-basic-form__item' />
+					<Input
+						placeholder='请输入站点目录'
+						maxLength={120}
+						className='io-cms-site-detail-basic-form__item'
+					/>
 				</Form.Item>
 				<Form.Item
 					name='modelPath'
@@ -202,7 +210,11 @@ export const BasicChildren = ({ id }: BasicChildrenProps) => {
 						}),
 					]}
 				>
-					<Input placeholder='请输入模板路径' maxLength={120} className='io-cms-site-detail-basic-form__item' />
+					<Input
+						placeholder='请输入模板路径'
+						maxLength={120}
+						className='io-cms-site-detail-basic-form__item'
+					/>
 				</Form.Item>
 				{/* {domainList.map((d: any, i: number) => {
 					return (
@@ -254,10 +266,10 @@ export const BasicChildren = ({ id }: BasicChildrenProps) => {
 														域名
 													</span>
 												) : (
-														<span style={{ display: 'none' }}>
-															添加域名
-														</span>
-													)
+													<span style={{ display: 'none' }}>
+														添加域名
+													</span>
+												)
 											}
 											required={false}
 											key={field.key}
@@ -352,10 +364,18 @@ export const BasicChildren = ({ id }: BasicChildrenProps) => {
 					<ImageUpload />
 				</Form.Item>
 				<Form.Item name='seoTitle' label='SEO标题'>
-					<Input placeholder='请输入SEO标题' maxLength={120} className='io-cms-site-detail-basic-form__item' />
+					<Input
+						placeholder='请输入SEO标题'
+						maxLength={120}
+						className='io-cms-site-detail-basic-form__item'
+					/>
 				</Form.Item>
 				<Form.Item name='seoKeyWord' label='SEO关键字'>
-					<Input placeholder='请输入SEO关键字' maxLength={120} className='io-cms-site-detail-basic-form__item' />
+					<Input
+						placeholder='请输入SEO关键字'
+						maxLength={120}
+						className='io-cms-site-detail-basic-form__item'
+					/>
 				</Form.Item>
 				<Form.Item name='seoDesc' label='SEO描述'>
 					<Input.TextArea

@@ -187,8 +187,8 @@ export default ({ siteId }: CopyFormProps) => {
 													域名
 												</span>
 											) : (
-													''
-												)
+												''
+											)
 										}
 										required={false}
 										key={field.key}
