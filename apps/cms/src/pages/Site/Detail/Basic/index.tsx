@@ -5,7 +5,6 @@ import { BizPage, ImageUpload, BizSection } from '@ionia/libs';
 import { useMount, useRequest } from '@umijs/hooks';
 import { gainSiteTree, siteDetail, amendSite, AdminSiteDTO } from '@ionia/libs/src/services/kernel';
 import { AdminSiteTreeVO, AdminSiteDetailVO } from '@ionia/libs/src/services/kernel/admin-site.vo';
-import { ExpandChildren } from './Expand';
 import './index.less';
 
 const { Option } = Select;
@@ -31,11 +30,10 @@ const handleUpdateSites = async (filed: AdminSiteDTO) => {
 	}
 	return createRef;
 };
-
-export default ({ match }: any) => {
-	const {
-		params: { id },
-	} = match;
+interface BasicChildrenProps {
+	id?: string;
+}
+export const BasicChildren = ({ id }: BasicChildrenProps) => {
 	const [basicForm] = Form.useForm();
 	const [expandForm] = Form.useForm();
 	const [siteTree, setSiteTree] = useState<AdminSiteTreeVO[]>();
@@ -93,8 +91,8 @@ export default ({ match }: any) => {
 			setDomainList(tempDomainList);
 		}
 	}, [siteDetailData]);
-	// 基本信息的children
-	const basicChildren: React.ReactNode = (
+
+	return (
 		<>
 			<div className='io-site-detail-basicchildren__div'>
 				<Button
@@ -294,20 +292,5 @@ export default ({ match }: any) => {
 				</Form.Item>
 			</Form>
 		</>
-	);
-
-	return (
-		<BizPage
-			breadcrumbs={[{ name: '站点管理' }, { name: '编辑' }]}
-			showActions={true}
-			tabList={[
-				{
-					tabKey: '1',
-					tab: '基本信息',
-					children: basicChildren,
-				},
-				{ tabKey: '2', tab: '扩展配置', children: <ExpandChildren id={id} /> },
-			]}
-		/>
 	);
 };
