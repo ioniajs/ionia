@@ -78,6 +78,8 @@ export const ExpandChildren = ({ id }: ExpandChildrenProps) => {
 	const [contentSignValue, setContentSignValue] = useState<string>('1'); // 新内容标记
 	const [contentSignTypeValue, setContentSignTypeValue] = useState<string>('1'); // 新内容标记方式
 	const [watermarkTypeValue, setWatermarkTypeValue] = useState<string>('1'); // 水印类型
+	const [contentSignColorValue, setContentSignColorValue] = useState<string>(''); // 内容标记文字颜色
+	const [waterMarkColorValue, setWaterMarkColorValue] = useState<string>(''); // 水印文字颜色
 	const { data, run } = useRequest(siteConfigDetail, {
 		manual: true,
 	});
@@ -123,6 +125,8 @@ export const ExpandChildren = ({ id }: ExpandChildrenProps) => {
 										siteRelativePath: values.siteRelativePath ? '1' : '0',
 										sitePush: values.sitePush ? '1' : '0',
 										watermarkLocation: values.watermarkLocation.toString(),
+										contentSignColor: contentSignColorValue,
+										WaterMarkColor: waterMarkColorValue,
 									};
 									const saveUpdateRes = await handleSaveUpdateSite(param);
 									if (saveUpdateRes) {
@@ -265,8 +269,9 @@ export const ExpandChildren = ({ id }: ExpandChildrenProps) => {
 											]}
 										>
 											<ColorsPicker
+												color={contentSignColorValue}
 												onChange={colors => {
-													console.log(colors, 'ccccc');
+													setContentSignColorValue(colors.color);
 												}}
 											/>
 										</Form.Item>
@@ -416,7 +421,10 @@ export const ExpandChildren = ({ id }: ExpandChildrenProps) => {
 									label='文字颜色'
 									rules={[{ required: true, message: '请选择文字颜色' }]}
 								>
-									<Input />
+									<ColorsPicker
+										color={waterMarkColorValue}
+										onChange={colors => setWaterMarkColorValue(colors.color)}
+									/>
 								</Form.Item>
 							</>
 						)}
