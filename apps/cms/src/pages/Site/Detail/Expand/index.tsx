@@ -93,6 +93,7 @@ export const ExpandChildren = ({ id }: ExpandChildrenProps) => {
 		if (data?.data) {
 			expandForm.setFieldsValue({
 				...data?.data,
+				staticContent: Number(data?.data?.staticContent),
 			});
 			setContentSignValue(data?.data.contentSign);
 			setContentSignTypeValue(data?.data.contentSignType);
@@ -487,12 +488,13 @@ export const ExpandChildren = ({ id }: ExpandChildrenProps) => {
 						<Form.Item
 							name='staticContent'
 							label='发布内容时自动生成首页静态页'
-							initialValue={'1'}
+							valuePropName='checked'
+							initialValue={true}
 						>
 							<Switch
 								checkedChildren='开启'
 								unCheckedChildren='关闭'
-								defaultChecked={!!Number(data?.data.staticContent)}
+								// defaultChecked={Number(data?.data.staticContent)}
 							/>
 						</Form.Item>
 						<Form.Item
