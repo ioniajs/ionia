@@ -83,6 +83,7 @@ export const ExpandChildren = ({ id }: ExpandChildrenProps) => {
 	const { data, run } = useRequest(siteConfigDetail, {
 		manual: true,
 	});
+
 	useMount(() => {
 		if (id !== undefined) {
 			run(id);

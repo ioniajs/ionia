@@ -13,7 +13,6 @@ import DemoAMap from './pages/Demo/AMap';
 import UserDetail from './pages/User/Detail';
 
 import Role from './pages/Role';
-import RoleDetail from '@/pages/Role/Detail';
 export default [
 	{
 		path: '/basic',
@@ -36,7 +35,7 @@ export default [
 		component: UserBatchAdd,
 	},
 	{
-		path: '/user/detail',
+		path: '/user/detail/:id',
 		component: UserDetail,
 	},
 	{
@@ -66,10 +65,6 @@ export default [
 	{
 		path: '/role',
 		component: Role,
-	},
-	{
-		path: '/role/detail/:id',
-		component: RoleDetail,
 	},
 	{
 		path: '/500',
