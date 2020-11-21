@@ -194,12 +194,12 @@ export default [
 			ctx.json({
 				code: 200,
 				data: {
-					createTime: '',
-					createUser: '',
-					description: '',
-					id: 0,
+					createTime: '2020 10-01',
+					createUser: 'admin',
+					description: '这是一个测试账号',
+					id: '0',
 					name: 'admin',
-					orgId: 0,
+					orgId: '11',
 					orgNodeIds: [],
 					updateTime: '2020 11-01',
 					updateUser: 'admin',
