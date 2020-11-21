@@ -14,6 +14,7 @@ export default {
 				{ path: '/cms/basic', name: '基础组件' },
 				{ path: '/cms/detail', name: '详情页' },
 				{ path: '/cms/amap', name: '高德地图' },
+				{ path: '/cms/etable', name: '可编辑表格' },
 			],
 		},
 		{

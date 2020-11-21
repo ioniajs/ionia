@@ -5,11 +5,11 @@ import React, { ReactNode, useState } from 'react';
 import './index.less';
 import { validateMessages } from './rule';
 
-interface RenderTriggerParams {
+interface TriggerRenderParams {
 	open: () => void;
 }
 
-interface RenderSubmitterParams {
+interface SubmitterRenderParams {
 	props: SubmitterProps;
 	doms: JSX.Element[];
 	close: () => void;
@@ -19,15 +19,15 @@ interface BizModalFormProps extends ModalFormProps {
 	title?: string;
 	width?: number;
 	children?: ReactNode;
-	renderTrigger?: (params: RenderTriggerParams) => ReactNode;
-	renderSubmitter?: (params: RenderSubmitterParams) => ReactNode;
+	triggerRender?: (params: TriggerRenderParams) => ReactNode;
+	submitterRender?: (params: SubmitterRenderParams) => ReactNode;
 }
 
 export const BizModalForm = ({
 	title,
 	children,
-	renderTrigger,
-	renderSubmitter,
+	triggerRender,
+	submitterRender,
 	width = 530,
 	...reset
 }: BizModalFormProps) => {
@@ -41,7 +41,7 @@ export const BizModalForm = ({
 		setVisible(false);
 	};
 
-	const defaultRenderTrigger = () => (
+	const defaultTriggerRender = () => (
 		<Button
 			type='primary'
 			onClick={() => {
@@ -52,7 +52,7 @@ export const BizModalForm = ({
 		</Button>
 	);
 
-	const defaultRenderSubmitter = () => {
+	const defaultSubmitterRender = () => {
 		return (
 			<div className='btn-submitter'>
 				<Button type='default' onClick={() => toClose()}>
@@ -78,21 +78,21 @@ export const BizModalForm = ({
 				onCancel: toClose,
 			}}
 			trigger={
-				renderTrigger
-					? renderTrigger({
+				triggerRender
+					? triggerRender({
 							open: () => toOpen(),
 					  })
-					: defaultRenderTrigger()
+					: defaultTriggerRender()
 			}
 			submitter={{
 				render: (_props, _doms) => {
-					return renderSubmitter
-						? renderSubmitter({
+					return submitterRender
+						? submitterRender({
 								props: _props,
 								doms: _doms,
 								close: toClose,
 						  })
-						: defaultRenderSubmitter();
+						: defaultSubmitterRender();
 				},
 			}}
 			{...reset}
