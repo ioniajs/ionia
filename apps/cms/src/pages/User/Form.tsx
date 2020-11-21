@@ -76,7 +76,7 @@ export default () => {
 				message.success('提交成功！');
 				return true;
 			}}
-			renderSubmitter={({ close }) => (
+			submitterRender={({ close }) => (
 				<div className='btn-submitter'>
 					<Button type='default' onClick={close}>
 						取消

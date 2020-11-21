@@ -10,6 +10,7 @@ import SiteDetail from '@/pages/Site/Detail/index';
 import SiteBatchCreate from '@/pages/Site/BatchCreate/index';
 import { ExceptionPage } from '@ionia/libs';
 import DemoAMap from './pages/Demo/AMap';
+import DemoETable from './pages/Demo/ETable';
 import UserDetail from './pages/User/Detail';
 
 import Role from './pages/Role';
@@ -25,6 +26,10 @@ export default [
 	{
 		path: '/amap',
 		component: DemoAMap,
+	},
+	{
+		path: '/etable',
+		component: DemoETable,
 	},
 	{
 		path: '/user',
