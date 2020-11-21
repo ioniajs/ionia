@@ -15,6 +15,8 @@ import {
 } from '@ionia/libs';
 import { AdminSiteTreeVO } from '@ionia/libs/src/services/kernel/admin-site.vo';
 import { IdsDTO } from '@ionia/libs/src/services/reuse.dto';
+import CopyForm from './CopySite';
+import './index.less';
 
 /**
  * 启用、禁用
@@ -125,7 +127,8 @@ export default () => {
 					<Divider type='vertical' />
 					<a>浏览</a>
 					<Divider type='vertical' />
-					<a>复制</a>
+					<div style={{ display: 'inline-block' }}><CopyForm siteId={row.id} /></div>
+					{/* <a>复制</a> */}
 					<Divider type='vertical' />
 					{Number(row.id) !== 0 && (
 						<a

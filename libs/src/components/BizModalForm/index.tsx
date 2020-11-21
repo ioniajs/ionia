@@ -80,18 +80,18 @@ export const BizModalForm = ({
 			trigger={
 				renderTrigger
 					? renderTrigger({
-							open: () => toOpen(),
-					  })
+						open: () => toOpen(),
+					})
 					: defaultRenderTrigger()
 			}
 			submitter={{
 				render: (_props, _doms) => {
 					return renderSubmitter
 						? renderSubmitter({
-								props: _props,
-								doms: _doms,
-								close: toClose,
-						  })
+							props: _props,
+							doms: _doms,
+							close: toClose,
+						})
 						: defaultRenderSubmitter();
 				},
 			}}
