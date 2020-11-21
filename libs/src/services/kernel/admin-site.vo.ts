@@ -31,7 +31,6 @@ export interface AdminSiteTreeVO {
 	id: string; // 站点id
 	modelPath?: string; // 模板路径
 	name: string; // 站点名称
-	parentId?: number; // 父级ID
 	status: number; // 状态 (0关 1开)
 }
 //#endregion

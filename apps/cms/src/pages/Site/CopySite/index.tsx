@@ -93,7 +93,7 @@ export default ({ siteId }: CopyFormProps) => {
 			form={form}
 			title='复制站点'
 			width={580}
-			renderTrigger={({ open }) => <a onClick={open}>复制</a>}
+			triggerRender={({ open }) => <a onClick={open}>复制</a>}
 			onFinish={async values => {
 				console.log(values);
 				const param = {
@@ -187,8 +187,8 @@ export default ({ siteId }: CopyFormProps) => {
 													域名
 												</span>
 											) : (
-												''
-											)
+													''
+												)
 										}
 										required={false}
 										key={field.key}
