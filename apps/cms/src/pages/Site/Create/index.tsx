@@ -56,7 +56,7 @@ export default () => {
 	});
 	useMount(() => {
 		runsiteTree();
-		form.setFieldsValue({ domain: [''] })
+		form.setFieldsValue({ domain: [''] });
 	});
 	return (
 		<BizPage
@@ -146,7 +146,11 @@ export default () => {
 					label='站点名称'
 					rules={[{ required: true, message: '请输入站点名称' }]}
 				>
-					<Input placeholder='请输入站点名称' maxLength={120} className='io-cms-site-create-form__item' />
+					<Input
+						placeholder='请输入站点名称'
+						maxLength={120}
+						className='io-cms-site-create-form__item'
+					/>
 				</Form.Item>
 				<Form.Item
 					name='dir'
@@ -165,7 +169,11 @@ export default () => {
 						}),
 					]}
 				>
-					<Input placeholder='请输入站点目录' maxLength={120} className='io-cms-site-create-form__item' />
+					<Input
+						placeholder='请输入站点目录'
+						maxLength={120}
+						className='io-cms-site-create-form__item'
+					/>
 				</Form.Item>
 				<Form.Item
 					name='modelPath'
@@ -184,7 +192,11 @@ export default () => {
 						}),
 					]}
 				>
-					<Input placeholder='请输入模板路径' maxLength={120} className='io-cms-site-create-form__item' />
+					<Input
+						placeholder='请输入模板路径'
+						maxLength={120}
+						className='io-cms-site-create-form__item'
+					/>
 				</Form.Item>
 				<Form.List name='domain'>
 					{(fields, { add, remove }, { errors }) => {
@@ -199,12 +211,14 @@ export default () => {
 													<span>
 														<span className='io-cms-site-copy-label-mark__span'>
 															*
-													</span>
-													域名
+														</span>
+														域名
 													</span>
 												) : (
-														<span style={{ display: 'none' }}>添加域名</span>
-													)
+													<span style={{ display: 'none' }}>
+														添加域名
+													</span>
+												)
 											}
 											required={false}
 											key={field.key}
@@ -251,8 +265,8 @@ export default () => {
 										style={{ width: '90%' }}
 									>
 										<i className='iconfont icon-plus-square' />
-									添加
-								</Button>
+										添加
+									</Button>
 									<Form.ErrorList errors={errors} />
 								</Form.Item>
 							</>
@@ -296,10 +310,18 @@ export default () => {
 					<ImageUpload />
 				</Form.Item>
 				<Form.Item name='seoTitle' label='SEO标题'>
-					<Input placeholder='请输入SEO标题' maxLength={120} className='io-cms-site-create-form__item' />
+					<Input
+						placeholder='请输入SEO标题'
+						maxLength={120}
+						className='io-cms-site-create-form__item'
+					/>
 				</Form.Item>
 				<Form.Item name='seoKeyWord' label='SEO关键字'>
-					<Input placeholder='请输入SEO关键字' maxLength={120} className='io-cms-site-create-form__item' />
+					<Input
+						placeholder='请输入SEO关键字'
+						maxLength={120}
+						className='io-cms-site-create-form__item'
+					/>
 				</Form.Item>
 				<Form.Item name='seoDesc' label='SEO描述'>
 					<Input.TextArea

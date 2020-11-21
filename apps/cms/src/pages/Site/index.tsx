@@ -98,10 +98,8 @@ export default () => {
 			title: '排序值',
 			key: 'sortNo',
 			dataIndex: 'sortNO',
-			render: (_, row) => (
-				<InputNumber />
-			),
-			width: 200
+			render: (_, row) => <InputNumber />,
+			width: 200,
 		},
 		{
 			title: '状态',
