@@ -127,7 +127,9 @@ export default () => {
 					<Divider type='vertical' />
 					<a>浏览</a>
 					<Divider type='vertical' />
-					<div style={{ display: 'inline-block' }}><CopyForm siteId={row.id} /></div>
+					<div style={{ display: 'inline-block' }}>
+						<CopyForm siteId={row.id} />
+					</div>
 					{/* <a>复制</a> */}
 					<Divider type='vertical' />
 					{Number(row.id) !== 0 && (
