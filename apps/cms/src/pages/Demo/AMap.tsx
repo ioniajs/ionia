@@ -7,7 +7,7 @@ export default () => {
 		<BizPage>
 			<BizModal
 				className='io-amap__content'
-				renderTrigger={({ open }) => (
+				triggerRender={({ open }) => (
 					<Button type='primary' onClick={open}>
 						选择地点
 					</Button>

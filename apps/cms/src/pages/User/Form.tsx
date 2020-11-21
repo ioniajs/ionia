@@ -79,7 +79,7 @@ export default () => {
 					// close();
 				}
 			}}
-			renderSubmitter={({ close }) => (
+			submitterRender={({ close }) => (
 				<div className='btn-submitter'>
 					<Button type='default' onClick={close}>
 						取消

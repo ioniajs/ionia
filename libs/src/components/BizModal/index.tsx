@@ -2,16 +2,16 @@ import { Button, Modal } from 'antd';
 import { ModalProps } from 'antd/lib/modal';
 import React, { ReactNode, useState } from 'react';
 
-interface RenderTriggerParams {
+interface TriggerRenderParams {
 	open: () => void;
 }
 
 interface BizModalProps extends ModalProps {
-	renderTrigger?: (params: RenderTriggerParams) => ReactNode;
+	triggerRender?: (params: TriggerRenderParams) => ReactNode;
 	children: ReactNode;
 }
 
-export const BizModal = ({ renderTrigger, children, ...reset }: BizModalProps) => {
+export const BizModal = ({ triggerRender, children, ...reset }: BizModalProps) => {
 	const [visible, setVisible] = useState(false);
 
 	const toOpen = () => {
@@ -21,7 +21,7 @@ export const BizModal = ({ renderTrigger, children, ...reset }: BizModalProps) =
 		setVisible(false);
 	};
 
-	const defaultRenderTrigger = () => (
+	const defaultTriggerRender = () => (
 		<Button
 			type='primary'
 			onClick={() => {
@@ -34,11 +34,11 @@ export const BizModal = ({ renderTrigger, children, ...reset }: BizModalProps) =
 
 	return (
 		<div className='io-biz-modal'>
-			{renderTrigger
-				? renderTrigger({
+			{triggerRender
+				? triggerRender({
 						open: () => toOpen(),
 				  })
-				: defaultRenderTrigger()}
+				: defaultTriggerRender()}
 			<Modal visible={visible} {...reset} onCancel={toClose}>
 				{children}
 			</Modal>
