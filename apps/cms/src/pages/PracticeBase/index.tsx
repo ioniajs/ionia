@@ -20,6 +20,7 @@ export default () => {
 		}
 		return removeRes.code;
 	};
+
 	const [selectedRowKeys, setSelectedRowKeys] = useState<number[]>([]);
 	const actionRef = useRef<ActionType>();
 	const columns: ProColumns<OrgVO>[] = [
