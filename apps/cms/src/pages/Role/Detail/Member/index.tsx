@@ -1,14 +1,12 @@
 import { ProColumns, ActionType } from '@ant-design/pro-table';
-import { BizTable, deleteUser, logger, roleDetail } from '@ionia/libs';
+import { BizTable, deleteUser } from '@ionia/libs';
 import { Button, Modal, Switch, message, Divider } from 'antd';
 import React, { useRef, useState } from 'react';
+import { PlusOutlined } from '@ant-design/icons';
 import { UserPageVO, userPaging, modUserStatus } from '@ionia/libs/src/services';
 import { IdsDTO } from '@ionia/libs/src/services/reuse.dto';
 import { useHistory } from 'react-router-dom';
 import './index.less';
-import Form from './Form';
-import { useRequest } from 'ahooks';
-import Move from './Move';
 
 export interface TableListItem {
 	key: number;
@@ -26,12 +24,7 @@ const userRemove = async (ids: IdsDTO) => {
 };
 export default ({ id }: any) => {
 	const roleId = id;
-	const { data } = useRequest(() => roleDetail(roleId));
-	logger.debug(data);
-	const orgId = data?.data.orgId;
-	// const roleId = data?.data.id;
 	const history = useHistory();
-	const [visible, setVisible] = useState<boolean>(false);
 	const actionRef = useRef<ActionType>();
 	const [modalVisble, setModalVisble] = useState<boolean>(false);
 	const [userName, setUserName] = useState<string>();
@@ -168,12 +161,13 @@ export default ({ id }: any) => {
 				actionRef={actionRef}
 				renderActions={() => (
 					<>
-						<Move visible={visible} setVisible={setVisible} />
 						<div className='io-space-item'>
-							<Form roleId={roleId} orgId={orgId} />
+							<Button type='primary' icon={<PlusOutlined />}>
+								新建用户
+							</Button>
 						</div>
 						<div className='io-space-item'>
-							<Button onClick={() => setVisible(true)} type='default'>
+							<Button onClick={() => history.push('/user/batchadd')} type='default'>
 								移入用户
 							</Button>
 						</div>
@@ -211,12 +205,12 @@ export default ({ id }: any) => {
 				columns={columns}
 				rowSelection={{
 					selectedRowKeys,
-					onChange: (selectedRowKeys: any) => {
+					onChange: selectedRowKeys => {
 						setSelectedRowKeys(selectedRowKeys as number[]);
 					},
 				}}
 				// pagination
-				request={(params: any, sort: any, filter: any) => {
+				request={(params, sort, filter) => {
 					return userPaging({
 						roleId,
 					}).then(data => ({ data: data.data.content }));
