@@ -7,6 +7,7 @@ import {
 	AdminSiteSortDTO,
 	SiteCfgDTO,
 	SiteCopyDTO,
+	SiteRevertDTO,
 } from './admin-site.dto';
 
 import {
@@ -101,22 +102,26 @@ export async function enableSite(id: string): Promise<JcResult<boolean>> {
 /**
  * 回收站列表
  */
-export async function recycleSiteList(): Promise<JcResult<AdminSiteRecycleSummaryVo>> {
+export async function recycleSiteList(): Promise<JcResult<[AdminSiteRecycleSummaryVo]>> {
 	return request.get('/module-kernel/cmsmanager/sites/recycle');
 }
 
 /**
  * 回收站删除
  */
-export async function recycleSiteDetail(id: string): Promise<JcResult<object>> {
-	return request.post(`/module-kernel/cmsmanager/sites/recycle/delete/${id}`);
+export async function recycleSiteDetail(data: IdsDTO): Promise<JcResult<object>> {
+	return request.post(`/module-kernel/cmsmanager/sites/recycle/delete`, {
+		data,
+	});
 }
 
 /**
  * 回收站还原
  */
-export async function recycleSiteRestore(id: string): Promise<JcResult<object>> {
-	return request.post(`/module-kernel/cmsmanager/sites/recycle/revert/${id}`);
+export async function recycleSiteRestore(data: SiteRevertDTO): Promise<JcResult<object>> {
+	return request.post(`/module-kernel/cmsmanager/sites/recycle/revert`, {
+		data,
+	});
 }
 
 /**
