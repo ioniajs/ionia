@@ -456,16 +456,18 @@ export const RichTextEditor: React.FC<BraftEditorProps> = props => {
 	};
 
 	return (
-		<BraftEditor
-			className='io-rich-text-editor'
-			id='editor-id-1'
-			{...editorProps}
-			controls={controls}
-			// extendControls={extendControls}
-			onChange={e => {
-				setEditorState(e);
-			}}
-			ref={editorInstance}
-		/>
+		<div className='io-libs-rich-text-editor'>
+			<BraftEditor
+				className='io-rich-text-editor'
+				id='editor-id-1'
+				{...editorProps}
+				controls={controls}
+				// extendControls={extendControls}
+				onChange={e => {
+					setEditorState(e);
+				}}
+				ref={editorInstance}
+			/>
+		</div>
 	);
 };

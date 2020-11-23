@@ -1,4 +1,4 @@
-import { BizPage, BizTable } from '@ionia/libs';
+import { BizPage, EditableTable } from '@ionia/libs';
 import { ProColumns, ActionType } from '@ant-design/pro-table';
 import { UserSaveDTO } from '@ionia/libs/src/services';
 
@@ -69,7 +69,7 @@ export default () => {
 	];
 	return (
 		<BizPage showActions breadcrumbs={[{ name: '用户管理' }, { name: '批量新建' }]}>
-			<BizTable columns={columns} />
+			{/* <EditableTable columns={columns} /> */}
 		</BizPage>
 	);
 };
