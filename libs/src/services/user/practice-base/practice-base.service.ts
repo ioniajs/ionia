@@ -114,9 +114,9 @@ export async function positionDetail(id: string): Promise<JcResult<OrgDetailsVO>
  * 阵地列表---树形结构
  */
 export interface PositionList {
-	crux: string; // 阵地名称或编号
-	isAll: boolean; // 是否包含下级阵地
-	parentId: string; // 父级ID
+	crux?: string; // 阵地名称或编号
+	isAll?: boolean; // 是否包含下级阵地
+	parentId?: string; // 父级ID
 }
 export async function positionList(params: PositionList): Promise<JcResult<OrgVO[]>> {
 	return request.get('/module-user/cmsmanager/org/list', {

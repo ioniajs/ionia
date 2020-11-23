@@ -1,6 +1,7 @@
-import { AMap, BizModalForm, BizPage, ModalFormRef } from '@ionia/libs';
+import { BizModalForm, ModalFormRef, BizPage } from '@ionia/libs';
 import { Button } from 'antd';
 import React, { useRef } from 'react';
+import SelectUser from './SelectUser';
 
 export default () => {
 	const ref = useRef<ModalFormRef>();
@@ -8,20 +9,19 @@ export default () => {
 		<BizPage>
 			<BizModalForm
 				ref={ref}
-				title='选择地点'
+				title='选择负责人'
 				triggerRender={() => (
 					<Button
-						type='primary'
 						onClick={() => {
 							ref.current?.open();
 						}}
 					>
-						选择地点
+						选择负责人
 					</Button>
 				)}
-				width={1000}
+				width={1200}
 			>
-				<AMap />
+				<SelectUser />
 			</BizModalForm>
 		</BizPage>
 	);

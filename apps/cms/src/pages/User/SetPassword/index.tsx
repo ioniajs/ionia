@@ -1,9 +1,7 @@
+import { modPassword, UserUpdateCipherDTO } from '@ionia/libs/src/services';
+import { Form, Input, message, Modal } from 'antd';
 import React from 'react';
-import { Modal, Form, Input, message } from 'antd';
-import { useForm } from 'antd/lib/form/Form';
 import './index.less';
-import { values } from 'lodash';
-import { UserUpdateCipherDTO, modPassword } from '@ionia/libs/src/services';
 
 export default (props: any) => {
 	const { modalVisble, setModalVisble, userName } = props;

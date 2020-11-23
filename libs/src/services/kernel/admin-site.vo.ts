@@ -29,6 +29,7 @@ export interface AdminSiteTreeVO {
 	dir: string; // 站点目录
 	domain: string[]; // 站点域名
 	id: string; // 站点id
+	modelPath?: string; // 模板路径
 	name: string; // 站点名称
 	status: number; // 状态 (0关 1开)
 }

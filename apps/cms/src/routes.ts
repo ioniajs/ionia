@@ -10,7 +10,10 @@ import SiteDetail from '@/pages/Site/Detail/index';
 import SiteBatchCreate from '@/pages/Site/BatchCreate/index';
 import { ExceptionPage } from '@ionia/libs';
 import DemoAMap from './pages/Demo/AMap';
+import DemoETable from './pages/Demo/ETable';
+import DemoModalTable from './pages/Demo/ModalTable';
 import UserDetail from './pages/User/Detail';
+import New from '@/pages/PracticeBase/New';
 
 import Role from './pages/Role';
 import RoleDetail from '@/pages/Role/Detail';
@@ -28,6 +31,14 @@ export default [
 		component: DemoAMap,
 	},
 	{
+		path: '/etable',
+		component: DemoETable,
+	},
+	{
+		path: '/modal-table',
+		component: DemoModalTable,
+	},
+	{
 		path: '/user',
 		component: User,
 	},
@@ -42,6 +53,10 @@ export default [
 	{
 		path: '/practicebase',
 		component: PracticeBase,
+	},
+	{
+		path: '/practicebase/new',
+		component: New,
 	},
 	{
 		path: '/setting',
