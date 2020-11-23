@@ -16,9 +16,12 @@ import {
 	recycleSiteList,
 	recycleSiteDetail,
 	recycleSiteRestore,
-	SiteRevertDTO
+	SiteRevertDTO,
 } from '@ionia/libs';
-import { AdminSiteTreeVO, AdminSiteRecycleSummaryVo } from '@ionia/libs/src/services/kernel/admin-site.vo';
+import {
+	AdminSiteTreeVO,
+	AdminSiteRecycleSummaryVo,
+} from '@ionia/libs/src/services/kernel/admin-site.vo';
 import { IdsDTO } from '@ionia/libs/src/services/reuse.dto';
 import CopyForm from './CopySite';
 import './index.less';
@@ -57,7 +60,7 @@ const handleDeleteRecycle = async (ids: IdsDTO) => {
 		message.success('删除成功');
 	}
 	return deleteRecycleRes.code;
-}
+};
 
 // 回收站还原
 const handleRecycleRevert = async (fileds: SiteRevertDTO) => {
@@ -68,8 +71,7 @@ const handleRecycleRevert = async (fileds: SiteRevertDTO) => {
 		message.success('站点恢复成功');
 	}
 	return revertRes.code;
-}
-
+};
 
 export default () => {
 	const history = useHistory();
@@ -79,7 +81,7 @@ export default () => {
 	const [recycleData, setRecycleData] = useState<AdminSiteRecycleSummaryVo[]>();
 	const [selectedRecycleRowKeys, setSelectedRecycleRowKeys] = useState<number[]>([]);
 	const [revertRadio, setRevertRadio] = useState<number>(1);
-	console.log(revertRadio, 'rererer')
+	console.log(revertRadio, 'rererer');
 	const columns: ProColumns<AdminSiteTreeVO>[] = [
 		{
 			title: '站点名称',
@@ -220,7 +222,7 @@ export default () => {
 			key: 'operator',
 			dataIndex: 'operator',
 		},
-	]
+	];
 	return (
 		<BizPage>
 			<BizTable
@@ -326,7 +328,9 @@ export default () => {
 								const tempSelRowKeys = selectedRecycleRowKeys.map((s: any) =>
 									s.toString()
 								);
-								const deleteRes = await handleDeleteRecycle({ ids: tempSelRowKeys });
+								const deleteRes = await handleDeleteRecycle({
+									ids: tempSelRowKeys,
+								});
 								if (deleteRes === 200) {
 									setRecycleVisible(false);
 								}
@@ -337,18 +341,27 @@ export default () => {
 						</Button>
 						<Button
 							onClick={() => {
-								const ids = selectedRecycleRowKeys.map((s) => Number(s));
+								const ids = selectedRecycleRowKeys.map(s => Number(s));
 								let revertVal: number;
 								Modal.confirm({
 									title: '恢复站点',
-									content: <>
-										<p>以下站点的上级站点已被删除，无法正常恢复，请选择处理方式:</p>
-										<p>站点1</p>
-										<Radio.Group onChange={(e) => { revertVal = e.target.value; setRevertRadio(e.target.value) }}>
-											<Radio value={1}>同时恢复所有上级站点</Radio>
-											<Radio value={2}>恢复到其他站点下</Radio>
-										</Radio.Group>
-									</>,
+									content: (
+										<>
+											<p>
+												以下站点的上级站点已被删除，无法正常恢复，请选择处理方式:
+											</p>
+											<p>站点1</p>
+											<Radio.Group
+												onChange={e => {
+													revertVal = e.target.value;
+													setRevertRadio(e.target.value);
+												}}
+											>
+												<Radio value={1}>同时恢复所有上级站点</Radio>
+												<Radio value={2}>恢复到其他站点下</Radio>
+											</Radio.Group>
+										</>
+									),
 									onOk: async () => {
 										const params = {
 											type: revertVal,
@@ -358,8 +371,8 @@ export default () => {
 										if (resvertRes === 200) {
 											setRecycleVisible(false);
 										}
-									}
-								})
+									},
+								});
 							}}
 						>
 							恢复
@@ -374,14 +387,22 @@ export default () => {
 						selectedRowKeys: selectedRecycleRowKeys,
 						onChange: selectedRowKeys => {
 							setSelectedRecycleRowKeys(selectedRowKeys as number[]);
-						}
+						},
 					},
 					pagination: false,
 					// scroll: {
 					// 	y: 200
 					// }
 				}}
-				footer={<Button onClick={() => { setRecycleVisible(false) }}>取消</Button>}
+				footer={
+					<Button
+						onClick={() => {
+							setRecycleVisible(false);
+						}}
+					>
+						取消
+					</Button>
+				}
 				onCancel={() => setRecycleVisible(false)}
 			/>
 		</BizPage>

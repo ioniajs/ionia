@@ -98,7 +98,7 @@ export interface SiteCopyDTO {
 //#endregion
 
 export interface SiteRevertDTO {
-	siteIds: number[],
-	type: number,
+	siteIds: number[];
+	type: number;
 	parentId?: number;
 }

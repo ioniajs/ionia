@@ -7,7 +7,7 @@ import {
 	AdminSiteSortDTO,
 	SiteCfgDTO,
 	SiteCopyDTO,
-	SiteRevertDTO
+	SiteRevertDTO,
 } from './admin-site.dto';
 
 import {
@@ -111,7 +111,7 @@ export async function recycleSiteList(): Promise<JcResult<[AdminSiteRecycleSumma
  */
 export async function recycleSiteDetail(data: IdsDTO): Promise<JcResult<object>> {
 	return request.post(`/module-kernel/cmsmanager/sites/recycle/delete`, {
-		data
+		data,
 	});
 }
 
@@ -120,7 +120,7 @@ export async function recycleSiteDetail(data: IdsDTO): Promise<JcResult<object>>
  */
 export async function recycleSiteRestore(data: SiteRevertDTO): Promise<JcResult<object>> {
 	return request.post(`/module-kernel/cmsmanager/sites/recycle/revert`, {
-		data
+		data,
 	});
 }
 

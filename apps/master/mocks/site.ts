@@ -148,25 +148,26 @@ export default [
 		return res(
 			ctx.json({
 				code: 200,
-				data: [{
-					id: 111,
-					name: 'test111',
-					operatTime: '2020-01-1',
-					operator: 'root11',
-				},
-				{
-					id: 222,
-					name: 'test222',
-					operatTime: '2020-04-1',
-					operator: 'root22',
-				},
-				{
-					id: 333,
-					name: 'test3333',
-					operatTime: '2020-03-1',
-					operator: 'root33',
-				},
-			],
+				data: [
+					{
+						id: 111,
+						name: 'test111',
+						operatTime: '2020-01-1',
+						operator: 'root11',
+					},
+					{
+						id: 222,
+						name: 'test222',
+						operatTime: '2020-04-1',
+						operator: 'root22',
+					},
+					{
+						id: 333,
+						name: 'test3333',
+						operatTime: '2020-03-1',
+						operator: 'root33',
+					},
+				],
 				message: '成功',
 			})
 		);
