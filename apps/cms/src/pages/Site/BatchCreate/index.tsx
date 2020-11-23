@@ -78,30 +78,32 @@ export default () => {
 	});
 	const [form] = Form.useForm();
 	return (
-		<BizPage
-			form={form}
-			showActions
-			breadcrumbs={[{ name: '站点管理' }, { name: '批量新建' }]}
-			layout={{}}
-		>
+		<BizPage showActions breadcrumbs={[{ name: '站点管理' }, { name: '批量新建' }]} layout={{}}>
 			<div className='io-cms-site-batch-create__div'>
-				<Form.Item
-					name='parentId'
-					label='上级站点'
-					rules={[{ required: true, message: '请选择上级站点' }]}
+				<Form
+					form={form}
+					scrollToFirstError
+					labelCol={{ span: 8 }}
+					wrapperCol={{ span: 12 }}
 				>
-					<TreeSelect
-						treeData={siteTreeData}
-						placeholder='请选择上级站点'
-						showSearch
-						onSearch={e => {
-							runGainSiteTree(e);
-						}}
-						className='io-cms-site-batch-create__treeselect'
-						style={{ width: '224px' }}
-						dropdownStyle={{ maxHeight: 520, overflow: 'auto', minWidth: 420 }}
-					/>
-				</Form.Item>
+					<Form.Item
+						name='parentId'
+						label='上级站点'
+						rules={[{ required: true, message: '请选择上级站点' }]}
+					>
+						<TreeSelect
+							treeData={siteTreeData}
+							placeholder='请选择上级站点'
+							showSearch
+							onSearch={e => {
+								runGainSiteTree(e);
+							}}
+							className='io-cms-site-batch-create__treeselect'
+							style={{ width: '224px' }}
+							dropdownStyle={{ maxHeight: 520, overflow: 'auto', minWidth: 420 }}
+						/>
+					</Form.Item>
+				</Form>
 			</div>
 			<EditableTable
 				operationRender={({ dataSource, setDataSource, changeData, deleteData }) => ({
