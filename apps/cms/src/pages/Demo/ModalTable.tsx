@@ -1,4 +1,4 @@
-import { BizModal, BizModalForm, BizPage, BizTable } from '@ionia/libs';
+import { BizModalForm, BizPage } from '@ionia/libs';
 import { Button } from 'antd';
 import React from 'react';
 import SelectUser from './SelectUser';
