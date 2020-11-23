@@ -5,6 +5,7 @@ import React, { useRef, useState } from 'react';
 import UserForm from '../User/Form';
 import { positionList, deletePosition, PositionList, OrgVO } from '@ionia/libs/src/services';
 import { IdsDTO } from '@ionia/libs/src/services/reuse.dto';
+import { useHistory } from 'react-router-dom';
 export interface TableListItem {
 	key: number;
 	name: string;
@@ -20,7 +21,7 @@ export default () => {
 		}
 		return removeRes.code;
 	};
-
+	const history = useHistory();
 	const [selectedRowKeys, setSelectedRowKeys] = useState<number[]>([]);
 	const actionRef = useRef<ActionType>();
 	const columns: ProColumns<OrgVO>[] = [
@@ -93,7 +94,13 @@ export default () => {
 				renderActions={() => (
 					<>
 						<div className='io-space-item'>
-							<UserForm />
+							<Button
+								type='primary'
+								onClick={() => history.push('/practicebase/new')}
+							>
+								<i className='iconfont icon-plus1' style={{ fontSize: '16px' }} />
+								新建
+							</Button>
 						</div>
 						<div className='io-space-item'>
 							<Button type='default'>批量新建</Button>

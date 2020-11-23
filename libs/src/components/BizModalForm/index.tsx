@@ -48,6 +48,7 @@ export const BizModalForm = ({
 				toOpen();
 			}}
 		>
+			<i className='iconfont icon-plus1' style={{ fontSize: '16px' }} />
 			新建
 		</Button>
 	);

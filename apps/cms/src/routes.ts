@@ -12,6 +12,7 @@ import { ExceptionPage } from '@ionia/libs';
 import DemoAMap from './pages/Demo/AMap';
 import DemoETable from './pages/Demo/ETable';
 import UserDetail from './pages/User/Detail';
+import New from '@/pages/PracticeBase/New';
 
 import Role from './pages/Role';
 export default [
@@ -46,6 +47,10 @@ export default [
 	{
 		path: '/practicebase',
 		component: PracticeBase,
+	},
+	{
+		path: '/practicebase/new',
+		component: New,
 	},
 	{
 		path: '/setting',
