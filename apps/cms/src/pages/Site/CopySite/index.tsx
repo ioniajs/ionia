@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { ProFormText, ProFormCheckbox } from '@ant-design/pro-form';
-import { BizModalForm, gainSiteTree, copySite, SiteCopyDTO } from '@ionia/libs';
+import { BizModalForm, gainSiteTree, copySite, SiteCopyDTO, ModalFormRef } from '@ionia/libs';
 import { AdminSiteTreeVO } from '@ionia/libs/src/services/kernel/admin-site.vo';
 import { Button, Form, TreeSelect, Select, Input, message } from 'antd';
 import { useMount, useRequest } from '@umijs/hooks';
@@ -58,6 +58,7 @@ const formItemLayoutWithOutLabel = {
 };
 
 export default ({ siteId }: CopyFormProps) => {
+	const ref = useRef<ModalFormRef>();
 	const [form] = Form.useForm();
 	const [siteTree, setSiteTree] = useState<AdminSiteTreeVO[]>();
 	const { run: runsiteTree } = useRequest(gainSiteTree, {
@@ -90,10 +91,19 @@ export default ({ siteId }: CopyFormProps) => {
 
 	return (
 		<BizModalForm
+			ref={ref}
 			form={form}
 			title='复制站点'
 			width={580}
-			triggerRender={({ open }) => <a onClick={open}>复制</a>}
+			triggerRender={() => (
+				<a
+					onClick={() => {
+						ref.current?.open();
+					}}
+				>
+					复制
+				</a>
+			)}
 			onFinish={async values => {
 				console.log(values);
 				const param = {

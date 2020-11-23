@@ -1,14 +1,21 @@
-import { AMap, BizModalForm, BizPage } from '@ionia/libs';
+import { AMap, BizModalForm, BizPage, ModalFormRef } from '@ionia/libs';
 import { Button } from 'antd';
-import React from 'react';
+import React, { useRef } from 'react';
 
 export default () => {
+	const ref = useRef<ModalFormRef>();
 	return (
 		<BizPage>
 			<BizModalForm
+				ref={ref}
 				title='选择地点'
-				triggerRender={({ open }) => (
-					<Button type='primary' onClick={open}>
+				triggerRender={() => (
+					<Button
+						type='primary'
+						onClick={() => {
+							ref.current?.open();
+						}}
+					>
 						选择地点
 					</Button>
 				)}

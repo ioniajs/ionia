@@ -1,16 +1,8 @@
 import { ProFormSelect, ProFormSwitch, ProFormText } from '@ant-design/pro-form';
-import { BizModalForm } from '@ionia/libs';
-import { Button, Cascader, Form, message } from 'antd';
+import { BizModalForm, ModalFormRef } from '@ionia/libs';
 import { addUser, UserSaveDTO } from '@ionia/libs/src/services';
-import React from 'react';
-
-const waitTime = (time: number = 100) => {
-	return new Promise(resolve => {
-		setTimeout(() => {
-			resolve(true);
-		}, time);
-	});
-};
+import { Button, Cascader, Form, message } from 'antd';
+import React, { useRef } from 'react';
 
 const options = [
 	{
@@ -63,12 +55,14 @@ const residences = [
 ];
 
 export default () => {
+	const ref = useRef<ModalFormRef>();
 	const [form] = Form.useForm();
 	const onCreate = () => {
 		form.resetFields();
 	};
 	return (
 		<BizModalForm
+			ref={ref}
 			form={form}
 			title='新建用户'
 			onFinish={async values => {
@@ -76,12 +70,16 @@ export default () => {
 				if (code == 200) {
 					message.success('提交成功!');
 					form.resetFields();
-					// close();
 				}
 			}}
-			submitterRender={({ close }) => (
+			submitterRender={() => (
 				<div className='btn-submitter'>
-					<Button type='default' onClick={close}>
+					<Button
+						type='default'
+						onClick={() => {
+							ref.current?.close();
+						}}
+					>
 						取消
 					</Button>
 					<Button type='default'>保存并分配权限</Button>
