@@ -50,7 +50,7 @@ export default () => {
 	const dataSource = [
 		{
 			key: '0',
-			name: 'Edward King 0',
+			name: '',
 			age: 32,
 			children: [
 				{

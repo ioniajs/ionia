@@ -11,6 +11,7 @@ import SiteBatchCreate from '@/pages/Site/BatchCreate/index';
 import { ExceptionPage } from '@ionia/libs';
 import DemoAMap from './pages/Demo/AMap';
 import DemoETable from './pages/Demo/ETable';
+import DemoModalTable from './pages/Demo/ModalTable';
 import UserDetail from './pages/User/Detail';
 import BaseCreate from '@/pages/PracticeBase/Create';
 import BaseDetail from '@/pages/PracticeBase/Detail';
@@ -32,6 +33,10 @@ export default [
 	{
 		path: '/etable',
 		component: DemoETable,
+	},
+	{
+		path: '/modal-table',
+		component: DemoModalTable,
 	},
 	{
 		path: '/user',
