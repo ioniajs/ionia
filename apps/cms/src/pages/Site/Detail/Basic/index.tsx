@@ -8,9 +8,8 @@ import { AdminSiteTreeVO, AdminSiteDetailVO } from '@ionia/libs/src/services/ker
 import './index.less';
 
 const { Option } = Select;
-const { Link } = Anchor;
-const layout1 = {
-	labelCol: { span: 6 },
+const layout = {
+	labelCol: { span: 7 },
 	wrapperCol: { span: 12 },
 };
 
@@ -81,14 +80,14 @@ export const BasicChildren = ({ id }: BasicChildrenProps) => {
 				...siteDetailData,
 				status: !!siteDetailData.status,
 			});
-			const tempDomainList: number[] = [];
-			(siteDetailData?.domain || []).forEach((d: any, i: number) => {
-				tempDomainList.push(i);
-				basicForm.setFieldsValue({
-					[`domain_${i}`]: d,
-				});
-			});
-			setDomainList([0, 1]);
+			// const tempDomainList: number[] = [];
+			// (siteDetailData?.domain || []).forEach((d: any, i: number) => {
+			// 	tempDomainList.push(i);
+			// 	basicForm.setFieldsValue({
+			// 		[`domain_${i}`]: d,
+			// 	});
+			// });
+			// setDomainList([0, 1]);
 		}
 	}, [siteDetailData]);
 
@@ -99,16 +98,16 @@ export const BasicChildren = ({ id }: BasicChildrenProps) => {
 					type='primary'
 					onClick={async () => {
 						basicForm.validateFields().then(async values => {
-							const tempDomain = domainList.map((d: number, i: number) => {
-								return values[`domain_${d}`];
-							});
+							// const tempDomain = domainList.map((d: number, i: number) => {
+							// 	return values[`domain_${d}`];
+							// });
 							const param = {
 								id,
 								parentId: values.parentId,
 								name: values.name,
 								dir: values.dir,
 								modelPath: values.modelPath,
-								domain: tempDomain,
+								domain: values.domain,
 								desc: values.desc || '',
 								status: !!values.status ? 1 : 0,
 								favicon: values.favicon || '',
@@ -141,7 +140,7 @@ export const BasicChildren = ({ id }: BasicChildrenProps) => {
 					复制
 				</Button>
 			</div>
-			<Form form={basicForm} className='io-site__form' {...layout1}>
+			<Form form={basicForm} className='io-site__form' {...layout}>
 				<Form.Item name='id' label='站点ID'>
 					<span>{siteDetailData?.id}</span>
 				</Form.Item>
@@ -157,6 +156,7 @@ export const BasicChildren = ({ id }: BasicChildrenProps) => {
 							runsiteTree(e);
 						}}
 						placeholder='请选择上级站点'
+						className='io-cms-site-detail-basic-form__item'
 					/>
 				</Form.Item>
 				<Form.Item
@@ -164,7 +164,11 @@ export const BasicChildren = ({ id }: BasicChildrenProps) => {
 					label='站点名称'
 					rules={[{ required: true, message: '请输入站点名称' }]}
 				>
-					<Input placeholder='请输入站点名称' maxLength={120} />
+					<Input
+						placeholder='请输入站点名称'
+						maxLength={120}
+						className='io-cms-site-detail-basic-form__item'
+					/>
 				</Form.Item>
 				<Form.Item
 					name='dir'
@@ -183,7 +187,11 @@ export const BasicChildren = ({ id }: BasicChildrenProps) => {
 						}),
 					]}
 				>
-					<Input placeholder='请输入站点目录' maxLength={120} />
+					<Input
+						placeholder='请输入站点目录'
+						maxLength={120}
+						className='io-cms-site-detail-basic-form__item'
+					/>
 				</Form.Item>
 				<Form.Item
 					name='modelPath'
@@ -202,9 +210,13 @@ export const BasicChildren = ({ id }: BasicChildrenProps) => {
 						}),
 					]}
 				>
-					<Input placeholder='请输入模板路径' maxLength={120} />
+					<Input
+						placeholder='请输入模板路径'
+						maxLength={120}
+						className='io-cms-site-detail-basic-form__item'
+					/>
 				</Form.Item>
-				{domainList.map((d: any, i: number) => {
+				{/* {domainList.map((d: any, i: number) => {
 					return (
 						<Form.Item
 							name={`domain_${d}`}
@@ -236,13 +248,88 @@ export const BasicChildren = ({ id }: BasicChildrenProps) => {
 						<i className='iconfont icon-plus-square' />
 						添加
 					</Button>
-				</Form.Item>
+				</Form.Item> */}
+				<Form.List name='domain'>
+					{(fields, { add, remove }, { errors }) => {
+						return (
+							<>
+								{fields.map((field, index) => {
+									return (
+										<Form.Item
+											{...layout}
+											label={
+												index === 0 ? (
+													<span>
+														<span className='io-cms-site-copy-label-mark__span'>
+															*
+														</span>
+														域名
+													</span>
+												) : (
+													<span style={{ display: 'none' }}>
+														添加域名
+													</span>
+												)
+											}
+											required={false}
+											key={field.key}
+											colon={index === 0}
+										>
+											<Form.Item
+												{...field}
+												validateTrigger={['onChange', 'onBlur']}
+												rules={[
+													{
+														required: true,
+														message: '请输入域名',
+													},
+												]}
+												noStyle
+											>
+												<Input
+													placeholder='请输入域名'
+													className='io-cms-site-create-form__item'
+													addonBefore={selectBefore}
+												/>
+											</Form.Item>
+											{fields.length > 1 && index > 0 ? (
+												<Button
+													className='io-cms-site-detailbasic-domain-delete__but'
+													onClick={() => remove(field.name)}
+												>
+													删除
+												</Button>
+											) : null}
+										</Form.Item>
+									);
+								})}
+								<Form.Item
+									name=''
+									label={<span style={{ display: 'none' }}>添加按钮</span>}
+									colon={false}
+									className='io-cms-site-copy-add__Item'
+								>
+									<Button
+										type='dashed'
+										onClick={() => add()}
+										className='io-cms-site-detail-basic-form__item'
+									>
+										<i className='iconfont icon-plus-square' />
+										添加
+									</Button>
+									<Form.ErrorList errors={errors} />
+								</Form.Item>
+							</>
+						);
+					}}
+				</Form.List>
 				<Form.Item name='desc' label='站点描述'>
 					<Input.TextArea
 						placeholder='请输入站点描述'
 						showCount={true}
 						allowClear={true}
 						maxLength={500}
+						className='io-cms-site-detail-basic-input_textArea'
 					/>
 				</Form.Item>
 				<Form.Item
@@ -277,10 +364,18 @@ export const BasicChildren = ({ id }: BasicChildrenProps) => {
 					<ImageUpload />
 				</Form.Item>
 				<Form.Item name='seoTitle' label='SEO标题'>
-					<Input placeholder='请输入SEO标题' maxLength={120} />
+					<Input
+						placeholder='请输入SEO标题'
+						maxLength={120}
+						className='io-cms-site-detail-basic-form__item'
+					/>
 				</Form.Item>
 				<Form.Item name='seoKeyWord' label='SEO关键字'>
-					<Input placeholder='请输入SEO关键字' maxLength={120} />
+					<Input
+						placeholder='请输入SEO关键字'
+						maxLength={120}
+						className='io-cms-site-detail-basic-form__item'
+					/>
 				</Form.Item>
 				<Form.Item name='seoDesc' label='SEO描述'>
 					<Input.TextArea
@@ -288,6 +383,7 @@ export const BasicChildren = ({ id }: BasicChildrenProps) => {
 						showCount={true}
 						allowClear={true}
 						maxLength={500}
+						className='io-cms-site-detail-basic-input_textArea'
 					/>
 				</Form.Item>
 			</Form>
