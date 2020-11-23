@@ -3,7 +3,6 @@ export * from './AnnexUpload';
 export * from './AudioPlayer';
 export * from './AudioUpload';
 export * as Auth from './Auth';
-export * from './BizModal';
 export * from './BizModalForm';
 export * from './BizPage';
 export * from './BizPage/GobackButton';

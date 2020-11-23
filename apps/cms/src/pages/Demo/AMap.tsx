@@ -1,20 +1,21 @@
-import { AMap, BizModal, BizPage } from '@ionia/libs';
-import React from 'react';
+import { AMap, BizModalForm, BizPage } from '@ionia/libs';
 import { Button } from 'antd';
-import './amap.less';
+import React from 'react';
+
 export default () => {
 	return (
 		<BizPage>
-			<BizModal
-				className='io-amap__content'
+			<BizModalForm
+				title='选择地点'
 				triggerRender={({ open }) => (
 					<Button type='primary' onClick={open}>
 						选择地点
 					</Button>
 				)}
+				width={1000}
 			>
 				<AMap />
-			</BizModal>
+			</BizModalForm>
 		</BizPage>
 	);
 };
