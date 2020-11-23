@@ -30,6 +30,11 @@ export default () => {
 			key: 'name',
 			dataIndex: 'name',
 			width: 400,
+			render: (_, row) => {
+				return (
+					<a onClick={() => history.push(`/practicebase/detail/${row.id}`)}>{row.name}</a>
+				);
+			},
 		},
 		{
 			title: '阵地编号',
