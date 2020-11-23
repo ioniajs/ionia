@@ -16,6 +16,7 @@ import UserDetail from './pages/User/Detail';
 import New from '@/pages/PracticeBase/New';
 
 import Role from './pages/Role';
+import RoleDetail from '@/pages/Role/Detail';
 export default [
 	{
 		path: '/basic',
@@ -80,6 +81,10 @@ export default [
 	{
 		path: '/role',
 		component: Role,
+	},
+	{
+		path: '/role/detail/:id',
+		component: RoleDetail,
 	},
 	{
 		path: '/500',
