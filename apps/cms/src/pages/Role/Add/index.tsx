@@ -1,7 +1,7 @@
 import { ProFormText, ProFormTextArea } from '@ant-design/pro-form';
-import { BizModalForm, addRole, RoleOperatingDTO } from '@ionia/libs';
+import { BizModalForm, addRole, RoleOperatingDTO, ModalFormRef } from '@ionia/libs';
 import { Button, Form, message, TreeSelect } from 'antd';
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import './index.less';
 
 // interface roleForm{
@@ -13,39 +13,40 @@ import './index.less';
 const treeData = [
 	{
 		title: 'Node1',
-		value: '0-0',
+		value: 1,
 		children: [
 			{
 				title: 'Child Node1',
-				value: '0-0-1',
+				value: 11,
 			},
 			{
 				title: 'Child Node2',
-				value: '0-0-2',
+				value: 12,
 			},
 		],
 	},
 	{
 		title: 'Node2',
-		value: '0-1',
+		value: 2,
 	},
 	{
 		title: 'Node1',
-		value: '0-2',
+		value: 3,
 		children: [
 			{
 				title: 'Child Node1',
-				value: '0-2-1',
+				value: 31,
 			},
 			{
 				title: 'Child Node2',
-				value: '0-2-2',
+				value: 32,
 			},
 		],
 	},
 ];
 
 export default () => {
+	const ref = useRef<ModalFormRef>();
 	const [form] = Form.useForm();
 	const onCreate = () => {
 		form.resetFields();
@@ -59,6 +60,7 @@ export default () => {
 	};
 	return (
 		<BizModalForm
+			ref={ref}
 			form={form}
 			title='新建用户'
 			className='io-cms-role_form'
@@ -71,9 +73,9 @@ export default () => {
 					// close();
 				}
 			}}
-			renderSubmitter={({ close }) => (
+			submitterRender={() => (
 				<div className='btn-submitter'>
-					<Button type='default' onClick={close}>
+					<Button type='default' onClick={() => ref.current?.close()}>
 						取消
 					</Button>
 					<Button type='default'>保存并分配权限</Button>

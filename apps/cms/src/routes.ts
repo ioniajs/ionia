@@ -5,11 +5,15 @@ import Setting from '@/pages/Setting';
 import Site from '@/pages/Site';
 import User from '@/pages/User';
 import UserBatchAdd from '@/pages/User/BatchAdd';
-import SiteCreate from '@/pages/Site/Create';
-import SiteDetail from '@/pages/Site/Detail';
+import SiteCreate from '@/pages/Site/Create/index';
+import SiteDetail from '@/pages/Site/Detail/index';
+import SiteBatchCreate from '@/pages/Site/BatchCreate/index';
 import { ExceptionPage } from '@ionia/libs';
 import DemoAMap from './pages/Demo/AMap';
+import DemoETable from './pages/Demo/ETable';
+import DemoModalTable from './pages/Demo/ModalTable';
 import UserDetail from './pages/User/Detail';
+import New from '@/pages/PracticeBase/New';
 
 import Role from './pages/Role';
 export default [
@@ -26,6 +30,14 @@ export default [
 		component: DemoAMap,
 	},
 	{
+		path: '/etable',
+		component: DemoETable,
+	},
+	{
+		path: '/modal-table',
+		component: DemoModalTable,
+	},
+	{
 		path: '/user',
 		component: User,
 	},
@@ -34,12 +46,16 @@ export default [
 		component: UserBatchAdd,
 	},
 	{
-		path: '/user/detail',
+		path: '/user/detail/:id',
 		component: UserDetail,
 	},
 	{
 		path: '/practicebase',
 		component: PracticeBase,
+	},
+	{
+		path: '/practicebase/new',
+		component: New,
 	},
 	{
 		path: '/setting',
@@ -56,6 +72,10 @@ export default [
 	{
 		path: '/site/detail/:id',
 		component: SiteDetail,
+	},
+	{
+		path: '/site/batch-create',
+		component: SiteBatchCreate,
 	},
 	{
 		path: '/role',

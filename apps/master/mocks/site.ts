@@ -471,7 +471,7 @@ export default [
 				data: {
 					desc: '',
 					dir: '',
-					domain: [],
+					domain: ['192.168.32.33', '192.168.32.22'],
 					faviconUrl: '',
 					id: 0,
 					name: '',

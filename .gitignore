@@ -18,3 +18,5 @@ Thumbs.db
 
 scripts/*
 !scripts/Dockerfile
+
+report.*

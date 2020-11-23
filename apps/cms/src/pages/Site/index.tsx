@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react';
 import { ProColumns, ActionType } from '@ant-design/pro-table';
-import { Button, Switch, Divider, Modal, Tooltip, message } from 'antd';
+import { Button, Switch, Divider, Modal, Tooltip, message, InputNumber } from 'antd';
 import { DndProvider, useDrag, useDrop, createDndContext } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { useHistory } from 'react-router-dom';
@@ -15,6 +15,8 @@ import {
 } from '@ionia/libs';
 import { AdminSiteTreeVO } from '@ionia/libs/src/services/kernel/admin-site.vo';
 import { IdsDTO } from '@ionia/libs/src/services/reuse.dto';
+import CopyForm from './CopySite';
+import './index.less';
 
 /**
  * 启用、禁用
@@ -80,17 +82,24 @@ export default () => {
 			width: 300,
 		},
 		{
-			title: '站点目录',
-			key: 'dir',
-			dataIndex: 'dir',
+			title: '模板路径',
+			key: 'modelPath',
+			dataIndex: 'modelPath',
 			render: (_, row) => {
 				return (
-					<Tooltip title={`${row.dir}`}>
-						<span>{row.dir || '-'}</span>
+					<Tooltip title={`${row?.modelPath}`}>
+						<span>{row?.modelPath || '-'}</span>
 					</Tooltip>
 				);
 			},
-			width: 400,
+			width: 300,
+		},
+		{
+			title: '排序值',
+			key: 'sortNo',
+			dataIndex: 'sortNO',
+			render: (_, row) => <InputNumber />,
+			width: 200,
 		},
 		{
 			title: '状态',
@@ -125,7 +134,10 @@ export default () => {
 					<Divider type='vertical' />
 					<a>浏览</a>
 					<Divider type='vertical' />
-					<a>复制</a>
+					<div style={{ display: 'inline-block' }}>
+						<CopyForm siteId={row.id} />
+					</div>
+					{/* <a>复制</a> */}
 					<Divider type='vertical' />
 					{Number(row.id) !== 0 && (
 						<a
@@ -177,7 +189,14 @@ export default () => {
 							</Button>
 						</div>
 						<div className='io-space-item'>
-							<Button type='default'>批量新建</Button>
+							<Button
+								type='default'
+								onClick={() => {
+									history.push('/site/batch-create');
+								}}
+							>
+								批量新建
+							</Button>
 						</div>
 						<div className='io-space-item'>
 							<Button
@@ -224,8 +243,6 @@ export default () => {
 						data: data.data.list,
 					}));
 				}}
-				// postData={(data: AdminSiteTreeVO[]) => [data]}
-				// components={}
 				rowSelection={{
 					selectedRowKeys,
 					onChange: selectedRowKeys => {
