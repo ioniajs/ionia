@@ -345,7 +345,7 @@ export default [
 		);
 	}),
 	//阵地资源详情
-	rest.get('/module-user/cmsmanager/org/resource/{id}', (req, res, ctx) => {
+	rest.get('/module-user/cmsmanager/org/resource/:id', (req, res, ctx) => {
 		return res(
 			ctx.json({
 				code: 200,
@@ -409,7 +409,7 @@ export default [
 		);
 	}),
 	//阵地详情
-	rest.get('/module-user/cmsmanager/org/{id}', (req, res, ctx) => {
+	rest.get('/module-user/cmsmanager/org/:id', (req, res, ctx) => {
 		return res(
 			ctx.json({
 				code: 200,

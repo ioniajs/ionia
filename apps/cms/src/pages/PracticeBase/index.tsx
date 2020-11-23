@@ -30,6 +30,11 @@ export default () => {
 			key: 'name',
 			dataIndex: 'name',
 			width: 400,
+			render: (_, row) => {
+				return (
+					<a onClick={() => history.push(`/practicebase/detail/${row.id}`)}>{row.name}</a>
+				);
+			},
 		},
 		{
 			title: '阵地编号',
@@ -96,7 +101,7 @@ export default () => {
 						<div className='io-space-item'>
 							<Button
 								type='primary'
-								onClick={() => history.push('/practicebase/new')}
+								onClick={() => history.push('/practicebase/create')}
 							>
 								<i className='iconfont icon-plus1' style={{ fontSize: '16px' }} />
 								新建

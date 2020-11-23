@@ -165,7 +165,10 @@ export default () => {
 							<UserForm />
 						</div>
 						<div className='io-space-item'>
-							<Button onClick={() => history.push('/user/batchadd')} type='default'>
+							<Button
+								onClick={() => history.push('/user/batch-create')}
+								type='default'
+							>
 								批量新建
 							</Button>
 						</div>

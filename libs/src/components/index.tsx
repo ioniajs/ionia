@@ -24,3 +24,4 @@ export * from './SlaveApp';
 export * from './VideoPlayer';
 export * from './VideoUpload';
 export * from './Watermark';
+export * from './BizModalTable';

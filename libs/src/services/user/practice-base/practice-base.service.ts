@@ -107,7 +107,7 @@ export async function batchDeleteUser(data: OrgUserDTO): Promise<JcResult<boolea
  * 阵地详情
  */
 export async function positionDetail(id: string): Promise<JcResult<OrgDetailsVO>> {
-	return request.get(`/module-user/cmsmanager/org/resource/${id}`);
+	return request.get(`/module-user/cmsmanager/org/${id}`);
 }
 
 /**

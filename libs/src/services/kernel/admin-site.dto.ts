@@ -5,6 +5,8 @@ export interface TreeSiteDTO {
 	domain: string[]; // 站点域名
 	name: string; // 站点名称
 	status: number; // 状态(0关 1开)
+	modalPath: string; // 模板路径
+	sort: number; // 排序
 }
 //#endregion
 
@@ -94,3 +96,9 @@ export interface SiteCopyDTO {
 	siteId: string; // 站点id
 }
 //#endregion
+
+export interface SiteRevertDTO {
+	siteIds: number[];
+	type: number;
+	parentId?: number;
+}
