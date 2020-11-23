@@ -1,17 +1,12 @@
-import { ProColumns, ActionType } from '@ant-design/pro-table';
-import { BizTable, BizTree, deleteUser, BizPage } from '@ionia/libs';
-import { Button, Modal, Switch, message, Divider } from 'antd';
-import React, { useRef, useState } from 'react';
-import UserForm from './Form';
-import { UserPageVO, userPaging, modUserStatus } from '@ionia/libs/src/services';
+import { ActionType, ProColumns } from '@ant-design/pro-table';
+import { BizPage, BizTable, BizTree, deleteUser } from '@ionia/libs';
+import { modUserStatus, UserPageVO, userPaging } from '@ionia/libs/src/services';
 import { IdsDTO } from '@ionia/libs/src/services/reuse.dto';
+import { Button, Divider, message, Modal, Switch } from 'antd';
+import React, { useRef, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import './index.less';
-import ModUserPassword from './components';
-export interface TableListItem {
-	key: number;
-	name: string;
-}
+import SetPassword from './SetPassword';
+import UserForm from './Form';
 
 const userRemove = async (ids: IdsDTO) => {
 	const removeRes = await deleteUser(ids);
@@ -22,6 +17,7 @@ const userRemove = async (ids: IdsDTO) => {
 	}
 	return removeRes.code;
 };
+
 export default () => {
 	const history = useHistory();
 	const actionRef = useRef<ActionType>();
@@ -156,80 +152,71 @@ export default () => {
 		},
 	];
 	return (
-		<div className='io-cms-user'>
-			<BizPage
-				showActions={false}
-				tips='操作说明的文字 ：设置系统所使用的验证码模板，提供邮件或短信两种方式'
-			>
-				<BizTable
-					rowKey='id'
-					actionRef={actionRef}
-					renderActions={() => (
-						<>
-							<div className='io-space-item'>
-								<UserForm />
-							</div>
-							<div className='io-space-item'>
-								<Button
-									onClick={() => history.push('/user/batchadd')}
-									type='default'
-								>
-									批量新建
-								</Button>
-							</div>
-							<div className='io-space-item'>
-								<Button
-									type='default'
-									disabled={selectedRowKeys.length === 0}
-									onClick={() => {
-										Modal.info({
-											title: '你确定删除所选用户吗？',
-											content: '删除后无法恢复，请谨慎操作。',
-											okText: '删除',
-											cancelText: '取消',
-											onOk: async () => {
-												const ListSelRowKeys: any[] = selectedRowKeys.map(
-													(s: any) => s
-												);
-												const listDelRes = await userRemove({
-													ids: ListSelRowKeys,
-												});
-												if (listDelRes === 200) {
-													if (listDelRes === 200 && actionRef.current) {
-														actionRef.current.reload();
-													}
+		<BizPage
+			showActions={false}
+			tips='操作说明的文字 ：设置系统所使用的验证码模板，提供邮件或短信两种方式'
+		>
+			<BizTable
+				rowKey='id'
+				actionRef={actionRef}
+				renderActions={() => (
+					<>
+						<div className='io-space-item'>
+							<UserForm />
+						</div>
+						<div className='io-space-item'>
+							<Button onClick={() => history.push('/user/batchadd')} type='default'>
+								批量新建
+							</Button>
+						</div>
+						<div className='io-space-item'>
+							<Button
+								type='default'
+								disabled={selectedRowKeys.length === 0}
+								onClick={() => {
+									Modal.info({
+										title: '你确定删除所选用户吗？',
+										content: '删除后无法恢复，请谨慎操作。',
+										okText: '删除',
+										cancelText: '取消',
+										onOk: async () => {
+											const ListSelRowKeys: any[] = selectedRowKeys.map(
+												(s: any) => s
+											);
+											const listDelRes = await userRemove({
+												ids: ListSelRowKeys,
+											});
+											if (listDelRes === 200) {
+												if (listDelRes === 200 && actionRef.current) {
+													actionRef.current.reload();
 												}
-											},
-										});
-									}}
-								>
-									批量删除
-								</Button>
-							</div>
-							<div className='io-space-item'>
-								<Button type='default'>导入</Button>
-							</div>
-						</>
-					)}
-					renderSider={() => <BizTree />}
-					columns={columns}
-					rowSelection={{
-						selectedRowKeys,
-						onChange: selectedRowKeys => {
-							setSelectedRowKeys(selectedRowKeys as number[]);
-						},
-					}}
-					// pagination
-					request={(params, sort, filter) => {
-						return userPaging({}).then(data => ({ data: data.data.content }));
-					}}
-				/>
-			</BizPage>
-			<ModUserPassword
+											}
+										},
+									});
+								}}
+							>
+								批量删除
+							</Button>
+						</div>
+					</>
+				)}
+				renderSider={() => <BizTree />}
+				columns={columns}
+				rowSelection={{
+					selectedRowKeys,
+					onChange: selectedRowKeys => {
+						setSelectedRowKeys(selectedRowKeys as number[]);
+					},
+				}}
+				request={(params, sort, filter) => {
+					return userPaging({}).then(data => ({ data: data.data.content }));
+				}}
+			/>
+			<SetPassword
 				modalVisble={modalVisble}
 				setModalVisble={setModalVisble}
 				userName={userName}
-			></ModUserPassword>
-		</div>
+			/>
+		</BizPage>
 	);
 };

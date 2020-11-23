@@ -50,7 +50,7 @@ const EditableCell = ({
 	};
 
 	const defaultFormItemRender = () => {
-		return editing ? (
+		return (children && !children[1]) || editing ? (
 			<Form.Item
 				style={{ margin: 0 }}
 				name={dataIndex}

@@ -1,11 +1,12 @@
 import React from 'react';
 import { BizPage, logger } from '@ionia/libs';
-import { UserDetail } from './message';
+import { UserDetail } from './detail';
 import UserRight from './user-right';
 
-export default (match: any) => {
-	const { params: id } = match;
-	logger.debug(match);
+export default ({ match }: any) => {
+	const {
+		params: { id },
+	} = match;
 	return (
 		<BizPage
 			showActions

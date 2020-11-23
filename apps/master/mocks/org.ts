@@ -31,7 +31,7 @@ export default [
 			})
 		);
 	}),
-	//删除阵地-可批量
+	//阵地列表 ---树形结构
 	rest.get('/module-user/cmsmanager/org/list', (req, res, ctx) => {
 		return res(
 			ctx.json({
