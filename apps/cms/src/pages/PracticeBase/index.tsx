@@ -101,7 +101,7 @@ export default () => {
 						<div className='io-space-item'>
 							<Button
 								type='primary'
-								onClick={() => history.push('/practicebase/new')}
+								onClick={() => history.push('/practicebase/create')}
 							>
 								<i className='iconfont icon-plus1' style={{ fontSize: '16px' }} />
 								新建

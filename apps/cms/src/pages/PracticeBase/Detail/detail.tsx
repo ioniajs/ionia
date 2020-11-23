@@ -9,34 +9,53 @@ import {
 	SaveButton,
 	ModalFormRef,
 	addPosition,
+	modposition,
 	OrgDTO,
+	positionDetail,
 } from '@ionia/libs';
+import { useMount, useRequest } from '@umijs/hooks';
 import { Button, Form, Input, message, Space, TreeSelect } from 'antd';
-import React, { useState, useRef } from 'react';
-import './index.less';
+import React, { useState, useRef, useEffect } from 'react';
 
 const layout = {
 	labelCol: { span: 7 },
 	wrapperCol: { span: 12 },
 };
-const layout1 = {
-	labelCol: { span: 16 },
-	wrapperCol: { span: 8 },
-};
 
-const newPractice = async (filed: OrgDTO) => {
-	const newRef = await addPosition(filed);
-	if (newRef.code == 200) {
-		message.success('新建成功');
+interface BaseDetailProps {
+	id: string;
+}
+
+const baseUpdate = async (filed: OrgDTO) => {
+	const updateBase = await modposition(filed);
+	if (updateBase.code == 200) {
+		message.success('修改成功');
 	} else {
-		message.error('新建失败');
+		message.error('修改失败');
 	}
-	return newRef;
+	return updateBase;
 };
 
-export default () => {
-	const [form] = Form.useForm();
+export const BaseDetail = ({ id }: BaseDetailProps) => {
+	const [expandForm] = Form.useForm();
 	const ref = useRef<ModalFormRef>();
+
+	const { data, run } = useRequest(positionDetail, {
+		manual: true,
+	});
+
+	useMount(() => {
+		if (id !== undefined) {
+			run(id);
+		}
+	});
+	useEffect(() => {
+		if (data?.data) {
+			expandForm.setFieldsValue({
+				...data?.data,
+			});
+		}
+	}, [data?.data]);
 
 	const baseTypeTree: any = [
 		{
@@ -73,39 +92,29 @@ export default () => {
 		},
 	];
 	return (
-		<BizPage
-			showActions={true}
-			breadcrumbs={[{ name: '实践阵地' }, { name: '新增' }]}
-			renderActions={() => {
-				return (
-					<>
-						<GobackButton />
-						<SaveButton
-							onSave={async () => {
-								form.validateFields().then(async values => {
-									const param = {
-										area: values.area,
-										name: values.name,
-										parentId: values.parentId,
-										type: values.type,
-										address: values.address || '',
-										code: values.code || '',
-										coordinate: values.coordinate || '',
-									};
-									const success = await newPractice(param);
-									if (success.code === 200) {
-										history.back();
-									}
-								});
-							}}
-						/>
-						<Button className='io-cms-practice__button'>保存并管理成员</Button>
-						<Button className='io-cms-practice__button'>保存并编辑权限</Button>
-					</>
-				);
-			}}
-		>
-			<Form {...layout} className='io-cms-practice-form'>
+		<div className='io-cms-practice-base__detail'>
+			<Button
+				type='primary'
+				onClick={async () => {
+					expandForm.validateFields().then(async values => {
+						const param = {
+							id,
+							area: values.area,
+							name: values.name,
+							parentId: values.parentId,
+							type: values.type,
+							address: values.address || '',
+						};
+						const success = await baseUpdate(param);
+						if (success.code === 200) {
+							history.back();
+						}
+					});
+				}}
+			>
+				保存
+			</Button>
+			<Form {...layout} className='io-cms-practice-form' form={expandForm}>
 				<Form.Item
 					name='parentId'
 					label='上级阵地'
@@ -178,6 +187,7 @@ export default () => {
 												{...field}
 												validateTrigger={['onChange', 'onBlur']}
 												noStyle
+												name='username'
 											>
 												<Input
 													placeholder='请输入姓名'
@@ -188,6 +198,7 @@ export default () => {
 												{...field}
 												validateTrigger={['onChange', 'onBlur']}
 												noStyle
+												name='phone'
 											>
 												<Input
 													placeholder='请输入手机号或座机号'
@@ -274,6 +285,6 @@ export default () => {
 					</div>
 				</Form.Item>
 			</Form>
-		</BizPage>
+		</div>
 	);
 };
