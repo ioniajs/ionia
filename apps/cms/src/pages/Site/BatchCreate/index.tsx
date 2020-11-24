@@ -83,7 +83,7 @@ export default () => {
 				<Form
 					form={form}
 					scrollToFirstError
-					labelCol={{ span: 8 }}
+					labelCol={{ span: 2 }}
 					wrapperCol={{ span: 12 }}
 				>
 					<Form.Item

@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react';
 import { ProColumns, ActionType } from '@ant-design/pro-table';
-import { Button, Switch, Divider, Modal, Tooltip, message, InputNumber, Radio } from 'antd';
+import { Button, Switch, Divider, Modal, Tooltip, message, InputNumber } from 'antd';
 import { DndProvider, useDrag, useDrop, createDndContext } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { useHistory } from 'react-router-dom';
@@ -12,11 +12,8 @@ import {
 	enableSite,
 	batchDetailSite,
 	BizPage,
-	BizModalTable,
-	recycleSiteList,
-	recycleSiteDetail,
-	recycleSiteRestore,
-	SiteRevertDTO,
+	BizModalForm,
+	ModalFormRef
 } from '@ionia/libs';
 import {
 	AdminSiteTreeVO,
@@ -24,6 +21,7 @@ import {
 } from '@ionia/libs/src/services/kernel/admin-site.vo';
 import { IdsDTO } from '@ionia/libs/src/services/reuse.dto';
 import CopyForm from './CopySite';
+import RecycleSite from './RecycleSite';
 import './index.less';
 
 /**
@@ -51,27 +49,6 @@ const handleRemove = async (ids: IdsDTO) => {
 	return removeRes.code;
 };
 
-// 回收站删除
-const handleDeleteRecycle = async (ids: IdsDTO) => {
-	const deleteRecycleRes = await recycleSiteDetail(ids);
-	if (deleteRecycleRes.code !== 200) {
-		message.error('删除失败');
-	} else {
-		message.success('删除成功');
-	}
-	return deleteRecycleRes.code;
-};
-
-// 回收站还原
-const handleRecycleRevert = async (fileds: SiteRevertDTO) => {
-	const revertRes = await recycleSiteRestore(fileds);
-	if (revertRes.code !== 200) {
-		message.error('站点恢复失败');
-	} else {
-		message.success('站点恢复成功');
-	}
-	return revertRes.code;
-};
 
 export default () => {
 	const history = useHistory();
@@ -81,6 +58,7 @@ export default () => {
 	const [recycleData, setRecycleData] = useState<AdminSiteRecycleSummaryVo[]>();
 	const [selectedRecycleRowKeys, setSelectedRecycleRowKeys] = useState<number[]>([]);
 	const [revertRadio, setRevertRadio] = useState<number>(1);
+	const modalRef = useRef<ModalFormRef>();
 	console.log(revertRadio, 'rererer');
 	const columns: ProColumns<AdminSiteTreeVO>[] = [
 		{
@@ -281,20 +259,26 @@ export default () => {
 								批量删除
 							</Button>
 						</div>
-						<div className='io-space-item'>
-							<Button
-								type='default'
-								onClick={async () => {
-									const cycleRes = await recycleSiteList();
-									if (cycleRes.code === 200) {
-										setRecycleData(cycleRes.data);
-										setRecycleVisible(true);
-									}
-								}}
-							>
-								站点回收
-							</Button>
-						</div>
+						<BizModalForm
+							ref={modalRef}
+							title='站点回收站'
+							triggerRender={() => (
+								<Button onClick={() => {
+									modalRef.current?.open();
+								}}>
+									站点回收站
+								</Button>
+							)}
+							submitterRender={() => (
+								<Button onClick={() => {
+									modalRef.current?.close();
+								}}>取消</Button>
+							)}
+							width={1200}
+							className='io-cms-site-cycle-modal__table'
+						>
+							<RecycleSite />
+						</BizModalForm>
 					</>
 				)}
 				inputPlaceholderText={'请输入站点名称/目录'}
@@ -317,93 +301,6 @@ export default () => {
 					// }),
 				}}
 				pagination={false}
-			/>
-			<BizModalTable
-				title='站点回收站'
-				titleAction={
-					<>
-						<Button
-							type='primary'
-							onClick={async () => {
-								const tempSelRowKeys = selectedRecycleRowKeys.map((s: any) =>
-									s.toString()
-								);
-								const deleteRes = await handleDeleteRecycle({
-									ids: tempSelRowKeys,
-								});
-								if (deleteRes === 200) {
-									setRecycleVisible(false);
-								}
-							}}
-							className='io-cms-site-recycle-delete__but'
-						>
-							删除
-						</Button>
-						<Button
-							onClick={() => {
-								const ids = selectedRecycleRowKeys.map(s => Number(s));
-								let revertVal: number;
-								Modal.confirm({
-									title: '恢复站点',
-									content: (
-										<>
-											<p>
-												以下站点的上级站点已被删除，无法正常恢复，请选择处理方式:
-											</p>
-											<p>站点1</p>
-											<Radio.Group
-												onChange={e => {
-													revertVal = e.target.value;
-													setRevertRadio(e.target.value);
-												}}
-											>
-												<Radio value={1}>同时恢复所有上级站点</Radio>
-												<Radio value={2}>恢复到其他站点下</Radio>
-											</Radio.Group>
-										</>
-									),
-									onOk: async () => {
-										const params = {
-											type: revertVal,
-											siteIds: ids || [],
-										};
-										const resvertRes = await handleRecycleRevert(params);
-										if (resvertRes === 200) {
-											setRecycleVisible(false);
-										}
-									},
-								});
-							}}
-						>
-							恢复
-						</Button>
-					</>
-				}
-				visible={recycleVisible}
-				columns={recycleColumns}
-				dataSource={recycleData}
-				tableProps={{
-					rowSelection: {
-						selectedRowKeys: selectedRecycleRowKeys,
-						onChange: selectedRowKeys => {
-							setSelectedRecycleRowKeys(selectedRowKeys as number[]);
-						},
-					},
-					pagination: false,
-					// scroll: {
-					// 	y: 200
-					// }
-				}}
-				footer={
-					<Button
-						onClick={() => {
-							setRecycleVisible(false);
-						}}
-					>
-						取消
-					</Button>
-				}
-				onCancel={() => setRecycleVisible(false)}
 			/>
 		</BizPage>
 	);
