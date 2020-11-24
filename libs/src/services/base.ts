@@ -11,5 +11,3 @@ export interface Page<T> {
 	pages: number;
 	total: number;
 }
-
-// JcResult<Page<Vo>>
