@@ -2,14 +2,28 @@ import { gainSiteTree, logger, useGlobalStore } from '@ionia/libs';
 import { useRequest, useLocalStorageState } from 'ahooks';
 import { Tree, Select, Spin, Drawer, Button } from 'antd';
 import { SearchOutlined } from '@ant-design/icons';
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import './index.less';
 import { DataNode } from 'antd/lib/tree';
 import { data } from 'msw/lib/types/context';
-const { Option } = Select;
 
-export default (props: any) => {
-	const { siteTree, commons, size } = props;
+const { Option } = Select;
+const dfs = (node: any) => {
+	return (
+		node &&
+		node.map((n: any) => {
+			if (n && n.children) {
+				n.children = dfs(n.children);
+			}
+			return {
+				...n,
+				title: n.name,
+				key: n.id,
+			};
+		})
+	);
+};
+export default () => {
 	const [visible, setVisible] = useState(false); //控制抽屉的出现
 	const [siteData, setSiteData] = useState<any>([]); //搜索框的列表值
 	const [value, setValue] = useState([]); //搜索框的值
@@ -23,16 +37,21 @@ export default (props: any) => {
 	const onClose = () => {
 		setVisible(false);
 	};
-	const { data, run } = useRequest(() => gainSiteTree(), {
-		debounceInterval: 500,
-		manual: true,
+
+	const { data } = useRequest(() => gainSiteTree());
+	const treeData = data?.data.list ?? [];
+	const commons = data?.data.commons ?? [];
+	const size = data?.data.size ?? 0;
+	const siteTree = useMemo(() => dfs(treeData), [treeData]);
+
+	siteTree.map((item: any) => {
+		item.icon = <i className='iconfont icon-cluster'></i>;
 	});
 
 	/**
 	 * 搜索
 	 */
 	const fetchUser = () => {
-		run();
 		// const siteData = siteTree.map((user: any) => ({
 		// 	text: `${user.name.first} ${user.name.last}`,
 		// 	value: user.login.username,
