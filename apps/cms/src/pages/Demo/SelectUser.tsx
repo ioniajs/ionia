@@ -1,7 +1,7 @@
 import { ActionType, ProColumns } from '@ant-design/pro-table';
 import { BizPage, BizTable, deleteUser } from '@ionia/libs';
 import { modUserStatus, UserPageVO, userPaging } from '@ionia/libs/src/services';
-import { IdsDTO } from '@ionia/libs/src/services/reuse.dto';
+import { IdsDTO } from '@ionia/libs/src/services/common.dto';
 import { message, Modal, Switch } from 'antd';
 import React, { useRef, useState } from 'react';
 import { useHistory } from 'react-router-dom';

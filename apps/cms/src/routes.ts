@@ -13,8 +13,9 @@ import DemoAMap from './pages/Demo/AMap';
 import DemoETable from './pages/Demo/ETable';
 import DemoModalTable from './pages/Demo/ModalTable';
 import UserDetail from './pages/User/Detail';
-import BaseCreate from '@/pages/PracticeBase/Create';
-import BaseDetail from '@/pages/PracticeBase/Detail';
+import PracticeBaseCreate from '@/pages/PracticeBase/Create';
+import PracticeBaseDetail from '@/pages/PracticeBase/Detail';
+import PracticeBaseBatchCreate from '@/pages/PracticeBase/BatchCreate';
 
 import Role from './pages/Role';
 export default [
@@ -51,16 +52,20 @@ export default [
 		component: UserDetail,
 	},
 	{
-		path: '/practicebase',
+		path: '/practice-base',
 		component: PracticeBase,
 	},
 	{
-		path: '/practicebase/create',
-		component: BaseCreate,
+		path: '/practice-base/create',
+		component: PracticeBaseCreate,
 	},
 	{
-		path: '/practicebase/detail/:id',
-		component: BaseDetail,
+		path: '/practice-base/detail/:id',
+		component: PracticeBaseDetail,
+	},
+	{
+		path: '/practice-base/batch-create',
+		component: PracticeBaseBatchCreate,
 	},
 	{
 		path: '/setting',
