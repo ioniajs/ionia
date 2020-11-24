@@ -1,6 +1,6 @@
 import { Table } from 'antd';
 import { TableProps } from 'antd/lib/table';
-import React, { ReactNode, useMemo, useState } from 'react';
+import React, { ReactNode, useEffect, useMemo, useState } from 'react';
 import EditableCell from './EditableCell';
 import EditableRow from './EditableRow';
 import './index.less';
@@ -14,6 +14,7 @@ interface HandleDataSourceParams {
 interface EditableTableProps<RecordType extends object = any> extends TableProps<RecordType> {
 	footerRender?: (params: HandleDataSourceParams) => ReactNode;
 	operationRender: (params: HandleDataSourceParams) => any;
+	onChange: (data: any) => any;
 }
 
 const changeData = (source: any[], key: string, data: any, isAddChild = false) => {
@@ -49,14 +50,21 @@ const deleteData = (source: any[], key: string) => {
 		.filter(s => !!s);
 };
 
+
+
 export const EditableTable = ({
 	footerRender,
 	operationRender,
 	columns: defaultColumns = [],
 	dataSource: defaultDataSource = [],
+	onChange,
 	...reset
 }: EditableTableProps) => {
 	const [dataSource, setDataSource] = useState(defaultDataSource);
+
+	useEffect(() => {
+		onChange && onChange(dataSource);
+	}, [dataSource]);
 
 	const handleSave = (row: any) => {
 		setDataSource([...changeData(dataSource, row.key, row)]);
