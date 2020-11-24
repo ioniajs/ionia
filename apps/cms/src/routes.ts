@@ -4,18 +4,21 @@ import PracticeBase from '@/pages/PracticeBase';
 import Setting from '@/pages/Setting';
 import Site from '@/pages/Site';
 import User from '@/pages/User';
-import UserBatchAdd from '@/pages/User/BatchAdd';
-import SiteCreate from '@/pages/Site/Create/index';
-import SiteDetail from '@/pages/Site/Detail/index';
-import SiteBatchCreate from '@/pages/Site/BatchCreate/index';
+import UserBatchCreate from '@/pages/User/BatchCreate';
+import SiteCreate from '@/pages/Site/Create';
+import SiteDetail from '@/pages/Site/Detail';
+import SiteBatchCreate from '@/pages/Site/BatchCreate';
+import SitePublishStatics from '@/pages/Site/PublishStatics';
 import { ExceptionPage } from '@ionia/libs';
 import DemoAMap from './pages/Demo/AMap';
 import DemoETable from './pages/Demo/ETable';
 import DemoModalTable from './pages/Demo/ModalTable';
 import UserDetail from './pages/User/Detail';
-import New from '@/pages/PracticeBase/New';
+import BaseCreate from '@/pages/PracticeBase/Create';
+import BaseDetail from '@/pages/PracticeBase/Detail';
 
 import Role from './pages/Role';
+import RoleDetail from '@/pages/Role/Detail';
 export default [
 	{
 		path: '/basic',
@@ -42,8 +45,8 @@ export default [
 		component: User,
 	},
 	{
-		path: '/user/batchadd',
-		component: UserBatchAdd,
+		path: '/user/batch-create',
+		component: UserBatchCreate,
 	},
 	{
 		path: '/user/detail/:id',
@@ -54,8 +57,12 @@ export default [
 		component: PracticeBase,
 	},
 	{
-		path: '/practicebase/new',
-		component: New,
+		path: '/practicebase/create',
+		component: BaseCreate,
+	},
+	{
+		path: '/practicebase/detail/:id',
+		component: BaseDetail,
 	},
 	{
 		path: '/setting',
@@ -78,8 +85,16 @@ export default [
 		component: SiteBatchCreate,
 	},
 	{
+		path: '/site/publish-statics',
+		component: SitePublishStatics,
+	},
+	{
 		path: '/role',
 		component: Role,
+	},
+	{
+		path: '/role/detail/:id',
+		component: RoleDetail,
 	},
 	{
 		path: '/500',

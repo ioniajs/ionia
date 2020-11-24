@@ -4,8 +4,6 @@ import { useMount, useRequest } from '@umijs/hooks';
 import { userDetail, modUser, UserUpdateDTO } from '@ionia/libs/src/services';
 import './index.less';
 import { InfoCircleOutlined } from '@ant-design/icons';
-import { logger } from '@ionia/libs';
-import { values } from 'lodash';
 
 const layout = {
 	labelCol: { span: 8 },
@@ -87,8 +85,6 @@ export const UserDetail = ({ id }: UserDetailProps) => {
 				type='primary'
 				onClick={async () => {
 					expandForm.validateFields().then(async values => {
-						console.log(values, 'aaaaaaaaaaaaa');
-
 						const param = {
 							id,
 							username: values.username,

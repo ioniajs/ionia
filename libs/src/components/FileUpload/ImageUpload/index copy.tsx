@@ -1,14 +1,11 @@
-import React, { useState, useRef } from 'react';
-import { Upload, Modal, Tooltip } from 'antd';
-import { UploadOutlined, ScissorOutlined, EyeOutlined, DeleteOutlined } from '@ant-design/icons';
-import { DndProvider, useDrag, useDrop, createDndContext } from 'react-dnd';
-import { UploadProps, UploadChangeParam } from 'antd/lib/upload';
+import { UploadOutlined } from '@ant-design/icons';
+import { Modal, Upload } from 'antd';
+import { UploadChangeParam, UploadProps } from 'antd/lib/upload';
 import { RcCustomRequestOptions, RcFile, UploadFile } from 'antd/lib/upload/interface';
-import { PictureCropper } from '../PictureCropper';
-import { fileUpload } from '../../services/infra/admin-the-repository';
-import { UploadResultVO } from '../../services/infra/admin-the-repository';
-import './index.less';
+import React, { useRef, useState } from 'react';
 import { fetch } from 'umi-request';
+import { PictureCropper } from '../../PictureCropper';
+import './index.less';
 
 function getBase64(file: any) {
 	return new Promise((resolve, reject) => {

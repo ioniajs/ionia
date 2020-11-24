@@ -12,10 +12,16 @@ import {
 	enableSite,
 	batchDetailSite,
 	BizPage,
+	BizModalForm,
+	ModalFormRef,
 } from '@ionia/libs';
-import { AdminSiteTreeVO } from '@ionia/libs/src/services/kernel/admin-site.vo';
+import {
+	AdminSiteTreeVO,
+	AdminSiteRecycleSummaryVo,
+} from '@ionia/libs/src/services/kernel/admin-site.vo';
 import { IdsDTO } from '@ionia/libs/src/services/reuse.dto';
 import CopyForm from './CopySite';
+import RecycleSite from './Recycle';
 import './index.less';
 
 /**
@@ -47,6 +53,12 @@ export default () => {
 	const history = useHistory();
 	const actionRef = useRef<ActionType>();
 	const [selectedRowKeys, setSelectedRowKeys] = useState<number[]>([]);
+	const [recycleVisible, setRecycleVisible] = useState<boolean>(false);
+	const [recycleData, setRecycleData] = useState<AdminSiteRecycleSummaryVo[]>();
+	const [selectedRecycleRowKeys, setSelectedRecycleRowKeys] = useState<number[]>([]);
+	const [revertRadio, setRevertRadio] = useState<number>(1);
+	const modalRef = useRef<ModalFormRef>();
+	console.log(revertRadio, 'rererer');
 	const columns: ProColumns<AdminSiteTreeVO>[] = [
 		{
 			title: '站点名称',
@@ -128,7 +140,13 @@ export default () => {
 			dataIndex: 'operation',
 			render: (_, row) => (
 				<>
-					<a>发布静态页</a>
+					<a
+						onClick={() => {
+							history.push('/site/publish-statics');
+						}}
+					>
+						发布静态页
+					</a>
 					<Divider type='vertical' />
 					<a>预览</a>
 					<Divider type='vertical' />
@@ -168,6 +186,24 @@ export default () => {
 				</>
 			),
 			width: 300,
+		},
+	];
+
+	const recycleColumns: ProColumns<AdminSiteRecycleSummaryVo>[] = [
+		{
+			title: '站点名称',
+			key: 'name',
+			dataIndex: 'name',
+		},
+		{
+			title: '删除人',
+			key: 'operatTime',
+			dataIndex: 'operatTime',
+		},
+		{
+			title: '删除时间',
+			key: 'operator',
+			dataIndex: 'operator',
 		},
 	];
 	return (
@@ -228,12 +264,32 @@ export default () => {
 								批量删除
 							</Button>
 						</div>
-						<div className='io-space-item'>
-							<Button type='default'>排序</Button>
-						</div>
-						<div className='io-space-item'>
-							<Button type='default'>站点回收</Button>
-						</div>
+						<BizModalForm
+							ref={modalRef}
+							title='站点回收站'
+							triggerRender={() => (
+								<Button
+									onClick={() => {
+										modalRef.current?.open();
+									}}
+								>
+									站点回收站
+								</Button>
+							)}
+							submitterRender={() => (
+								<Button
+									onClick={() => {
+										modalRef.current?.close();
+									}}
+								>
+									取消
+								</Button>
+							)}
+							width={1200}
+							className='io-cms-site-cycle-modal__table'
+						>
+							<RecycleSite />
+						</BizModalForm>
 					</>
 				)}
 				inputPlaceholderText={'请输入站点名称/目录'}
@@ -246,7 +302,6 @@ export default () => {
 				rowSelection={{
 					selectedRowKeys,
 					onChange: selectedRowKeys => {
-						console.log(selectedRowKeys, 'ssss');
 						setSelectedRowKeys(selectedRowKeys as number[]);
 					},
 					checkStrictly: false,
