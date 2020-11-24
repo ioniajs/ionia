@@ -13,7 +13,7 @@ import {
 	batchDetailSite,
 	BizPage,
 	BizModalForm,
-	ModalFormRef
+	ModalFormRef,
 } from '@ionia/libs';
 import {
 	AdminSiteTreeVO,
@@ -48,7 +48,6 @@ const handleRemove = async (ids: IdsDTO) => {
 	}
 	return removeRes.code;
 };
-
 
 export default () => {
 	const history = useHistory();
@@ -263,16 +262,22 @@ export default () => {
 							ref={modalRef}
 							title='站点回收站'
 							triggerRender={() => (
-								<Button onClick={() => {
-									modalRef.current?.open();
-								}}>
+								<Button
+									onClick={() => {
+										modalRef.current?.open();
+									}}
+								>
 									站点回收站
 								</Button>
 							)}
 							submitterRender={() => (
-								<Button onClick={() => {
-									modalRef.current?.close();
-								}}>取消</Button>
+								<Button
+									onClick={() => {
+										modalRef.current?.close();
+									}}
+								>
+									取消
+								</Button>
 							)}
 							width={1200}
 							className='io-cms-site-cycle-modal__table'
