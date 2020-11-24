@@ -1,34 +1,62 @@
-import React, { useState } from 'react';
+import React, { useState, MutableRefObject } from 'react';
 import { ProColumns, ActionType } from '@ant-design/pro-table';
-import { Form, TreeSelect, Tooltip, Switch, message } from 'antd';
-import { BizPage, gainSiteTree, EditableTable, AdminSiteBatchSaveDTO } from '@ionia/libs';
+import { Form, TreeSelect, Tooltip, Switch, message, Input } from 'antd';
+import {
+	BizPage,
+	gainSiteTree,
+	EditableTable,
+	AdminSiteBatchSaveDTO,
+	createAdminSiteBatchSave,
+} from '@ionia/libs';
 import { AdminSiteTreeVO } from '@ionia/libs/src/services/kernel/admin-site.vo';
 import { useRequest, useMount } from '@umijs/hooks';
 import shortid from 'shortid';
 import './index.less';
 
+// 保存
+const handleSave = async (fields: AdminSiteBatchSaveDTO) => {
+	const res = await createAdminSiteBatchSave(fields);
+	return res;
+};
 export default () => {
+	const [saveData, setSaveData] = useState<any>([]);
 	const columns = [
 		{
-			title: '站点名称',
+			title: (
+				<span>
+					<span className='io-cms-site-batch-create-columns__span'>*</span>站点名称
+				</span>
+			),
 			key: 'name',
 			dataIndex: 'name',
 			editable: true,
 		},
 		{
-			title: '站点目录',
+			title: (
+				<span>
+					<span className='io-cms-site-batch-create-columns__span'>*</span>站点目录
+				</span>
+			),
 			key: 'dir',
 			dataIndex: 'dir',
 			editable: true,
 		},
 		{
-			title: '模板路径',
+			title: (
+				<span>
+					<span className='io-cms-site-batch-create-columns__span'>*</span>模板路径
+				</span>
+			),
 			key: 'modalPath',
 			dataIndex: 'modalPath',
 			editable: true,
 		},
 		{
-			title: '域名',
+			title: (
+				<span>
+					<span className='io-cms-site-batch-create-columns__span'>*</span>域名
+				</span>
+			),
 			key: 'domain',
 			dataIndex: 'domain',
 			editable: true,
@@ -38,6 +66,35 @@ export default () => {
 			key: 'sortNo',
 			dataIndex: 'sortNo',
 			editable: true,
+			onCellEditing: (ref: MutableRefObject<any>) => {
+				ref.current?.focus();
+			},
+			formItemRender: ({
+				title,
+				dataIndex,
+				editing,
+				save,
+				toggleEdit,
+				children,
+				ref,
+			}: any) => {
+				return editing ? (
+					<Form.Item
+						style={{ margin: 0 }}
+						name={dataIndex}
+						rules={[
+							{
+								required: true,
+								message: `${title}是必填的`,
+							},
+						]}
+					>
+						<Input type='number' ref={ref} onPressEnter={save} onBlur={save} />
+					</Form.Item>
+				) : (
+					<div onClick={toggleEdit}>{children}</div>
+				);
+			},
 		},
 		{
 			title: '状态',
@@ -78,12 +135,28 @@ export default () => {
 	});
 	const [form] = Form.useForm();
 	return (
-		<BizPage showActions breadcrumbs={[{ name: '站点管理' }, { name: '批量新建' }]} layout={{}}>
+		<BizPage
+			showActions
+			breadcrumbs={[{ name: '站点管理' }, { name: '批量新建' }]}
+			onSave={async () => {
+				form.validateFields().then(async values => {
+					const param = {
+						parentId: values.parentId,
+						children: saveData,
+					};
+					const saveRes = await handleSave(param);
+					if (saveRes.code === 200) {
+						history.back();
+					}
+				});
+			}}
+			layout={{}}
+		>
 			<div className='io-cms-site-batch-create__div'>
 				<Form
 					form={form}
 					scrollToFirstError
-					labelCol={{ span: 8 }}
+					labelCol={{ span: 2 }}
 					wrapperCol={{ span: 12 }}
 				>
 					<Form.Item
@@ -115,8 +188,7 @@ export default () => {
 								<i
 									className='iconfont icon-plus1'
 									onClick={() => {
-										console.log(row, '行数据');
-										if (!row?.parentId) {
+										if (!row?.parentKey) {
 											const a = [
 												...changeData(
 													dataSource,
@@ -142,6 +214,24 @@ export default () => {
 												return cur;
 											}, []);
 											setDataSource(temps);
+										} else {
+											// 子级同级
+											setDataSource([
+												...changeData(
+													dataSource,
+													row.parentKey,
+													{
+														key: shortid.generate(),
+														name: '子级同级站点名称',
+														dir: '子级同级站点目录',
+														modalPath: '子级同级模板路径',
+														domain: ['192.168.99.88'],
+														sortNo: 0,
+														status: 1,
+													},
+													true
+												),
+											]);
 										}
 									}}
 								/>
@@ -163,7 +253,7 @@ export default () => {
 													domain: ['192.168.99.88'],
 													sortNo: 0,
 													status: 1,
-													parentId: index + 1,
+													parentKey: row.key,
 												},
 												true
 											),
@@ -200,6 +290,7 @@ export default () => {
 						status: 1,
 					},
 				]}
+				onChange={data => setSaveData(data)}
 			/>
 		</BizPage>
 	);

@@ -1,6 +1,6 @@
 import { ProColumns, ActionType } from '@ant-design/pro-table';
 import { ExclamationCircleOutlined } from '@ant-design/icons';
-import { BizTable, BizTree, deleteUser } from '@ionia/libs';
+import { BizTable, BizTree, deleteUser, BizPage } from '@ionia/libs';
 import { Button, Modal, Switch } from 'antd';
 import React, { useRef, useState } from 'react';
 import UserForm from './Add';
@@ -112,43 +112,45 @@ export default () => {
 		},
 	];
 	return (
-		<div className='io-cms-user'>
-			<BizTable
-				rowKey='id'
-				actionRef={actionRef}
-				renderActions={() => (
-					<>
-						<div className='io-space-item'>
-							<UserForm />
-						</div>
-						<div className='io-space-item'>
-							<Button
-								onClick={() => history.push('/user/userbatchadd')}
-								type='default'
-							>
-								批量新建
-							</Button>
-						</div>
-						<div className='io-space-item'>
-							<Button onClick={showConfirm} type='default'>
-								批量删除
-							</Button>
-						</div>
-					</>
-				)}
-				renderSider={() => <BizTree />}
-				columns={columns}
-				rowSelection={{
-					selectedRowKeys,
-					onChange: selectedRowKeys => {
-						setSelectedRowKeys(selectedRowKeys as number[]);
-					},
-				}}
-				// pagination
-				request={(params, sort, filter) => {
-					return rolePaging({}).then(data => ({ data: data.data.content }));
-				}}
-			/>
-		</div>
+		<BizPage>
+			<div className='io-cms-user'>
+				<BizTable
+					rowKey='id'
+					actionRef={actionRef}
+					renderActions={() => (
+						<>
+							<div className='io-space-item'>
+								<UserForm />
+							</div>
+							<div className='io-space-item'>
+								<Button
+									onClick={() => history.push('/user/userbatchadd')}
+									type='default'
+								>
+									批量新建
+								</Button>
+							</div>
+							<div className='io-space-item'>
+								<Button onClick={showConfirm} type='default'>
+									批量删除
+								</Button>
+							</div>
+						</>
+					)}
+					renderSider={() => <BizTree />}
+					columns={columns}
+					rowSelection={{
+						selectedRowKeys,
+						onChange: selectedRowKeys => {
+							setSelectedRowKeys(selectedRowKeys as number[]);
+						},
+					}}
+					// pagination
+					request={(params, sort, filter) => {
+						return rolePaging({}).then(data => ({ data: data.data.content }));
+					}}
+				/>
+			</div>
+		</BizPage>
 	);
 };

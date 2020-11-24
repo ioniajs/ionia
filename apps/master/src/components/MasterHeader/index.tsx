@@ -9,22 +9,7 @@ import './index.less';
 import Logo from './Logo';
 import ThemeColor from './ThemeColor';
 import Site from './Site';
-import { useRequest } from 'ahooks';
-const dfs = (node: any) => {
-	return (
-		node &&
-		node.map((n: any) => {
-			if (n && n.children) {
-				n.children = dfs(n.children);
-			}
-			return {
-				...n,
-				title: n.name,
-				key: n.id,
-			};
-		})
-	);
-};
+
 export enum MasterHeaderTheme {
 	Light = 'light',
 }
@@ -74,16 +59,6 @@ const MasterHeader: React.FC<MasterHeaderProps> = ({ theme }) => {
 		}
 	}, [location.pathname]);
 
-	const { data } = useRequest(() => gainSiteTree());
-	const treeData: any = data?.data.list ?? [];
-	const commons: any = data?.data.commons ?? [];
-	const size: any = data?.data.size ?? 0;
-	const siteTree = useMemo(() => dfs(treeData), [treeData]);
-
-	siteTree.map((item: any) => {
-		item.icon = <i className='iconfont icon-cluster'></i>;
-	});
-
 	return (
 		<Anchor className='io-master__anchor'>
 			<div className='io-master__header' style={themeStyles}>
@@ -112,7 +87,7 @@ const MasterHeader: React.FC<MasterHeaderProps> = ({ theme }) => {
 						<LangSelector />
 					</span>
 					<span className='io-master__header--item'>
-						<Site siteTree={siteTree} commons={commons} size={size} />
+						<Site />
 					</span>
 				</div>
 			</div>
