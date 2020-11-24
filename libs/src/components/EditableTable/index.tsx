@@ -50,8 +50,6 @@ const deleteData = (source: any[], key: string) => {
 		.filter(s => !!s);
 };
 
-
-
 export const EditableTable = ({
 	footerRender,
 	operationRender,

@@ -1,7 +1,13 @@
 import React, { useState, MutableRefObject } from 'react';
 import { ProColumns, ActionType } from '@ant-design/pro-table';
 import { Form, TreeSelect, Tooltip, Switch, message, Input } from 'antd';
-import { BizPage, gainSiteTree, EditableTable, AdminSiteBatchSaveDTO, createAdminSiteBatchSave } from '@ionia/libs';
+import {
+	BizPage,
+	gainSiteTree,
+	EditableTable,
+	AdminSiteBatchSaveDTO,
+	createAdminSiteBatchSave,
+} from '@ionia/libs';
 import { AdminSiteTreeVO } from '@ionia/libs/src/services/kernel/admin-site.vo';
 import { useRequest, useMount } from '@umijs/hooks';
 import shortid from 'shortid';
@@ -11,30 +17,46 @@ import './index.less';
 const handleSave = async (fields: AdminSiteBatchSaveDTO) => {
 	const res = await createAdminSiteBatchSave(fields);
 	return res;
-}
+};
 export default () => {
 	const [saveData, setSaveData] = useState<any>([]);
 	const columns = [
 		{
-			title: <span><span className='io-cms-site-batch-create-columns__span'>*</span>站点名称</span>,
+			title: (
+				<span>
+					<span className='io-cms-site-batch-create-columns__span'>*</span>站点名称
+				</span>
+			),
 			key: 'name',
 			dataIndex: 'name',
 			editable: true,
 		},
 		{
-			title: <span><span className='io-cms-site-batch-create-columns__span'>*</span>站点目录</span>,
+			title: (
+				<span>
+					<span className='io-cms-site-batch-create-columns__span'>*</span>站点目录
+				</span>
+			),
 			key: 'dir',
 			dataIndex: 'dir',
 			editable: true,
 		},
 		{
-			title: <span><span className='io-cms-site-batch-create-columns__span'>*</span>模板路径</span>,
+			title: (
+				<span>
+					<span className='io-cms-site-batch-create-columns__span'>*</span>模板路径
+				</span>
+			),
 			key: 'modalPath',
 			dataIndex: 'modalPath',
 			editable: true,
 		},
 		{
-			title: <span><span className='io-cms-site-batch-create-columns__span'>*</span>域名</span>,
+			title: (
+				<span>
+					<span className='io-cms-site-batch-create-columns__span'>*</span>域名
+				</span>
+			),
 			key: 'domain',
 			dataIndex: 'domain',
 			editable: true,
@@ -70,8 +92,8 @@ export default () => {
 						<Input type='number' ref={ref} onPressEnter={save} onBlur={save} />
 					</Form.Item>
 				) : (
-						<div onClick={toggleEdit}>{children}</div>
-					);
+					<div onClick={toggleEdit}>{children}</div>
+				);
 			},
 		},
 		{
@@ -121,7 +143,7 @@ export default () => {
 					const param = {
 						parentId: values.parentId,
 						children: saveData,
-					}
+					};
 					const saveRes = await handleSave(param);
 					if (saveRes.code === 200) {
 						history.back();
@@ -192,7 +214,8 @@ export default () => {
 												return cur;
 											}, []);
 											setDataSource(temps);
-										} else { // 子级同级
+										} else {
+											// 子级同级
 											setDataSource([
 												...changeData(
 													dataSource,
@@ -267,7 +290,7 @@ export default () => {
 						status: 1,
 					},
 				]}
-				onChange={(data) => setSaveData(data)}
+				onChange={data => setSaveData(data)}
 			/>
 		</BizPage>
 	);
