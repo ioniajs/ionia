@@ -53,12 +53,7 @@ export default () => {
 	const history = useHistory();
 	const actionRef = useRef<ActionType>();
 	const [selectedRowKeys, setSelectedRowKeys] = useState<number[]>([]);
-	const [recycleVisible, setRecycleVisible] = useState<boolean>(false);
-	const [recycleData, setRecycleData] = useState<AdminSiteRecycleSummaryVo[]>();
-	const [selectedRecycleRowKeys, setSelectedRecycleRowKeys] = useState<number[]>([]);
-	const [revertRadio, setRevertRadio] = useState<number>(1);
 	const modalRef = useRef<ModalFormRef>();
-	console.log(revertRadio, 'rererer');
 	const columns: ProColumns<AdminSiteTreeVO>[] = [
 		{
 			title: '站点名称',
