@@ -7,7 +7,7 @@ import {
 	UserUpdateDTO,
 	UserUpdateStatusDTO,
 } from './user-control.dto';
-import { IdsDTO } from '../../reuse.dto';
+import { IdsDTO } from '../../common.dto';
 import { UserViewVO, UserMatchVO, UserPageVO, UserMoveInVO } from './user-control.vo';
 
 /**

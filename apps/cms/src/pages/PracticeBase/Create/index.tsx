@@ -99,8 +99,8 @@ export default () => {
 								});
 							}}
 						/>
-						<Button className='io-cms-practice__button'>保存并管理成员</Button>
-						<Button className='io-cms-practice__button'>保存并编辑权限</Button>
+						<Button style={{ marginLeft: 8 }}>保存并管理成员</Button>
+						<Button style={{ marginLeft: 8 }}>保存并编辑权限</Button>
 					</>
 				);
 			}}
@@ -269,7 +269,7 @@ export default () => {
 					/>
 				</Form.Item>
 				<Form.Item name='introduce' label='阵地介绍'>
-					<div className='io-cms-base-create-from-item__rich-text-editor'>
+					<div className='io-cms-practice-base-create-from-item__rich-text-editor'>
 						<RichTextEditor />
 					</div>
 				</Form.Item>

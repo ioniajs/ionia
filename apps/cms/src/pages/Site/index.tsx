@@ -19,7 +19,7 @@ import {
 	AdminSiteTreeVO,
 	AdminSiteRecycleSummaryVo,
 } from '@ionia/libs/src/services/kernel/admin-site.vo';
-import { IdsDTO } from '@ionia/libs/src/services/reuse.dto';
+import { IdsDTO } from '@ionia/libs/src/services/common.dto';
 import CopyForm from './CopySite';
 import RecycleSite from './Recycle';
 import './index.less';

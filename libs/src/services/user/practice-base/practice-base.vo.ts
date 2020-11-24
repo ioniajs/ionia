@@ -1,4 +1,4 @@
-import { UserVO, PicVO } from '../../reuse.vo';
+import { UserVO, PicVO } from '../../common.vo';
 //#region  阵地详情VO
 export interface OrgDetailsVO {
 	address: string; // 地址

@@ -1,7 +1,7 @@
 import request from '../../../utils/request';
 import { JcResult, Page } from '../../base';
 import { RoleOperatingDTO, RoleMoveDTO } from './role-management.dto';
-import { IdsDTO } from '../../reuse.dto';
+import { IdsDTO } from '../../common.dto';
 import { RoleViewVO, RolePageVO } from './role-management.vo';
 /**
  * 添加角色
