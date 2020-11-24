@@ -1,6 +1,5 @@
 import { logger } from '@ionia/libs';
 import { Input, Modal, Table, Tag, Transfer, TreeSelect } from 'antd';
-import { set } from 'lodash';
 import difference from 'lodash/difference';
 import React, { useState } from 'react';
 
@@ -57,7 +56,7 @@ export default (props: any) => {
 
 				return (
 					<Table
-						rowSelection={rowSelection}
+						// rowSelection={rowSelection}
 						columns={columns}
 						dataSource={filteredItems}
 						size='small'
