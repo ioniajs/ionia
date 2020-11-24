@@ -50,7 +50,7 @@ const EditableCell = ({
 	};
 
 	const defaultFormItemRender = () => {
-		return (children && !children[1]) || editing ? (
+		return editing ? (
 			<Form.Item
 				style={{ margin: 0 }}
 				name={dataIndex}
@@ -63,6 +63,8 @@ const EditableCell = ({
 			>
 				<Input ref={ref} onPressEnter={save} onBlur={save} />
 			</Form.Item>
+		) : children && !children[1] ? (
+			<div onClick={toggleEdit}>请输入{title}</div>
 		) : (
 			<div onClick={toggleEdit}>{children}</div>
 		);
