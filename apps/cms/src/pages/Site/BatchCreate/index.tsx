@@ -116,7 +116,7 @@ export default () => {
 									className='iconfont icon-plus1'
 									onClick={() => {
 										console.log(row, '行数据');
-										if (!row?.parentId) {
+										if (!row?.parentKey) {
 											const a = [
 												...changeData(
 													dataSource,
@@ -163,7 +163,7 @@ export default () => {
 													domain: ['192.168.99.88'],
 													sortNo: 0,
 													status: 1,
-													parentId: index + 1,
+													parentKey: row.key,
 												},
 												true
 											),
