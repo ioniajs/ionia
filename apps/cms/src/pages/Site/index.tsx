@@ -140,9 +140,13 @@ export default () => {
 			dataIndex: 'operation',
 			render: (_, row) => (
 				<>
-					<a onClick={() => {
-						history.push('/site/publish-statics')
-					}}>发布静态页</a>
+					<a
+						onClick={() => {
+							history.push('/site/publish-statics');
+						}}
+					>
+						发布静态页
+					</a>
 					<Divider type='vertical' />
 					<a>预览</a>
 					<Divider type='vertical' />
