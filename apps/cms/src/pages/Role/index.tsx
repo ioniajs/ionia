@@ -1,6 +1,6 @@
 import { ProColumns, ActionType } from '@ant-design/pro-table';
 import { ExclamationCircleOutlined } from '@ant-design/icons';
-import { BizTable, BizTree, deleteUser } from '@ionia/libs';
+import { BizTable, BizTree, deleteUser ,BizPage} from '@ionia/libs';
 import { Button, Modal, Switch } from 'antd';
 import React, { useRef, useState } from 'react';
 import UserForm from './Add';
@@ -112,6 +112,7 @@ export default () => {
 		},
 	];
 	return (
+		<BizPage>
 		<div className='io-cms-user'>
 			<BizTable
 				rowKey='id'
@@ -150,5 +151,6 @@ export default () => {
 				}}
 			/>
 		</div>
+		</BizPage>
 	);
 };

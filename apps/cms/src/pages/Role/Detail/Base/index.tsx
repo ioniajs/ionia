@@ -38,11 +38,11 @@ const treeData = [
 		value: '3',
 		children: [
 			{
-				title: 'Child Node1',
+				title: 'Child Node4',
 				value: '31',
 			},
 			{
-				title: 'Child Node2',
+				title: 'Child Node5',
 				value: '32',
 			},
 		],
@@ -50,7 +50,7 @@ const treeData = [
 ];
 
 export default ({ id }: any) => {
-	const [value, setValue] = useState(undefined);
+	const [value, setValue] = useState('');
 
 	const onChange = (value: any) => {
 		console.log(value);
@@ -58,7 +58,6 @@ export default ({ id }: any) => {
 	};
 	const { data } = useRequest(() => roleDetail(id));
 	const formData = data?.data ?? {};
-	logger.debug(formData);
 	const [form] = Form.useForm();
 	if (formData) {
 		form.setFieldsValue({ ...formData });
