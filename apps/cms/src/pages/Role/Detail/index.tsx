@@ -2,7 +2,7 @@ import React from 'react';
 import { BizPage, logger } from '@ionia/libs';
 import Base from './Base';
 import Member from './Member';
-import Authority from './Authority'
+import Authority from './Authority';
 export default ({ match }: any) => {
 	const {
 		params: { id },

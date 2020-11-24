@@ -51,15 +51,19 @@ export default () => {
 				onCheck={onCheck}
 				treeData={treeData}
 				switcherIcon={<DownOutlined />}
-                showIcon
-                checkStrictly
-                selectable={false}
-                blockNode
+				showIcon
+				checkStrictly
+				selectable={false}
+				blockNode
 				titleRender={nodeData => {
 					if (nodeData.children) {
 						return (
-							<div  onClick={e => e.stopPropagation()}>
-								<i className='iconfont icon-check-circle-fill' onClick={()=>alert('我是图标')}></i> <span onClick={()=>alert('我是文字')}>{nodeData.title}</span>
+							<div onClick={e => e.stopPropagation()}>
+								<i
+									className='iconfont icon-check-circle-fill'
+									onClick={() => alert('我是图标')}
+								></i>{' '}
+								<span onClick={() => alert('我是文字')}>{nodeData.title}</span>
 							</div>
 						);
 					} else {
