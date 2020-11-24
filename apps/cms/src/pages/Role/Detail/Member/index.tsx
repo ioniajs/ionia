@@ -162,7 +162,7 @@ export default ({ id }: any) => {
 		},
 	];
 	return (
-		<div className='io-cms-user'>
+		<div className='io-cms-role_detail_member'>
 			<BizTable
 				rowKey='id'
 				actionRef={actionRef}
