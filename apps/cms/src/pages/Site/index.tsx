@@ -21,7 +21,7 @@ import {
 } from '@ionia/libs/src/services/kernel/admin-site.vo';
 import { IdsDTO } from '@ionia/libs/src/services/reuse.dto';
 import CopyForm from './CopySite';
-import RecycleSite from './RecycleSite';
+import RecycleSite from './Recycle';
 import './index.less';
 
 /**
@@ -140,7 +140,13 @@ export default () => {
 			dataIndex: 'operation',
 			render: (_, row) => (
 				<>
-					<a>发布静态页</a>
+					<a
+						onClick={() => {
+							history.push('/site/publish-statics');
+						}}
+					>
+						发布静态页
+					</a>
 					<Divider type='vertical' />
 					<a>预览</a>
 					<Divider type='vertical' />
