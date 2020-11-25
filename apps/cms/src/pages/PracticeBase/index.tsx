@@ -163,14 +163,14 @@ export default () => {
 				)}
 				inputPlaceholderText={'请输入阵地名称/编号'}
 				columns={columns}
-				request={async params => {
+				request={async (params: any) => {
 					return positionList({}).then(data => ({
 						data: data.data,
 					}));
 				}}
 				rowSelection={{
 					selectedRowKeys,
-					onChange: selectedRowKeys => {
+					onChange: (selectedRowKeys: any) => {
 						setSelectedRowKeys(selectedRowKeys as number[]);
 					},
 					checkStrictly: false,

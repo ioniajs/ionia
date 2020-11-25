@@ -2,6 +2,8 @@ import React, { useRef, useState } from 'react';
 import { BizTable, positionalListPaging, deletePositionResource, IdsDTO } from '@ionia/libs';
 import { Button, Modal, message } from 'antd';
 import { ActionType } from '@ant-design/pro-table';
+import './index.less';
+import CreateForm from './Create';
 
 interface BaseResourceProps {
 	id: string;
@@ -36,7 +38,7 @@ export const BaseResource = ({ id }: BaseResourceProps) => {
 			key: 'operation',
 			dataIndex: 'operation',
 			width: 50,
-			render: (_, row) => (
+			render: (_: any, row: any) => (
 				<a
 					onClick={async () => {
 						if (row) {
@@ -67,60 +69,59 @@ export const BaseResource = ({ id }: BaseResourceProps) => {
 	const actionRef = useRef<ActionType>();
 	const [selectedRowKeys, setSelectedRowKeys] = useState<number[]>([]);
 	return (
-		<BizTable
-			renderActions={() => (
-				<>
-					<div className='io-space-item'>
-						<Button type='primary'>
-							<i className='iconfont icon-plus1' style={{ fontSize: '16px' }} />
-							新建
-						</Button>
-					</div>
-					<div className='io-space-item'>
-						<Button
-							type='default'
-							disabled={selectedRowKeys.length === 0}
-							onClick={() => {
-								Modal.confirm({
-									title: '你确定删除所阵地资源吗？',
-									content: '删除后无法恢复，请谨慎操作.',
-									okText: '确定',
-									cancelText: '取消',
-									onOk: async () => {
-										const ListSelRowKeys: any[] = selectedRowKeys.map(
-											(s: any) => s
-										);
-										const listDelRes = await ResourceRemove({
-											ids: ListSelRowKeys,
-										});
-										if (listDelRes === 200) {
-											if (listDelRes === 200 && actionRef.current) {
-												actionRef.current.reload();
+		<div className='io-cms-practice-base-resource__div'>
+			<BizTable
+				renderActions={() => (
+					<>
+						<div className='io-space-item'>
+							<CreateForm />
+						</div>
+						<div className='io-space-item'>
+							<Button
+								type='default'
+								disabled={selectedRowKeys.length === 0}
+								onClick={() => {
+									Modal.confirm({
+										title: '你确定删除所阵地资源吗？',
+										content: '删除后无法恢复，请谨慎操作.',
+										okText: '确定',
+										cancelText: '取消',
+										onOk: async () => {
+											const ListSelRowKeys: any[] = selectedRowKeys.map(
+												(s: any) => s
+											);
+											const listDelRes = await ResourceRemove({
+												ids: ListSelRowKeys,
+											});
+											if (listDelRes === 200) {
+												if (listDelRes === 200 && actionRef.current) {
+													actionRef.current.reload();
+												}
 											}
-										}
-									},
-								});
-							}}
-						>
-							删除
-						</Button>
-					</div>
-				</>
-			)}
-			rowKey='id'
-			actionRef={actionRef}
-			inputPlaceholderText={'请输入标题'}
-			columns={columns}
-			rowSelection={{
-				selectedRowKeys,
-				onChange: selectedRowKeys => {
-					setSelectedRowKeys(selectedRowKeys as number[]);
-				},
-				checkStrictly: false,
-			}}
-			request={async params => {
-				return positionalListPaging({}).then(data => ({ data: data.data.content }));
-			}}
-		></BizTable>
+										},
+									});
+								}}
+							>
+								删除
+							</Button>
+						</div>
+					</>
+				)}
+				rowKey='id'
+				actionRef={actionRef}
+				inputPlaceholderText={'请输入标题'}
+				columns={columns}
+				rowSelection={{
+					selectedRowKeys,
+					onChange: selectedRowKeys => {
+						setSelectedRowKeys(selectedRowKeys as number[]);
+					},
+					checkStrictly: false,
+				}}
+				request={async params => {
+					return positionalListPaging({}).then(data => ({ data: data.data.content }));
+				}}
+			></BizTable>
+		</div>
 	);
 };
