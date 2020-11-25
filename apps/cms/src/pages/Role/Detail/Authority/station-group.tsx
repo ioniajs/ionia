@@ -85,7 +85,7 @@ function getKey(arr: any, ids: string[] = []) {
 		if (key) {
 			ids.push(key);
 		}
-		if (children) {
+		if (children && children.length > 0) {
 			getKey(children, ids);
 		}
 	});
@@ -199,7 +199,7 @@ export default ({ roleId }: any) => {
 				autoExpandParent={autoExpandParent}
 				blockNode
 				titleRender={(nodeData: any) => {
-					if (nodeData.children) {
+					if (nodeData.children && nodeData.children.length > 0) {
 						return (
 							<div
 								onClick={e => e.stopPropagation()}
