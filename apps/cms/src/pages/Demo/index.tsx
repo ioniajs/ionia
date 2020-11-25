@@ -1,14 +1,6 @@
 import ProCard from '@ant-design/pro-card';
 import { PageContainer } from '@ant-design/pro-layout';
-import {
-	Watermark,
-	AnnexUpload,
-	ImagePreview,
-	AudioUpload,
-	ImageUpload,
-	VideoUpload,
-} from '@ionia/libs';
-import { Button, Table } from 'antd';
+import { Table } from 'antd';
 import React from 'react';
 
 export default () => {

@@ -45,7 +45,7 @@ export default () => {
 	const siteTree = useMemo(() => dfs(treeData), [treeData]);
 
 	siteTree.map((item: any) => {
-		item.icon = <i className='iconfont icon-cluster'></i>;
+		item.icon = <i className='iconfont icon-apartment'></i>;
 	});
 
 	/**
@@ -91,7 +91,7 @@ export default () => {
 
 	return (
 		<div className='io-master__header-site'>
-			<div className='io-master__header--item' onMouseOver={showDrawer}>
+			<div className='io-master__header--item' onClick={showDrawer}>
 				<span className='text'>{siteName}</span>
 			</div>
 			<Drawer
