@@ -1,7 +1,8 @@
-import { Image, Progress, Upload } from 'antd';
+import { BizModalForm, BizModalFormRef } from '../../BizModalForm';
+import { Tooltip, Image, Progress, Upload } from 'antd';
 import { UploadProps } from 'antd/lib/upload';
 import { UploadFile } from 'antd/lib/upload/interface';
-import React, { ReactElement } from 'react';
+import React, { ReactElement, useRef } from 'react';
 import { UploadButton } from '../UploadButton';
 import './index.less';
 
@@ -10,10 +11,12 @@ interface ImageUploadProps extends UploadProps {
 	tips?: string;
 }
 
-const renderItemRender = (file: UploadFile) => {
-	let child = null;
+const UploadItem = ({ file }: { file: UploadFile }) => {
+	const previewModalRef = useRef<BizModalFormRef>();
+
+	let item = null;
 	if (file.status === 'success') {
-		child = (
+		item = (
 			<>
 				<p>上传成功</p>
 				<Progress
@@ -29,7 +32,7 @@ const renderItemRender = (file: UploadFile) => {
 	}
 
 	if (file.status === 'uploading') {
-		child = (
+		item = (
 			<>
 				<p>上传中 {file.percent}%</p>
 				<Progress
@@ -45,7 +48,7 @@ const renderItemRender = (file: UploadFile) => {
 	}
 
 	if (file.status === 'done') {
-		child = (
+		item = (
 			<>
 				<Image src={file.url} />
 			</>
@@ -53,23 +56,54 @@ const renderItemRender = (file: UploadFile) => {
 	}
 
 	if (file.status === 'error') {
-		child = (
+		item = (
 			<>
 				<i className='iconfont icon-image' />
-				<span>{file.name}</span>
+				<span title={file.name}>{file.name}</span>
 			</>
 		);
 	}
 
-	return (
+	const isError = file.status === 'error';
+
+	const child = (
 		<div
 			className={`io-image-upload__item ${
 				file.status === 'done' ? 'io-image-upload__item--done' : ''
-			} ${file.status === 'error' ? 'io-image-upload__item--error' : ''}`}
+			} ${isError ? 'io-image-upload__item--error' : ''}`}
 		>
-			{child}
+			{item}
+			<BizModalForm
+				ref={previewModalRef}
+				title={file.name}
+				triggerRender={() => null}
+				submitterRender={() => null}
+			>
+				aaaaa
+			</BizModalForm>
+			<div className='io-image-upload__item-action'>
+				<div>
+					<Tooltip title='裁剪'>
+						<i className={`iconfont icon-border ${isError ? 'disable' : ''}`} />
+					</Tooltip>
+					<Tooltip title='预览'>
+						<i
+							className={`iconfont icon-eye ${isError ? 'disable' : ''}`}
+							onClick={() => {
+								previewModalRef.current?.open();
+							}}
+						/>
+					</Tooltip>
+					<Tooltip title='删除'>
+						<i className={`iconfont icon-delete`} />
+					</Tooltip>
+				</div>
+			</div>
+			<div className='io-image-upload__item-mask' />
 		</div>
 	);
+
+	return isError ? <Tooltip title='上传错误'>{child}</Tooltip> : child;
 };
 
 export const ImageUpload = ({ title, tips, ...reset }: ImageUploadProps) => {
@@ -101,7 +135,7 @@ export const ImageUpload = ({ title, tips, ...reset }: ImageUploadProps) => {
 		},
 		{
 			uid: '3',
-			name: 'image.png',
+			name: 'qweqweqweqwew-weqwewqeqwew-weqweqweqweqweqweqw-image.png',
 			status: 'error',
 			size: 20,
 			type: '',
@@ -115,7 +149,9 @@ export const ImageUpload = ({ title, tips, ...reset }: ImageUploadProps) => {
 				fileList={fileList}
 				action='https://www.mocky.io/v2/5cc8019d300000980a055e76'
 				listType='picture-card'
-				itemRender={(originNode: ReactElement, file: UploadFile) => renderItemRender(file)}
+				itemRender={(originNode: ReactElement, file: UploadFile) => (
+					<UploadItem file={file} />
+				)}
 				{...reset}
 			>
 				<UploadButton />
