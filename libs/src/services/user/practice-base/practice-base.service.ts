@@ -1,7 +1,7 @@
 import request from '../../../utils/request';
 import { JcResult, Page } from '../../base';
 import { OrgDTO, OrgBatchDTO, OrgResourceDTO, OrgUserDTO, SortDTO } from './practice-base.dto';
-import { IdsDTO } from '../../reuse.dto';
+import { IdsDTO } from '../../common.dto';
 import { OrgResourceVO, OrgDetailsVO, OrgVO, OrgSmallVO } from './practice-base.vo';
 /**
  *
@@ -153,11 +153,11 @@ export async function verifyPositionName(params: PositionName): Promise<JcResult
  * 阵地资源列表分页
  */
 export interface PoListPaging {
-	orgId: string; // 阵地id
-	pageNo: string; // 页码, 从1开始计数
-	pageSize: number; // 页面大小
-	pageSort: string; // 排序字段, 格式: name desc,createTime asc
-	title: string; // 标题
+	orgId?: string; // 阵地id
+	pageNo?: string; // 页码, 从1开始计数
+	pageSize?: number; // 页面大小
+	pageSort?: string; // 排序字段, 格式: name desc,createTime asc
+	title?: string; // 标题
 }
 export async function positionalListPaging(
 	params: PoListPaging

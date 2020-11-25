@@ -1,5 +1,30 @@
 .io-image-upload {
-	.io-image-upload__button {
+	.ant-upload-list {
+		line-height: 1;
+	}
+	.ant-upload-list-picture-card-container {
+		width: 135px;
+		height: 135px;
+	}
+	.ant-upload {
+		display: flex;
+		flex-direction: column;
+		width: 135px;
+		height: 135px;
+
+		.io-upload-button {
+			display: flex;
+			flex-direction: column;
+			i {
+				&::before {
+					color: #8c8c8c;
+				}
+			}
+			span {
+				color: #8c8c8c;
+			}
+		}
+
 		&:hover {
 			.io-upload-button {
 				i {
@@ -20,5 +45,54 @@
 	.io-image-upload__tips {
 		margin: 12px 0 0 0;
 		color: #8c8c8c;
+	}
+	.io-image-upload__item {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		width: 135px;
+		height: 135px;
+		padding: 8px;
+		border: 1px dashed #d9d9d9;
+		cursor: pointer;
+
+		&:hover {
+			border: 1px dashed #1269db;
+		}
+
+		p {
+			margin-bottom: 4px;
+			font-size: 14px;
+			color: #262626;
+		}
+	}
+	.io-image-upload__item--done {
+		border: 1px solid #d9d9d9;
+		&:hover {
+			border: 1px solid #d9d9d9;
+		}
+	}
+	.io-image-upload__item--error {
+		border: 1px solid #ff4d4f;
+		&:hover {
+			border: 1px solid #ff4d4f;
+		}
+		i {
+			&::before {
+				font-size: 18px;
+				color: #ff4d4f;
+			}
+		}
+		span {
+			margin-top: 16px;
+			margin-bottom: 0;
+			line-height: 16px;
+			font-size: 14px;
+			color: #ff4d4f;
+			white-space: nowrap;
+			overflow: hidden;
+			text-overflow: ellipsis;
+		}
 	}
 }

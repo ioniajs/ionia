@@ -1,4 +1,4 @@
-import { UserDTO, PicDTO } from '../../reuse.dto';
+import { UserDTO, PicDTO } from '../../common.dto';
 
 //#region
 export interface OrgBatchChildDTO {

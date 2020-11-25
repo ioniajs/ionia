@@ -1,15 +1,25 @@
 import { ProColumns, ActionType } from '@ant-design/pro-table';
 import { BizPage, BizTable } from '@ionia/libs';
-import { Button, Input, message, Modal } from 'antd';
+import { Button, Input, message, Modal, TreeSelect } from 'antd';
 import React, { useRef, useState } from 'react';
-import UserForm from '../User/Form';
-import { positionList, deletePosition, PositionList, OrgVO } from '@ionia/libs/src/services';
-import { IdsDTO } from '@ionia/libs/src/services/reuse.dto';
+import { positionList, deletePosition, OrgVO } from '@ionia/libs/src/services';
+import { IdsDTO } from '@ionia/libs/src/services/common.dto';
 import { useHistory } from 'react-router-dom';
+
 export interface TableListItem {
 	key: number;
 	name: string;
 }
+
+const BaseRemove = async (ids: IdsDTO) => {
+	const BaseRes = await deletePosition(ids);
+	if (BaseRes.code == 200) {
+		message.success('删除成功');
+	} else {
+		message.error('删除失败');
+	}
+	return BaseRes.code;
+};
 
 export default () => {
 	const positionRemove = async (ids: IdsDTO) => {
@@ -32,7 +42,9 @@ export default () => {
 			width: 400,
 			render: (_, row) => {
 				return (
-					<a onClick={() => history.push(`/practicebase/detail/${row.id}`)}>{row.name}</a>
+					<a onClick={() => history.push(`/practice-base/detail/${row.id}`)}>
+						{row.name}
+					</a>
 				);
 			},
 		},
@@ -69,7 +81,9 @@ export default () => {
 					onClick={async () => {
 						if (row) {
 							Modal.confirm({
-								title: '是否确定删除',
+								title: '你确定删除所选中的阵地吗？',
+								content:
+									'删除阵地同时删除其下级阵地以及阵地内的角色、用户,删除后无法恢复，请谨慎操作.',
 								okText: '确定',
 								cancelText: '取消',
 								onOk: async () => {
@@ -101,31 +115,62 @@ export default () => {
 						<div className='io-space-item'>
 							<Button
 								type='primary'
-								onClick={() => history.push('/practicebase/create')}
+								onClick={() => history.push('/practice-base/create')}
 							>
 								<i className='iconfont icon-plus1' style={{ fontSize: '16px' }} />
 								新建
 							</Button>
 						</div>
 						<div className='io-space-item'>
-							<Button type='default'>批量新建</Button>
+							<Button
+								type='default'
+								onClick={() => history.push('/practice-base/batch-create')}
+							>
+								批量新建
+							</Button>
 						</div>
 						<div className='io-space-item'>
-							<Button type='default'>批量删除</Button>
+							<Button
+								type='default'
+								disabled={selectedRowKeys.length === 0}
+								onClick={() => {
+									Modal.confirm({
+										title: '你确定删除所选中的阵地吗？',
+										content:
+											'删除阵地同时删除其下级阵地以及阵地内的角色、用户,删除后无法恢复，请谨慎操作.',
+										okText: '确定',
+										cancelText: '取消',
+										onOk: async () => {
+											const ListSelRowKeys: any[] = selectedRowKeys.map(
+												(s: any) => s
+											);
+											const listDelRes = await BaseRemove({
+												ids: ListSelRowKeys,
+											});
+											if (listDelRes === 200) {
+												if (listDelRes === 200 && actionRef.current) {
+													actionRef.current.reload();
+												}
+											}
+										},
+									});
+								}}
+							>
+								批量删除
+							</Button>
 						</div>
 					</>
 				)}
 				inputPlaceholderText={'请输入阵地名称/编号'}
 				columns={columns}
-				request={async params => {
+				request={async (params: any) => {
 					return positionList({}).then(data => ({
 						data: data.data,
 					}));
 				}}
 				rowSelection={{
 					selectedRowKeys,
-					onChange: selectedRowKeys => {
-						console.log(selectedRowKeys, 'ssss');
+					onChange: (selectedRowKeys: any) => {
 						setSelectedRowKeys(selectedRowKeys as number[]);
 					},
 					checkStrictly: false,

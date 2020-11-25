@@ -1,20 +1,9 @@
 import { ActionType, ProColumns } from '@ant-design/pro-table';
-import { BizPage, BizTable, deleteUser } from '@ionia/libs';
+import { BizPage, BizTable } from '@ionia/libs';
 import { UserPageVO, userPaging } from '@ionia/libs/src/services';
-import { IdsDTO } from '@ionia/libs/src/services/reuse.dto';
-import { message } from 'antd';
 import React, { useRef, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
-const userRemove = async (ids: IdsDTO) => {
-	const removeRes = await deleteUser(ids);
-	if (removeRes.code !== 200) {
-		message.error('删除失败');
-	} else {
-		message.success('删除成功');
-	}
-	return removeRes.code;
-};
 export default () => {
 	const history = useHistory();
 	const actionRef = useRef<ActionType>();

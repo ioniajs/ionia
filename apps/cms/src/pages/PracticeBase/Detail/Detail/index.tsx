@@ -1,21 +1,18 @@
 import { UploadOutlined } from '@ant-design/icons';
 import {
 	AMap,
-	BizPage,
 	BizModalForm,
-	GobackButton,
 	ImageUpload,
 	RichTextEditor,
-	SaveButton,
 	ModalFormRef,
-	addPosition,
 	modposition,
 	OrgDTO,
 	positionDetail,
 } from '@ionia/libs';
 import { useMount, useRequest } from '@umijs/hooks';
-import { Button, Form, Input, message, Space, TreeSelect } from 'antd';
-import React, { useState, useRef, useEffect } from 'react';
+import { Button, Form, Input, message, TreeSelect } from 'antd';
+import React, { useRef, useEffect } from 'react';
+import './index.less';
 
 const layout = {
 	labelCol: { span: 7 },

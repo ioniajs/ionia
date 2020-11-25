@@ -3,7 +3,7 @@ import { BizTable, deleteUser, logger, roleDetail } from '@ionia/libs';
 import { Button, Modal, Switch, message, Divider } from 'antd';
 import React, { useRef, useState } from 'react';
 import { UserPageVO, userPaging, modUserStatus } from '@ionia/libs/src/services';
-import { IdsDTO } from '@ionia/libs/src/services/reuse.dto';
+import { IdsDTO } from '@ionia/libs/src/services/common.dto';
 import { useHistory } from 'react-router-dom';
 import './index.less';
 import Form from './Form';
