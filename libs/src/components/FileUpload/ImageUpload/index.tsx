@@ -1,17 +1,24 @@
-import { BizModalForm, BizModalFormRef } from '../../BizModalForm';
-import { Tooltip, Image, Progress, Upload } from 'antd';
+import { Image, Progress, Tooltip, Upload } from 'antd';
 import { UploadProps } from 'antd/lib/upload';
 import { UploadFile } from 'antd/lib/upload/interface';
-import React, { ReactElement, useRef } from 'react';
+import React, { ReactElement, useEffect, useRef, useState } from 'react';
+import { BizModalForm, BizModalFormRef } from '../../BizModalForm';
 import { UploadButton } from '../UploadButton';
 import './index.less';
 
 interface ImageUploadProps extends UploadProps {
 	title?: string;
 	tips?: string;
+	limit?: number;
+	onChange?: (files: any) => void;
 }
 
-const UploadItem = ({ file }: { file: UploadFile }) => {
+interface UploadItemProps {
+	file: UploadFile;
+	onRemove?: () => void;
+}
+
+const UploadItem = ({ file, onRemove }: UploadItemProps) => {
 	const previewModalRef = useRef<BizModalFormRef>();
 
 	let item = null;
@@ -50,7 +57,7 @@ const UploadItem = ({ file }: { file: UploadFile }) => {
 	if (file.status === 'done') {
 		item = (
 			<>
-				<Image src={file.url} />
+				<Image src={file.url && file.thumbUrl} />
 			</>
 		);
 	}
@@ -79,23 +86,35 @@ const UploadItem = ({ file }: { file: UploadFile }) => {
 				triggerRender={() => null}
 				submitterRender={() => null}
 			>
-				<Image src={file.url} preview={false} />
+				<Image src={file.url && file.thumbUrl} preview={false} />
 			</BizModalForm>
 			<div className='io-image-upload__item-action'>
 				<div>
 					<Tooltip title='裁剪'>
-						<i className={`iconfont icon-border ${isError ? 'disable' : ''}`} />
+						<i
+							className={`iconfont icon-border ${isError ? 'disable' : ''}`}
+							onClick={() => {
+								if (isError) return;
+								previewModalRef.current?.open();
+							}}
+						/>
 					</Tooltip>
 					<Tooltip title='预览'>
 						<i
 							className={`iconfont icon-eye ${isError ? 'disable' : ''}`}
 							onClick={() => {
+								if (isError) return;
 								previewModalRef.current?.open();
 							}}
 						/>
 					</Tooltip>
 					<Tooltip title='删除'>
-						<i className={`iconfont icon-delete`} />
+						<i
+							className={`iconfont icon-delete`}
+							onClick={() => {
+								onRemove && onRemove();
+							}}
+						/>
 					</Tooltip>
 				</div>
 			</div>
@@ -106,55 +125,41 @@ const UploadItem = ({ file }: { file: UploadFile }) => {
 	return isError ? <Tooltip title='上传错误'>{child}</Tooltip> : child;
 };
 
-export const ImageUpload = ({ title, tips, ...reset }: ImageUploadProps) => {
-	const fileList: UploadFile<any>[] = [
-		{
-			uid: '1',
-			name: 'image.png',
-			status: 'success',
-			url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
-			size: 10,
-			type: '',
-		},
-		{
-			uid: '1',
-			name: 'image.png',
-			status: 'done',
-			url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
-			size: 10,
-			type: '',
-		},
-		{
-			uid: '2',
-			percent: 30,
-			name: 'image.png',
-			status: 'uploading',
-			url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
-			size: 10,
-			type: '',
-		},
-		{
-			uid: '3',
-			name: 'qweqweqweqwew-weqwewqeqwew-weqweqweqweqweqweqw-image.png',
-			status: 'error',
-			size: 20,
-			type: '',
-		},
-	];
+export const ImageUpload = ({
+	title,
+	tips,
+	limit = 1,
+	defaultFileList,
+	onChange,
+	...reset
+}: ImageUploadProps) => {
+	const [fileList, setFileList] = useState<UploadFile<any>[]>(defaultFileList ?? []);
+
+	useEffect(() => {
+		onChange && onChange(fileList);
+	}, [fileList]);
 
 	return (
 		<div className='io-image-upload'>
 			<Upload
 				className='io-image-upload__button'
-				fileList={fileList}
 				action='https://www.mocky.io/v2/5cc8019d300000980a055e76'
 				listType='picture-card'
 				itemRender={(originNode: ReactElement, file: UploadFile) => (
-					<UploadItem file={file} />
+					<UploadItem
+						file={file}
+						onRemove={() => {
+							setFileList(fileList.filter(f => f.uid !== file.uid));
+						}}
+					/>
 				)}
 				{...reset}
+				fileList={fileList}
+				onChange={info => {
+					setFileList([...info.fileList]);
+				}}
 			>
-				<UploadButton />
+				{fileList.length < limit && <UploadButton />}
 			</Upload>
 			{title && <p className='io-file-upload__title'>{title}</p>}
 			{tips && <p className='io-file-upload__tips'>{tips}</p>}
