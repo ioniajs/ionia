@@ -79,7 +79,7 @@ const UploadItem = ({ file }: { file: UploadFile }) => {
 				triggerRender={() => null}
 				submitterRender={() => null}
 			>
-				aaaaa
+				<Image src={file.url} preview={false} />
 			</BizModalForm>
 			<div className='io-image-upload__item-action'>
 				<div>
