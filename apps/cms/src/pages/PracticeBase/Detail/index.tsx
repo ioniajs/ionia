@@ -1,7 +1,7 @@
 import React from 'react';
 import { BizPage } from '@ionia/libs';
-import { BaseDetail } from './detail';
-import { BaseResource } from './resource';
+import { BaseDetail } from './Detail';
+import { BaseResource } from './Resource';
 
 export default ({ match }: any) => {
 	const {
