@@ -1,6 +1,8 @@
+import { useLocalStorageState } from 'ahooks';
 import { Image, Progress, Tooltip, Upload } from 'antd';
 import { UploadProps } from 'antd/lib/upload';
 import { UploadFile } from 'antd/lib/upload/interface';
+import axios from 'axios';
 import React, { ReactElement, useEffect, useRef, useState } from 'react';
 import { BizModalForm, BizModalFormRef } from '../../BizModalForm';
 import { UploadButton } from '../UploadButton';
@@ -129,10 +131,12 @@ export const ImageUpload = ({
 	title,
 	tips,
 	limit = 1,
+	action = '/module-infra/res/upload',
 	defaultFileList,
 	onChange,
 	...reset
 }: ImageUploadProps) => {
+	const [token] = useLocalStorageState('token');
 	const [fileList, setFileList] = useState<UploadFile<any>[]>(defaultFileList ?? []);
 
 	useEffect(() => {
@@ -143,8 +147,56 @@ export const ImageUpload = ({
 		<div className='io-image-upload'>
 			<Upload
 				className='io-image-upload__button'
-				action='https://www.mocky.io/v2/5cc8019d300000980a055e76'
 				listType='picture-card'
+				action={action}
+				customRequest={({
+					action,
+					data,
+					file,
+					filename,
+					headers,
+					onError,
+					onProgress,
+					onSuccess,
+					withCredentials,
+				}) => {
+					const formData = new FormData();
+					// @ts-ignore
+					formData.append('files', [file]);
+
+					axios
+						.post(action, formData, {
+							withCredentials,
+							headers: {
+								'Accept-Language': 'zh-CN',
+								Authorization: `Bearer ${token}`,
+								...headers,
+							},
+							onUploadProgress: ({ total, loaded }) => {
+								onProgress(
+									{
+										percent: Number(
+											Math.round((loaded / total) * 100).toFixed(2)
+										),
+									},
+									file
+								);
+							},
+						})
+						.then(({ data: response }) => {
+							console.log('此处需要映射一下', response);
+							if (response.code === 200) {
+								onSuccess(response.data, file);
+							}
+						})
+						.catch(onError);
+
+					return {
+						abort() {
+							console.log('upload progress is aborted.');
+						},
+					};
+				}}
 				itemRender={(originNode: ReactElement, file: UploadFile) => (
 					<UploadItem
 						file={file}
