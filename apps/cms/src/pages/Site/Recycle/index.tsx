@@ -1,27 +1,22 @@
 import { ActionType, ProColumns } from '@ant-design/pro-table';
 import { BizPage, BizTable, deleteUser } from '@ionia/libs';
+import { useMount, useRequest } from '@umijs/hooks';
 import {
 	recycleSiteList,
 	recycleSiteDetail,
 	recycleSiteRestore,
 	SiteRevertDTO,
+	gainSiteTree,
 } from '@ionia/libs/src/services';
-import { AdminSiteRecycleSummaryVo } from '@ionia/libs/src/services/kernel/admin-site.vo';
-import { IdsDTO } from '@ionia/libs/src/services/reuse.dto';
-import { message, Modal, Radio, Button } from 'antd';
+import {
+	AdminSiteRecycleSummaryVo,
+	AdminSiteTreeVO,
+} from '@ionia/libs/src/services/kernel/admin-site.vo';
+import { IdsDTO } from '@ionia/libs/src/services/common.dto';
+import { message, Modal, Radio, Button, TreeSelect, Form } from 'antd';
 import React, { useRef, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import './index.less';
-
-const userRemove = async (ids: IdsDTO) => {
-	const removeRes = await deleteUser(ids);
-	if (removeRes.code !== 200) {
-		message.error('删除失败');
-	} else {
-		message.success('删除成功');
-	}
-	return removeRes.code;
-};
 
 // 回收站删除
 const handleDeleteRecycle = async (ids: IdsDTO) => {
@@ -49,6 +44,35 @@ export default () => {
 	const history = useHistory();
 	const actionRef = useRef<ActionType>();
 	const [selectedRowKeys, setSelectedRowKeys] = useState<number[]>([]);
+	const [siteTree, setSiteTree] = useState<AdminSiteTreeVO[]>();
+	const [recycleForm] = Form.useForm();
+	const [revertRadio, setRevertRadio] = useState<number>(1);
+
+	// 获取站点树
+	const { run: runsiteTree } = useRequest(gainSiteTree, {
+		manual: true,
+		onSuccess: result => {
+			const loop = function (data: any) {
+				return data.map((r: any) => {
+					if (r.children) {
+						r.children = loop(r.children);
+					}
+					return {
+						value: r.id,
+						title: r.name,
+						key: r.id,
+						children: r.children,
+						...r,
+					};
+				});
+			};
+			const tempSiteTree = loop(result.data.list);
+			setSiteTree(tempSiteTree);
+		},
+	});
+	useMount(() => {
+		runsiteTree();
+	});
 	const columns: ProColumns<AdminSiteRecycleSummaryVo>[] = [
 		{
 			title: '站点名称',
@@ -93,35 +117,65 @@ export default () => {
 							type='default'
 							onClick={() => {
 								const ids = selectedRowKeys.map(s => Number(s));
-								let revertRadio: number;
-								Modal.confirm({
-									title: '恢复站点',
-									content: (
-										<>
-											<p>
-												以下站点的上级站点已被删除，无法正常恢复，请选择处理方式:
-											</p>
-											<p>站点1</p>
-											<Radio.Group
-												onChange={e => (revertRadio = e.target.value)}
-											>
-												<Radio value={1}>同时恢复所有上级站点</Radio>
-												<Radio value={2}>恢复到其他站点下</Radio>
-											</Radio.Group>
-										</>
-									),
-									onOk: async () => {
-										console.log(revertRadio);
-										const params = {
-											type: revertRadio,
-											siteIds: ids || [],
-										};
-										const resvertRes = await handleRecycleRevert(params);
-										if (resvertRes === 200 && actionRef.current) {
-											actionRef.current?.reload();
-										}
-									},
-								});
+								// let revertRadio: number = 1;
+								// Modal.confirm({
+								// 	title: '恢复站点',
+								// 	icon: '',
+								// 	content: (
+								// 		<>
+								// 			<p>
+								// 				以下站点的上级站点已被删除，无法正常恢复，请选择处理方式:
+								// 			</p>
+								// 			<p>站点1</p>
+								// 			<Radio.Group
+								// 				onChange={e => (revertRadio = e.target.value)}
+								// 				defaultValue={1}
+								// 			>
+								// 				<Radio value={1}>同时恢复所有上级站点</Radio>
+								// 				<Radio value={2}>恢复到其他站点下</Radio>
+								// 			</Radio.Group>
+								// 			<Form form={recycleForm}>
+								// 				<Form.Item name='parentId' label='上级站点' rules={[{ required: true, message: '上级站点为必填项' }]}>
+								// 					<TreeSelect
+								// 						showSearch={true}
+								// 						treeData={siteTree}
+								// 						onSearch={e => {
+								// 							runsiteTree(e);
+								// 						}}
+								// 						placeholder='请选择上级站点'
+								// 						className='io-cms-site-detail-basic-form__item'
+								// 					/>
+								// 				</Form.Item>
+								// 			</Form>
+								// 		</>
+								// 	),
+								// 	onOk: async () => {
+								// 		if (revertRadio === 2) {
+								// 			recycleForm.validateFields().then(async values => {
+								// 				console.log(values, '执行吗');
+								// 				const params = {
+								// 					type: revertRadio,
+								// 					siteIds: ids,
+								// 					parentId: values.parentId,
+								// 				};
+								// 				const resvertRes = await handleRecycleRevert(params);
+								// 				if (resvertRes === 200 && actionRef.current) {
+								// 					actionRef.current?.reload();
+								// 				}
+								// 				console.log(revertRadio, params, 'ssssssvvvv');
+								// 			});
+								// 		} else {
+								// 			const params = {
+								// 				type: revertRadio,
+								// 				siteIds: ids || [],
+								// 			};
+								// 			const resvertRes = await handleRecycleRevert(params);
+								// 			if (resvertRes === 200 && actionRef.current) {
+								// 				actionRef.current?.reload();
+								// 			}
+								// 		}
+								// 	},
+								// });
 							}}
 						>
 							恢复
@@ -146,6 +200,31 @@ export default () => {
 					toolBarRender={false}
 				/>
 			</BizPage>
+			<Modal title='恢复站点' onOk={() => {}}>
+				<p>以下站点的上级站点已被删除，无法正常恢复，请选择处理方式：</p>
+				<p>[站点1]</p>
+				<Radio.Group onChange={e => setRevertRadio(e.target.value)} defaultValue={1}>
+					<Radio value={1}>同时恢复所有上级站点</Radio>
+					<Radio value={2}>恢复到其他站点下</Radio>
+				</Radio.Group>
+				<Form form={recycleForm}>
+					<Form.Item
+						name='parentId'
+						label='上级站点'
+						rules={[{ required: true, message: '上级站点为必填项' }]}
+					>
+						<TreeSelect
+							showSearch={true}
+							treeData={siteTree}
+							onSearch={e => {
+								runsiteTree(e);
+							}}
+							placeholder='请选择上级站点'
+							className='io-cms-site-detail-basic-form__item'
+						/>
+					</Form.Item>
+				</Form>
+			</Modal>
 		</div>
 	);
 };
