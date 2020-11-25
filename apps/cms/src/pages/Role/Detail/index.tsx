@@ -15,7 +15,7 @@ export default ({ match }: any) => {
 			tabList={[
 				{ tabKey: '1', tab: '基本信息', children: <Base id={id} /> },
 				{ tabKey: '2', tab: '角色成员', children: <Member id={id} /> },
-				{ tabKey: '3', tab: '角色权限', children: <Authority /> },
+				{ tabKey: '3', tab: '角色权限', children: <Authority id={id} /> },
 			]}
 		/>
 	);

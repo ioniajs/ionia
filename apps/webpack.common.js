@@ -90,7 +90,7 @@ module.exports = {
       <html lang="en">
     	<head>
           	<meta charset="UTF-8" />
-          	<link rel="stylesheet" type="text/css" href="//at.alicdn.com/t/font_2147785_gpl4skz854u.css" />
+          	<link rel="stylesheet" type="text/css" href="//at.alicdn.com/t/font_2147785_wsd0r9thsgh.css" />
         </head>
 		<body>
 			<link rel="stylesheet/less" type="text/css" href="theme.less" /> 
