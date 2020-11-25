@@ -13,21 +13,18 @@
 		"prestart": "yarn libs:build",
 		"start": "run-p start:*",
 		"start:master": "yarn w @ionia/master start",
-		"start:dashboard": "yarn w @ionia/dashboard start",
-		"start:cms": "yarn w @ionia/cms start",
 		"start:auth": "yarn w @ionia/auth start",
+		"start:cms": "yarn w @ionia/cms start",
 		"prebuild": "yarn libs:build",
 		"build": "run-p build:*",
 		"build:master": "yarn w @ionia/master build:prod",
-		"build:dashboard": "yarn w @ionia/dashboard build:prod",
-		"build:cms": "yarn w @ionia/cms build:prod",
 		"build:auth": "yarn w @ionia/auth build:prod",
+		"build:cms": "yarn w @ionia/cms build:prod",
 		"prepreview": "yarn build",
 		"preview": "run-p preview:*",
 		"preview:master": "yarn w @ionia/master preview",
-		"preview:dashboard": "yarn w @ionia/dashboard preview",
-		"preview:cms": "yarn w @ionia/cms preview",
 		"preview:auth": "yarn w @ionia/auth preview",
+		"preview:cms": "yarn w @ionia/cms preview",
 		"w": "yarn workspace",
 		"ws": "yarn workspaces",
 		"cz": "git-cz",
@@ -36,11 +33,17 @@
 	"devDependencies": {
 		"cz-conventional-changelog": "3.2.0",
 		"npm-run-all": "^4.1.5",
-		"prettier": "2.1.2"
+		"prettier": "2.1.2",
+		"validate-commit-msg": "^2.14.0",
+		"yorkie": "^2.0.0"
 	},
 	"config": {
 		"commitizen": {
 			"path": "./node_modules/cz-conventional-changelog"
 		}
+	},
+	"gitHooks": {
+		"pre-commit": "yarn format",
+		"commit-msg": "validate-commit-msg"
 	}
 }

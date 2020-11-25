@@ -1,0 +1,111 @@
+.io-video-upload {
+	.io-item-success-mask {
+		.io-item-success-origin-node {
+			width: 104px;
+			height: 104px;
+			border: 1px solid #d9d9d9;
+			border-radius: 2px;
+			text-align: center;
+			display: inline-block;
+			.io-upload-success-img {
+				position: relative;
+				margin: 8px;
+				height: calc(100% - 16px);
+				display: flex;
+				align-items: center;
+				.io-upload-img {
+					max-width: 100%;
+					max-height: 100%;
+				}
+				.io-upload-img-mask {
+					position: absolute;
+					top: 0;
+					left: 0;
+					width: 100%;
+					height: 100%;
+					opacity: 0;
+					background: rgba(101, 101, 101, 0.6);
+					border-radius: 2px;
+					.io-mask-icon {
+						color: #fff;
+						line-height: 86px;
+						margin: 0 4px;
+						font-size: 16px;
+					}
+				}
+			}
+			.io-upload-success-img a:hover .io-upload-img-mask {
+				opacity: 1;
+			}
+		}
+	}
+	.io-item-upload-error {
+		width: 104;
+		height: 104;
+		border: 1px solid #d9d9d9;
+		border-color: #ff4d4f;
+		.io-upload-error-tooltip {
+			font-size: 14px;
+		}
+		.io-upload-error-content {
+			position: relative;
+			margin: 8px;
+			height: calc(100% - 16px);
+			text-align: center;
+			.icon-video {
+				font-size: 16px;
+				color: #ff4d4f;
+				display: inline-block;
+				// color: inherit;
+				font-style: normal;
+				text-transform: none;
+				margin-top: 19px;
+				margin-bottom: 14px;
+				text-rendering: optimizeLegibility;
+				-webkit-font-smoothing: antialiased;
+			}
+			.io-upload-error-item-videomp4 {
+				// position: absolute;
+				color: #ff4d4f;
+				bottom: 10px;
+				margin: 6px 0 0;
+				line-height: 1.5715;
+				text-align: center;
+			}
+			.io-upload-img-mask {
+				position: absolute;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+				opacity: 0;
+				background: rgba(101, 101, 101, 0.6);
+				border-radius: 2px;
+				.io-mask-icon {
+					color: #fff;
+					line-height: 86px;
+					margin: 0 4px;
+					font-size: 16px;
+				}
+				.icon-play-circle {
+					color: #8c8c8c;
+				}
+				.io-item-error-name {
+					position: absolute;
+					top: 58px;
+					width: 86px;
+					color: #fff;
+					font-size: 14px;
+					white-space: nowrap;
+					overflow: hidden;
+					text-overflow: ellipsis;
+				}
+			}
+		}
+		.io-upload-error-content a:hover .io-upload-img-mask {
+			opacity: 1;
+			-webkit-transition: background-color 0.3s;
+			transition: background-color 0.3s;
+		}
+	}
+}

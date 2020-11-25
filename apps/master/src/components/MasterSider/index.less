@@ -4,7 +4,6 @@
 	@slider-collapse-width: 62px !important;
 	display: flex;
 	position: relative;
-	width: calc(@slider-width + (@wrapper-margin * 2));
 	.io-master__sider {
 		min-width: @slider-width;
 		max-width: @slider-width;
@@ -18,10 +17,13 @@
 			&::-webkit-scrollbar {
 				display: none;
 			}
+			.ant-menu-vertical {
+				border-right: none;
+			}
 		}
 		.ant-menu-inline {
 			.ant-menu-item {
-				width: calc(100%);
+				width: 100%;
 			}
 		}
 		&.collapse {
@@ -32,6 +34,12 @@
 			height: calc(100vh - 96px);
 			min-width: @slider-collapse-width;
 			max-width: @slider-collapse-width;
+			i {
+				margin-right: 20px;
+			}
+			span {
+				display: none;
+			}
 		}
 	}
 	&:hover {
@@ -39,10 +47,17 @@
 			&.collapse {
 				min-width: @slider-width;
 				max-width: @slider-width;
+				i {
+					margin-right: 0;
+				}
+				span {
+					display: inline-block;
+				}
 			}
 		}
 	}
 	&.collapse {
-		width: calc(@slider-collapse-width + (@wrapper-margin * 2));
+		min-width: 110px;
+		max-width: 110px;
 	}
 }

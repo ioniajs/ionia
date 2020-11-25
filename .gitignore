@@ -12,8 +12,11 @@ node_modules/
 .Trashes
 ehthumbs.db
 Thumbs.db
+.idea
 
 .env
 
 scripts/*
 !scripts/Dockerfile
+
+report.*

@@ -1,62 +1,43 @@
 .io-master__nav-tab {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
 	height: 40px;
+	min-width: 1030px;
 	margin: 24px 24px 24px 0;
-	padding: 0 10px;
 	border-radius: 2px;
 	background-color: #fff;
-	cursor: pointer;
-	.extra {
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		z-index: 99;
-		width: 20px;
-		.iconfont {
-			font-size: 8px;
-		}
-	}
-	.tabs {
-		display: flex;
-		flex: 1;
-		height: 100%;
-		// overflow-x: auto;
-		// overflow-y: hidden;
-		// -ms-overflow-style: none;
-		// overflow: -moz-scrollbars-none;
-		// &::-webkit-scrollbar {
-		// 	display: none;
-		// }
-		.tab {
-			@active-color: #262626;
-			display: flex;
-			justify-content: center;
-			align-items: center;
-			position: relative;
-			min-width: 88px;
-			color: #8c8c8c;
-			.iconfont {
-				display: none;
-				position: absolute;
-				top: 8px;
-				right: 0;
-				font-size: 8px;
+	.ant-tabs-nav-list {
+		margin-left: 24px;
+		margin-right: 70px;
+		.ant-tabs-tab {
+			margin-right: 13px;
+			padding: 9px 10px 9px 5px;
+			.ant-tabs-tab-btn {
+				position: relative;
+				font-size: 14px;
+				font-family: PingFang SC;
+				font-weight: 400;
 				color: #8c8c8c;
-			}
-			.active {
-				color: @active-color;
-				border-bottom: 1px solid #1c6cd8;
-				.iconfont {
-					display: block;
+				.icon-close {
+					position: absolute;
+					top: -7px;
+					right: -15px;
+					font-size: 8px;
 				}
 			}
-			&.active {
-				.active;
+		}
+		.io-master__nav-tab-pane {
+			.icon-close {
+				display: none;
 			}
-			&:hover {
-				.active;
+		}
+		.ant-tabs-tab:hover .io-master__nav-tab-pane > .icon-close {
+			display: block;
+		}
+		.ant-tabs-tab-active {
+			.ant-tabs-tab-btn {
+				font-size: 14px;
+				font-family: PingFang SC;
+				font-weight: 400;
+				color: #262626;
 			}
 		}
 	}

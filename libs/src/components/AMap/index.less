@@ -1,0 +1,20 @@
+@import '~antd/es/style/themes/default.less';
+
+.io-amap {
+	width: 827px;
+	height: 527px;
+	.amap-logo {
+		display: none !important;
+	}
+	.amap-copyright {
+		display: none !important;
+	}
+	.amap-container + div {
+		position: absolute;
+		top: 0;
+	}
+	input:focus {
+		// outline: none;
+		outline-color: @primary-color;
+	}
+}

@@ -1,3 +1,5 @@
+@import '~antd/es/style/themes/default.less';
+
 .io-master__anchor {
 	box-shadow: 0 1px 4px rgba(0, 21, 41, 0.08);
 }
@@ -5,6 +7,7 @@
 .io-master__header {
 	display: flex;
 	flex-direction: row;
+	overflow: hidden;
 	height: 48px;
 	padding: 0 24px;
 	box-shadow: 0 1px 4px rgba(0, 21, 41, 0.08);
@@ -32,15 +35,15 @@
 			}
 			&:hover {
 				.text {
-					color: #1c6cd8;
+					color: @primary-color;
 				}
 			}
 			&.active {
 				.text {
-					color: #1c6cd8;
+					color: @primary-color;
 				}
 				.text-bottom-line {
-					background-color: #1c6cd8;
+					background-color: @primary-color;
 				}
 			}
 		}
