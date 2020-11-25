@@ -8,33 +8,41 @@ const dataSource = [
 		id: 1,
 		name: '一级栏目',
 		mark: true,
-		children: [{
-			name: '二级栏目11',
-			id: 11,
-			mark: true,
-			children: [{
-				name: '二级栏目111',
-				id: 111,
+		children: [
+			{
+				name: '二级栏目11',
+				id: 11,
 				mark: true,
-				children: [{
-					name: '二级栏目1111',
-					id: 1111,
-					mark: true,
-				}]
-			}]
-		},
-		{
-			name: '二级栏目12',
-			id: 12,
-			mark: true,
-			children: [{
-				id: 121,
-				name: '三级栏目121',
+				children: [
+					{
+						name: '二级栏目111',
+						id: 111,
+						mark: true,
+						children: [
+							{
+								name: '二级栏目1111',
+								id: 1111,
+								mark: true,
+							},
+						],
+					},
+				],
+			},
+			{
+				name: '二级栏目12',
+				id: 12,
 				mark: true,
-			}]
-		}]
-	}
-]
+				children: [
+					{
+						id: 121,
+						name: '三级栏目121',
+						mark: true,
+					},
+				],
+			},
+		],
+	},
+];
 
 export const Section = () => {
 	const [selectedRowKeys, setSelectedRowKeys] = useState<number[]>([]);
@@ -45,50 +53,67 @@ export const Section = () => {
 			dataIndex: 'name',
 			render: (_: any, row: any) => (
 				<span>
-					{(row.children && row.children.length > 0) && <i className='iconfont icon-cluster' onClick={() => {
-						if (row.children && row.children.length > 0) {
-							if (selectedRowKeys.indexOf(row.id) === -1) {
-								const arr: any = [];
-								const loop = function (data: any) {
-									return (data || []).map((r: any) => {
-										if (r.children) {
-											r.children = loop(r.children);
-										}
-										arr.push(r.id);
-										return {
-											...r,
-											children: r.children
-										}
-									});
-								};
-								const temp = loop(row.children);
-								arr.push(row.id)
-								const tempArrs = selectedRowKeys.concat(arr);
-								const tempArr = Array.from(new Set(tempArrs));
-								setSelectedRowKeys(tempArr);
-							} else if (selectedRowKeys.indexOf(row.id) > -1) {
-								const loop = function (data: any) {
-									return (data || []).map((r: any) => {
-										if (r.children) {
-											r.children = loop(r.children);
-										}
-										selectedRowKeys.splice(selectedRowKeys.findIndex((item: any) => item === r.id), 1);
-										return {
-											...r,
-											children: r.children
-										}
-									});
-								};
-								const temp = loop(row.children);
-								selectedRowKeys.splice(selectedRowKeys.findIndex((item: any) => item === row.id), 1);
-								console.log(selectedRowKeys, '操作后的sele');
-								const a: number[] = [];
-								setSelectedRowKeys(a.concat(selectedRowKeys));
-							}
-						}
-					}} />}&nbsp;
+					{row.children && row.children.length > 0 && (
+						<i
+							className='iconfont icon-cluster'
+							onClick={() => {
+								if (row.children && row.children.length > 0) {
+									if (selectedRowKeys.indexOf(row.id) === -1) {
+										const arr: any = [];
+										const loop = function (data: any) {
+											return (data || []).map((r: any) => {
+												if (r.children) {
+													r.children = loop(r.children);
+												}
+												arr.push(r.id);
+												return {
+													...r,
+													children: r.children,
+												};
+											});
+										};
+										const temp = loop(row.children);
+										arr.push(row.id);
+										const tempArrs = selectedRowKeys.concat(arr);
+										const tempArr = Array.from(new Set(tempArrs));
+										setSelectedRowKeys(tempArr);
+									} else if (selectedRowKeys.indexOf(row.id) > -1) {
+										const loop = function (data: any) {
+											return (data || []).map((r: any) => {
+												if (r.children) {
+													r.children = loop(r.children);
+												}
+												selectedRowKeys.splice(
+													selectedRowKeys.findIndex(
+														(item: any) => item === r.id
+													),
+													1
+												);
+												return {
+													...r,
+													children: r.children,
+												};
+											});
+										};
+										const temp = loop(row.children);
+										selectedRowKeys.splice(
+											selectedRowKeys.findIndex(
+												(item: any) => item === row.id
+											),
+											1
+										);
+										console.log(selectedRowKeys, '操作后的sele');
+										const a: number[] = [];
+										setSelectedRowKeys(a.concat(selectedRowKeys));
+									}
+								}
+							}}
+						/>
+					)}
+					&nbsp;
 					{row.name}
-				</span>)
+				</span>
+			),
 		},
 		{
 			title: '静态页',

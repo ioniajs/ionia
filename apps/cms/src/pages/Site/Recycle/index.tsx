@@ -43,7 +43,7 @@ const handleRecycleRevert = async (fileds: SiteRevertDTO) => {
 const layout = {
 	labelCol: { span: 4 },
 	wrapperCol: { span: 12 },
-}
+};
 
 export default () => {
 	const actionRef = useRef<ActionType>();
@@ -159,24 +159,26 @@ export default () => {
 								parentId: values.parentId,
 								siteIds: ids,
 								type: revertRadio,
-							}
+							};
 							const revertRes = await handleRecycleRevert(params);
 							if (revertRes === 200) {
-								setVisible(false)
+								setVisible(false);
 							}
 						});
 					} else {
 						const params: SiteRevertDTO = {
 							siteIds: ids,
 							type: revertRadio,
-						}
+						};
 						const revertRes = await handleRecycleRevert(params);
 						if (revertRes === 200) {
-							setVisible(false)
+							setVisible(false);
 						}
 					}
 				}}
-				onCancel={() => { setVisible(false) }}
+				onCancel={() => {
+					setVisible(false);
+				}}
 			>
 				<p>以下站点的上级站点已被删除，无法正常恢复，请选择处理方式：</p>
 				<p>[站点1]</p>
@@ -184,23 +186,25 @@ export default () => {
 					<Radio value={1}>同时恢复所有上级站点</Radio>
 					<Radio value={2}>恢复到其他站点下</Radio>
 				</Radio.Group>
-				{revertRadio === 2 && <Form form={recycleForm} {...layout} className='io-cms-site-recycle-modal_form'>
-					<Form.Item
-						name='parentId'
-						label='上级站点'
-						rules={[{ required: true, message: '上级站点为必填项' }]}
-					>
-						<TreeSelect
-							showSearch={true}
-							treeData={siteTree}
-							onSearch={e => {
-								runsiteTree(e);
-							}}
-							placeholder='请选择上级站点'
-							className='io-cms-site-detail-basic-form__item'
-						/>
-					</Form.Item>
-				</Form>}
+				{revertRadio === 2 && (
+					<Form form={recycleForm} {...layout} className='io-cms-site-recycle-modal_form'>
+						<Form.Item
+							name='parentId'
+							label='上级站点'
+							rules={[{ required: true, message: '上级站点为必填项' }]}
+						>
+							<TreeSelect
+								showSearch={true}
+								treeData={siteTree}
+								onSearch={e => {
+									runsiteTree(e);
+								}}
+								placeholder='请选择上级站点'
+								className='io-cms-site-detail-basic-form__item'
+							/>
+						</Form.Item>
+					</Form>
+				)}
 			</Modal>
 		</div>
 	);
