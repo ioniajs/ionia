@@ -8,13 +8,15 @@ import {
 	SiteRevertDTO,
 	gainSiteTree,
 } from '@ionia/libs/src/services';
-import { AdminSiteRecycleSummaryVo, AdminSiteTreeVO } from '@ionia/libs/src/services/kernel/admin-site.vo';
+import {
+	AdminSiteRecycleSummaryVo,
+	AdminSiteTreeVO,
+} from '@ionia/libs/src/services/kernel/admin-site.vo';
 import { IdsDTO } from '@ionia/libs/src/services/common.dto';
 import { message, Modal, Radio, Button, TreeSelect, Form } from 'antd';
 import React, { useRef, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import './index.less';
-
 
 // 回收站删除
 const handleDeleteRecycle = async (ids: IdsDTO) => {
@@ -70,7 +72,7 @@ export default () => {
 	});
 	useMount(() => {
 		runsiteTree();
-	})
+	});
 	const columns: ProColumns<AdminSiteRecycleSummaryVo>[] = [
 		{
 			title: '站点名称',
@@ -198,21 +200,19 @@ export default () => {
 					toolBarRender={false}
 				/>
 			</BizPage>
-			<Modal
-				title='恢复站点'
-				onOk={() => { }}
-			>
+			<Modal title='恢复站点' onOk={() => {}}>
 				<p>以下站点的上级站点已被删除，无法正常恢复，请选择处理方式：</p>
 				<p>[站点1]</p>
-				<Radio.Group
-					onChange={e => setRevertRadio(e.target.value)}
-					defaultValue={1}
-				>
+				<Radio.Group onChange={e => setRevertRadio(e.target.value)} defaultValue={1}>
 					<Radio value={1}>同时恢复所有上级站点</Radio>
 					<Radio value={2}>恢复到其他站点下</Radio>
 				</Radio.Group>
 				<Form form={recycleForm}>
-					<Form.Item name='parentId' label='上级站点' rules={[{ required: true, message: '上级站点为必填项' }]}>
+					<Form.Item
+						name='parentId'
+						label='上级站点'
+						rules={[{ required: true, message: '上级站点为必填项' }]}
+					>
 						<TreeSelect
 							showSearch={true}
 							treeData={siteTree}
