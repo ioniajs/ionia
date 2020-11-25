@@ -4,7 +4,10 @@ import { extend } from 'umi-request';
 const request = extend({
 	prefix: `${configs.API_PREFIX}`,
 	timeout: 10000,
-	headers: {},
+	headers: {
+		'Accept-Language': 'zh-CN',
+		Authorization: '',
+	},
 	errorHandler: error => {
 		console.error('网络错误：', error.response, error.message, error.data);
 		throw error;

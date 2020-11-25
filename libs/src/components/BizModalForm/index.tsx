@@ -5,7 +5,7 @@ import React, { forwardRef, ReactNode, useImperativeHandle, useState } from 'rea
 import './index.less';
 import { validateMessages } from './rule';
 
-export interface ModalFormRef {
+export interface BizModalFormRef {
 	open: () => void;
 	close: () => void;
 }
@@ -75,18 +75,21 @@ export const BizModalForm = forwardRef(
 			);
 		};
 
+		let modalTitle = title;
+
+		if (modalTitle) {
+			modalTitle = modalTitle.length > 26 ? modalTitle.substring(0, 26) + '...' : modalTitle;
+		}
+
 		return (
 			<ModalForm
 				form={form}
 				layout='horizontal'
-				title={title}
+				title={modalTitle}
 				width={width}
 				visible={visible}
-				className='io-libs__from'
+				className='io-biz-modal-from'
 				validateMessages={validateMessages}
-				modalProps={{
-					onCancel: toClose,
-				}}
 				trigger={triggerRender ? triggerRender() : defaultTriggerRender()}
 				submitter={{
 					render: (_props, _doms) => {
@@ -99,6 +102,11 @@ export const BizModalForm = forwardRef(
 					},
 				}}
 				{...reset}
+				modalProps={{
+					onCancel: toClose,
+					closeIcon: <i className='iconfont icon-close' />,
+					...reset.modalProps,
+				}}
 			>
 				{children}
 			</ModalForm>
