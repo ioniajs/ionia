@@ -24,7 +24,7 @@ export default {
 			icon: 'icon-Column',
 		},
 		{
-			path: '/cms/practicebase',
+			path: '/cms/practice-base',
 			name: '实践阵地',
 		},
 		{

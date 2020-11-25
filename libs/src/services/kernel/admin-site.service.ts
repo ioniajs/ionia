@@ -1,6 +1,6 @@
 import request from '../../utils/request';
 import { JcResult } from '../base';
-import { IdsDTO } from '../reuse.dto';
+import { IdsDTO } from '../common.dto';
 import {
 	AdminSiteDTO,
 	AdminSiteBatchSaveDTO,

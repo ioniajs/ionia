@@ -1,7 +1,7 @@
 import { ActionType, ProColumns } from '@ant-design/pro-table';
 import { BizPage, BizTable, BizTree, deleteUser } from '@ionia/libs';
 import { modUserStatus, UserPageVO, userPaging } from '@ionia/libs/src/services';
-import { IdsDTO } from '@ionia/libs/src/services/reuse.dto';
+import { IdsDTO } from '@ionia/libs/src/services/common.dto';
 import { Button, Divider, message, Modal, Switch } from 'antd';
 import React, { useRef, useState } from 'react';
 import { useHistory } from 'react-router-dom';
@@ -128,8 +128,9 @@ export default () => {
 						onClick={async () => {
 							if (row) {
 								Modal.confirm({
-									title: '是否确定删除',
-									okText: '确定',
+									title: '你确定删除所选用户吗？',
+									content: '删除后无法恢复，请谨慎操作。',
+									okText: '删除',
 									cancelText: '取消',
 									onOk: async () => {
 										const success = await userRemove({
@@ -177,7 +178,7 @@ export default () => {
 								type='default'
 								disabled={selectedRowKeys.length === 0}
 								onClick={() => {
-									Modal.info({
+									Modal.confirm({
 										title: '你确定删除所选用户吗？',
 										content: '删除后无法恢复，请谨慎操作。',
 										okText: '删除',
