@@ -26,6 +26,7 @@
 		"@umijs/hooks": "^1.9.3",
 		"ahooks": "^2.5.0",
 		"antd": "^4.6.1",
+		"axios": "^0.21.0",
 		"bezier-easing": "^2.1.0",
 		"braft-editor": "^2.3.9",
 		"braft-extensions": "0.1.0",

@@ -1,9 +1,18 @@
 @import '~antd/es/style/themes/default.less';
 
-.io-libs__from {
+.io-biz-modal-from {
+	.ant-modal-header {
+		padding: 24px;
+		border-bottom: none;
+		.ant-modal-title {
+			font-size: 16px;
+			color: #262626;
+			line-height: 30px;
+		}
+	}
 	.ant-modal-body {
-		padding: 32px 60px;
-		height: 57vh;
+		max-height: 57vh;
+		padding: 0 24px 24px 24px;
 		overflow-y: auto;
 		scrollbar-width: none;
 		-ms-overflow-style: none;
@@ -11,20 +20,31 @@
 			display: none;
 		}
 	}
-	.ant-modal-header {
-		border-bottom: none;
-	}
 	.ant-modal-footer {
+		padding: 24px;
 		border-top: none;
-		padding-bottom: 25px;
 	}
-
 	.btn-submitter {
 		padding: 0 20px;
 	}
-
 	.ant-form-horizontal .ant-form-item-label {
 		min-width: 80px;
 		text-align: right;
+	}
+	.ant-modal-close {
+		margin: 24px;
+		padding: 0;
+		.ant-modal-close-x {
+			width: auto;
+			height: auto;
+			margin: 0;
+			padding: 0;
+			line-height: 1;
+			i {
+				&::before {
+					font-size: 12px;
+				}
+			}
+		}
 	}
 }
