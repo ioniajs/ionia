@@ -2,7 +2,7 @@ import React from 'react';
 import { ActionType, ProColumns } from '@ant-design/pro-table';
 import { BizPage, BizTable, UserPageVO } from '@ionia/libs';
 import { Button } from 'antd';
-
+import './index.less';
 interface BaseMemberPorps {
 	id: string;
 }
@@ -86,7 +86,7 @@ export const BaseMember = ({ id }: BaseMemberPorps) => {
 		},
 	];
 	return (
-		<div>
+		<div className='io-cms-practice-base-detail-member__div'>
 			<BizPage>
 				<BizTable
 					renderActions={() => (

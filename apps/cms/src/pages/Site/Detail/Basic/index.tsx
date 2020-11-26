@@ -4,7 +4,7 @@ import { InfoCircleOutlined } from '@ant-design/icons';
 import { BizPage, ImageUpload, BizSection } from '@ionia/libs';
 import { useMount, useRequest } from '@umijs/hooks';
 import { gainSiteTree, siteDetail, amendSite, AdminSiteDTO } from '@ionia/libs/src/services/kernel';
-import { AdminSiteTreeVO, AdminSiteDetailVO } from '@ionia/libs/src/services/kernel/admin-site.vo';
+import { AdminSiteTreeVO, AdminSiteDetailVO } from '@ionia/libs/src/services/kernel';
 import './index.less';
 
 const { Option } = Select;

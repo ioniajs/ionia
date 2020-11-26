@@ -5,7 +5,7 @@ import { DndProvider, useDrag, useDrop, createDndContext } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 // import update from 'immutability-helper';
 import { BizTable, gainSiteTree, disableSite, enableSite, batchDetailSite } from '@ionia/libs';
-import { AdminSiteTreeVO } from '@ionia/libs/src/services/kernel/admin-site.vo';
+import { AdminSiteTreeVO } from '@ionia/libs/src/services/kernel';
 
 /**
  * 启用、禁用
