@@ -1,5 +1,6 @@
 import React, { useRef, useState } from 'react';
-import { BizTable, positionalListPaging, deletePositionResource, IdsDTO } from '@ionia/libs';
+import { BizTable, positionalListPaging, deletePositionResource } from '@ionia/libs';
+import { IdsDTO } from '@ionia/libs/src/services/common.dto';
 import { Button, Modal, message } from 'antd';
 import { ActionType } from '@ant-design/pro-table';
 import './index.less';

@@ -91,7 +91,9 @@ export default () => {
 										address: values.address || '',
 										code: values.code || '',
 										coordinate: values.coordinate || '',
+										introduce: values.introduce || '',
 									};
+
 									const success = await newPractice(param);
 									if (success.code === 200) {
 										history.back();
@@ -105,7 +107,7 @@ export default () => {
 				);
 			}}
 		>
-			<Form {...layout} className='io-cms-practice-form'>
+			<Form {...layout} form={form} className='io-cms-practice-form'>
 				<Form.Item
 					name='parentId'
 					label='上级阵地'
@@ -194,7 +196,7 @@ export default () => {
 													style={{ marginLeft: 8, width: 328 }}
 												/>
 											</Form.Item>
-											{fields.length > 1 && index > 0 ? (
+											{fields.length >= 1 && index >= 0 ? (
 												<Button
 													style={{ width: 60.9, marginLeft: 8 }}
 													onClick={() => remove(field.name)}

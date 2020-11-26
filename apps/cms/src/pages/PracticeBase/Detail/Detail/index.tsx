@@ -101,6 +101,7 @@ export const BaseDetail = ({ id }: BaseDetailProps) => {
 							parentId: values.parentId,
 							type: values.type,
 							address: values.address || '',
+							introduce: values.introduce || '',
 						};
 						const success = await baseUpdate(param);
 						if (success.code === 200) {
