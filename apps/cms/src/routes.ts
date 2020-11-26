@@ -22,7 +22,7 @@ import Role from './pages/Role';
 import RoleDetail from '@/pages/Role/Detail';
 export default [
 	{
-		path: '/basic',
+		path: '/',
 		component: Demo,
 	},
 	{
