@@ -79,8 +79,9 @@ const UploadItem = ({ file, onRemove }: UploadItemProps) => {
 
 	const child = (
 		<div
-			className={`io-image-upload__item ${file.status === 'done' ? 'io-image-upload__item--done' : ''
-				} ${isError ? 'io-image-upload__item--error' : ''}`}
+			className={`io-image-upload__item ${
+				file.status === 'done' ? 'io-image-upload__item--done' : ''
+			} ${isError ? 'io-image-upload__item--error' : ''}`}
 		>
 			{item}
 			<BizModalForm
@@ -93,9 +94,11 @@ const UploadItem = ({ file, onRemove }: UploadItemProps) => {
 			</BizModalForm>
 			<PictureCropper
 				visible={picCroVisible}
-				oncancel={() => { setPicCroVisible(false) }}
+				oncancel={() => {
+					setPicCroVisible(false);
+				}}
 				src={file?.response?.url}
-				onOk={(imageCropBase) => setImageBase(imageCropBase)}
+				onOk={imageCropBase => setImageBase(imageCropBase)}
 			/>
 			<div className='io-image-upload__item-action'>
 				<div>
@@ -146,7 +149,6 @@ export const ImageUpload = ({
 }: ImageUploadProps) => {
 	const [token] = useLocalStorageState('token');
 	const [fileList, setFileList] = useState<UploadFile<any>[]>(defaultFileList ?? []);
-
 
 	useEffect(() => {
 		onChange && onChange(fileList);
