@@ -23,16 +23,16 @@ interface PictureCropperProps {
 	ref?: any;
 	visible?: boolean;
 	oncancel?: () => void;
+	onOk?: (imageBase: any) => any;
 }
 
 const defaultSrc =
-	'https://raw.githubusercontent.com/roadmanfong/react-cropper/master/example/img/child.jpg';
+	// 'https://raw.githubusercontent.com/roadmanfong/react-cropper/master/example/img/child.jpg';
+	'https://pic.tolvyo.com/zQRoPeX3W-a9796e687f38322f53261bc38d24e0eb.jpg';
 
 export const PictureCropper: React.FC<PictureCropperProps> = forwardRef((props, ref: any) => {
-	const { src = defaultSrc, visible = false, oncancel } = props;
-	const cropInstance = useRef<any>(null);
+	const { src = defaultSrc, visible = false, oncancel, onOk } = props;
 	const [cropForm] = Form.useForm();
-	const [image, setImage] = useState<string | undefined>(src);
 	const [cropper, setCropper] = useState<any>();
 	const [cropData, setCropData] = useState('#');
 	const [addNewCropSize, setAddNewCropSize] = useState<boolean>(false);
@@ -48,7 +48,9 @@ export const PictureCropper: React.FC<PictureCropperProps> = forwardRef((props, 
 			okText='确认'
 			onOk={() => {
 				oncancel && oncancel();
-				console.log(cropper.getCroppedCanvas().toDataURL(), 'cccc');
+				const imageBase = cropper.getCroppedCanvas().toDataURL();
+				onOk && onOk(imageBase);
+				// console.log(cropper.getCroppedCanvas().toDataURL(), 'cccc');
 			}}
 		>
 			<div className='io-pic-cropper-modal-container'>
@@ -117,7 +119,7 @@ export const PictureCropper: React.FC<PictureCropperProps> = forwardRef((props, 
 						<div className='io-piccropper-preview-box'>
 							<div
 								className='img-preview'
-								// style={{ width: '100%', height: '300px', float: 'right', marginRight: '60px' }}
+							// style={{ width: '100%', height: '300px', float: 'right', marginRight: '60px' }}
 							/>
 						</div>
 						<div className='io-piccropper-setting'>
@@ -130,7 +132,7 @@ export const PictureCropper: React.FC<PictureCropperProps> = forwardRef((props, 
 												<Form.Item
 													name='cropBoxWidth'
 													label=''
-													// initialValue={228}
+												// initialValue={228}
 												>
 													<Input
 														className='io-crop-box_input'
@@ -154,12 +156,12 @@ export const PictureCropper: React.FC<PictureCropperProps> = forwardRef((props, 
 															const cropTopValue = Math.round(
 																(containerData.height -
 																	cropHeightValue) /
-																	2
+																2
 															);
 															const cropLefttValue = Math.round(
 																(containerData.width -
 																	cropWidthValue) /
-																	2
+																2
 															);
 															cropper.setCropBoxData({
 																top: cropTopValue,
@@ -182,7 +184,7 @@ export const PictureCropper: React.FC<PictureCropperProps> = forwardRef((props, 
 											<Col>
 												<Form.Item
 													name='cropBoxHeight'
-													// initialValue={228}
+												// initialValue={228}
 												>
 													<Input className='io-crop-box_input' />
 												</Form.Item>
@@ -309,19 +311,6 @@ export const PictureCropper: React.FC<PictureCropperProps> = forwardRef((props, 
 							</div>
 						</div>
 					</div>
-					{/* <div>
-						<Button
-							onClick={() => {
-								// logger.debug(cropper.getCroppedCanvas().toDataURL(), 'xxxxxxxx');
-								if (typeof cropper !== 'undefined') {
-									console.log(cropper.getCroppedCanvas(), 'getgetget');
-									setCropData(cropper.getCroppedCanvas().toDataURL());
-								}
-							}}
-						>
-							确认
-						</Button>
-					</div> */}
 				</div>
 			</div>
 		</Modal>
