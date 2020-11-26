@@ -8,7 +8,7 @@ import {
 	AdminSiteBatchSaveDTO,
 	createAdminSiteBatchSave,
 } from '@ionia/libs';
-import { AdminSiteTreeVO } from '@ionia/libs/src/services/kernel/admin-site.vo';
+import { AdminSiteTreeVO } from '@ionia/libs/src/services/kernel';
 import { useRequest, useMount } from '@umijs/hooks';
 import shortid from 'shortid';
 import './index.less';

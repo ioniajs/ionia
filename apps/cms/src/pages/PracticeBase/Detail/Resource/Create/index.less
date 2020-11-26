@@ -1,7 +1,29 @@
 .io-cms-resource-create {
 	.ant-modal {
 		width: 1046.8px !important;
-		height: auto;
+		height: 756px !important;
+		margin-top: -40px;
+		.ant-modal-footer {
+			padding-top: 6px;
+		}
+		.ant-modal-body {
+			padding-bottom: 0;
+			padding-top: 17px !important;
+			overflow-y: auto;
+			scrollbar-width: none;
+			-ms-overflow-style: none;
+			&::-webkit-scrollbar {
+				display: none;
+			}
+			.ant-form-horizontal {
+				.ant-form-item {
+					margin-bottom: 16px;
+				}
+			}
+			.ant-form-item-has-success {
+				margin-bottom: 7px !important;
+			}
+		}
 	}
 	.ant-form-item-label {
 		width: 90px !important;
@@ -11,9 +33,10 @@
 	}
 	.io-cms-resource-create-from-item__rich-text-editor {
 		.bf-controlbar {
-			height: 92px;
+			width: 900px;
 		}
 		.bf-content {
+			width: 900px;
 			height: 307px;
 		}
 	}

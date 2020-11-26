@@ -15,10 +15,7 @@ import {
 	BizModalForm,
 	ModalFormRef,
 } from '@ionia/libs';
-import {
-	AdminSiteTreeVO,
-	AdminSiteRecycleSummaryVo,
-} from '@ionia/libs/src/services/kernel/admin-site.vo';
+import { AdminSiteTreeVO, AdminSiteRecycleSummaryVo } from '@ionia/libs/src/services/kernel';
 import { IdsDTO } from '@ionia/libs/src/services/common.dto';
 import CopyForm from './CopySite';
 import RecycleSite from './Recycle';

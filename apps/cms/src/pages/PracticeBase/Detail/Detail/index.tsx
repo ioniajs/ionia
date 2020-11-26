@@ -11,7 +11,7 @@ import {
 } from '@ionia/libs';
 import { useMount, useRequest } from '@umijs/hooks';
 import { Button, Form, Input, message, TreeSelect } from 'antd';
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import './index.less';
 
 const layout = {
@@ -36,7 +36,7 @@ const baseUpdate = async (filed: OrgDTO) => {
 export const BaseDetail = ({ id }: BaseDetailProps) => {
 	const [expandForm] = Form.useForm();
 	const ref = useRef<ModalFormRef>();
-
+	const [editorState, setEditorState] = useState(); // 获取富文本编辑内容
 	const { data, run } = useRequest(positionDetail, {
 		manual: true,
 	});
@@ -101,6 +101,7 @@ export const BaseDetail = ({ id }: BaseDetailProps) => {
 							parentId: values.parentId,
 							type: values.type,
 							address: values.address || '',
+							introduce: editorState,
 						};
 						const success = await baseUpdate(param);
 						if (success.code === 200) {
@@ -202,7 +203,7 @@ export const BaseDetail = ({ id }: BaseDetailProps) => {
 													style={{ marginLeft: 8, width: 328 }}
 												/>
 											</Form.Item>
-											{fields.length > 1 && index > 0 ? (
+											{fields.length >= 1 && index >= 0 ? (
 												<Button
 													style={{ width: 60.9, marginLeft: 8 }}
 													onClick={() => remove(field.name)}
@@ -278,7 +279,7 @@ export const BaseDetail = ({ id }: BaseDetailProps) => {
 				</Form.Item>
 				<Form.Item name='introduce' label='阵地介绍'>
 					<div className='io-cms-base-create-from-item__rich-text-editor'>
-						<RichTextEditor />
+						<RichTextEditor onGet={editorState => setEditorState(editorState)} />
 					</div>
 				</Form.Item>
 			</Form>
