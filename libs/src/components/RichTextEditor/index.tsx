@@ -57,8 +57,8 @@ export const RichTextEditor: React.FC<BraftEditorProps> = props => {
 	const editorInstance = useRef<any>(null);
 
 	useEffect(() => {
-		onGet && onGet(editorState.toHTML())
-	}, [editorState])
+		onGet && onGet(editorState.toHTML());
+	}, [editorState]);
 
 	// 查词: 上一个
 	const handleSearchPreWord = () => {
@@ -83,7 +83,7 @@ export const RichTextEditor: React.FC<BraftEditorProps> = props => {
 		// );
 	};
 	// 查词: 下一个
-	const handleSerchNextWord = () => { };
+	const handleSerchNextWord = () => {};
 
 	// 全部替换
 	const handleAllExchange = async () => {
@@ -253,7 +253,6 @@ export const RichTextEditor: React.FC<BraftEditorProps> = props => {
 			html: null,
 			text: <OneToOneOutlined />,
 			onClick: () => {
-
 				setEditorState((prevState: EditorState) =>
 					ContentUtils.insertText(prevState, '|||||||||||||')
 				);
