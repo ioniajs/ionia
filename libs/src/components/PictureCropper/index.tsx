@@ -1,18 +1,17 @@
-import React, { useState, useRef, forwardRef, useEffect } from 'react';
-import { Button, Input, Form, Row, Col } from 'antd';
 import {
-	PlusOutlined,
 	MinusOutlined,
+	PlusOutlined,
 	RedoOutlined,
 	UndoOutlined,
-	LockOutlined,
 	UnlockOutlined,
 } from '@ant-design/icons';
-import Cropper from 'react-cropper';
-import 'cropperjs/dist/cropper.css';
-import './index.less';
-import { logger } from '../..';
+import { Button, Col, Form, Input, Row } from 'antd';
 import Modal from 'antd/lib/modal/Modal';
+import 'cropperjs/dist/cropper.css';
+import React, { forwardRef, useRef, useState } from 'react';
+import Cropper from 'react-cropper';
+import { logger } from '../..';
+import './index.less';
 
 interface CropBox {
 	width?: number;

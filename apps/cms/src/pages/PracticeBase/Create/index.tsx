@@ -1,18 +1,18 @@
-import { UploadOutlined } from '@ant-design/icons';
 import {
+	addPosition,
 	AMap,
-	BizPage,
 	BizModalForm,
+	BizModalFormRef,
+	BizPage,
 	GobackButton,
 	ImageUpload,
+	MultiImageUpload,
+	OrgDTO,
 	RichTextEditor,
 	SaveButton,
-	BizModalFormRef,
-	addPosition,
-	OrgDTO,
 } from '@ionia/libs';
-import { Button, Form, Input, message, Space, TreeSelect } from 'antd';
-import React, { useState, useRef } from 'react';
+import { Button, Form, Input, message, TreeSelect } from 'antd';
+import React, { useRef, useState } from 'react';
 import './index.less';
 
 const layout = {
@@ -220,11 +220,7 @@ export default () => {
 										}
 										colon={false}
 									>
-										<Button
-											type='dashed'
-											style={{ width: 664 }}
-											onClick={() => add()}
-										>
+										<Button>
 											<i className='iconfont icon-plus-square' />
 											添加
 										</Button>
@@ -259,9 +255,7 @@ export default () => {
 						<ImageUpload />
 					</Form.Item>
 					<Form.Item name='favicon' label='图片展示'>
-						<Button type='primary' icon={<UploadOutlined />}>
-							批量上传
-						</Button>
+						<MultiImageUpload />
 					</Form.Item>
 					<Form.Item name='project' label='特色活动项目'>
 						<Input.TextArea
