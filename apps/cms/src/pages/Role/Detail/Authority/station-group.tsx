@@ -102,7 +102,7 @@ export default ({ roleId }: any) => {
 	const onSelect = (selectedKeys: any, info: any) => {
 		console.log('selected', selectedKeys, info);
 	};
-	const s = new Set<string>();
+	const s = new Set<string[]>();
 	const onCheck = (value: any, info: any) => {
 		console.log('onCheck', value, info);
 		// setCheckedKeys(checkedKeys.concat(value.checked));

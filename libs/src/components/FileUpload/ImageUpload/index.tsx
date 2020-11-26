@@ -72,7 +72,7 @@ export const ImageUpload = ({
 							},
 						})
 						.then(({ data: response }) => {
-							console.log('此处需要映射一下', response);
+							// console.log('此处需要映射一下', response);
 							if (response.code === 200) {
 								onSuccess(response.data, file);
 							}

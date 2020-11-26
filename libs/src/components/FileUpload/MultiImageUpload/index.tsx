@@ -124,6 +124,7 @@ export const MultiImageUpload = ({
 				items={fileList}
 				axis='xy'
 				onSortEnd={onSortEnd}
+				distance={20}
 			/>
 		</div>
 	);

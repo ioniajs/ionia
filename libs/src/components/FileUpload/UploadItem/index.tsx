@@ -1,7 +1,8 @@
 import { Image, Progress, Tooltip } from 'antd';
 import { UploadFile } from 'antd/lib/upload/interface';
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import { BizModalForm, BizModalFormRef } from '../../BizModalForm';
+import { PictureCropper } from '../../PictureCropper';
 import './index.less';
 
 export interface UploadItemProps {
@@ -11,6 +12,8 @@ export interface UploadItemProps {
 
 export const UploadItem = ({ file, onRemove }: UploadItemProps) => {
 	const previewModalRef = useRef<BizModalFormRef>();
+	const [pictureCropperVisible, setPictureCropperVisible] = useState<boolean>(false);
+	const [imageBase, setImageBase] = useState<string>();
 
 	let item = null;
 	if (file.status === 'success') {
@@ -79,6 +82,14 @@ export const UploadItem = ({ file, onRemove }: UploadItemProps) => {
 			>
 				<Image src={file.url && file.thumbUrl} preview={false} />
 			</BizModalForm>
+			<PictureCropper
+				visible={pictureCropperVisible}
+				oncancel={() => {
+					setPictureCropperVisible(false);
+				}}
+				src={file?.response?.url}
+				onOk={(imageCropBase: any) => setImageBase(imageCropBase)}
+			/>
 			<div className='io-image-upload__item-action'>
 				<div>
 					<Tooltip title='裁剪'>
@@ -86,7 +97,7 @@ export const UploadItem = ({ file, onRemove }: UploadItemProps) => {
 							className={`iconfont icon-border ${isError ? 'disable' : ''}`}
 							onClick={() => {
 								if (isError) return;
-								previewModalRef.current?.open();
+								setPictureCropperVisible(true);
 							}}
 						/>
 					</Tooltip>
