@@ -64,7 +64,7 @@ const MasterHeader: React.FC<MasterHeaderProps> = ({ theme }) => {
 			<div className='io-master__header' style={themeStyles}>
 				<Logo />
 				<div className='io-master__header-left'>
-					{routes.map(r => (
+					{/* {routes.map(r => (
 						<span
 							key={r.key}
 							className={`io-master__header--item ${
@@ -78,7 +78,7 @@ const MasterHeader: React.FC<MasterHeaderProps> = ({ theme }) => {
 							<span className='text'>{r.name}</span>
 							<span className='text-bottom-line' />
 						</span>
-					))}
+					))} */}
 				</div>
 				<div className='io-master__header-right'>
 					<ThemeColor />

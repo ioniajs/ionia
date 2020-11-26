@@ -128,15 +128,13 @@ export default () => {
 							</span>
 						}
 					>
-						<ImageUpload tips='请上传ico格式的图片，建议文件命名为favicon.ico' />
+						<ImageUpload
+							tips='请上传ico格式的图片，建议文件命名为favicon.ico'
+							onChange={files => {
+								console.log(files);
+							}}
+						/>
 					</Form.Item>
-					{/* <Form.Item
-						className='io-cms-form-item-tips'
-						label={<span style={{ display: 'none' }}>不显示</span>}
-						colon={false}
-					>
-						<span>请上传ico格式的图片，建议文件命名为favicon.ico</span>
-					</Form.Item> */}
 					<Form.Item
 						name='loginLogo'
 						label={
@@ -148,7 +146,11 @@ export default () => {
 							</span>
 						}
 					>
-						{/* <ImageUpload limit={1} /> */}
+						<ImageUpload
+							onChange={files => {
+								console.log(files);
+							}}
+						/>
 					</Form.Item>
 					<Form.Item
 						name='loginPoster'
@@ -161,7 +163,11 @@ export default () => {
 							</span>
 						}
 					>
-						{/* <ImageUpload limit={1} /> */}
+						<ImageUpload
+							onChange={files => {
+								console.log(files);
+							}}
+						/>
 					</Form.Item>
 					<Form.Item
 						name='sysHeaderLogo'
@@ -174,7 +180,11 @@ export default () => {
 							</span>
 						}
 					>
-						{/* <ImageUpload limit={1} /> */}
+						<ImageUpload
+							onChange={files => {
+								console.log(files);
+							}}
+						/>
 					</Form.Item>
 				</BizSection>
 				<BizSection title='文件上传设置'>

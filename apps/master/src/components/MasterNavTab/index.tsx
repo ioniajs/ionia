@@ -1,4 +1,5 @@
 import { useGlobalStore } from '@ionia/libs';
+import { useLocalStorage } from 'react-use';
 import { Dropdown, Menu, Tabs } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
@@ -11,17 +12,34 @@ export interface MasterNavTabProps {}
 const MasterNavTab = () => {
 	const history = useHistory();
 	const globalStore = useGlobalStore();
-	const currentTab: string = globalStore?.state?.currentTab ?? '/';
-	const tabs: any[] = globalStore?.state?.tabs ?? [];
 
-	const [tempKey, setTempKey] = useState<string | null>();
+	const [currentNavTab, setCurrentNavTab] = useLocalStorage('io-current-nav-tab', '/');
+	const [openedNavTabs, setOpenedNavTabs] = useLocalStorage<{ key: string }[]>(
+		'io-opened-nav-tabs',
+		[]
+	);
+
+	const currentTab: string = globalStore?.state?.currentTab ?? currentNavTab;
+	const tabs: any[] = globalStore?.state?.tabs ?? openedNavTabs;
 
 	useEffect(() => {
-		globalStore.setState({ currentTab: tempKey });
-	}, [tempKey]);
+		if (currentTab) {
+			history.push(currentTab);
+			globalStore.setState({
+				tabs: openedNavTabs,
+			});
+		}
+	}, []);
 
 	useEffect(() => {
 		history.push(currentTab);
+		setCurrentNavTab(currentTab);
+		setOpenedNavTabs(
+			tabs.map(t => ({
+				key: t.key,
+				name: t.name,
+			}))
+		);
 	}, [currentTab]);
 
 	const menuItems = (
@@ -37,6 +55,20 @@ const MasterNavTab = () => {
 			</Menu.Item>
 		</Menu>
 	);
+
+	const toRemoveTab = (tab: string) => {
+		const newTabs = tabs.filter(item => item.key !== tab);
+		globalStore.setState({
+			tabs: newTabs,
+		});
+		setOpenedNavTabs(
+			newTabs.map(t => ({
+				key: t.key,
+				name: t.name,
+			}))
+		);
+	};
+
 	return (
 		<div className='io-master__nav-tab'>
 			<Dropdown overlay={menuItems} trigger={['contextMenu']}>
@@ -53,28 +85,17 @@ const MasterNavTab = () => {
 									<span>
 										{i.name}
 										<i
-											onClick={() => {
-												const currentIndex = tabs.findIndex(
-													item => item.key === i.key
-												);
-												const prevTab =
-													tabs[
-														currentIndex - 1 < 0
-															? currentIndex + 1
-															: currentIndex - 1
-													];
-												setTempKey(prevTab.key);
-												globalStore.setState({
-													tabs: tabs.filter(item => item.key !== i.key),
-												});
-											}}
 											className='iconfont icon-close'
+											onClick={() => toRemoveTab(i.key)}
 										/>
 									</span>
 								) : (
 									<div className='io-master__nav-tab-pane'>
 										<span>{i.name}</span>
-										<i className='iconfont icon-close'></i>
+										<i
+											className='iconfont icon-close'
+											onClick={() => toRemoveTab(i.key)}
+										/>
 									</div>
 								)
 							}

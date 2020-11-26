@@ -3834,6 +3834,13 @@ axe-core@^3.5.4:
   resolved "https://registry.npm.taobao.org/axe-core/download/axe-core-3.5.5.tgz?cache=0&sync_timestamp=1603212006086&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Faxe-core%2Fdownload%2Faxe-core-3.5.5.tgz#84315073b53fa3c0c51676c588d59da09a192227"
   integrity sha1-hDFQc7U/o8DFFnbFiNWdoJoZIic=
 
+axios@^0.21.0:
+  version "0.21.0"
+  resolved "https://registry.npmjs.org/axios/-/axios-0.21.0.tgz#26df088803a2350dff2c27f96fef99fe49442aca"
+  integrity sha512-fmkJBknJKoZwem3/IKSSLpkdNXZeBu5Q7GA/aRsr2btgrptmSCxi2oFjZHqGdK9DoTil9PIHlPIZw2EcRJXRvw==
+  dependencies:
+    follow-redirects "^1.10.0"
+
 axobject-query@^2.1.2:
   version "2.2.0"
   resolved "https://registry.npm.taobao.org/axobject-query/download/axobject-query-2.2.0.tgz#943d47e10c0b704aa42275e20edf3722648989be"
@@ -7451,7 +7458,7 @@ flush-write-stream@^1.0.0, flush-write-stream@^1.0.2:
     inherits "^2.0.3"
     readable-stream "^2.3.6"
 
-follow-redirects@^1.0.0:
+follow-redirects@^1.0.0, follow-redirects@^1.10.0:
   version "1.13.0"
   resolved "https://registry.npm.taobao.org/follow-redirects/download/follow-redirects-1.13.0.tgz#b42e8d93a2a7eea5ed88633676d6597bc8e384db"
   integrity sha1-tC6Nk6Kn7qXtiGM2dtZZe8jjhNs=
@@ -12813,6 +12820,17 @@ q@^1.1.2:
   resolved "https://registry.npm.taobao.org/q/download/q-1.5.1.tgz#7e32f75b41381291d04611f1bf14109ac00651d7"
   integrity sha1-fjL3W0E4EpHQRhHxvxQQmsAGUdc=
 
+qiankun@2.3.2:
+  version "2.3.2"
+  resolved "https://registry.npmjs.org/qiankun/-/qiankun-2.3.2.tgz#59b01081ce07f1d6de38d131bc1ec468dd691b75"
+  integrity sha512-Hz+d6JIzap/ujpQzL6OQmWAgV3dFNKKKTIIdr6GYFgARORMkNp7eSYI3NEeay4wUmELJTSXlxeDsZmf/v4wCBA==
+  dependencies:
+    "@babel/runtime" "^7.10.5"
+    import-html-entry "^1.9.0"
+    lodash "^4.17.11"
+    single-spa "5.8.1"
+    tslib "^1.10.0"
+
 qiankun@^2.0.24:
   version "2.1.1"
   resolved "https://registry.npm.taobao.org/qiankun/download/qiankun-2.1.1.tgz#22d7e70db2ce50f98b319fc68801ec26050fdc48"
@@ -14892,6 +14910,11 @@ simple-swizzle@^0.2.2:
   integrity sha1-pNprY1/8zMoz9w0Xy5JZLeleVXo=
   dependencies:
     is-arrayish "^0.3.1"
+
+single-spa@5.8.1:
+  version "5.8.1"
+  resolved "https://registry.npmjs.org/single-spa/-/single-spa-5.8.1.tgz#86c2575e297e31d8f06945944ec97e31851a59ae"
+  integrity sha512-RlyLZ1IDIPdzI6mQPzCQnlgTt9jmbAXBZODmifoDut840wksPDSPhcSS8jXMpuUlqOidQiX2YuLVQSR9DEgsXw==
 
 single-spa@^5.6.1:
   version "5.8.0"
