@@ -10,6 +10,7 @@ import {
 	ModalFormRef,
 	addPosition,
 	OrgDTO,
+	MultiImageUpload,
 } from '@ionia/libs';
 import { Button, Form, Input, message, Space, TreeSelect } from 'antd';
 import React, { useState, useRef } from 'react';
@@ -255,9 +256,7 @@ export default () => {
 					<ImageUpload />
 				</Form.Item>
 				<Form.Item name='favicon' label='图片展示'>
-					<Button type='primary' icon={<UploadOutlined />}>
-						批量上传
-					</Button>
+					<MultiImageUpload />
 				</Form.Item>
 				<Form.Item name='project' label='特色活动项目'>
 					<Input.TextArea
