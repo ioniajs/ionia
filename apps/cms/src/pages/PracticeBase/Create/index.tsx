@@ -1,19 +1,18 @@
-import { UploadOutlined } from '@ant-design/icons';
 import {
+	addPosition,
 	AMap,
-	BizPage,
 	BizModalForm,
+	BizModalFormRef,
+	BizPage,
 	GobackButton,
 	ImageUpload,
+	MultiImageUpload,
+	OrgDTO,
 	RichTextEditor,
 	SaveButton,
-	ModalFormRef,
-	addPosition,
-	OrgDTO,
-	MultiImageUpload,
 } from '@ionia/libs';
-import { Button, Form, Input, message, Space, TreeSelect } from 'antd';
-import React, { useState, useRef } from 'react';
+import { Button, Form, Input, message, TreeSelect } from 'antd';
+import React, { useRef, useState } from 'react';
 import './index.less';
 
 const layout = {
@@ -37,9 +36,8 @@ const newPractice = async (filed: OrgDTO) => {
 
 export default () => {
 	const [form] = Form.useForm();
-	const ref = useRef<ModalFormRef>();
+	const ref = useRef<BizModalFormRef>();
 	const [editorState, setEditorState] = useState(); // 获取富文本编辑内容
-	console.log(editorState, 'eeeeee');
 
 	const baseTypeTree: any = [
 		{
@@ -96,6 +94,7 @@ export default () => {
 										coordinate: values.coordinate || '',
 										introduce: editorState,
 									};
+
 									const success = await newPractice(param);
 									if (success.code === 200) {
 										history.back();
@@ -109,7 +108,7 @@ export default () => {
 				);
 			}}
 		>
-			<Form {...layout} className='io-cms-practice-form'>
+			<Form {...layout} form={form} className='io-cms-practice-form'>
 				<Form.Item
 					name='parentId'
 					label='上级阵地'
@@ -198,7 +197,7 @@ export default () => {
 													style={{ marginLeft: 8, width: 328 }}
 												/>
 											</Form.Item>
-											{fields.length > 1 && index > 0 ? (
+											{fields.length >= 1 && index >= 0 ? (
 												<Button
 													style={{ width: 60.9, marginLeft: 8 }}
 													onClick={() => remove(field.name)}

@@ -8,10 +8,7 @@ import {
 	SiteRevertDTO,
 	gainSiteTree,
 } from '@ionia/libs/src/services';
-import {
-	AdminSiteRecycleSummaryVo,
-	AdminSiteTreeVO,
-} from '@ionia/libs/src/services/kernel/admin-site.vo';
+import { AdminSiteRecycleSummaryVo, AdminSiteTreeVO } from '@ionia/libs/src/services/kernel';
 import { IdsDTO } from '@ionia/libs/src/services/common.dto';
 import { message, Modal, Radio, Button, TreeSelect, Form } from 'antd';
 import React, { useRef, useState } from 'react';

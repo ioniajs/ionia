@@ -4,41 +4,35 @@ import {
 	ImageUpload,
 	RichTextEditor,
 	OrgResourceDTO,
-	addPositionResource,
+	modPositionResource,
 } from '@ionia/libs';
 import { Button, Form, message, Input } from 'antd';
 import { fromPairs, values } from 'lodash';
 import React, { useRef, useState } from 'react';
-import './index.less';
 
-const CreateResource = async (filed: OrgResourceDTO) => {
-	const CreateRef = await addPositionResource(filed);
-	if (CreateRef.code === 200) {
-		message.success('新建成功');
-	} else {
-		message.error('新建失败');
-	}
-	return CreateRef;
-};
-
-export default () => {
-	const onCreate = () => {
-		form.resetFields();
-	};
+export default (props: any) => {
+	const { setTitleShow, titleShow, title } = props;
 	const ref = useRef<ModalFormRef>();
 	const [form] = Form.useForm();
+	const onFinish = async (values: OrgResourceDTO) => {
+		const { data, code } = await modPositionResource(values);
+		if (code == 200) {
+			message.success('修改成功');
+			setTitleShow(false);
+			form.resetFields();
+		}
+	};
+	form.setFieldsValue({ title: title });
 	return (
 		<BizModalForm
+			visible={titleShow}
 			ref={ref}
-			title='新建资源'
+			title='编辑资源'
 			className='io-cms-resource-create'
 			submitterRender={() => (
 				<div className='btn-submitter'>
-					<Button type='default' onClick={() => ref.current?.close()}>
+					<Button type='default' onClick={() => setTitleShow(false)}>
 						取消
-					</Button>
-					<Button type='primary' onClick={onCreate}>
-						保存并继续新建
 					</Button>
 					<Button
 						type='primary'
@@ -50,11 +44,11 @@ export default () => {
 									introduce: values.introduce || '',
 									picId: values.picId || '',
 								};
-								const success = await CreateResource(param);
-								if (success.code === 200) {
-									form.setFieldsValue({ title: '' });
-									ref.current?.close();
-								}
+								const success = await onFinish(param);
+								// if (success.code === 200) {
+								// 	form.setFieldsValue({ title: '' });
+								// 	ref.current?.close();
+								// }
 							});
 						}}
 					>
