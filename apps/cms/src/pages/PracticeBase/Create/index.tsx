@@ -37,6 +37,8 @@ const newPractice = async (filed: OrgDTO) => {
 export default () => {
 	const [form] = Form.useForm();
 	const ref = useRef<ModalFormRef>();
+	const [editorState, setEditorState] = useState(); // 获取富文本编辑内容
+	console.log(editorState, 'eeeeee')
 
 	const baseTypeTree: any = [
 		{
@@ -91,6 +93,7 @@ export default () => {
 										address: values.address || '',
 										code: values.code || '',
 										coordinate: values.coordinate || '',
+										introduce: editorState
 									};
 									const success = await newPractice(param);
 									if (success.code === 200) {
@@ -167,8 +170,8 @@ export default () => {
 												index === 0 ? (
 													<span>日常联系人</span>
 												) : (
-													<span></span>
-												)
+														<span></span>
+													)
 											}
 											required={false}
 											key={field.key}
@@ -211,8 +214,8 @@ export default () => {
 										fields.length === 0 ? (
 											<span>日常联系人</span>
 										) : (
-											<span></span>
-										)
+												<span></span>
+											)
 									}
 									colon={false}
 								>
@@ -270,7 +273,7 @@ export default () => {
 				</Form.Item>
 				<Form.Item name='introduce' label='阵地介绍'>
 					<div className='io-cms-practice-base-create-from-item__rich-text-editor'>
-						<RichTextEditor />
+						<RichTextEditor onGet={(editorState) => setEditorState(editorState)} />
 					</div>
 				</Form.Item>
 			</Form>
