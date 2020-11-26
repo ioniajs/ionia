@@ -6,6 +6,7 @@ import axios from 'axios';
 import React, { ReactElement, useEffect, useRef, useState } from 'react';
 import { BizModalForm, BizModalFormRef } from '../../BizModalForm';
 import { UploadButton } from '../UploadButton';
+import { PictureCropper } from '../../PictureCropper';
 import './index.less';
 
 interface ImageUploadProps extends UploadProps {
@@ -19,10 +20,11 @@ interface UploadItemProps {
 	file: UploadFile;
 	onRemove?: () => void;
 }
-
 const UploadItem = ({ file, onRemove }: UploadItemProps) => {
 	const previewModalRef = useRef<BizModalFormRef>();
-
+	const [picCroVisible, setPicCroVisible] = useState<boolean>(false);
+	const [imageBase, setImageBase] = useState(); // 裁剪后返回的image base64
+	console.log(imageBase, 'iiiii');
 	let item = null;
 	if (file.status === 'success') {
 		item = (
@@ -90,6 +92,14 @@ const UploadItem = ({ file, onRemove }: UploadItemProps) => {
 			>
 				<Image src={file.url && file.thumbUrl} preview={false} />
 			</BizModalForm>
+			<PictureCropper
+				visible={picCroVisible}
+				oncancel={() => {
+					setPicCroVisible(false);
+				}}
+				src={file?.response?.url}
+				onOk={imageCropBase => setImageBase(imageCropBase)}
+			/>
 			<div className='io-image-upload__item-action'>
 				<div>
 					<Tooltip title='裁剪'>
@@ -97,7 +107,8 @@ const UploadItem = ({ file, onRemove }: UploadItemProps) => {
 							className={`iconfont icon-border ${isError ? 'disable' : ''}`}
 							onClick={() => {
 								if (isError) return;
-								previewModalRef.current?.open();
+								// previewModalRef.current?.open();
+								setPicCroVisible(true);
 							}}
 						/>
 					</Tooltip>
@@ -184,7 +195,7 @@ export const ImageUpload = ({
 							},
 						})
 						.then(({ data: response }) => {
-							console.log('此处需要映射一下', response);
+							// console.log('此处需要映射一下', response);
 							if (response.code === 200) {
 								onSuccess(response.data, file);
 							}
