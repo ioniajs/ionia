@@ -1,10 +1,10 @@
-import { BizModalForm, ModalFormRef, BizPage } from '@ionia/libs';
+import { BizModalForm, BizModalFormRef, BizPage } from '@ionia/libs';
 import { Button } from 'antd';
 import React, { useRef } from 'react';
 import SelectUser from './SelectUser';
 
 export default () => {
-	const ref = useRef<ModalFormRef>();
+	const ref = useRef<BizModalFormRef>();
 	return (
 		<BizPage>
 			<BizModalForm

@@ -4,7 +4,7 @@ import { UploadProps } from 'antd/lib/upload';
 import { UploadFile } from 'antd/lib/upload/interface';
 import axios from 'axios';
 import React, { ReactElement, useEffect, useRef, useState } from 'react';
-import { BizModalForm, BizModalFormRef } from '../../BizModalForm';
+import { BizModalForm, BizBizModalFormRef } from '../../BizModalForm';
 import { UploadButton } from '../UploadButton';
 import { PictureCropper } from '../../PictureCropper';
 import './index.less';
@@ -21,7 +21,7 @@ interface UploadItemProps {
 	onRemove?: () => void;
 }
 const UploadItem = ({ file, onRemove }: UploadItemProps) => {
-	const previewModalRef = useRef<BizModalFormRef>();
+	const previewModalRef = useRef<BizBizModalFormRef>();
 	const [picCroVisible, setPicCroVisible] = useState<boolean>(false);
 	const [imageBase, setImageBase] = useState(); // 裁剪后返回的image base64
 	console.log(imageBase, 'iiiii');

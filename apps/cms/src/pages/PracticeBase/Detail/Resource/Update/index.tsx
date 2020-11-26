@@ -1,6 +1,6 @@
 import {
 	BizModalForm,
-	ModalFormRef,
+	BizModalFormRef,
 	ImageUpload,
 	RichTextEditor,
 	OrgResourceDTO,
@@ -12,7 +12,8 @@ import React, { useRef, useState } from 'react';
 
 export default (props: any) => {
 	const { setTitleShow, titleShow, title } = props;
-	const ref = useRef<ModalFormRef>();
+	const ref = useRef<BizModalFormRef>();
+	const [editorState, setEditorState] = useState(); // 获取富文本编辑内容
 	const [form] = Form.useForm();
 	const onFinish = async (values: OrgResourceDTO) => {
 		const { data, code } = await modPositionResource(values);
@@ -41,7 +42,7 @@ export default (props: any) => {
 							form.validateFields().then(async values => {
 								const param = {
 									title: values.title,
-									introduce: values.introduce || '',
+									introduce: editorState,
 									picId: values.picId || '',
 								};
 								const success = await onFinish(param);
@@ -70,7 +71,7 @@ export default (props: any) => {
 				</Form.Item>
 				<Form.Item name='introduce' label='阵地介绍'>
 					<div className='io-cms-resource-create-from-item__rich-text-editor'>
-						<RichTextEditor />
+						<RichTextEditor onGet={editorState => setEditorState(editorState)} />
 					</div>
 				</Form.Item>
 			</Form>

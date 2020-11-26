@@ -4,7 +4,7 @@ import {
 	BizModalForm,
 	ImageUpload,
 	RichTextEditor,
-	ModalFormRef,
+	BizModalFormRef,
 	modposition,
 	OrgDTO,
 	positionDetail,
@@ -35,7 +35,7 @@ const baseUpdate = async (filed: OrgDTO) => {
 
 export const BaseDetail = ({ id }: BaseDetailProps) => {
 	const [expandForm] = Form.useForm();
-	const ref = useRef<ModalFormRef>();
+	const ref = useRef<BizModalFormRef>();
 	const [editorState, setEditorState] = useState(); // 获取富文本编辑内容
 	const { data, run } = useRequest(positionDetail, {
 		manual: true,

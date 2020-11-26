@@ -13,7 +13,7 @@ import {
 	batchDetailSite,
 	BizPage,
 	BizModalForm,
-	ModalFormRef,
+	BizModalFormRef,
 } from '@ionia/libs';
 import { AdminSiteTreeVO, AdminSiteRecycleSummaryVo } from '@ionia/libs/src/services/kernel';
 import { IdsDTO } from '@ionia/libs/src/services/common.dto';
@@ -50,7 +50,7 @@ export default () => {
 	const history = useHistory();
 	const actionRef = useRef<ActionType>();
 	const [selectedRowKeys, setSelectedRowKeys] = useState<number[]>([]);
-	const modalRef = useRef<ModalFormRef>();
+	const modalRef = useRef<BizModalFormRef>();
 	const columns: ProColumns<AdminSiteTreeVO>[] = [
 		{
 			title: '站点名称',
