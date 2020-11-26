@@ -17,6 +17,7 @@ import UserDetail from './pages/User/Detail';
 import PracticeBaseCreate from '@/pages/PracticeBase/Create';
 import PracticeBaseDetail from '@/pages/PracticeBase/Detail';
 import PracticeBaseBatchCreate from '@/pages/PracticeBase/BatchCreate';
+import Content from '@/pages/Content';
 
 import Role from './pages/Role';
 import RoleDetail from '@/pages/Role/Detail';
@@ -100,6 +101,10 @@ export default [
 	{
 		path: '/role/detail/:id',
 		component: RoleDetail,
+	},
+	{
+		path: '/content',
+		component: Content,
 	},
 	{
 		path: '/500',
