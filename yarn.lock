@@ -2251,6 +2251,11 @@
   resolved "https://registry.npm.taobao.org/@types/parse-json/download/@types/parse-json-4.0.0.tgz#2f8bb441434d163b35fb8ffdccd7138927ffb8c0"
   integrity sha1-L4u0QUNNFjs1+4/9zNcTiSf/uMA=
 
+"@types/pinyin-engine@^1.1.0":
+  version "1.1.0"
+  resolved "https://registry.npmjs.org/@types/pinyin-engine/-/pinyin-engine-1.1.0.tgz#d7d3155ffb10306340a754a0211bb4f65219ce6d"
+  integrity sha512-BSSuw5rtQhn5zqIWEcOXM1lby7QK/Ozf33f9wAbbP1hCCVoGDdDvy8rSoTgo4S5wpaX03Dfe+mqkOHwuGnNczg==
+
 "@types/prettier@2.1.0":
   version "2.1.0"
   resolved "https://registry.npm.taobao.org/@types/prettier/download/@types/prettier-2.1.0.tgz?cache=0&sync_timestamp=1602871226694&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40types%2Fprettier%2Fdownload%2F%40types%2Fprettier-2.1.0.tgz#5f96562c1075ee715a5b138f0b7f591c1f40f6b8"
@@ -2285,6 +2290,13 @@
   version "16.9.8"
   resolved "https://registry.npm.taobao.org/@types/react-dom/download/@types/react-dom-16.9.8.tgz?cache=0&sync_timestamp=1599831636301&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40types%2Freact-dom%2Fdownload%2F%40types%2Freact-dom-16.9.8.tgz#fe4c1e11dfc67155733dfa6aa65108b4971cb423"
   integrity sha1-/kweEd/GcVVzPfpqplEItJcctCM=
+  dependencies:
+    "@types/react" "*"
+
+"@types/react-highlight-words@^0.16.1":
+  version "0.16.1"
+  resolved "https://registry.npmjs.org/@types/react-highlight-words/-/react-highlight-words-0.16.1.tgz#9744f9587e16cf74870b77ab419ec79c29f63068"
+  integrity sha512-J0JTrBbnCEpbGkXYs7FxZXlH/wJVO9cu1R0UYh+DGfw4/leMfUn37/dUdTXkcjkOMCxRSHk+OUNM3jQ//inM8w==
   dependencies:
     "@types/react" "*"
 
@@ -8237,6 +8249,11 @@ hex-color-regex@^1.1.0:
   resolved "https://registry.npm.taobao.org/hex-color-regex/download/hex-color-regex-1.1.0.tgz#4c06fccb4602fe2602b3c93df82d7e7dbf1a8a8e"
   integrity sha1-TAb8y0YC/iYCs8k9+C1+fb8aio4=
 
+highlight-words-core@^1.2.0:
+  version "1.2.2"
+  resolved "https://registry.npmjs.org/highlight-words-core/-/highlight-words-core-1.2.2.tgz#1eff6d7d9f0a22f155042a00791237791b1eeaaa"
+  integrity sha512-BXUKIkUuh6cmmxzi5OIbUJxrG8OAk2MqoL1DtO3Wo9D2faJg2ph5ntyuQeLqaHJmzER6H5tllCDA9ZnNe9BVGg==
+
 history-with-query@4.10.3:
   version "4.10.3"
   resolved "https://registry.npm.taobao.org/history-with-query/download/history-with-query-4.10.3.tgz#9430a6f59a223796a68a436c0c4c7590233805a6"
@@ -10334,6 +10351,11 @@ memfs@^3.1.2:
   dependencies:
     fs-monkey "1.0.1"
 
+memoize-one@^4.0.0:
+  version "4.1.0"
+  resolved "https://registry.npmjs.org/memoize-one/-/memoize-one-4.1.0.tgz#a2387c58c03fff27ca390c31b764a79addf3f906"
+  integrity sha512-2GApq0yI/b22J2j9rhbrAlsHb0Qcz+7yWxeLG8h+95sl1XPUgeLimQSOdur4Vw7cUhrBHwaUZxWFZueojqNRzA==
+
 memoize-one@^5.1.1:
   version "5.1.1"
   resolved "https://registry.npm.taobao.org/memoize-one/download/memoize-one-5.1.1.tgz#047b6e3199b508eaec03504de71229b8eb1d75c0"
@@ -11702,6 +11724,16 @@ pinkie@^2.0.0:
   version "2.0.4"
   resolved "https://registry.npm.taobao.org/pinkie/download/pinkie-2.0.4.tgz#72556b80cfa0d48a974e80e77248e80ed4f7f870"
   integrity sha1-clVrgM+g1IqXToDnckjoDtT3+HA=
+
+pinyin-engine@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.npmjs.org/pinyin-engine/-/pinyin-engine-1.1.0.tgz#28cae1ae89e8a4fc64ce9f975852dc13ef58a583"
+  integrity sha512-cu13xtxuz21v5uzPyApsvdCfjXYeIKY9pfzzrcUxxFU4q4d/Ocuyafoc1cS6ND7U4eWPILsyLBpMkqR5ce3sHw==
+
+pinyin-match@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.npmjs.org/pinyin-match/-/pinyin-match-1.1.1.tgz#b13000800e4c0c2f22904ecf4a07423ddf9c1023"
+  integrity sha512-stJVNJGHOEl3B3qXgeXJhWk3xfYQ3X7VaHBIIQHI2/9E1hNK9cmkigei0F+1l+uBM2XPVgxtmzg08AuY7n5Rnw==
 
 pirates@^4.0.0:
   version "4.0.1"
@@ -13485,6 +13517,15 @@ react-fast-compare@^3.0.1:
   version "3.2.0"
   resolved "https://registry.yarnpkg.com/react-fast-compare/-/react-fast-compare-3.2.0.tgz#641a9da81b6a6320f270e89724fb45a0b39e43bb"
   integrity sha512-rtGImPZ0YyLrscKI9xTpV8psd6I8VAtjKCzQDlzyDvqJA8XOW78TXYQwNRNd8g8JZnDu8q9Fu/1v4HPAVwVdHA==
+
+react-highlight-words@^0.16.0:
+  version "0.16.0"
+  resolved "https://registry.npmjs.org/react-highlight-words/-/react-highlight-words-0.16.0.tgz#4b4b9824e3d2b98789d3e3b3aedb5e961ae1b7cf"
+  integrity sha512-q34TwCSJOL+5pVDv6LUj3amaoyXdNDwd7zRqVAvceOrO9g1haWLAglK6WkGLMNUa3PFN8EgGedLg/k8Gpndxqg==
+  dependencies:
+    highlight-words-core "^1.2.0"
+    memoize-one "^4.0.0"
+    prop-types "^15.5.8"
 
 react-hot-loader@^4.12.21:
   version "4.13.0"

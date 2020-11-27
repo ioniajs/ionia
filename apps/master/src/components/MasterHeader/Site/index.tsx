@@ -1,103 +1,143 @@
-import { gainSiteTree, logger, useGlobalStore } from '@ionia/libs';
-import { useRequest, useLocalStorageState } from 'ahooks';
-import { Tree, Select, Spin, Drawer, Button } from 'antd';
-import { SearchOutlined } from '@ant-design/icons';
-import React, { useState, useMemo } from 'react';
+import { gainSiteTree, useGlobalStore } from '@ionia/libs';
+import { useDebounceFn, useMount, useRequest } from 'ahooks';
+import { Drawer, Input, Tree } from 'antd';
+import React, { ReactText, useMemo, useState } from 'react';
+import Highlighter from 'react-highlight-words';
+import PinyinMatch from 'pinyin-match';
 import './index.less';
-import { DataNode } from 'antd/lib/tree';
-import { data } from 'msw/lib/types/context';
 
-const { Option } = Select;
-const dfs = (node: any) => {
+const { Search } = Input;
+
+const dfs = (node: any, searchWord: string) => {
 	return (
 		node &&
 		node.map((n: any) => {
 			if (n && n.children) {
-				n.children = dfs(n.children);
+				n.children = dfs(n.children, searchWord);
 			}
 			return {
 				...n,
-				title: n.name,
+				title: (
+					<Highlighter
+						searchWords={[getMatchWords(n.name, searchWord)]}
+						autoEscape={true}
+						textToHighlight={n.name}
+					/>
+				),
 				key: n.id,
 			};
 		})
 	);
 };
+
+const dataList: any[] = [];
+
+const generateList = (data: any[]) => {
+	for (let i = 0; i < data.length; i++) {
+		const node = data[i];
+		dataList.push({ key: node.id, name: node.name });
+		if (node.children) {
+			generateList(node.children);
+		}
+	}
+};
+
+//@ts-ignore
+const getParentKey = (key: string, tree: any[]) => {
+	let parentKey;
+	for (let i = 0; i < tree.length; i++) {
+		const node = tree[i];
+		if (node.children) {
+			if (node.children.some((item: any) => item.key === key)) {
+				parentKey = node.key;
+			} else if (getParentKey(key, node.children)) {
+				parentKey = getParentKey(key, node.children);
+			}
+		}
+	}
+	return parentKey;
+};
+
+const getMatchWords = (sourceString: string, searchString: string) => {
+	const results: number[] | boolean = PinyinMatch.match(sourceString, searchString);
+	if (!results || !Array.isArray(results)) return '';
+	return sourceString.substring(results[0], results[1] + 1);
+};
+
 export default () => {
-	const [visible, setVisible] = useState(false); //控制抽屉的出现
-	const [siteData, setSiteData] = useState<any>([]); //搜索框的列表值
-	const [value, setValue] = useState([]); //搜索框的值
-	const [fetching, setFetching] = useState(false);
-	//全局存储站点名称
+	const [visible, setVisible] = useState(false);
+	const [searchWord, setSearchWord] = useState<string>('');
+	const [expandedKeys, setExpandedKeys] = useState<ReactText[]>([]);
+	const [autoExpandParent, setAutoExpandParent] = useState(true);
+
 	const globalStore = useGlobalStore();
 	const siteName = globalStore?.state?.siteName ?? 'JEECMS演示站';
-	const showDrawer = () => {
-		setVisible(true);
-	};
-	const onClose = () => {
-		setVisible(false);
-	};
 
-	const { data } = useRequest(() => gainSiteTree());
+	const { data, run: runGainSiteTree } = useRequest(() => gainSiteTree(), {
+		onSuccess: data => {
+			generateList(data.data.list);
+			setExpandedKeys(dataList.map(n => n.key));
+		},
+	});
 	const treeData = data?.data.list ?? [];
 	const commons = data?.data.commons ?? [];
 	const size = data?.data.size ?? 0;
-	const siteTree = useMemo(() => dfs(treeData), [treeData]);
 
-	siteTree.map((item: any) => {
-		item.icon = <i className='iconfont icon-apartment'></i>;
+	const siteTree = useMemo(() => dfs(treeData, searchWord), [treeData, searchWord]);
+
+	useMount(() => {
+		runGainSiteTree();
 	});
 
-	/**
-	 * 搜索
-	 */
-	const fetchUser = () => {
-		// const siteData = siteTree.map((user: any) => ({
-		// 	text: `${user.name.first} ${user.name.last}`,
-		// 	value: user.login.username,
-		// }));
-		const siteData = [
-			{ text: 'test', value: 'test' },
-			{ text: 'test1', value: 'test1' },
-			{ text: 'test2', value: 'test2' },
-		];
-		setSiteData(siteData);
-		setFetching(false);
-	};
+	siteTree.map((item: any) => {
+		item.icon = <i className='iconfont icon-apartment' />;
+	});
 
-	const handleChange = (value: any) => {
-		// this.setState({
-		//   value,
-		//   data: [],
-		//   fetching: false,
-		// });
-		setValue(value);
-		setSiteData([]);
-		setFetching(false);
-	};
-
-	/**
-	 * @param value
-	 * 修改站点名称
-	 * 关闭抽屉
-	 */
 	const changeSite = (value: any) => {
-		console.log(value);
 		globalStore.setState({
 			siteName: value,
 		});
 		setVisible(false);
 	};
 
+	const onExpand = (expandedKeys: ReactText[]) => {
+		setExpandedKeys(expandedKeys);
+		setAutoExpandParent(false);
+	};
+
+	const { run: onChange } = useDebounceFn(
+		(value: string) => {
+			let newExpandedKeys: ReactText[];
+			if (!!value) {
+				newExpandedKeys = dataList
+					.map(item => {
+						if (!!getMatchWords(item.name, value)) {
+							return getParentKey(item.key, treeData);
+						}
+						return null;
+					})
+					.filter((item, i, self) => item && self.indexOf(item) === i);
+			} else {
+				newExpandedKeys = dataList.map(n => n.key);
+			}
+			setSearchWord(value);
+			setExpandedKeys(newExpandedKeys);
+			setAutoExpandParent(true);
+		},
+		{
+			wait: 300,
+		}
+	);
+
 	return (
 		<div className='io-master__header-site'>
-			<div className='io-master__header--item' onClick={showDrawer}>
+			<div className='io-master__header--item' onClick={() => setVisible(true)}>
 				<span className='text'>{siteName}</span>
 			</div>
 			<Drawer
 				placement='right'
 				visible={visible}
-				onClose={onClose}
+				onClose={() => setVisible(false)}
 				className='io-master__header-site'
 			>
 				{size > 20 && (
@@ -121,62 +161,33 @@ export default () => {
 						<div className='io-master_hader-site_search'>
 							<p>全部站点</p>
 							<div className='io-master_hader-site_select'>
-								<Select
-									mode='multiple'
-									labelInValue
-									value={value}
-									autoClearSearchValue
-									defaultActiveFirstOption
+								<Search
+									allowClear
 									placeholder='搜索站点名称'
-									notFoundContent={fetching ? <Spin size='small' /> : null}
-									filterOption={false}
-									style={{ width: '100%' }}
-									onSearch={fetchUser}
-									onChange={handleChange}
-								>
-									{siteData.map((d: any) => (
-										<Option key={d.value} value={d.value}>
-											{d.text}
-										</Option>
-									))}
-								</Select>
-								<Button type='primary' icon={<SearchOutlined />}></Button>
+									onChange={e => onChange(e.target.value)}
+									onSearch={onChange}
+								/>
 							</div>
 						</div>
 					</div>
 				)}
-				{value.length < 1 && (
-					<div>
-						{siteTree.length ? (
-							<Tree
-								showLine={{ showLeafIcon: false }}
-								showIcon
-								defaultExpandAll={true}
-								treeData={siteTree}
-								className='io-master_hader-tree'
-								onSelect={(selectedKeys, e) => {
-									changeSite(e.node.title);
-								}}
-							/>
-						) : null}
-					</div>
-				)}
-				{value.length > 0 && (
-					<div>
-						{value.map((item: any, index: any) => {
-							return (
-								<div
-									key={index}
-									className='io-master_hader-site_check'
-									onClick={() => changeSite(item.value)}
-								>
-									{item.value}
-								</div>
-							);
-						})}
-						{/* 12131 */}
-					</div>
-				)}
+				<div>
+					{siteTree.length ? (
+						<Tree
+							className='io-master_hader-tree'
+							showLine={{ showLeafIcon: false }}
+							showIcon
+							defaultExpandAll={true}
+							treeData={siteTree}
+							expandedKeys={expandedKeys}
+							autoExpandParent={autoExpandParent}
+							onExpand={onExpand}
+							onSelect={(_, e: any) => {
+								changeSite(e.node.name);
+							}}
+						/>
+					) : null}
+				</div>
 			</Drawer>
 		</div>
 	);
