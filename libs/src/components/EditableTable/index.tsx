@@ -14,7 +14,7 @@ interface HandleDataSourceParams {
 interface EditableTableProps<RecordType extends object = any> extends TableProps<RecordType> {
 	footerRender?: (params: HandleDataSourceParams) => ReactNode;
 	operationRender: (params: HandleDataSourceParams) => any;
-	onChange: (data: any) => any;
+	onChange?: (data: any) => any;
 }
 
 const changeData = (source: any[], key: string, data: any, isAddChild = false) => {

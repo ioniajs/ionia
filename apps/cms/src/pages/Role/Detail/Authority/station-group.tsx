@@ -93,7 +93,7 @@ function getKey(arr: any, ids: string[] = []) {
 }
 export default ({ roleId }: any) => {
 	const [expandedKeys, setExpandedKeys] = useState<string[]>(getKey(treeData));
-	const [checkedKeys, setCheckedKeys] = useState<string[]>([]);
+	const [checkedKeys, setCheckedKeys] = useState<any[]>([]);
 	const [selectedKeys, setSelectedKeys] = useState<string[]>([]);
 	const [autoExpandParent, setAutoExpandParent] = useState<boolean>(true);
 	const [checked, setChecked] = useState<boolean>(false);
