@@ -95,9 +95,9 @@ export const BizModalForm = forwardRef(
 					render: (_props, _doms) => {
 						return submitterRender
 							? submitterRender({
-								props: _props,
-								doms: _doms,
-							})
+									props: _props,
+									doms: _doms,
+							  })
 							: defaultSubmitterRender();
 					},
 				}}
