@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
-import { BizPage, BizTable, BizTree } from '@ionia/libs';
-import { Form, Select, Input, DatePicker, Checkbox } from 'antd';
+import { Select, Checkbox, Form } from 'antd';
 import {
 	QueryFilter,
 	ProFormSelect,
 	ProFormCheckbox,
 	ProFormText,
-	ProFormDateRangePicker,
 	ProFormDateTimeRangePicker,
 } from '@ant-design/pro-form';
-// import ProList from '@ant-design/pro-list';
+import ProList from '@ant-design/pro-list';
+import './index.less'
+
 
 // 排序方式
 const sortWay = {
@@ -81,34 +81,46 @@ const searchTypes = [
 
 const inputPlaceHolder = ['', '标题', '作者', '来源', '描述', '创建人'];
 // 选择列改变内容状态
-const changeContentStatus = {
-	1: '发布',
-	2: '存为初稿',
-	3: '下线',
-};
+const changeContentStatus = [
+	{ value: 1, label: '发布', },
+	{ value: 2, label: '存为初稿', },
+	{ value: 3, label: '下线', }
+];
 // 选择列的其他操作
-const changeOtherActions = {
-	1: '删除',
-	2: '移动',
-	3: '排序',
-	4: '复制',
-	5: '归档',
-	6: '站群推送',
-};
+const changeOtherActions = [
+	{ value: 1, label: '删除' },
+	{ value: 2, label: '移动', },
+	{ value: 3, label: '排序', },
+	{ value: 4, label: '复制', },
+	{ value: 5, label: '归档', },
+	{ value: 6, label: '站群推送', },
+];
 // 选择列改变内容状态
-const changeContentTypes = {
-	1: '设置置顶',
-	2: '取消置顶',
-	3: '设置热点',
-	4: '取消热点',
-	5: '设置头条',
-	6: '取消头条',
-	7: '设置推荐',
-	8: '取消推荐',
-};
+const changeContentTypes = [
+	{ value: 1, label: '设置置顶', },
+	{ value: 2, label: '取消置顶' },
+	{ value: 3, label: '设置热点' },
+	{ value: 4, label: '取消热点' },
+	{ value: 5, label: '设置头条' },
+	{ value: 6, label: '取消头条' },
+	{ value: 7, label: '设置推荐' },
+	{ value: 8, label: '取消推荐' },
+];
+
+const dataSource = [
+	{
+		title: '【栏目】昌北机场T1航站楼改造力争月底完工昌北机场T1航站楼改造力争月底完工昌北机场',
+		user: 'HHHHH'
+	},
+	{
+		title: '【栏目】昌北机场T1航站楼改造力争月底完工昌北机场T1航站楼改造力争月底完工昌北机场',
+		user: 'MMMMM'
+	},
+]
 
 export const List = () => {
 	const [searchTypesValue, setSearchTypes] = useState<number>(1);
+	const [selectedRowKeys, setSelectedRowKeys] = useState<number[]>([]);
 	const selectBefore = (
 		<Select
 			defaultValue={1}
@@ -121,91 +133,169 @@ export const List = () => {
 	);
 	return (
 		<div>
-			<QueryFilter
-				// style={{ display: 'flex' }}
-				onFinish={async values => {
-					console.log(values);
-				}}
-			>
-				<ProFormSelect
-					name='sortWay'
-					label='排序方式'
-					valueEnum={sortWay}
-					style={{ width: '240px' }}
-					colSize={0.75}
-				/>
-				<ProFormSelect
-					name='contentStatus'
-					label='内容状态'
-					valueEnum={contentStatus}
-					colSize={0.75}
-				/>
-				<ProFormCheckbox.Group
-					name='showSectionContent'
-					layout='horizontal'
-					label=''
-					options={['显示子栏目内容']}
-				/>
-				<ProFormSelect
-					name='contentType'
-					label='内容类型'
-					valueEnum={contentType}
-					colSize={0.75}
-				/>
-				<ProFormSelect
-					name='contentModal'
-					label='内容模型'
-					valueEnum={contentModal}
-					colSize={0.75}
-				/>
-				{/* <Form.Item name='create' label='创建时间'>
-                    <DatePicker.RangePicker showTime />
-                </Form.Item> */}
-				<Form.Item name='publish' label='发布时间'>
-					<DatePicker.RangePicker showTime />
-				</Form.Item>
-				<ProFormDateTimeRangePicker name='create' label='创建时间' colSize={1} />
-				{/* <ProFormDateRangePicker name='publish' label='发布时间' colSize={1} /> */}
-				<ProFormSelect
-					name='createWay'
-					label='创建方式'
-					valueEnum={createWay}
-					colSize={0.75}
-				/>
-				<ProFormCheckbox.Group
-					name='showMineCreate'
-					layout='vertical'
-					label=''
-					options={['我创建的']}
-				/>
-				<ProFormText name='contentTittle' placeholder='搜索内容标题' colSize={0.75} />
-				<ProFormText
-					name='searchKeyWord'
-					fieldProps={{
-						addonBefore: selectBefore,
-						placeholder: `搜素内容${inputPlaceHolder[searchTypesValue]}`,
+			<div className='io-cms-content-list-search'>
+				<QueryFilter
+					span={6}
+					onFinish={async values => {
+						console.log(values);
 					}}
-				/>
-				<Checkbox>全选</Checkbox>
-				<ProFormSelect
-					name=''
-					valueEnum={changeContentStatus}
-					colSize={0.5}
-					placeholder='改变内容状态'
-				/>
-				<ProFormSelect
-					name=''
-					valueEnum={changeOtherActions}
-					colSize={0.5}
-					placeholder='其他操作'
-				/>
-				<ProFormSelect
-					name=''
-					valueEnum={changeContentTypes}
-					colSize={0.5}
-					placeholder='改变内容类型'
-				/>
-			</QueryFilter>
+					defaultCollapsed={true}
+				>
+					<ProFormSelect
+						name='sortWay'
+						label='排序方式'
+						valueEnum={sortWay}
+						style={{ width: '240px' }}
+					// colSize={0.75}
+					/>
+					<ProFormSelect
+						name='contentStatus'
+						label='内容状态'
+						valueEnum={contentStatus}
+					// colSize={0.75}
+					/>
+					<ProFormCheckbox.Group
+						name='showSectionContent'
+						label=''
+						options={['显示子栏目内容']}
+						layout='vertical'
+					/>
+					<ProFormSelect
+						name='contentType'
+						label='内容类型'
+						valueEnum={contentType}
+					// colSize={0.75}
+					/>
+					<ProFormSelect
+						name='contentModal'
+						label='内容模型'
+						valueEnum={contentModal}
+					// colSize={0.75}
+					/>
+					<ProFormDateTimeRangePicker
+						name='create'
+						label='创建时间'
+					// colSize={1}
+					/>
+					<ProFormDateTimeRangePicker
+						name='publish'
+						label='发布时间'
+					// colSize={1} 
+					/>
+					<ProFormSelect
+						name='createWay'
+						label='创建方式'
+						valueEnum={createWay}
+					// colSize={0.75}
+					/>
+					<ProFormCheckbox.Group
+						name='showMineCreate'
+						layout='vertical'
+						label=''
+						options={['我创建的']}
+					/>
+					<ProFormText
+						name='contentTittle'
+						placeholder='搜索内容标题'
+					// colSize={0.75}
+					/>
+					<ProFormText
+						name='searchKeyWord'
+						fieldProps={{
+							addonBefore: selectBefore,
+							placeholder: `搜素内容${inputPlaceHolder[searchTypesValue]}`,
+						}}
+					// colSize={0.75}
+					/>
+				</QueryFilter>
+				<div className='io-cms-content-list-search-bottom' />
+			</div>
+
+			<ProList
+				rowKey='user'
+				className='io-cms-content-pro-list-container'
+				dataSource={dataSource}
+				headerTitle={<Form className='io-cms-content-pro-list-header'>
+					{/* <span><Checkbox>全选</Checkbox></span> */}
+					<Form.Item label='' name='' style={{ display: 'inline-block' }}>
+						<Checkbox>全选</Checkbox>
+					</Form.Item>
+					{/* <span><Select options={changeContentStatus} placeholder='改变内容状态' style={{ width: '224px' }} /></span>
+					<span><Select options={changeOtherActions} placeholder='其他操作' style={{ width: '224px', marginLeft: '24px' }} /></span>
+					<span><Select options={changeContentTypes} placeholder='改变内容类型' style={{ width: '224px', marginLeft: '24px' }} listHeight={200} /></span> */}
+					<Form.Item label='' name='' style={{ display: 'inline-block' }}>
+						<Select options={changeContentStatus} placeholder='改变内容状态' className='io-cms-content-pro-list-hearder-options' />
+					</Form.Item>
+					<Form.Item label='' name='' style={{ display: 'inline-block' }}>
+						<Select options={changeOtherActions} placeholder='其他操作' className='io-cms-content-pro-list-hearder-options' />
+					</Form.Item>
+					<Form.Item label='' name='' style={{ display: 'inline-block' }}>
+						<Select options={changeContentTypes} placeholder='改变内容类型' className='io-cms-content-pro-list-hearder-options' />
+					</Form.Item>
+				</Form>}
+				metas={{
+					title: {
+						dataIndex: 'user',
+						title: '用户',
+						render: (_, row) => <span
+						>
+							{row.user}
+						</span>
+					},
+					subTitle: {
+						render: (_, row) => <span>subTitlesubTitlesubTitlesubTitlesubTitle</span>
+					},
+					description: {
+						render: (_, row) => {
+							return <div className='io-cms-content-pro-list-meta-desc'>
+								<span
+									className='io-cms-content-pro-list-meta-desc__div'
+								>
+									<span className='io-cms-content-pro-list-meta-desc-div-text__span'>
+										已发布
+									</span>
+								</span>
+								<span className='io-cms-content-pro-list-meta-desc-count'>
+									<span className='count-icon__span'><i className='iconfont icon-eye1' />&nbsp;<span>97</span></span>
+									<span className='count-icon__span'><i className='iconfont icon-user1' />&nbsp;<span>82</span></span>
+									<span className='count-icon__span'><i className='iconfont icon-message' />&nbsp;<span>15</span></span>
+									<span className='count-icon__span'><i className='iconfont icon-like' />&nbsp;<span>36</span></span>
+								</span>
+
+
+							</div>;
+						},
+					},
+					// content: {
+					// 	render: () => {
+					// 		return 'contentcontentcontentcontentcontentcontentcontent'
+					// 	}
+					// },
+					// extra: {
+					// 	render: () => {
+					// 		return 'extraextraextraextraextraextra'
+					// 	}
+					// },
+					actions: {
+						render: (_, row) => {
+							return [<a>下线</a>, <a>预览</a>, <a>浏览</a>, <a>删除</a>, <a>复制</a>, <a>移动</a>, <a>排序</a>, <i className='iconfont icon-ellipsis' />];
+						},
+					},
+				}}
+				rowSelection={{
+					selectedRowKeys,
+					onChange: (selectedRowKeys: any) => {
+						setSelectedRowKeys(selectedRowKeys as number[]);
+					},
+				}}
+				pagination={{
+					total: 85,
+					showSizeChanger: true,
+					showQuickJumper: true,
+					showTotal: (total) => `共${total}条`,
+					defaultPageSize: 5,
+				}}
+			/>
 		</div>
 	);
 };

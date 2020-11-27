@@ -5,7 +5,7 @@ import React, { forwardRef, ReactNode, useImperativeHandle, useState } from 'rea
 import './index.less';
 import { validateMessages } from './rule';
 
-export interface BizBizModalFormRef {
+export interface BizModalFormRef {
 	open: () => void;
 	close: () => void;
 }
@@ -95,9 +95,9 @@ export const BizModalForm = forwardRef(
 					render: (_props, _doms) => {
 						return submitterRender
 							? submitterRender({
-									props: _props,
-									doms: _doms,
-							  })
+								props: _props,
+								doms: _doms,
+							})
 							: defaultSubmitterRender();
 					},
 				}}
