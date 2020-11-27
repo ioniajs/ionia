@@ -17,6 +17,7 @@ export default {
 				{ path: '/cms/etable', name: '可编辑表格' },
 				{ path: '/cms/modal-table', name: '弹窗表格' },
 				{ path: '/cms/modal-transfer', name: '弹窗穿梭框' },
+				{ path: '/cms/dynamic-from-item', name: '动态增减列表' },
 			],
 		},
 		{
