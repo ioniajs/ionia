@@ -16,6 +16,7 @@ export default {
 				{ path: '/cms/amap', name: '高德地图' },
 				{ path: '/cms/etable', name: '可编辑表格' },
 				{ path: '/cms/modal-table', name: '弹窗表格' },
+				{ path: '/cms/modal-transfer', name: '弹窗穿梭框' },
 			],
 		},
 		{
