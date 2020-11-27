@@ -13,6 +13,8 @@ import { ExceptionPage } from '@ionia/libs';
 import DemoAMap from './pages/Demo/AMap';
 import DemoETable from './pages/Demo/ETable';
 import DemoModalTable from './pages/Demo/ModalTable';
+import DemoModalTransfer from './pages/Demo/ModalTransfer';
+import DemoDynamicFormItem from './pages/Demo/DynamicFormItem';
 import UserDetail from './pages/User/Detail';
 import PracticeBaseCreate from '@/pages/PracticeBase/Create';
 import PracticeBaseDetail from '@/pages/PracticeBase/Detail';
@@ -41,6 +43,14 @@ export default [
 	{
 		path: '/modal-table',
 		component: DemoModalTable,
+	},
+	{
+		path: '/modal-transfer',
+		component: DemoModalTransfer,
+	},
+	{
+		path: '/dynamic-from-item',
+		component: DemoDynamicFormItem,
 	},
 	{
 		path: '/user',
