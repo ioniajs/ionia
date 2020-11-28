@@ -1,6 +1,7 @@
 import React from 'react';
 import { BizPage, GobackButton, SaveButton, EditableTable } from '@ionia/libs';
 import { Form, TreeSelect, Tooltip, message, Input, Button } from 'antd';
+import './index.less';
 import shortid from 'shortid';
 
 export default () => {
@@ -172,7 +173,7 @@ export default () => {
 			}}
 		>
 			<div className='io-cms-practice-base-batch-create__div'>
-				<Form form={form} style={{ marginTop: 24 }}>
+				<Form form={form}>
 					<Form.Item
 						label='上级阵地'
 						name='parentId'
@@ -262,6 +263,7 @@ export default () => {
 						</>
 					),
 				})}
+				onChange={() => {}}
 				columns={columns}
 				// dataSource={[
 				// 	{

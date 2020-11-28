@@ -13,10 +13,13 @@ import { ExceptionPage } from '@ionia/libs';
 import DemoAMap from './pages/Demo/AMap';
 import DemoETable from './pages/Demo/ETable';
 import DemoModalTable from './pages/Demo/ModalTable';
+import DemoModalTransfer from './pages/Demo/ModalTransfer';
+import DemoDynamicFormItem from './pages/Demo/DynamicFormItem';
 import UserDetail from './pages/User/Detail';
 import PracticeBaseCreate from '@/pages/PracticeBase/Create';
 import PracticeBaseDetail from '@/pages/PracticeBase/Detail';
 import PracticeBaseBatchCreate from '@/pages/PracticeBase/BatchCreate';
+import Content from '@/pages/Content';
 
 import Role from './pages/Role';
 import RoleDetail from '@/pages/Role/Detail';
@@ -40,6 +43,14 @@ export default [
 	{
 		path: '/modal-table',
 		component: DemoModalTable,
+	},
+	{
+		path: '/modal-transfer',
+		component: DemoModalTransfer,
+	},
+	{
+		path: '/dynamic-from-item',
+		component: DemoDynamicFormItem,
 	},
 	{
 		path: '/user',
@@ -100,6 +111,10 @@ export default [
 	{
 		path: '/role/detail/:id',
 		component: RoleDetail,
+	},
+	{
+		path: '/content',
+		component: Content,
 	},
 	{
 		path: '/500',

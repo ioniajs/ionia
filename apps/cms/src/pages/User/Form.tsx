@@ -1,5 +1,5 @@
 import { ProFormSelect, ProFormSwitch, ProFormText } from '@ant-design/pro-form';
-import { BizModalForm, ModalFormRef } from '@ionia/libs';
+import { BizModalForm, BizModalFormRef } from '@ionia/libs';
 import { addUser, UserSaveDTO } from '@ionia/libs/src/services';
 import { Button, Cascader, Form, message } from 'antd';
 import React, { useRef } from 'react';
@@ -55,7 +55,7 @@ const residences = [
 ];
 
 export default () => {
-	const ref = useRef<ModalFormRef>();
+	const ref = useRef<BizModalFormRef>();
 	const [form] = Form.useForm();
 	const onCreate = () => {
 		form.resetFields();

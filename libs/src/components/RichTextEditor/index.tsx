@@ -7,7 +7,7 @@ import {
 	FileWordOutlined,
 } from '@ant-design/icons';
 import { Button, Radio, Input, Form, Checkbox, Upload } from 'antd';
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import BraftEditor, { ControlType, EditorState, ExtendControlType } from 'braft-editor';
 import 'braft-editor/dist/index.css';
 import Table from 'braft-extensions/dist/table';
@@ -23,6 +23,7 @@ import './index.less';
 export interface BraftEditorProps {
 	onChange?: (editorState: EditorState) => void;
 	value?: EditorState;
+	onGet?: (data: any) => any;
 }
 
 BraftEditor.use(
@@ -46,7 +47,7 @@ BraftEditor.use(
 );
 
 export const RichTextEditor: React.FC<BraftEditorProps> = props => {
-	const { onChange, value } = props;
+	const { onChange, value, onGet } = props;
 	const [stripPastedStyles, setStripPastedStyles] = useState<boolean>(false);
 	const [editorState, setEditorState] = useState<any>(BraftEditor.createEditorState());
 	const [searchForm] = Form.useForm();
@@ -55,9 +56,12 @@ export const RichTextEditor: React.FC<BraftEditorProps> = props => {
 	const [exchangeWord, setExchageWord] = useState<string>();
 	const editorInstance = useRef<any>(null);
 
+	useEffect(() => {
+		onGet && onGet(editorState.toHTML());
+	}, [editorState]);
+
 	// 查词: 上一个
 	const handleSearchPreWord = () => {
-		console.log(searchWord, '查找的字');
 		const editorValue = editorState.toHTML(); // 编辑器内容
 		const indexs = [];
 		for (var i = 0; i < editorValue.length; i++) {
@@ -65,9 +69,7 @@ export const RichTextEditor: React.FC<BraftEditorProps> = props => {
 				indexs.push(i);
 			}
 		}
-		console.log(indexs, 'injni');
 		const a = ContentUtils.insertHTML('<span color="#1890ff;">fsfsdfdsgfsdf</span>');
-		console.log(a, 'aaaa');
 		editorInstance.current.setValue(BraftEditor.createEditorState(a));
 		// const tempEditorState = editorValue
 		// 	.toString()
@@ -251,9 +253,6 @@ export const RichTextEditor: React.FC<BraftEditorProps> = props => {
 			html: null,
 			text: <OneToOneOutlined />,
 			onClick: () => {
-				console.log(editorState.toHTML(), 'editorState');
-				console.log(ContentUtils.insertText(editorState, '||||'));
-
 				setEditorState((prevState: EditorState) =>
 					ContentUtils.insertText(prevState, '|||||||||||||')
 				);
@@ -463,7 +462,10 @@ export const RichTextEditor: React.FC<BraftEditorProps> = props => {
 				{...editorProps}
 				controls={controls}
 				// extendControls={extendControls}
-				onChange={e => {
+				// onChange={e => {
+				// 	setEditorState(e);
+				// }}
+				onBlur={e => {
 					setEditorState(e);
 				}}
 				ref={editorInstance}

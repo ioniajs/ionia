@@ -16,6 +16,8 @@ export default {
 				{ path: '/cms/amap', name: '高德地图' },
 				{ path: '/cms/etable', name: '可编辑表格' },
 				{ path: '/cms/modal-table', name: '弹窗表格' },
+				{ path: '/cms/modal-transfer', name: '弹窗穿梭框' },
+				{ path: '/cms/dynamic-from-item', name: '动态增减列表' },
 			],
 		},
 		{
@@ -38,6 +40,10 @@ export default {
 		{
 			path: '/cms/role',
 			name: '角色管理',
+		},
+		{
+			path: '/cms/content',
+			name: '内容管理',
 		},
 	],
 } as Record<string, IoniaMenuRoute[]>;
