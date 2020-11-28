@@ -1,5 +1,5 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const ProgressBarPlugin = require('progress-bar-webpack-plugin');
@@ -8,17 +8,17 @@ const TerserPlugin = require('terser-webpack-plugin');
 const threadLoader = require('thread-loader');
 const os = require('os');
 
-const threadPool = {
-	// 产生的 worker 的数量
-	workers: os.cpus() || 1,
-	// 一个 worker 进程中并行执行工作的数量
-	workerParallelJobs: 20,
-	// 闲置时定时删除 worker 进程
-	// 默认为 500ms，可以设置为无穷大， 这样在监视模式(--watch)下可以保持 worker 持续存在
-	poolTimeout: 2000,
-};
+// const threadPool = {
+// 	// 产生的 worker 的数量
+// 	workers: os.cpus() || 1,
+// 	// 一个 worker 进程中并行执行工作的数量
+// 	workerParallelJobs: 20,
+// 	// 闲置时定时删除 worker 进程
+// 	// 默认为 500ms，可以设置为无穷大， 这样在监视模式(--watch)下可以保持 worker 持续存在
+// 	poolTimeout: 2000,
+// };
 // 预热
-threadLoader.warmup(threadPool, ['babel-loader', 'ts-loader']);
+// threadLoader.warmup(threadPool, ['babel-loader']);
 
 module.exports = {
 	module: {
@@ -26,10 +26,10 @@ module.exports = {
 			{
 				test: /\.(js|jsx)$/,
 				use: [
-					{
-						loader: 'thread-loader',
-						options: threadPool,
-					},
+					// {
+					// 	loader: 'thread-loader',
+					// 	options: threadPool,
+					// },
 					{
 						loader: 'babel-loader',
 						options: {
@@ -140,7 +140,7 @@ module.exports = {
 	optimization: {
 		runtimeChunk: 'single',
 		splitChunks: {
-			chunks: 'all',
+			// chunks: 'all',
 			cacheGroups: {
 				vendor: {
 					test: /[\\/]node_modules[\\/]/,
@@ -149,11 +149,11 @@ module.exports = {
 				},
 			},
 		},
-		minimize: true,
-		minimizer: [
-			new TerserPlugin({
-				parallel: true,
-			}),
-		],
+		// minimize: true,
+		// minimizer: [
+		// 	new TerserPlugin({
+		// 		parallel: true,
+		// 	}),
+		// ],
 	},
 };
