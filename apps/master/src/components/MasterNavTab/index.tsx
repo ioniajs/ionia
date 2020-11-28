@@ -1,8 +1,8 @@
 import { useGlobalStore } from '@ionia/libs';
-import { useLocalStorage } from 'react-use';
 import { Dropdown, Menu, Tabs } from 'antd';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
+import { useLocalStorage } from 'react-use';
 import './index.less';
 
 const { TabPane } = Tabs;
@@ -14,24 +14,33 @@ const MasterNavTab = () => {
 	const globalStore = useGlobalStore();
 
 	const [currentNavTab, setCurrentNavTab] = useLocalStorage('io-current-nav-tab', '/');
-	const [openedNavTabs, setOpenedNavTabs] = useLocalStorage<{ key: string }[]>(
+	const [openedNavTabs, setOpenedNavTabs] = useLocalStorage<{ key: string; name: string }[]>(
 		'io-opened-nav-tabs',
 		[]
 	);
+
+	const HOME_TAB = { key: '/', name: '首页' };
 
 	const currentTab: string = globalStore?.state?.currentTab ?? currentNavTab;
 	const tabs: any[] = globalStore?.state?.tabs ?? openedNavTabs;
 
 	useEffect(() => {
 		if (currentTab) {
-			history.push(currentTab);
+			let tabs: any[] = openedNavTabs ?? [];
+
+			if (tabs.findIndex(t => t.key === '/') < 0) {
+				tabs = [HOME_TAB, ...tabs];
+			}
+
 			globalStore.setState({
-				tabs: openedNavTabs,
+				tabs,
 			});
 		}
 	}, []);
 
 	useEffect(() => {
+		console.log('!!!!!%%%%%%', currentTab);
+
 		history.push(currentTab);
 		setCurrentNavTab(currentTab);
 		setOpenedNavTabs(
@@ -40,25 +49,56 @@ const MasterNavTab = () => {
 				name: t.name,
 			}))
 		);
-	}, [currentTab]);
+	}, [globalStore?.state?.currentTab]);
+
+	const onMenuClick = ({ key }: any) => {
+		switch (key) {
+			case 'refresh':
+				history.replace(currentTab);
+				break;
+			case 'close-current':
+				// toRemoveTab(currentTab);
+				break;
+			case 'close-all':
+				globalStore.setState({
+					currentTab: HOME_TAB.key,
+					tabs: [HOME_TAB],
+				});
+				break;
+			default:
+				break;
+		}
+	};
 
 	const menuItems = (
-		<Menu>
-			<Menu.Item>
+		<Menu onClick={onMenuClick}>
+			<Menu.Item key='refresh'>
 				<div>刷新</div>
 			</Menu.Item>
-			<Menu.Item>
+			<Menu.Item key='close-current'>
 				<div>关闭当前页签</div>
 			</Menu.Item>
-			<Menu.Item>
+			<Menu.Item key='close-all'>
 				<div>关闭所有页签</div>
 			</Menu.Item>
 		</Menu>
 	);
 
-	const toRemoveTab = (tab: string) => {
+	const toRemoveTab = (e: any, tab: string) => {
+		e && e.stopPropagation();
+
+		let nextTab = currentTab;
+
+		if (tab === currentTab) {
+			const currentIndex = tabs.findIndex(item => item.key === tab);
+			const next = tabs[tabs.length > currentIndex + 1 ? currentIndex + 1 : currentIndex - 1];
+			nextTab = next.key;
+		}
+
 		const newTabs = tabs.filter(item => item.key !== tab);
+
 		globalStore.setState({
+			currentTab: nextTab,
 			tabs: newTabs,
 		});
 		setOpenedNavTabs(
@@ -80,26 +120,20 @@ const MasterNavTab = () => {
 				>
 					{tabs.map((i: any) => (
 						<TabPane
-							tab={
-								i.key === currentTab ? (
-									<span>
-										{i.name}
-										<i
-											className='iconfont icon-close'
-											onClick={() => toRemoveTab(i.key)}
-										/>
-									</span>
-								) : (
-									<div className='io-master__nav-tab-pane'>
-										<span>{i.name}</span>
-										<i
-											className='iconfont icon-close'
-											onClick={() => toRemoveTab(i.key)}
-										/>
-									</div>
-								)
-							}
 							key={i.key}
+							tab={
+								<span
+									className={
+										i.key === currentTab ? 'io-master__nav-tab--active' : ''
+									}
+								>
+									{i.name}
+									<i
+										className='iconfont icon-close'
+										onClick={e => toRemoveTab(e, i.key)}
+									/>
+								</span>
+							}
 						/>
 					))}
 				</Tabs>

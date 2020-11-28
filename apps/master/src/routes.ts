@@ -8,8 +8,14 @@ export interface IoniaMenuRoute {
 export default {
 	cms: [
 		{
+			path: '/',
+			name: '首页',
+			icon: 'icon-Column',
+		},
+		{
 			path: '/cms',
 			name: '组件演示',
+			icon: 'icon-Column',
 			children: [
 				{ path: '/cms', name: '基础组件' },
 				{ path: '/cms/detail', name: '详情页' },
@@ -23,27 +29,32 @@ export default {
 		{
 			path: '/cms/user',
 			name: '用户列表',
-			icon: 'icon-Column',
-		},
-		{
-			path: '/cms/practice-base',
-			name: '实践阵地',
-		},
-		{
-			path: '/cms/setting',
-			name: '系统设置',
+			icon: 'icon-user',
 		},
 		{
 			path: '/cms/site',
+			icon: 'icon-Column',
 			name: '站点管理',
 		},
 		{
 			path: '/cms/role',
+			icon: 'icon-Column',
 			name: '角色管理',
 		},
 		{
 			path: '/cms/content',
+			icon: 'icon-Column',
 			name: '内容管理',
+		},
+		{
+			path: '/cms/practice-base',
+			icon: 'icon-Column',
+			name: '实践阵地',
+		},
+		{
+			path: '/cms/setting',
+			icon: 'icon-setting',
+			name: '系统设置',
 		},
 	],
 } as Record<string, IoniaMenuRoute[]>;

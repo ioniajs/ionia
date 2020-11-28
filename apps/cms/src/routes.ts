@@ -1,32 +1,32 @@
-import Demo from '@/pages/Demo';
+import Content from '@/pages/Content';
+import DemoAMap from '@/pages/Demo/AMap';
 import DemoDetail from '@/pages/Demo/Detail';
+import DemoDynamicFormItem from '@/pages/Demo/DynamicFormItem';
+import DemoETable from '@/pages/Demo/ETable';
+import DemoModalTable from '@/pages/Demo/ModalTable';
+import DemoModalTransfer from '@/pages/Demo/ModalTransfer';
+import Home from '@/pages/Home';
 import PracticeBase from '@/pages/PracticeBase';
-import Setting from '@/pages/Setting';
-import Site from '@/pages/Site';
-import User from '@/pages/User';
-import UserBatchCreate from '@/pages/User/BatchCreate';
-import SiteCreate from '@/pages/Site/Create';
-import SiteDetail from '@/pages/Site/Detail';
-import SiteBatchCreate from '@/pages/Site/BatchCreate';
-import SitePublishStatics from '@/pages/Site/PublishStatics';
-import { ExceptionPage } from '@ionia/libs';
-import DemoAMap from './pages/Demo/AMap';
-import DemoETable from './pages/Demo/ETable';
-import DemoModalTable from './pages/Demo/ModalTable';
-import DemoModalTransfer from './pages/Demo/ModalTransfer';
-import DemoDynamicFormItem from './pages/Demo/DynamicFormItem';
-import UserDetail from './pages/User/Detail';
+import PracticeBaseBatchCreate from '@/pages/PracticeBase/BatchCreate';
 import PracticeBaseCreate from '@/pages/PracticeBase/Create';
 import PracticeBaseDetail from '@/pages/PracticeBase/Detail';
-import PracticeBaseBatchCreate from '@/pages/PracticeBase/BatchCreate';
-import Content from '@/pages/Content';
-
-import Role from './pages/Role';
+import Role from '@/pages/Role';
 import RoleDetail from '@/pages/Role/Detail';
+import Setting from '@/pages/Setting';
+import Site from '@/pages/Site';
+import SiteBatchCreate from '@/pages/Site/BatchCreate';
+import SiteCreate from '@/pages/Site/Create';
+import SiteDetail from '@/pages/Site/Detail';
+import SitePublishStatics from '@/pages/Site/PublishStatics';
+import User from '@/pages/User';
+import UserBatchCreate from '@/pages/User/BatchCreate';
+import UserDetail from '@/pages/User/Detail';
+import { ExceptionPage } from '@ionia/libs';
+
 export default [
 	{
 		path: '/',
-		component: Demo,
+		component: Home,
 	},
 	{
 		path: '/detail',
