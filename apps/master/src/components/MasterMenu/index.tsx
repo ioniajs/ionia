@@ -1,6 +1,6 @@
 import { useGlobalStore } from '@ionia/libs';
 import { Menu } from 'antd';
-import React, { ReactNode, useState } from 'react';
+import React, { ReactNode } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import routesMap, { IoniaMenuRoute } from '../../routes';
 import './index.less';

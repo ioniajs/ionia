@@ -1,7 +1,7 @@
 import { isDev, logger, MasterApplication } from '@ionia/libs';
 import { IoniaApp } from '@ionia/libs/es/core/master-application';
 import * as React from 'react';
-import { HashRouter as Router } from 'react-router-dom';
+import { BrowserRouter as Router } from 'react-router-dom';
 import App from './App';
 import './i18n';
 

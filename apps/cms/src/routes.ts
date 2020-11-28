@@ -29,27 +29,27 @@ export default [
 		component: Home,
 	},
 	{
-		path: '/detail',
+		path: '/demo/detail',
 		component: DemoDetail,
 	},
 	{
-		path: '/amap',
+		path: '/demo/amap',
 		component: DemoAMap,
 	},
 	{
-		path: '/etable',
+		path: '/demo/etable',
 		component: DemoETable,
 	},
 	{
-		path: '/modal-table',
+		path: '/demo/modal-table',
 		component: DemoModalTable,
 	},
 	{
-		path: '/modal-transfer',
+		path: '/demo/modal-transfer',
 		component: DemoModalTransfer,
 	},
 	{
-		path: '/dynamic-from-item',
+		path: '/demo/dynamic-from-item',
 		component: DemoDynamicFormItem,
 	},
 	{

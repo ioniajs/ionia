@@ -8,22 +8,21 @@ export interface IoniaMenuRoute {
 export default {
 	cms: [
 		{
-			path: '/',
+			path: '/cms',
 			name: '首页',
 			icon: 'icon-Column',
 		},
 		{
-			path: '/cms',
+			path: '/cms/demo',
 			name: '组件演示',
 			icon: 'icon-Column',
 			children: [
-				{ path: '/cms', name: '基础组件' },
-				{ path: '/cms/detail', name: '详情页' },
-				{ path: '/cms/amap', name: '高德地图' },
-				{ path: '/cms/etable', name: '可编辑表格' },
-				{ path: '/cms/modal-table', name: '弹窗表格' },
-				{ path: '/cms/modal-transfer', name: '弹窗穿梭框' },
-				{ path: '/cms/dynamic-from-item', name: '动态增减列表' },
+				{ path: '/cms/demo/detail', name: '详情页' },
+				{ path: '/cms/demo/amap', name: '高德地图' },
+				{ path: '/cms/demo/etable', name: '可编辑表格' },
+				{ path: '/cms/demo/modal-table', name: '弹窗表格' },
+				{ path: '/cms/demo/modal-transfer', name: '弹窗穿梭框' },
+				{ path: '/cms/demo/dynamic-from-item', name: '动态增减列表' },
 			],
 		},
 		{

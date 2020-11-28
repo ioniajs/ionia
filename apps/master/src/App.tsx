@@ -1,4 +1,4 @@
-import { SlaveApp } from '@ionia/libs';
+import { RedirectPage, SlaveApp } from '@ionia/libs';
 import React from 'react';
 import { hot } from 'react-hot-loader/root';
 import { Route } from 'react-router';
@@ -12,6 +12,7 @@ const App = () => {
 			<Route path='/auth'>
 				<SlaveApp />
 			</Route>
+			<Route path='/redirect' component={RedirectPage} />
 			<CacheRoute path='/'>
 				<MasterLayout>
 					<SlaveApp />
