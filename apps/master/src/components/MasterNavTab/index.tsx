@@ -13,13 +13,13 @@ const MasterNavTab = () => {
 	const history = useHistory();
 	const globalStore = useGlobalStore();
 
-	const [currentNavTab, setCurrentNavTab] = useLocalStorage('io-current-nav-tab', '/');
+	const HOME_TAB = { key: '/', name: '首页' };
+
+	const [currentNavTab, setCurrentNavTab] = useLocalStorage('io-current-nav-tab', HOME_TAB.key);
 	const [openedNavTabs, setOpenedNavTabs] = useLocalStorage<{ key: string; name: string }[]>(
 		'io-opened-nav-tabs',
 		[]
 	);
-
-	const HOME_TAB = { key: '/', name: '首页' };
 
 	const currentTab: string = globalStore?.state?.currentTab ?? currentNavTab;
 	const tabs: any[] = globalStore?.state?.tabs ?? openedNavTabs;
@@ -28,7 +28,7 @@ const MasterNavTab = () => {
 		if (currentTab) {
 			let tabs: any[] = openedNavTabs ?? [];
 
-			if (tabs.findIndex(t => t.key === '/') < 0) {
+			if (tabs.findIndex(t => t.key === HOME_TAB.key) < 0) {
 				tabs = [HOME_TAB, ...tabs];
 			}
 
@@ -39,8 +39,6 @@ const MasterNavTab = () => {
 	}, []);
 
 	useEffect(() => {
-		console.log('!!!!!%%%%%%', currentTab);
-
 		history.push(currentTab);
 		setCurrentNavTab(currentTab);
 		setOpenedNavTabs(
@@ -57,6 +55,9 @@ const MasterNavTab = () => {
 				history.replace(currentTab);
 				break;
 			case 'close-current':
+				// toRemoveTab(currentTab);
+				break;
+			case 'close-other':
 				// toRemoveTab(currentTab);
 				break;
 			case 'close-all':
@@ -77,6 +78,9 @@ const MasterNavTab = () => {
 			</Menu.Item>
 			<Menu.Item key='close-current'>
 				<div>关闭当前页签</div>
+			</Menu.Item>
+			<Menu.Item key='close-other'>
+				<div>关闭其它页签</div>
 			</Menu.Item>
 			<Menu.Item key='close-all'>
 				<div>关闭所有页签</div>

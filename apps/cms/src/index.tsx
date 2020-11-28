@@ -1,6 +1,6 @@
 import { Application, isSlave } from '@ionia/libs';
 import * as React from 'react';
-import { BrowserRouter as Router } from 'react-router-dom';
+import { HashRouter as Router } from 'react-router-dom';
 import App from './App';
 
 const app = new Application(

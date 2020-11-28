@@ -1,6 +1,7 @@
 import { SlaveApp } from '@ionia/libs';
 import React from 'react';
 import { hot } from 'react-hot-loader/root';
+import { Route } from 'react-router';
 import CacheRoute, { CacheSwitch } from 'react-router-cache-route';
 import './App.less';
 import MasterLayout from './layouts/MasterLayout';
@@ -8,9 +9,9 @@ import MasterLayout from './layouts/MasterLayout';
 const App = () => {
 	return (
 		<CacheSwitch>
-			<CacheRoute path='/auth'>
+			<Route path='/auth'>
 				<SlaveApp />
-			</CacheRoute>
+			</Route>
 			<CacheRoute path='/'>
 				<MasterLayout>
 					<SlaveApp />
