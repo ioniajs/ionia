@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Select, Checkbox, Form } from 'antd';
+import { Select, Checkbox, Form, Dropdown, Menu } from 'antd';
 import {
 	QueryFilter,
 	ProFormSelect,
@@ -130,6 +130,30 @@ export const List = () => {
 			}}
 		/>
 	);
+	// 右下角功能区，hover下拉
+	const menu = (
+		<Menu>
+			<Menu.Item>
+				<a>归档</a>
+			</Menu.Item>
+			<Menu.Item>
+				<a>置顶</a>
+			</Menu.Item>
+			<Menu.Item>
+				{' '}
+				<a>取消热点</a>
+			</Menu.Item>
+			<Menu.Item>
+				<a>取消头条</a>
+			</Menu.Item>
+			<Menu.Item>
+				<a>取消推荐</a>
+			</Menu.Item>
+			<Menu.Item>
+				<a>取消推送</a>
+			</Menu.Item>
+		</Menu>
+	);
 	return (
 		<div>
 			<div className='io-cms-content-list-search'>
@@ -216,99 +240,105 @@ export const List = () => {
 				dataSource={dataSource}
 				headerTitle={
 					<Form className='io-cms-content-pro-list-header'>
-						{/* <span><Checkbox>全选</Checkbox></span> */}
 						<Form.Item label='' name='' style={{ display: 'inline-block' }}>
 							<Checkbox>全选</Checkbox>
 						</Form.Item>
-						{/* <span><Select options={changeContentStatus} placeholder='改变内容状态' style={{ width: '224px' }} /></span>
-					<span><Select options={changeOtherActions} placeholder='其他操作' style={{ width: '224px', marginLeft: '24px' }} /></span>
-					<span><Select options={changeContentTypes} placeholder='改变内容类型' style={{ width: '224px', marginLeft: '24px' }} listHeight={200} /></span> */}
-						<Form.Item label='' name='' style={{ display: 'inline-block' }}>
+						<Form.Item
+							label=''
+							name='changeContentStatus'
+							style={{ display: 'inline-block', marginLeft: '15px' }}
+						>
 							<Select
 								options={changeContentStatus}
 								placeholder='改变内容状态'
-								className='io-cms-content-pro-list-hearder-options'
+								style={{ width: '224px' }}
 							/>
 						</Form.Item>
-						<Form.Item label='' name='' style={{ display: 'inline-block' }}>
+						<Form.Item
+							label=''
+							name='otherOperation'
+							style={{ display: 'inline-block', marginLeft: '24px' }}
+						>
 							<Select
 								options={changeOtherActions}
 								placeholder='其他操作'
-								className='io-cms-content-pro-list-hearder-options'
+								style={{ width: '224px' }}
 							/>
 						</Form.Item>
-						<Form.Item label='' name='' style={{ display: 'inline-block' }}>
+						<Form.Item
+							label=''
+							name='changeContentTypes'
+							style={{ display: 'inline-block', marginLeft: '24px' }}
+						>
 							<Select
 								options={changeContentTypes}
 								placeholder='改变内容类型'
-								className='io-cms-content-pro-list-hearder-options'
+								listHeight={200}
+								style={{ width: '224px' }}
 							/>
 						</Form.Item>
 					</Form>
 				}
 				metas={{
-					title: {
-						dataIndex: 'user',
-						title: '用户',
-						render: (_, row) => <span>{row.user}</span>,
-					},
-					subTitle: {
-						render: (_, row) => <span>subTitlesubTitlesubTitlesubTitlesubTitle</span>,
-					},
-					description: {
-						render: (_, row) => {
-							return (
-								<div className='io-cms-content-pro-list-meta-desc'>
-									<span className='io-cms-content-pro-list-meta-desc__div'>
-										<span className='io-cms-content-pro-list-meta-desc-div-text__span'>
-											已发布
-										</span>
-									</span>
-									<span className='io-cms-content-pro-list-meta-desc-count'>
-										<span className='count-icon__span'>
-											<i className='iconfont icon-eye1' />
-											&nbsp;<span>97</span>
-										</span>
-										<span className='count-icon__span'>
-											<i className='iconfont icon-user1' />
-											&nbsp;<span>82</span>
-										</span>
-										<span className='count-icon__span'>
-											<i className='iconfont icon-message' />
-											&nbsp;<span>15</span>
-										</span>
-										<span className='count-icon__span'>
-											<i className='iconfont icon-like' />
-											&nbsp;<span>36</span>
-										</span>
-									</span>
+					content: {
+						render: () => (
+							<div className='io-cms-content-list-item-content__div'>
+								<div className='io-cms-content-list-item-content-top__div'>
+									<p className='io-cms-content-list-item-content-top-section__span'>
+										【栏目】昌北机场T1航站楼改造力争月底完工昌北机场T1航站楼改造力争月底完工昌北机场
+									</p>
+									<p className='io-cms-content-list-item-content-top-actions_span'>
+										<i className='iconfont icon-vertical-align-top ' />
+										<i className='iconfont icon-fire item-content-top-action' />
+										<i className='iconfont icon-toutiao item-content-top-action' />
+										<i className='iconfont icon-like item-content-top-action' />
+										<i className='iconfont icon-ellipsis item-content-top-action' />
+									</p>
+									<p className='io-cms-content-list-item-content-top-time__span'>
+										2019-11-29 19:17:52
+									</p>
 								</div>
-							);
-						},
-					},
-					// content: {
-					// 	render: () => {
-					// 		return 'contentcontentcontentcontentcontentcontentcontent'
-					// 	}
-					// },
-					// extra: {
-					// 	render: () => {
-					// 		return 'extraextraextraextraextraextra'
-					// 	}
-					// },
-					actions: {
-						render: (_, row) => {
-							return [
-								<a>下线</a>,
-								<a>预览</a>,
-								<a>浏览</a>,
-								<a>删除</a>,
-								<a>复制</a>,
-								<a>移动</a>,
-								<a>排序</a>,
-								<i className='iconfont icon-ellipsis' />,
-							];
-						},
+								<div className='io-cms-content-list-item-content-middle__div'>
+									<div className='io-cms-content-list-item-content-middle-desc__div'>
+										<span className='io-cms-content-list-content-desc__div'>
+											<span className='io-cms-content-list-content-desc-div-text__span'>
+												已发布
+											</span>
+										</span>
+										<span className='io-cms-content-list-content-desc-count'>
+											<span className='count-icon__span'>
+												<i className='iconfont icon-eye1' />
+												&nbsp;<span>97</span>
+											</span>
+											<span className='count-icon__span'>
+												<i className='iconfont icon-user1' />
+												&nbsp;<span>82</span>
+											</span>
+											<span className='count-icon__span'>
+												<i className='iconfont icon-message' />
+												&nbsp;<span>15</span>
+											</span>
+											<span className='count-icon__span'>
+												<i className='iconfont icon-like' />
+												&nbsp;<span>36</span>
+											</span>
+										</span>
+									</div>
+									<div className='io-cms-content-list-item-content-middle-actions'>
+										<a className='content-middle-action'>下载</a>
+										<a className='content-middle-action'>预览</a>
+										<a className='content-middle-action'>浏览</a>
+										<a className='content-middle-action'>删除</a>
+										<a className='content-middle-action'>复制</a>
+										<a className='content-middle-action'>移动</a>
+										<a className='content-middle-action'>排序</a>
+										<Dropdown overlay={menu}>
+											<i className='iconfont icon-ellipsis content-middle-action' />
+										</Dropdown>
+									</div>
+								</div>
+							</div>
+						),
 					},
 				}}
 				rowSelection={{
