@@ -92,8 +92,8 @@ export default () => {
 						<Input type='number' ref={ref} onPressEnter={save} onBlur={save} />
 					</Form.Item>
 				) : (
-					<div onClick={toggleEdit}>{children}</div>
-				);
+						<div onClick={toggleEdit}>{children}</div>
+					);
 			},
 		},
 		{
@@ -156,8 +156,6 @@ export default () => {
 				<Form
 					form={form}
 					scrollToFirstError
-					labelCol={{ span: 2 }}
-					wrapperCol={{ span: 12 }}
 				>
 					<Form.Item
 						name='parentId'
@@ -172,7 +170,7 @@ export default () => {
 								runGainSiteTree(e);
 							}}
 							className='io-cms-site-batch-create__treeselect'
-							style={{ width: '224px' }}
+							// style={{ width: 224 }}
 							dropdownStyle={{ maxHeight: 520, overflow: 'auto', minWidth: 420 }}
 						/>
 					</Form.Item>

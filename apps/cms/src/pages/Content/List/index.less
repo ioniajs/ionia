@@ -10,85 +10,121 @@
 .io-cms-content-pro-list-container {
 	.io-cms-content-pro-list-header {
 		margin-left: -24px;
-		.io-cms-content-pro-list-hearder-options {
-			margin-left: 24px;
-		}
 		// .io-cms-content-pro-list-hearder-options:first-child {
 		// 	margin-left: 16px;
 		// }
 	}
 	.ant-pro-list-row {
 		width: 100%;
-		height: 117px;
+		height: 136px;
 		background: #ffffff;
 		border: 1px solid #f0f0f0;
 		padding: 0px;
 		margin-bottom: 24px;
-		.ant-pro-list-row-header-option {
-			margin-left: 24px;
-		}
 		.ant-list-item {
 			.ant-pro-list-row-header {
-				.ant-pro-list-row-header-option {
-					margin-top: -5px;
-					.ant-pro-list-row-checkbox {
-						.ant-checkbox-wrapper {
-							margin-top: -17px;
-							border-bottom: 1px solid #f0f0f0;
-							margin-left: -24px;
-							background: #fafafa;
-							height: 35px;
-							line-height: 35px;
-							width: 53px;
-							text-align: center;
-							padding-top: 1px;
-							padding-left: 10px;
-						}
-					}
+				flex: none;
+				height: 48px;
+				margin-top: -101px;
+				padding: 14px 0px 11px 24px;
+				overflow: hidden;
+				background: #fafafa;
+				border-bottom: 1px solid #f0f0f0;
+				border-top: 1px solid #f0f0f0;
+				.ant-list-item-meta {
+					width: 0px !important;
 				}
 			}
-		}
-		.ant-list-item-meta {
-			.ant-list-item-meta-title {
-				height: 36px;
-				background: #fafafa;
-				border: 1px solid #f0f0f0;
-				border-left: none;
-				line-height: 36px;
-				margin-top: -13px;
-			}
-			.ant-list-item-meta-description {
-				margin-top: 24px;
-				margin-left: -28px;
-				.ant-pro-list-row-description {
-					.io-cms-content-pro-list-meta-desc {
-						.io-cms-content-pro-list-meta-desc__div {
-							width: 73px;
-							height: 32px;
-							display: inline-block;
-							background: #eff6ff;
-							border-radius: 2px;
-							line-height: 32px;
-							text-align: center;
-							.io-cms-content-pro-list-meta-desc-div-text__span {
-								font-size: 14px;
+			.ant-pro-list-row-content {
+				height: 136px;
+				margin: -13px 0px 0px -10px;
+				.io-cms-content-list-item-content__div {
+					width: 100%;
+					height: 100%;
+					// border: 1px solid red;
+					justify-content: flex-start;
+					.io-cms-content-list-item-content-top__div {
+						height: 48px;
+						background: #fafafa;
+						border: 1px solid #f0f0f0;
+						border-left: none;
+						line-height: 48px;
+						display: flex;
+						position: relative;
+						.io-cms-content-list-item-content-top-section__span {
+							height: 48px;
+							width: 40%;
+							max-width: 640px;
+							font-size: 16px;
+							font-family: PingFang SC;
+							font-weight: 500;
+							color: #262626;
+							overflow: hidden; /*超出部分隐藏*/
+							white-space: nowrap; /*不换行*/
+							text-overflow: ellipsis; /*超出部分文字以...显示*/
+						}
+						.io-cms-content-list-item-content-top-actions_span {
+							width: 20%;
+							max-width: 712px;
+							margin-left: 40px;
+							.item-content-top-action {
+								margin-left: 32px;
+								display: inline-block;
+								color: #262626;
+							}
+						}
+						.io-cms-content-list-item-content-top-time__span {
+							font-size: 14px;
+							font-family: PingFang SC;
+							font-weight: 400;
+							color: #bfbfbf;
+							position: absolute;
+							right: 24px;
+						}
+					}
+					.io-cms-content-list-item-content-middle__div {
+						margin: 32px 0 0 -16px;
+						height: 32px;
+						line-height: 32px;
+						display: flex;
+						position: relative;
+						.io-cms-content-list-item-content-middle-desc__div {
+							.io-cms-content-list-content-desc__div {
+								width: 73px;
+								height: 32px;
+								display: inline-block;
+								background: #eff6ff;
+								border-radius: 2px;
+								line-height: 32px;
+								text-align: center;
+								.io-cms-content-list-content-desc-div-text__span {
+									font-size: 14px;
+									font-family: PingFang SC;
+									font-weight: 400;
+									color: #1c6cd8;
+									line-height: 22px;
+								}
+							}
+							.io-cms-content-list-content-desc-count {
+								.count-icon__span {
+									margin-left: 24px;
+									color: #8c8c8c;
+								}
+							}
+						}
+						.io-cms-content-list-item-content-middle-actions {
+							position: absolute;
+							right: 24px;
+							.content-middle-action {
+								margin-left: 16px;
 								font-family: PingFang SC;
 								font-weight: 400;
-								color: #1c6cd8;
-								line-height: 22px;
-							}
-						}
-						.io-cms-content-pro-list-meta-desc-count {
-							.count-icon__span {
-								margin-left: 24px;
+								color: #262626;
 							}
 						}
 					}
 				}
 			}
-		}
-		.ant-list-item-action {
-			margin-top: 46px;
 		}
 	}
 	.ant-pro-list-row:last-child {
