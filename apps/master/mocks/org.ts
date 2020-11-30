@@ -422,9 +422,8 @@ export default [
 					id: '121312411212',
 					introduce: 'test',
 					linkmanList: [
-						{ name: 'test1', parentId: '1213' },
-						{ name: 'test2', parentId: '1212' },
-						{ name: 'test3', parentId: '1211' },
+						{ username: '宋晓峰', phone: 1871101101101 },
+						{ username: '宋晓峰', phone: 1871101101101 },
 					],
 					name: 'test',
 					parentId: '1210',

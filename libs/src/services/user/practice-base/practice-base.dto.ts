@@ -3,7 +3,7 @@ import { UserDTO, PicDTO } from '../../common.dto';
 //#region
 export interface OrgBatchChildDTO {
 	area: string; // 地区
-	children: OrgBatchChildDTO[]; //子结点
+	children?: OrgBatchChildDTO[]; //子结点
 	code: string; // 阵地编号
 	name: string; // 阵地名称
 	type: string; // 阵地类型

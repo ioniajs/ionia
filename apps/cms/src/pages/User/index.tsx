@@ -61,6 +61,7 @@ export default () => {
 					value: '信息录入员',
 				},
 			],
+			onFilter: (value, record) => record.roleNames.indexOf(value) === 0,
 		},
 		{
 			title: '最后登录时间',
@@ -99,12 +100,12 @@ export default () => {
 			),
 			filters: [
 				{
-					value: '1',
+					value: '启用',
 					text: '启用',
 				},
 				{
 					text: '禁用',
-					value: '0',
+					value: '禁用',
 				},
 			],
 		},
