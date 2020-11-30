@@ -1,4 +1,3 @@
-const { name } = require('./package.json');
 const { resolve } = require('path');
 const { merge } = require('webpack-merge');
 const CopyWebpackPlugin = require('copy-webpack-plugin');

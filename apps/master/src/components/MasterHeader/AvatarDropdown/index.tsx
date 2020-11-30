@@ -1,9 +1,8 @@
-import { LogoutOutlined, SettingOutlined, UserOutlined } from '@ant-design/icons';
 import { Avatar, Dropdown, Menu } from 'antd';
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import './index.less';
 import ChangePsdForm from './components';
+import './index.less';
 
 export interface AvatarDropdownProps {}
 
@@ -58,14 +57,14 @@ const AvatarDropdown: React.FC<AvatarDropdownProps> = () => {
 		<>
 			<Dropdown overlay={menus} visible={visible} onVisibleChange={onVisibleChange}>
 				<span className='io-master__header--item'>
-					<Avatar size='small' icon={<UserOutlined />} />
-					<span className='icon-name'>User</span>
+					<Avatar
+						size={24}
+						src={'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png'}
+					/>
+					<span className='io-user-name'>超级管理员</span>
 				</span>
 			</Dropdown>
-			<ChangePsdForm
-				modalVisible={modalVisible}
-				setModalVisible={setModalVisible}
-			></ChangePsdForm>
+			<ChangePsdForm modalVisible={modalVisible} setModalVisible={setModalVisible} />
 		</>
 	);
 };

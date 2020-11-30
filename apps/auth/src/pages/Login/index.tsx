@@ -3,6 +3,7 @@ import { getSystemSetting, logger, userLogin } from '@ionia/libs';
 import { useLocalStorageState, useMount } from 'ahooks';
 import { Button, Form, Input } from 'antd';
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import './index.less';
 
 interface LoginForm {
@@ -11,6 +12,7 @@ interface LoginForm {
 }
 
 const Login = () => {
+	const history = useHistory();
 	const [loginText, setLoginText] = useState('登录');
 	const [status, setStatus] = useState('close');
 	const [codeStatus] = useState(false);
@@ -38,10 +40,11 @@ const Login = () => {
 		});
 
 		if (code == 200) {
-			setLoginText('登录成功');
-			setStatus('complete');
 			setTimeout(() => {
-				history.pushState(null, '', '/dashboard');
+				setLoginText('登录成功');
+				setStatus('complete');
+
+				location.href = '/';
 			}, 2000);
 		}
 	};

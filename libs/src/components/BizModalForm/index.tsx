@@ -5,7 +5,7 @@ import React, { forwardRef, ReactNode, useImperativeHandle, useState } from 'rea
 import './index.less';
 import { validateMessages } from './rule';
 
-export interface BizBizModalFormRef {
+export interface BizModalFormRef {
 	open: () => void;
 	close: () => void;
 }
