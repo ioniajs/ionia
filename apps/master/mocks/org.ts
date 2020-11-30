@@ -440,4 +440,39 @@ export default [
 			})
 		);
 	}),
+	// 阵地移入用户分页
+	rest.get('/module-user/cmsmanager/org/list/in', (req, res, ctx) => {
+		return res(
+			ctx.json({
+				code: 200,
+				data: {
+					content: [
+						{
+							id: '1324982039954354177',
+							orgName: '金磊科技',
+							realName: '江西金磊科技',
+							username: 'system',
+						},
+						{
+							id: '1324982716730470402',
+							orgName: '江西阵地',
+							realName: '江西金磊科技',
+							username: 'test',
+						},
+						{
+							id: '1324984812695531522',
+							orgName: '沈阳阵地',
+							realName: '江西金磊科技',
+							username: 'test3',
+						},
+					],
+					pageNo: 1,
+					pageSize: 10,
+					pages: 1,
+					total: 5,
+				},
+				message: '成功',
+			})
+		);
+	}),
 ];

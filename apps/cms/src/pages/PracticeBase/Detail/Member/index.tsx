@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { ActionType, ProColumns } from '@ant-design/pro-table';
-import { BizPage, BizTable, UserPageVO } from '@ionia/libs';
-import { Button } from 'antd';
+import { BizPage, BizTable, UserPageVO, userPaging } from '@ionia/libs';
+import { Button, Modal, TreeSelect, Form, Switch } from 'antd';
 import './index.less';
+import { fromPairs } from 'lodash';
 interface BaseMemberPorps {
 	id: string;
 }
@@ -47,9 +48,7 @@ export const BaseMember = ({ id }: BaseMemberPorps) => {
 			title: '联系方式',
 			key: 'telephone',
 			dataIndex: 'telephone',
-			sorter: true,
 			width: 210,
-			// render: lastLoginTime => `${lastLoginTime.first} ${lastLoginTime.last}`,
 		},
 		{
 			title: '电子邮箱',
@@ -62,6 +61,13 @@ export const BaseMember = ({ id }: BaseMemberPorps) => {
 			key: 'status',
 			dataIndex: 'status',
 			width: 135,
+			render: (_, row) => (
+				<Switch
+					checked={row.status === 1}
+					checkedChildren='开启'
+					unCheckedChildren='禁用'
+				/>
+			),
 			filters: [
 				{
 					value: '1',
@@ -85,6 +91,11 @@ export const BaseMember = ({ id }: BaseMemberPorps) => {
 			),
 		},
 	];
+	const [show, setShow] = useState(false);
+	const [form] = Form.useForm();
+	const handOk = () => {
+		form.submit();
+	};
 	return (
 		<div className='io-cms-practice-base-detail-member__div'>
 			<BizPage>
@@ -96,13 +107,41 @@ export const BaseMember = ({ id }: BaseMemberPorps) => {
 								新建用户
 							</Button>
 							<Button style={{ marginLeft: 8 }}>移入用户</Button>
-							<Button style={{ marginLeft: 8 }}>批量删除</Button>
+							<Button
+								onClick={() => {
+									setShow(true);
+								}}
+								style={{ marginLeft: 8 }}
+							>
+								批量移除
+							</Button>
 						</>
 					)}
 					rowSelection={{}}
 					columns={columns}
+					request={(params: any, sort: any, filter: any) => {
+						return userPaging({}).then((data: any) => ({ data: data.data.content }));
+					}}
 				></BizTable>
 			</BizPage>
+			<Modal
+				width={615}
+				title='移除用户'
+				onOk={handOk}
+				onCancel={() => setShow(false)}
+				visible={show}
+				className='io-cms-practice-base__member-delete'
+			>
+				<Form form={form}>
+					<Form.Item
+						label='选择移除后的所属阵地'
+						rules={[{ required: true }, { message: '请选择所属阵地' }]}
+						name='userIds'
+					>
+						<TreeSelect placeholder='请选择所属阵地'></TreeSelect>
+					</Form.Item>
+				</Form>
+			</Modal>
 		</div>
 	);
 };
