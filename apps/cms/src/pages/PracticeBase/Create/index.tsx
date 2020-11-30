@@ -213,14 +213,18 @@ export default () => {
 										{...layout}
 										label={
 											fields.length === 0 ? (
-												<span>日常联系人</span>
+												<span>日常联系人:</span>
 											) : (
 												<span></span>
 											)
 										}
 										colon={false}
 									>
-										<Button>
+										<Button
+											type='dashed'
+											style={{ width: 664 }}
+											onClick={() => add()}
+										>
 											<i className='iconfont icon-plus-square' />
 											添加
 										</Button>

@@ -1,4 +1,5 @@
 import { logger } from '@ionia/libs';
+import { useMount, useSet } from 'ahooks';
 import { Checkbox, Collapse, Row, Col, Affix, Button } from 'antd';
 import React, { useState } from 'react';
 import './index.less';
@@ -8,54 +9,60 @@ const { Panel } = Collapse;
 function callback(key: any) {
 	console.log(key);
 }
+interface treeItem {
+	title: string;
+	key: string;
+	children: treeItem[];
+	permissionFlag: number;
+}
 
-const treeData = [
+const treeData: treeItem[] = [
 	{
 		children: [
 			{
 				children: [
 					{
-						key: '1331776990746841089',
+						key: '141',
 						title: '四级1',
 						permissionFlag: 1,
 						children: [],
 					},
 					{
-						key: '1331776990746841081',
+						key: '142',
 						title: '四级2',
 						permissionFlag: 1,
 						children: [],
 					},
 					{
-						key: '1331776990746841082',
+						key: '143',
 						title: '四级3',
 						permissionFlag: 0,
 						children: [],
 					},
 					{
-						key: '1331776990746841083',
+						key: '144',
 						title: '四级4',
 						permissionFlag: 0,
 						children: [],
 					},
 				],
-				key: '1331773069462675457',
+				key: '14',
 				title: '二级4-三级1',
 				permissionFlag: 0,
 			},
 			{
-				key: '1331129374329577473',
+				key: '13',
 				title: '二级3',
 				permissionFlag: 0,
 				children: [
 					{
-						key: '1331129374329577411',
+						key: '131',
 						title: '三级1',
-						permissionFlag: 0,
+						permissionFlag: 1,
 						children: [],
 					},
 					{
-						key: '1331129374329577412',
+						key: '132',
 						title: '三级2',
 						permissionFlag: 0,
 						children: [],
@@ -63,21 +70,53 @@ const treeData = [
 				],
 			},
 			{
-				key: '1331129362661023745',
+				key: '12',
 				title: '二级2',
-				permissionFlag: 0,
+				permissionFlag: 1,
 				children: [],
 			},
 			{
-				key: '1331129325021339650',
+				key: '11',
 				title: '二级1',
 				permissionFlag: 0,
 				children: [],
 			},
 		],
-		key: '1329720712180531202',
+		key: '1',
 		title: '顶级',
 		permissionFlag: 0,
+	},
+	{
+		key: '2',
+		title: '系统设置',
+		permissionFlag: 0,
+		children: [
+			{
+				key: '21',
+				title: '系统设置二级2',
+				permissionFlag: 0,
+				children: [
+					{
+						key: '211',
+						title: '系统设置三级2',
+						permissionFlag: 1,
+						children: [],
+					},
+					{
+						key: '212',
+						title: '系统设置三级1',
+						permissionFlag: 0,
+						children: [],
+					},
+				],
+			},
+			{
+				key: '22',
+				title: '系统设置二级1',
+				permissionFlag: 0,
+				children: [],
+			},
+		],
 	},
 	{
 		key: '0',
@@ -87,183 +126,157 @@ const treeData = [
 	},
 ];
 
-//获取选中的子级节点
-function getKey(arr: any, ids: string[] = []) {
-	arr.forEach(({ key, children }: any) => {
-		if (key) {
-			ids.push(key);
-		}
-		if (children && children.length > 0) {
-			getKey(children, ids);
-		}
-	});
-	return ids;
-}
-
-/**
- * 改变子级的复选框
- */
-
-function changeFlag(arr: any, e?: any) {
-	console.log(e.target.checked);
-	arr.forEach((item: any) => {
-		e.target.checked ? (item.permissionFlag = 1) : (item.permissionFlag = 0);
-		if (item.children.length > 0) {
-			changeFlag(item.children);
-		}
-	});
-}
-
-/**
- * 一级判断子级是否选中
- * 全选或者全部没选 则是false 有个别则是半选
- */
-
-function isChecked(arr: any) {}
-
-/**
- * 二级判断子级是否选中
- * 全选或者全部没选 则是false 有个别则是半选
- */
-
-function isCheck(arr: any) {
-	let obj = arr.find((t: any) => t.permissionFlag == 0);
-	let a = arr.find((t: any) => t.permissionFlag == 1);
-	return obj && a ? true : false;
-}
-
-/**
- *
- * @param arr
- * @param item
- * 二级判断是否全选
- */
-
-function isCheckAll(arr: any, item: any) {
-	if (arr.length > 0) {
-		let a = arr.find((t: any) => t.permissionFlag == 0);
-		return a ? false : true;
-	} else {
-		if (item.permissionFlag == 1) {
-			return true;
-		} else {
-			return false;
-		}
-	}
-}
-
-function Check(data: any) {
-	let arr: any[] = [];
-	if (data.children.length > 0) {
-		// data.children.map((item: any) => {
-		// 	arr.push(item.permissionFlag == 0);
-		// 	if (item.children.length > 0) {
-		// 		item.children.map((i: any) => {
-		// 			arr.push(i.permissionFlag == 0);
-		// 		});
-		// 	}
-		// });
-		// console.log(arr);
-		// let flag = arr.findIndex(value => value == true);
-		// if (flag == -1) {
-		// 	return true;
-		// }
-		// if (arr.findIndex(value => value == false)) {
-		// 	return false;
-		// }
-		return false;
-	} else {
-		if (data.permissionFlag == 1) {
-			return true;
-		} else {
-			return false;
-		}
-	}
-}
-
-/**
- *
- * @param node
- * 递归循环获取想要的数据
- */
-interface treeItem {
-	title: string;
-	key: string;
-	children: treeItem[];
-	permissionFlag: number;
-}
-// const treeData: treeItem[] = tree1;
-
 export default ({ rolekey }: any) => {
-	const [tree, setTree] = useState<treeItem[]>(treeData);
-	//改变每个功能的按钮的值
-	function onChange(row: any, data: number, e: any) {
-		e.target.checked ? (row.permissionFlag = 1) : (row.permissionFlag = 0);
-		console.log(row);
-	}
-	const submitData = () => {
-		logger.debug(tree);
+	const [activeKey, setActiveKey] = useState<string[]>([]);
+	const [checkedKeys, { add, has, remove, reset }] = useSet<string>([]);
+
+	useMount(() => {
+		getDefaultList(treeData);
+	});
+
+	/**
+	 * 获取初始选中的值
+	 */
+
+	const getDefaultList = (data: any) => {
+		data.map(({ permissionFlag, key, children }: any) => {
+			if (permissionFlag == 1) {
+				add(key);
+			}
+			if (children.length > 0) {
+				getDefaultList(children);
+			}
+		});
+	};
+
+	/**
+	 * 修改选中
+	 *
+	 */
+	const changeCheck = (item: any, e: any, parent?: any) => {
+		let flag;
+		if (has(item.key)) {
+			remove(item.key);
+			flag = false;
+		} else {
+			add(item.key);
+			flag = true;
+		}
+		if (item.children.length > 0) {
+			checkAll(flag, item.children);
+		} else {
+			let isTrue = isParentCheck(parent);
+			logger.debug('isTrue', isTrue);
+			if (isTrue) {
+				add(parent.key);
+			}
+		}
+	};
+
+	/**
+	 *
+	 * @param data
+	 * @param ids
+	 *
+	 * 判断兄弟节点是否已选 上级是否为已选
+	 */
+
+	const isParentCheck = (data: any) => {
+		let isFlag = true;
+		const isHasKey = (list: any) => {
+			list.forEach((element: any) => {
+				if (!has(element.key)) {
+					console.log('element.key', element.key);
+					isFlag = false;
+				}
+				if (element.children && element.children.length) {
+					isHasKey(element.children);
+				}
+			});
+		};
+		isHasKey(data);
+		return isFlag;
 	};
 
 	/**
 	 * @param data
-	 * 判断是否有子级
-	 * 如果没有 直接修改值以及状态
+	 * @param ids
+	 * 获取数组中的KEY
 	 */
-
-	function changeAll(data: any, permissionFlag: number) {
-		data.map((item: any) => {
-			item.permissionFlag = permissionFlag;
-			if (item.children && item.children.length > 0) {
-				item.children.map((i: any) => {
-					i.permissionFlag = permissionFlag;
-					if (i.children && i.children.length > 0) {
-						i.children.map((o: any) => {
-							o.permissionFlag = permissionFlag;
-						});
-					}
-				});
+	const loop = (data: any, ids: string[] = []) => {
+		data.forEach(({ key, children }: any) => {
+			if (key) {
+				ids.push(key);
+			}
+			if (children && children.length > 0) {
+				loop(children, ids);
 			}
 		});
-		setTree([...tree]);
-	}
+		return ids;
+	};
 
 	/**
-	 *是否已选
+	 * 全选
 	 */
-	const isChecked = (list: any, length: number) => {
-		const arr = list.flat(length);
-		const checkList = list.filter((item: treeItem) => item.permissionFlag == 0);
-		if (checkList.length == arr.length) {
-			return true;
-		} else {
-			return false;
-		}
+	const checkAll = (flag: any, data: any) => {
+		const ids: string[] = loop(data);
+		ids.map(item => {
+			if (flag) {
+				add(item);
+			} else {
+				remove(item);
+			}
+		});
+		// logger.debug('checkedKeys', checkedKeys);
 	};
+
+	/**
+	 *
+	 * @param data
+	 *  判断是否是全选
+	 */
+
+	const isAll = () => {
+		logger.debug('Array1', checkedKeys);
+		logger.debug('Array', Array.from(checkedKeys).length == loop(treeData).length);
+		return true;
+	};
+
+	//全部伸缩和展开
+	const onSelect = (e: any) => {
+		logger.debug(e.target.checked);
+		let activeKey: string[] = [];
+		treeData.map((item: any) => {
+			activeKey.push(item.key);
+		});
+		logger.debug('activeKeys', activeKey);
+		setActiveKey(['0']);
+		logger.debug(activeKey);
+	};
+
 	return (
 		<>
 			<Affix offsetTop={100}>
-				<Button type='primary' onClick={submitData}>
-					保存
-				</Button>
+				<Button type='primary'>保存</Button>
 			</Affix>
 			<div className='io_cms_role_authority-site_check'>
 				<Checkbox
 					onChange={e => {
-						let permissionFlag = e.target.checked ? 1 : 0;
-						changeAll(tree, permissionFlag);
+						checkAll(e, treeData);
 					}}
+					indeterminate={Array.from(checkedKeys).length != loop(treeData).length}
+					checked={isAll()}
 				>
 					全选
 				</Checkbox>
-				<Checkbox>全部展开</Checkbox>
+				<Checkbox onChange={onSelect}>全部展开</Checkbox>
 			</div>
 			<Collapse
-				defaultActiveKey={['1']}
 				onChange={callback}
 				className='io_cms_role_authority-menu_collapse'
+				// activeKey={activeKey}
 			>
-				{tree.map(item => {
+				{treeData.map(item => {
 					return (
 						<Panel
 							header={
@@ -273,25 +286,18 @@ export default ({ rolekey }: any) => {
 									}}
 								>
 									<Checkbox
-										checked={Check(item)}
-										onChange={() => {
-											if (item.permissionFlag == 1) {
-												item.permissionFlag = 0;
-											} else {
-												item.permissionFlag = 1;
-											}
-											if (item.children.length > 0) {
-												changeAll(item.children, item.permissionFlag);
-											}
-											setTree([...tree]);
+										onChange={e => {
+											changeCheck(item, e);
 										}}
+										checked={has(item.key)}
+										// indeterminate={!has(item.key)}
 									>
 										{item.title}
 									</Checkbox>
 								</div>
 							}
-							key='1'
 							showArrow={item.children?.length > 0}
+							key={item.key}
 						>
 							<Row gutter={[24, 24]}>
 								{item.children?.map(i => {
@@ -303,17 +309,10 @@ export default ({ rolekey }: any) => {
 										>
 											<div className='io_cms_role_authority-menu_collapse-panel_title'>
 												<Checkbox
-													indeterminate={isCheck(i.children)}
-													checked={isCheckAll(i.children, i)}
+													checked={has(i.key)}
+													// indeterminate={!has(i.key)}
 													onChange={e => {
-														if (i.children.length > 0) {
-															changeFlag(i.children, e);
-														} else {
-															i.permissionFlag == 1
-																? (i.permissionFlag = 0)
-																: (i.permissionFlag = 1);
-														}
-														setTree([...tree]);
+														changeCheck(i, e, item.children);
 													}}
 												>
 													{i.title}
@@ -324,20 +323,10 @@ export default ({ rolekey }: any) => {
 													return (
 														<Col span={8}>
 															<Checkbox
+																checked={has(o.key)}
 																onChange={e => {
-																	onChange(
-																		o,
-																		o.permissionFlag,
-																		e
-																	);
-																	setTree([...tree]);
+																	changeCheck(o, e, i.children);
 																}}
-																key={index}
-																checked={
-																	o.permissionFlag == 1
-																		? true
-																		: false
-																}
 															>
 																{o.title}
 															</Checkbox>

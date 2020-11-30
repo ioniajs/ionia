@@ -1,5 +1,6 @@
 // @ts-nocheck
 import React, { useEffect, useState } from 'react';
+import { Input } from 'antd';
 
 export const AMapAutoComplete = ({
 	position,
@@ -55,5 +56,5 @@ export const AMapAutoComplete = ({
 			});
 	}, [position]);
 
-	return <input id='autoinput' placeholder={placeholder} style={style} />;
+	return <Input id='autoinput' placeholder={placeholder} style={style} />;
 };

@@ -1,8 +1,21 @@
-import React from 'react';
-import { BizPage, GobackButton, SaveButton, EditableTable } from '@ionia/libs';
+import React, { useState } from 'react';
+import {
+	BizPage,
+	GobackButton,
+	SaveButton,
+	EditableTable,
+	OrgBatchDTO,
+	addBatchPosition,
+} from '@ionia/libs';
 import { Form, TreeSelect, Tooltip, message, Input, Button } from 'antd';
 import './index.less';
 import shortid from 'shortid';
+import { values } from 'lodash';
+
+const handlePracticeBaseSave = async (fileds: OrgBatchDTO) => {
+	const res = await addBatchPosition(fileds);
+	return res;
+};
 
 export default () => {
 	const treeData: any = [
@@ -32,23 +45,33 @@ export default () => {
 		},
 		{
 			title: '实践所',
-			value: '4',
+			value: '5',
 		},
 		{
 			title: '实践站',
-			value: '4',
+			value: '6',
 		},
 	];
 	const columns = [
 		{
-			title: '阵地名称',
+			title: (
+				<span>
+					<span className='io-cms-practice-base-batch-create-columns__span'>*</span>
+					阵地名称
+				</span>
+			),
 			key: 'name',
 			dataIndex: 'name',
 			editable: true,
 			width: 635,
 		},
 		{
-			title: '所属地区',
+			title: (
+				<span>
+					<span className='io-cms-practice-base-batch-create-columns__span'>*</span>
+					所属地区
+				</span>
+			),
 			key: 'area',
 			dataIndex: 'area',
 			editable: true,
@@ -87,7 +110,12 @@ export default () => {
 			},
 		},
 		{
-			title: '阵地类型',
+			title: (
+				<span>
+					<span className='io-cms-practice-base-batch-create-columns__span'>*</span>
+					阵地类型
+				</span>
+			),
 			key: 'type',
 			dataIndex: 'type',
 			editable: true,
@@ -159,6 +187,7 @@ export default () => {
 	];
 
 	const [form] = Form.useForm();
+	const [saveData, setSaveData] = useState<any>([]);
 	return (
 		<BizPage
 			showActions={true}
@@ -167,7 +196,21 @@ export default () => {
 				return (
 					<>
 						<GobackButton />
-						<SaveButton />
+						<SaveButton
+							onSave={async () => {
+								form.validateFields().then(async values => {
+									const param = {
+										parentId: values.parentId,
+										children: saveData,
+									};
+									const saveRes = await handlePracticeBaseSave(param);
+									if (saveRes.code === 200) {
+										message.success('批量新建成功');
+										history.back();
+									}
+								});
+							}}
+						/>
 					</>
 				);
 			}}
@@ -181,7 +224,7 @@ export default () => {
 					>
 						<TreeSelect
 							placeholder='请选择上级阵地'
-							// treeData={baseTypeTree}
+							treeData={treeData}
 							showSearch={true}
 							style={{ width: 224, height: 32 }}
 						/>
@@ -263,7 +306,7 @@ export default () => {
 						</>
 					),
 				})}
-				onChange={() => {}}
+				onChange={data => setSaveData(data)}
 				columns={columns}
 				// dataSource={[
 				// 	{

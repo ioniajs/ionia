@@ -72,6 +72,9 @@ const MasterNavTab = () => {
 				break;
 			case 'other':
 				newTabs = [HOME_TAB, ...tabs.filter(item => item.key === tab)];
+				if (tab !== currentTab) {
+					nextTab = tab;
+				}
 				break;
 		}
 
