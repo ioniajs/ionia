@@ -162,8 +162,9 @@ export const BaseDetail = ({ id }: BaseDetailProps) => {
 				<Form.Item name='fax' label='传真'>
 					<Input style={{ width: 664 }} placeholder='请输入传真号码' />
 				</Form.Item>
-				<Form.List name='domain'>
+				<Form.List name='linkmanList'>
 					{(fields, { add, remove }, { errors }) => {
+						console.log(fields, 'ffffffvfff');
 						return (
 							<>
 								{fields.map((field, index) => {
@@ -218,7 +219,7 @@ export const BaseDetail = ({ id }: BaseDetailProps) => {
 									{...layout}
 									label={
 										fields.length === 0 ? (
-											<span>日常联系人</span>
+											<span>日常联系人:</span>
 										) : (
 											<span></span>
 										)
