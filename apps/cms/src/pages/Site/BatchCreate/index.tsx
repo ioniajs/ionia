@@ -92,8 +92,8 @@ export default () => {
 						<Input type='number' ref={ref} onPressEnter={save} onBlur={save} />
 					</Form.Item>
 				) : (
-						<div onClick={toggleEdit}>{children}</div>
-					);
+					<div onClick={toggleEdit}>{children}</div>
+				);
 			},
 		},
 		{
@@ -153,10 +153,7 @@ export default () => {
 			layout={{}}
 		>
 			<div className='io-cms-site-batch-create__div'>
-				<Form
-					form={form}
-					scrollToFirstError
-				>
+				<Form form={form} scrollToFirstError>
 					<Form.Item
 						name='parentId'
 						label='上级站点'

@@ -106,8 +106,6 @@ const changeContentTypes = [
 	{ value: 8, label: '取消推荐' },
 ];
 
-
-
 const dataSource = [
 	{
 		title: '【栏目】昌北机场T1航站楼改造力争月底完工昌北机场T1航站楼改造力争月底完工昌北机场',
@@ -135,12 +133,25 @@ export const List = () => {
 	// 右下角功能区，hover下拉
 	const menu = (
 		<Menu>
-			<Menu.Item><a>归档</a></Menu.Item>
-			<Menu.Item><a>置顶</a></Menu.Item>
-			<Menu.Item> <a>取消热点</a></Menu.Item>
-			<Menu.Item><a>取消头条</a></Menu.Item>
-			<Menu.Item><a>取消推荐</a></Menu.Item>
-			<Menu.Item><a>取消推送</a></Menu.Item>
+			<Menu.Item>
+				<a>归档</a>
+			</Menu.Item>
+			<Menu.Item>
+				<a>置顶</a>
+			</Menu.Item>
+			<Menu.Item>
+				{' '}
+				<a>取消热点</a>
+			</Menu.Item>
+			<Menu.Item>
+				<a>取消头条</a>
+			</Menu.Item>
+			<Menu.Item>
+				<a>取消推荐</a>
+			</Menu.Item>
+			<Menu.Item>
+				<a>取消推送</a>
+			</Menu.Item>
 		</Menu>
 	);
 	return (
@@ -158,13 +169,13 @@ export const List = () => {
 						label='排序方式'
 						valueEnum={sortWay}
 						style={{ width: '240px' }}
-					// colSize={0.75}
+						// colSize={0.75}
 					/>
 					<ProFormSelect
 						name='contentStatus'
 						label='内容状态'
 						valueEnum={contentStatus}
-					// colSize={0.75}
+						// colSize={0.75}
 					/>
 					<ProFormCheckbox.Group
 						name='showSectionContent'
@@ -176,29 +187,29 @@ export const List = () => {
 						name='contentType'
 						label='内容类型'
 						valueEnum={contentType}
-					// colSize={0.75}
+						// colSize={0.75}
 					/>
 					<ProFormSelect
 						name='contentModal'
 						label='内容模型'
 						valueEnum={contentModal}
-					// colSize={0.75}
+						// colSize={0.75}
 					/>
 					<ProFormDateTimeRangePicker
 						name='create'
 						label='创建时间'
-					// colSize={1}
+						// colSize={1}
 					/>
 					<ProFormDateTimeRangePicker
 						name='publish'
 						label='发布时间'
-					// colSize={1}
+						// colSize={1}
 					/>
 					<ProFormSelect
 						name='createWay'
 						label='创建方式'
 						valueEnum={createWay}
-					// colSize={0.75}
+						// colSize={0.75}
 					/>
 					<ProFormCheckbox.Group
 						name='showMineCreate'
@@ -209,7 +220,7 @@ export const List = () => {
 					<ProFormText
 						name='contentTittle'
 						placeholder='搜索内容标题'
-					// colSize={0.75}
+						// colSize={0.75}
 					/>
 					<ProFormText
 						name='searchKeyWord'
@@ -217,7 +228,7 @@ export const List = () => {
 							addonBefore: selectBefore,
 							placeholder: `搜素内容${inputPlaceHolder[searchTypesValue]}`,
 						}}
-					// colSize={0.75}
+						// colSize={0.75}
 					/>
 				</QueryFilter>
 				<div className='io-cms-content-list-search-bottom' />
@@ -232,21 +243,33 @@ export const List = () => {
 						<Form.Item label='' name='' style={{ display: 'inline-block' }}>
 							<Checkbox>全选</Checkbox>
 						</Form.Item>
-						<Form.Item label='' name='changeContentStatus' style={{ display: 'inline-block', marginLeft: '15px' }}>
+						<Form.Item
+							label=''
+							name='changeContentStatus'
+							style={{ display: 'inline-block', marginLeft: '15px' }}
+						>
 							<Select
 								options={changeContentStatus}
 								placeholder='改变内容状态'
 								style={{ width: '224px' }}
 							/>
 						</Form.Item>
-						<Form.Item label='' name='otherOperation' style={{ display: 'inline-block', marginLeft: '24px' }}>
+						<Form.Item
+							label=''
+							name='otherOperation'
+							style={{ display: 'inline-block', marginLeft: '24px' }}
+						>
 							<Select
 								options={changeOtherActions}
 								placeholder='其他操作'
 								style={{ width: '224px' }}
 							/>
 						</Form.Item>
-						<Form.Item label='' name='changeContentTypes' style={{ display: 'inline-block', marginLeft: '24px' }}>
+						<Form.Item
+							label=''
+							name='changeContentTypes'
+							style={{ display: 'inline-block', marginLeft: '24px' }}
+						>
 							<Select
 								options={changeContentTypes}
 								placeholder='改变内容类型'
@@ -263,7 +286,7 @@ export const List = () => {
 								<div className='io-cms-content-list-item-content-top__div'>
 									<p className='io-cms-content-list-item-content-top-section__span'>
 										【栏目】昌北机场T1航站楼改造力争月底完工昌北机场T1航站楼改造力争月底完工昌北机场
-                                    </p>
+									</p>
 									<p className='io-cms-content-list-item-content-top-actions_span'>
 										<i className='iconfont icon-vertical-align-top ' />
 										<i className='iconfont icon-fire item-content-top-action' />
@@ -271,31 +294,33 @@ export const List = () => {
 										<i className='iconfont icon-like item-content-top-action' />
 										<i className='iconfont icon-ellipsis item-content-top-action' />
 									</p>
-									<p className='io-cms-content-list-item-content-top-time__span'>2019-11-29 19:17:52</p>
+									<p className='io-cms-content-list-item-content-top-time__span'>
+										2019-11-29 19:17:52
+									</p>
 								</div>
 								<div className='io-cms-content-list-item-content-middle__div'>
 									<div className='io-cms-content-list-item-content-middle-desc__div'>
 										<span className='io-cms-content-list-content-desc__div'>
 											<span className='io-cms-content-list-content-desc-div-text__span'>
 												已发布
-                                            </span>
+											</span>
 										</span>
 										<span className='io-cms-content-list-content-desc-count'>
 											<span className='count-icon__span'>
 												<i className='iconfont icon-eye1' />
-                                                &nbsp;<span>97</span>
+												&nbsp;<span>97</span>
 											</span>
 											<span className='count-icon__span'>
 												<i className='iconfont icon-user1' />
-                                                &nbsp;<span>82</span>
+												&nbsp;<span>82</span>
 											</span>
 											<span className='count-icon__span'>
 												<i className='iconfont icon-message' />
-                                                &nbsp;<span>15</span>
+												&nbsp;<span>15</span>
 											</span>
 											<span className='count-icon__span'>
 												<i className='iconfont icon-like' />
-                                                &nbsp;<span>36</span>
+												&nbsp;<span>36</span>
 											</span>
 										</span>
 									</div>
@@ -309,7 +334,7 @@ export const List = () => {
 										<a className='content-middle-action'>排序</a>
 										<Dropdown overlay={menu}>
 											<i className='iconfont icon-ellipsis content-middle-action' />
-										</Dropdown >
+										</Dropdown>
 									</div>
 								</div>
 							</div>
