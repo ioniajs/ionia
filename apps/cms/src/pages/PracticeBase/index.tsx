@@ -1,6 +1,6 @@
 import { ProColumns, ActionType } from '@ant-design/pro-table';
 import { BizPage, BizTable } from '@ionia/libs';
-import { Button, Input, message, Modal, TreeSelect } from 'antd';
+import { Button, Input, message, Modal, InputNumber } from 'antd';
 import React, { useRef, useState } from 'react';
 import { positionList, deletePosition, OrgVO } from '@ionia/libs/src/services';
 import { IdsDTO } from '@ionia/libs/src/services/common.dto';
@@ -69,7 +69,7 @@ export default () => {
 		{
 			title: '排序值',
 			width: 100,
-			render: (_, row) => <Input />,
+			render: (_, row) => <InputNumber />,
 		},
 		{
 			title: '操作',
