@@ -61,7 +61,7 @@ export default () => {
 					value: '信息录入员',
 				},
 			],
-			onFilter: (value, record) => record.roleNames.indexOf(value) === 0,
+			onFilter: (value, record) => record.roleNames.indexOf(value.toString()) === 0,
 		},
 		{
 			title: '最后登录时间',
