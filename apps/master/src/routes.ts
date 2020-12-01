@@ -55,5 +55,25 @@ export default {
 			icon: 'icon-setting',
 			name: '系统设置',
 		},
+		{
+			path: '/cms/system-messages',
+			icon: 'icon-Column',
+			name: '系统消息',
+		},
+		{
+			path: '/cms/mail-serve',
+			icon: 'icon-Column',
+			name: '邮件服务',
+		},
+		{
+			path: '/cms/area-management',
+			icon: 'icon-Column',
+			name: '区域管理',
+		},
+		{
+			path: '/cms/blogroll',
+			icon: 'icon-Column',
+			name: '友情链接',
+		},
 	],
 } as Record<string, IoniaMenuRoute[]>;

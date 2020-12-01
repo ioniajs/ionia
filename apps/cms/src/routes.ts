@@ -22,6 +22,10 @@ import User from '@/pages/User';
 import UserBatchCreate from '@/pages/User/BatchCreate';
 import UserDetail from '@/pages/User/Detail';
 import { ExceptionPage } from '@ionia/libs';
+import SystemMessages from '@/pages/SystemMessages';
+import MailServe from '@/pages/MailServe';
+import AreaManagement from '@/pages/AreaManagement';
+import Blogroll from '@/pages/Blogroll';
 
 export default [
 	{
@@ -79,6 +83,22 @@ export default [
 	{
 		path: '/practice-base/batch-create',
 		component: PracticeBaseBatchCreate,
+	},
+	{
+		path: '/system-messages',
+		component: SystemMessages,
+	},
+	{
+		path: '/mail-serve',
+		component: MailServe,
+	},
+	{
+		path: '/area-management',
+		component: AreaManagement,
+	},
+	{
+		path: '/blogroll',
+		component: Blogroll,
 	},
 	{
 		path: '/setting',
