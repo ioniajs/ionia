@@ -19,6 +19,7 @@ const handleUserSave = async (fileds: UserSaveDTO[]) => {
 
 export default () => {
 	const [saveData, setSaveData] = useState<any>([]);
+	const [count, setCount] = useState<number>(1);
 
 	const treeData: any = [
 		{
@@ -187,17 +188,7 @@ export default () => {
 				ref,
 			}: any) => {
 				return editing ? (
-					<Form.Item
-						style={{ margin: 0 }}
-						name={dataIndex}
-						// rules={[
-						// 	{
-						// 		required: true,
-						// 		message: `${title}是必填项`,
-						// 	},
-						// ]}
-					>
-						{/* <Input ref={ref} onPressEnter={save} onBlur={save} /> */}
+					<Form.Item style={{ margin: 0 }} name={dataIndex}>
 						<TreeSelect
 							// value={uservalue}
 							treeData={baseTypeTree}
@@ -335,9 +326,9 @@ export default () => {
 					<div className='io-cms-user-batch-create-footer__div'>
 						<Button
 							onClick={() => {
-								setDataSource([
-									...dataSource,
-									{
+								const data = [];
+								for (let i = 0; i < count; i++) {
+									data.push({
 										key: shortid.generate(),
 										username: '江西赵四',
 										cipher: '123456',
@@ -348,15 +339,16 @@ export default () => {
 										telephone: 18707062315,
 										email: '2829656235@qq.com',
 										status: 1,
-									},
-								]);
+									});
+								}
+								setDataSource([...dataSource, ...data]);
 							}}
 						>
 							添加
 						</Button>
 						<div className='io-cms-user-batch-create-footer__div-add'>
 							<span>添加</span>
-							<Input />
+							<Input onChange={e => setCount(Number(e.target.value))} />
 							<span>条数据</span>
 						</div>
 						<Form.Item
@@ -376,7 +368,7 @@ export default () => {
 								treeData={treeData}
 								treeDefaultExpandAll
 								// onChange={() => setUserValue(uservalue)}
-							></TreeSelect>
+							/>
 						</Form.Item>
 						<Form.Item
 							name='roleIds'
