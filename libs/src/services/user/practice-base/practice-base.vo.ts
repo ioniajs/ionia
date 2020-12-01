@@ -52,7 +52,7 @@ export interface OrgSmallVO {
 //#endregion
 
 //#region 阵地移入用户分页
-export interface UserMoveInVO {
+export interface OrgMoveInVO {
 	id: string; // 用户id
 	orgName: string; // 阵地名称
 	realName: string; // 真实姓名

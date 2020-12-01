@@ -75,5 +75,25 @@ export default {
 			icon: 'icon-Column',
 			name: '友情链接',
 		},
+		{
+			path: '/cms/source',
+			icon: 'icon-Column',
+			name: '来源',
+		},
+		{
+			path: '/cms/content-type',
+			icon: 'icon-Column',
+			name: '内容类型',
+		},
+		{
+			path: '/cms/storage-management-oss',
+			icon: 'icon-Column',
+			name: '储存管理OSS',
+		},
+		{
+			path: '/cms/storage-management-ftp',
+			icon: 'icon-Column',
+			name: '储存管理FTP',
+		},
 	],
 } as Record<string, IoniaMenuRoute[]>;
