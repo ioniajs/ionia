@@ -2,7 +2,7 @@ import request from '../../../utils/request';
 import { JcResult, Page } from '../../base';
 import { OrgDTO, OrgBatchDTO, OrgResourceDTO, OrgUserDTO, SortDTO } from './practice-base.dto';
 import { IdsDTO } from '../../common.dto';
-import { OrgResourceVO, OrgDetailsVO, OrgVO, OrgSmallVO, UserMoveInVO } from './practice-base.vo';
+import { OrgResourceVO, OrgDetailsVO, OrgVO, OrgSmallVO, OrgMoveInVO } from './practice-base.vo';
 /**
  *
  * @param data 新建阵地
@@ -179,7 +179,7 @@ export interface PositionalUserListPaging {
 }
 export async function positionalUserListPaging(
 	params: PositionalUserListPaging
-): Promise<JcResult<Page<UserMoveInVO>>> {
+): Promise<JcResult<Page<OrgMoveInVO>>> {
 	return request.get('/module-user/cmsmanager/org/list/in', {
 		params,
 	});

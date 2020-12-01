@@ -39,11 +39,7 @@ export default () => {
 			key: 'operation',
 			dataIndex: 'operation',
 			width: 150,
-			// render: (_: any, row: any) => {
-			// 	<>
-			// 		<a>删除</a>
-			// 	</>;
-			// },
+			render: (_: any, row: any) => <a>删除</a>,
 		},
 	];
 	const dataSource: any = [
@@ -52,14 +48,12 @@ export default () => {
 			content: '金磊科技',
 			status: '未读',
 			time: '2020-10-20',
-			operation: '删除',
 		},
 		{
 			title: '金磊科技',
 			content: '金磊科技',
 			status: '未读',
 			time: '2020-10-20',
-			operation: '删除',
 		},
 	];
 	return (
