@@ -9,6 +9,7 @@ import {
 } from '@ant-design/pro-form';
 import { SortableContainer, SortableElement } from 'react-sortable-hoc';
 import arrayMove from 'array-move';
+import CopyContent from './CopyContent';
 import './index.less';
 
 // 排序方式
@@ -328,16 +329,20 @@ export const List = () => {
 						onClick={() => {
 							console.log('点击了删除');
 							Modal.confirm({
+								className: 'io-cms-content-item-delete__modal',
 								title: '你确定删除选中内容吗？',
 								content: '删除后可在内容回收站中恢复。',
 								okText: '删除',
-								onOk: () => {},
+								onOk: () => { },
 							});
 						}}
 					>
 						删除
 					</a>
-					<a className='content-middle-action'>复制</a>
+					{/* <a className='content-middle-action'>复制</a> */}
+					<div style={{ display: 'inline-block' }}>
+						<CopyContent contentId={value.id} />
+					</div>
 					<a className='content-middle-action'>移动</a>
 					<a className='content-middle-action'>排序</a>
 					<Dropdown overlay={rightMenuActions}>
@@ -374,35 +379,35 @@ export const List = () => {
 						label='排序方式'
 						valueEnum={sortWay}
 						style={{ width: '240px' }}
-						// colSize={0.75}
+					// colSize={0.75}
 					/>
 					<ProFormSelect
 						name='contentStatus'
 						label='内容状态'
 						valueEnum={contentStatus}
 						mode='multiple'
-						// colSize={0.75}
+					// colSize={0.75}
 					/>
 					<ProFormCheckbox.Group
 						name='showSectionContent'
 						label=''
 						options={['显示子栏目内容']}
 						layout='vertical'
-						// colSize={0.5}
+					// colSize={0.5}
 					/>
 					<ProFormSelect
 						name='contentType'
 						label='内容类型'
 						valueEnum={contentType}
 						mode='multiple'
-						// colSize={0.75}
+					// colSize={0.75}
 					/>
 					<ProFormSelect
 						name='contentModal'
 						label='内容模型'
 						valueEnum={contentModal}
 						mode='multiple'
-						// colSize={0.75}
+					// colSize={0.75}
 					/>
 					<ProFormDateTimeRangePicker name='create' label='创建时间' colSize={1.5} />
 					<ProFormDateTimeRangePicker name='publish' label='发布时间' colSize={1.5} />
@@ -411,19 +416,19 @@ export const List = () => {
 						label='创建方式'
 						valueEnum={createWay}
 						mode='multiple'
-						// colSize={0.75}
+					// colSize={0.75}
 					/>
 					<ProFormCheckbox.Group
 						name='showMineCreate'
 						layout='vertical'
 						label=''
 						options={['我创建的']}
-						// colSize={0.5}
+					// colSize={0.5}
 					/>
 					<ProFormText
 						name='contentTittle'
 						placeholder='搜索内容标题'
-						// colSize={0.75}
+					// colSize={0.75}
 					/>
 					<ProFormText
 						name='searchKeyWord'
@@ -431,7 +436,7 @@ export const List = () => {
 							addonBefore: selectBefore,
 							placeholder: `搜素内容${inputPlaceHolder[searchTypesValue]}`,
 						}}
-						// colSize={0.75}
+					// colSize={0.75}
 					/>
 				</QueryFilter>
 				<div className='io-cms-content-list-search-bottom' />
@@ -498,10 +503,11 @@ export const List = () => {
 				</Form.Item>
 			</Form>
 			<SortableList
+				helperClass='io-sortable-helper'
 				items={datas}
 				onSortEnd={onSortEnd}
 				axis='xy'
-				helperClass='io-sortable-helper'
+				distance={20}
 			/>
 			<Pagination
 				className='io-cms-content-list-pagination'
