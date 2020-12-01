@@ -137,19 +137,19 @@ const dataSource = [
 // 下线
 const handleContentOffLine = (id: any) => {
 	console.log(id, '下线id');
-}
+};
 // 发布
 const handleContentPublish = (id: any) => {
 	console.log(id, '发布id');
-}
+};
 // 预览
 const handleContentPreview = (id: any) => {
 	console.log(id, '预览id');
-}
+};
 // 浏览
 const handleContentBrowse = (id: any) => {
 	console.log(id, '浏览id');
-}
+};
 
 export const List = () => {
 	const [searchTypesValue, setSearchTypes] = useState<number>(1);
@@ -193,13 +193,24 @@ export const List = () => {
 	);
 	const topMenuActions = (
 		<Menu>
-			<Menu.Item><i className='iconfont icon-vertical-align-top' />&nbsp;置顶</Menu.Item>
-			<Menu.Item><i className='iconfont icon-fire' />&nbsp;热点</Menu.Item>
-			<Menu.Item><i className='iconfont icon-toutiao' />&nbsp;头条</Menu.Item>
-			<Menu.Item><i className='iconfont icon-like' />&nbsp;推荐</Menu.Item>
-
+			<Menu.Item>
+				<i className='iconfont icon-vertical-align-top' />
+				&nbsp;置顶
+			</Menu.Item>
+			<Menu.Item>
+				<i className='iconfont icon-fire' />
+				&nbsp;热点
+			</Menu.Item>
+			<Menu.Item>
+				<i className='iconfont icon-toutiao' />
+				&nbsp;头条
+			</Menu.Item>
+			<Menu.Item>
+				<i className='iconfont icon-like' />
+				&nbsp;推荐
+			</Menu.Item>
 		</Menu>
-	)
+	);
 
 	const SortableItem = SortableElement(({ value }: any) => (
 		<div className='io-cms-content-list-item__div' key={value.key}>
@@ -315,13 +326,13 @@ export const List = () => {
 					<a
 						className='content-middle-action'
 						onClick={() => {
-							console.log('点击了删除')
+							console.log('点击了删除');
 							Modal.confirm({
 								title: '你确定删除选中内容吗？',
 								content: '删除后可在内容回收站中恢复。',
 								okText: '删除',
-								onOk: () => { }
-							})
+								onOk: () => {},
+							});
 						}}
 					>
 						删除
@@ -363,60 +374,56 @@ export const List = () => {
 						label='排序方式'
 						valueEnum={sortWay}
 						style={{ width: '240px' }}
-					// colSize={0.75}
+						// colSize={0.75}
 					/>
 					<ProFormSelect
 						name='contentStatus'
 						label='内容状态'
 						valueEnum={contentStatus}
 						mode='multiple'
-					// colSize={0.75}
+						// colSize={0.75}
 					/>
 					<ProFormCheckbox.Group
 						name='showSectionContent'
 						label=''
 						options={['显示子栏目内容']}
 						layout='vertical'
-					// colSize={0.5}
+						// colSize={0.5}
 					/>
 					<ProFormSelect
 						name='contentType'
 						label='内容类型'
 						valueEnum={contentType}
 						mode='multiple'
-					// colSize={0.75}
+						// colSize={0.75}
 					/>
 					<ProFormSelect
 						name='contentModal'
 						label='内容模型'
 						valueEnum={contentModal}
 						mode='multiple'
-					// colSize={0.75}
+						// colSize={0.75}
 					/>
 					<ProFormDateTimeRangePicker name='create' label='创建时间' colSize={1.5} />
-					<ProFormDateTimeRangePicker
-						name='publish'
-						label='发布时间'
-						colSize={1.5}
-					/>
+					<ProFormDateTimeRangePicker name='publish' label='发布时间' colSize={1.5} />
 					<ProFormSelect
 						name='createWay'
 						label='创建方式'
 						valueEnum={createWay}
 						mode='multiple'
-					// colSize={0.75}
+						// colSize={0.75}
 					/>
 					<ProFormCheckbox.Group
 						name='showMineCreate'
 						layout='vertical'
 						label=''
 						options={['我创建的']}
-					// colSize={0.5}
+						// colSize={0.5}
 					/>
 					<ProFormText
 						name='contentTittle'
 						placeholder='搜索内容标题'
-					// colSize={0.75}
+						// colSize={0.75}
 					/>
 					<ProFormText
 						name='searchKeyWord'
@@ -424,7 +431,7 @@ export const List = () => {
 							addonBefore: selectBefore,
 							placeholder: `搜素内容${inputPlaceHolder[searchTypesValue]}`,
 						}}
-					// colSize={0.75}
+						// colSize={0.75}
 					/>
 				</QueryFilter>
 				<div className='io-cms-content-list-search-bottom' />
