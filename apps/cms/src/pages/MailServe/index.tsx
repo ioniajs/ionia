@@ -15,15 +15,17 @@ const tailLayout = {
 
 export default () => {
 	const [email, setEmail] = useState(false);
+	const [form] = Form.useForm();
+
 	return (
 		<div className='io-cms-mail-serve__div'>
 			<BizPage
 				showActions={true}
 				renderActions={() => {
-					return <SaveButton />;
+					return <SaveButton htmlType='submit' />;
 				}}
 			>
-				<Form style={{ marginTop: 24 }} {...layout}>
+				<Form form={form} style={{ marginTop: 24 }} {...layout}>
 					<Form.Item label='邮件服务'>
 						<Switch checkedChildren='开启' unCheckedChildren='关闭' />
 					</Form.Item>

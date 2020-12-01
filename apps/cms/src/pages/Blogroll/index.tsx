@@ -1,8 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { BizPage, BizTable, BizTree } from '@ionia/libs';
-import { Button, Switch } from 'antd';
+import { Button, Switch, Divider, Modal } from 'antd';
+import Create from './Create';
+import Move from './Move';
 
 export default () => {
+	const [create, setCreate] = useState(false);
+	const [move, setMove] = useState(false);
 	const columns: any = [
 		{
 			title: '友情链接名称',
@@ -58,6 +62,27 @@ export default () => {
 			key: 'operation',
 			dataIndex: 'operation',
 			width: 100,
+			render: (_: any, row: any) => (
+				<>
+					<a onClick={() => setMove(true)}>移动</a>
+					<Divider type='vertical' />
+					<a
+						onClick={async () => {
+							if (row) {
+								Modal.confirm({
+									title: '你确定删除选中分类吗？',
+									content:
+										'删除分类会同时删除分类中的友情链接，删除后无法恢复，请谨慎操作。',
+									okText: '删除',
+									cancelText: '取消',
+								});
+							}
+						}}
+					>
+						删除
+					</a>
+				</>
+			),
 		},
 	];
 	const dataSource: any = [
@@ -77,10 +102,7 @@ export default () => {
 				renderActions={() => (
 					<>
 						<div className='io-space-item'>
-							<Button type='primary'>
-								<i className='iconfont icon-plus1' style={{ fontSize: '16px' }} />
-								新建
-							</Button>
+							<Create />
 						</div>
 						<div className='io-space-item'>
 							<Button>批量移动</Button>
@@ -96,6 +118,7 @@ export default () => {
 				columns={columns}
 				dataSource={dataSource}
 			/>
+			<Move move={move} setMove={setMove} />
 		</BizPage>
 	);
 };

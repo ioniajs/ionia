@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { BizPage, BizTable } from '@ionia/libs';
-import { Button, Switch, Modal, Input, InputNumber } from 'antd';
+import { Button, Switch, InputNumber, Modal } from 'antd';
 import AreaModal from './Detail';
+
 export default () => {
 	const columns: any = [
 		{
@@ -41,6 +42,22 @@ export default () => {
 			key: 'operation',
 			dataIndex: 'operation',
 			width: 55,
+			render: (_: any, row: any) => (
+				<a
+					onClick={() => {
+						if (row) {
+							Modal.confirm({
+								title: '你确定删除选中区域吗?',
+								content: '删除时会删除所有下级区域,删除后无法恢复，请谨慎操作',
+								okText: '删除',
+								cancelText: '取消',
+							});
+						}
+					}}
+				>
+					删除
+				</a>
+			),
 		},
 	];
 	const dataSource: any = [
@@ -51,34 +68,24 @@ export default () => {
 			status: 'false',
 		},
 	];
-	const [visible, setVisible] = useState(false);
 	return (
-		<>
-			<BizPage showActions={false}>
-				<BizTable
-					renderActions={() => (
-						<>
-							<div className='io-space-item'>
-								<Button type='primary' onClick={() => setVisible(true)}>
-									<i
-										className='iconfont icon-plus1'
-										style={{ fontSize: '16px' }}
-									/>
-									新建
-								</Button>
-							</div>
-							<div className='io-space-item'>
-								<Button>批量删除</Button>
-							</div>
-						</>
-					)}
-					inputPlaceholderText={'请输入区域名称/编号'}
-					columns={columns}
-					dataSource={dataSource}
-					rowSelection={{}}
-				/>
-			</BizPage>
-			<AreaModal visible={visible} setVisible={setVisible} />
-		</>
+		<BizPage>
+			<BizTable
+				renderActions={() => (
+					<>
+						<div className='io-space-item'>
+							<AreaModal />
+						</div>
+						<div className='io-space-item'>
+							<Button>批量删除</Button>
+						</div>
+					</>
+				)}
+				inputPlaceholderText={'请输入区域名称/编号'}
+				columns={columns}
+				dataSource={dataSource}
+				rowSelection={{}}
+			/>
+		</BizPage>
 	);
 };

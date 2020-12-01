@@ -26,6 +26,10 @@ import SystemMessages from '@/pages/SystemMessages';
 import MailServe from '@/pages/MailServe';
 import AreaManagement from '@/pages/AreaManagement';
 import Blogroll from '@/pages/Blogroll';
+import Source from '@/pages/Source';
+import ContentType from '@/pages/ContentType';
+import StorageManagementOSS from '@/pages/StorageManagementOSS';
+import StorageManagementFTP from '@/pages/StorageManagementFTP';
 
 export default [
 	{
@@ -99,6 +103,22 @@ export default [
 	{
 		path: '/blogroll',
 		component: Blogroll,
+	},
+	{
+		path: '/source',
+		component: Source,
+	},
+	{
+		path: '/content-type',
+		component: ContentType,
+	},
+	{
+		path: '/storage-management-oss',
+		component: StorageManagementOSS,
+	},
+	{
+		path: '/storage-management-ftp',
+		component: StorageManagementFTP,
 	},
 	{
 		path: '/setting',
