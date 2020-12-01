@@ -110,24 +110,28 @@ const changeContentTypes = [
 
 const dataSource = [
 	{
-		title: '【栏目HHHHH】昌北机场T1航站楼改造力争月底完工昌北机场T1航站楼改造力争月底完工昌北机场',
+		title:
+			'【栏目HHHHH】昌北机场T1航站楼改造力争月底完工昌北机场T1航站楼改造力争月底完工昌北机场',
 		user: 'HHHHH',
 		id: 0,
 	},
 	{
-		title: '【栏目MMMMM】昌北机场T1航站楼改造力争月底完工昌北机场T1航站楼改造力争月底完工昌北机场',
+		title:
+			'【栏目MMMMM】昌北机场T1航站楼改造力争月底完工昌北机场T1航站楼改造力争月底完工昌北机场',
 		user: 'MMMMM',
 		id: 1,
 	},
 	{
-		title: '【栏目WWWWW】昌北机场T1航站楼改造力争月底完工昌北机场T1航站楼改造力争月底完工昌北机场',
+		title:
+			'【栏目WWWWW】昌北机场T1航站楼改造力争月底完工昌北机场T1航站楼改造力争月底完工昌北机场',
 		user: 'WWWWW',
-		id: 2
+		id: 2,
 	},
 	{
-		title: '【栏目ZZZZZ】昌北机场T1航站楼改造力争月底完工昌北机场T1航站楼改造力争月底完工昌北机场',
+		title:
+			'【栏目ZZZZZ】昌北机场T1航站楼改造力争月底完工昌北机场T1航站楼改造力争月底完工昌北机场',
 		user: 'ZZZZZ',
-		id: 3
+		id: 3,
 	},
 ];
 
@@ -137,7 +141,7 @@ export const List = () => {
 	const [indeterminate, setIndeterminate] = useState(false);
 	const [checkedAll, setCheckedAll] = useState(false);
 	const [datas, setDatas] = useState(dataSource);
-	console.log(selectedRowKeys, 'rowKrys')
+	console.log(selectedRowKeys, 'rowKrys');
 	const selectBefore = (
 		<Select
 			defaultValue={1}
@@ -177,16 +181,14 @@ export const List = () => {
 			<div className='io-cms-content-list-item-top__div'>
 				<Checkbox
 					defaultChecked={selectedRowKeys.indexOf(value.id) > -1}
-					onChange={(e) => {
+					onChange={e => {
 						let tempSelectRowKeys: number[] = [];
 						if (e.target.checked) {
 							const temp = selectedRowKeys.concat(value.id);
 							tempSelectRowKeys = Array.from(new Set(temp));
 						} else {
 							selectedRowKeys.splice(
-								selectedRowKeys.findIndex(
-									(item: any) => item === value.id
-								),
+								selectedRowKeys.findIndex((item: any) => item === value.id),
 								1
 							);
 							const a: number[] = [];
@@ -194,15 +196,18 @@ export const List = () => {
 						}
 						setSelectedRowKeys(tempSelectRowKeys);
 						setCheckedAll(tempSelectRowKeys.length === datas.length);
-						setIndeterminate(!!tempSelectRowKeys.length && tempSelectRowKeys.length < datas.length);
+						setIndeterminate(
+							!!tempSelectRowKeys.length && tempSelectRowKeys.length < datas.length
+						);
 					}}
 				/>
-				<p className='io-cms-content-list-item-content-top-section__span'>
-					{value.title}
-				</p>
+				<p className='io-cms-content-list-item-content-top-section__span'>{value.title}</p>
 				<p className='io-cms-content-list-item-content-top-actions_span'>
 					<Tooltip title='置顶（到期时间：2019-11-29 19）'>
-						<i className='iconfont icon-vertical-align-top ' style={{ cursor: 'pointer' }} />
+						<i
+							className='iconfont icon-vertical-align-top '
+							style={{ cursor: 'pointer' }}
+						/>
 					</Tooltip>
 					<Tooltip title='热点'>
 						<i className='iconfont icon-fire item-content-top-action' />
@@ -219,38 +224,38 @@ export const List = () => {
 				</p>
 				<p className='io-cms-content-list-item-content-top-time__span'>
 					2019-11-29 19:17:52
-								</p>
+				</p>
 			</div>
 			<div className='io-cms-content-list-item-middle__div'>
 				<div className='io-cms-content-list-item-content-middle-desc__div'>
 					<span className='io-cms-content-list-content-desc__div'>
 						<span className='io-cms-content-list-content-desc-div-text__span'>
 							已发布
-										</span>
+						</span>
 					</span>
 					<span className='io-cms-content-list-content-desc-count'>
 						<Tooltip title='阅读量'>
 							<span className='count-icon__span'>
 								<i className='iconfont icon-eye1' />
-												&nbsp;<span>97</span>
+								&nbsp;<span>97</span>
 							</span>
 						</Tooltip>
 						<Tooltip title='阅读人数'>
 							<span className='count-icon__span'>
 								<i className='iconfont icon-user1' />
-												&nbsp;<span>82</span>
+								&nbsp;<span>82</span>
 							</span>
 						</Tooltip>
 						<Tooltip title='评论数'>
 							<span className='count-icon__span'>
 								<i className='iconfont icon-message' />
-												&nbsp;<span>15</span>
+								&nbsp;<span>15</span>
 							</span>
 						</Tooltip>
 						<Tooltip title='点赞数'>
 							<span className='count-icon__span'>
 								<i className='iconfont icon-like' />
-												&nbsp;<span>36</span>
+								&nbsp;<span>36</span>
 							</span>
 						</Tooltip>
 					</span>
@@ -269,7 +274,7 @@ export const List = () => {
 				</div>
 			</div>
 		</div>
-	))
+	));
 	const SortableList = SortableContainer(({ items }: any) => {
 		return (
 			<div className='io-cms-content-list-item-container__div'>
@@ -277,8 +282,7 @@ export const List = () => {
 					<SortableItem key={`item-${index}`} index={index} value={value} />
 				))}
 			</div>
-
-		)
+		);
 	});
 	const onSortEnd = ({ oldIndex, newIndex }: any) => {
 		setDatas(arrayMove(datas, oldIndex, newIndex));
@@ -298,13 +302,13 @@ export const List = () => {
 						label='排序方式'
 						valueEnum={sortWay}
 						style={{ width: '240px' }}
-					// colSize={0.75}
+						// colSize={0.75}
 					/>
 					<ProFormSelect
 						name='contentStatus'
 						label='内容状态'
 						valueEnum={contentStatus}
-					// colSize={0.75}
+						// colSize={0.75}
 					/>
 					<ProFormCheckbox.Group
 						name='showSectionContent'
@@ -316,29 +320,25 @@ export const List = () => {
 						name='contentType'
 						label='内容类型'
 						valueEnum={contentType}
-					// colSize={0.75}
+						// colSize={0.75}
 					/>
 					<ProFormSelect
 						name='contentModal'
 						label='内容模型'
 						valueEnum={contentModal}
-					// colSize={0.75}
+						// colSize={0.75}
 					/>
-					<ProFormDateTimeRangePicker
-						name='create'
-						label='创建时间'
-						colSize={1.5}
-					/>
+					<ProFormDateTimeRangePicker name='create' label='创建时间' colSize={1.5} />
 					<ProFormDateTimeRangePicker
 						name='publish'
 						label='发布时间'
-					// colSize={1}
+						// colSize={1}
 					/>
 					<ProFormSelect
 						name='createWay'
 						label='创建方式'
 						valueEnum={createWay}
-					// colSize={0.75}
+						// colSize={0.75}
 					/>
 					<ProFormCheckbox.Group
 						name='showMineCreate'
@@ -349,7 +349,7 @@ export const List = () => {
 					<ProFormText
 						name='contentTittle'
 						placeholder='搜索内容标题'
-					// colSize={0.75}
+						// colSize={0.75}
 					/>
 					<ProFormText
 						name='searchKeyWord'
@@ -357,7 +357,7 @@ export const List = () => {
 							addonBefore: selectBefore,
 							placeholder: `搜素内容${inputPlaceHolder[searchTypesValue]}`,
 						}}
-					// colSize={0.75}
+						// colSize={0.75}
 					/>
 				</QueryFilter>
 				<div className='io-cms-content-list-search-bottom' />
@@ -365,7 +365,7 @@ export const List = () => {
 			<Form className='io-cms-content-pro-list-header'>
 				<Form.Item label='' name='selectAll' style={{ display: 'inline-block' }}>
 					<Checkbox
-						onChange={(e) => {
+						onChange={e => {
 							if (e.target.checked) {
 								const allRowKeys = datas.map((item: any) => {
 									return item.id;
@@ -383,7 +383,7 @@ export const List = () => {
 						indeterminate={indeterminate}
 					>
 						全选
-                    </Checkbox>
+					</Checkbox>
 				</Form.Item>
 				<Form.Item
 					label=''
@@ -439,4 +439,4 @@ export const List = () => {
 			/>
 		</div>
 	);
-}
+};
