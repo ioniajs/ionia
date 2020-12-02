@@ -6,7 +6,7 @@ import './index.less';
 
 interface CopyFormProps {
 	contentId?: string;
-	action?: string
+	action?: string;
 }
 
 const treeData = [
@@ -111,29 +111,37 @@ const treeData = [
 export default ({ contentId, action }: CopyFormProps) => {
 	const ref = useRef<BizModalFormRef>();
 	const [checkedKeys, setCheckedKeys] = useState<string[]>();
-	console.log(checkedKeys, 'onchangeHo')
+	console.log(checkedKeys, 'onchangeHo');
 	const handleOnCheck = (checkedKeys: any) => {
 		console.log(checkedKeys, 'checked');
 		setCheckedKeys(checkedKeys as string[]);
-	}
+	};
 	return (
 		<BizModalForm
 			ref={ref}
 			title={action === 'copy' ? '复制' : '移动'}
 			width={496}
-			triggerRender={() => (
-				action === 'copy' ? <a
-					className='content-middle-action'
-					onClick={() => {
-						ref.current?.open();
-					}}
-				>
-					复制
-				</a> :
-					<a className='content-middle-action' onClick={() => {
-						ref.current?.open();
-					}}>移动</a>
-			)}
+			triggerRender={() =>
+				action === 'copy' ? (
+					<a
+						className='content-middle-action'
+						onClick={() => {
+							ref.current?.open();
+						}}
+					>
+						复制
+					</a>
+				) : (
+					<a
+						className='content-middle-action'
+						onClick={() => {
+							ref.current?.open();
+						}}
+					>
+						移动
+					</a>
+				)
+			}
 			submitterRender={() => (
 				<div className='btn-submitter'>
 					<Button onClick={() => ref.current?.close()}>取消</Button>
@@ -149,26 +157,31 @@ export default ({ contentId, action }: CopyFormProps) => {
 				</div>
 			)}
 		>
-			{action === 'copy' ? <p>
-				复制到栏目&nbsp;
-				<Tooltip
-					title={
-						<span>
-							复制后将会在所选栏目
-							<br />
-							下新建一篇相同的内容
-						</span>
-					}
-					placement='bottom'
-				>
-					<InfoCircleOutlined />
-				</Tooltip>
-				：
-			</p> : <p>移动到栏目：</p>}
+			{action === 'copy' ? (
+				<p>
+					复制到栏目&nbsp;
+					<Tooltip
+						title={
+							<span>
+								复制后将会在所选栏目
+								<br />
+								下新建一篇相同的内容
+							</span>
+						}
+						placement='bottom'
+					>
+						<InfoCircleOutlined />
+					</Tooltip>
+					：
+				</p>
+			) : (
+				<p>移动到栏目：</p>
+			)}
 			<div className='io-cms-content-list-copy-modal-tree-container'>
-				<Tree checkable
+				<Tree
+					checkable
 					treeData={treeData}
-					onCheck={(checkedKeys) => handleOnCheck(checkedKeys)}
+					onCheck={checkedKeys => handleOnCheck(checkedKeys)}
 					defaultExpandAll
 				/>
 			</div>
