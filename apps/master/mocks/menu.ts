@@ -206,12 +206,6 @@ export default [
 							},
 						],
 					},
-					{
-						key: '0',
-						title: '增量菜单',
-						permissionFlag: 1,
-						children: [],
-					},
 				],
 				message: '获取成功',
 			})
