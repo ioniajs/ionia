@@ -1,5 +1,18 @@
-import React, { useState } from 'react';
-import { Select, Checkbox, Form, Dropdown, Menu, Tooltip, Pagination, Modal } from 'antd';
+import React, { useState, useRef } from 'react';
+import {
+	Select,
+	Checkbox,
+	Form,
+	Dropdown,
+	Menu,
+	Tooltip,
+	Pagination,
+	Modal,
+	Button,
+	DatePicker,
+} from 'antd';
+import { InfoCircleOutlined } from '@ant-design/icons';
+import { BizModalForm, BizModalFormRef } from '@ionia/libs';
 import {
 	QueryFilter,
 	ProFormSelect,
@@ -9,7 +22,9 @@ import {
 } from '@ant-design/pro-form';
 import { SortableContainer, SortableElement } from 'react-sortable-hoc';
 import arrayMove from 'array-move';
-import CopyContent from './CopyContent';
+import CopyOrMoveContent from './CopyContent';
+import Sort from './Sort';
+import TopDeadLine from './TopDeadLine';
 import './index.less';
 
 // 排序方式
@@ -158,6 +173,7 @@ export const List = () => {
 	const [indeterminate, setIndeterminate] = useState(false);
 	const [checkedAll, setCheckedAll] = useState(false);
 	const [datas, setDatas] = useState(dataSource);
+	const modalRef = useRef<BizModalFormRef>();
 	console.log(selectedRowKeys, 'rowKrys');
 	const selectBefore = (
 		<Select
@@ -176,7 +192,39 @@ export const List = () => {
 				<a>归档</a>
 			</Menu.Item>
 			<Menu.Item>
-				<a>置顶</a>
+				{/* <a>置顶</a> */}
+				{/* <TopDeadLine /> */}
+				<a
+					onClick={() => {
+						Modal.confirm({
+							// closable: true,
+							// closeIcon: <i className='iconfont icon-close' />,
+							title: '置顶',
+							content: (
+								<Form.Item
+									labelCol={{ span: 9 }}
+									name='topDeadLine'
+									label={
+										<span>
+											选择置顶到期时间&nbsp;
+											<Tooltip title='置顶到期后将自动取消置顶状态，不设置到期时间代表永久置顶'>
+												<InfoCircleOutlined />
+											</Tooltip>
+										</span>
+									}
+								>
+									<DatePicker showTime placeholder='' />
+								</Form.Item>
+							),
+							width: 450,
+							icon: false,
+							onOk: () => {},
+							onCancel: () => {},
+						});
+					}}
+				>
+					置顶
+				</a>
 			</Menu.Item>
 			<Menu.Item>
 				<a>取消热点</a>
@@ -341,11 +389,45 @@ export const List = () => {
 					</a>
 					{/* <a className='content-middle-action'>复制</a> */}
 					<div style={{ display: 'inline-block' }}>
-						<CopyContent contentId={value.id} />
+						<CopyOrMoveContent contentId={value.id} action='copy' />
 					</div>
-					<a className='content-middle-action'>移动</a>
-					<a className='content-middle-action'>排序</a>
-					<Dropdown overlay={rightMenuActions}>
+					{/* <a className='content-middle-action'>移动</a> */}
+					<div style={{ display: 'inline-block' }}>
+						<CopyOrMoveContent contentId={value.id} action='move' />
+					</div>
+					<BizModalForm
+						className='io-cms-content-list-item-sort-bizmodalform'
+						ref={modalRef}
+						title='排序'
+						triggerRender={() => (
+							<a
+								className='content-middle-action'
+								onClick={() => {
+									modalRef.current?.open();
+								}}
+							>
+								排序
+							</a>
+						)}
+						submitterRender={() => (
+							<div className='btn-submitter'>
+								<Button
+									onClick={() => {
+										modalRef.current?.close();
+									}}
+								>
+									取消
+								</Button>
+								<Button type='primary'>在所选内容之前</Button>
+								<Button type='primary'>在所选内容之后</Button>
+							</div>
+						)}
+						width={842}
+					>
+						<Sort />
+					</BizModalForm>
+					{/* <a className='content-middle-action'>排序</a> */}
+					<Dropdown overlay={rightMenuActions} placement='bottomRight'>
 						<i className='iconfont icon-ellipsis content-middle-action' />
 					</Dropdown>
 				</div>
