@@ -7,6 +7,7 @@ import upload from './upload';
 import user from './user';
 import role from './role';
 import org from './org';
+import area from './area';
 import siteAuthority from './site-authority';
 import menu from './menu';
 
@@ -19,6 +20,7 @@ export default setupWorker(
 	...user,
 	...role,
 	...org,
+	...area,
 	...siteAuthority,
 	...menu
 );
