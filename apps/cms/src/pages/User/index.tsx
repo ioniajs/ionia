@@ -214,11 +214,11 @@ export default () => {
 				columns={columns}
 				rowSelection={{
 					selectedRowKeys,
-					onChange: selectedRowKeys => {
+					onChange: (selectedRowKeys: any) => {
 						setSelectedRowKeys(selectedRowKeys as number[]);
 					},
 				}}
-				request={(params, sort, filter) => {
+				request={(params: any, sort: any, filter: any) => {
 					return userPaging({}).then(data => ({ data: data.data.content }));
 				}}
 			/>

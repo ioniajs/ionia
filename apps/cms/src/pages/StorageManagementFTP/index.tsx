@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { BizPage, BizTable } from '@ionia/libs';
 import { Button, Modal } from 'antd';
 import Create from './Create';
@@ -90,6 +90,7 @@ export default () => {
 			domain: 'http://www.196.168.0.144',
 		},
 	];
+	const [selectedRowKeys, setSelectedRowKeys] = useState<number[]>([]);
 	return (
 		<BizPage>
 			<BizTable
@@ -99,13 +100,18 @@ export default () => {
 							<Create />
 						</div>
 						<div className='io-space-item'>
-							<Button>批量删除</Button>
+							<Button disabled={selectedRowKeys.length === 0}>批量删除</Button>
 						</div>
 					</>
 				)}
 				inputPlaceholderText={'请输入FTP名称'}
 				columns={columns}
-				rowSelection={{}}
+				rowSelection={{
+					selectedRowKeys,
+					onChange: (selectedRowKeys: any) => {
+						setSelectedRowKeys(selectedRowKeys as number[]);
+					},
+				}}
 				dataSource={dataSource}
 			/>
 		</BizPage>

@@ -86,7 +86,13 @@ export const BaseMember = ({ id }: BaseMemberPorps) => {
 			width: 130,
 			render: (_, row) => (
 				<>
-					<a>删除</a>
+					<a
+						onClick={async () => {
+							setShow(true);
+						}}
+					>
+						删除
+					</a>
 				</>
 			),
 		},

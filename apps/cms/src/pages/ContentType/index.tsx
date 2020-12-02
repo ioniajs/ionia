@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { BizPage, BizTable } from '@ionia/libs';
 import { Button, Modal } from 'antd';
 import Create from './Create';
@@ -47,6 +47,7 @@ export default () => {
 		},
 	];
 	const dataSource: any = [{ name: '假设内容很长很长', number: 1, icon: 1 }];
+	const [selectedRowKeys, setSelectedRowKeys] = useState<number[]>([]);
 	return (
 		<BizPage>
 			<BizTable
@@ -56,13 +57,18 @@ export default () => {
 							<Create />
 						</div>
 						<div className='io-space-item'>
-							<Button>批量删除</Button>
+							<Button disabled={selectedRowKeys.length === 0}>批量删除</Button>
 						</div>
 					</>
 				)}
 				inputPlaceholderText={'请输入内容类型名称/编号'}
 				columns={columns}
-				rowSelection={{}}
+				rowSelection={{
+					selectedRowKeys,
+					onChange: (selectedRowKeys: any) => {
+						setSelectedRowKeys(selectedRowKeys as number[]);
+					},
+				}}
 				dataSource={dataSource}
 			/>
 		</BizPage>

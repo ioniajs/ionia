@@ -55,7 +55,8 @@ export default () => {
 	const dataSource: any = [
 		{ name: '假设名字很长很长', url: 'www.baidu.com', default: '是', open: '否' },
 	];
-	const [create, setCreate] = useState(false);
+	const [selectedRowKeys, setSelectedRowKeys] = useState<number[]>([]);
+
 	return (
 		<BizPage showActions={false}>
 			<BizTable
@@ -65,13 +66,18 @@ export default () => {
 							<Create />
 						</div>
 						<div className='io-space-item'>
-							<Button>批量删除</Button>
+							<Button disabled={selectedRowKeys.length === 0}>批量删除</Button>
 						</div>
 					</>
 				)}
 				inputPlaceholderText={'请输入来源名称'}
 				columns={columns}
-				rowSelection={{}}
+				rowSelection={{
+					selectedRowKeys,
+					onChange: (selectedRowKeys: any) => {
+						setSelectedRowKeys(selectedRowKeys as number[]);
+					},
+				}}
 				dataSource={dataSource}
 			/>
 		</BizPage>

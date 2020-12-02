@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { BizPage, BizTable } from '@ionia/libs';
-import { Button, Modal } from 'antd';
+import { Button, Modal, Divider } from 'antd';
 import './index.less';
 
 export default () => {
@@ -27,19 +27,36 @@ export default () => {
 			key: 'status',
 			dataIndex: 'status',
 			width: 215,
+			filters: [
+				{
+					value: '未读',
+					text: '未读',
+				},
+				{
+					text: '已读',
+					value: '已读',
+				},
+			],
 		},
 		{
 			title: '收件时间',
 			key: 'time',
 			dataIndex: 'time',
 			width: 300,
+			sorter: true,
 		},
 		{
 			title: '操作',
 			key: 'operation',
 			dataIndex: 'operation',
 			width: 150,
-			render: (_: any, row: any) => <a>删除</a>,
+			render: (_: any, row: any) => (
+				<>
+					<a>标记为已读</a>
+					<Divider type='vertical' />
+					<a>删除</a>
+				</>
+			),
 		},
 	];
 	const dataSource: any = [
@@ -105,7 +122,7 @@ export default () => {
 				columns={columns}
 				rowSelection={{
 					selectedRowKeys,
-					onChange: selectedRowKeys => {
+					onChange: (selectedRowKeys: any) => {
 						setSelectedRowKeys(selectedRowKeys as number[]);
 					},
 				}}

@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState, useRef } from 'react';
 import { BizPage, BizTable } from '@ionia/libs';
 import { Button, Modal } from 'antd';
 import Create from './Create';
+import { ActionType, ProColumns } from '@ant-design/pro-table';
 
 export default () => {
 	const columns: any = [
@@ -16,6 +17,20 @@ export default () => {
 			key: 'type',
 			dataIndex: 'type',
 			width: 545,
+			filters: [
+				{
+					value: '阿里云',
+					text: '阿里云',
+				},
+				{
+					text: '七牛云',
+					value: '七牛云',
+				},
+				{
+					text: '腾讯云',
+					value: '腾讯云',
+				},
+			],
 		},
 		{
 			title: '操作',
@@ -45,22 +60,31 @@ export default () => {
 		{ name: '假设名字很长很长', type: '阿里储存' },
 		{ name: '假设名字很长很长', type: '七牛储存' },
 	];
+	const actionRef = useRef<ActionType>();
+	const [selectedRowKeys, setSelectedRowKeys] = useState<number[]>([]);
 	return (
 		<BizPage showActions={false}>
 			<BizTable
+				rowKey='id'
+				actionRef={actionRef}
 				renderActions={() => (
 					<>
 						<div className='io-space-item'>
 							<Create />
 						</div>
 						<div className='io-space-item'>
-							<Button>批量删除</Button>
+							<Button disabled={selectedRowKeys.length === 0}>批量删除</Button>
 						</div>
 					</>
 				)}
 				inputPlaceholderText={'请输入OSS名称'}
 				columns={columns}
-				rowSelection={{}}
+				rowSelection={{
+					selectedRowKeys,
+					onChange: (selectedRowKeys: any) => {
+						setSelectedRowKeys(selectedRowKeys as number[]);
+					},
+				}}
 				dataSource={dataSource}
 			/>
 		</BizPage>

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { BizPage, SaveButton } from '@ionia/libs';
-import { Form, Switch, Tooltip, Input, Button, Modal } from 'antd';
+import { Form, Switch, Tooltip, Input, Button } from 'antd';
 import { InfoCircleOutlined } from '@ant-design/icons';
 import './index.less';
 import Verify from './Verify';
@@ -22,7 +22,13 @@ export default () => {
 			<BizPage
 				showActions={true}
 				renderActions={() => {
-					return <SaveButton htmlType='submit' />;
+					return (
+						<SaveButton
+							onSave={() => {
+								form.submit();
+							}}
+						/>
+					);
 				}}
 			>
 				<Form form={form} style={{ marginTop: 24 }} {...layout}>
@@ -49,7 +55,7 @@ export default () => {
 					</Form.Item>
 					<Form.Item
 						name='smtpserve'
-						rules={[{ required: true }, { message: '请输入SMTP服务器' }]}
+						rules={[{ required: true }]}
 						label={
 							<span>
 								SMTP服务器 &nbsp;
@@ -63,14 +69,11 @@ export default () => {
 					</Form.Item>
 					<Form.Item
 						name='smtpport'
-						rules={[{ required: true }, { message: '请输入SMTP服务器' }]}
+						rules={[{ required: true }]}
 						label={
 							<span>
 								SMTP端口 &nbsp;
-								<Tooltip
-									title='邮件服务器端口，25默认http协议，465默认为https协议，推荐使用465
-                            '
-								>
+								<Tooltip title='邮件服务器端口，25默认http协议，465默认为https协议，推荐使用465'>
 									<InfoCircleOutlined />
 								</Tooltip>
 							</span>
@@ -78,16 +81,11 @@ export default () => {
 					>
 						<Input placeholder='请输入SMTP端口' />
 					</Form.Item>
-					<Form.Item
-						name='accpunt'
-						rules={[{ required: true }, { message: '请输入发件账号' }]}
-						label='发件账号'
-					>
+					<Form.Item name='accpunt' rules={[{ required: true }]} label='发件账号'>
 						<Input placeholder='请输入发件账号' />
 					</Form.Item>
 					<Form.Item
 						name='emailpassword'
-						rules={[{ required: true }, { message: '请输入SMTP服务器' }]}
 						label={
 							<span>
 								邮箱密码&nbsp;
@@ -96,6 +94,7 @@ export default () => {
 								</Tooltip>
 							</span>
 						}
+						rules={[{ required: true }]}
 					>
 						<Input placeholder='请输入SMTP端口' />
 					</Form.Item>
