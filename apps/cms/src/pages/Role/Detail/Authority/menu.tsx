@@ -20,6 +20,7 @@ interface treeItem {
 export default ({ roleId }: any) => {
 	const [, setActiveKey] = useState<string[]>([]);
 	const [checkedKeys, { add, has, remove }] = useSet<string>([]);
+
 	const [treeData, setTreeData] = useState([]);
 	const { data } = useRequest(() => roleMenuShow(roleId), {
 		onSuccess: data => {
@@ -69,6 +70,7 @@ export default ({ roleId }: any) => {
 	 */
 	const changeCheck = (item: any, e?: any, data?: any) => {
 		logger.debug('item', item);
+		logger.debug('checkedKeys', checkedKeys);
 		let flag;
 		if (has(item.key)) {
 			remove(item.key);
@@ -86,13 +88,13 @@ export default ({ roleId }: any) => {
 		if (item.parent && item.parent.children) {
 			let selArr = item.parent.children.filter((t: any) => has(t.key));
 			logger.debug('selArr', selArr);
-			if (selArr.length === item.parent.children.length) {
+			if (selArr.length == item.parent.children.length) {
 				// 全选
 				logger.debug('selArrLength', selArr.length === item.parent.children.length);
 				add(item.parent.key);
 			} else if (selArr.length) {
 				// 半选
-				logger.debug('selArrLength2', selArr.length);
+				logger.debug('selArrLength2', checkedKeys);
 				// add(item.parent.key);
 			} else {
 				logger.debug('selArrLength3', has(item.parent.key));
@@ -158,13 +160,9 @@ export default ({ roleId }: any) => {
 						checkAll(e.target.checked, treeData);
 					}}
 					indeterminate={
-						Array.from(checkedKeys).length != loop(treeData).length &&
-						Array.from(checkedKeys).length > 0
+						checkedKeys.size != loop(treeData).length && checkedKeys.size > 0
 					}
-					checked={
-						Array.from(checkedKeys).length == loop(treeData).length &&
-						Array.from(checkedKeys).length > 0
-					}
+					checked={checkedKeys.size == loop(treeData).length && checkedKeys.size > 0}
 				>
 					全选
 				</Checkbox>

@@ -5,10 +5,9 @@ import { useRequest } from 'ahooks';
 
 export default ({ roleId }: any) => {
 	const { data } = useRequest(() => roleAcquireData(roleId));
-	logger.debug('data', data);
 	const treeData = data?.data.sites ?? [];
 	const submitData = () => {
-		logger.debug(data);
+		logger.debug(treeData);
 	};
 	const [tree, setTree] = useState<AdminChildDataVO[]>(treeData);
 	/**
@@ -49,7 +48,31 @@ export default ({ roleId }: any) => {
 
 	const changeAll = (type: any, data: any, flag: any) => {
 		if (type == 'key0') {
-			logger.debug(data);
+			logger.debug('data', data);
+			const loop = (list: any) => {
+				list.map((item: any) => {
+					let ids: number[] = [];
+					for (const key in item.datas) {
+						if (item.datas[key].optional == 1) {
+							ids.push(item.datas[key].selected);
+						}
+					}
+					//点击勾选 则勾选
+					//取消时 判断其他功能的权限是否存在 如果在就取消 不在 就不取消
+					if (flag) {
+						item.datas[type].selected = 1;
+					} else {
+						if (ids.filter(t => t == 1).length < 2) {
+							item.datas[type].selected = 0;
+						}
+					}
+					logger.debug('ids', ids);
+					if (item.children && item.children.length) {
+						loop(item.children);
+					}
+				});
+			};
+			loop(data);
 		} else {
 			data.map((item: any) => {
 				if (item.datas[type].optional == 1) {
@@ -345,7 +368,7 @@ export default ({ roleId }: any) => {
 					indeterminate={checkAll(treeData, 'key4')}
 					checked={isCheckAll(treeData, 'key4')}
 				>
-					发布静态页
+					复制
 				</Checkbox>
 			),
 			dataIndex: 'key4',
@@ -371,7 +394,7 @@ export default ({ roleId }: any) => {
 					indeterminate={checkAll(treeData, 'key5')}
 					checked={isCheckAll(treeData, 'key5')}
 				>
-					类似新建
+					权限分配
 				</Checkbox>
 			),
 			dataIndex: 'key5',
@@ -397,7 +420,7 @@ export default ({ roleId }: any) => {
 					indeterminate={checkAll(treeData, 'key6')}
 					checked={isCheckAll(treeData, 'key6')}
 				>
-					合并
+					发布静态页
 				</Checkbox>
 			),
 			dataIndex: 'key6',
@@ -410,58 +433,6 @@ export default ({ roleId }: any) => {
 						}}
 						checked={row.datas.key6.selected == 1 ? true : false}
 						disabled={row.datas.key6.optional == 0 ? true : false}
-					></Checkbox>
-				);
-			},
-		},
-		{
-			title: (
-				<Checkbox
-					onChange={e => {
-						changeAll('key7', treeData, e.target.checked);
-					}}
-					indeterminate={checkAll(treeData, 'key7')}
-					checked={isCheckAll(treeData, 'key7')}
-				>
-					权限分配
-				</Checkbox>
-			),
-			dataIndex: 'key7',
-			key: 'key7',
-			render: (text: any, row: any) => {
-				return (
-					<Checkbox
-						onChange={() => {
-							changeData(row.datas.key7, row.datas.key7.selected, row.datas, 'key7');
-						}}
-						checked={row.datas.key7.selected == 1 ? true : false}
-						disabled={row.datas.key7.optional == 0 ? true : false}
-					></Checkbox>
-				);
-			},
-		},
-		{
-			title: (
-				<Checkbox
-					onChange={e => {
-						changeAll('key8', treeData, e.target.checked);
-					}}
-					indeterminate={checkAll(treeData, 'key8')}
-					checked={isCheckAll(treeData, 'key8')}
-				>
-					开启/关闭
-				</Checkbox>
-			),
-			dataIndex: 'key8',
-			key: 'key8',
-			render: (text: any, row: any) => {
-				return (
-					<Checkbox
-						onChange={() => {
-							changeData(row.datas.key8, row.datas.key8.selected, row.datas, 'key8');
-						}}
-						checked={row.datas.key8.selected == 1 ? true : false}
-						disabled={row.datas.key8.optional == 0 ? true : false}
 					></Checkbox>
 				);
 			},

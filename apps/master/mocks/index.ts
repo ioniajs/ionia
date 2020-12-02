@@ -9,6 +9,7 @@ import role from './role';
 import org from './org';
 import siteAuthority from './site-authority';
 import menu from './menu';
+import column from './column';
 
 export default setupWorker(
 	...hero,
@@ -20,5 +21,6 @@ export default setupWorker(
 	...role,
 	...org,
 	...siteAuthority,
-	...menu
+	...menu,
+	...column
 );
