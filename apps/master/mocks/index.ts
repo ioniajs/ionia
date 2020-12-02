@@ -8,6 +8,8 @@ import user from './user';
 import role from './role';
 import org from './org';
 import siteAuthority from './site-authority';
+import menu from './menu';
+
 export default setupWorker(
 	...hero,
 	...config,
@@ -17,5 +19,6 @@ export default setupWorker(
 	...user,
 	...role,
 	...org,
-	...siteAuthority
+	...siteAuthority,
+	...menu
 );

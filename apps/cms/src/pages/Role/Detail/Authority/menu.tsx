@@ -1,6 +1,6 @@
-import { logger } from '@ionia/libs';
-import { useMount, useSet } from 'ahooks';
-import { Checkbox, Collapse, Row, Col, Affix, Button } from 'antd';
+import { logger, roleMenuShow } from '@ionia/libs';
+import { useSet, useRequest } from 'ahooks';
+import { Affix, Button, Checkbox, Col, Collapse, Row } from 'antd';
 import React, { useState } from 'react';
 import './index.less';
 
@@ -9,6 +9,7 @@ const { Panel } = Collapse;
 function callback(key: any) {
 	console.log(key);
 }
+
 interface treeItem {
 	title: string;
 	key: string;
@@ -16,130 +17,25 @@ interface treeItem {
 	permissionFlag: number;
 }
 
-const treeData: treeItem[] = [
-	{
-		children: [
-			{
-				children: [
-					{
-						key: '141',
-						title: '四级1',
-						permissionFlag: 1,
-						children: [],
-					},
-					{
-						key: '142',
-						title: '四级2',
-						permissionFlag: 1,
-						children: [],
-					},
-					{
-						key: '143',
-						title: '四级3',
-						permissionFlag: 0,
-						children: [],
-					},
-					{
-						key: '144',
-						title: '四级4',
-						permissionFlag: 0,
-						children: [],
-					},
-				],
-				key: '14',
-				title: '二级4-三级1',
-				permissionFlag: 0,
-			},
-			{
-				key: '13',
-				title: '二级3',
-				permissionFlag: 0,
-				children: [
-					{
-						key: '131',
-						title: '三级1',
-						permissionFlag: 1,
-						children: [],
-					},
-					{
-						key: '132',
-						title: '三级2',
-						permissionFlag: 0,
-						children: [],
-					},
-				],
-			},
-			{
-				key: '12',
-				title: '二级2',
-				permissionFlag: 1,
-				children: [],
-			},
-			{
-				key: '11',
-				title: '二级1',
-				permissionFlag: 0,
-				children: [],
-			},
-		],
-		key: '1',
-		title: '顶级',
-		permissionFlag: 0,
-	},
-	{
-		key: '2',
-		title: '系统设置',
-		permissionFlag: 0,
-		children: [
-			{
-				key: '21',
-				title: '系统设置二级2',
-				permissionFlag: 0,
-				children: [
-					{
-						key: '211',
-						title: '系统设置三级2',
-						permissionFlag: 1,
-						children: [],
-					},
-					{
-						key: '212',
-						title: '系统设置三级1',
-						permissionFlag: 0,
-						children: [],
-					},
-				],
-			},
-			{
-				key: '22',
-				title: '系统设置二级1',
-				permissionFlag: 0,
-				children: [],
-			},
-		],
-	},
-	{
-		key: '0',
-		title: '增量菜单',
-		permissionFlag: 1,
-		children: [],
-	},
-];
-
-export default ({ rolekey }: any) => {
-	const [activeKey, setActiveKey] = useState<string[]>([]);
-	const [checkedKeys, { add, has, remove, reset }] = useSet<string>([]);
-
-	useMount(() => {
-		getDefaultList(treeData);
+export default ({ roleId }: any) => {
+	const [, setActiveKey] = useState<string[]>([]);
+	const [checkedKeys, { add, has, remove }] = useSet<string>([]);
+	const [treeData, setTreeData] = useState([]);
+	const { data } = useRequest(() => roleMenuShow(roleId), {
+		onSuccess: data => {
+			getDefaultList(data?.data);
+			const tree = getParent(data?.data);
+			setTreeData(tree);
+		},
 	});
+	// const treeData = data?.data ?? [];
 
 	/**
 	 * 获取初始选中的值
 	 */
 
 	const getDefaultList = (data: any) => {
-		data.map(({ permissionFlag, key, children }: any) => {
+		data?.map(({ permissionFlag, key, children }: any) => {
 			if (permissionFlag == 1) {
 				add(key);
 			}
@@ -148,54 +44,63 @@ export default ({ rolekey }: any) => {
 			}
 		});
 	};
+	/**
+	 * 获取父级
+	 */
+	const getParent = (data: any, parent?: any) => {
+		return (
+			data &&
+			data.map((n: any) => {
+				if (n && n.children) {
+					n.children = getParent(n.children, n);
+				}
+				return {
+					...n,
+					parent,
+				};
+			})
+		);
+	};
 
 	/**
 	 * 修改选中
-	 *
+	 *先判断是否存在set中   存在 移除自己和子级         判断兄弟节点是否存在 全部存在 就存  不然就移除父级
+                          不存在 添加自己+子级        判断兄弟节点是否存在 全部存在 就存  不然就移除父级
 	 */
-	const changeCheck = (item: any, e: any, parent?: any) => {
+	const changeCheck = (item: any, e?: any, data?: any) => {
+		logger.debug('item', item);
 		let flag;
 		if (has(item.key)) {
 			remove(item.key);
 			flag = false;
+			if (item.children && item.children.length > 0) {
+				checkAll(flag, item.children);
+			}
 		} else {
 			add(item.key);
 			flag = true;
-		}
-		if (item.children.length > 0) {
-			checkAll(flag, item.children);
-		} else {
-			let isTrue = isParentCheck(parent);
-			logger.debug('isTrue', isTrue);
-			if (isTrue) {
-				add(parent.key);
+			if (item.children && item.children.length > 0) {
+				checkAll(flag, item.children);
 			}
 		}
-	};
-
-	/**
-	 *
-	 * @param data
-	 * @param ids
-	 *
-	 * 判断兄弟节点是否已选 上级是否为已选
-	 */
-
-	const isParentCheck = (data: any) => {
-		let isFlag = true;
-		const isHasKey = (list: any) => {
-			list.forEach((element: any) => {
-				if (!has(element.key)) {
-					console.log('element.key', element.key);
-					isFlag = false;
+		if (item.parent && item.parent.children) {
+			let selArr = item.parent.children.filter((t: any) => has(t.key));
+			logger.debug('selArr', selArr);
+			if (selArr.length === item.parent.children.length) {
+				// 全选
+				logger.debug('selArrLength', selArr.length === item.parent.children.length);
+				add(item.parent.key);
+			} else if (selArr.length) {
+				// 半选
+				logger.debug('selArrLength2', selArr.length);
+				// add(item.parent.key);
+			} else {
+				logger.debug('selArrLength3', has(item.parent.key));
+				if (has(item.parent.key)) {
+					remove(item.parent.key);
 				}
-				if (element.children && element.children.length) {
-					isHasKey(element.children);
-				}
-			});
-		};
-		isHasKey(data);
-		return isFlag;
+			}
+		}
 	};
 
 	/**
@@ -204,7 +109,7 @@ export default ({ rolekey }: any) => {
 	 * 获取数组中的KEY
 	 */
 	const loop = (data: any, ids: string[] = []) => {
-		data.forEach(({ key, children }: any) => {
+		data?.forEach(({ key, children }: any) => {
 			if (key) {
 				ids.push(key);
 			}
@@ -230,23 +135,11 @@ export default ({ rolekey }: any) => {
 		// logger.debug('checkedKeys', checkedKeys);
 	};
 
-	/**
-	 *
-	 * @param data
-	 *  判断是否是全选
-	 */
-
-	const isAll = () => {
-		logger.debug('Array1', checkedKeys);
-		logger.debug('Array', Array.from(checkedKeys).length == loop(treeData).length);
-		return true;
-	};
-
 	//全部伸缩和展开
 	const onSelect = (e: any) => {
 		logger.debug(e.target.checked);
 		let activeKey: string[] = [];
-		treeData.map((item: any) => {
+		treeData?.map((item: any) => {
 			activeKey.push(item.key);
 		});
 		logger.debug('activeKeys', activeKey);
@@ -262,10 +155,16 @@ export default ({ rolekey }: any) => {
 			<div className='io_cms_role_authority-site_check'>
 				<Checkbox
 					onChange={e => {
-						checkAll(e, treeData);
+						checkAll(e.target.checked, treeData);
 					}}
-					indeterminate={Array.from(checkedKeys).length != loop(treeData).length}
-					checked={isAll()}
+					indeterminate={
+						Array.from(checkedKeys).length != loop(treeData).length &&
+						Array.from(checkedKeys).length > 0
+					}
+					checked={
+						Array.from(checkedKeys).length == loop(treeData).length &&
+						Array.from(checkedKeys).length > 0
+					}
 				>
 					全选
 				</Checkbox>
@@ -276,7 +175,7 @@ export default ({ rolekey }: any) => {
 				className='io_cms_role_authority-menu_collapse'
 				// activeKey={activeKey}
 			>
-				{treeData.map(item => {
+				{treeData?.map((item: any) => {
 					return (
 						<Panel
 							header={
@@ -286,6 +185,7 @@ export default ({ rolekey }: any) => {
 									}}
 								>
 									<Checkbox
+										key={item.key}
 										onChange={e => {
 											changeCheck(item, e);
 										}}
@@ -300,7 +200,7 @@ export default ({ rolekey }: any) => {
 							key={item.key}
 						>
 							<Row gutter={[24, 24]}>
-								{item.children?.map(i => {
+								{item.children?.map((i: any) => {
 									return (
 										<Col
 											span={8}
@@ -319,7 +219,7 @@ export default ({ rolekey }: any) => {
 												</Checkbox>
 											</div>
 											<Row>
-												{i.children?.map((o: any, index: any) => {
+												{i.children?.map((o: any) => {
 													return (
 														<Col span={8}>
 															<Checkbox
@@ -327,6 +227,7 @@ export default ({ rolekey }: any) => {
 																onChange={e => {
 																	changeCheck(o, e, i.children);
 																}}
+																key={o.key}
 															>
 																{o.title}
 															</Checkbox>
@@ -341,9 +242,6 @@ export default ({ rolekey }: any) => {
 						</Panel>
 					);
 				})}
-				{/* <Panel header='This is panel header 1' key='1'>
-				<p>{text}</p>
-			</Panel> */}
 			</Collapse>
 		</>
 	);
