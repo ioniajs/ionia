@@ -4,14 +4,14 @@ import {
 	BizModalForm,
 	ImageUpload,
 	RichTextEditor,
-	ModalFormRef,
+	BizModalFormRef,
 	modposition,
 	OrgDTO,
 	positionDetail,
 } from '@ionia/libs';
 import { useMount, useRequest } from '@umijs/hooks';
 import { Button, Form, Input, message, TreeSelect } from 'antd';
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import './index.less';
 
 const layout = {
@@ -35,8 +35,8 @@ const baseUpdate = async (filed: OrgDTO) => {
 
 export const BaseDetail = ({ id }: BaseDetailProps) => {
 	const [expandForm] = Form.useForm();
-	const ref = useRef<ModalFormRef>();
-
+	const ref = useRef<BizModalFormRef>();
+	const [editorState, setEditorState] = useState(); // 获取富文本编辑内容
 	const { data, run } = useRequest(positionDetail, {
 		manual: true,
 	});
@@ -101,6 +101,7 @@ export const BaseDetail = ({ id }: BaseDetailProps) => {
 							parentId: values.parentId,
 							type: values.type,
 							address: values.address || '',
+							introduce: editorState,
 						};
 						const success = await baseUpdate(param);
 						if (success.code === 200) {
@@ -161,8 +162,9 @@ export const BaseDetail = ({ id }: BaseDetailProps) => {
 				<Form.Item name='fax' label='传真'>
 					<Input style={{ width: 664 }} placeholder='请输入传真号码' />
 				</Form.Item>
-				<Form.List name='domain'>
+				<Form.List name='linkmanList'>
 					{(fields, { add, remove }, { errors }) => {
+						console.log(fields, 'ffffffvfff');
 						return (
 							<>
 								{fields.map((field, index) => {
@@ -202,7 +204,7 @@ export const BaseDetail = ({ id }: BaseDetailProps) => {
 													style={{ marginLeft: 8, width: 328 }}
 												/>
 											</Form.Item>
-											{fields.length > 1 && index > 0 ? (
+											{fields.length >= 1 && index >= 0 ? (
 												<Button
 													style={{ width: 60.9, marginLeft: 8 }}
 													onClick={() => remove(field.name)}
@@ -217,7 +219,7 @@ export const BaseDetail = ({ id }: BaseDetailProps) => {
 									{...layout}
 									label={
 										fields.length === 0 ? (
-											<span>日常联系人</span>
+											<span>日常联系人:</span>
 										) : (
 											<span></span>
 										)
@@ -278,7 +280,7 @@ export const BaseDetail = ({ id }: BaseDetailProps) => {
 				</Form.Item>
 				<Form.Item name='introduce' label='阵地介绍'>
 					<div className='io-cms-base-create-from-item__rich-text-editor'>
-						<RichTextEditor />
+						<RichTextEditor onGet={editorState => setEditorState(editorState)} />
 					</div>
 				</Form.Item>
 			</Form>

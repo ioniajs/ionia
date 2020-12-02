@@ -422,9 +422,8 @@ export default [
 					id: '121312411212',
 					introduce: 'test',
 					linkmanList: [
-						{ name: 'test1', parentId: '1213' },
-						{ name: 'test2', parentId: '1212' },
-						{ name: 'test3', parentId: '1211' },
+						{ username: '宋晓峰', phone: 1871101101101 },
+						{ username: '宋晓峰', phone: 1871101101101 },
 					],
 					name: 'test',
 					parentId: '1210',
@@ -436,6 +435,41 @@ export default [
 					project: 'test',
 					tagId: '12131',
 					type: 'test',
+				},
+				message: '成功',
+			})
+		);
+	}),
+	// 阵地移入用户分页
+	rest.get('/module-user/cmsmanager/org/list/in', (req, res, ctx) => {
+		return res(
+			ctx.json({
+				code: 200,
+				data: {
+					content: [
+						{
+							id: '1324982039954354177',
+							orgName: '金磊科技',
+							realName: '江西金磊科技',
+							username: 'system',
+						},
+						{
+							id: '1324982716730470402',
+							orgName: '江西阵地',
+							realName: '江西金磊科技',
+							username: 'test',
+						},
+						{
+							id: '1324984812695531522',
+							orgName: '沈阳阵地',
+							realName: '江西金磊科技',
+							username: 'test3',
+						},
+					],
+					pageNo: 1,
+					pageSize: 10,
+					pages: 1,
+					total: 5,
 				},
 				message: '成功',
 			})

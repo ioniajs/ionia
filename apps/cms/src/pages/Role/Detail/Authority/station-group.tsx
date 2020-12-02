@@ -93,7 +93,7 @@ function getKey(arr: any, ids: string[] = []) {
 }
 export default ({ roleId }: any) => {
 	const [expandedKeys, setExpandedKeys] = useState<string[]>(getKey(treeData));
-	const [checkedKeys, setCheckedKeys] = useState<string[]>([]);
+	const [checkedKeys, setCheckedKeys] = useState<any[]>([]);
 	const [selectedKeys, setSelectedKeys] = useState<string[]>([]);
 	const [autoExpandParent, setAutoExpandParent] = useState<boolean>(true);
 	const [checked, setChecked] = useState<boolean>(false);
@@ -102,7 +102,7 @@ export default ({ roleId }: any) => {
 	const onSelect = (selectedKeys: any, info: any) => {
 		console.log('selected', selectedKeys, info);
 	};
-	const s = new Set<string>();
+	const s = new Set<string[]>();
 	const onCheck = (value: any, info: any) => {
 		console.log('onCheck', value, info);
 		// setCheckedKeys(checkedKeys.concat(value.checked));

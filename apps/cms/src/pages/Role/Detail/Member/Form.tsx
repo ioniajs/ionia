@@ -1,5 +1,5 @@
 import { ProFormSelect, ProFormSwitch, ProFormText } from '@ant-design/pro-form';
-import { BizModalForm, logger, addUser, ModalFormRef, UserSaveDTO } from '@ionia/libs';
+import { BizModalForm, logger, addUser, BizModalFormRef, UserSaveDTO } from '@ionia/libs';
 import { Button, TreeSelect, Form, message } from 'antd';
 import React, { useEffect, useState, useRef } from 'react';
 import './index.less';
@@ -59,7 +59,7 @@ export default (props: any) => {
 	const { roleId, orgId } = props;
 	const [form] = Form.useForm();
 	const [value, setValue] = useState(undefined);
-	const ref = useRef<ModalFormRef>();
+	const ref = useRef<BizModalFormRef>();
 	useEffect(() => {
 		if (roleId && orgId) {
 			form.setFieldsValue({ orgId: orgId, roleIds: roleId });

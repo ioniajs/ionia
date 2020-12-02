@@ -72,6 +72,7 @@ export default () => {
 			<EditableTable
 				columns={columns}
 				dataSource={dataSource}
+				onChange={() => {}}
 				operationRender={({ dataSource, setDataSource, changeData, deleteData }) => ({
 					title: '操作',
 					dataIndex: 'operation',

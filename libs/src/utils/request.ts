@@ -1,10 +1,14 @@
-import configs from '../configs';
+import { configs } from '../configs';
 import { extend } from 'umi-request';
+import { isDev } from '.';
 
 const request = extend({
-	prefix: `${configs.API_PREFIX}`,
+	prefix: `${isDev ? '' : configs.API_HOST}${configs.API_PREFIX}`,
 	timeout: 10000,
-	headers: {},
+	headers: {
+		'Accept-Language': 'zh-CN',
+		Authorization: '',
+	},
 	errorHandler: error => {
 		console.error('网络错误：', error.response, error.message, error.data);
 		throw error;

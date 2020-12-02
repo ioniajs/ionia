@@ -1,9 +1,9 @@
-import { AMap, BizModalForm, BizPage, ModalFormRef } from '@ionia/libs';
+import { AMap, BizModalForm, BizPage, BizModalFormRef } from '@ionia/libs';
 import { Button } from 'antd';
 import React, { useRef } from 'react';
 
 export default () => {
-	const ref = useRef<ModalFormRef>();
+	const ref = useRef<BizModalFormRef>();
 	return (
 		<BizPage>
 			<BizModalForm

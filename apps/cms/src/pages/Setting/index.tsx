@@ -129,44 +129,6 @@ export default () => {
 						}
 					>
 						<ImageUpload
-							defaultFileList={[
-								{
-									uid: '1',
-									name: 'image.png',
-									status: 'success',
-									url:
-										'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
-									size: 10,
-									type: '',
-								},
-								{
-									uid: '1',
-									name: 'image.png',
-									status: 'done',
-									url:
-										'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
-									size: 10,
-									type: '',
-								},
-								{
-									uid: '2',
-									percent: 30,
-									name: 'image.png',
-									status: 'uploading',
-									url:
-										'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
-									size: 10,
-									type: '',
-								},
-								{
-									uid: '3',
-									name:
-										'qweqweqweqwew-weqwewqeqwew-weqweqweqweqweqweqw-image.png',
-									status: 'error',
-									size: 20,
-									type: '',
-								},
-							]}
 							tips='请上传ico格式的图片，建议文件命名为favicon.ico'
 							onChange={files => {
 								console.log(files);

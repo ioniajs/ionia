@@ -61,14 +61,20 @@ export default () => {
 					value: '信息录入员',
 				},
 			],
+			onFilter: (value, record) => record.roleNames.indexOf(value.toString()) === 0,
 		},
 		{
 			title: '最后登录时间',
 			key: 'lastLoginTime',
 			dataIndex: 'lastLoginTime',
-			sorter: true,
 			width: 210,
-			// render: lastLoginTime => `${lastLoginTime.first} ${lastLoginTime.last}`,
+			sorter: (a, b) => {
+				let atime = new Date(a.lastLoginTime.replace(/-/g, '/')).getTime();
+				let btime = new Date(b.lastLoginTime.replace(/-/g, '/')).getTime();
+				return atime - btime;
+			},
+			sortDirections: ['descend', 'ascend'],
+			defaultSortOrder: 'descend',
 		},
 		{
 			title: '最后登录IP',
@@ -99,12 +105,12 @@ export default () => {
 			),
 			filters: [
 				{
-					value: '1',
+					value: '启用',
 					text: '启用',
 				},
 				{
 					text: '禁用',
-					value: '0',
+					value: '禁用',
 				},
 			],
 		},
@@ -208,11 +214,11 @@ export default () => {
 				columns={columns}
 				rowSelection={{
 					selectedRowKeys,
-					onChange: selectedRowKeys => {
+					onChange: (selectedRowKeys: any) => {
 						setSelectedRowKeys(selectedRowKeys as number[]);
 					},
 				}}
-				request={(params, sort, filter) => {
+				request={(params: any, sort: any, filter: any) => {
 					return userPaging({}).then(data => ({ data: data.data.content }));
 				}}
 			/>

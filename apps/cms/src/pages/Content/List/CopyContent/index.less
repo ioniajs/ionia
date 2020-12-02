@@ -1,0 +1,30 @@
+.io-cms-content-list-copy-modal-tree-container {
+	width: 448px;
+	height: 448px;
+	padding: 24px;
+	overflow: hidden;
+	// overflow-x: hidden;
+	background: #ffffff;
+	border: 1px solid #f0f0f0;
+	white-space: nowrap;
+	overflow-y: auto;
+	overflow-x: auto;
+	&::-webkit-scrollbar {
+		/*滚动条里面小方块*/
+		// border-radius: 10px;
+		// -webkit-box-shadow: inset 0 0 5px #a0a0a0;
+		background: transparent;
+	}
+}
+.io-cms-content-list-copy-modal-tree-container:hover {
+	overflow-y: auto;
+	overflow-x: auto;
+	white-space: nowrap;
+	&::-webkit-scrollbar {
+		background: #999;
+		-moz-transition: all 0.3s ease-in-out;
+		-webkit-transition: all 0.3s ease-in-out;
+		-o-transition: all 0.3s ease-in-out;
+		transition: all 0.3s ease-in-out;
+	}
+}

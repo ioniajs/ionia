@@ -3,7 +3,7 @@ import { UserDTO, PicDTO } from '../../common.dto';
 //#region
 export interface OrgBatchChildDTO {
 	area: string; // 地区
-	children: OrgBatchChildDTO[]; //子结点
+	children?: OrgBatchChildDTO[]; //子结点
 	code: string; // 阵地编号
 	name: string; // 阵地名称
 	type: string; // 阵地类型
@@ -39,10 +39,10 @@ export interface OrgDTO {
 //#region 新增阵地资源 | 修改阵地资源
 export interface OrgResourceDTO {
 	id?: string; // 阵地资源ID, 修改必传
-	introduce: string; // 资源介绍
-	picId: string; // 图片id
-	title: string; // 标题
-	orgId: string; // 阵地id
+	introduce?: string; // 资源介绍
+	picId?: string; // 图片id
+	title?: string; // 标题
+	orgId?: string; // 阵地id
 }
 //#endregion
 

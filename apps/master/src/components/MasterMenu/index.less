@@ -7,6 +7,14 @@
 	overflow-y: auto;
 	.ant-menu {
 		width: 200px !important;
+		.ant-menu-item-selected {
+			.iconfont {
+				color: #fff;
+			}
+			a {
+				color: #fff;
+			}
+		}
 		&:not(.ant-menu-horizontal) {
 			.ant-menu-item-selected {
 				background: @primary-color;
@@ -29,7 +37,9 @@
 			border-right: none;
 		}
 	}
-	// .ant-menu-submenu-title {
-	// 	padding-left: 60px !important;
-	// }
+	.ant-menu-submenu {
+		i {
+			margin-right: 12px;
+		}
+	}
 }

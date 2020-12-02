@@ -1,5 +1,5 @@
 import { ProFormText, ProFormTextArea } from '@ant-design/pro-form';
-import { BizModalForm, addRole, RoleOperatingDTO, ModalFormRef } from '@ionia/libs';
+import { BizModalForm, addRole, RoleOperatingDTO, BizModalFormRef } from '@ionia/libs';
 import { Button, Form, message, TreeSelect } from 'antd';
 import React, { useRef, useState } from 'react';
 import './index.less';
@@ -46,7 +46,7 @@ const treeData = [
 ];
 
 export default () => {
-	const ref = useRef<ModalFormRef>();
+	const ref = useRef<BizModalFormRef>();
 	const [form] = Form.useForm();
 	const onCreate = () => {
 		form.resetFields();
