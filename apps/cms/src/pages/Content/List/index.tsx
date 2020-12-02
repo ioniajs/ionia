@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Select, Checkbox, Form, Dropdown, Menu, Tooltip, Pagination } from 'antd';
+import { Select, Checkbox, Form, Dropdown, Menu, Tooltip, Pagination, Modal } from 'antd';
 import {
 	QueryFilter,
 	ProFormSelect,
@@ -9,7 +9,7 @@ import {
 } from '@ant-design/pro-form';
 import { SortableContainer, SortableElement } from 'react-sortable-hoc';
 import arrayMove from 'array-move';
-import ProList from '@ant-design/pro-list';
+import CopyContent from './CopyContent';
 import './index.less';
 
 // 排序方式
@@ -135,6 +135,23 @@ const dataSource = [
 	},
 ];
 
+// 下线
+const handleContentOffLine = (id: any) => {
+	console.log(id, '下线id');
+};
+// 发布
+const handleContentPublish = (id: any) => {
+	console.log(id, '发布id');
+};
+// 预览
+const handleContentPreview = (id: any) => {
+	console.log(id, '预览id');
+};
+// 浏览
+const handleContentBrowse = (id: any) => {
+	console.log(id, '浏览id');
+};
+
 export const List = () => {
 	const [searchTypesValue, setSearchTypes] = useState<number>(1);
 	const [selectedRowKeys, setSelectedRowKeys] = useState<number[]>([]);
@@ -153,7 +170,7 @@ export const List = () => {
 		/>
 	);
 	// 右下角功能区，hover下拉
-	const menu = (
+	const rightMenuActions = (
 		<Menu>
 			<Menu.Item>
 				<a>归档</a>
@@ -162,20 +179,40 @@ export const List = () => {
 				<a>置顶</a>
 			</Menu.Item>
 			<Menu.Item>
-				{' '}
 				<a>取消热点</a>
 			</Menu.Item>
 			<Menu.Item>
 				<a>取消头条</a>
 			</Menu.Item>
 			<Menu.Item>
-				<a>取消推荐</a>
+				<a>设置推荐</a>
 			</Menu.Item>
 			<Menu.Item>
-				<a>取消推送</a>
+				<a>站群推送</a>
 			</Menu.Item>
 		</Menu>
 	);
+	const topMenuActions = (
+		<Menu>
+			<Menu.Item>
+				<i className='iconfont icon-vertical-align-top' />
+				&nbsp;置顶
+			</Menu.Item>
+			<Menu.Item>
+				<i className='iconfont icon-fire' />
+				&nbsp;热点
+			</Menu.Item>
+			<Menu.Item>
+				<i className='iconfont icon-toutiao' />
+				&nbsp;头条
+			</Menu.Item>
+			<Menu.Item>
+				<i className='iconfont icon-like' />
+				&nbsp;推荐
+			</Menu.Item>
+		</Menu>
+	);
+
 	const SortableItem = SortableElement(({ value }: any) => (
 		<div className='io-cms-content-list-item__div' key={value.key}>
 			<div className='io-cms-content-list-item-top__div'>
@@ -219,7 +256,9 @@ export const List = () => {
 						<i className='iconfont icon-like item-content-top-action' />
 					</Tooltip>
 					<Tooltip title='更多内容类型'>
-						<i className='iconfont icon-ellipsis item-content-top-action' />
+						<Dropdown overlay={topMenuActions}>
+							<i className='iconfont icon-ellipsis item-content-top-action' />
+						</Dropdown>
 					</Tooltip>
 				</p>
 				<p className='io-cms-content-list-item-content-top-time__span'>
@@ -261,14 +300,52 @@ export const List = () => {
 					</span>
 				</div>
 				<div className='io-cms-content-list-item-content-middle-actions'>
-					<a className='content-middle-action'>下载</a>
-					<a className='content-middle-action'>预览</a>
-					<a className='content-middle-action'>浏览</a>
-					<a className='content-middle-action'>删除</a>
-					<a className='content-middle-action'>复制</a>
+					<a
+						className='content-middle-action'
+						onClick={() => handleContentOffLine(value?.id)}
+					>
+						下线
+					</a>
+					<a
+						className='content-middle-action'
+						onClick={() => handleContentPublish(value?.id)}
+					>
+						发布
+					</a>
+					<a
+						className='content-middle-action'
+						onClick={() => handleContentPreview(value?.id)}
+					>
+						预览
+					</a>
+					<a
+						className='content-middle-action'
+						onClick={() => handleContentBrowse(value?.id)}
+					>
+						浏览
+					</a>
+					<a
+						className='content-middle-action'
+						onClick={() => {
+							console.log('点击了删除');
+							Modal.confirm({
+								className: 'io-cms-content-item-delete__modal',
+								title: '你确定删除选中内容吗？',
+								content: '删除后可在内容回收站中恢复。',
+								okText: '删除',
+								onOk: () => {},
+							});
+						}}
+					>
+						删除
+					</a>
+					{/* <a className='content-middle-action'>复制</a> */}
+					<div style={{ display: 'inline-block' }}>
+						<CopyContent contentId={value.id} />
+					</div>
 					<a className='content-middle-action'>移动</a>
 					<a className='content-middle-action'>排序</a>
-					<Dropdown overlay={menu}>
+					<Dropdown overlay={rightMenuActions}>
 						<i className='iconfont icon-ellipsis content-middle-action' />
 					</Dropdown>
 				</div>
@@ -308,6 +385,7 @@ export const List = () => {
 						name='contentStatus'
 						label='内容状态'
 						valueEnum={contentStatus}
+						mode='multiple'
 						// colSize={0.75}
 					/>
 					<ProFormCheckbox.Group
@@ -315,29 +393,29 @@ export const List = () => {
 						label=''
 						options={['显示子栏目内容']}
 						layout='vertical'
+						// colSize={0.5}
 					/>
 					<ProFormSelect
 						name='contentType'
 						label='内容类型'
 						valueEnum={contentType}
+						mode='multiple'
 						// colSize={0.75}
 					/>
 					<ProFormSelect
 						name='contentModal'
 						label='内容模型'
 						valueEnum={contentModal}
+						mode='multiple'
 						// colSize={0.75}
 					/>
 					<ProFormDateTimeRangePicker name='create' label='创建时间' colSize={1.5} />
-					<ProFormDateTimeRangePicker
-						name='publish'
-						label='发布时间'
-						// colSize={1}
-					/>
+					<ProFormDateTimeRangePicker name='publish' label='发布时间' colSize={1.5} />
 					<ProFormSelect
 						name='createWay'
 						label='创建方式'
 						valueEnum={createWay}
+						mode='multiple'
 						// colSize={0.75}
 					/>
 					<ProFormCheckbox.Group
@@ -345,6 +423,7 @@ export const List = () => {
 						layout='vertical'
 						label=''
 						options={['我创建的']}
+						// colSize={0.5}
 					/>
 					<ProFormText
 						name='contentTittle'
@@ -424,10 +503,11 @@ export const List = () => {
 				</Form.Item>
 			</Form>
 			<SortableList
+				helperClass='io-sortable-helper'
 				items={datas}
 				onSortEnd={onSortEnd}
 				axis='xy'
-				helperClass='io-sortable-helper'
+				distance={20}
 			/>
 			<Pagination
 				className='io-cms-content-list-pagination'
@@ -436,6 +516,9 @@ export const List = () => {
 				showQuickJumper={true}
 				showTotal={total => `共${total}条`}
 				defaultPageSize={5}
+				onChange={(page, pageSize) => {
+					console.log(page, pageSize, 'pagination');
+				}}
 			/>
 		</div>
 	);
