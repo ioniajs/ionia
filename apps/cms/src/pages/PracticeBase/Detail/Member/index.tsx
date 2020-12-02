@@ -3,7 +3,7 @@ import { ActionType, ProColumns } from '@ant-design/pro-table';
 import { BizPage, BizTable, UserPageVO, userPaging } from '@ionia/libs';
 import { Button, Modal, TreeSelect, Form, Switch } from 'antd';
 import './index.less';
-import { fromPairs } from 'lodash';
+import RemoveUser from './RemoveUser';
 interface BaseMemberPorps {
 	id: string;
 }
@@ -98,6 +98,7 @@ export const BaseMember = ({ id }: BaseMemberPorps) => {
 		},
 	];
 	const [show, setShow] = useState(false);
+	const [removeuser, setRemoveuser] = useState(false);
 	const [form] = Form.useForm();
 	const handOk = () => {
 		form.submit();
@@ -108,19 +109,27 @@ export const BaseMember = ({ id }: BaseMemberPorps) => {
 				<BizTable
 					renderActions={() => (
 						<>
-							<Button type='primary'>
-								<i className='iconfont icon-plus1' style={{ fontSize: '16px' }} />
-								新建用户
-							</Button>
-							<Button style={{ marginLeft: 8 }}>移入用户</Button>
-							<Button
-								onClick={() => {
-									setShow(true);
-								}}
-								style={{ marginLeft: 8 }}
-							>
-								批量移除
-							</Button>
+							<div className='io-space-item'>
+								<Button type='primary'>
+									<i
+										className='iconfont icon-plus1'
+										style={{ fontSize: '16px' }}
+									/>
+									新建用户
+								</Button>
+							</div>
+							<div className='io-space-item'>
+								<Button onClick={() => setRemoveuser(true)}>移入用户</Button>
+							</div>
+							<div className='io-space-item'>
+								<Button
+									onClick={() => {
+										setShow(true);
+									}}
+								>
+									批量移除
+								</Button>
+							</div>
 						</>
 					)}
 					rowSelection={{}}
@@ -148,6 +157,7 @@ export const BaseMember = ({ id }: BaseMemberPorps) => {
 					</Form.Item>
 				</Form>
 			</Modal>
+			<RemoveUser removeuser={removeuser} setRemoveuser={setRemoveuser} />
 		</div>
 	);
 };
