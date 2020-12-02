@@ -86,3 +86,31 @@ export interface SiteCfgVO {
 	watermarkWordSize: string; // 文字大小(px)
 }
 //#endregion
+
+//#region
+export interface AdminSiteVO {
+	id: string; // id
+	name: string; // 站点名称
+}
+//#endregion
+
+//#region
+export interface SiteTreeVO {
+	commons: AdminSiteVO[]; //最近使用站点
+	list: AdminSiteTreeVO[]; // 站点树节点
+	size: number; // 站点数量
+}
+//#endregion
+
+//#region
+export interface AdminSiteTreeAuthVO {
+	auths: object; // 权限标识
+	children: AdminSiteTreeAuthVO[]; // 子级站点
+	dir: string; // 站点目录
+	domain: string[]; // 站点域名
+	id: string; // 站点id
+	name: string; // 站点名称
+	parentId: string; // 父级id
+	status: number; // 状态 (0关 1开)
+}
+//#endregion

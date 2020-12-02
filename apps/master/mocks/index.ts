@@ -7,6 +7,7 @@ import upload from './upload';
 import user from './user';
 import role from './role';
 import org from './org';
+import area from './area';
 
 export default setupWorker(
 	...hero,
@@ -16,5 +17,6 @@ export default setupWorker(
 	...upload,
 	...user,
 	...role,
-	...org
+	...org,
+	...area
 );

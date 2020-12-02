@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
 import { BizModalForm, BizModalFormRef } from '@ionia/libs';
 import { ProFormText, ProFormSwitch } from '@ant-design/pro-form';
-import { Form, Button } from 'antd';
+import { Form, Button, Switch } from 'antd';
 import './index.less';
 
 export default () => {
@@ -29,8 +29,14 @@ export default () => {
 				rules={[{ required: true }]}
 			/>
 			<ProFormText name='url' label='来源链接' placeholder='请输入来源链接' />
-			<ProFormSwitch name='default' label='设为默认来源' initialValue={true} />
-			<ProFormSwitch name='open' label='新窗口打开了链接' initialValue={true} />
+			{/* <ProFormSwitch name='default' label='设为默认来源' initialValue={true} />
+			<ProFormSwitch name='open' label='新窗口打开了链接' initialValue={true} /> */}
+			<Form.Item name='default' label='设为默认来源'>
+				<Switch checkedChildren='开启' unCheckedChildren='关闭' />
+			</Form.Item>
+			<Form.Item name='open' label='新窗口打开链接'>
+				<Switch checkedChildren='开启' unCheckedChildren='关闭' />
+			</Form.Item>
 		</BizModalForm>
 	);
 };
