@@ -345,7 +345,7 @@ export default ({ roleId }: any) => {
 					indeterminate={checkAll(treeData, 'key4')}
 					checked={isCheckAll(treeData, 'key4')}
 				>
-					复制
+					发布静态页
 				</Checkbox>
 			),
 			dataIndex: 'key4',
@@ -371,7 +371,7 @@ export default ({ roleId }: any) => {
 					indeterminate={checkAll(treeData, 'key5')}
 					checked={isCheckAll(treeData, 'key5')}
 				>
-					权限分配
+					类似新建
 				</Checkbox>
 			),
 			dataIndex: 'key5',
@@ -397,7 +397,7 @@ export default ({ roleId }: any) => {
 					indeterminate={checkAll(treeData, 'key6')}
 					checked={isCheckAll(treeData, 'key6')}
 				>
-					发布静态页
+					合并
 				</Checkbox>
 			),
 			dataIndex: 'key6',
@@ -410,6 +410,58 @@ export default ({ roleId }: any) => {
 						}}
 						checked={row.datas.key6.selected == 1 ? true : false}
 						disabled={row.datas.key6.optional == 0 ? true : false}
+					></Checkbox>
+				);
+			},
+		},
+		{
+			title: (
+				<Checkbox
+					onChange={e => {
+						changeAll('key7', treeData, e.target.checked);
+					}}
+					indeterminate={checkAll(treeData, 'key7')}
+					checked={isCheckAll(treeData, 'key7')}
+				>
+					权限分配
+				</Checkbox>
+			),
+			dataIndex: 'key7',
+			key: 'key7',
+			render: (text: any, row: any) => {
+				return (
+					<Checkbox
+						onChange={() => {
+							changeData(row.datas.key7, row.datas.key7.selected, row.datas, 'key7');
+						}}
+						checked={row.datas.key7.selected == 1 ? true : false}
+						disabled={row.datas.key7.optional == 0 ? true : false}
+					></Checkbox>
+				);
+			},
+		},
+		{
+			title: (
+				<Checkbox
+					onChange={e => {
+						changeAll('key8', treeData, e.target.checked);
+					}}
+					indeterminate={checkAll(treeData, 'key8')}
+					checked={isCheckAll(treeData, 'key8')}
+				>
+					开启/关闭
+				</Checkbox>
+			),
+			dataIndex: 'key8',
+			key: 'key8',
+			render: (text: any, row: any) => {
+				return (
+					<Checkbox
+						onChange={() => {
+							changeData(row.datas.key8, row.datas.key8.selected, row.datas, 'key8');
+						}}
+						checked={row.datas.key8.selected == 1 ? true : false}
+						disabled={row.datas.key8.optional == 0 ? true : false}
 					></Checkbox>
 				);
 			},
