@@ -13,6 +13,7 @@ export interface AdminChildDataVO {
 	parentId: string; // 站点父级ID
 	siteId: string; // 站点ID
 	siteName: string; // 站点名称
+	flag: boolean;
 }
 //#endregion
 

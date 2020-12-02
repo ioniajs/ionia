@@ -5,9 +5,10 @@ import { useRequest } from 'ahooks';
 
 export default ({ roleId }: any) => {
 	const { data } = useRequest(() => roleAcquireData(roleId));
+	logger.debug('data', data);
 	const treeData = data?.data.sites ?? [];
 	const submitData = () => {
-		logger.debug(treeData);
+		logger.debug(data);
 	};
 	const [tree, setTree] = useState<AdminChildDataVO[]>(treeData);
 	/**
@@ -48,31 +49,7 @@ export default ({ roleId }: any) => {
 
 	const changeAll = (type: any, data: any, flag: any) => {
 		if (type == 'key0') {
-			logger.debug('data', data);
-			const loop = (list: any) => {
-				list.map((item: any) => {
-					let ids: number[] = [];
-					for (const key in item.datas) {
-						if (item.datas[key].optional == 1) {
-							ids.push(item.datas[key].selected);
-						}
-					}
-					//点击勾选 则勾选
-					//取消时 判断其他功能的权限是否存在 如果在就取消 不在 就不取消
-					if (flag) {
-						item.datas[type].selected = 1;
-					} else {
-						if (ids.filter(t => t == 1).length < 2) {
-							item.datas[type].selected = 0;
-						}
-					}
-					logger.debug('ids', ids);
-					if (item.children && item.children.length) {
-						loop(item.children);
-					}
-				});
-			};
-			loop(data);
+			logger.debug(data);
 		} else {
 			data.map((item: any) => {
 				if (item.datas[type].optional == 1) {
