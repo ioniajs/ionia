@@ -5,8 +5,8 @@ import Create from './Create';
 import Move from './Move';
 
 export default () => {
-	const [create, setCreate] = useState(false);
 	const [move, setMove] = useState(false);
+	const [selectedRowKeys, setSelectedRowKeys] = useState<number[]>([]);
 	const columns: any = [
 		{
 			title: '友情链接名称',
@@ -43,6 +43,16 @@ export default () => {
 			key: 'status',
 			dataIndex: 'status',
 			width: 145,
+			filters: [
+				{
+					value: '启用',
+					text: '启用',
+				},
+				{
+					text: '禁用',
+					value: '禁用',
+				},
+			],
 			render: (_: any, row: any) => (
 				<Switch
 					checked={row.status === 1}
@@ -56,6 +66,7 @@ export default () => {
 			key: 'createTime',
 			dataIndex: 'createTime',
 			width: 210,
+			sorter: true,
 		},
 		{
 			title: '操作',
@@ -108,13 +119,18 @@ export default () => {
 							<Button>批量移动</Button>
 						</div>
 						<div className='io-space-item'>
-							<Button>批量删除</Button>
+							<Button disabled={selectedRowKeys.length === 0}>批量删除</Button>
 						</div>
 					</>
 				)}
 				renderSider={() => <BizTree />}
 				inputPlaceholderText={'请输入友情链接名称/编号'}
-				rowSelection={{}}
+				rowSelection={{
+					selectedRowKeys,
+					onChange: (selectedRowKeys: any) => {
+						setSelectedRowKeys(selectedRowKeys as number[]);
+					},
+				}}
 				columns={columns}
 				dataSource={dataSource}
 			/>

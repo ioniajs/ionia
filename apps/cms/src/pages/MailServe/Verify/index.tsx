@@ -1,17 +1,29 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import './index.less';
-import { Modal, Form, Input } from 'antd';
+import { Form, Input, Button, Modal } from 'antd';
+import { BizModalForm, BizModalFormRef } from '@ionia/libs';
+import { ProFormText } from '@ant-design/pro-form';
 
 export default (props: any) => {
 	const { email, setEmail } = props;
+	const [form] = Form.useForm();
+	const ref = useRef<BizModalFormRef>();
+	const handleOk = () => {
+		form.submit();
+	};
+	const handleCancel = () => {
+		setEmail(false);
+		form.resetFields();
+	};
 	return (
 		<Modal
 			className='io-cms-mail-serve__modal'
 			visible={email}
 			title='邮箱校验'
-			onOk={() => setEmail(false)}
+			onOk={handleOk}
+			onCancel={handleCancel}
 		>
-			<Form>
+			<Form form={form}>
 				<Form.Item
 					name='recipients'
 					label='收件人'
@@ -40,5 +52,19 @@ export default (props: any) => {
 				</Form.Item>
 			</Form>
 		</Modal>
+		// <BizModalForm
+		// 	form={form}
+		// 	ref={ref}
+		// 	className='io-cms-area-management__bizmodalform'
+		// 	title='新建区域'
+		// 	submitterRender={() => (
+		// 		<div className='btn-submitter'>
+		// 			<Button>取消</Button>
+		// 			<Button htmlType='submit' type='primary'>
+		// 				发送
+		// 			</Button>
+		// 		</div>
+		// 	)}
+		// ></BizModalForm>
 	);
 };

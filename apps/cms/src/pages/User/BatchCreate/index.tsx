@@ -391,7 +391,7 @@ export default () => {
 						</Form.Item>
 					</div>
 				)}
-				onChange={data => setSaveData(data)}
+				onChange={(data: any) => setSaveData(data)}
 				columns={columns}
 			/>
 		</BizPage>
