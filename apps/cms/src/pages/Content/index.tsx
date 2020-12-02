@@ -2,6 +2,7 @@ import React from 'react';
 import { BizPage, BizTree } from '@ionia/libs';
 import { Tabs } from 'antd';
 import { List } from './List';
+import { Recycle } from './Recycle';
 import './index.less';
 
 export default () => {
@@ -17,7 +18,7 @@ export default () => {
 							<List />
 						</Tabs.TabPane>
 						<Tabs.TabPane tab='回收站' key='2'>
-							回收站
+							<Recycle />
 						</Tabs.TabPane>
 						<Tabs.TabPane tab='已归档' key='3'>
 							已归档

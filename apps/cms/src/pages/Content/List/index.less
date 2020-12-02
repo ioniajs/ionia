@@ -29,6 +29,8 @@ body {
 		border: 1px solid #f0f0f0;
 		margin-bottom: 24px;
 		border-radius: 2px;
+		cursor: pointer;
+		pointer-events: auto !important;
 		.io-cms-content-list-item-top__div {
 			display: flex;
 			position: relative;
@@ -133,5 +135,21 @@ body {
 		// 		border: none !important;
 		// 	}
 		// }
+	}
+}
+.io-cms-content-item-delete__modal {
+	.ant-modal-confirm-body {
+		.ant-modal-confirm-title {
+			font-size: 16px;
+			font-family: PingFang SC;
+			font-weight: 500;
+			color: #000000;
+		}
+		.ant-modal-confirm-content {
+			font-size: 14px;
+			font-family: PingFang SC;
+			font-weight: 400;
+			color: #000000;
+		}
 	}
 }

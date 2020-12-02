@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { BizPage, BizTable } from '@ionia/libs';
 import { Button, Switch, InputNumber, Modal } from 'antd';
 import AreaModal from './Detail';
@@ -68,6 +68,7 @@ export default () => {
 			status: 'false',
 		},
 	];
+	const [selectedRowKeys, setSelectedRowKeys] = useState<number[]>([]);
 	return (
 		<BizPage>
 			<BizTable
@@ -77,14 +78,19 @@ export default () => {
 							<AreaModal />
 						</div>
 						<div className='io-space-item'>
-							<Button>批量删除</Button>
+							<Button disabled={selectedRowKeys.length === 0}>批量删除</Button>
 						</div>
 					</>
 				)}
 				inputPlaceholderText={'请输入区域名称/编号'}
 				columns={columns}
 				dataSource={dataSource}
-				rowSelection={{}}
+				rowSelection={{
+					selectedRowKeys,
+					onChange: (selectedRowKeys: any) => {
+						setSelectedRowKeys(selectedRowKeys as number[]);
+					},
+				}}
 			/>
 		</BizPage>
 	);

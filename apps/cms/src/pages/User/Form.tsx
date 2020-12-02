@@ -65,7 +65,7 @@ export default () => {
 			ref={ref}
 			form={form}
 			title='新建用户'
-			onFinish={async values => {
+			onFinish={async (values: any) => {
 				const { data, code } = await addUser(values as UserSaveDTO);
 				if (code == 200) {
 					message.success('提交成功!');
