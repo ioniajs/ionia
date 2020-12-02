@@ -7,6 +7,8 @@ import upload from './upload';
 import user from './user';
 import role from './role';
 import org from './org';
+import siteAuthority from './site-authority';
+import menu from './menu';
 
 export default setupWorker(
 	...hero,
@@ -16,5 +18,7 @@ export default setupWorker(
 	...upload,
 	...user,
 	...role,
-	...org
+	...org,
+	...siteAuthority,
+	...menu
 );

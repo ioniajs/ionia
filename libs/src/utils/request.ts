@@ -1,8 +1,10 @@
-import configs from '../configs';
 import { extend } from 'umi-request';
+import { configs } from '../configs';
 
 const request = extend({
-	prefix: `${configs.API_PREFIX}`,
+	prefix: `${process.env.NODE_ENV === 'development' ? '' : configs.API_HOST}${
+		configs.API_PREFIX
+	}`,
 	timeout: 10000,
 	headers: {
 		'Accept-Language': 'zh-CN',
