@@ -73,15 +73,15 @@ export function BizTable<T, U extends ParamsType>({
 			request={
 				request
 					? (params, sort, filter) => {
-							return request(
-								{
-									...params,
-									keyword: searchStr,
-								},
-								sort,
-								filter
-							);
-					  }
+						return request(
+							{
+								...params,
+								keyword: searchStr,
+							},
+							sort,
+							filter
+						);
+					}
 					: undefined
 			}
 			{...reset}
