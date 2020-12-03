@@ -1,152 +1,64 @@
 import { logger, roleMenuShow } from '@ionia/libs';
 import { useSet, useRequest } from 'ahooks';
 import { Affix, Button, Checkbox, Col, Collapse, Row } from 'antd';
+import { check } from 'prettier';
 import React, { useState } from 'react';
 import './index.less';
 
 const { Panel } = Collapse;
 
-function callback(key: any) {
-	console.log(key);
-}
+const loop = (data: any, list: any[], path: string = '') => {
+	data?.forEach(({ key, children, ...item }: any) => {
+		if (key) {
+			path = !!path ? path + '-' + key : key;
+			list.push({
+				key,
+				path,
+				...item,
+			});
+		}
+		if (children && children.length > 0) {
+			loop(children, list, path);
+		}
+	});
+	return list;
+};
 
-interface treeItem {
-	title: string;
-	key: string;
-	children: treeItem[];
-	permissionFlag: number;
-}
+const dataList: any[] = [];
 
 export default ({ roleId }: any) => {
-	const [, setActiveKey] = useState<string[]>([]);
-	const [checkedKeys, { add, has, remove }] = useSet<string>([]);
+	const [checkedKeys, setCheckedKeys] = useState<Set<string>>(new Set());
 
-	const [treeData, setTreeData] = useState([]);
 	const { data } = useRequest(() => roleMenuShow(roleId), {
 		onSuccess: data => {
-			getDefaultList(data?.data);
-			const tree = getParent(data?.data);
-			setTreeData(tree);
+			if (data.data) {
+				loop(data.data, dataList);
+				const defaultCheckedKeys = dataList
+					.filter(item => item.permissionFlag == 1)
+					.map(item => item.key);
+				setCheckedKeys(new Set(defaultCheckedKeys));
+			}
 		},
 	});
-	// const treeData = data?.data ?? [];
 
-	/**
-	 * 获取初始选中的值
-	 */
+	console.log('@@----> !!', dataList);
+	console.log('@$$@----> !!', checkedKeys);
 
-	const getDefaultList = (data: any) => {
-		data?.map(({ permissionFlag, key, children }: any) => {
-			if (permissionFlag == 1) {
-				add(key);
-			}
-			if (children.length > 0) {
-				getDefaultList(children);
-			}
-		});
-	};
-	/**
-	 * 获取父级
-	 */
-	const getParent = (data: any, parent?: any) => {
-		return (
-			data &&
-			data.map((n: any) => {
-				if (n && n.children) {
-					n.children = getParent(n.children, n);
-				}
-				return {
-					...n,
-					parent,
-				};
-			})
-		);
-	};
+	const check = (key: string) => {
+		const newCheckedKeys = new Set(Array.from(checkedKeys));
+		const path = dataList.find(item => item.key === key).path;
+		const childrenKeys = dataList
+			.filter(item => item.path.startsWith(path))
+			.map(item => item.key);
 
-	/**
-	 * 修改选中
-	 *先判断是否存在set中   存在 移除自己和子级         判断兄弟节点是否存在 全部存在 就存  不然就移除父级
-                          不存在 添加自己+子级        判断兄弟节点是否存在 全部存在 就存  不然就移除父级
-	 */
-	const changeCheck = (item: any, e?: any, data?: any) => {
-		logger.debug('item', item);
-		logger.debug('checkedKeys', checkedKeys);
-		let flag;
-		if (has(item.key)) {
-			remove(item.key);
-			flag = false;
-			if (item.children && item.children.length > 0) {
-				checkAll(flag, item.children);
-			}
+		console.log('key', key, path);
+
+		if (checkedKeys.has(key)) {
+			childrenKeys.forEach(cKey => newCheckedKeys.delete(cKey));
 		} else {
-			add(item.key);
-			flag = true;
-			if (item.children && item.children.length > 0) {
-				checkAll(flag, item.children);
-			}
+			childrenKeys.forEach(cKey => newCheckedKeys.add(cKey));
 		}
-		if (item.parent && item.parent.children) {
-			let selArr = item.parent.children.filter((t: any) => has(t.key));
-			logger.debug('selArr', selArr);
-			if (selArr.length == item.parent.children.length) {
-				// 全选
-				logger.debug('selArrLength', selArr.length === item.parent.children.length);
-				add(item.parent.key);
-			} else if (selArr.length) {
-				// 半选
-				logger.debug('selArrLength2', checkedKeys);
-				// add(item.parent.key);
-			} else {
-				logger.debug('selArrLength3', has(item.parent.key));
-				if (has(item.parent.key)) {
-					remove(item.parent.key);
-				}
-			}
-		}
-	};
-
-	/**
-	 * @param data
-	 * @param ids
-	 * 获取数组中的KEY
-	 */
-	const loop = (data: any, ids: string[] = []) => {
-		data?.forEach(({ key, children }: any) => {
-			if (key) {
-				ids.push(key);
-			}
-			if (children && children.length > 0) {
-				loop(children, ids);
-			}
-		});
-		return ids;
-	};
-
-	/**
-	 * 全选
-	 */
-	const checkAll = (flag: any, data: any) => {
-		const ids: string[] = loop(data);
-		ids.map(item => {
-			if (flag) {
-				add(item);
-			} else {
-				remove(item);
-			}
-		});
-		// logger.debug('checkedKeys', checkedKeys);
-	};
-
-	//全部伸缩和展开
-	const onSelect = (e: any) => {
-		logger.debug(e.target.checked);
-		let activeKey: string[] = [];
-		treeData?.map((item: any) => {
-			activeKey.push(item.key);
-		});
-		logger.debug('activeKeys', activeKey);
-		setActiveKey(['0']);
-		logger.debug(activeKey);
+		setCheckedKeys(newCheckedKeys);
 	};
 
 	return (
@@ -157,23 +69,21 @@ export default ({ roleId }: any) => {
 			<div className='io_cms_role_authority-site_check'>
 				<Checkbox
 					onChange={e => {
-						checkAll(e.target.checked, treeData);
+						if (checkedKeys.has('all')) {
+							setCheckedKeys(new Set());
+						} else {
+							setCheckedKeys(new Set(['all', ...dataList.map(item => item.key)]));
+						}
 					}}
-					indeterminate={
-						checkedKeys.size != loop(treeData).length && checkedKeys.size > 0
-					}
-					checked={checkedKeys.size == loop(treeData).length && checkedKeys.size > 0}
+					indeterminate={checkedKeys.size != dataList.length + 1 && checkedKeys.size > 0}
+					checked={checkedKeys.size > 0 && checkedKeys.size >= dataList.length + 1}
 				>
 					全选
 				</Checkbox>
-				<Checkbox onChange={onSelect}>全部展开</Checkbox>
+				<Checkbox onChange={() => {}}>全部展开</Checkbox>
 			</div>
-			<Collapse
-				onChange={callback}
-				className='io_cms_role_authority-menu_collapse'
-				// activeKey={activeKey}
-			>
-				{treeData?.map((item: any) => {
+			<Collapse className='io_cms_role_authority-menu_collapse'>
+				{data?.data?.map((item: any) => {
 					return (
 						<Panel
 							header={
@@ -185,9 +95,9 @@ export default ({ roleId }: any) => {
 									<Checkbox
 										key={item.key}
 										onChange={e => {
-											changeCheck(item, e);
+											check(item.key);
 										}}
-										checked={has(item.key)}
+										checked={checkedKeys.has(item.key)}
 										// indeterminate={!has(item.key)}
 									>
 										{item.title}
@@ -207,10 +117,10 @@ export default ({ roleId }: any) => {
 										>
 											<div className='io_cms_role_authority-menu_collapse-panel_title'>
 												<Checkbox
-													checked={has(i.key)}
+													checked={checkedKeys.has(i.key)}
 													// indeterminate={!has(i.key)}
 													onChange={e => {
-														changeCheck(i, e, item.children);
+														check(i.key);
 													}}
 												>
 													{i.title}
@@ -221,9 +131,9 @@ export default ({ roleId }: any) => {
 													return (
 														<Col span={8}>
 															<Checkbox
-																checked={has(o.key)}
+																checked={checkedKeys.has(o.key)}
 																onChange={e => {
-																	changeCheck(o, e, i.children);
+																	check(o.key);
 																}}
 																key={o.key}
 															>

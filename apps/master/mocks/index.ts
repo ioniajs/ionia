@@ -11,6 +11,7 @@ import area from './area';
 import siteAuthority from './site-authority';
 import menu from './menu';
 import column from './column';
+import content from './content';
 
 export default setupWorker(
 	...hero,
@@ -24,5 +25,6 @@ export default setupWorker(
 	...area,
 	...siteAuthority,
 	...menu,
-	...column
+	...column,
+	...content
 );
