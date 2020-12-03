@@ -13,7 +13,7 @@ import {
 	BizPage,
 	BizModalForm,
 	BizModalFormRef,
-	gainSiteTreeAuth
+	gainSiteTreeAuth,
 } from '@ionia/libs';
 import { AdminSiteTreeVO, AdminSiteRecycleSummaryVo } from '@ionia/libs/src/services/kernel';
 import { IdsDTO } from '@ionia/libs/src/services/common.dto';
@@ -83,7 +83,7 @@ export default () => {
 							<span>{item ? `${item},` : '-'}</span>
 						</Tooltip>
 					);
-				})
+				});
 			},
 			width: 300,
 		},
@@ -288,8 +288,7 @@ export default () => {
 				)}
 				inputPlaceholderText={'请输入站点名称/目录'}
 				columns={columns}
-				request={params => gainSiteTreeAuth(params.keyword || '')
-				}
+				request={params => gainSiteTreeAuth(params.keyword || '')}
 				rowSelection={{
 					selectedRowKeys,
 					onChange: selectedRowKeys => {

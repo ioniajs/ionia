@@ -11,7 +11,7 @@ import {
 	Button,
 	TreeSelect,
 	Tree,
-	Input
+	Input,
 } from 'antd';
 import { useRequest } from '@umijs/hooks';
 import { InfoCircleOutlined } from '@ant-design/icons';
@@ -27,9 +27,7 @@ import {
 import { SortableContainer, SortableElement } from 'react-sortable-hoc';
 import arrayMove from 'array-move';
 import moment from 'moment';
-import {
-	gainSiteTree,
-} from '@ionia/libs/src/services';
+import { gainSiteTree } from '@ionia/libs/src/services';
 import { AdminSiteTreeVO } from '@ionia/libs/src/services/kernel';
 import CopyOrMoveContent from './CopyContent';
 import Sort from './Sort';
@@ -250,7 +248,7 @@ const stationPushSectionData = [
 			{
 				title: '0-0-2',
 				key: '0-0-2',
-				id: 11111
+				id: 11111,
 			},
 		],
 	},
@@ -269,7 +267,7 @@ export const List = () => {
 	const [siteTree, setSiteTree] = useState<AdminSiteTreeVO[]>();
 	const [stationPushCheckKeys, setStationPushCheckKeys] = useState<string[]>();
 	console.log(selectedRowKeys, 'rowKrys');
-	console.log(stationPushCheckKeys, 'stationPushCheckKeys')
+	console.log(stationPushCheckKeys, 'stationPushCheckKeys');
 	// 获取站点树
 	const { run: runsiteTree } = useRequest(gainSiteTree, {
 		manual: true,
@@ -349,7 +347,7 @@ export const List = () => {
 									'deadLine'
 								);
 							},
-							onCancel: () => { },
+							onCancel: () => {},
 						});
 					}}
 				>
@@ -366,7 +364,14 @@ export const List = () => {
 				<a>设置推荐</a>
 			</Menu.Item>
 			<Menu.Item>
-				<a onClick={() => { setStationPushVisible(true); runsiteTree() }}>站群推送</a>
+				<a
+					onClick={() => {
+						setStationPushVisible(true);
+						runsiteTree();
+					}}
+				>
+					站群推送
+				</a>
 			</Menu.Item>
 		</Menu>
 	);
@@ -511,7 +516,7 @@ export const List = () => {
 								title: '你确定删除选中内容吗？',
 								content: '删除后可在内容回收站中恢复。',
 								okText: '删除',
-								onOk: () => { },
+								onOk: () => {},
 							});
 						}}
 					>
@@ -591,35 +596,35 @@ export const List = () => {
 						label='排序方式'
 						valueEnum={sortWay}
 						style={{ width: '240px' }}
-					// colSize={0.75}
+						// colSize={0.75}
 					/>
 					<ProFormSelect
 						name='contentStatus'
 						label='内容状态'
 						valueEnum={contentStatus}
 						mode='multiple'
-					// colSize={0.75}
+						// colSize={0.75}
 					/>
 					<ProFormCheckbox.Group
 						name='showSectionContent'
 						label=''
 						options={['显示子栏目内容']}
 						layout='vertical'
-					// colSize={0.5}
+						// colSize={0.5}
 					/>
 					<ProFormSelect
 						name='contentType'
 						label='内容类型'
 						valueEnum={contentType}
 						mode='multiple'
-					// colSize={0.75}
+						// colSize={0.75}
 					/>
 					<ProFormSelect
 						name='contentModal'
 						label='内容模型'
 						valueEnum={contentModal}
 						mode='multiple'
-					// colSize={0.75}
+						// colSize={0.75}
 					/>
 					<ProFormDateTimeRangePicker name='create' label='创建时间' colSize={1.5} />
 					<ProFormDateTimeRangePicker name='publish' label='发布时间' colSize={1.5} />
@@ -628,19 +633,19 @@ export const List = () => {
 						label='创建方式'
 						valueEnum={createWay}
 						mode='multiple'
-					// colSize={0.75}
+						// colSize={0.75}
 					/>
 					<ProFormCheckbox.Group
 						name='showMineCreate'
 						layout='vertical'
 						label=''
 						options={['我创建的']}
-					// colSize={0.5}
+						// colSize={0.5}
 					/>
 					<ProFormText
 						name='contentTittle'
 						placeholder='搜索内容标题'
-					// colSize={0.75}
+						// colSize={0.75}
 					/>
 					<ProFormText
 						name='searchKeyWord'
@@ -648,7 +653,7 @@ export const List = () => {
 							addonBefore: selectBefore,
 							placeholder: `搜素内容${inputPlaceHolder[searchTypesValue]}`,
 						}}
-					// colSize={0.75}
+						// colSize={0.75}
 					/>
 				</QueryFilter>
 				<div className='io-cms-content-list-search-bottom' />
@@ -740,24 +745,39 @@ export const List = () => {
 				onCancel={() => setStationPushVisible(false)}
 				onOk={() => {
 					stationPushForm.validateFields().then(values => {
-						console.log(values)
-					})
+						console.log(values);
+					});
 				}}
 			>
 				<Form form={stationPushForm} labelCol={{ span: 4 }} preserve={false}>
-					<Form.Item name='siteId' label='选择站点' rules={[{ required: true, message: '请选择站点' }]}>
+					<Form.Item
+						name='siteId'
+						label='选择站点'
+						rules={[{ required: true, message: '请选择站点' }]}
+					>
 						<TreeSelect treeData={siteTree} />
 					</Form.Item>
-					<Form.Item name='sectionId' label='选择栏目' >
+					<Form.Item name='sectionId' label='选择栏目'>
 						{/* <div style={{ border: '1px solid red', padding: '24px', width: '352px', height: '325px', overflow: 'hidden' }}> */}
-						<Tree checkable
+						<Tree
+							checkable
 							selectable={false}
 							blockNode
-							onCheck={(checkedKeys) => { console.log(checkedKeys); setStationPushCheckKeys(checkedKeys as string[]); stationPushForm.setFieldsValue({ 'sectionId': checkedKeys }) }}
-							checkedKeys={stationPushCheckKeys} treeData={stationPushSectionData} />
+							onCheck={checkedKeys => {
+								console.log(checkedKeys);
+								setStationPushCheckKeys(checkedKeys as string[]);
+								stationPushForm.setFieldsValue({ sectionId: checkedKeys });
+							}}
+							checkedKeys={stationPushCheckKeys}
+							treeData={stationPushSectionData}
+						/>
 						{/* </div> */}
 					</Form.Item>
-					<Form.Item name='key' label='密钥' rules={[{ required: true, message: '请输入密钥' }]}>
+					<Form.Item
+						name='key'
+						label='密钥'
+						rules={[{ required: true, message: '请输入密钥' }]}
+					>
 						<Input placeholder='请输入密钥' />
 					</Form.Item>
 				</Form>
