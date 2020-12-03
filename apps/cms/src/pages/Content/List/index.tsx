@@ -216,22 +216,25 @@ export const List = () => {
 										fieldProps={{
 											showTime: true,
 											suffixIcon: <i className='iconfont icon-time-circle' />,
-											format: 'YYYY-MM-DD HH:mm:ss'
+											format: 'YYYY-MM-DD HH:mm:ss',
 										}}
 										labelCol={{ span: 9 }}
 										wrapperCol={{ span: 15 }}
 										placeholder=''
 									/>
 								</Form>
-
 							),
 							width: 450,
 							icon: false,
 							onOk: () => {
 								const topDeadLine = topDeadLineForm.getFieldValue('topDeadLine');
-								console.log(topDeadLine, moment(topDeadLine).format('YYYY-MM-DD HH:mm:ss'), 'deadLine')
+								console.log(
+									topDeadLine,
+									moment(topDeadLine).format('YYYY-MM-DD HH:mm:ss'),
+									'deadLine'
+								);
 							},
-							onCancel: () => { },
+							onCancel: () => {},
 						});
 					}}
 				>
@@ -393,7 +396,7 @@ export const List = () => {
 								title: '你确定删除选中内容吗？',
 								content: '删除后可在内容回收站中恢复。',
 								okText: '删除',
-								onOk: () => { },
+								onOk: () => {},
 							});
 						}}
 					>
@@ -473,35 +476,35 @@ export const List = () => {
 						label='排序方式'
 						valueEnum={sortWay}
 						style={{ width: '240px' }}
-					// colSize={0.75}
+						// colSize={0.75}
 					/>
 					<ProFormSelect
 						name='contentStatus'
 						label='内容状态'
 						valueEnum={contentStatus}
 						mode='multiple'
-					// colSize={0.75}
+						// colSize={0.75}
 					/>
 					<ProFormCheckbox.Group
 						name='showSectionContent'
 						label=''
 						options={['显示子栏目内容']}
 						layout='vertical'
-					// colSize={0.5}
+						// colSize={0.5}
 					/>
 					<ProFormSelect
 						name='contentType'
 						label='内容类型'
 						valueEnum={contentType}
 						mode='multiple'
-					// colSize={0.75}
+						// colSize={0.75}
 					/>
 					<ProFormSelect
 						name='contentModal'
 						label='内容模型'
 						valueEnum={contentModal}
 						mode='multiple'
-					// colSize={0.75}
+						// colSize={0.75}
 					/>
 					<ProFormDateTimeRangePicker name='create' label='创建时间' colSize={1.5} />
 					<ProFormDateTimeRangePicker name='publish' label='发布时间' colSize={1.5} />
@@ -510,19 +513,19 @@ export const List = () => {
 						label='创建方式'
 						valueEnum={createWay}
 						mode='multiple'
-					// colSize={0.75}
+						// colSize={0.75}
 					/>
 					<ProFormCheckbox.Group
 						name='showMineCreate'
 						layout='vertical'
 						label=''
 						options={['我创建的']}
-					// colSize={0.5}
+						// colSize={0.5}
 					/>
 					<ProFormText
 						name='contentTittle'
 						placeholder='搜索内容标题'
-					// colSize={0.75}
+						// colSize={0.75}
 					/>
 					<ProFormText
 						name='searchKeyWord'
@@ -530,7 +533,7 @@ export const List = () => {
 							addonBefore: selectBefore,
 							placeholder: `搜素内容${inputPlaceHolder[searchTypesValue]}`,
 						}}
-					// colSize={0.75}
+						// colSize={0.75}
 					/>
 				</QueryFilter>
 				<div className='io-cms-content-list-search-bottom' />
