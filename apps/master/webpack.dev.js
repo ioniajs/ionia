@@ -11,6 +11,7 @@ const config = merge(commonConfig, {
 	},
 	devtool: 'source-map',
 	devServer: {
+		host: '0.0.0.0',
 		port: 7000,
 		contentBase: './dist',
 		clientLogLevel: 'warning',
