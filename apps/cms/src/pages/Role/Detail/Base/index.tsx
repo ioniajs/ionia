@@ -90,16 +90,32 @@ export default ({ id }: any) => {
 					<TextArea rows={2} placeholder='请输入角色描述' />
 				</Form.Item>
 				<Form.Item label='创建人' name='createUser'>
-					<span>{firstRequest.data?.data.createUser}</span>
+					<span>
+						{firstRequest.data?.data.createUser
+							? firstRequest.data?.data.createUser
+							: ''}
+					</span>
 				</Form.Item>
 				<Form.Item label='创建时间' name='createTime'>
-					<span>{firstRequest.data?.data.createTime}</span>
+					<span>
+						{firstRequest.data?.data.createTime
+							? firstRequest.data?.data.createTime
+							: ''}
+					</span>
 				</Form.Item>
 				<Form.Item label='最后更新人' name='updateUser'>
-					<span>{firstRequest.data?.data.updateUser}</span>
+					<span>
+						{firstRequest.data?.data.updateUser
+							? firstRequest.data?.data.updateUser
+							: ''}
+					</span>
 				</Form.Item>
 				<Form.Item label='最后更新时间' name='updateTime'>
-					<span>{firstRequest.data?.data.updateTime}</span>
+					<span>
+						{firstRequest.data?.data.updateTime
+							? firstRequest.data?.data.updateTime
+							: ''}
+					</span>
 				</Form.Item>
 			</Form>
 		</>

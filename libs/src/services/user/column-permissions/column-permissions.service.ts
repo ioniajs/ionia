@@ -1,6 +1,6 @@
 import request from '../../../utils/request';
 import { JcResult } from '../../base';
-import { DataChannelVO, RoleChannelVO } from './column-permissions.vo';
+import { DataChannelVO, RoleChannelVO, RoleDataVO } from './column-permissions.vo';
 import { DataOrgChannelDTO, DataChannelDTO } from './column-permissions.dto';
 
 /**
@@ -12,7 +12,7 @@ interface OrganizationGainCloumn {
 }
 export async function organizationGainCloumn(
 	params: OrganizationGainCloumn
-): Promise<JcResult<DataChannelVO[]>> {
+): Promise<JcResult<RoleDataVO>> {
 	return request.get('/module-user/cmsmanager/auth/channel/org', {
 		params,
 	});
@@ -32,7 +32,7 @@ export async function addColumnOrganization(data: DataOrgChannelDTO): Promise<Jc
  */
 export async function roleGainCloumn(
 	params: OrganizationGainCloumn
-): Promise<JcResult<RoleChannelVO>> {
+): Promise<JcResult<RoleDataVO>> {
 	return request.get('/module-user/cmsmanager/auth/channel/role', {
 		params,
 	});
@@ -52,7 +52,7 @@ export async function addColumnRole(data: DataChannelDTO): Promise<JcResult<bool
  */
 export async function userGainCloumn(
 	params: OrganizationGainCloumn
-): Promise<JcResult<RoleChannelVO>> {
+): Promise<JcResult<RoleDataVO>> {
 	return request.get('/module-user/cmsmanager/auth/channel/user');
 }
 

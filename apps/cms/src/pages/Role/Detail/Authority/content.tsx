@@ -15,12 +15,12 @@ export default ({ roleId }: any) => {
 			logger.debug(siteData);
 		},
 	});
-	const treeData = data?.data ?? [];
-	logger.debug(treeData);
+	const treeData: any = data?.data ?? [];
+	logger.debug('data', data);
 	const submitData = () => {
 		logger.debug(treeData);
 	};
-	const [tree, setTree] = useState<RoleChannelVO>(treeData);
+	const [tree, setTree] = useState<RoleChannelVO[]>(treeData);
 	const [value, setValue] = useState(undefined);
 	const [site, setSite] = useState([]);
 
@@ -288,7 +288,7 @@ export default ({ roleId }: any) => {
 						<span style={{ marginRight: '8px' }}>{row.channelName}</span>
 						<i
 							className='iconfont icon-info-circle'
-							title='增量站点指当前设置 保存后新增加的站点'
+							title='增量栏目指当前设置 保存后新增加的栏目'
 							style={{ cursor: 'pointer' }}
 						></i>
 					</p>
