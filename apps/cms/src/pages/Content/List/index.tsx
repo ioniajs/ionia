@@ -267,7 +267,6 @@ export const List = () => {
 	const [siteTree, setSiteTree] = useState<AdminSiteTreeVO[]>();
 	const [stationPushCheckKeys, setStationPushCheckKeys] = useState<string[]>();
 	console.log(selectedRowKeys, 'rowKrys');
-	console.log(stationPushCheckKeys, 'stationPushCheckKeys');
 	// 获取站点树
 	const { run: runsiteTree } = useRequest(gainSiteTree, {
 		manual: true,
@@ -347,7 +346,7 @@ export const List = () => {
 									'deadLine'
 								);
 							},
-							onCancel: () => {},
+							onCancel: () => { },
 						});
 					}}
 				>
@@ -516,7 +515,7 @@ export const List = () => {
 								title: '你确定删除选中内容吗？',
 								content: '删除后可在内容回收站中恢复。',
 								okText: '删除',
-								onOk: () => {},
+								onOk: () => { },
 							});
 						}}
 					>
@@ -596,35 +595,35 @@ export const List = () => {
 						label='排序方式'
 						valueEnum={sortWay}
 						style={{ width: '240px' }}
-						// colSize={0.75}
+					// colSize={0.75}
 					/>
 					<ProFormSelect
 						name='contentStatus'
 						label='内容状态'
 						valueEnum={contentStatus}
 						mode='multiple'
-						// colSize={0.75}
+					// colSize={0.75}
 					/>
 					<ProFormCheckbox.Group
 						name='showSectionContent'
 						label=''
 						options={['显示子栏目内容']}
 						layout='vertical'
-						// colSize={0.5}
+					// colSize={0.5}
 					/>
 					<ProFormSelect
 						name='contentType'
 						label='内容类型'
 						valueEnum={contentType}
 						mode='multiple'
-						// colSize={0.75}
+					// colSize={0.75}
 					/>
 					<ProFormSelect
 						name='contentModal'
 						label='内容模型'
 						valueEnum={contentModal}
 						mode='multiple'
-						// colSize={0.75}
+					// colSize={0.75}
 					/>
 					<ProFormDateTimeRangePicker name='create' label='创建时间' colSize={1.5} />
 					<ProFormDateTimeRangePicker name='publish' label='发布时间' colSize={1.5} />
@@ -633,19 +632,19 @@ export const List = () => {
 						label='创建方式'
 						valueEnum={createWay}
 						mode='multiple'
-						// colSize={0.75}
+					// colSize={0.75}
 					/>
 					<ProFormCheckbox.Group
 						name='showMineCreate'
 						layout='vertical'
 						label=''
 						options={['我创建的']}
-						// colSize={0.5}
+					// colSize={0.5}
 					/>
 					<ProFormText
 						name='contentTittle'
 						placeholder='搜索内容标题'
-						// colSize={0.75}
+					// colSize={0.75}
 					/>
 					<ProFormText
 						name='searchKeyWord'
@@ -653,7 +652,7 @@ export const List = () => {
 							addonBefore: selectBefore,
 							placeholder: `搜素内容${inputPlaceHolder[searchTypesValue]}`,
 						}}
-						// colSize={0.75}
+					// colSize={0.75}
 					/>
 				</QueryFilter>
 				<div className='io-cms-content-list-search-bottom' />
@@ -741,7 +740,7 @@ export const List = () => {
 				destroyOnClose
 				visible={stationPushVisible}
 				title='站群推送'
-				width={480}
+				width={500}
 				onCancel={() => setStationPushVisible(false)}
 				onOk={() => {
 					stationPushForm.validateFields().then(values => {
@@ -757,21 +756,20 @@ export const List = () => {
 					>
 						<TreeSelect treeData={siteTree} />
 					</Form.Item>
-					<Form.Item name='sectionId' label='选择栏目'>
-						{/* <div style={{ border: '1px solid red', padding: '24px', width: '352px', height: '325px', overflow: 'hidden' }}> */}
-						<Tree
-							checkable
-							selectable={false}
-							blockNode
-							onCheck={checkedKeys => {
-								console.log(checkedKeys);
-								setStationPushCheckKeys(checkedKeys as string[]);
-								stationPushForm.setFieldsValue({ sectionId: checkedKeys });
-							}}
-							checkedKeys={stationPushCheckKeys}
-							treeData={stationPushSectionData}
-						/>
-						{/* </div> */}
+					<Form.Item name='sectionId' label='选择栏目' rules={[{ required: true, message: '请选择栏目' }]}>
+						<div className='io-cms-list-item-station-group-push-modal-tree-container'>
+							<Tree
+								checkable
+								selectable={false}
+								blockNode
+								onCheck={checkedKeys => {
+									setStationPushCheckKeys(checkedKeys as string[]);
+									stationPushForm.setFieldsValue({ sectionId: checkedKeys });
+								}}
+								checkedKeys={stationPushCheckKeys}
+								treeData={stationPushSectionData}
+							/>
+						</div>
 					</Form.Item>
 					<Form.Item
 						name='key'
