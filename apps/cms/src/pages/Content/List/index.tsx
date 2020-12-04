@@ -18,13 +18,14 @@ import {
 	ProFormSelect,
 	ProFormCheckbox,
 	ProFormText,
+	ProFormDateTimePicker,
 	ProFormDateTimeRangePicker,
 } from '@ant-design/pro-form';
 import { SortableContainer, SortableElement } from 'react-sortable-hoc';
 import arrayMove from 'array-move';
+import moment from 'moment';
 import CopyOrMoveContent from './CopyContent';
 import Sort from './Sort';
-import TopDeadLine from './TopDeadLine';
 import './index.less';
 
 // 排序方式
@@ -174,6 +175,7 @@ export const List = () => {
 	const [checkedAll, setCheckedAll] = useState(false);
 	const [datas, setDatas] = useState(dataSource);
 	const modalRef = useRef<BizModalFormRef>();
+	const [topDeadLineForm] = Form.useForm();
 	console.log(selectedRowKeys, 'rowKrys');
 	const selectBefore = (
 		<Select
@@ -197,28 +199,41 @@ export const List = () => {
 				<a
 					onClick={() => {
 						Modal.confirm({
-							// closable: true,
-							// closeIcon: <i className='iconfont icon-close' />,
+							closable: true,
 							title: '置顶',
 							content: (
-								<Form.Item
-									labelCol={{ span: 9 }}
-									name='topDeadLine'
-									label={
-										<span>
-											选择置顶到期时间&nbsp;
-											<Tooltip title='置顶到期后将自动取消置顶状态，不设置到期时间代表永久置顶'>
-												<InfoCircleOutlined />
-											</Tooltip>
-										</span>
-									}
-								>
-									<DatePicker showTime placeholder='' />
-								</Form.Item>
+								<Form form={topDeadLineForm}>
+									<ProFormDateTimePicker
+										name='topDeadLine'
+										label={
+											<span>
+												选择置顶到期时间&nbsp;
+												<Tooltip title='置顶到期后将自动取消置顶状态，不设置到期时间代表永久置顶'>
+													<InfoCircleOutlined />
+												</Tooltip>
+											</span>
+										}
+										fieldProps={{
+											showTime: true,
+											suffixIcon: <i className='iconfont icon-time-circle' />,
+											format: 'YYYY-MM-DD HH:mm:ss',
+										}}
+										labelCol={{ span: 9 }}
+										wrapperCol={{ span: 15 }}
+										placeholder=''
+									/>
+								</Form>
 							),
 							width: 450,
 							icon: false,
-							onOk: () => {},
+							onOk: () => {
+								const topDeadLine = topDeadLineForm.getFieldValue('topDeadLine');
+								console.log(
+									topDeadLine,
+									moment(topDeadLine).format('YYYY-MM-DD HH:mm:ss'),
+									'deadLine'
+								);
+							},
 							onCancel: () => {},
 						});
 					}}
