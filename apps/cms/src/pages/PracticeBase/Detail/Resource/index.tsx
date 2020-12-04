@@ -4,7 +4,6 @@ import { IdsDTO } from '@ionia/libs/src/services/common.dto';
 import { Button, Modal, message } from 'antd';
 import { ActionType } from '@ant-design/pro-table';
 import './index.less';
-import Update from './Update';
 import CreateForm from './Create';
 
 interface BaseResourceProps {
@@ -22,24 +21,13 @@ const ResourceRemove = async (ids: IdsDTO) => {
 };
 
 export const BaseResource = ({ id }: BaseResourceProps) => {
-	const [titleShow, setTitleShow] = useState(false);
-	const [title, setTitle] = useState<string>();
 	const columns = [
 		{
 			title: '标题',
 			key: 'title',
 			dataIndex: 'title',
 			width: 800,
-			render: (_: any, row: any) => (
-				<a
-					onClick={() => {
-						setTitleShow(true);
-						setTitle(row.title);
-					}}
-				>
-					{row.title}
-				</a>
-			),
+			render: (_: any, row: any) => <CreateForm row={row} />,
 		},
 		{
 			title: '图片',
@@ -136,7 +124,6 @@ export const BaseResource = ({ id }: BaseResourceProps) => {
 					return positionalListPaging({}).then(data => ({ data: data.data.content }));
 				}}
 			></BizTable>
-			<Update setTitleShow={setTitleShow} titleShow={titleShow} title={title} />
 		</div>
 	);
 };

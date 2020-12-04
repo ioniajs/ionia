@@ -164,7 +164,6 @@ export const BaseDetail = ({ id }: BaseDetailProps) => {
 				</Form.Item>
 				<Form.List name='linkmanList'>
 					{(fields, { add, remove }, { errors }) => {
-						console.log(fields, 'ffffffvfff');
 						return (
 							<>
 								{fields.map((field, index) => {

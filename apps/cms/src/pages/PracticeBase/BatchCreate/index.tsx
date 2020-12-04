@@ -21,35 +21,35 @@ export default () => {
 	const treeData: any = [
 		{
 			title: 'Node1',
-			value: '0',
+			value: 'Node1',
 			children: [
 				{
 					title: 'Child Node1',
-					value: '1',
+					value: 'Child Node1',
 				},
 				{
 					title: 'Child Node2',
-					value: '2',
+					value: 'Child Node2',
 				},
 			],
 		},
 		{
 			title: 'Node2',
-			value: '3',
+			value: 'Node2',
 		},
 	];
 	const treeBatchCreateData: any = [
 		{
 			title: '实践中心',
-			value: '4',
+			value: '实践中心',
 		},
 		{
 			title: '实践所',
-			value: '5',
+			value: '实践所',
 		},
 		{
 			title: '实践站',
-			value: '6',
+			value: '实践站',
 		},
 	];
 	const columns = [
@@ -101,6 +101,7 @@ export default () => {
 							// value={uservalue}
 							treeData={treeData}
 							treeDefaultExpandAll
+							onBlur={save}
 							// onChange={() => setUserValue(uservalue)}
 						></TreeSelect>
 					</Form.Item>
@@ -145,6 +146,7 @@ export default () => {
 							// value={uservalue}
 							treeData={treeBatchCreateData}
 							treeDefaultExpandAll
+							onBlur={save}
 							// onChange={() => setUserValue(uservalue)}
 						></TreeSelect>
 					</Form.Item>

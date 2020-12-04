@@ -137,7 +137,7 @@ export default () => {
 					<Form.Item
 						name='name'
 						label='阵地名称'
-						rules={[{ required: true, message: '请输入阵地名称' }]}
+						rules={[{ required: true, message: '请输入阵地名称', max: 120 }]}
 					>
 						<Input style={{ width: 664 }} placeholder='请输入阵地名称' />
 					</Form.Item>
@@ -153,7 +153,7 @@ export default () => {
 							style={{ width: 664, height: 32 }}
 						/>
 					</Form.Item>
-					<Form.Item name='code' label='阵地编号'>
+					<Form.Item name='code' label='阵地编号' rules={[{ max: 120 }]}>
 						<Input style={{ width: 664 }} placeholder='请输入阵地编号' />
 					</Form.Item>
 					<Form.Item name='fax' label='传真'>

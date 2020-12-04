@@ -212,7 +212,10 @@ export default () => {
 									history.push('/site/create');
 								}}
 							>
-								<i className='iconfont icon-plus1' style={{ fontSize: '16px' }} />
+								<i
+									className='iconfont icon-plus1'
+									style={{ fontSize: '14px', lineHeight: '21px' }}
+								/>
 								新建
 							</Button>
 						</div>

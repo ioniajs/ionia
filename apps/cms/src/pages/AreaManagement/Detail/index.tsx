@@ -1,6 +1,6 @@
 import React, { useRef, useEffect } from 'react';
 import { BizModalForm, BizModalFormRef } from '@ionia/libs';
-import { AreaDTO, saveArea, AreaVO, areaDetail, updateArea } from '@ionia/libs/src';
+import { AreaDTO, saveArea, areaDetail, updateArea } from '@ionia/libs/src';
 import { useMount, useRequest } from '@umijs/hooks';
 import { ProFormText } from '@ant-design/pro-form';
 import { InfoCircleOutlined } from '@ant-design/icons';
@@ -28,11 +28,6 @@ export default ({ row }: AreaModalProps) => {
 			label: '信息录入员',
 		},
 	];
-	// const handleSubmit = (values: any) => {
-	// 	if (row) {
-	// 	} else {
-	// 	}
-	// };
 	if (row) {
 		const { data, run } = useRequest(areaDetail, {
 			manual: true,
@@ -60,7 +55,11 @@ export default ({ row }: AreaModalProps) => {
 				) : (
 					<Button type='primary' onClick={() => ref.current?.open()}>
 						{' '}
-						<i className='iconfont icon-plus1' style={{ fontSize: '16px' }} /> 新建
+						<i
+							className='iconfont icon-plus1'
+							style={{ fontSize: '14px', lineHeight: '21px' }}
+						/>{' '}
+						新建
 					</Button>
 				)
 			}
@@ -102,7 +101,7 @@ export default ({ row }: AreaModalProps) => {
 				label='上级区域'
 				rules={[{ required: true }, { message: '请选择上级区域' }]}
 			>
-				<TreeSelect treeData={treeData} placeholder='请选择上级区域' />
+				<TreeSelect allowClear treeData={treeData} placeholder='请选择上级区域' />
 			</Form.Item>
 			<ProFormText
 				name='areaName'
