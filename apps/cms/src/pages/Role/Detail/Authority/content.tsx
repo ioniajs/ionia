@@ -358,7 +358,7 @@ export default ({ roleId }: any) => {
 					indeterminate={checkAll(treeData, 'key2')}
 					checked={isCheckAll(treeData, 'key2')}
 				>
-					编辑
+					发布
 				</Checkbox>
 			),
 			dataIndex: 'key2',
@@ -384,7 +384,7 @@ export default ({ roleId }: any) => {
 					indeterminate={checkAll(treeData, 'key3')}
 					checked={isCheckAll(treeData, 'key3')}
 				>
-					删除
+					编辑
 				</Checkbox>
 			),
 			dataIndex: 'key3',
@@ -410,7 +410,7 @@ export default ({ roleId }: any) => {
 					indeterminate={checkAll(treeData, 'key4')}
 					checked={isCheckAll(treeData, 'key4')}
 				>
-					复制
+					删除
 				</Checkbox>
 			),
 			dataIndex: 'key4',
@@ -436,7 +436,7 @@ export default ({ roleId }: any) => {
 					indeterminate={checkAll(treeData, 'key5')}
 					checked={isCheckAll(treeData, 'key5')}
 				>
-					类似新建
+					下线
 				</Checkbox>
 			),
 			dataIndex: 'key5',
@@ -462,7 +462,7 @@ export default ({ roleId }: any) => {
 					indeterminate={checkAll(treeData, 'key6')}
 					checked={isCheckAll(treeData, 'key6')}
 				>
-					合并
+					复制
 				</Checkbox>
 			),
 			dataIndex: 'key6',
@@ -488,7 +488,7 @@ export default ({ roleId }: any) => {
 					indeterminate={checkAll(treeData, 'key7')}
 					checked={isCheckAll(treeData, 'key7')}
 				>
-					权限分配
+					归档
 				</Checkbox>
 			),
 			dataIndex: 'key7',
@@ -514,7 +514,7 @@ export default ({ roleId }: any) => {
 					indeterminate={checkAll(treeData, 'key8')}
 					checked={isCheckAll(treeData, 'key8')}
 				>
-					开启/关闭
+					站群推送
 				</Checkbox>
 			),
 			dataIndex: 'key8',
