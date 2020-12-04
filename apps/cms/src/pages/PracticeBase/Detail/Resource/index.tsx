@@ -115,13 +115,15 @@ export const BaseResource = ({ id }: BaseResourceProps) => {
 				columns={columns}
 				rowSelection={{
 					selectedRowKeys,
-					onChange: selectedRowKeys => {
+					onChange: (selectedRowKeys: any) => {
 						setSelectedRowKeys(selectedRowKeys as number[]);
 					},
 					checkStrictly: false,
 				}}
-				request={async params => {
-					return positionalListPaging({}).then(data => ({ data: data.data.content }));
+				request={async (params: any) => {
+					return positionalListPaging({}).then((data: any) => ({
+						data: data.data.content,
+					}));
 				}}
 			></BizTable>
 		</div>

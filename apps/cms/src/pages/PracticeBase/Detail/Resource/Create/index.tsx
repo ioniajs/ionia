@@ -142,7 +142,7 @@ export default ({ row }: ResourceCreateProps) => {
 				</Form.Item>
 				<Form.Item name='introduce' label='阵地介绍'>
 					<div className='io-cms-resource-create-from-item__rich-text-editor'>
-						<RichTextEditor onGet={editorState => setEditorState(editorState)} />
+						<RichTextEditor onGet={(editorState: any) => setEditorState(editorState)} />
 					</div>
 				</Form.Item>
 			</Form>

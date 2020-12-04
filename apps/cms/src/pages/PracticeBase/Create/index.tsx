@@ -19,10 +19,10 @@ const layout = {
 	labelCol: { span: 7 },
 	wrapperCol: { span: 12 },
 };
-const layout1 = {
-	labelCol: { span: 16 },
-	wrapperCol: { span: 8 },
-};
+// const layout1 = {
+// 	labelCol: { span: 7 },
+// 	wrapperCol: { span: 24 },
+// };
 
 const newPractice = async (filed: OrgDTO) => {
 	const newRef = await addPosition(filed);
@@ -38,6 +38,7 @@ export default () => {
 	const [form] = Form.useForm();
 	const ref = useRef<BizModalFormRef>();
 	const [editorState, setEditorState] = useState(); // 获取富文本编辑内容
+	const [codeAdress, setCodeAddress] = useState<string>();
 
 	const baseTypeTree: any = [
 		{
@@ -85,18 +86,7 @@ export default () => {
 							<SaveButton
 								onSave={async () => {
 									form.validateFields().then(async values => {
-										const param = {
-											area: values.area,
-											name: values.name,
-											parentId: values.parentId,
-											type: values.type,
-											address: values.address || '',
-											code: values.code || '',
-											coordinate: values.coordinate || '',
-											introduce: editorState,
-										};
-
-										const success = await newPractice(param);
+										const success = await newPractice(values);
 										if (success.code === 200) {
 											history.back();
 										}
@@ -159,7 +149,7 @@ export default () => {
 					<Form.Item name='fax' label='传真'>
 						<Input style={{ width: 664 }} placeholder='请输入传真号码' />
 					</Form.Item>
-					<Form.List name='domain'>
+					<Form.List name='linkmanList'>
 						{(fields, { add, remove }, { errors }) => {
 							return (
 								<>
@@ -182,6 +172,7 @@ export default () => {
 													{...field}
 													validateTrigger={['onChange', 'onBlur']}
 													noStyle
+													name={[field.name, 'username']}
 												>
 													<Input
 														placeholder='请输入姓名'
@@ -192,6 +183,7 @@ export default () => {
 													{...field}
 													validateTrigger={['onChange', 'onBlur']}
 													noStyle
+													name={[field.name, 'phone']}
 												>
 													<Input
 														placeholder='请输入手机号或座机号'
@@ -234,8 +226,14 @@ export default () => {
 							);
 						}}
 					</Form.List>
-					<Form.Item style={{ display: 'flex' }} name='code' label='地址'>
-						<Input style={{ width: 604.1 }} placeholder='请手动选择地址' />
+					<div className='io-cms-practice-base-create__div'>
+						<Form.Item name='address' label='地址'>
+							<Input
+								allowClear
+								style={{ width: 604.1 }}
+								placeholder='请手动选择地址'
+							/>
+						</Form.Item>
 						<BizModalForm
 							ref={ref}
 							title='选择地点'
@@ -245,16 +243,35 @@ export default () => {
 									onClick={() => {
 										ref.current?.open();
 									}}
-									style={{ width: 60.9, height: 32 }}
+									className='io-cms-practice-base-create__div-button'
 								>
 									选择
 								</Button>
 							)}
+							submitterRender={() => (
+								<>
+									<Button>取消</Button>
+									<Button
+										type='primary'
+										onClick={() => {
+											form.setFieldsValue({ address: codeAdress });
+											ref.current?.close();
+										}}
+									>
+										保存
+									</Button>
+								</>
+							)}
 							width={1000}
 						>
-							<AMap />
+							<AMap
+								onGet={(val: string) => {
+									setCodeAddress(val);
+									console.log(val, 'address的值');
+								}}
+							/>
 						</BizModalForm>
-					</Form.Item>
+					</div>
 					<Form.Item name='favicon' label='阵地标志'>
 						<ImageUpload />
 					</Form.Item>
@@ -272,7 +289,9 @@ export default () => {
 					</Form.Item>
 					<Form.Item name='introduce' label='阵地介绍'>
 						<div className='io-cms-practice-base-create-from-item__rich-text-editor'>
-							<RichTextEditor onGet={editorState => setEditorState(editorState)} />
+							<RichTextEditor
+								onGet={(editorState: any) => setEditorState(editorState)}
+							/>
 						</div>
 					</Form.Item>
 				</Form>

@@ -256,7 +256,7 @@ export default () => {
 											];
 											const obj: any = {};
 											const temp = dataSource.concat(a);
-											const temps = temp.reduce((cur, next: any) => {
+											const temps = temp.reduce((cur: any, next: any) => {
 												obj[next.key]
 													? ''
 													: (obj[next.key] = true && cur.push(next));
@@ -308,7 +308,7 @@ export default () => {
 						</>
 					),
 				})}
-				onChange={data => setSaveData(data)}
+				onChange={(data: any) => setSaveData(data)}
 				columns={columns}
 				// dataSource={[
 				// 	{
