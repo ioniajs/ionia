@@ -151,25 +151,25 @@ export default () => {
 					<Form.Item
 						style={{ margin: 0 }}
 						name={dataIndex}
-					// rules={[
-					// 	{
-					// 		required: true,
-					// 		message: `${title}是必填项`,
-					// 	},
-					// ]}
+						// rules={[
+						// 	{
+						// 		required: true,
+						// 		message: `${title}是必填项`,
+						// 	},
+						// ]}
 					>
 						{/* <Input ref={ref} onPressEnter={save} onBlur={save} /> */}
 						<TreeSelect
 							// value={uservalue}
 							treeData={treeData}
 							treeDefaultExpandAll
-						// onChange={() => setUserValue(uservalue)}
-						// onBlur={save}
+							// onChange={() => setUserValue(uservalue)}
+							// onBlur={save}
 						></TreeSelect>
 					</Form.Item>
 				) : (
-						<div onClick={toggleEdit}>{children}</div>
-					);
+					<div onClick={toggleEdit}>{children}</div>
+				);
 			},
 		},
 		{
@@ -193,12 +193,12 @@ export default () => {
 							// value={uservalue}
 							treeData={baseTypeTree}
 							treeDefaultExpandAll
-						// onChange={() => setUserValue(uservalue)}
+							// onChange={() => setUserValue(uservalue)}
 						></TreeSelect>
 					</Form.Item>
 				) : (
-						<div onClick={toggleEdit}>{children}</div>
-					);
+					<div onClick={toggleEdit}>{children}</div>
+				);
 			},
 		},
 		{
@@ -221,8 +221,8 @@ export default () => {
 						<Input ref={ref} onPressEnter={save} onBlur={save} />
 					</Form.Item>
 				) : (
-						<div onClick={toggleEdit}>{children}</div>
-					);
+					<div onClick={toggleEdit}>{children}</div>
+				);
 			},
 		},
 		{
@@ -245,8 +245,8 @@ export default () => {
 						<Input ref={ref} onPressEnter={save} onBlur={save} />
 					</Form.Item>
 				) : (
-						<div onClick={toggleEdit}>{children}</div>
-					);
+					<div onClick={toggleEdit}>{children}</div>
+				);
 			},
 		},
 		{
@@ -269,8 +269,8 @@ export default () => {
 						<Input ref={ref} onPressEnter={save} onBlur={save} />
 					</Form.Item>
 				) : (
-						<div onClick={toggleEdit}>{children}</div>
-					);
+					<div onClick={toggleEdit}>{children}</div>
+				);
 			},
 		},
 		{
@@ -367,7 +367,7 @@ export default () => {
 								// value={uservalue}
 								treeData={treeData}
 								treeDefaultExpandAll
-							// onChange={() => setUserValue(uservalue)}
+								// onChange={() => setUserValue(uservalue)}
 							/>
 						</Form.Item>
 						<Form.Item
@@ -386,7 +386,7 @@ export default () => {
 								// value={uservalue}
 								treeData={baseTypeTree}
 								treeDefaultExpandAll
-							// onChange={() => setUserValue(uservalue)}
+								// onChange={() => setUserValue(uservalue)}
 							></TreeSelect>
 						</Form.Item>
 					</div>
