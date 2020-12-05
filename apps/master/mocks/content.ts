@@ -23,7 +23,6 @@ export default [
 												{
 													channelId: '1325689734125645826',
 													channelName: '栏目四',
-													children: [],
 													datas: {
 														key1: {
 															operation: 1,
@@ -108,7 +107,6 @@ export default [
 										{
 											channelId: '1325688962101088257',
 											channelName: '栏目五',
-											children: [],
 											datas: {
 												key1: {
 													operation: 1,
@@ -193,7 +191,6 @@ export default [
 								{
 									channelId: '1325689429627564033',
 									channelName: '栏目六',
-									children: [],
 									datas: {
 										key1: {
 											operation: 1,
@@ -237,7 +234,6 @@ export default [
 								{
 									channelId: '1326361764857733121',
 									channelName: '栏目七',
-									children: [],
 									datas: {
 										key1: {
 											operation: 1,
@@ -322,7 +318,6 @@ export default [
 						{
 							channelId: 0,
 							channelName: '增量栏目',
-							children: [],
 							datas: {
 								key1: {
 									operation: 1,
@@ -376,7 +371,7 @@ export default [
 					],
 					id: 1,
 				},
-				message: '',
+				message: '成功',
 			})
 		);
 	}),
@@ -412,7 +407,6 @@ export default [
 												{
 													channelId: '1325689734125645826',
 													channelName: '栏目四',
-													children: [],
 													datas: {
 														key1: {
 															operation: 1,
@@ -497,7 +491,6 @@ export default [
 										{
 											channelId: '1325688962101088257',
 											channelName: '栏目五',
-											children: [],
 											datas: {
 												key1: {
 													operation: 1,
@@ -582,7 +575,6 @@ export default [
 								{
 									channelId: '1325689429627564033',
 									channelName: '栏目六',
-									children: [],
 									datas: {
 										key1: {
 											operation: 1,
@@ -626,7 +618,6 @@ export default [
 								{
 									channelId: '1326361764857733121',
 									channelName: '栏目七',
-									children: [],
 									datas: {
 										key1: {
 											operation: 1,
@@ -711,7 +702,6 @@ export default [
 						{
 							channelId: 0,
 							channelName: '增量栏目',
-							children: [],
 							datas: {
 								key1: {
 									operation: 1,
@@ -801,7 +791,6 @@ export default [
 												{
 													channelId: '1325689734125645826',
 													channelName: '栏目四',
-													children: [],
 													datas: {
 														key1: {
 															operation: 1,
@@ -886,7 +875,6 @@ export default [
 										{
 											channelId: '1325688962101088257',
 											channelName: '栏目五',
-											children: [],
 											datas: {
 												key1: {
 													operation: 1,
@@ -971,7 +959,6 @@ export default [
 								{
 									channelId: '1325689429627564033',
 									channelName: '栏目六',
-									children: [],
 									datas: {
 										key1: {
 											operation: 1,
@@ -1015,7 +1002,6 @@ export default [
 								{
 									channelId: '1326361764857733121',
 									channelName: '栏目七',
-									children: [],
 									datas: {
 										key1: {
 											operation: 1,
@@ -1100,7 +1086,6 @@ export default [
 						{
 							channelId: 0,
 							channelName: '增量栏目',
-							children: [],
 							datas: {
 								key1: {
 									operation: 1,
@@ -1154,7 +1139,7 @@ export default [
 					],
 					id: 1,
 				},
-				message: '',
+				message: '成功',
 			})
 		);
 	}),

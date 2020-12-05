@@ -8,7 +8,7 @@ import Content from './content';
 import './index.less';
 
 const { TabPane } = Tabs;
-export default ({ id }: any) => {
+export default ({ id }: { id: string }) => {
 	let roleId = id;
 
 	function callback(key: any) {
@@ -16,9 +16,9 @@ export default ({ id }: any) => {
 	}
 
 	return (
-		<Tabs onChange={callback} type='card'>
+		<Tabs onChange={callback} type='card' className='io-cms-role-authority_tabs'>
 			<TabPane tab='站群权限' key='1'>
-				<SiteGroup roleId={roleId} />
+				<SiteGroup id={id} />
 			</TabPane>
 			<TabPane tab='菜单权限' key='2'>
 				<Menu roleId={roleId} />

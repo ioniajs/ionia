@@ -29,7 +29,7 @@ const dataList: any[] = [];
 export default ({ roleId }: any) => {
 	const [checkedKeys, setCheckedKeys] = useState<Set<string>>(new Set());
 
-	const { data } = useRequest(() => roleMenuShow(roleId), {
+	const { data } = useRequest(() => roleMenuShow({ roleId }), {
 		onSuccess: data => {
 			if (data.data) {
 				loop(data.data, dataList);
@@ -66,7 +66,7 @@ export default ({ roleId }: any) => {
 			<Affix offsetTop={100}>
 				<Button type='primary'>保存</Button>
 			</Affix>
-			<div className='io_cms_role_authority-site_check'>
+			<div className='io-cms-role-authority-site_check'>
 				<Checkbox
 					onChange={e => {
 						if (checkedKeys.has('all')) {
