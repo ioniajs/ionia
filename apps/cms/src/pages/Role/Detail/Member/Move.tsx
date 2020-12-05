@@ -40,7 +40,7 @@ export default (props: any) => {
 				const columns = direction === 'left' ? leftColumns : rightColumns;
 
 				const rowSelection = {
-					getCheckboxProps: (item: any) => logger.debug(item),
+					// getCheckboxProps: (item: any) => logger.debug(item),
 					onSelectAll(selected: any, selectedRows: any) {
 						const treeSelectedKeys = selectedRows.map(({ key }: any) => key);
 						const diffKeys = selected
@@ -56,7 +56,7 @@ export default (props: any) => {
 
 				return (
 					<Table
-						// rowSelection={rowSelection}
+						rowSelection={rowSelection}
 						columns={columns}
 						dataSource={filteredItems}
 						size='small'

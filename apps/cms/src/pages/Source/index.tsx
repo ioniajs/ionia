@@ -6,7 +6,7 @@ import Create from './Create';
 export default () => {
 	const columns: any = [
 		{
-			title: '内容类型名称',
+			title: '来源名称',
 			key: 'name',
 			dataIndex: 'name',
 			width: 520,
@@ -16,6 +16,7 @@ export default () => {
 			key: 'url',
 			dataIndex: 'url',
 			width: 390,
+			render: (_: any, row: any) => <a href={row.url}>{row.url}</a>,
 		},
 		{
 			title: '默认来源',
@@ -53,7 +54,7 @@ export default () => {
 		},
 	];
 	const dataSource: any = [
-		{ name: '假设名字很长很长', url: 'www.baidu.com', default: '是', open: '否' },
+		{ name: '假设名字很长很长', url: 'http://www.baidu.com', default: '是', open: '否' },
 	];
 	const [selectedRowKeys, setSelectedRowKeys] = useState<number[]>([]);
 

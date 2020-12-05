@@ -1,4 +1,4 @@
-import { logger } from '@ionia/libs';
+import { logger, positionalUserListPaging } from '@ionia/libs';
 import { Input, Modal, Table, Tag, Transfer, TreeSelect } from 'antd';
 import difference from 'lodash/difference';
 import React, { useState } from 'react';
@@ -44,7 +44,7 @@ export default (props: any) => {
 				const columns = direction === 'left' ? leftColumns : rightColumns;
 
 				const rowSelection = {
-					getCheckboxProps: (item: any) => logger.debug(item),
+					// getCheckboxProps: (item: any) => logger.debug(item),
 					onSelectAll(selected: any, selectedRows: any) {
 						const treeSelectedKeys = selectedRows.map(({ key }: any) => key);
 						const diffKeys = selected
@@ -60,10 +60,16 @@ export default (props: any) => {
 
 				return (
 					<Table
-						// rowSelection={rowSelection}
+						rowSelection={rowSelection}
 						columns={columns}
 						dataSource={filteredItems}
+						// rowSelection={{}}
 						size='small'
+						// request={(params: any, sort: any, filter: any) => {
+						// 	return positionalUserListPaging({}).then(data => ({
+						// 		data: data.data.content,
+						// 	}));
+						// }}
 						onRow={({ key, disabled: itemDisabled }) => ({
 							onClick: () => {
 								onItemSelect(key, !listSelectedKeys.includes(key));
@@ -135,7 +141,7 @@ export default (props: any) => {
 		mockData.push({
 			key: i.toString(),
 			title: `content${i + 1}`,
-			description: `description of content${i + 1}`,
+			description: `content${i + 1}`,
 			tag: mockTags[i % 3],
 		});
 	}
@@ -171,6 +177,7 @@ export default (props: any) => {
 				}
 				leftColumns={leftTableColumns}
 				rightColumns={rightTableColumns}
+				showSelectAll={false}
 			/>
 		</Modal>
 	);

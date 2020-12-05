@@ -3,10 +3,13 @@ import { BizPage, logger } from '@ionia/libs';
 import Base from './Base';
 import Member from './Member';
 import Authority from './Authority';
+
 export default ({ match }: any) => {
-	const {
-		params: { id },
-	} = match;
+	// const {
+	// 	params: { id },
+	// } = match;
+	const { params } = match;
+	const { id }: { id: string } = params;
 	logger.debug(id);
 	return (
 		<BizPage

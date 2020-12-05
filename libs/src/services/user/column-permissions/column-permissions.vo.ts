@@ -37,7 +37,12 @@ export interface RoleChannelVO {
 	channelId: string;
 	channelName: string;
 	children: RoleChannelVO[];
-	datas: RoleDatas;
+	datas: RoleItemVO;
 	flag: boolean;
 }
 //#endregion
+
+export interface RoleDataVO {
+	contents: RoleChannelVO[];
+	id: string;
+}

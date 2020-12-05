@@ -54,7 +54,7 @@ const residences = [
 	},
 ];
 
-export default () => {
+export default ({ user }: any) => {
 	const ref = useRef<BizModalFormRef>();
 	const [form] = Form.useForm();
 	const onCreate = () => {
@@ -82,7 +82,7 @@ export default () => {
 					>
 						取消
 					</Button>
-					<Button type='default'>保存并分配权限</Button>
+					{user ? <Button type='default'>保存并分配权限</Button> : ''}
 					<Button type='default' onClick={onCreate}>
 						保存并继续新建
 					</Button>
@@ -96,13 +96,13 @@ export default () => {
 				name='username'
 				label='用户名'
 				placeholder='请输入用户名'
-				rules={[{ required: true }]}
+				rules={[{ required: true }, { max: 120 }]}
 			/>
 			<ProFormText.Password
 				name='cipher'
 				label='登录密码'
 				placeholder='请输入登录密码'
-				rules={[{ required: true }]}
+				rules={[{ required: true }, { max: 120 }]}
 			/>
 			<ProFormText.Password
 				name='confirm'
@@ -120,6 +120,9 @@ export default () => {
 							}
 						},
 					},
+					{
+						max: 120,
+					},
 				]}
 			/>
 			<Form.Item name='orgId' label='所属阵地' rules={[{ required: true }]}>
@@ -132,7 +135,12 @@ export default () => {
 				label='所属角色'
 				placeholder='请选择所属角色'
 			/>
-			<ProFormText name='realName' label='真实姓名' placeholder='请输入姓名' />
+			<ProFormText
+				rules={[{ max: 120 }]}
+				name='realName'
+				label='真实姓名'
+				placeholder='请输入姓名'
+			/>
 			<ProFormText
 				name='telephone'
 				label='联系方式'
@@ -164,6 +172,9 @@ export default () => {
 								callback('请输入正确的邮箱！');
 							}
 						},
+					},
+					{
+						max: 120,
 					},
 				]}
 			/>
