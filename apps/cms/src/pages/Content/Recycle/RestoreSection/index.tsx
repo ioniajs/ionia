@@ -4,7 +4,6 @@ import { Button, Tree, Tooltip, Modal, Form, Radio, TreeSelect } from 'antd';
 import { InfoCircleOutlined } from '@ant-design/icons';
 import './index.less';
 
-
 const treeData = [
 	{
 		title: '0-0',
@@ -16,27 +15,31 @@ const treeData = [
 				key: '0-0-0',
 				delete: false,
 				children: [
-					{ title: '0-0-0-0', key: '0-0-0-0', delete: false, },
-					{ title: '0-0-0-1', key: '0-0-0-1', delete: false, },
+					{ title: '0-0-0-0', key: '0-0-0-0', delete: false },
+					{ title: '0-0-0-1', key: '0-0-0-1', delete: false },
 					{
 						title: '0-0-0-2',
 						key: '0-0-0-2',
 						delete: false,
 						children: [
-							{ title: '0-0-0-0-0', key: '0-0-0-0-0', delete: false, },
-							{ title: '0-0-0-0-1', key: '0-0-0-0-1', delete: false, },
+							{ title: '0-0-0-0-0', key: '0-0-0-0-0', delete: false },
+							{ title: '0-0-0-0-1', key: '0-0-0-0-1', delete: false },
 							{
 								title: '0-0-0-0-2',
 								key: '0-0-0-0-2',
 								delete: false,
 								children: [
-									{ title: '0-0-0-0-0-0', key: '0-0-0-0-0-0', delete: false, },
+									{ title: '0-0-0-0-0-0', key: '0-0-0-0-0-0', delete: false },
 									{
 										title: '0-0-0-0-0-1',
 										key: '0-0-0-0-0-1',
 										delete: false,
 										children: [
-											{ title: '0-0-0-0-0-0-00', key: '0-0-0-0-0-0-00', delete: false, },
+											{
+												title: '0-0-0-0-0-0-00',
+												key: '0-0-0-0-0-0-00',
+												delete: false,
+											},
 											{
 												title: '0-0-0-0--0-1-1',
 												key: '0-0-0-0-0-1-1',
@@ -68,7 +71,7 @@ const treeData = [
 																				key:
 																					'0-0-0-0-0-0-0-0-0-000000000',
 																				delete: false,
-																				disableCheckbox: true
+																				disableCheckbox: true,
 																			},
 																		],
 																	},
@@ -99,7 +102,7 @@ const treeData = [
 			{
 				title: '0-0-2',
 				key: '0-0-2',
-				disableCheckbox: false
+				disableCheckbox: false,
 			},
 		],
 	},
@@ -169,7 +172,10 @@ export default () => {
 						</Button>
 						<Button
 							type='primary'
-							onClick={() => { modalRef.current?.close(); setVisible(true) }}
+							onClick={() => {
+								modalRef.current?.close();
+								setVisible(true);
+							}}
 						>
 							还原栏目及内容
 						</Button>
@@ -198,33 +204,36 @@ export default () => {
 						treeData={treeData}
 						checkable
 						checkStrictly
-						onCheck={(checkedKeys) => setCheckedKeys(checkedKeys as string[])}
+						onCheck={checkedKeys => setCheckedKeys(checkedKeys as string[])}
 						defaultExpandAll
-						titleRender={(nodeData) => {
+						titleRender={nodeData => {
 							if (nodeData?.disableCheckbox === false) {
-								return <span style={{ color: 'red' }}>{nodeData.title}</span>
+								return <span style={{ color: 'red' }}>{nodeData.title}</span>;
 							}
-							return <span>{nodeData.title}</span>
+							return <span>{nodeData.title}</span>;
 						}}
 					/>
 				</div>
 			</BizModalForm>
-			<Modal
-				visible={visible}
-				title='还原栏目'
-				onCancel={() => setVisible(false)}
-			>
+			<Modal visible={visible} title='还原栏目' onCancel={() => setVisible(false)}>
 				<div>
 					<p>以下站点的上级站点已被删除，无法正常恢复，请选择处理方式：</p>
 					<p>[站点1]</p>
-					<Form form={form} className='io-cms-content-recycle-restore-section-modal-container'>
+					<Form
+						form={form}
+						className='io-cms-content-recycle-restore-section-modal-container'
+					>
 						<Form.Item name='' label=''>
 							<Radio.Group>
 								<Radio value={1}>同时还原所有上级栏目</Radio>
 								<Radio value={2}>还原到其他栏目下</Radio>
 							</Radio.Group>
 						</Form.Item>
-						<Form.Item name='parentId' label='上级栏目' rules={[{ required: true, message: '请选择上级栏目' }]}>
+						<Form.Item
+							name='parentId'
+							label='上级栏目'
+							rules={[{ required: true, message: '请选择上级栏目' }]}
+						>
 							<TreeSelect treeData={treeSelectData} />
 						</Form.Item>
 					</Form>
