@@ -138,13 +138,13 @@ export const Recycle = () => {
 			key: 'deleteTime',
 			dataIndex: 'deleteTime',
 			sorter: (a: any, b: any, order: any) => {
-				// let atime = new Date(a.deleteTime.replace(/-/g, '/')).getTime();
-				// let btime = new Date(b.deleteTime.replace(/-/g, '/')).getTime();
-				// return atime - btime;
+				let atime = new Date(a.deleteTime.replace(/-/g, '/')).getTime();
+				let btime = new Date(b.deleteTime.replace(/-/g, '/')).getTime();
 				console.log(order, 'dd');
+				return atime - btime;
 			},
 			sortDirections: sortDirections,
-			defaultSortOrder: 'descend',
+			// defaultSortOrder: 'descend',
 			filterIcon: () => <SearchOutlined />,
 			filterDropdown: () => (
 				<div className='io-cms-cotent-recycle-table-deleteTime-filterDropDown'>
@@ -185,7 +185,7 @@ export const Recycle = () => {
 	];
 	const [selectedRowKeys, setSelectedRowKeys] = useState<number[]>([]);
 	return (
-		<div>
+		<div className='io-cms-content-recycle-container'>
 			<BizTable
 				rowKey='id'
 				renderActions={() => (
