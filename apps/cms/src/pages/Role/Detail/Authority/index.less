@@ -46,14 +46,37 @@
 	border-radius: 2px;
 
 	.io_cms_role_authority-menu_collapse-panel_title {
-		height: 36px;
+		height: 48px;
 		background: #fafafa;
-		border: 1px solid #f0f0f0;
-		line-height: 36px;
+		border-radius: 2px 2px 0px 0px;
 		padding: 0 17px;
 	}
-}
 
+	.io_cms_role_authority-menu_collapse-panel_name {
+		background: #fafafa;
+		border: 1px solid #f0f0f0;
+		padding: 0 7px;
+		height: 36px;
+		line-height: 36px;
+	}
+
+	.io-cms-role-authority-menu_content {
+		height: 184px;
+		overflow-y: auto;
+		.io-cms-role-authority-menu_item {
+			display: flex;
+			padding: 0 17px;
+			align-items: center;
+			height: 46px;
+		}
+	}
+}
+.io-cms-role-authority-menu_text {
+	overflow: hidden; //超出的文本隐藏
+	text-overflow: ellipsis; //溢出用省略号显示
+	white-space: nowrap;
+	max-width: 56px;
+}
 .io-cms-role-authority-column_header {
 	display: flex;
 	justify-content: space-between;
