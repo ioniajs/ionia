@@ -266,10 +266,10 @@ export const BasicChildren = ({ id }: BasicChildrenProps) => {
 														域名
 													</span>
 												) : (
-													<span style={{ display: 'none' }}>
-														添加域名
-													</span>
-												)
+														<span style={{ display: 'none' }}>
+															添加域名
+														</span>
+													)
 											}
 											required={false}
 											key={field.key}
