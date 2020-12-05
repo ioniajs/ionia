@@ -18,6 +18,7 @@ const userUpdate = async (filed: UserUpdateDTO) => {
 	const updateUser = await modUser(filed);
 	if (updateUser.code === 200) {
 		message.success('修改成功');
+		history.go(-1);
 	} else {
 		message.error('修改失败');
 	}
@@ -87,13 +88,8 @@ export const UserDetail = ({ id }: UserDetailProps) => {
 					expandForm.validateFields().then(async values => {
 						const param = {
 							id,
-							username: values.username,
+							...values,
 							orgId: values.orgId,
-							roleIds: values.roleIds,
-							realName: values.realName || '',
-							telephone: values.telephone || '',
-							email: values.email || '',
-							status: !!values.status ? 1 : 0,
 						};
 						const saveUpdateRes = await userUpdate(param);
 						if (saveUpdateRes) {
