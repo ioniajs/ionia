@@ -9,8 +9,11 @@ import {
 	Pagination,
 	Modal,
 	Button,
-	DatePicker,
+	TreeSelect,
+	Tree,
+	Input,
 } from 'antd';
+import { useRequest } from '@umijs/hooks';
 import { InfoCircleOutlined } from '@ant-design/icons';
 import { BizModalForm, BizModalFormRef } from '@ionia/libs';
 import {
@@ -24,6 +27,8 @@ import {
 import { SortableContainer, SortableElement } from 'react-sortable-hoc';
 import arrayMove from 'array-move';
 import moment from 'moment';
+import { gainSiteTree } from '@ionia/libs/src/services';
+import { AdminSiteTreeVO } from '@ionia/libs/src/services/kernel';
 import CopyOrMoveContent from './CopyContent';
 import Sort from './Sort';
 import './index.less';
@@ -167,6 +172,87 @@ const handleContentPreview = (id: any) => {
 const handleContentBrowse = (id: any) => {
 	console.log(id, '浏览id');
 };
+const stationPushSectionData = [
+	{
+		title: '0-0',
+		key: '0-0',
+		id: 0,
+		children: [
+			{
+				title: '0-0-0',
+				key: '0-0-0',
+				children: [
+					{
+						title: '0-0-0-2',
+						key: '0-0-0-2',
+						children: [
+							{
+								title: '0-0-0-0-2',
+								key: '0-0-0-0-2',
+								children: [
+									{
+										title: '0-0-0-0-0-1',
+										key: '0-0-0-0-0-1',
+										children: [
+											{
+												title: '0-0-0-0--0-1-1',
+												key: '0-0-0-0-0-1-1',
+												children: [
+													{
+														title: '0-0-0-0-0-0-0',
+														key: '0-0-0-0-0-0-0',
+													},
+													{
+														title: '0-0-0-0-0-0-1',
+														key: '0-0-0-0-0-0-1',
+														children: [
+															{
+																title: '0-0-0-0-0-0-0-0',
+																key: '0-0-0-0-0-0-0-0',
+																children: [
+																	{
+																		title: '0-0-0-0-0-0-0-0-0',
+																		key: '0-0-0-0-0-0-0-0-0',
+																		children: [
+																			{
+																				title:
+																					'0-0-0-0-0-0-0-0-0-00000000',
+																				key:
+																					'0-0-0-0-0-0-0-0-0-000000000',
+																			},
+																		],
+																	},
+																],
+															},
+														],
+													},
+												],
+											},
+										],
+									},
+								],
+							},
+						],
+					},
+				],
+			},
+			{
+				title: '0-0-1',
+				key: '0-0-1',
+				children: [
+					{ title: '0-0-1-0', key: '0-0-1-0' },
+					{ title: '0-0-1-1', key: '0-0-1-1' },
+					{ title: '0-0-1-2', key: '0-0-1-2' },
+				],
+			},
+			{
+				title: '0-0-2',
+				key: '0-0-2',
+				id: 11111,
+			},
+		],
+	},
+];
 
 export const List = () => {
 	const [searchTypesValue, setSearchTypes] = useState<number>(1);
@@ -176,7 +262,33 @@ export const List = () => {
 	const [datas, setDatas] = useState(dataSource);
 	const modalRef = useRef<BizModalFormRef>();
 	const [topDeadLineForm] = Form.useForm();
+	const [stationPushVisible, setStationPushVisible] = useState<boolean>(false);
+	const [stationPushForm] = Form.useForm();
+	const [siteTree, setSiteTree] = useState<AdminSiteTreeVO[]>();
+	const [stationPushCheckKeys, setStationPushCheckKeys] = useState<string[]>();
 	console.log(selectedRowKeys, 'rowKrys');
+	// 获取站点树
+	const { run: runsiteTree } = useRequest(gainSiteTree, {
+		manual: true,
+		onSuccess: result => {
+			const loop = function (data: any) {
+				return data.map((r: any) => {
+					if (r.children) {
+						r.children = loop(r.children);
+					}
+					return {
+						value: r.id,
+						title: r.name,
+						key: r.id,
+						children: r.children,
+						...r,
+					};
+				});
+			};
+			const tempSiteTree = loop(result.data.list);
+			setSiteTree(tempSiteTree);
+		},
+	});
 	const selectBefore = (
 		<Select
 			defaultValue={1}
@@ -251,7 +363,14 @@ export const List = () => {
 				<a>设置推荐</a>
 			</Menu.Item>
 			<Menu.Item>
-				<a>站群推送</a>
+				<a
+					onClick={() => {
+						setStationPushVisible(true);
+						runsiteTree();
+					}}
+				>
+					站群推送
+				</a>
 			</Menu.Item>
 		</Menu>
 	);
@@ -617,6 +736,54 @@ export const List = () => {
 					console.log(page, pageSize, 'pagination');
 				}}
 			/>
+			<Modal
+				destroyOnClose
+				visible={stationPushVisible}
+				title='站群推送'
+				width={500}
+				onCancel={() => setStationPushVisible(false)}
+				onOk={() => {
+					stationPushForm.validateFields().then(values => {
+						console.log(values);
+					});
+				}}
+			>
+				<Form form={stationPushForm} labelCol={{ span: 4 }} preserve={false}>
+					<Form.Item
+						name='siteId'
+						label='选择站点'
+						rules={[{ required: true, message: '请选择站点' }]}
+					>
+						<TreeSelect treeData={siteTree} />
+					</Form.Item>
+					<Form.Item
+						name='sectionId'
+						label='选择栏目'
+						rules={[{ required: true, message: '请选择栏目' }]}
+					>
+						<div className='io-cms-list-item-station-group-push-modal-tree-container'>
+							<Tree
+								checkable
+								selectable={false}
+								blockNode
+								onCheck={checkedKeys => {
+									setStationPushCheckKeys(checkedKeys as string[]);
+									stationPushForm.setFieldsValue({ sectionId: checkedKeys });
+								}}
+								checkedKeys={stationPushCheckKeys}
+								treeData={stationPushSectionData}
+							/>
+						</div>
+					</Form.Item>
+					<Form.Item
+						name='key'
+						label='密钥'
+						rules={[{ required: true, message: '请输入密钥' }]}
+					>
+						<Input placeholder='请输入密钥' />
+					</Form.Item>
+				</Form>
+			</Modal>
 		</div>
 	);
 };
