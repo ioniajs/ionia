@@ -467,6 +467,244 @@ export default [
 			})
 		);
 	}),
+	rest.get('/module-kernel/cmsmanager/sites/tree/auth', (req, res, ctx) => {
+		return res(
+			ctx.json({
+				code: 200,
+				data: [
+					{
+						children: [
+							{
+								children: [
+									{
+										dir: '',
+										domain: ['192.168.33.22', '198.66.74.23'],
+										id: 11,
+										name: '南昌市人民政府',
+										status: 0,
+										children: [
+											{
+												dir: '',
+												domain: [],
+												id: 111,
+												name: '南昌市人民政府',
+												status: 0,
+												children: [],
+											},
+											{
+												dir: '',
+												domain: [],
+												id: 112,
+												name: '南昌市人民政府',
+												status: 0,
+												children: [],
+											},
+											{
+												dir: '',
+												domain: [],
+												id: 113,
+												name: '南昌市人民政府',
+												status: 0,
+												children: [],
+											},
+											{
+												dir: '',
+												domain: [],
+												id: 114,
+												name: '南昌市人民政府',
+												status: 0,
+												children: [],
+											},
+										],
+									},
+									{
+										dir: '',
+										domain: [],
+										id: 12,
+										name: '九江市人民政府',
+										status: 0,
+									},
+									{
+										dir: '',
+										domain: [],
+										id: 13,
+										name: '景德镇市人民政府',
+										status: 0,
+									},
+									{
+										dir: '',
+										domain: [],
+										id: 14,
+										name: '赣州市人民政府',
+										status: 0,
+									},
+								],
+								dir: '',
+								domain: [],
+								id: 1,
+								name: '江西省人民政府',
+								status: 0,
+							},
+							{
+								children: [
+									{
+										dir: '',
+										domain: [],
+										id: 21,
+										name: '长沙市人民政府',
+										status: 0,
+									},
+									{
+										dir: '',
+										domain: [],
+										id: 22,
+										name: '株洲市人民政府',
+										status: 0,
+									},
+									{
+										dir: '',
+										domain: [],
+										id: 23,
+										name: '景德镇市人民政府',
+										status: 0,
+									},
+									{
+										dir: '',
+										domain: [],
+										id: 24,
+										name: '赣州市人民政府',
+										status: 0,
+									},
+								],
+								dir: '',
+								domain: [],
+								id: 2,
+								name: '湖南省人民政府',
+								status: 0,
+							},
+							{
+								children: [
+									{
+										dir: '',
+										domain: [],
+										id: 31,
+										name: '长沙市人民政府',
+										status: 0,
+									},
+									{
+										dir: '',
+										domain: [],
+										id: 32,
+										name: '株洲市人民政府',
+										status: 0,
+									},
+									{
+										dir: '',
+										domain: [],
+										id: 33,
+										name: '景德镇市人民政府',
+										status: 0,
+									},
+									{
+										dir: '',
+										domain: [],
+										id: 34,
+										name: '赣州市人民政府',
+										status: 0,
+									},
+								],
+								dir: '',
+								domain: [],
+								id: 3,
+								name: '山东省人民政府',
+								status: 0,
+							},
+							{
+								children: [
+									{
+										dir: '',
+										domain: [],
+										id: 41,
+										name: '长沙市人民政府',
+										status: 0,
+									},
+									{
+										dir: '',
+										domain: [],
+										id: 42,
+										name: '株洲市人民政府',
+										status: 0,
+									},
+									{
+										dir: '',
+										domain: [],
+										id: 43,
+										name: '景德镇市人民政府',
+										status: 0,
+									},
+									{
+										dir: '',
+										domain: [],
+										id: 44,
+										name: '赣州市人民政府',
+										status: 0,
+									},
+								],
+								dir: '',
+								domain: [],
+								id: 4,
+								name: '山东省人民政府',
+								status: 0,
+							},
+							{
+								children: [
+									{
+										dir: '',
+										domain: [],
+										id: 51,
+										name: '长沙市人民政府',
+										status: 0,
+									},
+									{
+										dir: '',
+										domain: [],
+										id: 52,
+										name: '株洲市人民政府',
+										status: 0,
+									},
+									{
+										dir: '',
+										domain: [],
+										id: 53,
+										name: '景德镇市人民政府',
+										status: 0,
+									},
+									{
+										dir: '',
+										domain: [],
+										id: 54,
+										name: '赣州市人民政府',
+										status: 0,
+									},
+								],
+								dir: '',
+								domain: [],
+								id: 5,
+								name: '山东省人民政府',
+								status: 0,
+							},
+						],
+						dir: '',
+						domain: [],
+						id: 0,
+						name: '中华人民共和国',
+						status: 0,
+					},
+				],
+				message: '成功',
+			})
+		);
+	}),
 	//修改站点
 	rest.get('/module-kernel/cmsmanager/sites/update', (req, res, ctx) => {
 		return res(

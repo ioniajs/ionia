@@ -1,7 +1,11 @@
 import request from '../../../utils/request';
 import { JcResult } from '../../base';
-import { SiteGroupOrgDTO, SiteGroupRoleDTO, SiteGroupUserDTO } from './station-permissions.dto';
-import { AdminSiteGroupVO } from './station-permissions.vo';
+import {
+	SiteGroupOrgDTO,
+	SiteGroupRoleDTO,
+	SiteGroupUserDTO,
+} from './station-group-permissions.dto';
+import { AdminSiteGroupVO } from './station-group-permissions.vo';
 
 /**
  * 新增修改站群权限数据---阵地

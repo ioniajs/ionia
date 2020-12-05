@@ -2,11 +2,13 @@ import { ActionType, ProColumns } from '@ant-design/pro-table';
 import { BizPage, BizTable, BizTree, deleteUser } from '@ionia/libs';
 import { modUserStatus, UserPageVO, userPaging } from '@ionia/libs/src/services';
 import { IdsDTO } from '@ionia/libs/src/services/common.dto';
-import { Button, Divider, message, Modal, Switch } from 'antd';
+import { Button, Divider, message, Modal, Switch, Tooltip } from 'antd';
 import React, { useRef, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import SetPassword from './SetPassword';
 import UserForm from './Form';
+import './index.less';
+import { identity } from 'lodash';
 
 const userRemove = async (ids: IdsDTO) => {
 	const removeRes = await deleteUser(ids);
@@ -30,21 +32,38 @@ export default () => {
 			key: 'username',
 			dataIndex: 'username',
 			width: 150,
-			render: (_, row) => {
-				return <a onClick={() => history.push(`/user/detail/${row.id}`)}>{row.username}</a>;
-			},
+			render: (_, row) => (
+				<Tooltip title={`${row.username}`}>
+					<a
+						className='io-cms-user__biztable-username'
+						onClick={() => history.push(`/user/detail/${row.id}`)}
+					>
+						{row.username}
+					</a>
+				</Tooltip>
+			),
 		},
 		{
 			title: '姓名',
 			key: 'realName',
 			dataIndex: 'realName',
 			width: 150,
+			render: (_: any, row: any) => (
+				<Tooltip title={`${row.realName}`}>
+					<span className='io-cms-user__biztable-username'>{row.realName}</span>
+				</Tooltip>
+			),
 		},
 		{
 			title: '所属阵地',
 			key: 'org',
 			dataIndex: 'org',
 			width: 190,
+			render: (_: any, row: any) => (
+				<Tooltip title={`${row.org}`}>
+					<span className='io-cms-user__biztable-username'>{row.org}</span>
+				</Tooltip>
+			),
 		},
 		{
 			title: '所属角色',
@@ -113,6 +132,7 @@ export default () => {
 					value: '禁用',
 				},
 			],
+			// onFilter: (value, record) => record.status.toString().indexOf(value.toString()) === 0,
 		},
 		{
 			title: '操作',
@@ -169,7 +189,7 @@ export default () => {
 				renderActions={() => (
 					<>
 						<div className='io-space-item'>
-							<UserForm />
+							<UserForm user />
 						</div>
 						<div className='io-space-item'>
 							<Button

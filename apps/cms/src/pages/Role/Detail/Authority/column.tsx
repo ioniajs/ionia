@@ -1,16 +1,56 @@
-import { logger, roleAcquireData, AdminChildDataVO } from '@ionia/libs';
-import { Affix, Button, Checkbox, Table } from 'antd';
-import React, { useState } from 'react';
+import { logger, roleGainCloumn, RoleChannelVO, gainSiteTree } from '@ionia/libs';
+import { Affix, Button, Checkbox, Table, TreeSelect } from 'antd';
+import React, { useEffect, useState } from 'react';
 import { useRequest } from 'ahooks';
 
 export default ({ roleId }: any) => {
-	const { data } = useRequest(() => roleAcquireData(roleId));
-	logger.debug('data', data);
-	const treeData = data?.data.sites ?? [];
+	const { data, run } = useRequest(() => roleGainCloumn({ id: roleId, siteId: value }), {
+		manual: true,
+	});
+	const siteTree = useRequest(() => gainSiteTree(), {
+		onSuccess: data => {
+			logger.debug('data?.data.list', data?.data.list);
+			const siteData = filterData(data?.data.list);
+			setSite(siteData);
+			logger.debug(siteData);
+		},
+	});
+	const treeData: any = data?.data ?? [];
+	logger.debug(treeData);
 	const submitData = () => {
-		logger.debug(data);
+		logger.debug(treeData);
 	};
-	const [tree, setTree] = useState<AdminChildDataVO[]>(treeData);
+	const [tree, setTree] = useState<RoleChannelVO>(treeData);
+	const [value, setValue] = useState(undefined);
+	const [site, setSite] = useState([]);
+
+	useEffect(() => {
+		if (value) {
+			run();
+		}
+	}, [value]);
+
+	/*
+	 * 获取站点树结构
+	 * */
+	const filterData = (data: any) => {
+		return data.map((item: any) => {
+			if (item.children && item.children.length > 0) {
+				item.children = filterData(item.children);
+			} else {
+				return { title: item.name, value: item.id };
+			}
+			return { title: item.name, value: item.id, children: item.children };
+		});
+	};
+
+	/*
+	 * 切换站点
+	 * */
+	const changeColumnData = (val: any) => {
+		setValue(val);
+	};
+
 	/**
 	 * 改变每个功能的按钮的值
 	 * @param row
@@ -49,7 +89,31 @@ export default ({ roleId }: any) => {
 
 	const changeAll = (type: any, data: any, flag: any) => {
 		if (type == 'key0') {
-			logger.debug(data);
+			logger.debug('data', data);
+			const loop = (list: any) => {
+				list.map((item: any) => {
+					let ids: number[] = [];
+					for (const key in item.datas) {
+						if (item.datas[key].optional == 1) {
+							ids.push(item.datas[key].selected);
+						}
+					}
+					//点击勾选 则勾选
+					//取消时 判断其他功能的权限是否存在 如果在就取消 不在 就不取消
+					if (flag) {
+						item.datas[type].selected = 1;
+					} else {
+						if (ids.filter(t => t == 1).length < 2) {
+							item.datas[type].selected = 0;
+						}
+					}
+					logger.debug('ids', ids);
+					if (item.children && item.children.length) {
+						loop(item.children);
+					}
+				});
+			};
+			loop(data);
 		} else {
 			data.map((item: any) => {
 				if (item.datas[type].optional == 1) {
@@ -178,7 +242,7 @@ export default ({ roleId }: any) => {
 		{
 			title: '全选',
 			render: (text: any, row: any) => {
-				logger.debug(row.siteId);
+				logger.debug(row.channelId);
 				if (row.children && row.children.length) {
 					return (
 						<i
@@ -214,21 +278,22 @@ export default ({ roleId }: any) => {
 		},
 		{
 			title: '站点名称',
-			dataIndex: 'siteName',
-			key: 'siteName',
-			width: 320,
+			dataIndex: 'channelName',
+			key: 'channelName',
+			width: 240,
+			ellipsis: true,
 			render: (text: any, row: any) => {
-				return row.siteId == 0 ? (
+				return row.channelId == 0 ? (
 					<p>
-						<span style={{ marginRight: '8px' }}>{row.siteName}</span>
+						<span style={{ marginRight: '8px' }}>{row.channelName}</span>
 						<i
 							className='iconfont icon-info-circle'
-							title='增量站点指当前设置 保存后新增加的站点'
+							title='增量栏目指当前设置 保存后新增加的栏目'
 							style={{ cursor: 'pointer' }}
 						></i>
 					</p>
 				) : (
-					<p>{row.siteName}</p>
+					<p>{row.channelName}</p>
 				);
 			},
 		},
@@ -371,7 +436,7 @@ export default ({ roleId }: any) => {
 					indeterminate={checkAll(treeData, 'key5')}
 					checked={isCheckAll(treeData, 'key5')}
 				>
-					权限分配
+					类似新建
 				</Checkbox>
 			),
 			dataIndex: 'key5',
@@ -397,7 +462,7 @@ export default ({ roleId }: any) => {
 					indeterminate={checkAll(treeData, 'key6')}
 					checked={isCheckAll(treeData, 'key6')}
 				>
-					发布静态页
+					合并
 				</Checkbox>
 			),
 			dataIndex: 'key6',
@@ -414,21 +479,87 @@ export default ({ roleId }: any) => {
 				);
 			},
 		},
+		{
+			title: (
+				<Checkbox
+					onChange={e => {
+						changeAll('key7', treeData, e.target.checked);
+					}}
+					indeterminate={checkAll(treeData, 'key7')}
+					checked={isCheckAll(treeData, 'key7')}
+				>
+					权限分配
+				</Checkbox>
+			),
+			dataIndex: 'key7',
+			key: 'key7',
+			render: (text: any, row: any) => {
+				return (
+					<Checkbox
+						onChange={() => {
+							changeData(row.datas.key7, row.datas.key7.selected, row.datas, 'key7');
+						}}
+						checked={row.datas.key7.selected == 1 ? true : false}
+						disabled={row.datas.key7.optional == 0 ? true : false}
+					></Checkbox>
+				);
+			},
+		},
+		{
+			title: (
+				<Checkbox
+					onChange={e => {
+						changeAll('key8', treeData, e.target.checked);
+					}}
+					indeterminate={checkAll(treeData, 'key8')}
+					checked={isCheckAll(treeData, 'key8')}
+				>
+					开启/关闭
+				</Checkbox>
+			),
+			dataIndex: 'key8',
+			key: 'key8',
+			render: (text: any, row: any) => {
+				return (
+					<Checkbox
+						onChange={() => {
+							changeData(row.datas.key8, row.datas.key8.selected, row.datas, 'key8');
+						}}
+						checked={row.datas.key8.selected == 1 ? true : false}
+						disabled={row.datas.key8.optional == 0 ? true : false}
+					></Checkbox>
+				);
+			},
+		},
 	];
 
 	return (
 		<>
-			<Affix offsetTop={100}>
-				<Button type='primary' onClick={submitData}>
-					保存
-				</Button>
-			</Affix>
+			<div className='io-cms-role-authority-column_header'>
+				<Affix offsetTop={100}>
+					<Button type='primary' onClick={submitData}>
+						保存
+					</Button>
+				</Affix>
+				<div className='io-cms-role-authority-column_tree'>
+					<span>选择站点:</span>
+					<TreeSelect
+						style={{ width: '220px', display: 'inline-block' }}
+						value={value}
+						dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
+						treeData={site}
+						placeholder='请选择站点'
+						treeDefaultExpandAll
+						onChange={changeColumnData}
+					/>
+				</div>
+			</div>
 			<Table
 				columns={columns}
-				rowSelection={{ ...rowSelection, checkStrictly: false }}
+				rowSelection={{ ...rowSelection, checkStrictly: true }}
 				dataSource={treeData}
 				pagination={false}
-				rowKey={record => record.siteId}
+				rowKey={record => record.channelId}
 			/>
 		</>
 	);

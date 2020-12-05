@@ -1,32 +1,83 @@
 import React, { useState } from 'react';
 import { ActionType, ProColumns } from '@ant-design/pro-table';
 import { BizPage, BizTable, UserPageVO, userPaging } from '@ionia/libs';
-import { Button, Modal, TreeSelect, Form, Switch } from 'antd';
+import { Button, Modal, TreeSelect, Form, Switch, Tooltip } from 'antd';
+import { ProFormSelect } from '@ant-design/pro-form';
 import './index.less';
-import { fromPairs } from 'lodash';
+import RemoveUser from './RemoveUser';
+import UserForm from '../../../User/Form';
 interface BaseMemberPorps {
 	id: string;
 }
 
 export const BaseMember = ({ id }: BaseMemberPorps) => {
+	const treeData: any = [
+		{
+			value: 'zhejiang',
+			label: 'Zhejiang',
+			children: [
+				{
+					value: 'hangzhou',
+					label: 'Hangzhou',
+					children: [
+						{
+							value: 'xihu',
+							label: 'West Lake',
+						},
+					],
+				},
+			],
+		},
+		{
+			value: 'jiangsu',
+			label: 'Jiangsu',
+			children: [
+				{
+					value: 'nanjing',
+					label: 'Nanjing',
+					children: [
+						{
+							value: 'zhonghuamen',
+							label: 'Zhong Hua Men',
+						},
+					],
+				},
+			],
+		},
+	];
 	const columns: ProColumns<UserPageVO>[] = [
 		{
 			title: '用户名',
 			key: 'username',
 			dataIndex: 'username',
 			width: 150,
+			render: (_: any, row: any) => (
+				<Tooltip title={row.username}>
+					<span className='io-cms-practice-base-detail__member-span'>{row.username}</span>
+				</Tooltip>
+			),
 		},
 		{
 			title: '真实姓名',
 			key: 'realName',
 			dataIndex: 'realName',
 			width: 150,
+			render: (_: any, row: any) => (
+				<Tooltip title={row.realName}>
+					<span className='io-cms-practice-base-detail__member-span'>{row.realName}</span>
+				</Tooltip>
+			),
 		},
 		{
 			title: '所属阵地',
 			key: 'org',
 			dataIndex: 'org',
 			width: 190,
+			render: (_: any, row: any) => (
+				<Tooltip title={row.org}>
+					<span className='io-cms-practice-base-detail__member-span'>{row.org}</span>
+				</Tooltip>
+			),
 		},
 		{
 			title: '所属角色',
@@ -43,6 +94,7 @@ export const BaseMember = ({ id }: BaseMemberPorps) => {
 					value: '信息录入员',
 				},
 			],
+			onFilter: (value, record) => record.roleNames.indexOf(value.toString()) === 0,
 		},
 		{
 			title: '联系方式',
@@ -91,16 +143,21 @@ export const BaseMember = ({ id }: BaseMemberPorps) => {
 							setShow(true);
 						}}
 					>
-						删除
+						移除
 					</a>
 				</>
 			),
 		},
 	];
 	const [show, setShow] = useState(false);
+	const [removeuser, setRemoveuser] = useState(false);
 	const [form] = Form.useForm();
 	const handOk = () => {
 		form.submit();
+	};
+	const handOnCancal = () => {
+		form.resetFields();
+		setShow(false);
 	};
 	return (
 		<div className='io-cms-practice-base-detail-member__div'>
@@ -108,19 +165,21 @@ export const BaseMember = ({ id }: BaseMemberPorps) => {
 				<BizTable
 					renderActions={() => (
 						<>
-							<Button type='primary'>
-								<i className='iconfont icon-plus1' style={{ fontSize: '16px' }} />
-								新建用户
-							</Button>
-							<Button style={{ marginLeft: 8 }}>移入用户</Button>
-							<Button
-								onClick={() => {
-									setShow(true);
-								}}
-								style={{ marginLeft: 8 }}
-							>
-								批量移除
-							</Button>
+							<div className='io-space-item'>
+								<UserForm />
+							</div>
+							<div className='io-space-item'>
+								<Button onClick={() => setRemoveuser(true)}>移入用户</Button>
+							</div>
+							<div className='io-space-item'>
+								<Button
+									onClick={() => {
+										setShow(true);
+									}}
+								>
+									批量移除
+								</Button>
+							</div>
 						</>
 					)}
 					rowSelection={{}}
@@ -134,7 +193,7 @@ export const BaseMember = ({ id }: BaseMemberPorps) => {
 				width={615}
 				title='移除用户'
 				onOk={handOk}
-				onCancel={() => setShow(false)}
+				onCancel={handOnCancal}
 				visible={show}
 				className='io-cms-practice-base__member-delete'
 			>
@@ -144,10 +203,15 @@ export const BaseMember = ({ id }: BaseMemberPorps) => {
 						rules={[{ required: true }, { message: '请选择所属阵地' }]}
 						name='userIds'
 					>
-						<TreeSelect placeholder='请选择所属阵地'></TreeSelect>
+						<TreeSelect
+							allowClear
+							treeData={treeData}
+							placeholder='请选择所属阵地'
+						></TreeSelect>
 					</Form.Item>
 				</Form>
 			</Modal>
+			<RemoveUser removeuser={removeuser} setRemoveuser={setRemoveuser} />
 		</div>
 	);
 };

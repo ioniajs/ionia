@@ -1,4 +1,4 @@
-import { Modal, Form, Input, message } from 'antd';
+import { Modal, Form, Input, message, Button, Space } from 'antd';
 import { useForm } from 'antd/lib/form/Form';
 import React, { useState } from 'react';
 import './index.less';
@@ -25,7 +25,12 @@ export default (props: any) => {
 		console.log(values);
 		const { data, code } = await modMePassword(values);
 		if (code == 200) {
-			message.success('修改成功');
+			// message.success('修改成功');
+			Modal.warning({
+				title: '您的登录密码已修改，请重新登录',
+				content: '点击【确定】按钮跳转到登录页',
+				okText: '确定',
+			});
 			setModalVisible(false);
 			form.resetFields();
 		}

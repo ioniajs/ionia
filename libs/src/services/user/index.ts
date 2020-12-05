@@ -4,4 +4,5 @@ export * from './role-management';
 export * from './user-control';
 export * from './site-permissions';
 export * from './menu-management';
-export * from './station-permissions';
+export * from './station-group-permissions';
+export * from './column-permissions';

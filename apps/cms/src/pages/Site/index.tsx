@@ -7,13 +7,13 @@ import { useHistory } from 'react-router-dom';
 // import update from 'immutability-helper';
 import {
 	BizTable,
-	gainSiteTree,
 	disableSite,
 	enableSite,
 	batchDetailSite,
 	BizPage,
 	BizModalForm,
 	BizModalFormRef,
+	gainSiteTreeAuth,
 } from '@ionia/libs';
 import { AdminSiteTreeVO, AdminSiteRecycleSummaryVo } from '@ionia/libs/src/services/kernel';
 import { IdsDTO } from '@ionia/libs/src/services/common.dto';
@@ -77,11 +77,13 @@ export default () => {
 			key: 'domain',
 			dataIndex: 'domain',
 			render: (_, row) => {
-				return (
-					<Tooltip title={`${row.domain}`}>
-						<span>{row.domain || '-'}</span>
-					</Tooltip>
-				);
+				return (row.domain || []).map((item: any) => {
+					return (
+						<Tooltip title={`${row.domain}`}>
+							<span>{item ? `${item},` : '-'}</span>
+						</Tooltip>
+					);
+				});
 			},
 			width: 300,
 		},
@@ -212,7 +214,10 @@ export default () => {
 									history.push('/site/create');
 								}}
 							>
-								<i className='iconfont icon-plus1' style={{ fontSize: '16px' }} />
+								<i
+									className='iconfont icon-plus1'
+									style={{ fontSize: '14px', lineHeight: '21px' }}
+								/>
 								新建
 							</Button>
 						</div>
@@ -286,11 +291,7 @@ export default () => {
 				)}
 				inputPlaceholderText={'请输入站点名称/目录'}
 				columns={columns}
-				request={params => {
-					return gainSiteTree(params.keyword || '').then(data => ({
-						data: data.data.list,
-					}));
-				}}
+				request={params => gainSiteTreeAuth(params.keyword || '')}
 				rowSelection={{
 					selectedRowKeys,
 					onChange: selectedRowKeys => {
