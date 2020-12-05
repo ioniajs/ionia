@@ -223,7 +223,7 @@ export const Recycle = () => {
 										content:
 											'删除栏目将同时删除子栏目及栏目中的内容，删除后无法恢复。',
 										okText: '删除',
-										onOk: () => { },
+										onOk: () => {},
 									});
 								}}
 							>
@@ -242,7 +242,7 @@ export const Recycle = () => {
 										title: '你确定删除回收站中的全部栏目及内容吗？',
 										content: '删除后无法恢复。',
 										okText: '删除',
-										onOk: () => { },
+										onOk: () => {},
 									});
 								}}
 							>

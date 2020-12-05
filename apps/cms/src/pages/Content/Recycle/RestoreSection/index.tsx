@@ -227,23 +227,23 @@ export default () => {
 				visible={visible}
 				title='还原栏目'
 				onOk={() => {
-					console.log(radioValue, 'rararararar')
+					console.log(radioValue, 'rararararar');
 					if (radioValue === 2) {
 						form.validateFields().then(values => {
 							console.log(values, 'vavavav');
 							const param = {
 								radioValue,
 								checkedKeys,
-								parentId: values.parentId
+								parentId: values.parentId,
 							};
-							console.log(param, '提交参数')
-						})
+							console.log(param, '提交参数');
+						});
 					} else {
 						const param = {
 							radioValue,
 							checkedKeys,
-						}
-						console.log(param, '提交参数')
+						};
+						console.log(param, '提交参数');
 					}
 				}}
 				onCancel={() => setVisible(false)}
@@ -251,24 +251,35 @@ export default () => {
 				width={560}
 			>
 				<div className='restore-section-modal-container__div'>
-					<p style={{ marginBottom: '12px' }}>以下站点的上级站点已被删除，无法正常恢复，请选择处理方式：</p>
+					<p style={{ marginBottom: '12px' }}>
+						以下站点的上级站点已被删除，无法正常恢复，请选择处理方式：
+					</p>
 					<p style={{ marginBottom: '10px', color: '#8C8C8C' }}>[站点1]</p>
 					<Form form={form}>
 						<Form.Item name='' label='' style={{ marginBottom: '16px' }}>
-							<Radio.Group defaultValue={radioValue} onChange={(e) => setRadioValue(e.target.value)}>
-								<Radio value={1} style={radioStyle}>同时还原所有上级栏目</Radio>
-								<Radio value={2} style={radioStyle}>还原到其他栏目下</Radio>
+							<Radio.Group
+								defaultValue={radioValue}
+								onChange={e => setRadioValue(e.target.value)}
+							>
+								<Radio value={1} style={radioStyle}>
+									同时还原所有上级栏目
+								</Radio>
+								<Radio value={2} style={radioStyle}>
+									还原到其他栏目下
+								</Radio>
 							</Radio.Group>
 						</Form.Item>
-						{radioValue === 2 && <Form.Item
-							name='parentId'
-							label='上级栏目'
-							rules={[{ required: true, message: '请选择上级栏目' }]}
-							labelCol={{ span: 4 }}
-							style={{ marginBottom: '8px' }}
-						>
-							<TreeSelect treeData={treeSelectData} />
-						</Form.Item>}
+						{radioValue === 2 && (
+							<Form.Item
+								name='parentId'
+								label='上级栏目'
+								rules={[{ required: true, message: '请选择上级栏目' }]}
+								labelCol={{ span: 4 }}
+								style={{ marginBottom: '8px' }}
+							>
+								<TreeSelect treeData={treeSelectData} />
+							</Form.Item>
+						)}
 					</Form>
 				</div>
 			</Modal>
