@@ -3,6 +3,7 @@ import { BizPage, BizTree } from '@ionia/libs';
 import { Tabs } from 'antd';
 import { List } from './List';
 import { Recycle } from './Recycle';
+import { Archive } from './Archive';
 import './index.less';
 
 export default () => {
@@ -21,7 +22,7 @@ export default () => {
 							<Recycle />
 						</Tabs.TabPane>
 						<Tabs.TabPane tab='已归档' key='3'>
-							已归档
+							<Archive />
 						</Tabs.TabPane>
 					</Tabs>
 				</div>
