@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Form, Input, Button, TreeSelect, Tooltip, Switch, message } from 'antd';
+import { Form, Input, Button, TreeSelect, Tooltip, Switch, message, Select } from 'antd';
 import { useMount, useRequest } from '@umijs/hooks';
 import { userDetail, modUser, UserUpdateDTO } from '@ionia/libs/src/services';
 import './index.less';
@@ -69,15 +69,15 @@ export const UserDetail = ({ id }: UserDetailProps) => {
 	const treeUserData: any = [
 		{
 			title: '审核员',
-			value: '4',
+			value: '审核员',
 		},
 		{
 			title: '系统管理员',
-			value: '5',
+			value: '系统管理员',
 		},
 		{
 			title: '信息录入员',
-			value: '6',
+			value: '信息录入员',
 		},
 	];
 	return (
@@ -129,12 +129,11 @@ export const UserDetail = ({ id }: UserDetailProps) => {
 					></TreeSelect>
 				</Form.Item>
 				<Form.Item label='所属角色' name='roleIds'>
-					<TreeSelect
+					<Select
 						value={uservalue}
-						treeData={treeUserData}
-						treeDefaultExpandAll
+						options={treeUserData}
 						onChange={() => setUserValue(uservalue)}
-					></TreeSelect>
+					></Select>
 				</Form.Item>
 				<Form.Item label='真实姓名' name='realName'>
 					<Input />
