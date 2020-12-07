@@ -24,7 +24,6 @@ export interface PlayerProps {
 	// onSeek?: (e: any) => void;
 	// onProgress?: (state: any) => void;
 }
-
 export const VideoPlayer: React.FC<PlayerProps> = props => {
 	const { url, visible, onCancel, playing } = props;
 
@@ -57,7 +56,7 @@ export const VideoPlayer: React.FC<PlayerProps> = props => {
 		}
 	};
 
-	const onPause = () => {};
+	const onPause = () => { };
 
 	return (
 		<Modal
@@ -75,7 +74,7 @@ export const VideoPlayer: React.FC<PlayerProps> = props => {
 					loop={loop}
 					width='100%'
 					height='100%'
-					playing={play}
+					playing={playing}
 					onPause={onPause}
 					// onPlay={onPlay}
 					onSeek={(e: any) => console.log('onSeek', e)}
