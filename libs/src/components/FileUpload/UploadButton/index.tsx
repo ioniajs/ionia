@@ -15,7 +15,7 @@ export const UploadButton = ({ type = 'image' }: UploadButtonProps) => {
 	} else {
 		child = (
 			<>
-				<i className='iconfont icon-video' />
+				<i className='iconfont icon-videocameraadd' />
 				<span>上传视频</span>
 			</>
 		);

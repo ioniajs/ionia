@@ -1,0 +1,49 @@
+.io-video-upload {
+	.ant-upload-list {
+		line-height: 1;
+	}
+	.ant-upload-list-picture-card-container {
+		width: 135px;
+		height: 135px;
+	}
+	.ant-upload {
+		display: flex;
+		flex-direction: column;
+		width: 135px;
+		height: 135px;
+
+		.io-upload-button {
+			display: flex;
+			flex-direction: column;
+			i {
+				&::before {
+					color: #8c8c8c;
+				}
+			}
+			span {
+				color: #8c8c8c;
+			}
+		}
+
+		&:hover {
+			.io-upload-button {
+				i {
+					&::before {
+						color: #1269db;
+					}
+				}
+				span {
+					color: #1269db;
+				}
+			}
+		}
+	}
+	.io-file-upload__title {
+		margin: 12px 0 0 0;
+		color: #262626;
+	}
+	.io-file-upload__tips {
+		margin: 12px 0 0 0;
+		color: #8c8c8c;
+	}
+}
