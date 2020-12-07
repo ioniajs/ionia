@@ -2,7 +2,7 @@ import { rest } from 'msw';
 
 export default [
 	//新增修改站点权限数据---阵地
-	rest.post('/module-user/cmsmanager/auth/data/org', (req, res, ctx) => {
+	rest.post('/module-user/cmsmanager/auth/site/org', (req, res, ctx) => {
 		return res(
 			ctx.json({
 				code: 200,
@@ -12,7 +12,7 @@ export default [
 		);
 	}),
 	//根据阵地id获取站点权限数据
-	rest.get(`/module-user/cmsmanager/auth/data/org/:id`, (req, res, ctx) => {
+	rest.get(`/module-user/cmsmanager/auth/site/org/:id`, (req, res, ctx) => {
 		return res(
 			ctx.json({
 				code: 200,
@@ -22,7 +22,7 @@ export default [
 		);
 	}),
 	//新增修改站点权限数据---角色
-	rest.post('/module-user/cmsmanager/auth/data/role', (req, res, ctx) => {
+	rest.post('/module-user/cmsmanager/auth/site/role', (req, res, ctx) => {
 		return res(
 			ctx.json({
 				code: 200,
@@ -32,7 +32,7 @@ export default [
 		);
 	}),
 	//根据角色id获取站点权限数据
-	rest.get('/module-user/cmsmanager/auth/data/role/:id', (req, res, ctx) => {
+	rest.get('/module-user/cmsmanager/auth/site/role/:id', (req, res, ctx) => {
 		return res(
 			ctx.json({
 				code: 200,
@@ -946,7 +946,7 @@ export default [
 								key4: {
 									operation: 4,
 									optional: 1,
-									selected: 1,
+									selected: 0,
 								},
 							},
 							parentId: '',
@@ -1004,7 +1004,7 @@ export default [
 		);
 	}),
 	//新增修改站点权限数据---用户
-	rest.post('/module-user/cmsmanager/auth/data/user', (req, res, ctx) => {
+	rest.post('/module-user/cmsmanager/auth/site/user', (req, res, ctx) => {
 		return res(
 			ctx.json({
 				code: 200,
@@ -1014,7 +1014,7 @@ export default [
 		);
 	}),
 	//根据阵地id获取站点权限数据---用户
-	rest.get(`/module-user/cmsmanager/auth/data/user/:id`, (req, res, ctx) => {
+	rest.get(`/module-user/cmsmanager/auth/site/user/:id`, (req, res, ctx) => {
 		return res(
 			ctx.json({
 				code: 200,
@@ -1040,7 +1040,7 @@ export default [
 													key0: {
 														operation: 0,
 														optional: 1,
-														selected: 1,
+														selected: 0,
 													},
 													key5: {
 														operation: 5,
@@ -1083,7 +1083,7 @@ export default [
 											key0: {
 												operation: 0,
 												optional: 1,
-												selected: 1,
+												selected: 0,
 											},
 											key5: {
 												operation: 5,
@@ -1174,7 +1174,7 @@ export default [
 									key5: {
 										operation: 5,
 										optional: 1,
-										selected: 1,
+										selected: 0,
 									},
 									key6: {
 										operation: 6,
@@ -1249,7 +1249,7 @@ export default [
 													key1: {
 														operation: 1,
 														optional: 1,
-														selected: 1,
+														selected: 0,
 													},
 													key2: {
 														operation: 2,
@@ -1259,7 +1259,7 @@ export default [
 													key0: {
 														operation: 0,
 														optional: 1,
-														selected: 1,
+														selected: 0,
 													},
 													key5: {
 														operation: 5,
@@ -1292,7 +1292,7 @@ export default [
 													key1: {
 														operation: 1,
 														optional: 1,
-														selected: 1,
+														selected: 0,
 													},
 													key2: {
 														operation: 2,
@@ -1302,7 +1302,7 @@ export default [
 													key0: {
 														operation: 0,
 														optional: 1,
-														selected: 1,
+														selected: 0,
 													},
 													key5: {
 														operation: 5,
@@ -1335,7 +1335,7 @@ export default [
 													key1: {
 														operation: 1,
 														optional: 1,
-														selected: 1,
+														selected: 0,
 													},
 													key2: {
 														operation: 2,
@@ -1345,7 +1345,7 @@ export default [
 													key0: {
 														operation: 0,
 														optional: 1,
-														selected: 1,
+														selected: 0,
 													},
 													key5: {
 														operation: 5,
@@ -1378,7 +1378,7 @@ export default [
 													key1: {
 														operation: 1,
 														optional: 1,
-														selected: 1,
+														selected: 0,
 													},
 													key2: {
 														operation: 2,
@@ -1388,7 +1388,7 @@ export default [
 													key0: {
 														operation: 0,
 														optional: 1,
-														selected: 1,
+														selected: 0,
 													},
 													key5: {
 														operation: 5,
@@ -1421,7 +1421,7 @@ export default [
 													key1: {
 														operation: 1,
 														optional: 1,
-														selected: 1,
+														selected: 0,
 													},
 													key2: {
 														operation: 2,
@@ -1431,7 +1431,7 @@ export default [
 													key0: {
 														operation: 0,
 														optional: 1,
-														selected: 1,
+														selected: 0,
 													},
 													key5: {
 														operation: 5,
@@ -1474,7 +1474,7 @@ export default [
 													key0: {
 														operation: 0,
 														optional: 1,
-														selected: 1,
+														selected: 0,
 													},
 													key5: {
 														operation: 5,
@@ -1517,7 +1517,7 @@ export default [
 											key0: {
 												operation: 0,
 												optional: 1,
-												selected: 1,
+												selected: 0,
 											},
 											key5: {
 												operation: 5,
@@ -1552,7 +1552,7 @@ export default [
 													key1: {
 														operation: 1,
 														optional: 1,
-														selected: 1,
+														selected: 0,
 													},
 													key2: {
 														operation: 2,
@@ -1562,7 +1562,7 @@ export default [
 													key0: {
 														operation: 0,
 														optional: 1,
-														selected: 1,
+														selected: 0,
 													},
 													key5: {
 														operation: 5,
@@ -1595,7 +1595,7 @@ export default [
 													key1: {
 														operation: 1,
 														optional: 1,
-														selected: 1,
+														selected: 0,
 													},
 													key2: {
 														operation: 2,
@@ -1605,7 +1605,7 @@ export default [
 													key0: {
 														operation: 0,
 														optional: 1,
-														selected: 1,
+														selected: 0,
 													},
 													key5: {
 														operation: 5,
@@ -1619,7 +1619,7 @@ export default [
 													},
 													key3: {
 														operation: 3,
-														optional: 1,
+														optional: 0,
 														selected: 0,
 													},
 													key4: {
@@ -1638,17 +1638,17 @@ export default [
 													key1: {
 														operation: 1,
 														optional: 1,
-														selected: 1,
+														selected: 0,
 													},
 													key2: {
 														operation: 2,
-														optional: 1,
+														optional: 0,
 														selected: 0,
 													},
 													key0: {
 														operation: 0,
 														optional: 1,
-														selected: 1,
+														selected: 0,
 													},
 													key5: {
 														operation: 5,
@@ -1681,21 +1681,21 @@ export default [
 													key1: {
 														operation: 1,
 														optional: 1,
-														selected: 1,
+														selected: 0,
 													},
 													key2: {
 														operation: 2,
-														optional: 1,
+														optional: 0,
 														selected: 0,
 													},
 													key0: {
 														operation: 0,
 														optional: 1,
-														selected: 1,
+														selected: 0,
 													},
 													key5: {
 														operation: 5,
-														optional: 1,
+														optional: 0,
 														selected: 0,
 													},
 													key6: {
@@ -1724,7 +1724,7 @@ export default [
 													key1: {
 														operation: 1,
 														optional: 1,
-														selected: 1,
+														selected: 0,
 													},
 													key2: {
 														operation: 2,
@@ -1767,7 +1767,7 @@ export default [
 													key1: {
 														operation: 1,
 														optional: 1,
-														selected: 1,
+														selected: 0,
 													},
 													key2: {
 														operation: 2,
@@ -1776,8 +1776,8 @@ export default [
 													},
 													key0: {
 														operation: 0,
-														optional: 1,
-														selected: 1,
+														optional: 0,
+														selected: 0,
 													},
 													key5: {
 														operation: 5,
@@ -1791,7 +1791,7 @@ export default [
 													},
 													key3: {
 														operation: 3,
-														optional: 1,
+														optional: 0,
 														selected: 0,
 													},
 													key4: {
@@ -1857,7 +1857,7 @@ export default [
 									},
 									key2: {
 										operation: 2,
-										optional: 1,
+										optional: 0,
 										selected: 0,
 									},
 									key0: {
@@ -1868,7 +1868,7 @@ export default [
 									key5: {
 										operation: 5,
 										optional: 1,
-										selected: 1,
+										selected: 0,
 									},
 									key6: {
 										operation: 6,
@@ -1896,7 +1896,7 @@ export default [
 							key1: {
 								operation: 1,
 								optional: 1,
-								selected: 1,
+								selected: 0,
 							},
 							key2: {
 								operation: 2,
