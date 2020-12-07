@@ -126,6 +126,7 @@ export const Archive = () => {
 	const modalRef = useRef<BizModalFormRef>();
 	const [outSelectRowKeys, setOutSelectRowKeys] = useState<number[]>([]); // 出档弹窗表格选择的rowkeys
 	const [outGoOtherVisible, setOutGoOtherVisible] = useState<boolean>(false); // 出档到其他栏目弹窗打开或关闭
+	const [outGoOtherCheckedKeys, setOutGoOtherCheckedKeys] = useState<string[]>([]);
 	const columns = [
 		{
 			title: '标题',
@@ -307,7 +308,7 @@ export const Archive = () => {
 									<Button
 										type='primary'
 										onClick={() => {
-											modalRef.current?.close();
+											// modalRef.current?.close();
 											setOutGoOtherVisible(true);
 										}}
 									>
@@ -349,8 +350,8 @@ export const Archive = () => {
 				title='出档'
 				onCancel={() => setOutGoOtherVisible(false)}
 				footer={[
-					<Button key='back'>取消</Button>,
-					<Button key='submit' type='primary'>
+					<Button key='back' onClick={() => setOutGoOtherVisible(false)}>取消</Button>,
+					<Button key='submit' type='primary' onClick={() => console.log(outGoOtherCheckedKeys, '出档到其他栏目')}>
 						出档
 					</Button>,
 				]}
@@ -368,7 +369,8 @@ export const Archive = () => {
 							<Tree
 								checkable
 								treeData={treeData}
-								// onCheck={checkedKeys => handleOnCheck(checkedKeys)}
+								checkStrictly={true}
+								onCheck={checkedKeys => setOutGoOtherCheckedKeys(checkedKeys as string[])}
 								defaultExpandAll
 							/>
 						</div>
