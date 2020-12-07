@@ -350,8 +350,14 @@ export const Archive = () => {
 				title='出档'
 				onCancel={() => setOutGoOtherVisible(false)}
 				footer={[
-					<Button key='back' onClick={() => setOutGoOtherVisible(false)}>取消</Button>,
-					<Button key='submit' type='primary' onClick={() => console.log(outGoOtherCheckedKeys, '出档到其他栏目')}>
+					<Button key='back' onClick={() => setOutGoOtherVisible(false)}>
+						取消
+					</Button>,
+					<Button
+						key='submit'
+						type='primary'
+						onClick={() => console.log(outGoOtherCheckedKeys, '出档到其他栏目')}
+					>
 						出档
 					</Button>,
 				]}
@@ -370,7 +376,9 @@ export const Archive = () => {
 								checkable
 								treeData={treeData}
 								checkStrictly={true}
-								onCheck={checkedKeys => setOutGoOtherCheckedKeys(checkedKeys as string[])}
+								onCheck={checkedKeys =>
+									setOutGoOtherCheckedKeys(checkedKeys as string[])
+								}
 								defaultExpandAll
 							/>
 						</div>
