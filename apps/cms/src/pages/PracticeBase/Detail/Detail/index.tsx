@@ -10,7 +10,7 @@ import {
 	positionDetail,
 } from '@ionia/libs';
 import { useMount, useRequest } from '@umijs/hooks';
-import { Button, Form, Input, message, TreeSelect } from 'antd';
+import { Button, Form, Input, message, TreeSelect, Select } from 'antd';
 import React, { useRef, useEffect, useState } from 'react';
 import './index.less';
 
@@ -146,9 +146,9 @@ export const BaseDetail = ({ id }: BaseDetailProps) => {
 					label='阵地类型'
 					rules={[{ required: true, message: '请选择阵地类型' }]}
 				>
-					<TreeSelect
+					<Select
 						placeholder='请选择阵地类型'
-						treeData={baseTypeTree}
+						options={baseTypeTree}
 						showSearch={true}
 						style={{ width: 664, height: 32 }}
 					/>

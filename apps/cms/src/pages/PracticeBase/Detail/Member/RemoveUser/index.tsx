@@ -1,5 +1,6 @@
-import { logger, positionalUserListPaging } from '@ionia/libs';
+import { logger, positionalUserListPaging, BizTable, OrgMoveInVO } from '@ionia/libs';
 import { Input, Modal, Table, Tag, Transfer, TreeSelect } from 'antd';
+import { useRequest, useMount } from '@umijs/hooks';
 import difference from 'lodash/difference';
 import React, { useState } from 'react';
 import './index.less';
@@ -8,10 +9,27 @@ export default (props: any) => {
 	const { removeuser, setRemoveuser } = props;
 	const [originTargetKeys, setOriginTargetKeys] = useState<string[]>([]);
 	const [value, setValue] = useState<string>();
+	const [removeUser, setRemoveUser] = useState<OrgMoveInVO[]>();
+
 	const { Search } = Input;
 	const handleOk = () => {
 		setRemoveuser(false);
 	};
+	const { run: runreMoveuserTable } = useRequest(positionalUserListPaging, {
+		manual: true,
+		onSuccess: result => {
+			const temp = result.data.content.map((r: any) => {
+				return {
+					...r,
+					key: r.id,
+				};
+			});
+			setRemoveUser(temp);
+		},
+	});
+	useMount(() => {
+		runreMoveuserTable({});
+	});
 	const treeData = [
 		{
 			title: 'Node1',
@@ -44,7 +62,6 @@ export default (props: any) => {
 				const columns = direction === 'left' ? leftColumns : rightColumns;
 
 				const rowSelection = {
-					// getCheckboxProps: (item: any) => logger.debug(item),
 					onSelectAll(selected: any, selectedRows: any) {
 						const treeSelectedKeys = selectedRows.map(({ key }: any) => key);
 						const diffKeys = selected
@@ -63,13 +80,7 @@ export default (props: any) => {
 						rowSelection={rowSelection}
 						columns={columns}
 						dataSource={filteredItems}
-						// rowSelection={{}}
 						size='small'
-						// request={(params: any, sort: any, filter: any) => {
-						// 	return positionalUserListPaging({}).then(data => ({
-						// 		data: data.data.content,
-						// 	}));
-						// }}
 						onRow={({ key, disabled: itemDisabled }) => ({
 							onClick: () => {
 								onItemSelect(key, !listSelectedKeys.includes(key));
@@ -96,36 +107,36 @@ export default (props: any) => {
 	const onSearch = (value: string) => console.log(value);
 	const leftTableColumns = [
 		{
-			dataIndex: 'title',
+			dataIndex: 'username',
 			title: '用户名',
 			width: 130,
 		},
 		{
-			dataIndex: 'tag',
+			dataIndex: 'realName',
 			title: '真实姓名',
 			width: 130,
-			render: (tag: any) => <Tag>{tag}</Tag>,
+			// render: (tag: any) => <Tag>{tag}</Tag>,
 		},
 		{
-			dataIndex: 'description',
+			dataIndex: 'orgName',
 			title: '所属阵地',
 			width: 115,
 		},
 	];
 	const rightTableColumns = [
 		{
-			dataIndex: 'title',
+			dataIndex: 'username',
 			title: '用户名',
 			width: 130,
 		},
 		{
-			dataIndex: 'tag',
+			dataIndex: 'realName',
 			title: '真实姓名',
 			width: 130,
-			render: (tag: any) => <Tag>{tag}</Tag>,
+			// render: (tag: any) => <Tag>{tag}</Tag>,
 		},
 		{
-			dataIndex: 'description',
+			dataIndex: 'orgName',
 			title: '所属阵地',
 			width: 140,
 		},
@@ -169,7 +180,7 @@ export default (props: any) => {
 				/>
 			</div>
 			<TableTransfer
-				dataSource={mockData}
+				dataSource={removeUser}
 				targetKeys={originTargetKeys}
 				onChange={onChange}
 				filterOption={(inputValue: any, item: any) =>
