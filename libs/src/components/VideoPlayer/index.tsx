@@ -56,7 +56,7 @@ export const VideoPlayer: React.FC<PlayerProps> = props => {
 		}
 	};
 
-	const onPause = () => { };
+	const onPause = () => {};
 
 	return (
 		<Modal
