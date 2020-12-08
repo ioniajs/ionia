@@ -20,7 +20,7 @@ export default ({ roleId }: any) => {
 	const submitData = () => {
 		logger.debug(treeData);
 	};
-	const [tree, setTree] = useState<RoleChannelVO>(treeData);
+	const [tree, setTree] = useState<any[]>(treeData);
 	const [value, setValue] = useState(undefined);
 	const [site, setSite] = useState([]);
 

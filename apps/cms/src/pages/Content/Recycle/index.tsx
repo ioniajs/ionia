@@ -5,6 +5,7 @@ import { Button, Input, Space, DatePicker, Form, Modal } from 'antd';
 import { SearchOutlined } from '@ant-design/icons';
 import moment from 'moment';
 import RestoreSectionForm from './RestoreSection';
+import DeleteSectionForm from './DeleteSection';
 import './index.less';
 
 const sortDirections: SortOrder[] = ['descend', 'ascend'];
@@ -214,7 +215,8 @@ export const Recycle = () => {
 							</Button>
 						</div>
 						<div className='io-space-item'>
-							<Button
+							<DeleteSectionForm />
+							{/* <Button
 								type='default'
 								disabled={selectedRowKeys.length === 0}
 								onClick={() => {
@@ -228,7 +230,7 @@ export const Recycle = () => {
 								}}
 							>
 								删除栏目
-							</Button>
+							</Button> */}
 						</div>
 						<div className='io-space-item'>
 							<RestoreSectionForm />

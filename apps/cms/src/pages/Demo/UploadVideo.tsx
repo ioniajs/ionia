@@ -1,6 +1,9 @@
 import React from 'react';
-import { VideoUpload } from '@ionia/libs';
+import { VideoUpload, AudioUpload } from '@ionia/libs';
 
+// export default () => {
+// 	return <VideoUpload title='主视频' tips='如有帮助信息，在此处展示' />;
+// };
 export default () => {
-	return <VideoUpload title='主视频' limit={3} tips='如有帮助信息，在此处展示' />;
+	return <VideoUpload title='主视频' tips='如有帮助信息，在此处展示' />;
 };
