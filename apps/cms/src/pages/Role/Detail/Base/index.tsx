@@ -1,7 +1,7 @@
-import { logger, roleDetail, modRole, positionList } from '@ionia/libs';
+import { logger, roleDetail, modRole, positionList, RoleViewVO } from '@ionia/libs';
 import { useRequest } from 'ahooks';
 import { Button, Form, Input, TreeSelect, message } from 'antd';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './index.less';
 
 const { TextArea } = Input;
@@ -30,7 +30,7 @@ export default ({ id }: any) => {
 	};
 
 	const firstRequest = useRequest(() => roleDetail(id));
-	const secondRequest = useRequest(() => positionList(), {
+	const secondRequest = useRequest(() => positionList({ ...formData }), {
 		onSuccess: data => {
 			const tree = filterData(data?.data);
 			setTreeData(tree);
@@ -40,9 +40,9 @@ export default ({ id }: any) => {
 	// logger.debug('secondRequest', secondRequest.data?.data);
 	const formData = firstRequest.data?.data ?? {};
 	const [form] = Form.useForm();
-	if (formData) {
+	useEffect(() => {
 		form.setFieldsValue({ ...formData });
-	}
+	}, [formData]);
 
 	// const { run } = useRequest(()=>modRole(), {manual: true})
 	return (
@@ -67,7 +67,7 @@ export default ({ id }: any) => {
 					保存
 				</Button>
 			</div>
-			<Form name='basic' {...layout} form={form}>
+			<Form name='basic' {...layout} form={form} className='io-cms-role-base_form'>
 				<Form.Item
 					label='角色名称'
 					name='name'
@@ -78,7 +78,7 @@ export default ({ id }: any) => {
 				<Form.Item name='orgId' label='所属阵地' rules={[{ required: true }]}>
 					<TreeSelect
 						style={{ width: '100%' }}
-						value={value}
+						// value={value}
 						dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
 						treeData={treeData}
 						placeholder='请选择所属的阵地'
@@ -86,36 +86,32 @@ export default ({ id }: any) => {
 						onChange={onChange}
 					/>
 				</Form.Item>
-				<Form.Item name='description' label='角色描述'>
-					<TextArea rows={2} placeholder='请输入角色描述' />
+				<Form.Item name='description' label='角色描述' style={{ marginBottom: '14px' }}>
+					<TextArea rows={4} placeholder='请输入角色描述' maxLength={500} showCount />
 				</Form.Item>
-				<Form.Item label='创建人' name='createUser'>
-					<span>
-						{firstRequest.data?.data.createUser
-							? firstRequest.data?.data.createUser
-							: ''}
-					</span>
+				<Form.Item label='创建人' name='createUser' className='io-cms-role-base-form_item'>
+					<span>{firstRequest.data?.data.createUser}</span>
 				</Form.Item>
-				<Form.Item label='创建时间' name='createTime'>
-					<span>
-						{firstRequest.data?.data.createTime
-							? firstRequest.data?.data.createTime
-							: ''}
-					</span>
+				<Form.Item
+					label='创建时间'
+					name='createTime'
+					className='io-cms-role-base-form_item'
+				>
+					<span>{firstRequest.data?.data.createTime}</span>
 				</Form.Item>
-				<Form.Item label='最后更新人' name='updateUser'>
-					<span>
-						{firstRequest.data?.data.updateUser
-							? firstRequest.data?.data.updateUser
-							: ''}
-					</span>
+				<Form.Item
+					label='最后更新人'
+					name='updateUser'
+					className='io-cms-role-base-form_item'
+				>
+					<span>{firstRequest.data?.data.updateUser}</span>
 				</Form.Item>
-				<Form.Item label='最后更新时间' name='updateTime'>
-					<span>
-						{firstRequest.data?.data.updateTime
-							? firstRequest.data?.data.updateTime
-							: ''}
-					</span>
+				<Form.Item
+					label='最后更新时间'
+					name='updateTime'
+					className='io-cms-role-base-form_item'
+				>
+					<span>{firstRequest.data?.data.updateTime}</span>
 				</Form.Item>
 			</Form>
 		</>
