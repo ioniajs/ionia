@@ -141,6 +141,7 @@ export default ({ roleId }: any) => {
 							}
 							showArrow={item.children?.length > 0}
 							key={item.key}
+							collapsible='header'
 						>
 							<Row gutter={[24, 24]}>
 								{item.children?.map((i: any) => {
