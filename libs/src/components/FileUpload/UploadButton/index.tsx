@@ -24,9 +24,9 @@ export const UploadButton = ({ type = 'image' }: UploadButtonProps) => {
 		child = (
 			<Button type='primary' className='io-audio-upload-but'>
 				<i className='iconfont icon-upload'></i>
-					上传音频
+				上传音频
 			</Button>
-		)
+		);
 	}
 
 	return <div className='io-upload-button'>{child}</div>;
