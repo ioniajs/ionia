@@ -9,10 +9,8 @@ export default ({ roleId }: any) => {
 	});
 	const siteTree = useRequest(() => gainSiteTree(), {
 		onSuccess: data => {
-			logger.debug('data?.data.list', data?.data.list);
 			const siteData = filterData(data?.data.list);
 			setSite(siteData);
-			logger.debug(siteData);
 		},
 	});
 	const treeData: any = data?.data ?? [];
@@ -20,7 +18,7 @@ export default ({ roleId }: any) => {
 	const submitData = () => {
 		logger.debug(treeData);
 	};
-	const [tree, setTree] = useState<RoleChannelVO>(treeData);
+	const [tree, setTree] = useState<any[]>(treeData);
 	const [value, setValue] = useState(undefined);
 	const [site, setSite] = useState([]);
 
@@ -58,6 +56,7 @@ export default ({ roleId }: any) => {
 	 * @param parent
 	 * 1.判断是否是查看按钮 如果是查看 就点击并且可取消 ，如果不是 就给查看赋值1
 	 * 2.如果其他的存在 不可取消查看 得先取消其他的才能取消查看
+	 * @param type
 	 */
 	const changeData = (row: any, data0: number, parent: any, type: string) => {
 		const { key0 } = parent;
@@ -130,8 +129,10 @@ export default ({ roleId }: any) => {
 
 	/**
 	 *
-	 * @param type
-	 * @param data
+	 * @param list
+	 * @param list
+	 * @param items
+	 * @param items
 	 * 递归获取可选的数据
 	 */
 
@@ -151,6 +152,7 @@ export default ({ roleId }: any) => {
 	 * @param type
 	 * @param data
 	 * 递归获取该类型下的所有选择
+	 * @param ids
 	 */
 
 	const getAllCheck = (data: any, type: any, ids: string[] = []) => {
@@ -175,11 +177,7 @@ export default ({ roleId }: any) => {
 		const ids = getAllCheck(data, type);
 		const flag = ids.findIndex(value => value == '0');
 		const flag1 = ids.findIndex(value => value == '1');
-		if (flag != -1 && flag1 != -1) {
-			return true;
-		} else {
-			return false;
-		}
+		return flag != -1 && flag1 != -1;
 	};
 
 	/**
@@ -191,28 +189,107 @@ export default ({ roleId }: any) => {
 	const isCheckAll = (data: any, type: any) => {
 		const ids = getAllCheck(data, type);
 		const flag = ids.findIndex(value => value == '0');
-		if (flag == -1 && ids.length > 0) {
-			return true;
+		return flag == -1 && ids.length > 0;
+	};
+
+	const rowCheckAll = (list: any) => {
+		if (list.children && list.children.length) {
+			let ids: number[] = [];
+			let flag;
+			const loop = (data: any) => {
+				for (const key in data.datas) {
+					if (list.datas[key].optional == 1) {
+						ids.push(list.datas[key].selected);
+					}
+				}
+				if (data.children) {
+					data.children.forEach((item: any) => {
+						loop(item);
+					});
+				}
+			};
+			loop(list);
+			flag = ids.findIndex(t => t == 0) == -1;
+			return flag;
 		} else {
-			return false;
+			let isSelect: boolean = true;
+			Object.keys(list.datas).forEach(t => {
+				if (list.datas[t].optional == 1) {
+					if (list.datas[t].selected !== 1) {
+						isSelect = false;
+					}
+				}
+			});
+			return isSelect;
 		}
 	};
 
-	// rowSelection objects indicates the need for row selection
-	const rowSelection = {
-		onChange: () => {
-			// console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
-		},
-		onSelect: (record: any, selected: any) => {
-			for (const key in record.datas) {
-				console.log(record.datas[key]);
-				if (selected && record.datas[key].optional == 1) {
-					record.datas[key].selected = 1;
-				} else {
-					record.datas[key].selected = 0;
+	const rowCheck = (list: any) => {
+		if (list.children) {
+			let ids: number[] = [];
+			let flag;
+			let flag2;
+			const loop = (data: any) => {
+				for (const key in data.datas) {
+					if (list.datas[key].optional == 1) {
+						ids.push(list.datas[key].selected);
+					}
+				}
+				if (data.children) {
+					data.children.forEach((item: any) => {
+						loop(item);
+					});
+				}
+			};
+			loop(list);
+			flag = ids.findIndex(t => t == 1) != -1;
+			flag2 = ids.findIndex(t => t == 0) != -1;
+			return flag && flag2;
+		} else {
+			let flag;
+			let flag2;
+			let ids: number[] = [];
+			Object.keys(list.datas).forEach(t => {
+				if (list.datas[t].optional == 1) {
+					ids.push(list.datas[t].selected);
+				}
+			});
+			flag = ids.findIndex(t => t == 1) != -1;
+			flag2 = ids.findIndex(t => t == 0) != -1;
+			return flag && flag2;
+		}
+	};
+
+	const selectRow = (list: any, checked: boolean) => {
+		console.log(checked);
+		const loop = (row: any) => {
+			for (const treeKey in row.datas) {
+				if (row.datas[treeKey].optional == 1) {
+					checked ? (row.datas[treeKey].selected = 1) : (row.datas[treeKey].selected = 0);
 				}
 			}
-			setTree([...treeData]);
+			if (row.children && row.children.length) {
+				row.children.forEach((item: any) => {
+					loop(item);
+				});
+			}
+		};
+		loop(list);
+		setTree([...treeData]);
+	};
+	// rowSelection objects indicates the need for row selection
+	const rowSelection = {
+		renderCell: (checked: any, record: any, index: any) => {
+			console.log(checked, record, index);
+			return (
+				<Checkbox
+					checked={rowCheckAll(record)}
+					indeterminate={rowCheck(record)}
+					onChange={e => {
+						selectRow(record, e.target.checked);
+					}}
+				/>
+			);
 		},
 		/**
 		 * 全选
@@ -269,7 +346,7 @@ export default ({ roleId }: any) => {
 								loop(row.children);
 								setTree([...treeData]);
 							}}
-						></i>
+						/>
 					);
 				} else {
 					return '';
@@ -290,7 +367,7 @@ export default ({ roleId }: any) => {
 							className='iconfont icon-info-circle'
 							title='增量栏目指当前设置 保存后新增加的栏目'
 							style={{ cursor: 'pointer' }}
-						></i>
+						/>
 					</p>
 				) : (
 					<p>{row.channelName}</p>
@@ -317,9 +394,9 @@ export default ({ roleId }: any) => {
 						onChange={() => {
 							changeData(row.datas.key0, row.datas.key0.selected, row.datas, 'key0');
 						}}
-						checked={row.datas.key0.selected == 1 ? true : false}
-						disabled={row.datas.key0.optional == 0 ? true : false}
-					></Checkbox>
+						checked={row.datas.key0.selected == 1}
+						disabled={row.datas.key0.optional == 0}
+					/>
 				);
 			},
 		},
@@ -343,9 +420,9 @@ export default ({ roleId }: any) => {
 						onChange={() => {
 							changeData(row.datas.key1, row.datas.key1.selected, row.datas, 'key1');
 						}}
-						checked={row.datas.key1.selected == 1 ? true : false}
-						disabled={row.datas.key1.optional == 0 ? true : false}
-					></Checkbox>
+						checked={row.datas.key1.selected == 1}
+						disabled={row.datas.key1.optional == 0}
+					/>
 				);
 			},
 		},
@@ -369,9 +446,9 @@ export default ({ roleId }: any) => {
 						onChange={() => {
 							changeData(row.datas.key2, row.datas.key2.selected, row.datas, 'key2');
 						}}
-						checked={row.datas.key2.selected == 1 ? true : false}
-						disabled={row.datas.key2.optional == 0 ? true : false}
-					></Checkbox>
+						checked={row.datas.key2.selected == 1}
+						disabled={row.datas.key2.optional == 0}
+					/>
 				);
 			},
 		},
@@ -395,9 +472,9 @@ export default ({ roleId }: any) => {
 						onChange={() => {
 							changeData(row.datas.key3, row.datas.key3.selected, row.datas, 'key3');
 						}}
-						checked={row.datas.key3.selected == 1 ? true : false}
-						disabled={row.datas.key3.optional == 0 ? true : false}
-					></Checkbox>
+						checked={row.datas.key3.selected == 1}
+						disabled={row.datas.key3.optional == 0}
+					/>
 				);
 			},
 		},
@@ -421,9 +498,9 @@ export default ({ roleId }: any) => {
 						onChange={() => {
 							changeData(row.datas.key4, row.datas.key4.selected, row.datas, 'key4');
 						}}
-						checked={row.datas.key4.selected == 1 ? true : false}
-						disabled={row.datas.key4.optional == 0 ? true : false}
-					></Checkbox>
+						checked={row.datas.key4.selected == 1}
+						disabled={row.datas.key4.optional == 0}
+					/>
 				);
 			},
 		},
@@ -447,9 +524,9 @@ export default ({ roleId }: any) => {
 						onChange={() => {
 							changeData(row.datas.key5, row.datas.key5.selected, row.datas, 'key5');
 						}}
-						checked={row.datas.key5.selected == 1 ? true : false}
-						disabled={row.datas.key5.optional == 0 ? true : false}
-					></Checkbox>
+						checked={row.datas.key5.selected == 1}
+						disabled={row.datas.key5.optional == 0}
+					/>
 				);
 			},
 		},
@@ -473,9 +550,9 @@ export default ({ roleId }: any) => {
 						onChange={() => {
 							changeData(row.datas.key6, row.datas.key6.selected, row.datas, 'key6');
 						}}
-						checked={row.datas.key6.selected == 1 ? true : false}
-						disabled={row.datas.key6.optional == 0 ? true : false}
-					></Checkbox>
+						checked={row.datas.key6.selected == 1}
+						disabled={row.datas.key6.optional == 0}
+					/>
 				);
 			},
 		},
@@ -499,9 +576,9 @@ export default ({ roleId }: any) => {
 						onChange={() => {
 							changeData(row.datas.key7, row.datas.key7.selected, row.datas, 'key7');
 						}}
-						checked={row.datas.key7.selected == 1 ? true : false}
-						disabled={row.datas.key7.optional == 0 ? true : false}
-					></Checkbox>
+						checked={row.datas.key7.selected == 1}
+						disabled={row.datas.key7.optional == 0}
+					/>
 				);
 			},
 		},
@@ -525,9 +602,9 @@ export default ({ roleId }: any) => {
 						onChange={() => {
 							changeData(row.datas.key8, row.datas.key8.selected, row.datas, 'key8');
 						}}
-						checked={row.datas.key8.selected == 1 ? true : false}
-						disabled={row.datas.key8.optional == 0 ? true : false}
-					></Checkbox>
+						checked={row.datas.key8.selected == 1}
+						disabled={row.datas.key8.optional == 0}
+					/>
 				);
 			},
 		},
