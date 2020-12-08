@@ -56,6 +56,7 @@ export const BaseResource = ({ id }: BaseResourceProps) => {
 									if (success.code === 200) {
 										if (success.code === 200 && actionRef.current) {
 											actionRef.current.reload();
+											message.success('删除成功');
 										}
 									}
 								},
