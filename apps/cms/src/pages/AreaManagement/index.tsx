@@ -82,7 +82,7 @@ export default () => {
 						if (row) {
 							Modal.confirm({
 								title: '你确定删除选中区域吗?',
-								content: '删除时会删除所有下级区域,删除后无法恢复，请谨慎操作',
+								content: '删除时会删除所有下级区域,删除后无法恢复，请谨慎操作!',
 								okText: '删除',
 								cancelText: '取消',
 								onOk: async () => {
@@ -123,7 +123,7 @@ export default () => {
 									Modal.confirm({
 										title: '你确定删除选中区域吗？',
 										content:
-											'删除时会删除所有下级区域，删除后无法恢复,请谨慎操作。',
+											'删除时会删除所有下级区域，删除后无法恢复,请谨慎操作!',
 										okText: '删除',
 										cancelText: '取消',
 										onOk: async () => {

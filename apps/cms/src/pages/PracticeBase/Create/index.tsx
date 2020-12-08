@@ -86,7 +86,14 @@ export default () => {
 							<SaveButton
 								onSave={async () => {
 									form.validateFields().then(async values => {
-										const success = await newPractice(values);
+										const param = {
+											...values,
+											name: values.name,
+											area: values.area,
+											parentId: values.parentId,
+											type: values.type,
+										};
+										const success = await newPractice(param);
 										if (success.code === 200) {
 											history.back();
 										}
@@ -265,7 +272,7 @@ export default () => {
 							width={1000}
 						>
 							<AMap
-								onGet={(val: string) => {
+								onGet={(val?: string) => {
 									setCodeAddress(val);
 									console.log(val, 'address的值');
 								}}
@@ -275,7 +282,7 @@ export default () => {
 					<Form.Item name='favicon' label='阵地标志'>
 						<ImageUpload />
 					</Form.Item>
-					<Form.Item name='favicon' label='图片展示'>
+					<Form.Item name='picList' label='图片展示'>
 						<MultiImageUpload />
 					</Form.Item>
 					<Form.Item name='project' label='特色活动项目'>

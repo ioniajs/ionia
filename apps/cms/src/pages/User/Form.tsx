@@ -3,7 +3,7 @@ import { BizModalForm, BizModalFormRef } from '@ionia/libs';
 import { addUser, UserSaveDTO } from '@ionia/libs/src/services';
 import { Button, Cascader, Form, message } from 'antd';
 import React, { useRef } from 'react';
-
+import './index.less';
 const options = [
 	{
 		value: '1',
@@ -62,6 +62,7 @@ export default ({ user }: any) => {
 	};
 	return (
 		<BizModalForm
+			className='io-cms-user-form__bizmodalform'
 			ref={ref}
 			form={form}
 			title='新建用户'

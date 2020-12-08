@@ -30,11 +30,12 @@ const CreateResource = async (filed: OrgResourceDTO) => {
 
 export default ({ row }: ResourceCreateProps) => {
 	const onFinish = async (values: OrgResourceDTO) => {
-		const { data, code } = await modPositionResource(values);
-		if (code == 200) {
+		const amendRef = await modPositionResource(values);
+		if (amendRef.code == 200) {
 			message.success('修改成功');
 			form.resetFields();
 		}
+		return amendRef;
 	};
 	if (row) {
 		const { data, run } = useRequest(positionResourceDetail, {
@@ -63,6 +64,7 @@ export default ({ row }: ResourceCreateProps) => {
 	return (
 		<BizModalForm
 			ref={ref}
+			form={form}
 			title={row ? '编辑资源' : '新建资源'}
 			triggerRender={() =>
 				row ? (
@@ -99,20 +101,18 @@ export default ({ row }: ResourceCreateProps) => {
 								row
 									? form.validateFields().then(async values => {
 											const param = {
-												title: values.title,
+												...values,
 												introduce: editorState,
-												picId: values.picId || '',
 											};
 											const success = await onFinish(param);
-											// if (success.code === 200) {
-											// 	form.setFieldsValue({ title: '' });
-											// 	ref.current?.close();
-											// }
+											if (success.code === 200) {
+												// form.setFieldsValue({ title: '' });
+												ref.current?.close();
+											}
 									  })
 									: form.validateFields().then(async values => {
 											const param = {
-												title: values.title,
-												picId: values.picId || '',
+												...values,
 												introduce: editorState,
 											};
 											const success = await CreateResource(param);
@@ -129,23 +129,21 @@ export default ({ row }: ResourceCreateProps) => {
 				</div>
 			)}
 		>
-			<Form form={form}>
-				<Form.Item
-					name='title'
-					label='标题'
-					rules={[{ required: true }, { message: '请输入标题' }, { max: 120 }]}
-				>
-					<Input />
-				</Form.Item>
-				<Form.Item name='picId' label='资源图片'>
-					<ImageUpload />
-				</Form.Item>
-				<Form.Item name='introduce' label='阵地介绍'>
-					<div className='io-cms-resource-create-from-item__rich-text-editor'>
-						<RichTextEditor onGet={(editorState: any) => setEditorState(editorState)} />
-					</div>
-				</Form.Item>
-			</Form>
+			<Form.Item
+				name='title'
+				label='标题'
+				rules={[{ required: true }, { message: '请输入标题' }, { max: 120 }]}
+			>
+				<Input placeholder='请输入标题' />
+			</Form.Item>
+			<Form.Item name='picId' label='资源图片'>
+				<ImageUpload />
+			</Form.Item>
+			<Form.Item name='introduce' label='阵地介绍'>
+				<div className='io-cms-resource-create-from-item__rich-text-editor'>
+					<RichTextEditor onGet={(editorState: any) => setEditorState(editorState)} />
+				</div>
+			</Form.Item>
 		</BizModalForm>
 	);
 };

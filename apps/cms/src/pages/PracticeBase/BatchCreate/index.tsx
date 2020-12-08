@@ -6,11 +6,13 @@ import {
 	EditableTable,
 	OrgBatchDTO,
 	addBatchPosition,
+	positionPullList,
+	OrgSmallVO,
 } from '@ionia/libs';
 import { Form, TreeSelect, Tooltip, message, Input, Button } from 'antd';
+import { useRequest, useMount } from '@umijs/hooks';
 import './index.less';
 import shortid from 'shortid';
-import { values } from 'lodash';
 
 const handlePracticeBaseSave = async (fileds: OrgBatchDTO) => {
 	const res = await addBatchPosition(fileds);
@@ -190,6 +192,31 @@ export default () => {
 
 	const [form] = Form.useForm();
 	const [saveData, setSaveData] = useState<any>([]);
+	const [siteTreeData, setSiteTreeData] = useState<OrgSmallVO[]>();
+	const { run: runGainSiteTree } = useRequest(positionPullList, {
+		manual: true,
+		onSuccess: result => {
+			const loop = function (data: any) {
+				return data.map((r: any) => {
+					if (r.children) {
+						r.children = loop(r.children);
+					}
+					return {
+						value: r.id,
+						title: r.name,
+						key: r.id,
+						children: r.children,
+						...r,
+					};
+				});
+			};
+			const tempSiteTree = loop(result.data);
+			setSiteTreeData(tempSiteTree);
+		},
+	});
+	useMount(() => {
+		runGainSiteTree({});
+	});
 	return (
 		<BizPage
 			showActions={true}
@@ -226,8 +253,11 @@ export default () => {
 					>
 						<TreeSelect
 							placeholder='请选择上级阵地'
-							treeData={treeData}
+							treeData={siteTreeData}
 							showSearch={true}
+							// onSearch={e => {
+							// 	runGainSiteTree(e);
+							// }}
 							style={{ width: 224, height: 32 }}
 						/>
 					</Form.Item>

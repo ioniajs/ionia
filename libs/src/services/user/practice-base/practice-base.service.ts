@@ -128,7 +128,7 @@ export async function positionList(params: PositionList): Promise<JcResult<OrgVO
  * 阵地下拉列表---采用懒加载
  */
 export interface PositionPull {
-	parentId: string; // 父级ID
+	parentId?: string; // 父级ID
 }
 export async function positionPullList(params: PositionPull): Promise<JcResult<OrgSmallVO[]>> {
 	return request.get('/module-user/cmsmanager/org/pull', {

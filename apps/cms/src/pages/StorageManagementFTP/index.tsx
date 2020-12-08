@@ -57,7 +57,7 @@ export default () => {
 					onClick={() => {
 						if (row) {
 							Modal.confirm({
-								title: '你确定删除选中OSS吗?',
+								title: '你确定删除选中FTP吗?',
 								content: '删除后无法恢复，请谨慎操作',
 								okText: '删除',
 								cancelText: '取消',

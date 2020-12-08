@@ -268,7 +268,7 @@ export default [
 						parentId: '',
 					},
 				],
-				message: '删除成功',
+				message: '成功',
 			})
 		);
 	}),
