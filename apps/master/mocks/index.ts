@@ -10,6 +10,9 @@ import org from './org';
 import area from './area';
 import siteAuthority from './site-authority';
 import menu from './menu';
+import column from './column';
+import content from './content';
+import siteGroup from './site-group';
 
 export default setupWorker(
 	...hero,
@@ -22,5 +25,8 @@ export default setupWorker(
 	...org,
 	...area,
 	...siteAuthority,
-	...menu
+	...menu,
+	...column,
+	...content,
+	...siteGroup
 );

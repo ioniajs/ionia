@@ -7,7 +7,7 @@ import { AdminDataVO } from './site-permissions.vo';
  *  新增修改站点权限数据---阵地
  */
 export async function siteCreateModJurisdiction(data: DataOrgDTO): Promise<JcResult<boolean>> {
-	return request.post('/module-user/cmsmanager/auth/data/org', {
+	return request.post('/module-user/cmsmanager/auth/site/org', {
 		data,
 	});
 }
@@ -16,7 +16,7 @@ export async function siteCreateModJurisdiction(data: DataOrgDTO): Promise<JcRes
  * 新增修改站点权限数据---角色
  */
 export async function roleCreateModJurisdiction(data: DataRoleDTO): Promise<JcResult<boolean>> {
-	return request.post('/module-user/cmsmanager/auth/data/role', {
+	return request.post('/module-user/cmsmanager/auth/site/role', {
 		data,
 	});
 }
@@ -25,7 +25,7 @@ export async function roleCreateModJurisdiction(data: DataRoleDTO): Promise<JcRe
  * 新增修改站点权限数据---用户
  */
 export async function userCreateModJurisdiction(data: DataUserDTO): Promise<JcResult<boolean>> {
-	return request.post('/module-user/cmsmanager/auth/data/role', {
+	return request.post('/module-user/cmsmanager/auth/site/user', {
 		data,
 	});
 }
@@ -34,19 +34,19 @@ export async function userCreateModJurisdiction(data: DataUserDTO): Promise<JcRe
  *  根据阵地id获取站点权限数据
  */
 export async function siteAcquireData(id: string): Promise<JcResult<AdminDataVO>> {
-	return request.get(`/module-user/cmsmanager/auth/data/org/${id}`);
+	return request.get(`/module-user/cmsmanager/auth/site/org/${id}`);
 }
 
 /**
  *  根据角色id获取站点权限数据
  */
 export async function roleAcquireData(id: string): Promise<JcResult<AdminDataVO>> {
-	return request.get(`/module-user/cmsmanager/auth/data/role/${id}`);
+	return request.get(`/module-user/cmsmanager/auth/site/role/${id}`);
 }
 
 /**
  *  根据用户id获取站点权限数据
  */
 export async function userAcquireData(id: string): Promise<JcResult<AdminDataVO>> {
-	return request.get(`/module-user/cmsmanager/auth/data/role/${id}`);
+	return request.get(`/module-user/cmsmanager/auth/site/role/${id}`);
 }

@@ -440,7 +440,7 @@ export default ({ roleId }: any) => {
 	];
 
 	return (
-		<>
+		<div className='io-cms-role-authority_site'>
 			<Affix offsetTop={100}>
 				<Button type='primary' onClick={submitData}>
 					保存
@@ -453,6 +453,6 @@ export default ({ roleId }: any) => {
 				pagination={false}
 				rowKey={record => record.siteId}
 			/>
-		</>
+		</div>
 	);
 };

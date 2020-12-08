@@ -1,28 +1,38 @@
 @import '~antd/es/style/themes/default.less';
-.io_cms_role_authority-site {
-	.ant-btn {
-		margin-top: 10px;
+
+.io-cms-role-authority_tabs {
+	.ant-tabs-nav {
+		margin-bottom: 24px;
 	}
-	.io_cms_role_authority-site_check {
-		margin: 20px 0;
-	}
-	.io_cms_role_authority-site_title {
+}
+
+.io-cms-role-authority_site-group {
+	.io-cms-role-authority-site_title {
 		display: flex;
 		align-items: center;
+
 		i {
 			margin-right: 10px;
 		}
 	}
 }
+
+.io-cms-role-authority-site_check {
+	margin: 24px 0 20px;
+}
+
 .active {
 	color: @primary-color;
 }
+
 .ant-collapse > .ant-collapse-item {
 	// margin-bottom: 20px;
 }
+
 .ant-collapse-content > .ant-collapse-content-box {
 	display: flex;
 	flex-wrap: nowrap;
+
 	.ant-row {
 		width: 100%;
 	}
@@ -34,11 +44,56 @@
 	background: #ffffff;
 	border: 1px solid #f0f0f0;
 	border-radius: 2px;
+
 	.io_cms_role_authority-menu_collapse-panel_title {
-		height: 36px;
+		height: 48px;
+		background: #fafafa;
+		border-radius: 2px 2px 0px 0px;
+		padding: 0 17px;
+	}
+
+	.io_cms_role_authority-menu_collapse-panel_name {
 		background: #fafafa;
 		border: 1px solid #f0f0f0;
+		padding: 0 7px;
+		height: 36px;
 		line-height: 36px;
-		padding: 0 17px;
+	}
+
+	.io-cms-role-authority-menu_content {
+		height: 184px;
+		overflow-y: auto;
+		.io-cms-role-authority-menu_item {
+			display: flex;
+			padding: 0 17px;
+			align-items: center;
+			height: 46px;
+		}
+	}
+}
+.io-cms-role-authority-menu_text {
+	overflow: hidden; //超出的文本隐藏
+	text-overflow: ellipsis; //溢出用省略号显示
+	white-space: nowrap;
+	max-width: 56px;
+}
+.io-cms-role-authority-column_header {
+	display: flex;
+	justify-content: space-between;
+	padding-bottom: 24px;
+	align-items: center;
+
+	.io-cms-role-authority-column_tree {
+		margin-left: 20px;
+
+		span {
+			margin-right: 12px;
+		}
+	}
+}
+
+.io-cms-role-authority_site {
+	.ant-table-wrapper {
+		margin-top: 20px;
 	}
 }

@@ -23,6 +23,7 @@ export default {
 				{ path: '/cms/demo/modal-table', name: '弹窗表格' },
 				{ path: '/cms/demo/modal-transfer', name: '弹窗穿梭框' },
 				{ path: '/cms/demo/dynamic-from-item', name: '动态增减列表' },
+				{ path: '/cms/demo/video-upload', name: '视频上传' },
 			],
 		},
 		{
@@ -94,6 +95,11 @@ export default {
 			path: '/cms/storage-management-ftp',
 			icon: 'icon-Column',
 			name: '储存管理FTP',
+		},
+		{
+			path: '/cms/test-base-management',
+			icon: 'icon-Column',
+			name: '题库管理',
 		},
 	],
 } as Record<string, IoniaMenuRoute[]>;

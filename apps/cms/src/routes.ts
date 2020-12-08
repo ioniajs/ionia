@@ -5,6 +5,7 @@ import DemoDynamicFormItem from '@/pages/Demo/DynamicFormItem';
 import DemoETable from '@/pages/Demo/ETable';
 import DemoModalTable from '@/pages/Demo/ModalTable';
 import DemoModalTransfer from '@/pages/Demo/ModalTransfer';
+import DemoVideoUpload from '@/pages/Demo/UploadVideo';
 import Home from '@/pages/Home';
 import PracticeBase from '@/pages/PracticeBase';
 import PracticeBaseBatchCreate from '@/pages/PracticeBase/BatchCreate';
@@ -30,6 +31,7 @@ import Source from '@/pages/Source';
 import ContentType from '@/pages/ContentType';
 import StorageManagementOSS from '@/pages/StorageManagementOSS';
 import StorageManagementFTP from '@/pages/StorageManagementFTP';
+import TestBaseManagement from '@/pages/TestBaseManagement';
 
 export default [
 	{
@@ -59,6 +61,10 @@ export default [
 	{
 		path: '/demo/dynamic-from-item',
 		component: DemoDynamicFormItem,
+	},
+	{
+		path: '/demo/video-upload',
+		component: DemoVideoUpload,
 	},
 	{
 		path: '/user',
@@ -119,6 +125,10 @@ export default [
 	{
 		path: '/storage-management-ftp',
 		component: StorageManagementFTP,
+	},
+	{
+		path: '/test-base-management',
+		component: TestBaseManagement,
 	},
 	{
 		path: '/setting',

@@ -20,40 +20,41 @@ const handleUserSave = async (fileds: UserSaveDTO[]) => {
 export default () => {
 	const [saveData, setSaveData] = useState<any>([]);
 	const [count, setCount] = useState<number>(1);
+	const [password, setPassword] = useState<string>('123456');
 
 	const treeData: any = [
 		{
 			title: 'Node1',
-			value: '0',
+			value: 'Node1',
 			children: [
 				{
 					title: 'Child Node1',
-					value: '1',
+					value: 'Child Node1',
 				},
 				{
 					title: 'Child Node2',
-					value: '2',
+					value: 'Child Node2',
 				},
 			],
 		},
 		{
 			title: 'Node2',
-			value: '3',
+			value: 'Node2',
 		},
 	];
 
 	const baseTypeTree: any = [
 		{
 			title: '实践中心',
-			value: '4',
+			value: '实践中心',
 		},
 		{
 			title: '实践所',
-			value: '5',
+			value: '实践所',
 		},
 		{
 			title: '实践站',
-			value: '6',
+			value: '实践站',
 		},
 	];
 	const columns: any = [
@@ -78,19 +79,24 @@ export default () => {
 			dataIndex: 'cipher',
 			width: 164,
 			editable: true,
-			// formItemRender: ({ dataIndex, editing, save, toggleEdit, children, ref }: any) => {
-			// 	return editing ? (
-			// 		<Form.Item
-			// 			style={{ margin: 0 }}
-			// 			name={dataIndex}
-			// 			rules={[{ required: true, message: '请输入密码' }]}
-			// 		>
-			// 			<Input ref={ref} onPressEnter={save} onBlur={save} />
-			// 		</Form.Item>
-			// 	) : (
-			// 		<div onClick={toggleEdit}>{children}</div>
-			// 	);
-			// },
+			formItemRender: ({ dataIndex, editing, save, toggleEdit, children, ref }: any) => {
+				return editing ? (
+					<Form.Item
+						style={{ margin: 0 }}
+						name={dataIndex}
+						rules={[{ required: true, message: '请输入密码' }]}
+					>
+						<Input
+							ref={ref}
+							onChange={e => setPassword(e.target.value)}
+							onPressEnter={save}
+							onBlur={save}
+						/>
+					</Form.Item>
+				) : (
+					<div onClick={toggleEdit}>{children}</div>
+				);
+			},
 		},
 		{
 			title: (
@@ -102,31 +108,30 @@ export default () => {
 			dataIndex: 'confirm',
 			width: 164,
 			editable: true,
-			// formItemRender: ({ dataIndex, editing, save, toggleEdit, children, ref }: any) => {
-			// 	return editing ? (
-			// 		<Form.Item
-			// 			style={{ margin: 0 }}
-			// 			name={dataIndex}
-			// 			rules={[
-			// 				{ required: true, message: '请输入确认密码' },
-			// 				{
-			// 					validator: (_rule: any, value: string, callback: any) => {
-			// 						const oldVal = form.getFieldValue('cipher');
-			// 						if (oldVal !== value) {
-			// 							callback(new Error('两次密码输入不一致'));
-			// 						} else {
-			// 							callback();
-			// 						}
-			// 					},
-			// 				},
-			// 			]}
-			// 		>
-			// 			<Input ref={ref} onPressEnter={save} onBlur={save} />
-			// 		</Form.Item>
-			// 	) : (
-			// 		<div onClick={toggleEdit}>{children}</div>
-			// 	);
-			// },
+			formItemRender: ({ dataIndex, editing, save, toggleEdit, children, ref }: any) => {
+				return editing ? (
+					<Form.Item
+						style={{ margin: 0 }}
+						name={dataIndex}
+						rules={[
+							{ required: true, message: '请输入确认密码' },
+							{
+								validator: (_rule: any, value: string, callback: any) => {
+									if (password !== value) {
+										callback(new Error('两次密码输入不一致'));
+									} else {
+										callback();
+									}
+								},
+							},
+						]}
+					>
+						<Input ref={ref} onPressEnter={save} onBlur={save} />
+					</Form.Item>
+				) : (
+					<div onClick={toggleEdit}>{children}</div>
+				);
+			},
 		},
 		{
 			title: (
@@ -164,7 +169,7 @@ export default () => {
 							treeData={treeData}
 							treeDefaultExpandAll
 							// onChange={() => setUserValue(uservalue)}
-							// onBlur={save}
+							onBlur={save}
 						></TreeSelect>
 					</Form.Item>
 				) : (
@@ -194,6 +199,7 @@ export default () => {
 							treeData={baseTypeTree}
 							treeDefaultExpandAll
 							// onChange={() => setUserValue(uservalue)}
+							onBlur={save}
 						></TreeSelect>
 					</Form.Item>
 				) : (
@@ -330,12 +336,12 @@ export default () => {
 								for (let i = 0; i < count; i++) {
 									data.push({
 										key: shortid.generate(),
-										username: '江西赵四',
+										username: '江西金磊科技',
 										cipher: '123456',
 										confirm: '123456',
 										orgId: '0',
 										roleIds: '实践中心',
-										realName: '江西吴彦祖',
+										realName: '金磊科技',
 										telephone: 18707062315,
 										email: '2829656235@qq.com',
 										status: 1,
