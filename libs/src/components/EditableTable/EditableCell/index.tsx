@@ -66,8 +66,8 @@ const EditableCell = ({
 		) : children && !children[1] ? (
 			<div onClick={toggleEdit}>请输入{title}</div>
 		) : (
-					<div onClick={toggleEdit}>{children}</div>
-				);
+			<div onClick={toggleEdit}>{children}</div>
+		);
 	};
 
 	return (
@@ -75,14 +75,14 @@ const EditableCell = ({
 			{editable
 				? formItemRender
 					? formItemRender({
-						editing,
-						title,
-						dataIndex,
-						save,
-						toggleEdit,
-						children,
-						ref,
-					})
+							editing,
+							title,
+							dataIndex,
+							save,
+							toggleEdit,
+							children,
+							ref,
+					  })
 					: defaultFormItemRender()
 				: children}
 		</td>
