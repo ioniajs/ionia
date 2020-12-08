@@ -3,7 +3,6 @@ import { BizModalForm, BizModalFormRef } from '@ionia/libs';
 import { Button, Tree, Tooltip, Modal, Form, Radio, TreeSelect } from 'antd';
 import { InfoCircleOutlined } from '@ant-design/icons';
 import './index.less';
-import { values } from 'lodash';
 
 const treeData = [
 	{
