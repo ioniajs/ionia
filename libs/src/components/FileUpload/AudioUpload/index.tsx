@@ -1,59 +1,76 @@
-import React, { ReactElement, useState } from 'react';
 import { Upload, message } from 'antd';
-import axios from 'axios';
-import { UploadProps, UploadChangeParam } from 'antd/lib/upload';
+import { UploadProps } from 'antd/lib/upload';
 import { UploadFile } from 'antd/lib/upload/interface';
+import axios from 'axios';
+import React, { ReactElement, useEffect, useState } from 'react';
 import { useLocalStorage } from 'react-use';
 import { UploadButton } from '../UploadButton';
-import { VideoUploadItem } from '../VideoUploadItem';
-import './index.less';
+import { AudioUploadItem } from '../AudioUploadItem';
 
-interface VideoUploadProps extends UploadProps {
-	title?: string;
-	tips?: string;
+interface AudioUploadProps extends UploadProps {
 	limit?: number;
 	onChange?: (files: any) => void;
 }
 
-export const VideoUpload = ({
-	title,
-	tips,
+export const AudioUpload = ({
 	limit = 1,
 	action = '/module-infra/res/upload',
 	defaultFileList,
 	// = [
-	// 	{
-	// 		uid: '-xxx',
-	// 		// percent: 50,
-	// 		name: 'video.mp4',
-	// 		status: 'done',
-	// 		url: 'https://filesamples.com/samples/video/ogv/sample_640x360.ogv',
-	// 		size: 200,
-	// 		type: '',
-	// 		thumbUrl:
-	// 			'https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=320188414,720873459&fm=26&gp=0.jpg',
-	// 	},
-	// 	{
-	// 		uid: '001',
-	// 		size: 100,
-	// 		name: 'video.mp4',
-	// 		url: 'https://storage.googleapis.com/media-session/elephants-dream/the-wires.mp3',
-	// 		status: 'error',
-	// 		percent: 50,
-	// 		type: '',
-	// 	},
+	//     {
+	//         uid: '-xxx',
+	//         // percent: 50,
+	//         name: '此处为音频名称此处为音频名称此处为音出手大方.mp4',
+	//         status: 'done',
+	//         url:
+	//             'https://test-videos.co.uk/vids/bigbuckbunny/mp4/h264/360/Big_Buck_Bunny_360_10s_1MB.mp4',
+	//         size: 200,
+	//         type: '',
+	//         thumbUrl:
+	//             'https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=320188414,720873459&fm=26&gp=0.jpg',
+	//     },
+	//     {
+	//         uid: '001',
+	//         size: 100,
+	//         name: 'video.mp4',
+	//         url: 'https://storage.googleapis.com/media-session/elephants-dream/the-wires.mp3',
+	//         status: 'uploading',
+	//         percent: 50,
+	//         type: '',
+	//     },
+	//     {
+	//         uid: '002',
+	//         size: 100,
+	//         name: 'video.mp4',
+	//         url: 'https://filesamples.com/samples/video/ogv/sample_640x360.ogv',
+	//         status: 'success',
+	//         percent: 100,
+	//         type: '',
+	//     },
+	//     {
+	//         uid: '003',
+	//         size: 100,
+	//         name: 'video.mp4',
+	//         url: 'https://storage.googleapis.com/media-session/elephants-dream/the-wires.mp3',
+	//         status: 'error',
+	//         percent: 50,
+	//         type: '',
+	//     },
 	// ],
 	onChange,
 	...reset
-}: VideoUploadProps) => {
+}: AudioUploadProps) => {
 	const [token] = useLocalStorage('io-token');
 	const [fileList, setFileList] = useState<UploadFile<any>[]>(defaultFileList ?? []);
+	useEffect(() => {
+		onChange && onChange(fileList);
+	}, [fileList]);
+
 	return (
-		<div className='io-video-upload'>
+		<div className='io-audio-upload'>
 			<Upload
-				className='io-video-upload__button'
-				listType='picture-card'
-				accept='video'
+				className='io-audio-upload__button'
+				accept='video/'
 				action={action}
 				beforeUpload={file => {
 					if (file.type !== 'video/mp4') {
@@ -109,8 +126,8 @@ export const VideoUpload = ({
 						},
 					};
 				}}
-				itemRender={(originNode: ReactElement, file) => (
-					<VideoUploadItem
+				itemRender={(originNode: ReactElement, file: UploadFile) => (
+					<AudioUploadItem
 						file={file}
 						onRemove={() => {
 							setFileList(fileList.filter(f => f.uid !== file.uid));
@@ -123,10 +140,8 @@ export const VideoUpload = ({
 					setFileList(info.fileList.filter(file => !!file.status));
 				}}
 			>
-				{fileList.length < limit && <UploadButton type='video' />}
+				{fileList.length < limit && <UploadButton type='audio' />}
 			</Upload>
-			{title && <p className='io-file-upload__title'>{title}</p>}
-			{tips && <p className='io-file-upload__tips'>{tips}</p>}
 		</div>
 	);
 };
