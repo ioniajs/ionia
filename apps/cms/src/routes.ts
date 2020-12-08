@@ -31,6 +31,7 @@ import Source from '@/pages/Source';
 import ContentType from '@/pages/ContentType';
 import StorageManagementOSS from '@/pages/StorageManagementOSS';
 import StorageManagementFTP from '@/pages/StorageManagementFTP';
+import TestBaseManagement from '@/pages/TestBaseManagement';
 
 export default [
 	{
@@ -124,6 +125,10 @@ export default [
 	{
 		path: '/storage-management-ftp',
 		component: StorageManagementFTP,
+	},
+	{
+		path: '/test-base-management',
+		component: TestBaseManagement,
 	},
 	{
 		path: '/setting',

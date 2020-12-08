@@ -96,5 +96,10 @@ export default {
 			icon: 'icon-Column',
 			name: '储存管理FTP',
 		},
+		{
+			path: '/cms/test-base-management',
+			icon: 'icon-Column',
+			name: '题库管理',
+		},
 	],
 } as Record<string, IoniaMenuRoute[]>;
