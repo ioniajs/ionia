@@ -244,7 +244,7 @@ export const Recycle = () => {
 										title: '你确定删除回收站中的全部栏目及内容吗？',
 										content: '删除后无法恢复。',
 										okText: '删除',
-										onOk: () => { },
+										onOk: () => {},
 									});
 								}}
 							>
