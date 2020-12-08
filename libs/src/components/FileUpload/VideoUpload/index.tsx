@@ -1,5 +1,5 @@
 import React, { ReactElement, useState } from 'react';
-import { Upload } from 'antd';
+import { Upload, message } from 'antd';
 import axios from 'axios';
 import { UploadProps, UploadChangeParam } from 'antd/lib/upload';
 import { UploadFile } from 'antd/lib/upload/interface';
@@ -20,28 +20,29 @@ export const VideoUpload = ({
 	tips,
 	limit = 1,
 	action = '/module-infra/res/upload',
-	defaultFileList = [
-		{
-			uid: '-xxx',
-			// percent: 50,
-			name: 'video.mp4',
-			status: 'done',
-			url: 'https://filesamples.com/samples/video/ogv/sample_640x360.ogv',
-			size: 200,
-			type: '',
-			thumbUrl:
-				'https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=320188414,720873459&fm=26&gp=0.jpg',
-		},
-		{
-			uid: '001',
-			size: 100,
-			name: 'video.mp4',
-			url: 'https://storage.googleapis.com/media-session/elephants-dream/the-wires.mp3',
-			status: 'error',
-			percent: 50,
-			type: '',
-		},
-	],
+	defaultFileList,
+	// = [
+	// 	{
+	// 		uid: '-xxx',
+	// 		// percent: 50,
+	// 		name: 'video.mp4',
+	// 		status: 'done',
+	// 		url: 'https://filesamples.com/samples/video/ogv/sample_640x360.ogv',
+	// 		size: 200,
+	// 		type: '',
+	// 		thumbUrl:
+	// 			'https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=320188414,720873459&fm=26&gp=0.jpg',
+	// 	},
+	// 	{
+	// 		uid: '001',
+	// 		size: 100,
+	// 		name: 'video.mp4',
+	// 		url: 'https://storage.googleapis.com/media-session/elephants-dream/the-wires.mp3',
+	// 		status: 'error',
+	// 		percent: 50,
+	// 		type: '',
+	// 	},
+	// ],
 	onChange,
 	...reset
 }: VideoUploadProps) => {
@@ -54,6 +55,12 @@ export const VideoUpload = ({
 				listType='picture-card'
 				accept='video'
 				action={action}
+				beforeUpload={file => {
+					if (file.type !== 'video/mp4') {
+						message.error(`${file.name}不属于音频类型`);
+					}
+					return file.type === 'video/mp4';
+				}}
 				customRequest={({
 					action,
 					data,
@@ -113,7 +120,7 @@ export const VideoUpload = ({
 				{...reset}
 				fileList={fileList}
 				onChange={info => {
-					setFileList([...info.fileList]);
+					setFileList(info.fileList.filter(file => !!file.status));
 				}}
 			>
 				{fileList.length < limit && <UploadButton type='video' />}
