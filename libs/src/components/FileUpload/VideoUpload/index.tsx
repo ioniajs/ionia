@@ -20,28 +20,29 @@ export const VideoUpload = ({
 	tips,
 	limit = 1,
 	action = '/module-infra/res/upload',
-	defaultFileList = [
-		{
-			uid: '-xxx',
-			// percent: 50,
-			name: 'video.mp4',
-			status: 'done',
-			url: 'https://filesamples.com/samples/video/ogv/sample_640x360.ogv',
-			size: 200,
-			type: '',
-			thumbUrl:
-				'https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=320188414,720873459&fm=26&gp=0.jpg',
-		},
-		{
-			uid: '001',
-			size: 100,
-			name: 'video.mp4',
-			url: 'https://storage.googleapis.com/media-session/elephants-dream/the-wires.mp3',
-			status: 'error',
-			percent: 50,
-			type: '',
-		},
-	],
+	defaultFileList,
+	// = [
+	// 	{
+	// 		uid: '-xxx',
+	// 		// percent: 50,
+	// 		name: 'video.mp4',
+	// 		status: 'done',
+	// 		url: 'https://filesamples.com/samples/video/ogv/sample_640x360.ogv',
+	// 		size: 200,
+	// 		type: '',
+	// 		thumbUrl:
+	// 			'https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=320188414,720873459&fm=26&gp=0.jpg',
+	// 	},
+	// 	{
+	// 		uid: '001',
+	// 		size: 100,
+	// 		name: 'video.mp4',
+	// 		url: 'https://storage.googleapis.com/media-session/elephants-dream/the-wires.mp3',
+	// 		status: 'error',
+	// 		percent: 50,
+	// 		type: '',
+	// 	},
+	// ],
 	onChange,
 	...reset
 }: VideoUploadProps) => {
