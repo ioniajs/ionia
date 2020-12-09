@@ -27,79 +27,98 @@ export default {
 			],
 		},
 		{
-			path: '/cms/user',
-			name: '用户列表',
-			icon: 'icon-user',
-		},
-		{
-			path: '/cms/site',
+			path: '/cms/content-operation',
+			name: '内容运营',
 			icon: 'icon-Column',
-			name: '站点管理',
+			children: [
+				{
+					path: '/cms/content-operation/blogroll',
+					name: '友情链接',
+				},
+				{
+					path: '/cms/content-operation/content',
+					name: '内容管理',
+				},
+			],
 		},
 		{
-			path: '/cms/role',
+			path: '/cms/system-management',
+			name: '系统管理',
 			icon: 'icon-Column',
-			name: '角色管理',
+			children: [
+				{
+					path: '/cms/system-management/site',
+					name: '站点管理',
+				},
+				{
+					path: '/cms/system-management/practice-base',
+					name: '实践阵地',
+				},
+				{
+					path: '/cms/system-management/role',
+					name: '角色管理',
+				},
+				{
+					path: '/cms/system-management/user',
+					name: '用户管理',
+				},
+				{
+					path: '/cms/system-management/model-management',
+					name: '模型管理',
+					children: [
+						{
+							path: '/cms/system-management/model-management/source',
+							name: '来源管理',
+						},
+						{
+							path: '/cms/system-management/model-management/content-type',
+							name: '内容类型',
+						},
+					],
+				},
+				{
+					path: '/cms/system-management/mail-serve',
+					name: '邮件服务',
+				},
+				{
+					path: '/cms/system-management/area-management',
+					name: '区域管理',
+				},
+				{
+					path: '/cms/system-management/memory-management',
+					name: '存储管理',
+					children: [
+						{
+							path: '/cms/system-management/memory-management/oss',
+							name: '储存管理OSS',
+						},
+						{
+							path: '/cms/system-management/memory-management/ftp',
+							name: '储存管理FTP',
+						},
+					],
+				},
+				{
+					path: '/cms/system-management/setting',
+					name: '系统设置',
+				},
+			],
 		},
 		{
-			path: '/cms/content',
+			path: 'cms/examination-management',
 			icon: 'icon-Column',
-			name: '内容管理',
-		},
-		{
-			path: '/cms/practice-base',
-			icon: 'icon-Column',
-			name: '实践阵地',
-		},
-		{
-			path: '/cms/setting',
-			icon: 'icon-setting',
-			name: '系统设置',
+			name: '考试管理',
+			children: [
+				{
+					path: '/cms/examination-management/test-base-management',
+					name: '题库管理',
+				},
+			],
 		},
 		{
 			path: '/cms/system-messages',
 			icon: 'icon-Column',
 			name: '系统消息',
-		},
-		{
-			path: '/cms/mail-serve',
-			icon: 'icon-Column',
-			name: '邮件服务',
-		},
-		{
-			path: '/cms/area-management',
-			icon: 'icon-Column',
-			name: '区域管理',
-		},
-		{
-			path: '/cms/blogroll',
-			icon: 'icon-Column',
-			name: '友情链接',
-		},
-		{
-			path: '/cms/source',
-			icon: 'icon-Column',
-			name: '来源',
-		},
-		{
-			path: '/cms/content-type',
-			icon: 'icon-Column',
-			name: '内容类型',
-		},
-		{
-			path: '/cms/storage-management-oss',
-			icon: 'icon-Column',
-			name: '储存管理OSS',
-		},
-		{
-			path: '/cms/storage-management-ftp',
-			icon: 'icon-Column',
-			name: '储存管理FTP',
-		},
-		{
-			path: '/cms/test-base-management',
-			icon: 'icon-Column',
-			name: '题库管理',
 		},
 	],
 } as Record<string, IoniaMenuRoute[]>;

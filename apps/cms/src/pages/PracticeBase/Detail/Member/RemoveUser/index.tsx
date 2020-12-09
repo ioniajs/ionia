@@ -83,7 +83,10 @@ export default (props: any) => {
 						size='small'
 						onRow={({ key, disabled: itemDisabled }) => ({
 							onClick: () => {
-								onItemSelect(key, !listSelectedKeys.includes(key));
+								onItemSelect(
+									key ? key : '',
+									!listSelectedKeys.includes(key ? key : '')
+								);
 							},
 						})}
 					/>

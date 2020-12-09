@@ -99,6 +99,10 @@ export const BaseDetail = ({ id }: BaseDetailProps) => {
 							...values,
 							id,
 							introduce: editorState,
+							name: values.name,
+							area: values.area,
+							parentId: values.parentId,
+							type: values.type,
 						};
 						const success = await baseUpdate(param);
 						if (success.code === 200) {
@@ -271,7 +275,7 @@ export const BaseDetail = ({ id }: BaseDetailProps) => {
 						width={1000}
 					>
 						<AMap
-							onGet={(val: string) => {
+							onGet={(val?: string) => {
 								setCodeAddress(val);
 							}}
 						/>
@@ -280,7 +284,7 @@ export const BaseDetail = ({ id }: BaseDetailProps) => {
 				<Form.Item name='favicon' label='阵地标志'>
 					<ImageUpload />
 				</Form.Item>
-				<Form.Item name='favicon' label='图片展示'>
+				<Form.Item name='picList' label='图片展示'>
 					<Button type='primary' icon={<UploadOutlined />}>
 						批量上传
 					</Button>

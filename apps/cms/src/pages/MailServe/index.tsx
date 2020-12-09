@@ -55,7 +55,7 @@ export default () => {
 					</Form.Item>
 					<Form.Item
 						name='smtpserve'
-						rules={[{ required: true }]}
+						rules={[{ required: true, message: '请输入SMTP服务器' }]}
 						label={
 							<span>
 								SMTP服务器 &nbsp;
@@ -69,7 +69,8 @@ export default () => {
 					</Form.Item>
 					<Form.Item
 						name='smtpport'
-						rules={[{ required: true }]}
+						rules={[{ required: true, message: '请输入SMTP端口号', whitespace: true }]}
+						// label='端口号'
 						label={
 							<span>
 								SMTP端口 &nbsp;
@@ -94,9 +95,9 @@ export default () => {
 								</Tooltip>
 							</span>
 						}
-						rules={[{ required: true }]}
+						rules={[{ required: true, message: '请输入邮箱密码' }]}
 					>
-						<Input placeholder='请输入SMTP端口' />
+						<Input placeholder='请输入邮箱密码' />
 					</Form.Item>
 					<Form.Item label='使用SSL协议'>
 						<Switch checkedChildren='开启' unCheckedChildren='关闭' />

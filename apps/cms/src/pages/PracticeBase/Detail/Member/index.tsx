@@ -163,6 +163,7 @@ export const BaseMember = ({ id }: BaseMemberPorps) => {
 		<div className='io-cms-practice-base-detail-member__div'>
 			<BizPage>
 				<BizTable
+					rowKey='id'
 					renderActions={() => (
 						<>
 							<div className='io-space-item'>

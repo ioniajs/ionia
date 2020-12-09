@@ -67,104 +67,104 @@ export default [
 		component: DemoVideoUpload,
 	},
 	{
-		path: '/user',
-		component: User,
+		path: '/content-operation/blogroll',
+		component: Blogroll,
 	},
 	{
-		path: '/user/batch-create',
-		component: UserBatchCreate,
+		path: '/content-operation/content',
+		component: Content,
 	},
 	{
-		path: '/user/detail/:id',
-		component: UserDetail,
+		path: '/system-management/site',
+		component: Site,
 	},
 	{
-		path: '/practice-base',
+		path: '/system-management/site/create',
+		component: SiteCreate,
+	},
+	{
+		path: '/system-management/site/detail/:id',
+		component: SiteDetail,
+	},
+	{
+		path: '/system-management/site/batch-create',
+		component: SiteBatchCreate,
+	},
+	{
+		path: '/system-management/site/publish-statics',
+		component: SitePublishStatics,
+	},
+	{
+		path: '/system-management/practice-base',
 		component: PracticeBase,
 	},
 	{
-		path: '/practice-base/create',
+		path: '/system-management/practice-base/create',
 		component: PracticeBaseCreate,
 	},
 	{
-		path: '/practice-base/detail/:id',
+		path: '/system-management/practice-base/detail/:id',
 		component: PracticeBaseDetail,
 	},
 	{
-		path: '/practice-base/batch-create',
+		path: '/system-management/practice-base/batch-create',
 		component: PracticeBaseBatchCreate,
+	},
+	{
+		path: '/system-management/role',
+		component: Role,
+	},
+	{
+		path: '/system-management/role/detail/:id',
+		component: RoleDetail,
+	},
+	{
+		path: '/system-management/user',
+		component: User,
+	},
+	{
+		path: '/system-management/user/batch-create',
+		component: UserBatchCreate,
+	},
+	{
+		path: '/system-management/user/detail/:id',
+		component: UserDetail,
+	},
+	{
+		path: '/system-management/model-management/source',
+		component: Source,
+	},
+	{
+		path: '/system-management/model-management/content-type',
+		component: ContentType,
+	},
+	{
+		path: '/system-management/mail-serve',
+		component: MailServe,
+	},
+	{
+		path: '/system-management/area-management',
+		component: AreaManagement,
+	},
+	{
+		path: '/system-management/memory-management/oss',
+		component: StorageManagementOSS,
+	},
+	{
+		path: '/system-management/memory-management/ftp',
+		component: StorageManagementFTP,
+	},
+	{
+		path: '/system-management/setting',
+		component: Setting,
+	},
+	{
+		path: '/examination-management/test-base-management',
+		component: TestBaseManagement,
 	},
 	{
 		path: '/system-messages',
 		component: SystemMessages,
-	},
-	{
-		path: '/mail-serve',
-		component: MailServe,
-	},
-	{
-		path: '/area-management',
-		component: AreaManagement,
-	},
-	{
-		path: '/blogroll',
-		component: Blogroll,
-	},
-	{
-		path: '/source',
-		component: Source,
-	},
-	{
-		path: '/content-type',
-		component: ContentType,
-	},
-	{
-		path: '/storage-management-oss',
-		component: StorageManagementOSS,
-	},
-	{
-		path: '/storage-management-ftp',
-		component: StorageManagementFTP,
-	},
-	{
-		path: '/test-base-management',
-		component: TestBaseManagement,
-	},
-	{
-		path: '/setting',
-		component: Setting,
-	},
-	{
-		path: '/site',
-		component: Site,
-	},
-	{
-		path: '/site/create',
-		component: SiteCreate,
-	},
-	{
-		path: '/site/detail/:id',
-		component: SiteDetail,
-	},
-	{
-		path: '/site/batch-create',
-		component: SiteBatchCreate,
-	},
-	{
-		path: '/site/publish-statics',
-		component: SitePublishStatics,
-	},
-	{
-		path: '/role',
-		component: Role,
-	},
-	{
-		path: '/role/detail/:id',
-		component: RoleDetail,
-	},
-	{
-		path: '/content',
-		component: Content,
 	},
 	{
 		path: '/500',
