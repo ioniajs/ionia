@@ -79,9 +79,9 @@ export default () => {
 			setExpandedKeys(dataList.map(n => n.key));
 		},
 	});
-	const treeData = data?.data.list ?? [];
-	const commons = data?.data.commons ?? [];
-	const size = data?.data.size ?? 0;
+	const treeData = data?.data?.list ?? [];
+	const commons = data?.data?.commons ?? [];
+	const size = data?.data?.size ?? 0;
 
 	const siteTree = useMemo(() => dfs(treeData, searchWord), [treeData, searchWord]);
 
