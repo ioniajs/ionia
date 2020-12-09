@@ -8,6 +8,8 @@ import {
 	modposition,
 	OrgDTO,
 	positionDetail,
+	positionPullList,
+	OrgSmallVO,
 } from '@ionia/libs';
 import { useMount, useRequest } from '@umijs/hooks';
 import { Button, Form, Input, message, TreeSelect, Select } from 'antd';
@@ -38,6 +40,7 @@ export const BaseDetail = ({ id }: BaseDetailProps) => {
 	const ref = useRef<BizModalFormRef>();
 	const [editorState, setEditorState] = useState(); // 获取富文本编辑内容
 	const [codeAdress, setCodeAddress] = useState<string>();
+	const [siteTreeData, setSiteTreeData] = useState<OrgSmallVO[]>();
 	const { data, run } = useRequest(positionDetail, {
 		manual: true,
 	});
@@ -54,7 +57,30 @@ export const BaseDetail = ({ id }: BaseDetailProps) => {
 			});
 		}
 	}, [data?.data]);
-
+	const { run: runGainSiteTree } = useRequest(positionPullList, {
+		manual: true,
+		onSuccess: result => {
+			const loop = function (data: any) {
+				return data.map((r: any) => {
+					if (r.children) {
+						r.children = loop(r.children);
+					}
+					return {
+						value: r.id,
+						title: r.name,
+						key: r.id,
+						children: r.children,
+						...r,
+					};
+				});
+			};
+			const tempSiteTree = loop(result.data);
+			setSiteTreeData(tempSiteTree);
+		},
+	});
+	useMount(() => {
+		runGainSiteTree({});
+	});
 	const baseTypeTree: any = [
 		{
 			title: '实践中心',
@@ -121,7 +147,7 @@ export const BaseDetail = ({ id }: BaseDetailProps) => {
 				>
 					<TreeSelect
 						placeholder='请选择上级阵地'
-						treeData={treeData}
+						treeData={siteTreeData}
 						showSearch={true}
 						style={{ width: 664, height: 32 }}
 					/>

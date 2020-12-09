@@ -19,3 +19,4 @@ export * from './RichTextEditor';
 export * from './SlaveApp';
 export * from './Watermark';
 export * from './RedirectPage';
+export * from './ImagePreview';
