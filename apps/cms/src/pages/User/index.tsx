@@ -36,7 +36,7 @@ export default () => {
 				<Tooltip title={`${row.username}`}>
 					<a
 						className='io-cms-user__biztable-username'
-						onClick={() => history.push(`/user/detail/${row.id}`)}
+						onClick={() => history.push(`/system-management/user/detail/${row.id}`)}
 					>
 						{row.username}
 					</a>
@@ -193,7 +193,7 @@ export default () => {
 						</div>
 						<div className='io-space-item'>
 							<Button
-								onClick={() => history.push('/user/batch-create')}
+								onClick={() => history.push('/system-management/user/batch-create')}
 								type='default'
 							>
 								批量新建

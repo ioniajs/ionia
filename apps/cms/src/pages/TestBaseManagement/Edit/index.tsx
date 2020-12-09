@@ -61,6 +61,7 @@ export default () => {
 			// 		<div onClick={toggleEdit}>{children}</div>
 			// 	);
 			// },
+			render: (_: any, row: any) => <Radio></Radio>,
 		},
 	];
 	const options: any = [
