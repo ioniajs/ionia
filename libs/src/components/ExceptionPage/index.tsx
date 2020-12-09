@@ -7,7 +7,7 @@ export interface ExceptionPageProps {
 	code?: number;
 }
 
-const messages = {
+const messages: Record<number, string> = {
 	403: '抱歉，你没有访问权限',
 	404: '对不起,你访问的网页不见了',
 	500: '服务器出错了，请联系管理员',

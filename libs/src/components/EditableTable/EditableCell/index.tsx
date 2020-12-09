@@ -5,7 +5,7 @@ import EditableContext from '../EditableContext';
 interface EditableCellProps {
 	title: ReactNode;
 	editable: boolean;
-	children: ReactNode;
+	children: any;
 	dataIndex: string;
 	record: any;
 	formItemRender?: (params: any) => ReactNode;
