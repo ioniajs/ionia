@@ -26,10 +26,10 @@ const config = merge(commonConfig, {
 			'/module-kernel': {
 				target: 'http://192.168.0.200:29000',
 				// pathRewrite: {'^/module-kernel' : ''},
-				changeOrigin: true, 
+				changeOrigin: true,
 				secure: false,
-			}
-		}
+			},
+		},
 	},
 	resolve: {
 		alias: {
