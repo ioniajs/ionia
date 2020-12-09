@@ -62,7 +62,7 @@ export default () => {
 					<Tooltip title={`${row.name}`}>
 						<a
 							onClick={() => {
-								history.push(`/site/detail/${row.id}`);
+								history.push(`/system-management/site/detail/${row.id}`);
 							}}
 						>
 							{row.name}

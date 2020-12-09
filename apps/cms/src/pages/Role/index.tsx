@@ -57,7 +57,7 @@ export default () => {
 			render: (_, row) => (
 				<a
 					onClick={() => {
-						history.push(`/role/detail/${row.id}`);
+						history.push(`/system-management/role/detail/${row.id}`);
 					}}
 				>
 					{row.name}
@@ -124,7 +124,9 @@ export default () => {
 							</div>
 							<div className='io-space-item'>
 								<Button
-									onClick={() => history.push('/user/userbatchadd')}
+									onClick={() =>
+										history.push('/system-management/user/userbatchadd')
+									}
 									type='default'
 								>
 									批量新建

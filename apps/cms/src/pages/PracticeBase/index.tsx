@@ -42,7 +42,11 @@ export default () => {
 			width: 400,
 			render: (_, row) => {
 				return (
-					<a onClick={() => history.push(`/practice-base/detail/${row.id}`)}>
+					<a
+						onClick={() =>
+							history.push(`/system-management/practice-base/detail/${row.id}`)
+						}
+					>
 						{row.name}
 					</a>
 				);
@@ -115,7 +119,9 @@ export default () => {
 						<div className='io-space-item'>
 							<Button
 								type='primary'
-								onClick={() => history.push('/practice-base/create')}
+								onClick={() =>
+									history.push('/system-management/practice-base/create')
+								}
 							>
 								<i
 									className='iconfont icon-plus1'
@@ -127,7 +133,9 @@ export default () => {
 						<div className='io-space-item'>
 							<Button
 								type='default'
-								onClick={() => history.push('/practice-base/batch-create')}
+								onClick={() =>
+									history.push('/system-management/practice-base/batch-create')
+								}
 							>
 								批量新建
 							</Button>
