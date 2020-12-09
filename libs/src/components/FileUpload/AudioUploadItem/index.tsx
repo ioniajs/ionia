@@ -40,18 +40,18 @@ export const AudioUploadItem = ({ file, onRemove }: AudioUploadItemProps) => {
 				/>
 			</>
 		) : (
-			<>
-				<img src={require('../../../static/images/player.gif')} />
-				<span title={file.name}>{file.name}</span>
-				<i className='iconfont icon-timeout' onClick={() => setPlay(false)} />
-				<i
-					className='iconfont icon-delete'
-					onClick={() => {
-						onRemove && onRemove();
-					}}
-				/>
-			</>
-		);
+				<>
+					<img src={require('../../../static/images/player.gif')} />
+					<span title={file.name}>{file.name}</span>
+					<i className='iconfont icon-timeout' onClick={() => setPlay(false)} />
+					<i
+						className='iconfont icon-delete'
+						onClick={() => {
+							onRemove && onRemove();
+						}}
+					/>
+				</>
+			);
 	}
 	if (file.status === 'success') {
 		item = (
@@ -87,11 +87,9 @@ export const AudioUploadItem = ({ file, onRemove }: AudioUploadItemProps) => {
 
 	const child = (
 		<div
-			className={`io-audio-upload__item ${isError ? 'io-audio-upload__item--error' : ''} ${
-				file.status === 'done' ? 'io-audio-upload__item--done' : ''
-			} ${play ? 'io-audio-upload__item_play--done' : ''} ${
-				file.status === 'success' ? 'io-audio-upload__item--success' : ''
-			} ${file.status === 'uploading' ? 'io-audio-upload__item--uploading' : ''}`}
+			className={`io-audio-upload__item ${isError ? 'io-audio-upload__item--error' : ''} ${file.status === 'done' ? 'io-audio-upload__item--done' : ''
+				} ${play ? 'io-audio-upload__item_play--done' : ''} ${file.status === 'success' ? 'io-audio-upload__item--success' : ''
+				} ${file.status === 'uploading' ? 'io-audio-upload__item--uploading' : ''}`}
 		>
 			{item}
 			<div style={{ display: 'none' }}>

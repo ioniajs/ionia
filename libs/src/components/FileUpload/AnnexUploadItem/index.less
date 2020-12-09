@@ -1,0 +1,50 @@
+.io-annex-upload__item {
+	display: flex;
+	width: 448px;
+	height: 32px;
+	line-height: 32px;
+	padding-left: 10px;
+	position: relative;
+	margin-bottom: 12px;
+	cursor: pointer;
+	i {
+		&::before {
+			font-size: 18px;
+		}
+	}
+	.icon-delete {
+		position: absolute;
+		right: 10px;
+	}
+	a,
+	span {
+		width: 263px;
+		font-size: 14px;
+		font-family: PingFang SC;
+		font-weight: 400;
+		margin-left: 10px;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
+	.io-upload-secret-select {
+		width: 90px;
+		height: 24px;
+		overflow: hidden;
+		line-height: 24px;
+		.ant-select-selector {
+			height: 100%;
+			padding-left: 0px;
+			margin-top: 4px;
+			.ant-select-selection-search {
+				height: 100%;
+				.ant-select-selection-search-input {
+					height: 100%;
+				}
+			}
+		}
+	}
+}
+.io-annex-upload__item--done {
+	background: #c8c8c8;
+}
