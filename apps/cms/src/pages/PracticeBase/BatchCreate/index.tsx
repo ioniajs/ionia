@@ -215,7 +215,7 @@ export default () => {
 		},
 	});
 	useMount(() => {
-		runGainSiteTree({});
+		runGainSiteTree({ parentId: '' });
 	});
 	return (
 		<BizPage
