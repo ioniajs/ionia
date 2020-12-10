@@ -15,7 +15,7 @@ interface AnnexUploadProps extends UploadProps {
 }
 
 export const AnnexUpload = ({
-	limit = 1,
+	limit = 6,
 	action = '/module-infra/res/upload',
 	defaultFileList = [
 		{
@@ -56,6 +56,28 @@ export const AnnexUpload = ({
 			percent: 50,
 			type: '',
 		},
+		{
+			uid: '004',
+			percent: 50,
+			name: '此处为音频名称此处为音频名称此处为音出手大方.jpg',
+			status: 'uploading',
+			url: 'https://pic.tolvyo.com/mTGbnEE3gi-bef0c0d3b52049fbf7008437355bbbc1.jpg',
+			size: 200,
+			type: 'image/jpg',
+			thumbUrl:
+				'https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=320188414,720873459&fm=26&gp=0.jpg',
+		},
+		{
+			uid: '005',
+			percent: 99,
+			name: '此处为音频名称此处为音频名称此处为音出手大方.jpg',
+			status: 'success',
+			url: 'https://pic.tolvyo.com/mTGbnEE3gi-bef0c0d3b52049fbf7008437355bbbc1.jpg',
+			size: 200,
+			type: 'image/jpg',
+			thumbUrl:
+				'https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=320188414,720873459&fm=26&gp=0.jpg',
+		},
 	],
 	onChange,
 	...reset
@@ -70,7 +92,12 @@ export const AnnexUpload = ({
 	};
 	const Item = SortableElement(({ file }: AnnexUploadItemProps) => (
 		<div className='io-annex-upload__list-item'>
-			<AnnexUploadItem file={file} />
+			<AnnexUploadItem
+				file={file}
+				onRemove={() => {
+					setFileList(fileList.filter(f => f.uid !== file.uid));
+				}}
+			/>
 		</div>
 	));
 
@@ -141,13 +168,13 @@ export const AnnexUpload = ({
 					setFileList([...info.fileList]);
 				}}
 			>
-				<Button
+				{fileList.length < limit && <Button
 					className='io-annex-upload__button'
 					type='primary'
 					icon={<i className='iconfont icon-upload' />}
 				>
 					上传附件
-				</Button>
+				</Button>}
 			</Upload>
 			<List
 				helperClass='io-sortable-helper'
