@@ -12,81 +12,92 @@ import './index.less';
 interface AnnexUploadProps extends UploadProps {
 	limit?: number;
 	onChange?: (files: any) => void;
+	onGetSecret?: (secretValues: any) => void;
+}
+interface secretValuesProps {
+	value?: string;
+	uid?: string;
 }
 
 export const AnnexUpload = ({
 	limit = 6,
 	action = '/module-infra/res/upload',
-	defaultFileList = [
-		{
-			uid: '-xxx',
-			// percent: 50,
-			name: '此处为音频名称此处为音频名称此处为音出手大方.jpg',
-			status: 'done',
-			url: 'https://pic.tolvyo.com/mTGbnEE3gi-bef0c0d3b52049fbf7008437355bbbc1.jpg',
-			size: 200,
-			type: 'image/jpg',
-			thumbUrl:
-				'https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=320188414,720873459&fm=26&gp=0.jpg',
-		},
-		{
-			uid: '001',
-			size: 100,
-			name: 'video.mp4',
-			url: 'https://storage.googleapis.com/media-session/elephants-dream/the-wires.mp3',
-			status: 'done',
-			// percent: 50,
-			type: 'video/mp4',
-		},
-		{
-			uid: '002',
-			size: 100,
-			name: 'audio.ogv',
-			url: 'https://filesamples.com/samples/video/ogv/sample_640x360.ogv',
-			status: 'done',
-			// percent: 100,
-			type: 'audio/ogv',
-		},
-		{
-			uid: '003',
-			size: 100,
-			name: 'video.mp4',
-			url: 'https://storage.googleapis.com/media-session/elephants-dream/the-wires.mp3',
-			status: 'error',
-			percent: 50,
-			type: '',
-		},
-		{
-			uid: '004',
-			percent: 50,
-			name: '此处为音频名称此处为音频名称此处为音出手大方.jpg',
-			status: 'uploading',
-			url: 'https://pic.tolvyo.com/mTGbnEE3gi-bef0c0d3b52049fbf7008437355bbbc1.jpg',
-			size: 200,
-			type: 'image/jpg',
-			thumbUrl:
-				'https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=320188414,720873459&fm=26&gp=0.jpg',
-		},
-		{
-			uid: '005',
-			percent: 99,
-			name: '此处为音频名称此处为音频名称此处为音出手大方.jpg',
-			status: 'success',
-			url: 'https://pic.tolvyo.com/mTGbnEE3gi-bef0c0d3b52049fbf7008437355bbbc1.jpg',
-			size: 200,
-			type: 'image/jpg',
-			thumbUrl:
-				'https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=320188414,720873459&fm=26&gp=0.jpg',
-		},
-	],
+	defaultFileList,
+	// defaultFileList = [
+	// 	{
+	// 		uid: '-xxx',
+	// 		// percent: 50,
+	// 		name: '此处为音频名称此处为音频名称此处为音出手大方.jpg',
+	// 		status: 'done',
+	// 		url: 'https://pic.tolvyo.com/mTGbnEE3gi-bef0c0d3b52049fbf7008437355bbbc1.jpg',
+	// 		size: 200,
+	// 		type: 'image/jpg',
+	// 		thumbUrl:
+	// 			'https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=320188414,720873459&fm=26&gp=0.jpg',
+	// 	},
+	// 	{
+	// 		uid: '001',
+	// 		size: 100,
+	// 		name: 'video.mp4',
+	// 		url: 'https://storage.googleapis.com/media-session/elephants-dream/the-wires.mp3',
+	// 		status: 'done',
+	// 		// percent: 50,
+	// 		type: 'video/mp4',
+	// 	},
+	// 	{
+	// 		uid: '002',
+	// 		size: 100,
+	// 		name: 'audio.ogv',
+	// 		url: 'https://filesamples.com/samples/video/ogv/sample_640x360.ogv',
+	// 		status: 'done',
+	// 		// percent: 100,
+	// 		type: 'audio/ogv',
+	// 	},
+	// 	{
+	// 		uid: '003',
+	// 		size: 100,
+	// 		name: 'video.mp4',
+	// 		url: 'https://storage.googleapis.com/media-session/elephants-dream/the-wires.mp3',
+	// 		status: 'error',
+	// 		percent: 50,
+	// 		type: '',
+	// 	},
+	// 	{
+	// 		uid: '004',
+	// 		percent: 50,
+	// 		name: '此处为音频名称此处为音频名称此处为音出手大方.jpg',
+	// 		status: 'uploading',
+	// 		url: 'https://pic.tolvyo.com/mTGbnEE3gi-bef0c0d3b52049fbf7008437355bbbc1.jpg',
+	// 		size: 200,
+	// 		type: 'image/jpg',
+	// 		thumbUrl:
+	// 			'https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=320188414,720873459&fm=26&gp=0.jpg',
+	// 	},
+	// 	{
+	// 		uid: '005',
+	// 		percent: 99,
+	// 		name: '此处为音频名称此处为音频名称此处为音出手大方.jpg',
+	// 		status: 'success',
+	// 		url: 'https://pic.tolvyo.com/mTGbnEE3gi-bef0c0d3b52049fbf7008437355bbbc1.jpg',
+	// 		size: 200,
+	// 		type: 'image/jpg',
+	// 		thumbUrl:
+	// 			'https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=320188414,720873459&fm=26&gp=0.jpg',
+	// 	},
+	// ],
 	onChange,
+	onGetSecret,
 	...reset
 }: AnnexUploadProps) => {
 	const [token] = useLocalStorage('io-token');
 	const [fileList, setFileList] = useState<UploadFile<any>[]>(defaultFileList ?? []);
+	const [secretValues, setSecretValues] = useState<secretValuesProps[]>([]);
 	useEffect(() => {
 		onChange && onChange(fileList);
 	}, [fileList]);
+	useEffect(() => {
+		onGetSecret && onGetSecret(secretValues);
+	}, [secretValues]);
 	const onSortEnd = ({ oldIndex, newIndex }: any) => {
 		setFileList(arrayMove(fileList, oldIndex, newIndex));
 	};
@@ -97,6 +108,10 @@ export const AnnexUpload = ({
 				onRemove={() => {
 					setFileList(fileList.filter(f => f.uid !== file.uid));
 				}}
+				onSelectSecret={(value, uid) => {
+					setSecretValues([...secretValues, { value: value, uid: uid }])
+				}}
+				secretValues={secretValues}
 			/>
 		</div>
 	));

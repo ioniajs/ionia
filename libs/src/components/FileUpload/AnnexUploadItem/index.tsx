@@ -9,6 +9,8 @@ import './index.less';
 export interface AnnexUploadItemProps {
 	file: UploadFile;
 	onRemove?: () => void;
+	onSelectSecret?: (value: any, uid: any) => void;
+	secretValues?: any;
 }
 
 const selectSecret = [
@@ -17,7 +19,7 @@ const selectSecret = [
 	{ key: '3', value: '绝密' },
 ];
 
-export const AnnexUploadItem = ({ file, onRemove }: AnnexUploadItemProps) => {
+export const AnnexUploadItem = ({ file, onRemove, onSelectSecret, secretValues }: AnnexUploadItemProps) => {
 	const [audioPlay, setAudioPlay] = useState<boolean>(false);
 	const previewModalRef = useRef<BizModalFormRef>();
 	const [videoPlay, setVideoPlay] = useState<boolean>(false);
@@ -41,10 +43,11 @@ export const AnnexUploadItem = ({ file, onRemove }: AnnexUploadItemProps) => {
 						className='io-upload-secret-select'
 						placeholder='选择密级'
 						onSelect={e => {
-							console.log(e, 'eeeee');
+							onSelectSecret && onSelectSecret(e, file.uid);
 						}}
 						size='small'
 						style={{ width: '90px' }}
+						defaultValue={secretValues.filter((s: any) => s.uid === file.uid)[0]?.value}
 					>
 						{(selectSecret || []).map(item => {
 							return (
@@ -72,10 +75,11 @@ export const AnnexUploadItem = ({ file, onRemove }: AnnexUploadItemProps) => {
 						className='io-upload-secret-select'
 						placeholder='选择密级'
 						onSelect={e => {
-							console.log(e, 'eeeee');
+							onSelectSecret && onSelectSecret(e, file.uid);
 						}}
 						size='small'
 						style={{ width: '90px' }}
+						defaultValue={secretValues.filter((s: any) => s.uid === file.uid)[0]?.value}
 					>
 						{(selectSecret || []).map(item => {
 							return (
@@ -91,8 +95,8 @@ export const AnnexUploadItem = ({ file, onRemove }: AnnexUploadItemProps) => {
 							onClick={() => setVideoPlay(true)}
 						/>
 					) : (
-						<i className='iconfont icon-timeout' onClick={() => setVideoPlay(false)} />
-					)}
+							<i className='iconfont icon-timeout' onClick={() => setVideoPlay(false)} />
+						)}
 					<i
 						className='iconfont icon-delete'
 						onClick={() => {
@@ -111,10 +115,11 @@ export const AnnexUploadItem = ({ file, onRemove }: AnnexUploadItemProps) => {
 						className='io-upload-secret-select'
 						placeholder='选择密级'
 						onSelect={e => {
-							console.log(e, 'eeeee');
+							onSelectSecret && onSelectSecret(e, file.uid);
 						}}
 						size='small'
 						style={{ width: '90px' }}
+						defaultValue={secretValues.filter((s: any) => s.uid === file.uid)[0]?.value}
 					>
 						{(selectSecret || []).map(item => {
 							return (
@@ -133,38 +138,39 @@ export const AnnexUploadItem = ({ file, onRemove }: AnnexUploadItemProps) => {
 					/>
 				</>
 			) : (
-				<>
-					<img
-						src={require('../../../static/images/player.gif')}
-						className='annex-upload-audio-play__gif--img'
-					/>
-					<span className='annex-upload-item-name__span'>audio.ogv</span>
-					<Select
-						className='io-upload-secret-select'
-						placeholder='选择密级'
-						onSelect={e => {
-							console.log(e, 'eeeee');
-						}}
-						size='small'
-						style={{ width: '90px' }}
-					>
-						{(selectSecret || []).map(item => {
-							return (
-								<Select.Option key={item.key} value={item.key}>
-									{item.value}
-								</Select.Option>
-							);
-						})}
-					</Select>
-					<i className='iconfont icon-timeout' onClick={() => setAudioPlay(false)} />
-					<i
-						className='iconfont icon-delete'
-						onClick={() => {
-							onRemove && onRemove();
-						}}
-					/>
-				</>
-			);
+					<>
+						<img
+							src={require('../../../static/images/player.gif')}
+							className='annex-upload-audio-play__gif--img'
+						/>
+						<span className='annex-upload-item-name__span'>audio.ogv</span>
+						<Select
+							className='io-upload-secret-select'
+							placeholder='选择密级'
+							onSelect={e => {
+								onSelectSecret && onSelectSecret(e, file.uid);
+							}}
+							size='small'
+							style={{ width: '90px' }}
+							defaultValue={secretValues.filter((s: any) => s.uid === file.uid)[0]?.value}
+						>
+							{(selectSecret || []).map(item => {
+								return (
+									<Select.Option key={item.key} value={item.key}>
+										{item.value}
+									</Select.Option>
+								);
+							})}
+						</Select>
+						<i className='iconfont icon-timeout' onClick={() => setAudioPlay(false)} />
+						<i
+							className='iconfont icon-delete'
+							onClick={() => {
+								onRemove && onRemove();
+							}}
+						/>
+					</>
+				);
 		}
 	}
 	if (file.status === 'error') {
@@ -218,13 +224,10 @@ export const AnnexUploadItem = ({ file, onRemove }: AnnexUploadItemProps) => {
 
 	const child = (
 		<div
-			className={`io-annex-upload__item ${
-				file.status === 'done' ? 'io-annex-upload__item--done' : ''
-			} ${isError ? 'io-annex-upload__item--error' : ''} ${
-				file.status === 'success' ? 'io-annex-upload__item--success' : ''
-			} ${file.status === 'uploading' ? 'io-annex-upload__item--uploading' : ''} ${
-				audioPlay || videoPlay ? 'io-audio-upload__item_play--done' : ''
-			} `}
+			className={`io-annex-upload__item ${file.status === 'done' ? 'io-annex-upload__item--done' : ''
+				} ${isError ? 'io-annex-upload__item--error' : ''} ${file.status === 'success' ? 'io-annex-upload__item--success' : ''
+				} ${file.status === 'uploading' ? 'io-annex-upload__item--uploading' : ''} ${audioPlay || videoPlay ? 'io-audio-upload__item_play--done' : ''
+				} `}
 		>
 			{item}
 			{/* 图片预览 */}
