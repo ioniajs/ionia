@@ -1,11 +1,10 @@
 import React, { useRef, useState } from 'react';
-import { BizTable, positionalListPaging, deletePositionResource } from '@ionia/libs';
+import { BizTable, positionalListPaging, deletePositionResource, ImagePreview } from '@ionia/libs';
 import { IdsDTO } from '@ionia/libs/src/services/common.dto';
 import { Button, Modal, message } from 'antd';
 import { ActionType } from '@ant-design/pro-table';
 import './index.less';
 import CreateForm from './Create';
-
 interface BaseResourceProps {
 	id: string;
 }
@@ -31,9 +30,15 @@ export const BaseResource = ({ id }: BaseResourceProps) => {
 		},
 		{
 			title: '图片',
-			key: 'url',
-			dataIndex: 'url',
+			key: 'Image',
+			dataIndex: 'Image',
 			width: 660,
+			hideInSearch: true,
+			render: (val: string) => {
+				console.log(val, '------------');
+
+				return <ImagePreview width={72} height={72} src={val as string} />;
+			},
 		},
 		{
 			title: '操作',
