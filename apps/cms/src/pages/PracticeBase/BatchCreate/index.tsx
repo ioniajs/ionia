@@ -368,7 +368,7 @@ export default () => {
 							]);
 						}}
 					>
-						<i className='iconfont icon-plus1' style={{ fontSize: '16px' }} />
+						<i className='iconfont icon-plus1' style={{ fontSize: '14px' }} />
 						添加
 					</Button>
 				)}

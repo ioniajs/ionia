@@ -1,8 +1,10 @@
 import { logger, roleAcquireData, AdminChildDataVO, roleCreateModJurisdiction } from '@ionia/libs';
-import { Affix, Button, Checkbox, Table } from 'antd';
+import { Affix, Button, Checkbox, Table, Modal, message } from 'antd';
 import React, { useState } from 'react';
 import { useRequest } from 'ahooks';
+import { ExclamationCircleOutlined } from '@ant-design/icons';
 
+const { confirm } = Modal;
 export default ({ roleId }: any) => {
 	useRequest(() => roleAcquireData(roleId), {
 		onSuccess: data => {
@@ -12,7 +14,25 @@ export default ({ roleId }: any) => {
 	});
 	const { run } = useRequest(() => roleCreateModJurisdiction({ sites: tree, roleId: roleId }));
 	const submitData = () => {
-		run().then(res => {});
+		confirm({
+			title: '提示',
+			icon: <ExclamationCircleOutlined />,
+			content: '保存后可能会影响当前登录用户的权限，是否确认保存？',
+			onOk() {
+				return new Promise((resolve, reject) => {
+					run().then(res => {
+						const { code } = res;
+						if (code == 200) {
+							message.success(res.message);
+							resolve();
+						}
+					});
+				}).catch(() => console.log('Oops errors!'));
+			},
+			onCancel() {
+				console.log('Cancel');
+			},
+		});
 	};
 	const [tree, setTree] = useState<AdminChildDataVO[]>([]);
 	/**
@@ -45,7 +65,6 @@ export default ({ roleId }: any) => {
 				key0.selected = 1;
 			}
 		}
-		logger.debug('tree', tree);
 		setTree([...tree]);
 	};
 
@@ -157,26 +176,25 @@ export default ({ roleId }: any) => {
 	};
 
 	const rowCheckAll = (list: any) => {
+		let flag: boolean = true;
 		if (list.children) {
-			let ids: any[] = [];
-			let flag;
 			const loop = (data: any) => {
 				for (const key in data.datas) {
-					if (list.datas[key].optional == 1) {
-						ids.push(list.datas[key]);
+					if (data.datas[key].optional == 1) {
+						if (data.datas[key].selected == 0) {
+							flag = false;
+						}
 					}
 				}
 				if (data.children) {
-					data.children.forEach((item: any) => {
+					data.children.map((item: any) => {
 						loop(item);
+						return item;
 					});
 				}
 			};
+
 			loop(list);
-			let arr = ids.filter(t => t.selected == 0);
-			logger.debug('arr', arr);
-			flag = ids.findIndex(t => t.selected == 0) == -1;
-			logger.debug('ids', ids);
 			return flag;
 		} else {
 			let isSelect: boolean = true;
@@ -198,8 +216,8 @@ export default ({ roleId }: any) => {
 			let flag2;
 			const loop = (data: any) => {
 				for (const key in data.datas) {
-					if (list.datas[key].optional == 1) {
-						ids.push(list.datas[key].selected);
+					if (data.datas[key].optional == 1) {
+						ids.push(data.datas[key].selected);
 					}
 				}
 				if (data.children) {
@@ -289,8 +307,8 @@ export default ({ roleId }: any) => {
 				if (row.children && row.children.length) {
 					return (
 						<i
-							className={`iconfont icon-apartment ${row.flag ? 'active' : ''}`}
-							title='选中下级'
+							className='iconfont icon-apartment'
+							title='选中下级/取消下级'
 							style={{ cursor: 'pointer' }}
 							onClick={() => {
 								console.log('row', row.flag);
@@ -530,13 +548,16 @@ export default ({ roleId }: any) => {
 					保存
 				</Button>
 			</Affix>
-			<Table
-				columns={columns}
-				rowSelection={{ ...rowSelection, checkStrictly: false }}
-				dataSource={tree}
-				pagination={false}
-				rowKey={record => record.siteId}
-			/>
+			{tree.length && (
+				<Table
+					columns={columns}
+					rowSelection={{ ...rowSelection, checkStrictly: false }}
+					dataSource={tree}
+					pagination={false}
+					rowKey={record => record.siteId}
+					defaultExpandAllRows={true}
+				/>
+			)}
 		</div>
 	);
 };

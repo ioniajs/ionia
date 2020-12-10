@@ -67,53 +67,59 @@ export default ({ id }: any) => {
 					保存
 				</Button>
 			</div>
-			<Form name='basic' {...layout} form={form} className='io-cms-role-base_form'>
-				<Form.Item
-					label='角色名称'
-					name='name'
-					rules={[{ required: true, message: '请填写角色名称' }]}
-				>
-					<Input />
-				</Form.Item>
-				<Form.Item name='orgId' label='所属阵地' rules={[{ required: true }]}>
-					<TreeSelect
-						style={{ width: '100%' }}
-						// value={value}
-						dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
-						treeData={treeData}
-						placeholder='请选择所属的阵地'
-						treeDefaultExpandAll
-						onChange={onChange}
-					/>
-				</Form.Item>
-				<Form.Item name='description' label='角色描述' style={{ marginBottom: '14px' }}>
-					<TextArea rows={4} placeholder='请输入角色描述' maxLength={500} showCount />
-				</Form.Item>
-				<Form.Item label='创建人' name='createUser' className='io-cms-role-base-form_item'>
-					<span>{firstRequest.data?.data.createUser}</span>
-				</Form.Item>
-				<Form.Item
-					label='创建时间'
-					name='createTime'
-					className='io-cms-role-base-form_item'
-				>
-					<span>{firstRequest.data?.data.createTime}</span>
-				</Form.Item>
-				<Form.Item
-					label='最后更新人'
-					name='updateUser'
-					className='io-cms-role-base-form_item'
-				>
-					<span>{firstRequest.data?.data.updateUser}</span>
-				</Form.Item>
-				<Form.Item
-					label='最后更新时间'
-					name='updateTime'
-					className='io-cms-role-base-form_item'
-				>
-					<span>{firstRequest.data?.data.updateTime}</span>
-				</Form.Item>
-			</Form>
+			{formData && (
+				<Form name='basic' {...layout} form={form} className='io-cms-role-base_form'>
+					<Form.Item
+						label='角色名称'
+						name='name'
+						rules={[{ required: true, message: '请填写角色名称' }]}
+					>
+						<Input />
+					</Form.Item>
+					<Form.Item name='orgId' label='所属阵地' rules={[{ required: true }]}>
+						<TreeSelect
+							style={{ width: '100%' }}
+							// value={value}
+							dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
+							treeData={treeData}
+							placeholder='请选择所属的阵地'
+							treeDefaultExpandAll
+							onChange={onChange}
+						/>
+					</Form.Item>
+					<Form.Item name='description' label='角色描述' style={{ marginBottom: '14px' }}>
+						<TextArea rows={4} placeholder='请输入角色描述' maxLength={500} showCount />
+					</Form.Item>
+					<Form.Item
+						label='创建人'
+						name='createUser'
+						className='io-cms-role-base-form_item'
+					>
+						<span>{formData.createUser}</span>
+					</Form.Item>
+					<Form.Item
+						label='创建时间'
+						name='createTime'
+						className='io-cms-role-base-form_item'
+					>
+						<span>{formData.createTime}</span>
+					</Form.Item>
+					<Form.Item
+						label='最后更新人'
+						name='updateUser'
+						className='io-cms-role-base-form_item'
+					>
+						<span>{formData.updateUser}</span>
+					</Form.Item>
+					<Form.Item
+						label='最后更新时间'
+						name='updateTime'
+						className='io-cms-role-base-form_item'
+					>
+						<span>{formData.updateTime}</span>
+					</Form.Item>
+				</Form>
+			)}
 		</>
 	);
 };

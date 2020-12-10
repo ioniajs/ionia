@@ -10,8 +10,11 @@ import {
 	OrgDTO,
 	RichTextEditor,
 	SaveButton,
+	positionPullList,
+	OrgSmallVO,
 } from '@ionia/libs';
 import { Button, Form, Input, message, TreeSelect } from 'antd';
+import { useRequest, useMount } from '@umijs/hooks';
 import React, { useRef, useState } from 'react';
 import './index.less';
 
@@ -39,7 +42,31 @@ export default () => {
 	const ref = useRef<BizModalFormRef>();
 	const [editorState, setEditorState] = useState(); // 获取富文本编辑内容
 	const [codeAdress, setCodeAddress] = useState<string>();
-
+	const [siteTreeData, setSiteTreeData] = useState<OrgSmallVO[]>();
+	const { run: runGainSiteTree } = useRequest(positionPullList, {
+		manual: true,
+		onSuccess: result => {
+			const loop = function (data: any) {
+				return data.map((r: any) => {
+					if (r.children) {
+						r.children = loop(r.children);
+					}
+					return {
+						value: r.id,
+						title: r.name,
+						key: r.id,
+						children: r.children,
+						...r,
+					};
+				});
+			};
+			const tempSiteTree = loop(result.data);
+			setSiteTreeData(tempSiteTree);
+		},
+	});
+	useMount(() => {
+		runGainSiteTree({});
+	});
 	const baseTypeTree: any = [
 		{
 			title: '实践中心',
@@ -92,6 +119,7 @@ export default () => {
 											area: values.area,
 											parentId: values.parentId,
 											type: values.type,
+											introduce: values.introduce,
 										};
 										const success = await newPractice(param);
 										if (success.code === 200) {
@@ -114,7 +142,7 @@ export default () => {
 					>
 						<TreeSelect
 							placeholder='请选择上级阵地'
-							treeData={treeData}
+							treeData={siteTreeData}
 							showSearch={true}
 							style={{ width: 664, height: 32 }}
 						/>

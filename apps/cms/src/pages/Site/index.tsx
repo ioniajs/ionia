@@ -136,7 +136,7 @@ export default () => {
 				<>
 					<a
 						onClick={() => {
-							history.push('/site/publish-statics');
+							history.push('/system-management/site/publish-statics');
 						}}
 					>
 						发布静态页
@@ -211,7 +211,7 @@ export default () => {
 							<Button
 								type='primary'
 								onClick={() => {
-									history.push('/site/create');
+									history.push('/system-management/site/create');
 								}}
 							>
 								<i
@@ -225,7 +225,7 @@ export default () => {
 							<Button
 								type='default'
 								onClick={() => {
-									history.push('/site/batch-create');
+									history.push('/system-management/site/batch-create');
 								}}
 							>
 								批量新建

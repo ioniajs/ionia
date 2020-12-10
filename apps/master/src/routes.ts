@@ -29,7 +29,7 @@ export default {
 		{
 			path: '/cms/content-operation',
 			name: '内容运营',
-			icon: 'icon-Column',
+			icon: 'icon-content',
 			children: [
 				{
 					path: '/cms/content-operation/blogroll',
@@ -107,7 +107,7 @@ export default {
 		{
 			path: 'cms/examination-management',
 			icon: 'icon-Column',
-			name: '考试管理',
+			name: '考评管理',
 			children: [
 				{
 					path: '/cms/examination-management/test-base-management',

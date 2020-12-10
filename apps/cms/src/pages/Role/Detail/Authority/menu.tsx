@@ -4,6 +4,7 @@ import { Affix, Button, Checkbox, Col, Collapse, Row, Tooltip } from 'antd';
 import { check } from 'prettier';
 import React, { useState } from 'react';
 import './index.less';
+import { CheckCircleOutlined } from '@ant-design/icons';
 
 const { Panel } = Collapse;
 
@@ -24,10 +25,10 @@ export default ({ roleId }: any) => {
 
 	//二级判断子级是否全部选中 ==>半选
 	const isChildrenAll = (data: any) => {
-		if (data.length > 0) {
+		if (data.children && data.children.length > 0) {
 			let flag1;
 			let flag2;
-			let list = data.filter((t: any) => t.operatingFlag == 1);
+			let list = data.children.filter((t: any) => t.operatingFlag == 1);
 			list.map((o: any) => {
 				if (!has(o.key)) {
 					flag1 = true;
@@ -35,11 +36,7 @@ export default ({ roleId }: any) => {
 					flag2 = true;
 				}
 			});
-			if (flag2 && flag1) {
-				return true;
-			} else {
-				return false;
-			}
+			return !!(flag2 && flag1);
 		} else {
 			return false;
 		}
@@ -47,24 +44,26 @@ export default ({ roleId }: any) => {
 
 	//判断选中子级
 	const childrenAll = (data: any) => {
-		if (data.length > 0) {
-			let flag1;
-			let flag2;
-			let list = data.filter((t: any) => t.operatingFlag == 1);
-			list.map((o: any) => {
-				if (!has(o.key)) {
-					flag1 = true;
-				} else {
-					flag2 = true;
+		if (data.children && data.children.length > 0) {
+			let flag: boolean = true;
+			const loop = (data: any) => {
+				let list = data.children.filter((t: any) => t.operatingFlag == 1);
+				list.map((o: any) => {
+					if (!has(o.key)) {
+						flag = false;
+					}
+				});
+				if (list.children && list.children.length) {
+					list.children.map((item: any) => {
+						loop(item);
+					});
 				}
-			});
-			if (flag2 && flag1 == false) {
-				return true;
-			} else {
-				return false;
-			}
+			};
+
+			loop(data);
+			return flag;
 		} else {
-			return false;
+			return has(data.key);
 		}
 	};
 
@@ -85,6 +84,17 @@ export default ({ roleId }: any) => {
 	};
 
 	const check = (key: string) => {};
+
+	const selectChildren = (list: any) => {
+		if (list.children && list.children.length > 0) {
+		} else {
+			if (has(list.key)) {
+				remove(list.key);
+			} else {
+				add(list.key);
+			}
+		}
+	};
 
 	return (
 		<>
@@ -129,11 +139,11 @@ export default ({ roleId }: any) => {
 									<Checkbox
 										key={item.key}
 										onChange={e => {
-											check(item.key);
+											selectChildren(item);
 										}}
 										disabled={item.operatingFlag == 0}
-										checked={has(item.key)}
-										// indeterminate={!has(item.key)}
+										// indeterminate={isChildrenAll(item)}
+										checked={childrenAll(item)}
 									>
 										{item.name}
 									</Checkbox>
@@ -141,60 +151,89 @@ export default ({ roleId }: any) => {
 							}
 							showArrow={item.children?.length > 0}
 							key={item.key}
-							collapsible='header'
 						>
 							<Row gutter={[24, 24]}>
-								{item.children?.map((i: any) => {
-									return (
-										<Col
-											span={8}
-											className='io_cms_role_authority-menu_collapse-panel'
-											key={i.key}
-										>
-											<div className='io_cms_role_authority-menu_collapse-panel_name'>
-												<Checkbox
-													// checked={has(i.key)}
-
-													onChange={e => {}}
-													disabled={i.operatingFlag == 0}
-													indeterminate={isChildrenAll(i.children)}
-													checked={childrenAll(i.children)}
-												>
-													{i.name}
-												</Checkbox>
-											</div>
-											<Row className='io-cms-role-authority-menu_content'>
-												{i.children?.map((o: any) => {
-													return (
-														<Col
-															span={8}
-															className='io-cms-role-authority-menu_item'
-														>
-															<Checkbox
-																checked={has(o.key)}
-																onChange={e => {
-																	if (has(o.key)) {
-																		remove(o.key);
-																	} else {
-																		add(o.key);
-																	}
-																}}
-																key={o.key}
-																disabled={o.operatingFlag == 0}
+								{item.onlyTwo == 0 &&
+									item.children?.map((i: any) => {
+										return (
+											<Col
+												span={8}
+												className='io_cms_role_authority-menu_collapse-panel'
+												key={i.key}
+											>
+												<div className='io_cms_role_authority-menu_collapse-panel_name'>
+													<Checkbox
+														onChange={e => {
+															selectChildren(i);
+														}}
+														disabled={i.operatingFlag == 0}
+														indeterminate={isChildrenAll(i)}
+														checked={childrenAll(i)}
+													>
+														{i.name}
+													</Checkbox>
+												</div>
+												<Row className='io-cms-role-authority-menu_content'>
+													{i.children?.map((o: any) => {
+														return (
+															<Col
+																span={8}
+																className='io-cms-role-authority-menu_item'
 															>
-																<Tooltip title={o.name}>
-																	<span className='io-cms-role-authority-menu_text'>
-																		{o.name}
-																	</span>
-																</Tooltip>
-															</Checkbox>
-														</Col>
-													);
-												})}
-											</Row>
-										</Col>
-									);
-								})}
+																<Checkbox
+																	checked={has(o.key)}
+																	//点击的时候 判断是否有父级 有父级将父级加进去 没有则不加 移除的时候判断其他是否移除 有移除就将父级移除
+																	onChange={e => {
+																		if (has(o.key)) {
+																			remove(o.key);
+																		} else {
+																			add(o.key);
+																		}
+																	}}
+																	key={o.key}
+																	disabled={o.operatingFlag == 0}
+																>
+																	<Tooltip title={o.name}>
+																		<span className='io-cms-role-authority-menu_text'>
+																			{o.name}
+																		</span>
+																	</Tooltip>
+																</Checkbox>
+															</Col>
+														);
+													})}
+												</Row>
+											</Col>
+										);
+									})}
+								{item.onlyTwo == 1 &&
+									item.children?.map((t: any) => {
+										return (
+											<Col
+												span={3}
+												className='io-cms-role-authority-menu_item'
+											>
+												<Checkbox
+													checked={has(t.key)}
+													onChange={e => {
+														if (has(t.key)) {
+															remove(t.key);
+														} else {
+															add(t.key);
+														}
+													}}
+													key={t.key}
+													disabled={t.operatingFlag == 0}
+												>
+													<Tooltip title={t.name}>
+														<span className='io-cms-role-authority-menu_text'>
+															{t.name}
+														</span>
+													</Tooltip>
+												</Checkbox>
+											</Col>
+										);
+									})}
 							</Row>
 						</Panel>
 					);

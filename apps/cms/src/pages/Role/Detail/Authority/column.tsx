@@ -193,23 +193,25 @@ export default ({ roleId }: any) => {
 	};
 
 	const rowCheckAll = (list: any) => {
-		if (list.children && list.children.length) {
-			let ids: number[] = [];
-			let flag;
+		let flag: boolean = true;
+		if (list.children) {
 			const loop = (data: any) => {
 				for (const key in data.datas) {
-					if (list.datas[key].optional == 1) {
-						ids.push(list.datas[key].selected);
+					if (data.datas[key].optional == 1) {
+						if (data.datas[key].selected == 0) {
+							flag = false;
+						}
 					}
 				}
 				if (data.children) {
-					data.children.forEach((item: any) => {
+					data.children.map((item: any) => {
 						loop(item);
+						return item;
 					});
 				}
 			};
+
 			loop(list);
-			flag = ids.findIndex(t => t == 0) == -1;
 			return flag;
 		} else {
 			let isSelect: boolean = true;
@@ -231,8 +233,8 @@ export default ({ roleId }: any) => {
 			let flag2;
 			const loop = (data: any) => {
 				for (const key in data.datas) {
-					if (list.datas[key].optional == 1) {
-						ids.push(list.datas[key].selected);
+					if (data.datas[key].optional == 1) {
+						ids.push(data.datas[key].selected);
 					}
 				}
 				if (data.children) {
@@ -268,19 +270,19 @@ export default ({ roleId }: any) => {
 					checked ? (row.datas[treeKey].selected = 1) : (row.datas[treeKey].selected = 0);
 				}
 			}
-			if (row.children && row.children.length) {
+			if (row.children) {
 				row.children.forEach((item: any) => {
 					loop(item);
 				});
 			}
 		};
 		loop(list);
-		setTree([...treeData]);
+		setTree([...tree]);
 	};
+
 	// rowSelection objects indicates the need for row selection
 	const rowSelection = {
-		renderCell: (checked: any, record: any, index: any) => {
-			console.log(checked, record, index);
+		renderCell: (checked: any, record: any) => {
 			return (
 				<Checkbox
 					checked={rowCheckAll(record)}
@@ -311,7 +313,7 @@ export default ({ roleId }: any) => {
 				});
 			};
 			loop(tree);
-			setTree([...treeData]);
+			setTree([...tree]);
 		},
 	};
 
@@ -323,8 +325,8 @@ export default ({ roleId }: any) => {
 				if (row.children && row.children.length) {
 					return (
 						<i
-							className={`iconfont icon-apartment ${row.flag ? 'active' : ''}`}
-							title='选中下级'
+							className='iconfont icon-apartment'
+							title='选中下级/取消下级'
 							style={{ cursor: 'pointer' }}
 							onClick={() => {
 								console.log('row', row.flag);
