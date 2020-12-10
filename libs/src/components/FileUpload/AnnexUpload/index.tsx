@@ -168,13 +168,15 @@ export const AnnexUpload = ({
 					setFileList([...info.fileList]);
 				}}
 			>
-				{fileList.length < limit && <Button
-					className='io-annex-upload__button'
-					type='primary'
-					icon={<i className='iconfont icon-upload' />}
-				>
-					上传附件
-				</Button>}
+				{fileList.length < limit && (
+					<Button
+						className='io-annex-upload__button'
+						type='primary'
+						icon={<i className='iconfont icon-upload' />}
+					>
+						上传附件
+					</Button>
+				)}
 			</Upload>
 			<List
 				helperClass='io-sortable-helper'
