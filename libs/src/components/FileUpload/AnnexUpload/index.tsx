@@ -109,7 +109,7 @@ export const AnnexUpload = ({
 					setFileList(fileList.filter(f => f.uid !== file.uid));
 				}}
 				onSelectSecret={(value, uid) => {
-					setSecretValues([...secretValues, { value: value, uid: uid }])
+					setSecretValues([...secretValues, { value: value, uid: uid }]);
 				}}
 				secretValues={secretValues}
 			/>
