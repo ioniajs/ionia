@@ -110,21 +110,18 @@ export default [
 							{
 								children: [
 									{
-										children: [],
 										key: '1331776990746841011',
 										name: '四级1',
 										operatingFlag: 0,
 										permissionFlag: 0,
 									},
 									{
-										children: [],
 										key: '1331776990746841012',
 										name: '四级2',
 										operatingFlag: 1,
 										permissionFlag: 1,
 									},
 									{
-										children: [],
 										key: '1331776990746841013',
 										name: '四级3',
 										operatingFlag: 1,
@@ -139,42 +136,36 @@ export default [
 							{
 								children: [
 									{
-										children: [],
 										key: '1331776990746841021',
 										name: '四级1',
 										operatingFlag: 0,
 										permissionFlag: 0,
 									},
 									{
-										children: [],
 										key: '1331776990746841022',
 										name: '四级2',
 										operatingFlag: 1,
 										permissionFlag: 1,
 									},
 									{
-										children: [],
 										key: '1331776990746841023',
 										name: '新增模版-test1',
 										operatingFlag: 1,
 										permissionFlag: 1,
 									},
 									{
-										children: [],
 										key: '1331776990746841024',
 										name: '四级4',
 										operatingFlag: 1,
 										permissionFlag: 0,
 									},
 									{
-										children: [],
 										key: '1331776990746841025',
 										name: '四级5-测试1',
 										operatingFlag: 1,
 										permissionFlag: 0,
 									},
 									{
-										children: [],
 										key: '1331776990746841026',
 										name: '新增模版-test1',
 										operatingFlag: 1,
@@ -189,35 +180,30 @@ export default [
 							{
 								children: [
 									{
-										children: [],
 										key: '1331776990746841031',
 										name: '四级1-测试1',
 										operatingFlag: 1,
 										permissionFlag: 0,
 									},
 									{
-										children: [],
 										key: '1331776990746841032',
 										name: '四级2',
 										operatingFlag: 1,
 										permissionFlag: 0,
 									},
 									{
-										children: [],
 										key: '1331776990746841033',
 										name: '新增模版-test1',
 										operatingFlag: 1,
 										permissionFlag: 1,
 									},
 									{
-										children: [],
 										key: '1331776990746841034',
 										name: '四级4',
 										operatingFlag: 1,
 										permissionFlag: 0,
 									},
 									{
-										children: [],
 										key: '1331776990746841035',
 										name: '四级5-测试1',
 										operatingFlag: 1,
@@ -230,7 +216,6 @@ export default [
 								permissionFlag: 0,
 							},
 							{
-								children: [],
 								key: '1331773069462675001',
 								name: '二级5-三级1',
 								operatingFlag: 1,
@@ -241,13 +226,47 @@ export default [
 						name: '顶级',
 						operatingFlag: 1,
 						permissionFlag: 0,
+						onlyTwo: 0,
 					},
 					{
-						children: [],
+						children: [
+							{
+								key: '133177306175001',
+								name: '二级1',
+								operatingFlag: 1,
+								permissionFlag: 0,
+							},
+							{
+								key: '133177306946267121',
+								name: '二级2',
+								operatingFlag: 1,
+								permissionFlag: 0,
+							},
+							{
+								key: '1331121262675001',
+								name: '二级3',
+								operatingFlag: 0,
+								permissionFlag: 0,
+							},
+							{
+								key: '13311212621211',
+								name: '二级4',
+								operatingFlag: 1,
+								permissionFlag: 1,
+							},
+						],
+						key: '121312222',
+						name: '测试2',
+						operatingFlag: 1,
+						permissionFlag: 0,
+						onlyTwo: 1,
+					},
+					{
 						key: 0,
 						name: '增量菜单',
 						operatingFlag: 1,
 						permissionFlag: 0,
+						onlyTwo: 1,
 					},
 				],
 				message: '成功',
