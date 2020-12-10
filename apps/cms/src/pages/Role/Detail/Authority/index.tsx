@@ -27,7 +27,7 @@ export default ({ id }: { id: string }) => {
 				<Site roleId={roleId} />
 			</TabPane>
 			<TabPane tab='栏目权限' key='4'>
-				<Column roleId={roleId} />
+				<Column id={id} />
 			</TabPane>
 			<TabPane tab='内容权限' key='5'>
 				<Content roleId={roleId} />

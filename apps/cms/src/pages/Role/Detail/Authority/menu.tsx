@@ -83,7 +83,31 @@ export default ({ roleId }: any) => {
 		return ids;
 	};
 
-	const check = (key: string) => {};
+	const selectSelf = (self: any, parent: any, ancestor: any) => {
+		logger.debug('self', self);
+		logger.debug('parent', parent);
+		logger.debug('ancestor', ancestor);
+		if (has(self)) {
+			remove(self);
+		} else {
+			add(self);
+		}
+		const flag = decideParent(parent.children);
+		console.log('flag', flag, checkedKeys);
+	};
+
+	const decideParent = (list: any) => {
+		let flag = true;
+		const loop = (data: any) => {
+			data.map((t: any) => {
+				if (!has(t.key)) {
+					flag = false;
+				}
+			});
+		};
+		loop(list);
+		return flag;
+	};
 
 	const selectChildren = (list: any) => {
 		if (list.children && list.children.length > 0) {
@@ -129,6 +153,7 @@ export default ({ roleId }: any) => {
 			<Collapse className='io_cms_role_authority-menu_collapse'>
 				{data?.data?.map((item: any) => {
 					return (
+						// @ts-ignore
 						<Panel
 							header={
 								<div
@@ -184,11 +209,12 @@ export default ({ roleId }: any) => {
 																	checked={has(o.key)}
 																	//点击的时候 判断是否有父级 有父级将父级加进去 没有则不加 移除的时候判断其他是否移除 有移除就将父级移除
 																	onChange={e => {
-																		if (has(o.key)) {
-																			remove(o.key);
-																		} else {
-																			add(o.key);
-																		}
+																		selectSelf(o.key, i, item);
+																		// if (has(o.key)) {
+																		// 	remove(o.key);
+																		// } else {
+																		// 	add(o.key);
+																		// }
 																	}}
 																	key={o.key}
 																	disabled={o.operatingFlag == 0}
