@@ -1,6 +1,6 @@
 import { DownOutlined } from '@ant-design/icons';
-import { logger, roleDetailTree } from '@ionia/libs';
-import { Affix, Button, Checkbox, Modal, Tree } from 'antd';
+import { logger, roleDetailTree, roleAddModJurisdiction } from '@ionia/libs';
+import { Affix, Button, Checkbox, message, Modal, Tree } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { ExclamationCircleOutlined } from '@ant-design/icons';
 import { useRequest } from 'ahooks';
@@ -13,6 +13,9 @@ export default ({ id }: { id: string }) => {
 			const treeData = filterData(data.data.vos);
 			setData(treeData);
 		},
+	});
+	const { run } = useRequest(() => roleAddModJurisdiction({ roleId: id, siteIds: checkedKeys }), {
+		manual: true,
 	});
 	const [data, setData] = useState([]);
 	const [expandedKeys, setExpandedKeys] = useState<string[]>([]);
@@ -128,10 +131,19 @@ export default ({ id }: { id: string }) => {
 	 */
 	const showConfirm = () => {
 		confirm({
-			title: '保存后可能会影响当前登录用户的权限，是否确认保存？',
+			title: '提示',
 			icon: <ExclamationCircleOutlined />,
+			content: '保存后可能会影响当前登录用户的权限，是否确认保存？',
 			onOk() {
-				console.log('checkedKeys', checkedKeys);
+				return new Promise((resolve, reject) => {
+					run().then(res => {
+						const { code } = res;
+						if (code == 200) {
+							message.success(res.message);
+							resolve();
+						}
+					});
+				}).catch(() => console.log('Oops errors!'));
 			},
 			onCancel() {
 				console.log('Cancel');

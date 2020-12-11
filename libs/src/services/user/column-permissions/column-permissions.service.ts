@@ -1,7 +1,7 @@
 import request from '../../../utils/request';
 import { JcResult } from '../../base';
-import { DataChannelVO, RoleChannelVO, RoleDataVO } from './column-permissions.vo';
-import { DataOrgChannelDTO, DataChannelDTO } from './column-permissions.dto';
+import { DataChannelVO, RoleChannelVO } from './column-permissions.vo';
+import { DataChannelDTO } from './column-permissions.dto';
 
 /**
  * 根据组织id获取栏目权限数据
@@ -12,7 +12,7 @@ interface OrganizationGainCloumn {
 }
 export async function organizationGainCloumn(
 	params: OrganizationGainCloumn
-): Promise<JcResult<RoleDataVO>> {
+): Promise<JcResult<RoleChannelVO[]>> {
 	return request.get('/module-user/cmsmanager/auth/channel/org', {
 		params,
 	});
@@ -21,7 +21,7 @@ export async function organizationGainCloumn(
 /**
  * 新增修改栏目权限数据---组织
  */
-export async function addColumnOrganization(data: DataOrgChannelDTO): Promise<JcResult<boolean>> {
+export async function addColumnOrganization(data: DataChannelDTO): Promise<JcResult<boolean>> {
 	return request.post('/module-user/cmsmanager/auth/channel/org', {
 		data,
 	});
@@ -32,7 +32,7 @@ export async function addColumnOrganization(data: DataOrgChannelDTO): Promise<Jc
  */
 export async function roleGainCloumn(
 	params: OrganizationGainCloumn
-): Promise<JcResult<RoleDataVO>> {
+): Promise<JcResult<RoleChannelVO[]>> {
 	return request.get('/module-user/cmsmanager/auth/channel/role', {
 		params,
 	});
@@ -52,7 +52,7 @@ export async function addColumnRole(data: DataChannelDTO): Promise<JcResult<bool
  */
 export async function userGainCloumn(
 	params: OrganizationGainCloumn
-): Promise<JcResult<RoleDataVO>> {
+): Promise<JcResult<RoleChannelVO[]>> {
 	return request.get('/module-user/cmsmanager/auth/channel/user');
 }
 

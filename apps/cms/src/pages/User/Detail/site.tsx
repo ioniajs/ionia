@@ -1,18 +1,38 @@
 import { logger, userAcquireData, AdminChildDataVO, userCreateModJurisdiction } from '@ionia/libs';
-import { Affix, Button, Checkbox, Table } from 'antd';
+import { Affix, Button, Checkbox, Table, Modal, message } from 'antd';
 import React, { useState } from 'react';
 import { useRequest } from 'ahooks';
+import { ExclamationCircleOutlined } from '@ant-design/icons';
 
-export default ({ id }: any) => {
-	useRequest(() => userAcquireData(id), {
+const { confirm } = Modal;
+export default ({ userId }: { userId: string }) => {
+	useRequest(() => userAcquireData(userId), {
 		onSuccess: data => {
 			const treeData = data.data.sites;
 			setTree(treeData);
 		},
 	});
-	const { run } = useRequest(() => userCreateModJurisdiction({ sites: tree, userId: id }));
+	const { run } = useRequest(() => userCreateModJurisdiction({ sites: tree, userId: userId }));
 	const submitData = () => {
-		run().then(res => {});
+		confirm({
+			title: '提示',
+			icon: <ExclamationCircleOutlined />,
+			content: '保存后可能会影响当前登录用户的权限，是否确认保存？',
+			onOk() {
+				return new Promise((resolve, reject) => {
+					run().then(res => {
+						const { code } = res;
+						if (code == 200) {
+							message.success(res.message);
+							resolve();
+						}
+					});
+				}).catch(() => console.log('Oops errors!'));
+			},
+			onCancel() {
+				console.log('Cancel');
+			},
+		});
 	};
 	const [tree, setTree] = useState<AdminChildDataVO[]>([]);
 	/**
