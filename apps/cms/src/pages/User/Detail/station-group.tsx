@@ -1,8 +1,9 @@
-import { DownOutlined, ExclamationCircleOutlined } from '@ant-design/icons';
+import { DownOutlined } from '@ant-design/icons';
 import { logger, userDetailTree, userAddModJurisdiction } from '@ionia/libs';
-import { useRequest } from 'ahooks';
-import { Affix, Button, Checkbox, Modal, Tree } from 'antd';
+import { Affix, Button, Checkbox, message, Modal, Tree } from 'antd';
 import React, { useEffect, useState } from 'react';
+import { ExclamationCircleOutlined } from '@ant-design/icons';
+import { useRequest } from 'ahooks';
 
 const { confirm } = Modal;
 
@@ -13,25 +14,26 @@ export default ({ id }: { id: string }) => {
 			setData(treeData);
 		},
 	});
-	const { run } = useRequest(() => userAddModJurisdiction({ userId: id, siteIds: checkedKeys }));
+	const { run } = useRequest(() => userAddModJurisdiction({ userId: id, siteIds: checkedKeys }), {
+		manual: true,
+	});
 	const [data, setData] = useState([]);
 	const [expandedKeys, setExpandedKeys] = useState<string[]>([]);
 	const [checkedKeys, setCheckedKeys] = useState<any[]>([]);
-	const [selectedKeys] = useState<string[]>([]);
+	const [selectedKeys, setSelectedKeys] = useState<string[]>([]);
 	const [autoExpandParent, setAutoExpandParent] = useState<boolean>(true);
 	const [checked, setChecked] = useState<boolean>(false);
 	const [selectChecked, setSelectChecked] = useState<boolean>(true);
-	const [top] = useState<number>(100);
+	const [top, setTop] = useState(100);
 
 	useEffect(() => {
 		setExpandedKeys(getKey(data));
-		console.log('getKey(data)', getKey(data));
 		getDefaultValue(data);
 	}, [data]);
 
 	const s = new Set<string[]>();
 	//点击复选框触发
-	const onCheck = (value: any) => {
+	const onCheck = (value: any, info: any) => {
 		console.log(value);
 		// let arr = value.checked;
 		value.forEach((item: any) => {
@@ -126,13 +128,19 @@ export default ({ id }: { id: string }) => {
 	 */
 	const showConfirm = () => {
 		confirm({
-			title: '保存后可能会影响当前登录用户的权限，是否确认保存？',
+			title: '提示',
 			icon: <ExclamationCircleOutlined />,
+			content: '保存后可能会影响当前登录用户的权限，是否确认保存？',
 			onOk() {
-				console.log('checkedKeys', checkedKeys);
-				run().then(res => {
-					logger.debug(res);
-				});
+				return new Promise((resolve, reject) => {
+					run().then(res => {
+						const { code } = res;
+						if (code == 200) {
+							message.success(res.message);
+							resolve();
+						}
+					});
+				}).catch(() => console.log('Oops errors!'));
 			},
 			onCancel() {
 				console.log('Cancel');
@@ -194,13 +202,14 @@ export default ({ id }: { id: string }) => {
 											});
 											s.clear();
 											s.add(newKey);
+											logger.debug('s', s);
 											setCheckedKeys(newKey);
 											nodeData.isCheck = false;
 										}
 
 										logger.debug(nodeData);
 									}}
-								></i>
+								/>
 								<span>{nodeData.title}</span>
 							</div>
 						);
@@ -213,7 +222,7 @@ export default ({ id }: { id: string }) => {
 										className='iconfont icon-info-circle'
 										title='增量站点指当前设置 保存后新增加的站点'
 										style={{ cursor: 'pointer' }}
-									></i>
+									/>
 								)}
 							</div>
 						);

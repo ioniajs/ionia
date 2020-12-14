@@ -1,9 +1,20 @@
-import { logger, roleDetail, modRole, positionList, RoleViewVO } from '@ionia/libs';
+import { logger, roleDetail, modRole, RoleViewVO, positionList } from '@ionia/libs';
 import { useRequest } from 'ahooks';
 import { Button, Form, Input, TreeSelect, message } from 'antd';
 import React, { useEffect, useState } from 'react';
 import './index.less';
 
+let formData: RoleViewVO = {
+	createTime: '',
+	createUser: '',
+	description: '',
+	id: '',
+	name: '',
+	orgId: '',
+	orgNodeIds: [],
+	updateTime: '',
+	updateUser: '',
+};
 const { TextArea } = Input;
 const layout = {
 	labelCol: { span: 6 },
@@ -29,22 +40,30 @@ export default ({ id }: any) => {
 		setValue(value);
 	};
 
-	const firstRequest = useRequest(() => roleDetail(id));
-	const secondRequest = useRequest(() => positionList({ ...formData }), {
+	let firstRequest = useRequest(() => roleDetail(id), {
+		onSuccess: data => {
+			formData = data.data;
+		},
+	});
+	const secondRequest = useRequest(() => positionList({}), {
 		onSuccess: data => {
 			const tree = filterData(data?.data);
 			setTreeData(tree);
 			logger.debug(tree);
 		},
 	});
-	// logger.debug('secondRequest', secondRequest.data?.data);
-	const formData = firstRequest.data?.data ?? {};
+	// const { run } = useRequest(() => modRole({
+	// 	name: formData.name,
+	// 	orgId: formData.orgId,
+	// 	description: formData.description,
+	// 	id: formData.id
+	// }), { manual: true });
+	logger.debug('formData', formData);
 	const [form] = Form.useForm();
 	useEffect(() => {
 		form.setFieldsValue({ ...formData });
 	}, [formData]);
 
-	// const { run } = useRequest(()=>modRole(), {manual: true})
 	return (
 		<>
 			<div className='base-button'>

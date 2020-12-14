@@ -1,32 +1,60 @@
-import { logger, roleGainCloumn, RoleChannelVO, gainSiteTree } from '@ionia/libs';
-import { Affix, Button, Checkbox, Table, TreeSelect } from 'antd';
+import {
+	logger,
+	roleGainCloumn,
+	RoleContentVO,
+	gainSiteTree,
+	addContentRole,
+	roleGainContent,
+} from '@ionia/libs';
+import { Affix, Button, Checkbox, message, Modal, Table, TreeSelect } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { useRequest } from 'ahooks';
+import { ExclamationCircleOutlined } from '@ant-design/icons';
 
-export default ({ roleId }: any) => {
-	const { data, run } = useRequest(() => roleGainCloumn({ id: roleId, siteId: value }), {
+const { confirm } = Modal;
+export default ({ roleId }: { roleId: string }) => {
+	const { data, run } = useRequest(() => roleGainContent({ roleId, siteId: value }), {
 		manual: true,
 	});
 	const siteTree = useRequest(() => gainSiteTree(), {
 		onSuccess: data => {
-			logger.debug('data?.data.list', data?.data.list);
 			const siteData = filterData(data?.data.list);
 			setSite(siteData);
-			logger.debug(siteData);
 		},
 	});
-	const treeData: any = data?.data ?? [];
-	logger.debug('data', data);
+	const addContent = useRequest(() =>
+		addContentRole({ contents: tree, roleId: roleId, siteId: value })
+	);
 	const submitData = () => {
-		logger.debug(treeData);
+		confirm({
+			title: '提示',
+			icon: <ExclamationCircleOutlined />,
+			content: '保存后可能会影响当前登录用户的权限，是否确认保存？',
+			onOk() {
+				return new Promise((resolve, reject) => {
+					addContent.run().then(res => {
+						const { code } = res;
+						if (code == 200) {
+							message.success(res.message);
+							resolve();
+						}
+					});
+				}).catch(() => console.log('Oops errors!'));
+			},
+			onCancel() {
+				console.log('Cancel');
+			},
+		});
 	};
-	const [tree, setTree] = useState<RoleChannelVO[]>(treeData);
-	const [value, setValue] = useState(undefined);
+	const [tree, setTree] = useState<RoleContentVO[]>([]);
+	const [value, setValue] = useState<any>(undefined);
 	const [site, setSite] = useState([]);
 
 	useEffect(() => {
 		if (value) {
-			run();
+			run().then(res => {
+				setTree(res.data.contents);
+			});
 		}
 	}, [value]);
 
@@ -81,7 +109,7 @@ export default ({ roleId }: any) => {
 				key0.selected = 1;
 			}
 		}
-		setTree([...treeData]);
+		setTree([...tree]);
 	};
 
 	/**
@@ -126,7 +154,7 @@ export default ({ roleId }: any) => {
 				}
 			});
 		}
-		setTree([...treeData]);
+		setTree([...tree]);
 	};
 
 	/**
@@ -158,6 +186,7 @@ export default ({ roleId }: any) => {
 
 	const getAllCheck = (data: any, type: any, ids: string[] = []) => {
 		data?.map((item: any) => {
+			logger.debug('item', item.datas[type], item);
 			if (item.datas[type].optional == 1) {
 				ids.push(item.datas[type].selected);
 			}
@@ -347,7 +376,7 @@ export default ({ roleId }: any) => {
 									});
 								};
 								loop(row.children);
-								setTree([...treeData]);
+								setTree([...tree]);
 							}}
 						/>
 					);
@@ -381,10 +410,10 @@ export default ({ roleId }: any) => {
 			title: (
 				<Checkbox
 					onChange={e => {
-						changeAll('key0', treeData, e.target.checked);
+						changeAll('key0', tree, e.target.checked);
 					}}
-					indeterminate={checkAll(treeData, 'key0')}
-					checked={isCheckAll(treeData, 'key0')}
+					indeterminate={checkAll(tree, 'key0')}
+					checked={isCheckAll(tree, 'key0')}
 				>
 					查看
 				</Checkbox>
@@ -407,10 +436,10 @@ export default ({ roleId }: any) => {
 			title: (
 				<Checkbox
 					onChange={e => {
-						changeAll('key1', treeData, e.target.checked);
+						changeAll('key1', tree, e.target.checked);
 					}}
-					indeterminate={checkAll(treeData, 'key1')}
-					checked={isCheckAll(treeData, 'key1')}
+					indeterminate={checkAll(tree, 'key1')}
+					checked={isCheckAll(tree, 'key1')}
 				>
 					新建
 				</Checkbox>
@@ -433,10 +462,10 @@ export default ({ roleId }: any) => {
 			title: (
 				<Checkbox
 					onChange={e => {
-						changeAll('key2', treeData, e.target.checked);
+						changeAll('key2', tree, e.target.checked);
 					}}
-					indeterminate={checkAll(treeData, 'key2')}
-					checked={isCheckAll(treeData, 'key2')}
+					indeterminate={checkAll(tree, 'key2')}
+					checked={isCheckAll(tree, 'key2')}
 				>
 					发布
 				</Checkbox>
@@ -459,10 +488,10 @@ export default ({ roleId }: any) => {
 			title: (
 				<Checkbox
 					onChange={e => {
-						changeAll('key3', treeData, e.target.checked);
+						changeAll('key3', tree, e.target.checked);
 					}}
-					indeterminate={checkAll(treeData, 'key3')}
-					checked={isCheckAll(treeData, 'key3')}
+					indeterminate={checkAll(tree, 'key3')}
+					checked={isCheckAll(tree, 'key3')}
 				>
 					编辑
 				</Checkbox>
@@ -485,10 +514,10 @@ export default ({ roleId }: any) => {
 			title: (
 				<Checkbox
 					onChange={e => {
-						changeAll('key4', treeData, e.target.checked);
+						changeAll('key4', tree, e.target.checked);
 					}}
-					indeterminate={checkAll(treeData, 'key4')}
-					checked={isCheckAll(treeData, 'key4')}
+					indeterminate={checkAll(tree, 'key4')}
+					checked={isCheckAll(tree, 'key4')}
 				>
 					删除
 				</Checkbox>
@@ -511,10 +540,10 @@ export default ({ roleId }: any) => {
 			title: (
 				<Checkbox
 					onChange={e => {
-						changeAll('key5', treeData, e.target.checked);
+						changeAll('key5', tree, e.target.checked);
 					}}
-					indeterminate={checkAll(treeData, 'key5')}
-					checked={isCheckAll(treeData, 'key5')}
+					indeterminate={checkAll(tree, 'key5')}
+					checked={isCheckAll(tree, 'key5')}
 				>
 					下线
 				</Checkbox>
@@ -537,10 +566,10 @@ export default ({ roleId }: any) => {
 			title: (
 				<Checkbox
 					onChange={e => {
-						changeAll('key6', treeData, e.target.checked);
+						changeAll('key6', tree, e.target.checked);
 					}}
-					indeterminate={checkAll(treeData, 'key6')}
-					checked={isCheckAll(treeData, 'key6')}
+					indeterminate={checkAll(tree, 'key6')}
+					checked={isCheckAll(tree, 'key6')}
 				>
 					复制
 				</Checkbox>
@@ -563,10 +592,10 @@ export default ({ roleId }: any) => {
 			title: (
 				<Checkbox
 					onChange={e => {
-						changeAll('key7', treeData, e.target.checked);
+						changeAll('key7', tree, e.target.checked);
 					}}
-					indeterminate={checkAll(treeData, 'key7')}
-					checked={isCheckAll(treeData, 'key7')}
+					indeterminate={checkAll(tree, 'key7')}
+					checked={isCheckAll(tree, 'key7')}
 				>
 					归档
 				</Checkbox>
@@ -589,10 +618,10 @@ export default ({ roleId }: any) => {
 			title: (
 				<Checkbox
 					onChange={e => {
-						changeAll('key8', treeData, e.target.checked);
+						changeAll('key8', tree, e.target.checked);
 					}}
-					indeterminate={checkAll(treeData, 'key8')}
-					checked={isCheckAll(treeData, 'key8')}
+					indeterminate={checkAll(tree, 'key8')}
+					checked={isCheckAll(tree, 'key8')}
 				>
 					站群推送
 				</Checkbox>
@@ -637,7 +666,7 @@ export default ({ roleId }: any) => {
 			<Table
 				columns={columns}
 				rowSelection={{ ...rowSelection, checkStrictly: true }}
-				dataSource={treeData}
+				dataSource={tree}
 				pagination={false}
 				rowKey={record => record.channelId}
 			/>

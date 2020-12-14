@@ -1,32 +1,51 @@
-import { logger, roleGainCloumn, RoleChannelVO, gainSiteTree } from '@ionia/libs';
-import { Affix, Button, Checkbox, Table, TreeSelect } from 'antd';
+import { logger, userGainContent, RoleContentVO, gainSiteTree, addContentUser } from '@ionia/libs';
+import { Affix, Button, Checkbox, message, Modal, Table, TreeSelect } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { useRequest } from 'ahooks';
+import { ExclamationCircleOutlined } from '@ant-design/icons';
 
-export default ({ roleId }: any) => {
-	const { data, run } = useRequest(() => roleGainCloumn({ id: roleId, siteId: value }), {
+const { confirm } = Modal;
+export default ({ userId }: { userId: string }) => {
+	const { data, run } = useRequest(() => userGainContent({ userId, siteId: value }), {
 		manual: true,
 	});
 	const siteTree = useRequest(() => gainSiteTree(), {
 		onSuccess: data => {
-			logger.debug('data?.data.list', data?.data.list);
 			const siteData = filterData(data?.data.list);
 			setSite(siteData);
-			logger.debug(siteData);
 		},
 	});
-	const treeData: any = data?.data ?? [];
-	logger.debug('data', data);
+	const addContent = useRequest(() => addContentUser({ contents: tree, userId, siteId: value }));
 	const submitData = () => {
-		logger.debug(treeData);
+		confirm({
+			title: '提示',
+			icon: <ExclamationCircleOutlined />,
+			content: '保存后可能会影响当前登录用户的权限，是否确认保存？',
+			onOk() {
+				return new Promise((resolve, reject) => {
+					addContent.run().then(res => {
+						const { code } = res;
+						if (code == 200) {
+							message.success(res.message);
+							resolve();
+						}
+					});
+				}).catch(() => console.log('Oops errors!'));
+			},
+			onCancel() {
+				console.log('Cancel');
+			},
+		});
 	};
-	const [tree, setTree] = useState<RoleChannelVO[]>(treeData);
-	const [value, setValue] = useState(undefined);
+	const [tree, setTree] = useState<RoleContentVO[]>([]);
+	const [value, setValue] = useState<any>(undefined);
 	const [site, setSite] = useState([]);
 
 	useEffect(() => {
 		if (value) {
-			run();
+			run().then(res => {
+				setTree(res.data.contents);
+			});
 		}
 	}, [value]);
 
@@ -58,6 +77,7 @@ export default ({ roleId }: any) => {
 	 * @param parent
 	 * 1.判断是否是查看按钮 如果是查看 就点击并且可取消 ，如果不是 就给查看赋值1
 	 * 2.如果其他的存在 不可取消查看 得先取消其他的才能取消查看
+	 * @param type
 	 */
 	const changeData = (row: any, data0: number, parent: any, type: string) => {
 		const { key0 } = parent;
@@ -80,7 +100,7 @@ export default ({ roleId }: any) => {
 				key0.selected = 1;
 			}
 		}
-		setTree([...treeData]);
+		setTree([...tree]);
 	};
 
 	/**
@@ -125,13 +145,14 @@ export default ({ roleId }: any) => {
 				}
 			});
 		}
-		setTree([...treeData]);
+		setTree([...tree]);
 	};
 
 	/**
 	 *
+	 * @param list
 	 * @param type
-	 * @param data
+	 * @param items
 	 * 递归获取可选的数据
 	 */
 
@@ -150,11 +171,13 @@ export default ({ roleId }: any) => {
 	 *
 	 * @param type
 	 * @param data
+	 * @param ids
 	 * 递归获取该类型下的所有选择
 	 */
 
 	const getAllCheck = (data: any, type: any, ids: string[] = []) => {
 		data?.map((item: any) => {
+			logger.debug('item', item.datas[type], item);
 			if (item.datas[type].optional == 1) {
 				ids.push(item.datas[type].selected);
 			}
@@ -175,11 +198,7 @@ export default ({ roleId }: any) => {
 		const ids = getAllCheck(data, type);
 		const flag = ids.findIndex(value => value == '0');
 		const flag1 = ids.findIndex(value => value == '1');
-		if (flag != -1 && flag1 != -1) {
-			return true;
-		} else {
-			return false;
-		}
+		return flag != -1 && flag1 != -1;
 	};
 
 	/**
@@ -191,28 +210,109 @@ export default ({ roleId }: any) => {
 	const isCheckAll = (data: any, type: any) => {
 		const ids = getAllCheck(data, type);
 		const flag = ids.findIndex(value => value == '0');
-		if (flag == -1 && ids.length > 0) {
-			return true;
+		return flag == -1 && ids.length > 0;
+	};
+
+	const rowCheckAll = (list: any) => {
+		let flag: boolean = true;
+		if (list.children) {
+			const loop = (data: any) => {
+				for (const key in data.datas) {
+					if (data.datas[key].optional == 1) {
+						if (data.datas[key].selected == 0) {
+							flag = false;
+						}
+					}
+				}
+				if (data.children) {
+					data.children.map((item: any) => {
+						loop(item);
+						return item;
+					});
+				}
+			};
+
+			loop(list);
+			return flag;
 		} else {
-			return false;
+			let isSelect: boolean = true;
+			Object.keys(list.datas).forEach(t => {
+				if (list.datas[t].optional == 1) {
+					if (list.datas[t].selected !== 1) {
+						isSelect = false;
+					}
+				}
+			});
+			return isSelect;
 		}
+	};
+
+	const rowCheck = (list: any) => {
+		if (list.children) {
+			let ids: number[] = [];
+			let flag;
+			let flag2;
+			const loop = (data: any) => {
+				for (const key in data.datas) {
+					if (data.datas[key].optional == 1) {
+						ids.push(data.datas[key].selected);
+					}
+				}
+				if (data.children) {
+					data.children.forEach((item: any) => {
+						loop(item);
+					});
+				}
+			};
+			loop(list);
+			flag = ids.findIndex(t => t == 1) != -1;
+			flag2 = ids.findIndex(t => t == 0) != -1;
+			return flag && flag2;
+		} else {
+			let flag;
+			let flag2;
+			let ids: number[] = [];
+			Object.keys(list.datas).forEach(t => {
+				if (list.datas[t].optional == 1) {
+					ids.push(list.datas[t].selected);
+				}
+			});
+			flag = ids.findIndex(t => t == 1) != -1;
+			flag2 = ids.findIndex(t => t == 0) != -1;
+			return flag && flag2;
+		}
+	};
+
+	const selectRow = (list: any, checked: boolean) => {
+		console.log(checked);
+		const loop = (row: any) => {
+			for (const treeKey in row.datas) {
+				if (row.datas[treeKey].optional == 1) {
+					checked ? (row.datas[treeKey].selected = 1) : (row.datas[treeKey].selected = 0);
+				}
+			}
+			if (row.children) {
+				row.children.forEach((item: any) => {
+					loop(item);
+				});
+			}
+		};
+		loop(list);
+		setTree([...tree]);
 	};
 
 	// rowSelection objects indicates the need for row selection
 	const rowSelection = {
-		onChange: () => {
-			// console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
-		},
-		onSelect: (record: any, selected: any) => {
-			for (const key in record.datas) {
-				console.log(record.datas[key]);
-				if (selected && record.datas[key].optional == 1) {
-					record.datas[key].selected = 1;
-				} else {
-					record.datas[key].selected = 0;
-				}
-			}
-			setTree([...treeData]);
+		renderCell: (checked: any, record: any) => {
+			return (
+				<Checkbox
+					checked={rowCheckAll(record)}
+					indeterminate={rowCheck(record)}
+					onChange={e => {
+						selectRow(record, e.target.checked);
+					}}
+				/>
+			);
 		},
 		/**
 		 * 全选
@@ -234,7 +334,7 @@ export default ({ roleId }: any) => {
 				});
 			};
 			loop(tree);
-			setTree([...treeData]);
+			setTree([...tree]);
 		},
 	};
 
@@ -246,8 +346,8 @@ export default ({ roleId }: any) => {
 				if (row.children && row.children.length) {
 					return (
 						<i
-							className={`iconfont icon-apartment ${row.flag ? 'active' : ''}`}
-							title='选中下级'
+							className='iconfont icon-apartment'
+							title='选中下级/取消下级'
 							style={{ cursor: 'pointer' }}
 							onClick={() => {
 								console.log('row', row.flag);
@@ -267,9 +367,9 @@ export default ({ roleId }: any) => {
 									});
 								};
 								loop(row.children);
-								setTree([...treeData]);
+								setTree([...tree]);
 							}}
-						></i>
+						/>
 					);
 				} else {
 					return '';
@@ -290,7 +390,7 @@ export default ({ roleId }: any) => {
 							className='iconfont icon-info-circle'
 							title='增量栏目指当前设置 保存后新增加的栏目'
 							style={{ cursor: 'pointer' }}
-						></i>
+						/>
 					</p>
 				) : (
 					<p>{row.channelName}</p>
@@ -301,10 +401,10 @@ export default ({ roleId }: any) => {
 			title: (
 				<Checkbox
 					onChange={e => {
-						changeAll('key0', treeData, e.target.checked);
+						changeAll('key0', tree, e.target.checked);
 					}}
-					indeterminate={checkAll(treeData, 'key0')}
-					checked={isCheckAll(treeData, 'key0')}
+					indeterminate={checkAll(tree, 'key0')}
+					checked={isCheckAll(tree, 'key0')}
 				>
 					查看
 				</Checkbox>
@@ -317,9 +417,9 @@ export default ({ roleId }: any) => {
 						onChange={() => {
 							changeData(row.datas.key0, row.datas.key0.selected, row.datas, 'key0');
 						}}
-						checked={row.datas.key0.selected == 1 ? true : false}
-						disabled={row.datas.key0.optional == 0 ? true : false}
-					></Checkbox>
+						checked={row.datas.key0.selected == 1}
+						disabled={row.datas.key0.optional == 0}
+					/>
 				);
 			},
 		},
@@ -327,10 +427,10 @@ export default ({ roleId }: any) => {
 			title: (
 				<Checkbox
 					onChange={e => {
-						changeAll('key1', treeData, e.target.checked);
+						changeAll('key1', tree, e.target.checked);
 					}}
-					indeterminate={checkAll(treeData, 'key1')}
-					checked={isCheckAll(treeData, 'key1')}
+					indeterminate={checkAll(tree, 'key1')}
+					checked={isCheckAll(tree, 'key1')}
 				>
 					新建
 				</Checkbox>
@@ -343,9 +443,9 @@ export default ({ roleId }: any) => {
 						onChange={() => {
 							changeData(row.datas.key1, row.datas.key1.selected, row.datas, 'key1');
 						}}
-						checked={row.datas.key1.selected == 1 ? true : false}
-						disabled={row.datas.key1.optional == 0 ? true : false}
-					></Checkbox>
+						checked={row.datas.key1.selected == 1}
+						disabled={row.datas.key1.optional == 0}
+					/>
 				);
 			},
 		},
@@ -353,10 +453,10 @@ export default ({ roleId }: any) => {
 			title: (
 				<Checkbox
 					onChange={e => {
-						changeAll('key2', treeData, e.target.checked);
+						changeAll('key2', tree, e.target.checked);
 					}}
-					indeterminate={checkAll(treeData, 'key2')}
-					checked={isCheckAll(treeData, 'key2')}
+					indeterminate={checkAll(tree, 'key2')}
+					checked={isCheckAll(tree, 'key2')}
 				>
 					发布
 				</Checkbox>
@@ -369,9 +469,9 @@ export default ({ roleId }: any) => {
 						onChange={() => {
 							changeData(row.datas.key2, row.datas.key2.selected, row.datas, 'key2');
 						}}
-						checked={row.datas.key2.selected == 1 ? true : false}
-						disabled={row.datas.key2.optional == 0 ? true : false}
-					></Checkbox>
+						checked={row.datas.key2.selected == 1}
+						disabled={row.datas.key2.optional == 0}
+					/>
 				);
 			},
 		},
@@ -379,10 +479,10 @@ export default ({ roleId }: any) => {
 			title: (
 				<Checkbox
 					onChange={e => {
-						changeAll('key3', treeData, e.target.checked);
+						changeAll('key3', tree, e.target.checked);
 					}}
-					indeterminate={checkAll(treeData, 'key3')}
-					checked={isCheckAll(treeData, 'key3')}
+					indeterminate={checkAll(tree, 'key3')}
+					checked={isCheckAll(tree, 'key3')}
 				>
 					编辑
 				</Checkbox>
@@ -395,9 +495,9 @@ export default ({ roleId }: any) => {
 						onChange={() => {
 							changeData(row.datas.key3, row.datas.key3.selected, row.datas, 'key3');
 						}}
-						checked={row.datas.key3.selected == 1 ? true : false}
-						disabled={row.datas.key3.optional == 0 ? true : false}
-					></Checkbox>
+						checked={row.datas.key3.selected == 1}
+						disabled={row.datas.key3.optional == 0}
+					/>
 				);
 			},
 		},
@@ -405,10 +505,10 @@ export default ({ roleId }: any) => {
 			title: (
 				<Checkbox
 					onChange={e => {
-						changeAll('key4', treeData, e.target.checked);
+						changeAll('key4', tree, e.target.checked);
 					}}
-					indeterminate={checkAll(treeData, 'key4')}
-					checked={isCheckAll(treeData, 'key4')}
+					indeterminate={checkAll(tree, 'key4')}
+					checked={isCheckAll(tree, 'key4')}
 				>
 					删除
 				</Checkbox>
@@ -421,9 +521,9 @@ export default ({ roleId }: any) => {
 						onChange={() => {
 							changeData(row.datas.key4, row.datas.key4.selected, row.datas, 'key4');
 						}}
-						checked={row.datas.key4.selected == 1 ? true : false}
-						disabled={row.datas.key4.optional == 0 ? true : false}
-					></Checkbox>
+						checked={row.datas.key4.selected == 1}
+						disabled={row.datas.key4.optional == 0}
+					/>
 				);
 			},
 		},
@@ -431,10 +531,10 @@ export default ({ roleId }: any) => {
 			title: (
 				<Checkbox
 					onChange={e => {
-						changeAll('key5', treeData, e.target.checked);
+						changeAll('key5', tree, e.target.checked);
 					}}
-					indeterminate={checkAll(treeData, 'key5')}
-					checked={isCheckAll(treeData, 'key5')}
+					indeterminate={checkAll(tree, 'key5')}
+					checked={isCheckAll(tree, 'key5')}
 				>
 					下线
 				</Checkbox>
@@ -447,9 +547,9 @@ export default ({ roleId }: any) => {
 						onChange={() => {
 							changeData(row.datas.key5, row.datas.key5.selected, row.datas, 'key5');
 						}}
-						checked={row.datas.key5.selected == 1 ? true : false}
-						disabled={row.datas.key5.optional == 0 ? true : false}
-					></Checkbox>
+						checked={row.datas.key5.selected == 1}
+						disabled={row.datas.key5.optional == 0}
+					/>
 				);
 			},
 		},
@@ -457,10 +557,10 @@ export default ({ roleId }: any) => {
 			title: (
 				<Checkbox
 					onChange={e => {
-						changeAll('key6', treeData, e.target.checked);
+						changeAll('key6', tree, e.target.checked);
 					}}
-					indeterminate={checkAll(treeData, 'key6')}
-					checked={isCheckAll(treeData, 'key6')}
+					indeterminate={checkAll(tree, 'key6')}
+					checked={isCheckAll(tree, 'key6')}
 				>
 					复制
 				</Checkbox>
@@ -473,9 +573,9 @@ export default ({ roleId }: any) => {
 						onChange={() => {
 							changeData(row.datas.key6, row.datas.key6.selected, row.datas, 'key6');
 						}}
-						checked={row.datas.key6.selected == 1 ? true : false}
-						disabled={row.datas.key6.optional == 0 ? true : false}
-					></Checkbox>
+						checked={row.datas.key6.selected == 1}
+						disabled={row.datas.key6.optional == 0}
+					/>
 				);
 			},
 		},
@@ -483,10 +583,10 @@ export default ({ roleId }: any) => {
 			title: (
 				<Checkbox
 					onChange={e => {
-						changeAll('key7', treeData, e.target.checked);
+						changeAll('key7', tree, e.target.checked);
 					}}
-					indeterminate={checkAll(treeData, 'key7')}
-					checked={isCheckAll(treeData, 'key7')}
+					indeterminate={checkAll(tree, 'key7')}
+					checked={isCheckAll(tree, 'key7')}
 				>
 					归档
 				</Checkbox>
@@ -499,9 +599,9 @@ export default ({ roleId }: any) => {
 						onChange={() => {
 							changeData(row.datas.key7, row.datas.key7.selected, row.datas, 'key7');
 						}}
-						checked={row.datas.key7.selected == 1 ? true : false}
-						disabled={row.datas.key7.optional == 0 ? true : false}
-					></Checkbox>
+						checked={row.datas.key7.selected == 1}
+						disabled={row.datas.key7.optional == 0}
+					/>
 				);
 			},
 		},
@@ -509,10 +609,10 @@ export default ({ roleId }: any) => {
 			title: (
 				<Checkbox
 					onChange={e => {
-						changeAll('key8', treeData, e.target.checked);
+						changeAll('key8', tree, e.target.checked);
 					}}
-					indeterminate={checkAll(treeData, 'key8')}
-					checked={isCheckAll(treeData, 'key8')}
+					indeterminate={checkAll(tree, 'key8')}
+					checked={isCheckAll(tree, 'key8')}
 				>
 					站群推送
 				</Checkbox>
@@ -525,9 +625,9 @@ export default ({ roleId }: any) => {
 						onChange={() => {
 							changeData(row.datas.key8, row.datas.key8.selected, row.datas, 'key8');
 						}}
-						checked={row.datas.key8.selected == 1 ? true : false}
-						disabled={row.datas.key8.optional == 0 ? true : false}
-					></Checkbox>
+						checked={row.datas.key8.selected == 1}
+						disabled={row.datas.key8.optional == 0}
+					/>
 				);
 			},
 		},
@@ -557,7 +657,7 @@ export default ({ roleId }: any) => {
 			<Table
 				columns={columns}
 				rowSelection={{ ...rowSelection, checkStrictly: true }}
-				dataSource={treeData}
+				dataSource={tree}
 				pagination={false}
 				rowKey={record => record.channelId}
 			/>

@@ -24,7 +24,7 @@ export default ({ id }: { id: string }) => {
 				<Menu userId={userId} />
 			</TabPane>
 			<TabPane tab='站点权限' key='3'>
-				<Site id={id} />
+				<Site userId={userId} />
 			</TabPane>
 			<TabPane tab='栏目权限' key='4'>
 				<Column userId={userId} />
