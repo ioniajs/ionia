@@ -101,7 +101,7 @@ export default () => {
 				</Button>
 			)}
 		>
-			<Form form={form} scrollToFirstError labelCol={{ span: 8 }} wrapperCol={{ span: 12 }}>
+			<Form form={form} scrollToFirstError labelCol={{ span: 6 }} wrapperCol={{ span: 12 }}>
 				<BizSection title='系统风格设置'>
 					<Form.Item
 						label='选择默认风格'

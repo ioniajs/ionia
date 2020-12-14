@@ -261,7 +261,7 @@ export const List = () => {
 	const [checkedAll, setCheckedAll] = useState(false);
 	const [datas, setDatas] = useState(dataSource);
 	const modalRef = useRef<BizModalFormRef>();
-	const [topDeadLineForm] = Form.useForm();
+	const [actionsForm] = Form.useForm();
 	const [stationPushVisible, setStationPushVisible] = useState<boolean>(false);
 	const [stationPushForm] = Form.useForm();
 	const [siteTree, setSiteTree] = useState<AdminSiteTreeVO[]>();
@@ -314,7 +314,7 @@ export const List = () => {
 							closable: true,
 							title: '置顶',
 							content: (
-								<Form form={topDeadLineForm}>
+								<Form form={actionsForm}>
 									<ProFormDateTimePicker
 										name='topDeadLine'
 										label={
@@ -339,14 +339,14 @@ export const List = () => {
 							width: 450,
 							icon: false,
 							onOk: () => {
-								const topDeadLine = topDeadLineForm.getFieldValue('topDeadLine');
+								const topDeadLine = actionsForm.getFieldValue('topDeadLine');
 								console.log(
 									topDeadLine,
 									moment(topDeadLine).format('YYYY-MM-DD HH:mm:ss'),
 									'deadLine'
 								);
 							},
-							onCancel: () => {},
+							onCancel: () => { },
 						});
 					}}
 				>
@@ -354,13 +354,52 @@ export const List = () => {
 				</a>
 			</Menu.Item>
 			<Menu.Item>
-				<a>取消热点</a>
+				<a onClick={() => {
+					Modal.confirm({
+						closable: true,
+						title: '热点',
+						content: (
+							<Form form={actionsForm}>
+								<ProFormDateTimePicker
+									name='hotDeadLine'
+									label={
+										<span>
+											选择热点到期时间&nbsp;
+											<Tooltip title='热点到期后将自动取消置顶状态，不设置到期时间代表永久置顶'>
+												<InfoCircleOutlined />
+											</Tooltip>
+										</span>
+									}
+									fieldProps={{
+										showTime: true,
+										suffixIcon: <i className='iconfont icon-time-circle' />,
+										format: 'YYYY-MM-DD HH:mm:ss',
+									}}
+									labelCol={{ span: 9 }}
+									wrapperCol={{ span: 15 }}
+									placeholder=''
+								/>
+							</Form>
+						),
+						width: 450,
+						icon: false,
+						onOk: () => {
+							const hotDeadLine = actionsForm.getFieldValue('hotDeadLine');
+							console.log(
+								hotDeadLine,
+								moment(hotDeadLine).format('YYYY-MM-DD HH:mm:ss'),
+								'deadLine'
+							);
+						},
+						onCancel: () => { },
+					});
+				}}>热点</a>
 			</Menu.Item>
 			<Menu.Item>
-				<a>取消头条</a>
+				<a>头条</a>
 			</Menu.Item>
 			<Menu.Item>
-				<a>设置推荐</a>
+				<a>推荐</a>
 			</Menu.Item>
 			<Menu.Item>
 				<a
@@ -515,7 +554,7 @@ export const List = () => {
 								title: '你确定删除选中内容吗？',
 								content: '删除后可在内容回收站中恢复。',
 								okText: '删除',
-								onOk: () => {},
+								onOk: () => { },
 							});
 						}}
 					>
@@ -562,7 +601,7 @@ export const List = () => {
 					</BizModalForm>
 					{/* <a className='content-middle-action'>排序</a> */}
 					<Dropdown overlay={rightMenuActions} placement='bottomRight'>
-						<i className='iconfont icon-ellipsis content-middle-action' />
+						<i className='iconfont icon-ellipsis content-middle-action' style={{ cursor: 'pointer' }} />
 					</Dropdown>
 				</div>
 			</div>
@@ -595,35 +634,40 @@ export const List = () => {
 						label='排序方式'
 						valueEnum={sortWay}
 						style={{ width: '240px' }}
-						// colSize={0.75}
+					// colSize={0.75}
 					/>
 					<ProFormSelect
 						name='contentStatus'
 						label='内容状态'
 						valueEnum={contentStatus}
 						mode='multiple'
-						// colSize={0.75}
+					// colSize={0.75}
 					/>
 					<ProFormCheckbox.Group
 						name='showSectionContent'
 						label=''
 						options={['显示子栏目内容']}
 						layout='vertical'
-						// colSize={0.5}
+					// colSize={0.5}
+					/>
+					<ProFormText
+						name='contentTittle'
+						placeholder='搜索内容标题'
+						colSize={0.75}
 					/>
 					<ProFormSelect
 						name='contentType'
 						label='内容类型'
 						valueEnum={contentType}
 						mode='multiple'
-						// colSize={0.75}
+					// colSize={0.75}
 					/>
 					<ProFormSelect
 						name='contentModal'
 						label='内容模型'
 						valueEnum={contentModal}
 						mode='multiple'
-						// colSize={0.75}
+					// colSize={0.75}
 					/>
 					<ProFormDateTimeRangePicker name='create' label='创建时间' colSize={1.5} />
 					<ProFormDateTimeRangePicker name='publish' label='发布时间' colSize={1.5} />
@@ -632,27 +676,23 @@ export const List = () => {
 						label='创建方式'
 						valueEnum={createWay}
 						mode='multiple'
-						// colSize={0.75}
+					// colSize={0.75}
 					/>
 					<ProFormCheckbox.Group
 						name='showMineCreate'
 						layout='vertical'
 						label=''
 						options={['我创建的']}
-						// colSize={0.5}
+					// colSize={0.5}
 					/>
-					<ProFormText
-						name='contentTittle'
-						placeholder='搜索内容标题'
-						// colSize={0.75}
-					/>
+
 					<ProFormText
 						name='searchKeyWord'
 						fieldProps={{
 							addonBefore: selectBefore,
 							placeholder: `搜素内容${inputPlaceHolder[searchTypesValue]}`,
 						}}
-						// colSize={0.75}
+					// colSize={0.75}
 					/>
 				</QueryFilter>
 				<div className='io-cms-content-list-search-bottom' />

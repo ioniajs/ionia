@@ -1,17 +1,18 @@
 import React, { useState } from 'react';
-import { Button, Form, Input, Switch, Select, Tooltip, TreeSelect, message } from 'antd';
+import { Button, Form, Input, Switch, Select, Tooltip, TreeSelect, message, Row, Col } from 'antd';
 import { InfoCircleOutlined } from '@ant-design/icons';
 import { BizPage, GobackButton, SaveButton, ImageUpload } from '@ionia/libs';
 import { useMount, useRequest } from '@umijs/hooks';
-import { gainSiteTree, createAdminSite, AdminSiteDTO } from '@ionia/libs/src/services/kernel';
+import { gainSiteTreeAuth, createAdminSite, AdminSiteDTO } from '@ionia/libs/src/services/kernel';
 import { AdminSiteTreeVO } from '@ionia/libs/src/services/kernel';
+import { useHistory } from 'react-router-dom';
 import './index.less';
 
 const { Option } = Select;
 
 const layout = {
-	labelCol: { span: 7 },
-	wrapperCol: { span: 12 },
+	labelCol: { span: 6 },
+	wrapperCol: { span: 10 },
 };
 
 const selectBefore = (
@@ -32,8 +33,9 @@ const handleCreateSites = async (filed: AdminSiteDTO) => {
 };
 export default () => {
 	const [form] = Form.useForm();
+	const history = useHistory();
 	const [siteTree, setSiteTree] = useState<AdminSiteTreeVO[]>();
-	const { run: runsiteTree } = useRequest(gainSiteTree, {
+	const { run: runsiteTree } = useRequest(gainSiteTreeAuth, {
 		manual: true,
 		onSuccess: result => {
 			const loop = function (data: any) {
@@ -50,12 +52,12 @@ export default () => {
 					};
 				});
 			};
-			const tempSiteTree = loop(result.data.list);
+			const tempSiteTree = loop(result.data);
 			setSiteTree(tempSiteTree);
 		},
 	});
 	useMount(() => {
-		runsiteTree();
+		runsiteTree('');
 		form.setFieldsValue({ domain: [''] });
 	});
 	return (
@@ -85,12 +87,12 @@ export default () => {
 									};
 									const success = await handleCreateSites(param);
 									if (success.code === 200) {
-										history.back();
+										history.goBack();
 									}
 								});
 							}}
 						/>
-						<Button type='default' className='io-cms-site-save-expand__but'>
+						<Button type='default' className='io-cms-site-save-expand__but' onClick={() => { history.push({ pathname: `/system-management/site/detail/${0}`, state: { tabKey: '2' } }) }}>
 							保存并详细配置
 						</Button>
 						<Button
@@ -133,6 +135,21 @@ export default () => {
 				>
 					<TreeSelect
 						placeholder='请选择上级站点'
+						treeData={siteTree}
+						showSearch={true}
+						onSearch={e => {
+							runsiteTree(e);
+						}}
+						className='io-cms-site-create-form__item'
+					/>
+				</Form.Item>
+				<Form.Item
+					name='practiceId'
+					label='所属阵地'
+					rules={[{ required: true, message: '请选择所属阵地' }]}
+				>
+					<TreeSelect
+						placeholder='请选择所属阵地'
 						treeData={siteTree}
 						showSearch={true}
 						onSearch={e => {
@@ -205,7 +222,8 @@ export default () => {
 								{fields.map((field, index) => {
 									return (
 										<Form.Item
-											{...layout}
+											wrapperCol={{ span: 12 }}
+											labelCol={{ span: 6 }}
 											label={
 												index === 0 ? (
 													<span>
@@ -215,40 +233,50 @@ export default () => {
 														域名
 													</span>
 												) : (
-													<span style={{ display: 'none' }}>
-														添加域名
-													</span>
-												)
+														<span style={{ display: 'none' }}>
+															添加域名
+														</span>
+													)
 											}
 											required={false}
 											key={field.key}
 											colon={index === 0}
 										>
-											<Form.Item
-												{...field}
-												validateTrigger={['onChange', 'onBlur']}
-												rules={[
-													{
-														required: true,
-														message: '请输入域名',
-													},
-												]}
-												noStyle
-											>
-												<Input
-													placeholder='请输入域名'
-													className='io-cms-site-create-form__item'
-													addonBefore={selectBefore}
-												/>
-											</Form.Item>
-											{fields.length > 1 && index > 0 ? (
-												<Button
-													className='io-cms-site-create-domain-delete__but'
-													onClick={() => remove(field.name)}
-												>
-													删除
-												</Button>
-											) : null}
+											<Row>
+												<Col span={20}>
+
+													<Form.Item
+														{...field}
+														wrapperCol={{ span: 6 }}
+														labelCol={{ span: 12 }}
+														validateTrigger={['onChange', 'onBlur']}
+														rules={[
+															{
+																required: true,
+																message: '请输入域名',
+															},
+														]}
+														noStyle
+													>
+														<Input
+															placeholder='请输入域名'
+															className='io-cms-site-create-form__item'
+															addonBefore={selectBefore}
+														/>
+													</Form.Item>
+												</Col>
+												<Col span={4}>
+
+													{fields.length > 1 && index > 0 ? (
+														<Button
+															className='io-cms-site-create-domain-delete__but'
+															onClick={() => remove(field.name)}
+														>
+															删除
+														</Button>
+													) : null}
+												</Col>
+											</Row>
 										</Form.Item>
 									);
 								})}
@@ -262,7 +290,7 @@ export default () => {
 										type='dashed'
 										className='io-cms-site-copy-add__but'
 										onClick={() => add()}
-										style={{ width: '90%' }}
+									// style={{ width: '90%' }}
 									>
 										<i className='iconfont icon-plus-square' />
 										添加

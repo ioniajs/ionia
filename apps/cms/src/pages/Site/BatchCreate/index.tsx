@@ -92,8 +92,8 @@ export default () => {
 						<Input type='number' ref={ref} onPressEnter={save} onBlur={save} />
 					</Form.Item>
 				) : (
-					<div onClick={toggleEdit}>{children}</div>
-				);
+						<div onClick={toggleEdit}>{children}</div>
+					);
 			},
 		},
 		{
@@ -153,7 +153,7 @@ export default () => {
 			layout={{}}
 		>
 			<div className='io-cms-site-batch-create__div'>
-				<Form form={form} scrollToFirstError>
+				<Form form={form} scrollToFirstError style={{ display: 'flex' }}>
 					<Form.Item
 						name='parentId'
 						label='上级站点'
@@ -162,6 +162,23 @@ export default () => {
 						<TreeSelect
 							treeData={siteTreeData}
 							placeholder='请选择上级站点'
+							showSearch
+							onSearch={e => {
+								runGainSiteTree(e);
+							}}
+							className='io-cms-site-batch-create__treeselect'
+							// style={{ width: 224 }}
+							dropdownStyle={{ maxHeight: 520, overflow: 'auto', minWidth: 420 }}
+						/>
+					</Form.Item>
+					<Form.Item
+						name='practiceId'
+						label='所属阵地'
+						rules={[{ required: true, message: '请选择所属阵地' }]}
+					>
+						<TreeSelect
+							treeData={siteTreeData}
+							placeholder='请选择所属阵地'
 							showSearch
 							onSearch={e => {
 								runGainSiteTree(e);

@@ -132,15 +132,15 @@ export default ({ contentId, action }: CopyFormProps) => {
 						复制
 					</a>
 				) : (
-					<a
-						className='content-middle-action'
-						onClick={() => {
-							ref.current?.open();
-						}}
-					>
-						移动
-					</a>
-				)
+						<a
+							className='content-middle-action'
+							onClick={() => {
+								ref.current?.open();
+							}}
+						>
+							移动
+						</a>
+					)
 			}
 			submitterRender={() => (
 				<div className='btn-submitter'>
@@ -156,6 +156,7 @@ export default ({ contentId, action }: CopyFormProps) => {
 					</Button>
 				</div>
 			)}
+			style={{ cursor: 'default' }}
 		>
 			{action === 'copy' ? (
 				<p>
@@ -175,8 +176,8 @@ export default ({ contentId, action }: CopyFormProps) => {
 					：
 				</p>
 			) : (
-				<p>移动到栏目：</p>
-			)}
+					<p>移动到栏目：</p>
+				)}
 			<div className='io-cms-content-list-copy-modal-tree-container'>
 				<Tree
 					checkable
