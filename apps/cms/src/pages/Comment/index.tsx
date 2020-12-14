@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Form, TreeSelect, Select } from 'antd';
+import { Form, TreeSelect, Select, Checkbox, Button } from 'antd';
 import { BizPage } from '@ionia/libs';
 import {
 	QueryFilter,
@@ -89,7 +89,7 @@ export default () => {
 					<span className='top-actions-mute__span'>禁言列表</span>
 					<span className='top-actions-report__span'>举报列表</span>
 				</div>
-				<div className='io-cms-content-search__div'>
+				<div className='io-cms-comment-search__div'>
 					<QueryFilter
 						span={6}
 						defaultCollapsed={false}
@@ -142,12 +142,30 @@ export default () => {
 							name='searchKeyWord'
 							fieldProps={{
 								addonBefore: selectBefore,
-								placeholder: `搜素内容${inputPlaceHolder[searchTypesValue]}`,
+								placeholder: `搜素${inputPlaceHolder[searchTypesValue]}`,
 							}}
 						/>
 					</QueryFilter>
 				</div>
 				<div className='io-cms-comment-header-between-content__div' />
+				<div className='io-cms-comment-content-selectAll__div'>
+					<Checkbox>全选</Checkbox>
+					<Button type='primary' className='io-cms-comment-content-selectAll-check__button'>审核</Button>
+					<Button className='io-cms-comment-content-selectAll-actions__button'>取消审核</Button>
+					<Button className='io-cms-comment-content-selectAll-actions__button'>批量删除</Button>
+				</div>
+				<div className='io-cms-comment-content-items__div'>
+					<div className='io-cms-comment-content-item__div'>
+						<div className='io-cms-comment-content-item-top__div'>
+							<Checkbox />
+							<i className='iconfont icon-user1' />
+							<a>system superAdmin</a>
+							<p>【IP: <a>192.168.0.140</a>江西省南昌市】</p>
+							<p>2019-11-29 19:17:52</p>
+							<p><span>已置顶</span><span>已审核</span></p>
+						</div>
+					</div>
+				</div>
 			</div>
 		</BizPage>
 	);
