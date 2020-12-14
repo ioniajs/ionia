@@ -19,18 +19,6 @@ export default ({ roleId }: any) => {
 		},
 	});
 
-	//过滤数据 获取可选的数据
-	const getAvailableData = (list: any) => {
-		return list
-			.filter((u: any) => u.operatingFlag == 1)
-			.map((item: any) => {
-				if (item.children) {
-					item.children = getAvailableData(item.children);
-				}
-				return item;
-			});
-	};
-
 	// 一级判断子级是否全部选中
 
 	//二级判断子级是否全部选中 ==>半选
