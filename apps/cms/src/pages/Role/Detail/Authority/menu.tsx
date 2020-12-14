@@ -1,10 +1,8 @@
 import { logger, roleMenuShow } from '@ionia/libs';
 import { useSet, useRequest } from 'ahooks';
 import { Affix, Button, Checkbox, Col, Collapse, Row, Tooltip } from 'antd';
-import { check } from 'prettier';
 import React, { useState } from 'react';
 import './index.less';
-import { CheckCircleOutlined } from '@ant-design/icons';
 
 const { Panel } = Collapse;
 
@@ -20,6 +18,18 @@ export default ({ roleId }: any) => {
 			setAllKeys(ids);
 		},
 	});
+
+	//过滤数据 获取可选的数据
+	const getAvailableData = (list: any) => {
+		return list
+			.filter((u: any) => u.operatingFlag == 1)
+			.map((item: any) => {
+				if (item.children) {
+					item.children = getAvailableData(item.children);
+				}
+				return item;
+			});
+	};
 
 	// 一级判断子级是否全部选中
 
@@ -85,8 +95,8 @@ export default ({ roleId }: any) => {
 
 	const selectSelf = (self: any, parent: any, ancestor: any) => {
 		logger.debug('self', self);
-		logger.debug('parent', parent);
-		logger.debug('ancestor', ancestor);
+		// logger.debug('parent', parent);
+		// logger.debug('ancestor', ancestor);
 		if (has(self)) {
 			remove(self);
 		} else {
