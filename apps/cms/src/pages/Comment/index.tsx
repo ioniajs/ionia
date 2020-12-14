@@ -150,9 +150,18 @@ export default () => {
 				<div className='io-cms-comment-header-between-content__div' />
 				<div className='io-cms-comment-content-selectAll__div'>
 					<Checkbox>全选</Checkbox>
-					<Button type='primary' className='io-cms-comment-content-selectAll-check__button'>审核</Button>
-					<Button className='io-cms-comment-content-selectAll-actions__button'>取消审核</Button>
-					<Button className='io-cms-comment-content-selectAll-actions__button'>批量删除</Button>
+					<Button
+						type='primary'
+						className='io-cms-comment-content-selectAll-check__button'
+					>
+						审核
+					</Button>
+					<Button className='io-cms-comment-content-selectAll-actions__button'>
+						取消审核
+					</Button>
+					<Button className='io-cms-comment-content-selectAll-actions__button'>
+						批量删除
+					</Button>
 				</div>
 				<div className='io-cms-comment-content-items__div'>
 					<div className='io-cms-comment-content-item__div'>
@@ -160,9 +169,14 @@ export default () => {
 							<Checkbox />
 							<i className='iconfont icon-user1' />
 							<a>system superAdmin</a>
-							<p>【IP: <a>192.168.0.140</a>江西省南昌市】</p>
+							<p>
+								【IP: <a>192.168.0.140</a>江西省南昌市】
+							</p>
 							<p>2019-11-29 19:17:52</p>
-							<p><span>已置顶</span><span>已审核</span></p>
+							<p>
+								<span>已置顶</span>
+								<span>已审核</span>
+							</p>
 						</div>
 					</div>
 				</div>
