@@ -118,7 +118,7 @@ export const BaseResource = ({ id }: BaseResourceProps) => {
 				rowKey='id'
 				actionRef={actionRef}
 				inputPlaceholderText={'请输入标题'}
-				columns={columns}
+				columns={columns as any[]}
 				rowSelection={{
 					selectedRowKeys,
 					onChange: (selectedRowKeys: any) => {
