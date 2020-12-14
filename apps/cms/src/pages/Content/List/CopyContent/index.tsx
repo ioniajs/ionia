@@ -156,6 +156,7 @@ export default ({ contentId, action }: CopyFormProps) => {
 					</Button>
 				</div>
 			)}
+			style={{ cursor: 'default' }}
 		>
 			{action === 'copy' ? (
 				<p>

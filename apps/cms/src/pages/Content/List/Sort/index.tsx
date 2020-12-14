@@ -150,6 +150,7 @@ export default () => {
 				showTotal: () => '',
 			}}
 			scroll={{ y: 240 }}
+			style={{ cursor: 'default' }}
 		/>
 	);
 };

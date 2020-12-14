@@ -32,6 +32,7 @@ import ContentType from '@/pages/ContentType';
 import StorageManagementOSS from '@/pages/StorageManagementOSS';
 import StorageManagementFTP from '@/pages/StorageManagementFTP';
 import TestBaseManagement from '@/pages/TestBaseManagement';
+import Comment from '@/pages/Comment';
 
 export default [
 	{
@@ -165,6 +166,10 @@ export default [
 	{
 		path: '/system-messages',
 		component: SystemMessages,
+	},
+	{
+		path: '/content-operation/comment',
+		component: Comment,
 	},
 	{
 		path: '/500',

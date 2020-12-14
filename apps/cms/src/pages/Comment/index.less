@@ -1,0 +1,156 @@
+.io-cms-comment-container {
+	padding-top: 24px;
+	.io-cms-content-top-actions__div {
+		margin-bottom: 24px;
+		.top-actions-mute__span,
+		.top-actions-report__span {
+			display: inline-block;
+			font-size: 16px;
+			font-weight: 500;
+			color: #262626;
+			margin-right: 32px;
+			cursor: pointer;
+			&:hover {
+				color: #1c6cd8;
+			}
+			&:active {
+				color: #1c6cd8;
+			}
+		}
+	}
+	.io-cms-comment-search__div {
+		margin-left: -10px;
+	}
+	.io-cms-comment-header-between-content__div {
+		height: 24px;
+		background: #f0f2f5;
+		margin: 0 -24px;
+	}
+	.io-cms-comment-content-selectAll__div {
+		padding-top: 24px;
+		.io-cms-comment-content-selectAll-check__button {
+			margin-left: 16px;
+		}
+		.io-cms-comment-content-selectAll-actions__button {
+			margin-left: 8px;
+		}
+	}
+	.io-cms-comment-content-items__div {
+		margin-top: 24px;
+		.io-cms-comment-content-item__div {
+			border: 1px solid #f0f0f0;
+			.io-cms-comment-content-item-top__div {
+				display: flex;
+				position: relative;
+				height: 48px;
+				padding-left: 24px;
+				border-bottom: 1px solid #f0f0f0;
+				line-height: 48px;
+				.item-top-user {
+					color: #262626;
+					font-size: 14px;
+					margin-left: 16px;
+				}
+				.item-top-username {
+					width: 56px;
+					font-size: 14px;
+					font-weight: 400;
+					color: #1c6cd8;
+					margin-left: 8px;
+					overflow: hidden; /*超出部分隐藏*/
+					white-space: nowrap; /*不换行*/
+					text-overflow: ellipsis; /*超出部分文字以...显示*/
+				}
+				.item-top-time {
+					margin-left: 40px;
+					font-size: 14px;
+					font-weight: 400;
+					color: #bfbfbf;
+				}
+				.item-top-action-status {
+					font-size: 14px;
+					font-weight: 400;
+					color: #52c41a;
+					margin-left: 40px;
+					.each-action-status {
+						margin-right: 16px;
+					}
+				}
+			}
+			.io-cms-comment-content-item-middle__div {
+				padding: 40px 24px 40px 56px;
+				.item-middle-each-comments-or-replycomment__div {
+					margin-bottom: 32px;
+					.comments-or-replycomment-detail {
+						display: flex;
+						font-size: 14px;
+						font-weight: 400;
+						color: #8c8c8c;
+						line-height: 22px;
+						.detail-comment-icon-like {
+							margin-left: 24px;
+						}
+						.detail-comment-like-counts {
+							margin-left: 10px;
+						}
+						.detail-comment-reply-user {
+							margin-left: 24px;
+						}
+						.detail-comment-reply-time {
+							margin-left: 24px;
+						}
+					}
+					.comments-or-replycomment-content-description {
+						margin-bottom: 0px;
+						font-weight: 400;
+						color: #262626;
+					}
+				}
+				.item-middle-each-comments-or-replycomment__div:last-child {
+					margin-bottom: 0px;
+				}
+			}
+			.io-cms-comment-content-item-bottom__div {
+				display: flex;
+				position: relative;
+				height: 48px;
+				padding-left: 48px;
+				background: #fafafa;
+				border-top: 1px solid #f0f0f0;
+				line-height: 48px;
+				.item-bottom-section-title {
+				}
+				.item-bottom-section-content {
+					width: 260px;
+					overflow: hidden; /*超出部分隐藏*/
+					white-space: nowrap; /*不换行*/
+					text-overflow: ellipsis; /*超出部分文字以...显示*/
+				}
+				.item-bottom-all-messages {
+					margin-left: 40px;
+				}
+				.item-bottom-check-all-comments {
+					margin-left: 8px;
+					color: #262626;
+				}
+				.item-bottom-function-operation {
+					position: absolute;
+					right: 8px;
+					i {
+						padding: 0px 16px;
+						height: 14px;
+						border-right: 1px solid #f0f0f0;
+						cursor: pointer;
+					}
+					i:last-child {
+						border-right: none;
+					}
+				}
+			}
+		}
+	}
+}
+.io-cms-comment-list-pagination {
+	text-align: right;
+	margin-top: 24px;
+}

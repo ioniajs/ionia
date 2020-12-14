@@ -31,6 +31,7 @@ interface BizPageProps {
 	onGoback?: () => void;
 	onSave?: () => void;
 	tabList?: TabPaneProps[];
+	defaultActiveKey?: string;
 	layout?: LayoutProps;
 }
 
@@ -43,6 +44,7 @@ export const BizPage = ({
 	onGoback,
 	onSave,
 	showActions = false,
+	defaultActiveKey = '1',
 }: BizPageProps) => {
 	const [activeKey, setActiveKey] = useState<string>();
 	const [tipsVisible, setTipsVisible] = useState<boolean>(true);
@@ -112,7 +114,11 @@ export const BizPage = ({
 			{children && !tabList && <div className='io-biz-page__body'>{children}</div>}
 			{tabList && (
 				<div className='io-biz-page__body--tabs'>
-					<Tabs activeKey={activeKey} onChange={key => setActiveKey(key)}>
+					<Tabs
+						activeKey={activeKey}
+						onChange={key => setActiveKey(key)}
+						defaultActiveKey={defaultActiveKey}
+					>
 						{tabList.map(t => (
 							<TabPane key={t.tabKey} {...t} />
 						))}

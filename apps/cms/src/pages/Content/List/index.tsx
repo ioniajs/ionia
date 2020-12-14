@@ -261,7 +261,7 @@ export const List = () => {
 	const [checkedAll, setCheckedAll] = useState(false);
 	const [datas, setDatas] = useState(dataSource);
 	const modalRef = useRef<BizModalFormRef>();
-	const [topDeadLineForm] = Form.useForm();
+	const [actionsForm] = Form.useForm();
 	const [stationPushVisible, setStationPushVisible] = useState<boolean>(false);
 	const [stationPushForm] = Form.useForm();
 	const [siteTree, setSiteTree] = useState<AdminSiteTreeVO[]>();
@@ -314,7 +314,7 @@ export const List = () => {
 							closable: true,
 							title: '置顶',
 							content: (
-								<Form form={topDeadLineForm}>
+								<Form form={actionsForm}>
 									<ProFormDateTimePicker
 										name='topDeadLine'
 										label={
@@ -339,7 +339,7 @@ export const List = () => {
 							width: 450,
 							icon: false,
 							onOk: () => {
-								const topDeadLine = topDeadLineForm.getFieldValue('topDeadLine');
+								const topDeadLine = actionsForm.getFieldValue('topDeadLine');
 								console.log(
 									topDeadLine,
 									moment(topDeadLine).format('YYYY-MM-DD HH:mm:ss'),
@@ -354,13 +354,56 @@ export const List = () => {
 				</a>
 			</Menu.Item>
 			<Menu.Item>
-				<a>取消热点</a>
+				<a
+					onClick={() => {
+						Modal.confirm({
+							closable: true,
+							title: '热点',
+							content: (
+								<Form form={actionsForm}>
+									<ProFormDateTimePicker
+										name='hotDeadLine'
+										label={
+											<span>
+												选择热点到期时间&nbsp;
+												<Tooltip title='热点到期后将自动取消置顶状态，不设置到期时间代表永久置顶'>
+													<InfoCircleOutlined />
+												</Tooltip>
+											</span>
+										}
+										fieldProps={{
+											showTime: true,
+											suffixIcon: <i className='iconfont icon-time-circle' />,
+											format: 'YYYY-MM-DD HH:mm:ss',
+										}}
+										labelCol={{ span: 9 }}
+										wrapperCol={{ span: 15 }}
+										placeholder=''
+									/>
+								</Form>
+							),
+							width: 450,
+							icon: false,
+							onOk: () => {
+								const hotDeadLine = actionsForm.getFieldValue('hotDeadLine');
+								console.log(
+									hotDeadLine,
+									moment(hotDeadLine).format('YYYY-MM-DD HH:mm:ss'),
+									'deadLine'
+								);
+							},
+							onCancel: () => {},
+						});
+					}}
+				>
+					热点
+				</a>
 			</Menu.Item>
 			<Menu.Item>
-				<a>取消头条</a>
+				<a>头条</a>
 			</Menu.Item>
 			<Menu.Item>
-				<a>设置推荐</a>
+				<a>推荐</a>
 			</Menu.Item>
 			<Menu.Item>
 				<a
@@ -562,7 +605,10 @@ export const List = () => {
 					</BizModalForm>
 					{/* <a className='content-middle-action'>排序</a> */}
 					<Dropdown overlay={rightMenuActions} placement='bottomRight'>
-						<i className='iconfont icon-ellipsis content-middle-action' />
+						<i
+							className='iconfont icon-ellipsis content-middle-action'
+							style={{ cursor: 'pointer' }}
+						/>
 					</Dropdown>
 				</div>
 			</div>
@@ -611,6 +657,7 @@ export const List = () => {
 						layout='vertical'
 						// colSize={0.5}
 					/>
+					<ProFormText name='contentTittle' placeholder='搜索内容标题' colSize={0.75} />
 					<ProFormSelect
 						name='contentType'
 						label='内容类型'
@@ -641,11 +688,7 @@ export const List = () => {
 						options={['我创建的']}
 						// colSize={0.5}
 					/>
-					<ProFormText
-						name='contentTittle'
-						placeholder='搜索内容标题'
-						// colSize={0.75}
-					/>
+
 					<ProFormText
 						name='searchKeyWord'
 						fieldProps={{
