@@ -92,7 +92,16 @@ export default () => {
 								});
 							}}
 						/>
-						<Button type='default' className='io-cms-site-save-expand__but' onClick={() => { history.push({ pathname: `/system-management/site/detail/${0}`, state: { tabKey: '2' } }) }}>
+						<Button
+							type='default'
+							className='io-cms-site-save-expand__but'
+							onClick={() => {
+								history.push({
+									pathname: `/system-management/site/detail/${0}`,
+									state: { tabKey: '2' },
+								});
+							}}
+						>
 							保存并详细配置
 						</Button>
 						<Button
@@ -233,10 +242,10 @@ export default () => {
 														域名
 													</span>
 												) : (
-														<span style={{ display: 'none' }}>
-															添加域名
-														</span>
-													)
+													<span style={{ display: 'none' }}>
+														添加域名
+													</span>
+												)
 											}
 											required={false}
 											key={field.key}
@@ -244,7 +253,6 @@ export default () => {
 										>
 											<Row>
 												<Col span={20}>
-
 													<Form.Item
 														{...field}
 														wrapperCol={{ span: 6 }}
@@ -266,7 +274,6 @@ export default () => {
 													</Form.Item>
 												</Col>
 												<Col span={4}>
-
 													{fields.length > 1 && index > 0 ? (
 														<Button
 															className='io-cms-site-create-domain-delete__but'
@@ -290,7 +297,7 @@ export default () => {
 										type='dashed'
 										className='io-cms-site-copy-add__but'
 										onClick={() => add()}
-									// style={{ width: '90%' }}
+										// style={{ width: '90%' }}
 									>
 										<i className='iconfont icon-plus-square' />
 										添加

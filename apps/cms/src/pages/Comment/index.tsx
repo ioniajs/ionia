@@ -185,9 +185,16 @@ export default () => {
 									<i className='iconfont icon-like detail-comment-icon-like' />
 									<p className='detail-comment-like-counts'>56</p>
 									<p className='detail-comment-reply-user'>回复人：system</p>
-									<p className='detail-comment-reply-time'>回复时间：2019-11-29 19:17:52</p>
+									<p className='detail-comment-reply-time'>
+										回复时间：2019-11-29 19:17:52
+									</p>
 								</div>
-								<p>这里是回复内容这里是回复内容这里是回复内容这里是回复内容这里是回复内容 这里是回复内容这里是回复内容这里是回复内容这里是回复内容这里是回复内容 这里是回复内容这里是回复内容这里是回复内容这里是回复内容这里是回复内容 这里是回复内容这里是回复内容这里是回复内容这里是回复内容，显示全部字数</p>
+								<p>
+									这里是回复内容这里是回复内容这里是回复内容这里是回复内容这里是回复内容
+									这里是回复内容这里是回复内容这里是回复内容这里是回复内容这里是回复内容
+									这里是回复内容这里是回复内容这里是回复内容这里是回复内容这里是回复内容
+									这里是回复内容这里是回复内容这里是回复内容这里是回复内容，显示全部字数
+								</p>
 							</div>
 							<div className='item-middle-each-comments-or-replycomment__div'>
 								<div className='comments-or-replycomment-detail'>
@@ -195,14 +202,22 @@ export default () => {
 									<i className='iconfont icon-like detail-comment-icon-like' />
 									<p className='detail-comment-like-counts'>56</p>
 								</div>
-								<p className='comments-or-replycomment-content-description'>这里是回复内容这里是回复内容这里是回复内容这里是回复内容这里是回复内容 这里是回复内容这里是回复内容这里是回复内容这里是回复内容这里是回复内容 这里是回复内容这里是回复内容这里是回复内容这里是回复内容这里是回复内容 这里是回复内容这里是回复内容这里是回复内容这里是回复内容，显示全部字数</p>
+								<p className='comments-or-replycomment-content-description'>
+									这里是回复内容这里是回复内容这里是回复内容这里是回复内容这里是回复内容
+									这里是回复内容这里是回复内容这里是回复内容这里是回复内容这里是回复内容
+									这里是回复内容这里是回复内容这里是回复内容这里是回复内容这里是回复内容
+									这里是回复内容这里是回复内容这里是回复内容这里是回复内容，显示全部字数
+								</p>
 							</div>
 						</div>
 						<div className='io-cms-comment-content-item-bottom__div'>
 							<p className='item-bottom-section-title'>【栏目】</p>
-							<a className='item-bottom-section-content'>昌北机场T1航站楼改造力争月底完工昌北所发表的和德国人他</a>
+							<a className='item-bottom-section-content'>
+								昌北机场T1航站楼改造力争月底完工昌北所发表的和德国人他
+							</a>
 							<i className='iconfont icon-message item-bottom-all-messages' />
-							<a className='item-bottom-check-all-comments'>查看全部评论</a>【全部&nbsp;1（待审核&nbsp;0&nbsp;|&nbsp;已审核&nbsp;1）】
+							<a className='item-bottom-check-all-comments'>查看全部评论</a>
+							【全部&nbsp;1（待审核&nbsp;0&nbsp;|&nbsp;已审核&nbsp;1）】
 							<div className='item-bottom-function-operation'>
 								<Tooltip title='置顶'>
 									<i className='iconfont icon-zhiding' />

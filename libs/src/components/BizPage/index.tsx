@@ -44,7 +44,7 @@ export const BizPage = ({
 	onGoback,
 	onSave,
 	showActions = false,
-	defaultActiveKey = '1'
+	defaultActiveKey = '1',
 }: BizPageProps) => {
 	const [activeKey, setActiveKey] = useState<string>();
 	const [tipsVisible, setTipsVisible] = useState<boolean>(true);
@@ -76,8 +76,8 @@ export const BizPage = ({
 									{item.path ? (
 										<Link to={item.path}>{item.name}</Link>
 									) : (
-											item.name
-										)}
+										item.name
+									)}
 								</Breadcrumb.Item>
 							))}
 						</Breadcrumb>
@@ -114,7 +114,11 @@ export const BizPage = ({
 			{children && !tabList && <div className='io-biz-page__body'>{children}</div>}
 			{tabList && (
 				<div className='io-biz-page__body--tabs'>
-					<Tabs activeKey={activeKey} onChange={key => setActiveKey(key)} defaultActiveKey={defaultActiveKey}>
+					<Tabs
+						activeKey={activeKey}
+						onChange={key => setActiveKey(key)}
+						defaultActiveKey={defaultActiveKey}
+					>
 						{tabList.map(t => (
 							<TabPane key={t.tabKey} {...t} />
 						))}

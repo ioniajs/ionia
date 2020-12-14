@@ -92,8 +92,8 @@ export default () => {
 						<Input type='number' ref={ref} onPressEnter={save} onBlur={save} />
 					</Form.Item>
 				) : (
-						<div onClick={toggleEdit}>{children}</div>
-					);
+					<div onClick={toggleEdit}>{children}</div>
+				);
 			},
 		},
 		{
