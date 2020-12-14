@@ -131,7 +131,7 @@ export const BaseResource = ({ id }: BaseResourceProps) => {
 						data: data.data.content,
 					}));
 				}}
-			></BizTable>
+			/>
 		</div>
 	);
 };
