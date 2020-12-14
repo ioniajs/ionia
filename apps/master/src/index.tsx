@@ -14,13 +14,13 @@ if (isDev) {
 const apps: IoniaApp<{}>[] = [
 	{
 		name: 'auth',
-		entry: isDev ? '//localhost:7001' : configs.API_HOST,
+		entry: isDev ? '//localhost:7001' : configs.DOMAIN,
 		activeRule: '/auth',
 		hideInMenu: true,
 	},
 	{
 		name: 'cms',
-		entry: isDev ? '//localhost:7002' : configs.API_HOST,
+		entry: isDev ? '//localhost:7002' : configs.DOMAIN,
 		activeRule: '/cms',
 	},
 ];
