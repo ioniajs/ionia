@@ -112,20 +112,14 @@ export default [
 									{
 										key: '1331776990746841011',
 										name: '四级1',
-										operatingFlag: 0,
+										operatingFlag: 1,
 										permissionFlag: 0,
 									},
 									{
 										key: '1331776990746841012',
 										name: '四级2',
 										operatingFlag: 1,
-										permissionFlag: 1,
-									},
-									{
-										key: '1331776990746841013',
-										name: '四级3',
-										operatingFlag: 1,
-										permissionFlag: 1,
+										permissionFlag: 0,
 									},
 								],
 								key: '1331773069462675457',
@@ -136,12 +130,6 @@ export default [
 							{
 								children: [
 									{
-										key: '1331776990746841021',
-										name: '四级1',
-										operatingFlag: 0,
-										permissionFlag: 0,
-									},
-									{
 										key: '1331776990746841022',
 										name: '四级2',
 										operatingFlag: 1,
@@ -150,8 +138,8 @@ export default [
 									{
 										key: '1331776990746841023',
 										name: '新增模版-test1',
-										operatingFlag: 1,
-										permissionFlag: 1,
+										operatingFlag: 0,
+										permissionFlag: 0,
 									},
 									{
 										key: '1331776990746841024',
@@ -159,23 +147,11 @@ export default [
 										operatingFlag: 1,
 										permissionFlag: 0,
 									},
-									{
-										key: '1331776990746841025',
-										name: '四级5-测试1',
-										operatingFlag: 1,
-										permissionFlag: 0,
-									},
-									{
-										key: '1331776990746841026',
-										name: '新增模版-test1',
-										operatingFlag: 1,
-										permissionFlag: 1,
-									},
 								],
 								key: '1331773069462675451',
 								name: '二级4-三级2',
 								operatingFlag: 1,
-								permissionFlag: 0,
+								permissionFlag: 1,
 							},
 							{
 								children: [
@@ -213,7 +189,7 @@ export default [
 								key: '1331773069462675453',
 								name: '二级4-三级3',
 								operatingFlag: 1,
-								permissionFlag: 0,
+								permissionFlag: 1,
 							},
 							{
 								key: '1331773069462675001',
@@ -225,7 +201,7 @@ export default [
 						key: '1329720712180531202',
 						name: '顶级',
 						operatingFlag: 1,
-						permissionFlag: 0,
+						permissionFlag: 1,
 						onlyTwo: 0,
 					},
 					{
@@ -258,7 +234,7 @@ export default [
 						key: '121312222',
 						name: '测试2',
 						operatingFlag: 1,
-						permissionFlag: 0,
+						permissionFlag: 1,
 						onlyTwo: 1,
 					},
 					{
