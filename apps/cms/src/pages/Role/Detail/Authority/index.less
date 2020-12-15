@@ -37,13 +37,16 @@
 		width: 100%;
 	}
 }
-
+.ant-collapse-content > .ant-collapse-content-box {
+	padding: 16px 0;
+}
 .io_cms_role_authority-menu_collapse-panel {
 	padding: 0 !important;
 	height: 220px;
 	background: #ffffff;
 	border: 1px solid #f0f0f0;
 	border-radius: 2px;
+	margin-right: 20px;
 
 	.io_cms_role_authority-menu_collapse-panel_title {
 		height: 48px;
@@ -59,7 +62,12 @@
 		height: 36px;
 		line-height: 36px;
 	}
-
+	.ant-collapse-content-box {
+		.ant-col-8 {
+			flex: 0 0 32% !important;
+			max-width: 32% !important;
+		}
+	}
 	.io-cms-role-authority-menu_content {
 		height: 184px;
 		overflow-y: auto;
@@ -68,15 +76,30 @@
 			padding: 0 17px;
 			align-items: center;
 			height: 46px;
+
+			//.ant-checkbox-wrapper {
+			//  display: flex;
+			//}
+			//
+			////.ant-checkbox {
+			////  margin-top: 4px;
+			////}
+			//
+			//.ant-checkbox + span {
+			//  display: block;
+			//}
 		}
 	}
 }
+
 .io-cms-role-authority-menu_text {
 	overflow: hidden; //超出的文本隐藏
 	text-overflow: ellipsis; //溢出用省略号显示
 	white-space: nowrap;
 	max-width: 56px;
+	display: inline-block;
 }
+
 .io-cms-role-authority-column_header {
 	display: flex;
 	justify-content: space-between;
