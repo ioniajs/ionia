@@ -5,7 +5,7 @@ import App from './App';
 
 const app = new Application(
 	(
-		<Router basename={isSlave ? '/cms' : '/'}>
+		<Router basename={'/cms'}>
 			<App />
 		</Router>
 	)
