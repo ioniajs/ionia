@@ -10,6 +10,7 @@ const { Panel } = Collapse;
 
 export default ({ roleId }: any) => {
 	const [tree, setTree] = useState<MenuAuthVO[]>([]);
+	const [activeKey, setActiveKey] = useState<string[]>([]);
 	useRequest(() => roleMenuShow({ roleId }), {
 		onSuccess: data => {
 			setTree(data.data);
@@ -18,7 +19,7 @@ export default ({ roleId }: any) => {
 
 	//过滤数据 获取可选的数据
 	const getAvailableData = (list: any, ids: number[] = []) => {
-		list.filter((u: any) => u.operatingFlag == 1).map((item: any) => {
+		list?.filter((u: any) => u.operatingFlag == 1).map((item: any) => {
 			ids.push(item.permissionFlag);
 			if (item.children) {
 				getAvailableData(item.children, ids);
@@ -172,6 +173,14 @@ export default ({ roleId }: any) => {
 		}
 		return flag;
 	};
+
+	const callback = (data: any, flag: boolean) => {
+		let ids: string[] = [];
+		data.map((item: any) => {
+			ids.push(item.key);
+		});
+		flag ? setActiveKey(ids) : setActiveKey([]);
+	};
 	return (
 		<>
 			<Affix offsetTop={100}>
@@ -183,9 +192,19 @@ export default ({ roleId }: any) => {
 				<Checkbox checked={checkAll(tree)} indeterminate={isCheckAll(tree)}>
 					全选
 				</Checkbox>
-				<Checkbox onChange={() => {}}>全部展开</Checkbox>
+				<Checkbox
+					onChange={e => {
+						callback(tree, e.target.checked);
+					}}
+				>
+					全部展开
+				</Checkbox>
 			</div>
-			<Collapse className='io_cms_role_authority-menu_collapse'>
+			<Collapse
+				className='io_cms_role_authority-menu_collapse'
+				bordered={false}
+				activeKey={activeKey}
+			>
 				{tree.map((item: any) => {
 					return (
 						// @ts-ignore
@@ -205,7 +224,21 @@ export default ({ roleId }: any) => {
 										checked={isCheckAllFirst(item)}
 										indeterminate={checkNoAllFirst(item)}
 									>
-										{item.name}
+										{/* {item.name} */}
+										{item.key != 0 ? (
+											item.name
+										) : (
+											<span>
+												<span style={{ marginRight: '8px' }}>
+													{item.name}
+												</span>
+												<i
+													className='iconfont icon-info-circle'
+													title='增量菜单指当前设置 保存后新增加的菜单'
+													style={{ cursor: 'pointer' }}
+												/>
+											</span>
+										)}
 									</Checkbox>
 								</div>
 							}
@@ -241,6 +274,7 @@ export default ({ roleId }: any) => {
 														return (
 															<Col
 																span={8}
+																key={o.key}
 																className='io-cms-role-authority-menu_item'
 															>
 																<Checkbox
@@ -254,7 +288,6 @@ export default ({ roleId }: any) => {
 																			e.target.checked
 																		);
 																	}}
-																	key={o.key}
 																	disabled={o.operatingFlag == 0}
 																>
 																	<Tooltip title={o.name}>
@@ -275,6 +308,7 @@ export default ({ roleId }: any) => {
 										return (
 											<Col
 												span={3}
+												key={t.key}
 												className='io-cms-role-authority-menu_item'
 											>
 												<Checkbox
@@ -282,7 +316,6 @@ export default ({ roleId }: any) => {
 													onChange={e => {
 														selectSelf(t, item, '', e.target.checked);
 													}}
-													key={t.key}
 													disabled={t.operatingFlag == 0}
 												>
 													<Tooltip title={t.name}>
