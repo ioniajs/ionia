@@ -1,5 +1,15 @@
 import React, { useState } from 'react';
-import { Form, TreeSelect, Select, Checkbox, Button, Pagination, Tooltip, Modal, Input } from 'antd';
+import {
+	Form,
+	TreeSelect,
+	Select,
+	Checkbox,
+	Button,
+	Pagination,
+	Tooltip,
+	Modal,
+	Input,
+} from 'antd';
 import { BizPage } from '@ionia/libs';
 import {
 	QueryFilter,
@@ -97,7 +107,7 @@ export default () => {
 						onFinish={async values => {
 							console.log(values);
 						}}
-						onCollapse={(collapsed) => SetCollapsed(collapsed)}
+						onCollapse={collapsed => SetCollapsed(collapsed)}
 					>
 						<ProFormSelect
 							name='sortWay'
@@ -113,12 +123,14 @@ export default () => {
 							labelCol={{ span: 4 }}
 							wrapperCol={{ span: 16 }}
 						/>
-						{!!collapsed && <ProFormText
-							name='keyWord'
-							labelCol={{ span: 4 }}
-							wrapperCol={{ span: 16 }}
-							placeholder='评论人/IP/评论内容/回复内容/文章标题'
-						/>}
+						{!!collapsed && (
+							<ProFormText
+								name='keyWord'
+								labelCol={{ span: 4 }}
+								wrapperCol={{ span: 16 }}
+								placeholder='评论人/IP/评论内容/回复内容/文章标题'
+							/>
+						)}
 						<Form.Item
 							name='section'
 							label='所属栏目'
@@ -238,91 +250,118 @@ export default () => {
 									<i className='iconfont icon-quxiaozhiding' />
 								</Tooltip>
 								<Tooltip title='取消审核'>
-									<i className='iconfont icon-quxiaoshenhe' onClick={() => {
-										Modal.confirm({
-											title: '你确定取消评论的审核状态吗？',
-											content: '取消审核后不会显示在网站上。',
-											onOk: () => {
-												console.log('取消审核')
-											}
-										})
-									}} />
+									<i
+										className='iconfont icon-quxiaoshenhe'
+										onClick={() => {
+											Modal.confirm({
+												title: '你确定取消评论的审核状态吗？',
+												content: '取消审核后不会显示在网站上。',
+												onOk: () => {
+													console.log('取消审核');
+												},
+											});
+										}}
+									/>
 								</Tooltip>
 								<Tooltip title='审核'>
-									<i className='iconfont icon-shenhe' onClick={() => {
-										Modal.confirm({
-											title: '你确定审核选中评论吗？',
-											content: '审核后将显示在网站上。',
-											okText: '审核',
-											onOk: () => {
-												console.log('审核');
-											}
-										})
-									}} />
+									<i
+										className='iconfont icon-shenhe'
+										onClick={() => {
+											Modal.confirm({
+												title: '你确定审核选中评论吗？',
+												content: '审核后将显示在网站上。',
+												okText: '审核',
+												onOk: () => {
+													console.log('审核');
+												},
+											});
+										}}
+									/>
 								</Tooltip>
 								<Tooltip title='禁止用户评论'>
-									<i className='iconfont icon-jinzhiyonghu' onClick={() => {
-										Modal.confirm({
-											title: '你确定禁止用户评论吗？',
-											content: '禁止后该用户无法再提交评论。',
-											okText: '禁止',
-											onOk: () => {
-												console.log('禁止用户评论')
-											}
-										})
-									}} />
+									<i
+										className='iconfont icon-jinzhiyonghu'
+										onClick={() => {
+											Modal.confirm({
+												title: '你确定禁止用户评论吗？',
+												content: '禁止后该用户无法再提交评论。',
+												okText: '禁止',
+												onOk: () => {
+													console.log('禁止用户评论');
+												},
+											});
+										}}
+									/>
 								</Tooltip>
 								<Tooltip title='取消用户评论'>
 									<i className='iconfont icon-quxiaoyonghu' />
 								</Tooltip>
 								<Tooltip title='禁止IP评论'>
-									<i className='iconfont icon-jinzhiip' onClick={() => {
-										Modal.confirm({
-											title: '你确定禁止ip评论吗？',
-											content: '禁止后该ip无法再提交评论。',
-											okText: '禁止',
-											onOk: () => {
-												console.log('禁止IP评论')
-											}
-										})
-									}} />
+									<i
+										className='iconfont icon-jinzhiip'
+										onClick={() => {
+											Modal.confirm({
+												title: '你确定禁止ip评论吗？',
+												content: '禁止后该ip无法再提交评论。',
+												okText: '禁止',
+												onOk: () => {
+													console.log('禁止IP评论');
+												},
+											});
+										}}
+									/>
 								</Tooltip>
 								<Tooltip title='取消IP评论'>
 									<i className='iconfont icon-quxiaoip' />
 								</Tooltip>
 								<Tooltip title='回复'>
-									<i className='iconfont icon-message' onClick={() => {
-										Modal.confirm({
-											title: '回复',
-											icon: '',
-											okText: '保存',
-											closable: true,
-											className: 'io-comment-reply__modal',
-											content: (
-												<Form>
-													<Form.Item name='replyContent' label='回复内容' className='io-comment-reply__form-item'>
-														<Input.TextArea maxLength={500} placeholder='请输入回复内容' showCount className='io-comment-reply-modal__input-textarea' />
-													</Form.Item>
-												</Form>
-											),
-											width: 550
-										})
-									}} />
+									<i
+										className='iconfont icon-message'
+										onClick={() => {
+											Modal.confirm({
+												title: '回复',
+												icon: '',
+												okText: '保存',
+												closable: true,
+												className: 'io-comment-reply__modal',
+												content: (
+													<Form>
+														<Form.Item
+															name='replyContent'
+															label='回复内容'
+															className='io-comment-reply__form-item'
+														>
+															<Input.TextArea
+																maxLength={500}
+																placeholder='请输入回复内容'
+																showCount
+																className='io-comment-reply-modal__input-textarea'
+															/>
+														</Form.Item>
+													</Form>
+												),
+												width: 550,
+											});
+										}}
+									/>
 								</Tooltip>
 								<Tooltip title='编辑回复'>
 									<i className='iconfont icon-edit-square' />
 								</Tooltip>
 								<Tooltip title='删除'>
-									<i className='iconfont icon-delete' onClick={() => {
-										Modal.confirm({
-											title: '你确定删除选中评论吗？',
-											content: '删除后无法恢复，请谨慎操作。',
-											okText: '删除',
-											onOk: () => {
-												console.log('删除')
-											}
-										})
-									}} />
+									<i
+										className='iconfont icon-delete'
+										onClick={() => {
+											Modal.confirm({
+												title: '你确定删除选中评论吗？',
+												content: '删除后无法恢复，请谨慎操作。',
+												okText: '删除',
+												onOk: () => {
+													console.log('删除');
+												},
+											});
+										}}
+									/>
 								</Tooltip>
 								<Tooltip title='取消举报'>
 									<i className='iconfont icon-quxiaojubao' />
