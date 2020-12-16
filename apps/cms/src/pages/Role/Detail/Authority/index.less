@@ -47,6 +47,9 @@
 	border: 1px solid #f0f0f0;
 	border-radius: 2px;
 	margin-right: 20px;
+	flex: 0 0 32% !important;
+	max-width: 32% !important;
+	margin-top: 24px;
 
 	.io_cms_role_authority-menu_collapse-panel_title {
 		height: 48px;
@@ -54,13 +57,24 @@
 		border-radius: 2px 2px 0px 0px;
 		padding: 0 17px;
 	}
+	.io_cms_role_authority-menu_collapse {
+		.ant-collapse-header {
+			border: 1px solid #eeeeee !important;
+		}
+		.ant-collapse-content-active {
+			background-color: #fff !important;
+		}
+	}
 
 	.io_cms_role_authority-menu_collapse-panel_name {
 		background: #fafafa;
 		border: 1px solid #f0f0f0;
-		padding: 0 7px;
+		padding: 0 17px;
 		height: 36px;
 		line-height: 36px;
+	}
+	.io-cms-role-authority-menu_content {
+		padding: 0 17px;
 	}
 	.ant-collapse-content-box {
 		.ant-col-8 {
@@ -73,21 +87,9 @@
 		overflow-y: auto;
 		.io-cms-role-authority-menu_item {
 			display: flex;
-			padding: 0 17px;
+			padding: 0 17px !important;
 			align-items: center;
 			height: 46px;
-
-			//.ant-checkbox-wrapper {
-			//  display: flex;
-			//}
-			//
-			////.ant-checkbox {
-			////  margin-top: 4px;
-			////}
-			//
-			//.ant-checkbox + span {
-			//  display: block;
-			//}
 		}
 	}
 }
