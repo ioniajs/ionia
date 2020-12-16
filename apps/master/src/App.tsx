@@ -5,12 +5,13 @@ import { Route } from 'react-router';
 import CacheRoute, { CacheSwitch } from 'react-router-cache-route';
 import './App.less';
 import MasterLayout from './layouts/MasterLayout';
+import Auth from './pages/Auth';
 
 const App = () => {
 	return (
 		<CacheSwitch>
 			<Route path='/auth'>
-				<SlaveApp />
+				<Auth />
 			</Route>
 			<Route path='/redirect' component={RedirectPage} />
 			<CacheRoute path='/'>
