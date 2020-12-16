@@ -78,8 +78,8 @@ export const BizPage = ({
 									{item.path ? (
 										<Link to={item.path}>{item.name}</Link>
 									) : (
-											item.name
-										)}
+										item.name
+									)}
 								</Breadcrumb.Item>
 							))}
 						</Breadcrumb>
