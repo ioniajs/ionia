@@ -17,6 +17,8 @@ import {
 	ProFormDateTimeRangePicker,
 	ProFormText,
 } from '@ant-design/pro-form';
+import { useHistory } from 'react-router-dom';
+import { Item } from './Item';
 import './index.less';
 
 const sortWay = {
@@ -83,6 +85,8 @@ const inputPlaceHolder = ['', '评论内容', '评论人', '评论IP', '回复�
 export default () => {
 	const [searchTypesValue, setSearchTypes] = useState<number>(1);
 	const [collapsed, SetCollapsed] = useState<boolean>(true); // 查询条件面板是否折叠
+	const [replyForm] = Form.useForm();
+	const history = useHistory();
 	const selectBefore = (
 		<Select
 			defaultValue={1}
@@ -184,7 +188,8 @@ export default () => {
 					</Button>
 				</div>
 				<div className='io-cms-comment-content-items__div'>
-					<div className='io-cms-comment-content-item__div'>
+					<Item />
+					{/* <div className='io-cms-comment-content-item__div'>
 						<div className='io-cms-comment-content-item-top__div'>
 							<Checkbox />
 							<i className='iconfont icon-user1 item-top-user' />
@@ -240,7 +245,7 @@ export default () => {
 								昌北机场T1航站楼改造力争月底完工昌北所发表的和德国人他
 							</a>
 							<i className='iconfont icon-message item-bottom-all-messages' />
-							<a className='item-bottom-check-all-comments'>查看全部评论</a>
+							<a className='item-bottom-check-all-comments' onClick={() => { history.push('/content-operation/comment/single-content') }}>查看全部评论</a>
 							【全部&nbsp;1（待审核&nbsp;0&nbsp;|&nbsp;已审核&nbsp;1）】
 							<div className='item-bottom-function-operation'>
 								<Tooltip title='置顶'>
@@ -322,14 +327,20 @@ export default () => {
 												title: '回复',
 												icon: '',
 												okText: '保存',
+												onOk: () => {
+													const replyContent = replyForm.getFieldValue('replyContent');
+													console.log(replyContent, '回复保存')
+												},
 												closable: true,
 												className: 'io-comment-reply__modal',
 												content: (
-													<Form>
+													<Form form={replyForm}>
 														<Form.Item
 															name='replyContent'
 															label='回复内容'
 															className='io-comment-reply__form-item'
+															labelCol={{ span: 5 }}
+															wrapperCol={{ span: 17 }}
 														>
 															<Input.TextArea
 																maxLength={500}
@@ -368,7 +379,7 @@ export default () => {
 								</Tooltip>
 							</div>
 						</div>
-					</div>
+					</div> */}
 				</div>
 			</div>
 			<Pagination
