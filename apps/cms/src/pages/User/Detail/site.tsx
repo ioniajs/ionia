@@ -1,14 +1,16 @@
 import { logger, userAcquireData, AdminChildDataVO, userCreateModJurisdiction } from '@ionia/libs';
-import { Affix, Button, Checkbox, Table, Modal, message } from 'antd';
+import { Affix, Button, Checkbox, Table, Modal, message, Spin } from 'antd';
 import React, { useState } from 'react';
 import { useRequest } from 'ahooks';
 import { ExclamationCircleOutlined } from '@ant-design/icons';
 
 const { confirm } = Modal;
 export default ({ userId }: { userId: string }) => {
+	const [show, setShow] = useState<boolean>(true);
 	useRequest(() => userAcquireData(userId), {
 		onSuccess: data => {
 			const treeData = data.data.sites;
+			setShow(false);
 			setTree(treeData);
 		},
 	});
@@ -548,7 +550,12 @@ export default ({ userId }: { userId: string }) => {
 					保存
 				</Button>
 			</Affix>
-			{tree.length && (
+			{show && (
+				<div className='io-cms-role-authority_example'>
+					<Spin tip='加载中...'></Spin>
+				</div>
+			)}
+			{tree.length > 0 && (
 				<Table
 					columns={columns}
 					rowSelection={{ ...rowSelection, checkStrictly: false }}
