@@ -34,6 +34,8 @@ import StorageManagementFTP from '@/pages/StorageManagementFTP';
 import TestBaseManagement from '@/pages/TestBaseManagement';
 import Comment from '@/pages/Comment';
 import CommentsSingleContent from '@/pages/Comment/SingleContent';
+import CommentsSingleUser from '@/pages/Comment/SingleUser';
+import CommentsSingleIp from '@/pages/Comment/SingleIp';
 
 export default [
 	{
@@ -175,6 +177,14 @@ export default [
 	{
 		path: '/content-operation/comment/single-content',
 		component: CommentsSingleContent,
+	},
+	{
+		path: '/content-operation/comment/single-user',
+		component: CommentsSingleUser,
+	},
+	{
+		path: '/content-operation/comment/single-ip',
+		component: CommentsSingleIp,
 	},
 	{
 		path: '/500',

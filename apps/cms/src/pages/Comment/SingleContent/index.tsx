@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 import { BizPage } from '@ionia/libs';
-import { Select } from 'antd';
+import { Select, Pagination } from 'antd';
 import {
 	QueryFilter,
 	ProFormSelect,
 	ProFormDateTimeRangePicker,
 	ProFormText,
 } from '@ant-design/pro-form';
-import { Item } from '../Item';
+import { CommentItems } from '../Items';
+import { Search } from '../Search';
 import './index.less';
 
 const sortWay = {
@@ -77,9 +78,10 @@ export default () => {
 				<div className='io-cms-comment-single-content-setion__div'>
 					<p>内容：【栏目】</p>
 					<a>昌北机场T1航站楼改造力争月底完工昌北的第三个对手</a>
-					<p>【&nbsp;全部&nbsp;1（待审核&nbsp;0&nbsp;|&nbsp;1）】</p>
+					<p>【&nbsp;全部&nbsp;1（待审核&nbsp;0&nbsp;|&nbsp;已审核&nbsp;1）】</p>
 				</div>
-				<div className='io-cms-comment-single-content-search__div'>
+				<Search type='singleContent' />
+				{/* <div className='io-cms-comment-single-content-search__div'>
 					<QueryFilter
 						span={6}
 						defaultCollapsed={true}
@@ -123,12 +125,23 @@ export default () => {
 							colSize={1.1}
 						/>
 					</QueryFilter>
-				</div>
+				</div> */}
 				<div className='io-cms-comment-single-content-header-between-content__div' />
-				<div className='io-cms-comment-single-content-items__div'>
-					<Item />
-				</div>
+				{/* <div className='io-cms-comment-single-content-items__div'> */}
+				<CommentItems />
+				{/* </div> */}
 			</div>
+			<Pagination
+				className='io-cms-comment-list-pagination'
+				total={85}
+				showSizeChanger={true}
+				showQuickJumper={true}
+				showTotal={total => `共${total}条`}
+				defaultPageSize={5}
+				onChange={(page, pageSize) => {
+					console.log(page, pageSize, 'pagination');
+				}}
+			/>
 		</BizPage>
 	);
 };
