@@ -306,26 +306,57 @@ export default [
 					{
 						children: [
 							{
-								children: [
-									{
-										id: 111,
-										name: '1-1-1',
-										permissionFlag: 0,
-									},
-									{
-										id: 112,
-										name: '1-1-2',
-										permissionFlag: 0,
-									},
-								],
-								id: 11,
-								name: '1-0',
+								key: '1331773069462675001',
+								name: '二级5-三级1',
+								operatingFlag: 1,
 								permissionFlag: 0,
 							},
 						],
-						id: 0,
+						key: '1329720712180531202',
 						name: '顶级',
+						operatingFlag: 1,
+						permissionFlag: 1,
+						onlyTwo: 0,
+					},
+					{
+						children: [
+							{
+								key: '133177306175001',
+								name: '二级1',
+								operatingFlag: 1,
+								permissionFlag: 0,
+							},
+							{
+								key: '133177306946267121',
+								name: '二级2',
+								operatingFlag: 1,
+								permissionFlag: 0,
+							},
+							{
+								key: '1331121262675001',
+								name: '二级3',
+								operatingFlag: 0,
+								permissionFlag: 0,
+							},
+							{
+								key: '13311212621211',
+								name: '二级4',
+								operatingFlag: 1,
+								permissionFlag: 1,
+							},
+						],
+						key: '121312222',
+						name: '测试2',
+						operatingFlag: 1,
+						permissionFlag: 1,
+						onlyTwo: 1,
+					},
+					{
+						key: 0,
+						name: '增量菜单',
+						operatingFlag: 1,
 						permissionFlag: 0,
+						onlyTwo: 1,
 					},
 				],
 				message: '',
