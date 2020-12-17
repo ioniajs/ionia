@@ -3,36 +3,46 @@ import { Checkbox, Tooltip, Form, Modal, Input, Button } from 'antd';
 import { useHistory } from 'react-router-dom';
 import './index.less';
 
-interface ItemProps { }
+interface ItemProps {}
 
-export const CommentItems = ({ }: ItemProps) => {
+export const CommentItems = ({}: ItemProps) => {
 	const history = useHistory();
 	const [replyForm] = Form.useForm();
 	return (
 		<>
 			<div className='io-cms-comment-content-selectAll__div'>
 				<Checkbox>全选</Checkbox>
-				<Button
-					type='primary'
-					className='io-cms-comment-content-selectAll-check__button'
-				>
+				<Button type='primary' className='io-cms-comment-content-selectAll-check__button'>
 					审核
-					</Button>
+				</Button>
 				<Button className='io-cms-comment-content-selectAll-actions__button'>
 					取消审核
-					</Button>
+				</Button>
 				<Button className='io-cms-comment-content-selectAll-actions__button'>
 					批量删除
-					</Button>
+				</Button>
 			</div>
 			<div className='io-cms-comment-content-items__div'>
 				<div className='io-cms-comment-content-item__div'>
 					<div className='io-cms-comment-content-item-top__div'>
 						<Checkbox />
 						<i className='iconfont icon-user1 item-top-user' />
-						<a className='item-top-username' onClick={() => history.push('/content-operation/comment/single-user')}>systemsuperAdmin</a>
+						<a
+							className='item-top-username'
+							onClick={() => history.push('/content-operation/comment/single-user')}
+						>
+							systemsuperAdmin
+						</a>
 						<p className='item-top-ip-location-name'>
-							【IP: <a onClick={() => { history.push('/content-operation/comment/single-ip') }}>192.168.0.140</a>江西省南昌市】
+							【IP:{' '}
+							<a
+								onClick={() => {
+									history.push('/content-operation/comment/single-ip');
+								}}
+							>
+								192.168.0.140
+							</a>
+							江西省南昌市】
 						</p>
 						<p className='item-top-time'>2019-11-29 19:17:52</p>
 						<p className='item-top-action-status'>
@@ -49,7 +59,9 @@ export const CommentItems = ({ }: ItemProps) => {
 								</Tooltip>
 								<p className='detail-comment-like-counts'>56</p>
 								<p className='detail-comment-reply-user'>回复人：system</p>
-								<p className='detail-comment-reply-time'>回复时间：2019-11-29 19:17:52</p>
+								<p className='detail-comment-reply-time'>
+									回复时间：2019-11-29 19:17:52
+								</p>
 							</div>
 							<p>
 								这里是回复内容这里是回复内容这里是回复内容这里是回复内容这里是回复内容
