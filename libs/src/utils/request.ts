@@ -2,7 +2,7 @@ import { extend } from 'umi-request';
 import { configs } from '../configs';
 
 const request = extend({
-	prefix: `${process.env.NODE_ENV === 'development' ? '' : configs.API_HOST}${
+	prefix: `${process.env.NODE_ENV === 'development' ? configs.API_HOST : configs.API_HOST}${
 		configs.API_PREFIX
 	}`,
 	timeout: 10000,

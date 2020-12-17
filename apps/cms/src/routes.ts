@@ -33,6 +33,7 @@ import StorageManagementOSS from '@/pages/StorageManagementOSS';
 import StorageManagementFTP from '@/pages/StorageManagementFTP';
 import TestBaseManagement from '@/pages/TestBaseManagement';
 import Comment from '@/pages/Comment';
+import CommentsSingleContent from '@/pages/Comment/SingleContent';
 
 export default [
 	{
@@ -170,6 +171,10 @@ export default [
 	{
 		path: '/content-operation/comment',
 		component: Comment,
+	},
+	{
+		path: '/content-operation/comment/single-content',
+		component: CommentsSingleContent,
 	},
 	{
 		path: '/500',

@@ -1,5 +1,15 @@
 import React, { useState } from 'react';
-import { Form, TreeSelect, Select, Checkbox, Button, Pagination, Tooltip } from 'antd';
+import {
+	Form,
+	TreeSelect,
+	Select,
+	Checkbox,
+	Button,
+	Pagination,
+	Tooltip,
+	Modal,
+	Input,
+} from 'antd';
 import { BizPage } from '@ionia/libs';
 import {
 	QueryFilter,
@@ -7,6 +17,8 @@ import {
 	ProFormDateTimeRangePicker,
 	ProFormText,
 } from '@ant-design/pro-form';
+import { useHistory } from 'react-router-dom';
+import { Item } from './Item';
 import './index.less';
 
 const sortWay = {
@@ -72,6 +84,9 @@ const searchTypes = [
 const inputPlaceHolder = ['', '评论内容', '评论人', '评论IP', '回复内容', '文章标题'];
 export default () => {
 	const [searchTypesValue, setSearchTypes] = useState<number>(1);
+	const [collapsed, SetCollapsed] = useState<boolean>(true); // 查询条件面板是否折叠
+	const [replyForm] = Form.useForm();
+	const history = useHistory();
 	const selectBefore = (
 		<Select
 			defaultValue={1}
@@ -92,10 +107,11 @@ export default () => {
 				<div className='io-cms-comment-search__div'>
 					<QueryFilter
 						span={6}
-						defaultCollapsed={false}
+						defaultCollapsed={true}
 						onFinish={async values => {
 							console.log(values);
 						}}
+						onCollapse={collapsed => SetCollapsed(collapsed)}
 					>
 						<ProFormSelect
 							name='sortWay'
@@ -111,6 +127,14 @@ export default () => {
 							labelCol={{ span: 4 }}
 							wrapperCol={{ span: 16 }}
 						/>
+						{!!collapsed && (
+							<ProFormText
+								name='keyWord'
+								labelCol={{ span: 4 }}
+								wrapperCol={{ span: 16 }}
+								placeholder='评论人/IP/评论内容/回复内容/文章标题'
+							/>
+						)}
 						<Form.Item
 							name='section'
 							label='所属栏目'
@@ -164,7 +188,8 @@ export default () => {
 					</Button>
 				</div>
 				<div className='io-cms-comment-content-items__div'>
-					<div className='io-cms-comment-content-item__div'>
+					<Item />
+					{/* <div className='io-cms-comment-content-item__div'>
 						<div className='io-cms-comment-content-item-top__div'>
 							<Checkbox />
 							<i className='iconfont icon-user1 item-top-user' />
@@ -182,7 +207,9 @@ export default () => {
 							<div className='item-middle-each-comments-or-replycomment__div'>
 								<div className='comments-or-replycomment-detail'>
 									<p className='detail-comment-type'>回复内容：</p>
-									<i className='iconfont icon-like detail-comment-icon-like' />
+									<Tooltip title='点赞数'>
+										<i className='iconfont icon-like detail-comment-icon-like' />
+									</Tooltip>
 									<p className='detail-comment-like-counts'>56</p>
 									<p className='detail-comment-reply-user'>回复人：system</p>
 									<p className='detail-comment-reply-time'>
@@ -199,7 +226,9 @@ export default () => {
 							<div className='item-middle-each-comments-or-replycomment__div'>
 								<div className='comments-or-replycomment-detail'>
 									<p className='detail-comment-type'>评论内容：</p>
-									<i className='iconfont icon-like detail-comment-icon-like' />
+									<Tooltip title='点赞数'>
+										<i className='iconfont icon-like detail-comment-icon-like' />
+									</Tooltip>
 									<p className='detail-comment-like-counts'>56</p>
 								</div>
 								<p className='comments-or-replycomment-content-description'>
@@ -216,7 +245,7 @@ export default () => {
 								昌北机场T1航站楼改造力争月底完工昌北所发表的和德国人他
 							</a>
 							<i className='iconfont icon-message item-bottom-all-messages' />
-							<a className='item-bottom-check-all-comments'>查看全部评论</a>
+							<a className='item-bottom-check-all-comments' onClick={() => { history.push('/content-operation/comment/single-content') }}>查看全部评论</a>
 							【全部&nbsp;1（待审核&nbsp;0&nbsp;|&nbsp;已审核&nbsp;1）】
 							<div className='item-bottom-function-operation'>
 								<Tooltip title='置顶'>
@@ -226,38 +255,131 @@ export default () => {
 									<i className='iconfont icon-quxiaozhiding' />
 								</Tooltip>
 								<Tooltip title='取消审核'>
-									<i className='iconfont icon-quxiaoshenhe' />
+									<i
+										className='iconfont icon-quxiaoshenhe'
+										onClick={() => {
+											Modal.confirm({
+												title: '你确定取消评论的审核状态吗？',
+												content: '取消审核后不会显示在网站上。',
+												onOk: () => {
+													console.log('取消审核');
+												},
+											});
+										}}
+									/>
 								</Tooltip>
 								<Tooltip title='审核'>
-									<i className='iconfont icon-shenhe' />
+									<i
+										className='iconfont icon-shenhe'
+										onClick={() => {
+											Modal.confirm({
+												title: '你确定审核选中评论吗？',
+												content: '审核后将显示在网站上。',
+												okText: '审核',
+												onOk: () => {
+													console.log('审核');
+												},
+											});
+										}}
+									/>
 								</Tooltip>
 								<Tooltip title='禁止用户评论'>
-									<i className='iconfont icon-jinzhiyonghu' />
+									<i
+										className='iconfont icon-jinzhiyonghu'
+										onClick={() => {
+											Modal.confirm({
+												title: '你确定禁止用户评论吗？',
+												content: '禁止后该用户无法再提交评论。',
+												okText: '禁止',
+												onOk: () => {
+													console.log('禁止用户评论');
+												},
+											});
+										}}
+									/>
 								</Tooltip>
 								<Tooltip title='取消用户评论'>
 									<i className='iconfont icon-quxiaoyonghu' />
 								</Tooltip>
 								<Tooltip title='禁止IP评论'>
-									<i className='iconfont icon-jinzhiip' />
+									<i
+										className='iconfont icon-jinzhiip'
+										onClick={() => {
+											Modal.confirm({
+												title: '你确定禁止ip评论吗？',
+												content: '禁止后该ip无法再提交评论。',
+												okText: '禁止',
+												onOk: () => {
+													console.log('禁止IP评论');
+												},
+											});
+										}}
+									/>
 								</Tooltip>
 								<Tooltip title='取消IP评论'>
 									<i className='iconfont icon-quxiaoip' />
 								</Tooltip>
 								<Tooltip title='回复'>
-									<i className='iconfont icon-message' />
+									<i
+										className='iconfont icon-message'
+										onClick={() => {
+											Modal.confirm({
+												title: '回复',
+												icon: '',
+												okText: '保存',
+												onOk: () => {
+													const replyContent = replyForm.getFieldValue('replyContent');
+													console.log(replyContent, '回复保存')
+												},
+												closable: true,
+												className: 'io-comment-reply__modal',
+												content: (
+													<Form form={replyForm}>
+														<Form.Item
+															name='replyContent'
+															label='回复内容'
+															className='io-comment-reply__form-item'
+															labelCol={{ span: 5 }}
+															wrapperCol={{ span: 17 }}
+														>
+															<Input.TextArea
+																maxLength={500}
+																placeholder='请输入回复内容'
+																showCount
+																className='io-comment-reply-modal__input-textarea'
+															/>
+														</Form.Item>
+													</Form>
+												),
+												width: 550,
+											});
+										}}
+									/>
 								</Tooltip>
 								<Tooltip title='编辑回复'>
 									<i className='iconfont icon-edit-square' />
 								</Tooltip>
 								<Tooltip title='删除'>
-									<i className='iconfont icon-delete' />
+									<i
+										className='iconfont icon-delete'
+										onClick={() => {
+											Modal.confirm({
+												title: '你确定删除选中评论吗？',
+												content: '删除后无法恢复，请谨慎操作。',
+												okText: '删除',
+												onOk: () => {
+													console.log('删除');
+												},
+											});
+										}}
+									/>
 								</Tooltip>
 								<Tooltip title='取消举报'>
 									<i className='iconfont icon-quxiaojubao' />
 								</Tooltip>
 							</div>
 						</div>
-					</div>
+					</div> */}
 				</div>
 			</div>
 			<Pagination

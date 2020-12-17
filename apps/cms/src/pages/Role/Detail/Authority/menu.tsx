@@ -1,21 +1,49 @@
-import { logger, roleMenuShow, MenuAuthVO } from '@ionia/libs';
+import { logger, roleMenuShow, MenuAuthVO, roleMenuMod } from '@ionia/libs';
 import { useRequest } from 'ahooks';
-import { Affix, Button, Checkbox, Col, Collapse, Row, Tooltip } from 'antd';
+import { Affix, Button, Checkbox, Col, Collapse, Row, Tooltip, Spin } from 'antd';
 import React, { useState } from 'react';
 import './index.less';
 
 const { Panel } = Collapse;
 
-// const dataList: any[] = [];
-
 export default ({ roleId }: any) => {
 	const [tree, setTree] = useState<MenuAuthVO[]>([]);
 	const [activeKey, setActiveKey] = useState<string[]>([]);
+	const [dataId, setDataId] = useState<string[]>([]);
+	const [show, setShow] = useState<boolean>(true);
 	useRequest(() => roleMenuShow({ roleId }), {
 		onSuccess: data => {
+			data.data ? setTree(data.data) : setTree([]);
 			setTree(data.data);
+			const ids = allOpen(data.data);
+			setActiveKey(ids);
+			setShow(false);
 		},
 	});
+
+	const { run } = useRequest(() => roleMenuMod({ dataId, id: roleId }));
+
+	const submitData = () => {
+		const ids = getData(tree);
+		setDataId(ids);
+		run();
+	};
+	const getData = (data: any) => {
+		let list = data.filter((u: any) => u.permissionFlag == 1);
+		let ids: string[] = [];
+		const loop = (list: any) => {
+			list.map((item: any) => {
+				if (item.permissionFlag == 1) {
+					ids.push(item.key);
+				}
+				if (item.children) {
+					loop(item.children);
+				}
+			});
+		};
+		loop(list);
+		return ids;
+	};
 
 	//过滤数据 获取可选的数据
 	const getAvailableData = (list: any, ids: number[] = []) => {
@@ -27,8 +55,6 @@ export default ({ roleId }: any) => {
 		});
 		return ids;
 	};
-
-	// 一级判断子级是否全部选中
 
 	//二级判断子级是否全部选中 ==>半选
 	const isChildrenAll = (data: any) => {
@@ -99,6 +125,17 @@ export default ({ roleId }: any) => {
 		setTree([...tree]);
 	};
 
+	//全部展开
+	const allOpen = (data: any) => {
+		let ids: string[] = [];
+		data.map((item: any) => {
+			if (item.key != 0) {
+				ids.push(item.key);
+			}
+		});
+		return ids;
+	};
+
 	const checkedAll = (list: any, flag: boolean) => {
 		if (list.children) {
 			const loop = (data: any) => {
@@ -155,7 +192,6 @@ export default ({ roleId }: any) => {
 	const checkAll = (data: any) => {
 		let flag: boolean = true;
 		const ids = getAvailableData(data);
-		console.log(ids);
 		ids.map(item => {
 			if (item == 0) {
 				flag = false;
@@ -175,16 +211,16 @@ export default ({ roleId }: any) => {
 	};
 
 	const callback = (data: any, flag: boolean) => {
-		let ids: string[] = [];
-		data.map((item: any) => {
-			ids.push(item.key);
-		});
+		const ids = allOpen(data);
 		flag ? setActiveKey(ids) : setActiveKey([]);
+	};
+	const changeActiveKey = (key: any) => {
+		setActiveKey(key);
 	};
 	return (
 		<>
 			<Affix offsetTop={100}>
-				<Button type='primary' onClick={() => {}}>
+				<Button type='primary' onClick={submitData}>
 					保存
 				</Button>
 			</Affix>
@@ -200,10 +236,16 @@ export default ({ roleId }: any) => {
 					全部展开
 				</Checkbox>
 			</div>
+			{show && (
+				<div className='io-cms-role-authority_example'>
+					<Spin tip='加载中...'></Spin>
+				</div>
+			)}
 			<Collapse
 				className='io_cms_role_authority-menu_collapse'
 				bordered={false}
 				activeKey={activeKey}
+				onChange={changeActiveKey}
 			>
 				{tree.map((item: any) => {
 					return (
