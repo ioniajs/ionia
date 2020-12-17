@@ -100,7 +100,15 @@ module.exports = {
 			},
 			{
 				test: /\.(ttf|ttc|eot|woff|woff2)/,
-				use: 'file-loader',
+				use: {
+					loader: 'url-loader',
+					options: {
+						esModule: false,
+						limit: 1024 * 1,
+						name: '[name].[hash:8].[ext]',
+						outputPath: 'fonts/',
+					},
+				},
 			},
 		],
 	},
