@@ -18,7 +18,8 @@ import {
 	ProFormText,
 } from '@ant-design/pro-form';
 import { useHistory } from 'react-router-dom';
-import { Item } from './Item';
+import { CommentItems } from './Items';
+import { Search } from './Search';
 import './index.less';
 
 const sortWay = {
@@ -104,7 +105,8 @@ export default () => {
 					<span className='top-actions-mute__span'>禁言列表</span>
 					<span className='top-actions-report__span'>举报列表</span>
 				</div>
-				<div className='io-cms-comment-search__div'>
+				<Search />
+				{/* <div className='io-cms-comment-search__div'>
 					<QueryFilter
 						span={6}
 						defaultCollapsed={true}
@@ -170,9 +172,9 @@ export default () => {
 							}}
 						/>
 					</QueryFilter>
-				</div>
+				</div> */}
 				<div className='io-cms-comment-header-between-content__div' />
-				<div className='io-cms-comment-content-selectAll__div'>
+				{/* <div className='io-cms-comment-content-selectAll__div'>
 					<Checkbox>全选</Checkbox>
 					<Button
 						type='primary'
@@ -186,10 +188,10 @@ export default () => {
 					<Button className='io-cms-comment-content-selectAll-actions__button'>
 						批量删除
 					</Button>
-				</div>
-				<div className='io-cms-comment-content-items__div'>
-					<Item />
-					{/* <div className='io-cms-comment-content-item__div'>
+				</div> */}
+				<CommentItems />
+				{/* <div className='io-cms-comment-content-items__div'> */}
+				{/* <div className='io-cms-comment-content-item__div'>
 						<div className='io-cms-comment-content-item-top__div'>
 							<Checkbox />
 							<i className='iconfont icon-user1 item-top-user' />
@@ -380,7 +382,7 @@ export default () => {
 							</div>
 						</div>
 					</div> */}
-				</div>
+				{/* </div> */}
 			</div>
 			<Pagination
 				className='io-cms-comment-list-pagination'
