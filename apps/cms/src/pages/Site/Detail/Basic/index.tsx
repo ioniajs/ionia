@@ -5,6 +5,7 @@ import { BizPage, ImageUpload, BizSection } from '@ionia/libs';
 import { useMount, useRequest } from '@umijs/hooks';
 import { gainSiteTree, siteDetail, amendSite, AdminSiteDTO } from '@ionia/libs/src/services/kernel';
 import { AdminSiteTreeVO, AdminSiteDetailVO } from '@ionia/libs/src/services/kernel';
+import { useHistory } from 'react-router-dom';
 import './index.less';
 
 const { Option } = Select;
@@ -33,6 +34,7 @@ interface BasicChildrenProps {
 	id?: string;
 }
 export const BasicChildren = ({ id }: BasicChildrenProps) => {
+	const history = useHistory();
 	const [basicForm] = Form.useForm();
 	const [expandForm] = Form.useForm();
 	const [siteTree, setSiteTree] = useState<AdminSiteTreeVO[]>();
@@ -117,7 +119,7 @@ export const BasicChildren = ({ id }: BasicChildrenProps) => {
 							};
 							const success = await handleUpdateSites(param);
 							if (success.code === 200) {
-								history.back();
+								// history.back();
 							}
 						});
 					}}
@@ -130,7 +132,13 @@ export const BasicChildren = ({ id }: BasicChildrenProps) => {
 				<Button type='default' className='io-cms-site-save-expand__but'>
 					浏览
 				</Button>
-				<Button type='default' className='io-cms-site-save-expand__but'>
+				<Button
+					type='default'
+					className='io-cms-site-save-expand__but'
+					onClick={() => {
+						history.push(`/system-management/site/detail/authority/${id}`);
+					}}
+				>
 					权限分配
 				</Button>
 				<Button type='default' className='io-cms-site-save-expand__but'>

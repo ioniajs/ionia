@@ -23,7 +23,7 @@ export interface DataRoleDTO {
 
 //#region  新增修改站点权限数据---阵地
 export interface DataOrgDTO {
-	roleId: string; // 组织ID
+	orgId: string; // 组织ID
 	sites: DataSiteBaseDTO[]; // 站点权限集合
 }
 
