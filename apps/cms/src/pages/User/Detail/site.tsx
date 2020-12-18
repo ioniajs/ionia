@@ -14,7 +14,9 @@ export default ({ userId }: { userId: string }) => {
 			setTree(treeData);
 		},
 	});
-	const { run } = useRequest(() => userCreateModJurisdiction({ sites: tree, userId: userId }));
+	const { run } = useRequest(() => userCreateModJurisdiction({ sites: tree, userId: userId }), {
+		manual: true,
+	});
 	const submitData = () => {
 		confirm({
 			title: '提示',

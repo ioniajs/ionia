@@ -1,4 +1,4 @@
-import { logger, roleMenuShow, MenuAuthVO, roleMenuMod } from '@ionia/libs';
+import { logger, orgMenuShow, MenuAuthVO, orgMenuMod } from '@ionia/libs';
 import { useRequest } from 'ahooks';
 import { Affix, Button, Checkbox, Col, Collapse, Row, Tooltip, Spin } from 'antd';
 import React, { useState } from 'react';
@@ -6,12 +6,12 @@ import './index.less';
 
 const { Panel } = Collapse;
 
-export default ({ roleId }: any) => {
+export default ({ id }: any) => {
 	const [tree, setTree] = useState<MenuAuthVO[]>([]);
 	const [activeKey, setActiveKey] = useState<string[]>([]);
 	const [dataId, setDataId] = useState<string[]>([]);
 	const [show, setShow] = useState<boolean>(true);
-	useRequest(() => roleMenuShow({ roleId }), {
+	useRequest(() => orgMenuShow({ orgId: id }), {
 		onSuccess: data => {
 			data.data ? setTree(data.data) : setTree([]);
 			setTree(data.data);
@@ -21,7 +21,7 @@ export default ({ roleId }: any) => {
 		},
 	});
 
-	const { run } = useRequest(() => roleMenuMod({ dataId, id: roleId }));
+	const { run } = useRequest(() => orgMenuMod({ dataId, id }), { manual: true });
 
 	const submitData = () => {
 		const ids = getData(tree);

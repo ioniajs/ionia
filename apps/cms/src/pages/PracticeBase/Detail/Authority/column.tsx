@@ -1,4 +1,10 @@
-import { logger, roleGainCloumn, RoleChannelVO, gainSiteTree, addColumnRole } from '@ionia/libs';
+import {
+	logger,
+	addColumnOrganization,
+	RoleChannelVO,
+	gainSiteTree,
+	organizationGainCloumn,
+} from '@ionia/libs';
 import { Affix, Button, Checkbox, message, Modal, Table, TreeSelect } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { useRequest } from 'ahooks';
@@ -6,7 +12,7 @@ import { ExclamationCircleOutlined } from '@ant-design/icons';
 
 const { confirm } = Modal;
 export default ({ id }: { id: string }) => {
-	const { data, run } = useRequest(() => roleGainCloumn({ id, siteId: value }), {
+	const { data, run } = useRequest(() => organizationGainCloumn({ id, siteId: value }), {
 		manual: true,
 	});
 	const [tree, setTree] = useState<RoleChannelVO[]>([]);
@@ -18,7 +24,7 @@ export default ({ id }: { id: string }) => {
 			setSite(siteData);
 		},
 	});
-	const addData = useRequest(() => addColumnRole({ list: tree, siteId: value, id }), {
+	const addData = useRequest(() => addColumnOrganization({ list: tree, siteId: value, id }), {
 		manual: true,
 	});
 	const submitData = () => {

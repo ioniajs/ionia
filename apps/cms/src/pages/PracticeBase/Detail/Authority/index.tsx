@@ -9,7 +9,7 @@ import './index.less';
 
 const { TabPane } = Tabs;
 export default ({ id }: { id: string }) => {
-	let roleId = id;
+	let orgId = id;
 
 	function callback(key: any) {
 		console.log(key);
@@ -21,16 +21,16 @@ export default ({ id }: { id: string }) => {
 				<SiteGroup id={id} />
 			</TabPane>
 			<TabPane tab='菜单权限' key='2'>
-				<Menu roleId={roleId} />
+				<Menu orgId={orgId} />
 			</TabPane>
 			<TabPane tab='站点权限' key='3'>
-				<Site roleId={roleId} />
+				<Site id={id} />
 			</TabPane>
 			<TabPane tab='栏目权限' key='4'>
 				<Column id={id} />
 			</TabPane>
 			<TabPane tab='内容权限' key='5'>
-				<Content roleId={roleId} />
+				<Content orgId={orgId} />
 			</TabPane>
 		</Tabs>
 	);
