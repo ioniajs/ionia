@@ -102,7 +102,12 @@ export default () => {
 		<BizPage>
 			<div className='io-cms-comment-container'>
 				<div className='io-cms-content-top-actions__div'>
-					<span className='top-actions-mute__span' onClick={() => history.push('/content-operation/comment/banned')}>禁言列表</span>
+					<span
+						className='top-actions-mute__span'
+						onClick={() => history.push('/content-operation/comment/banned')}
+					>
+						禁言列表
+					</span>
 					<span className='top-actions-report__span'>举报列表</span>
 				</div>
 				<Search />
