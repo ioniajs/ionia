@@ -34,49 +34,53 @@ import Sort from './Sort';
 import './index.less';
 
 // 排序方式
-const sortWay = {
-	0: '默认排序',
-	1: '创建时间降序',
-	2: '创建时间升序',
-	3: '发布时间降序',
-	4: '发布时间升序',
-	5: '总阅读量降序',
-	6: '总阅读量升序',
-	7: '总阅读人数降序',
-	8: '总阅读人数升序',
-	9: '总评论数降序',
-	10: '总评论数升序',
-	11: '总点赞数降序',
-	12: '总点赞数升序',
-};
+const sortWay = [
+	{ label: '默认排序', value: 0 },
+	{ label: '创建时间降序', value: 1 },
+	{ label: '创建时间升序', value: 2 },
+	{ label: '发布时间降序', value: 3 },
+	{ label: '发布时间升序', value: 4 },
+	{ label: '总阅读量降序', value: 5 },
+	{ label: '总阅读量升序', value: 6 },
+	{ label: '总阅读人数降序', value: 7 },
+	{ label: '总阅读人数升序', value: 8 },
+	{ label: '总评论数降序', value: 9 },
+	{ label: '总评论数升序', value: 10 },
+	{ label: '总点赞数降序', value: 11 },
+	{ label: '总点赞数升序', value: 12 },
+]
+
 // 内容状态
-const contentStatus = {
-	0: '全部',
-	1: '已发布',
-	2: '初稿',
-	3: '已下线',
-};
+const contentStatus = [
+	{ label: '全部', value: 0 },
+	{ label: '已发布', value: 1 },
+	{ label: '初稿', value: 2 },
+	{ label: '已下线', value: 3 },
+];
+
 // 内容类型
-const contentType = {
-	0: '全部',
-	1: '置顶',
-	2: '头条',
-	3: '热点',
-	4: '推荐',
-};
+const contentType = [
+	{ label: '全部', value: 0 },
+	{ label: '置顶', value: 1 },
+	{ label: '头条', value: 2 },
+	{ label: '热点', value: 3 },
+	{ label: '推荐', value: 4 },
+];
 // 内容模型
-const contentModal = {
-	1: '新闻',
-	2: '图库',
-	3: '视频',
-};
+const contentModal = [
+	{ label: '全部', value: 0 },
+	{ label: '新闻', value: 1 },
+	{ label: '图库', value: 2 },
+	{ label: '视频', value: 3 },
+];
 // 创建方式
-const createWay = {
-	0: '全部',
-	1: '新建',
-	2: '复制',
-	3: '站群推送',
-};
+const createWay = [
+	{ label: '全部', value: 0 },
+	{ label: '新建', value: 1 },
+	{ label: '复制', value: 2 },
+	{ label: '站群推送', value: 3 },
+];
+
 // 搜索类型
 const searchTypes = [
 	{
@@ -266,6 +270,7 @@ export const List = () => {
 	const [stationPushForm] = Form.useForm();
 	const [siteTree, setSiteTree] = useState<AdminSiteTreeVO[]>();
 	const [stationPushCheckKeys, setStationPushCheckKeys] = useState<string[]>();
+	const [collapsed, SetCollapsed] = useState<boolean>(true); // 查询条件面板是否折叠
 	console.log(selectedRowKeys, 'rowKrys');
 	// 获取站点树
 	const { run: runsiteTree } = useRequest(gainSiteTree, {
@@ -346,7 +351,7 @@ export const List = () => {
 									'deadLine'
 								);
 							},
-							onCancel: () => {},
+							onCancel: () => { },
 						});
 					}}
 				>
@@ -392,7 +397,7 @@ export const List = () => {
 									'deadLine'
 								);
 							},
-							onCancel: () => {},
+							onCancel: () => { },
 						});
 					}}
 				>
@@ -558,7 +563,7 @@ export const List = () => {
 								title: '你确定删除选中内容吗？',
 								content: '删除后可在内容回收站中恢复。',
 								okText: '删除',
-								onOk: () => {},
+								onOk: () => { },
 							});
 						}}
 					>
@@ -630,63 +635,71 @@ export const List = () => {
 		<div className='io-cms-content-list-container'>
 			<div className='io-cms-content-list-search'>
 				<QueryFilter
-					span={6}
+					span={5}
 					onFinish={async values => {
 						console.log(values);
 					}}
 					defaultCollapsed={true}
+					onCollapse={collapsed => SetCollapsed(collapsed)}
 				>
 					<ProFormSelect
 						name='sortWay'
 						label='排序方式'
-						valueEnum={sortWay}
-						style={{ width: '240px' }}
-						// colSize={0.75}
+						options={sortWay}
+						initialValue={0}
+					// colSize={0.75}
 					/>
 					<ProFormSelect
 						name='contentStatus'
 						label='内容状态'
-						valueEnum={contentStatus}
+						options={contentStatus}
 						mode='multiple'
-						// colSize={0.75}
+						initialValue={[0]}
+					// colSize={0.75}
 					/>
 					<ProFormCheckbox.Group
 						name='showSectionContent'
 						label=''
 						options={['显示子栏目内容']}
 						layout='vertical'
-						// colSize={0.5}
+					// colSize={0.6}
 					/>
-					<ProFormText name='contentTittle' placeholder='搜索内容标题' colSize={0.75} />
+					{!!collapsed && <ProFormText name='contentTittle' placeholder='搜索内容标题' />}
 					<ProFormSelect
 						name='contentType'
 						label='内容类型'
-						valueEnum={contentType}
+						options={contentType}
 						mode='multiple'
-						// colSize={0.75}
+						initialValue={[0]}
+					// colSize={0.75}
 					/>
 					<ProFormSelect
 						name='contentModal'
 						label='内容模型'
-						valueEnum={contentModal}
+						options={contentModal}
 						mode='multiple'
-						// colSize={0.75}
+						initialValue={[0]}
+					// colSize={0.75}
 					/>
-					<ProFormDateTimeRangePicker name='create' label='创建时间' colSize={1.5} />
-					<ProFormDateTimeRangePicker name='publish' label='发布时间' colSize={1.5} />
+					<ProFormDateTimeRangePicker name='create' label='创建时间' colSize={1.8} />
+					<ProFormDateTimeRangePicker name='publish' label='发布时间' colSize={1.8} />
 					<ProFormSelect
 						name='createWay'
 						label='创建方式'
-						valueEnum={createWay}
+						options={createWay}
 						mode='multiple'
-						// colSize={0.75}
+						initialValue={[0]}
+						style={{ paddingLeft: '8px' }}
+					// colSize={0.75}
 					/>
 					<ProFormCheckbox.Group
 						name='showMineCreate'
 						layout='vertical'
 						label=''
 						options={['我创建的']}
-						// colSize={0.5}
+						colon={false}
+					// colSize={0.6}
+					// colSize={0.5}
 					/>
 
 					<ProFormText
@@ -695,7 +708,7 @@ export const List = () => {
 							addonBefore: selectBefore,
 							placeholder: `搜素内容${inputPlaceHolder[searchTypesValue]}`,
 						}}
-						// colSize={0.75}
+					// colSize={0.75}
 					/>
 				</QueryFilter>
 				<div className='io-cms-content-list-search-bottom' />
@@ -765,6 +778,7 @@ export const List = () => {
 				helperClass='io-sortable-helper'
 				items={datas}
 				onSortEnd={onSortEnd}
+				shouldCancelStart={(e: any) => { console.log(e) }}
 				axis='xy'
 				distance={20}
 			/>

@@ -111,7 +111,7 @@ const treeData = [
 export default ({ contentId, action }: CopyFormProps) => {
 	const ref = useRef<BizModalFormRef>();
 	const [checkedKeys, setCheckedKeys] = useState<string[]>();
-	console.log(checkedKeys, 'onchangeHo');
+	// console.log(checkedKeys, 'onchangeHo');
 	const handleOnCheck = (checkedKeys: any) => {
 		console.log(checkedKeys, 'checked');
 		setCheckedKeys(checkedKeys as string[]);
@@ -132,15 +132,15 @@ export default ({ contentId, action }: CopyFormProps) => {
 						复制
 					</a>
 				) : (
-					<a
-						className='content-middle-action'
-						onClick={() => {
-							ref.current?.open();
-						}}
-					>
-						移动
-					</a>
-				)
+						<a
+							className='content-middle-action'
+							onClick={() => {
+								ref.current?.open();
+							}}
+						>
+							移动
+						</a>
+					)
 			}
 			submitterRender={() => (
 				<div className='btn-submitter'>
@@ -176,8 +176,8 @@ export default ({ contentId, action }: CopyFormProps) => {
 					：
 				</p>
 			) : (
-				<p>移动到栏目：</p>
-			)}
+					<p>移动到栏目：</p>
+				)}
 			<div className='io-cms-content-list-copy-modal-tree-container'>
 				<Tree
 					checkable
