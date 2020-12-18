@@ -1,5 +1,5 @@
 import { DownOutlined } from '@ant-design/icons';
-import { logger, roleDetailTree, roleAddModJurisdiction } from '@ionia/libs';
+import { logger, positionDetailTree, positionAddModJurisdiction } from '@ionia/libs';
 import { Affix, Button, Checkbox, message, Modal, Tree } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { ExclamationCircleOutlined } from '@ant-design/icons';
@@ -8,15 +8,18 @@ import { useRequest } from 'ahooks';
 const { confirm } = Modal;
 
 export default ({ id }: { id: string }) => {
-	useRequest(() => roleDetailTree(id), {
+	useRequest(() => positionDetailTree(id), {
 		onSuccess: data => {
 			const treeData = filterData(data.data.vos);
 			setData(treeData);
 		},
 	});
-	const { run } = useRequest(() => roleAddModJurisdiction({ roleId: id, siteIds: checkedKeys }), {
-		manual: true,
-	});
+	const { run } = useRequest(
+		() => positionAddModJurisdiction({ orgId: id, siteIds: checkedKeys }),
+		{
+			manual: true,
+		}
+	);
 	const [data, setData] = useState([]);
 	const [expandedKeys, setExpandedKeys] = useState<string[]>([]);
 	const [checkedKeys, setCheckedKeys] = useState<any[]>([]);

@@ -1,20 +1,22 @@
-import { logger, roleAcquireData, AdminChildDataVO, roleCreateModJurisdiction } from '@ionia/libs';
+import { logger, siteAcquireData, AdminChildDataVO, siteCreateModJurisdiction } from '@ionia/libs';
 import { Affix, Button, Checkbox, Table, Modal, message, Spin } from 'antd';
 import React, { useState } from 'react';
 import { useRequest } from 'ahooks';
 import { ExclamationCircleOutlined } from '@ant-design/icons';
 
 const { confirm } = Modal;
-export default ({ roleId }: any) => {
+export default ({ id }: { id: string }) => {
 	const [show, setShow] = useState<boolean>(true);
-	useRequest(() => roleAcquireData(roleId), {
+	useRequest(() => siteAcquireData(id), {
 		onSuccess: data => {
 			const treeData = data.data.sites;
 			setShow(false);
 			setTree(treeData);
 		},
 	});
-	const { run } = useRequest(() => roleCreateModJurisdiction({ sites: tree, roleId: roleId }));
+	const { run } = useRequest(() => siteCreateModJurisdiction({ sites: tree, orgId: id }), {
+		manual: true,
+	});
 	const submitData = () => {
 		confirm({
 			title: '提示',

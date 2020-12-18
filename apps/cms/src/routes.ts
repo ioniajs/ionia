@@ -18,6 +18,7 @@ import Site from '@/pages/Site';
 import SiteBatchCreate from '@/pages/Site/BatchCreate';
 import SiteCreate from '@/pages/Site/Create';
 import SiteDetail from '@/pages/Site/Detail';
+import SiteDetailAuthority from '@/pages/Site/Detail/Authority';
 import SitePublishStatics from '@/pages/Site/PublishStatics';
 import User from '@/pages/User';
 import UserBatchCreate from '@/pages/User/BatchCreate';
@@ -90,6 +91,10 @@ export default [
 	{
 		path: '/system-management/site/detail/:id',
 		component: SiteDetail,
+	},
+	{
+		path: '/system-management/site/detail/authority/:id',
+		component: SiteDetailAuthority,
 	},
 	{
 		path: '/system-management/site/batch-create',

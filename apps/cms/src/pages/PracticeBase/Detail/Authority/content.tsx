@@ -3,8 +3,8 @@ import {
 	roleGainCloumn,
 	RoleContentVO,
 	gainSiteTree,
-	addContentRole,
-	roleGainContent,
+	addContentOrganization,
+	organizationGainContent,
 } from '@ionia/libs';
 import { Affix, Button, Checkbox, message, Modal, Table, TreeSelect } from 'antd';
 import React, { useEffect, useState } from 'react';
@@ -12,8 +12,8 @@ import { useRequest } from 'ahooks';
 import { ExclamationCircleOutlined } from '@ant-design/icons';
 
 const { confirm } = Modal;
-export default ({ roleId }: { roleId: string }) => {
-	const { data, run } = useRequest(() => roleGainContent({ roleId, siteId: value }), {
+export default ({ orgId }: { orgId: string }) => {
+	const { data, run } = useRequest(() => organizationGainContent({ orgId, siteId: value }), {
 		manual: true,
 	});
 	const siteTree = useRequest(() => gainSiteTree(), {
@@ -23,7 +23,7 @@ export default ({ roleId }: { roleId: string }) => {
 		},
 	});
 	const addContent = useRequest(() =>
-		addContentRole({ contents: tree, roleId: roleId, siteId: value })
+		addContentOrganization({ contents: tree, orgId: orgId, siteId: value })
 	);
 	const submitData = () => {
 		confirm({

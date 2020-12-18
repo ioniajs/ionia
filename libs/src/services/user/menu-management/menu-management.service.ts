@@ -50,12 +50,21 @@ export async function menuList(params: MenuList): Promise<JcResult<MenuListVO[]>
 /**
  * 组织下菜单权限显示
  */
-export interface OrgMenuShow {
+export interface OrgMenuParams {
 	orgId: string; // 组织id
 }
-export async function orgMenuShow(params: OrgMenuShow): Promise<JcResult<MenuAuthVO[]>> {
+export async function orgMenuShow(params: OrgMenuParams): Promise<JcResult<MenuAuthVO[]>> {
 	return request.get('/module-user/cmsmanager/menu/premiss/org/list', {
 		params,
+	});
+}
+
+/**
+ * 角色下菜单权限修改
+ */
+export async function orgMenuMod(data: MenuDataPermissionDTO): Promise<JcResult<boolean>> {
+	return request.post('/module-user/cmsmanager/menu/premiss/org', {
+		data,
 	});
 }
 

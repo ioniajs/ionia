@@ -63,6 +63,18 @@
 	.io-cms-role-authority-menu_content {
 		height: 184px;
 		overflow-y: auto;
+		::-webkit-scrollbar {
+			width: 5px;
+			height: 5px;
+		}
+		::-webkit-scrollbar-thumb {
+			border-radius: 1em;
+			background-color: rgba(50, 50, 50, 0.3);
+		}
+		::-webkit-scrollbar-track {
+			border-radius: 1em;
+			background-color: rgba(50, 50, 50, 0.1);
+		}
 		.io-cms-role-authority-menu_item {
 			display: flex;
 			padding: 0 17px;
@@ -71,6 +83,14 @@
 		}
 	}
 }
+.io_cms_role_authority-menu_collapse .ant-checkbox-wrapper {
+	display: flex;
+	align-items: center;
+	.ant-checkbox + span {
+		padding-top: 4px;
+	}
+}
+
 .io-cms-role-authority-menu_text {
 	overflow: hidden; //超出的文本隐藏
 	text-overflow: ellipsis; //溢出用省略号显示
