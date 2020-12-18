@@ -3,9 +3,9 @@ import { Checkbox, Tooltip, Form, Modal, Input, Button } from 'antd';
 import { useHistory } from 'react-router-dom';
 import './index.less';
 
-interface ItemProps { }
+interface ItemProps {}
 
-export const CommentItems = ({ }: ItemProps) => {
+export const CommentItems = ({}: ItemProps) => {
 	const history = useHistory();
 	const [replyForm] = Form.useForm();
 	return (
@@ -41,8 +41,8 @@ export const CommentItems = ({ }: ItemProps) => {
 								}}
 							>
 								192.168.0.140
-							</a>&nbsp;
-							江西省南昌市】
+							</a>
+							&nbsp; 江西省南昌市】
 						</p>
 						<p className='item-top-time'>2019-11-29 19:17:52</p>
 						<p className='item-top-action-status'>
