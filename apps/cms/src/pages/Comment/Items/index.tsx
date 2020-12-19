@@ -56,27 +56,43 @@ export const CommentItems = ({ type, cancelButtonText = '取消审核' }: ItemPr
 							<span>已审核</span>
 						</p>
 						{/* 举报人列表举报人相关信息 */}
-						{type === 'report' && <p className='item-top-report-detail'>
-							<span className='report-detail-informer'>举报人：匿名用户</span>
-							<span>举报时间：2019-11-29 19:17:52 </span>
-						</p>}
+						{type === 'report' && (
+							<p className='item-top-report-detail'>
+								<span className='report-detail-informer'>举报人：匿名用户</span>
+								<span>举报时间：2019-11-29 19:17:52 </span>
+							</p>
+						)}
 						{/* 更多举报人 */}
-						{type === 'report' && <p className='item-top-more-informers'>
-							<BizModalForm
-								ref={ref}
-								title='举报人'
-								width={538}
-								triggerRender={() => (
-									<i className='iconfont icon-ellipsis' onClick={() => {
-										ref.current?.open();
-									}} />
-								)}
-								submitterRender={() => (<Button type='primary' onClick={() => { ref.current?.close() }}>关闭</Button>)}
-							>
-								<MoreInformers />
-							</BizModalForm>
-							{/* <i className='iconfont icon-ellipsis' /> */}
-						</p>}
+						{type === 'report' && (
+							<p className='item-top-more-informers'>
+								<BizModalForm
+									ref={ref}
+									title='举报人'
+									width={538}
+									triggerRender={() => (
+										<i
+											className='iconfont icon-ellipsis'
+											onClick={() => {
+												ref.current?.open();
+											}}
+										/>
+									)}
+									submitterRender={() => (
+										<Button
+											type='primary'
+											onClick={() => {
+												ref.current?.close();
+											}}
+										>
+											关闭
+										</Button>
+									)}
+								>
+									<MoreInformers />
+								</BizModalForm>
+								{/* <i className='iconfont icon-ellipsis' /> */}
+							</p>
+						)}
 					</div>
 					<div className='io-cms-comment-content-item-middle__div'>
 						<div className='item-middle-each-comments-or-replycomment__div'>

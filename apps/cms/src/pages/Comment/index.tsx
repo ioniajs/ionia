@@ -110,7 +110,9 @@ export default () => {
 					</span>
 					<span
 						className='top-actions-report__span'
-						onClick={() => { history.push('/content-operation/comment/report') }}
+						onClick={() => {
+							history.push('/content-operation/comment/report');
+						}}
 					>
 						举报列表
 					</span>

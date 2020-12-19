@@ -91,11 +91,13 @@ export const IpChildren = () => {
 					options={options}
 					// showSearch
 					changeOnSelect
-					onChange={(value, selectedOptions) => { console.log(value, selectedOptions) }}
+					onChange={(value, selectedOptions) => {
+						console.log(value, selectedOptions);
+					}}
 					style={{ width: '240px', margin: '8px' }}
 					popupPlacement='bottomLeft'
 				/>
-			)
+			),
 		},
 		{
 			title: '禁止时间',

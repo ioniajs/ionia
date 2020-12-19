@@ -352,7 +352,7 @@ export const List = () => {
 									'deadLine'
 								);
 							},
-							onCancel: () => { },
+							onCancel: () => {},
 						});
 					}}
 				>
@@ -398,7 +398,7 @@ export const List = () => {
 									'deadLine'
 								);
 							},
-							onCancel: () => { },
+							onCancel: () => {},
 						});
 					}}
 				>
@@ -564,7 +564,7 @@ export const List = () => {
 								title: '你确定删除选中内容吗？',
 								content: '删除后可在内容回收站中恢复。',
 								okText: '删除',
-								onOk: () => { },
+								onOk: () => {},
 							});
 						}}
 					>
@@ -649,7 +649,7 @@ export const List = () => {
 						label='排序方式'
 						options={sortWay}
 						initialValue={0}
-					// colSize={0.75}
+						// colSize={0.75}
 					/>
 					<ProFormSelect
 						name='contentStatus'
@@ -657,14 +657,14 @@ export const List = () => {
 						options={contentStatus}
 						mode='multiple'
 						initialValue={[0]}
-					// colSize={0.75}
+						// colSize={0.75}
 					/>
 					<ProFormCheckbox.Group
 						name='showSectionContent'
 						label=''
 						options={['显示子栏目内容']}
 						layout='vertical'
-					// colSize={0.6}
+						// colSize={0.6}
 					/>
 					{!!collapsed && <ProFormText name='contentTittle' placeholder='搜索内容标题' />}
 					<ProFormSelect
@@ -673,7 +673,7 @@ export const List = () => {
 						options={contentType}
 						mode='multiple'
 						initialValue={[0]}
-					// colSize={0.75}
+						// colSize={0.75}
 					/>
 					<ProFormSelect
 						name='contentModal'
@@ -681,7 +681,7 @@ export const List = () => {
 						options={contentModal}
 						mode='multiple'
 						initialValue={[0]}
-					// colSize={0.75}
+						// colSize={0.75}
 					/>
 					<ProFormDateTimeRangePicker name='create' label='创建时间' colSize={1.8} />
 					<ProFormDateTimeRangePicker name='publish' label='发布时间' colSize={1.8} />
@@ -692,7 +692,7 @@ export const List = () => {
 						mode='multiple'
 						initialValue={[0]}
 						style={{ paddingLeft: '8px' }}
-					// colSize={0.75}
+						// colSize={0.75}
 					/>
 					<ProFormCheckbox.Group
 						name='showMineCreate'
@@ -700,8 +700,8 @@ export const List = () => {
 						label=''
 						options={['我创建的']}
 						colon={false}
-					// colSize={0.6}
-					// colSize={0.5}
+						// colSize={0.6}
+						// colSize={0.5}
 					/>
 
 					<ProFormText
@@ -710,7 +710,7 @@ export const List = () => {
 							addonBefore: selectBefore,
 							placeholder: `搜素内容${inputPlaceHolder[searchTypesValue]}`,
 						}}
-					// colSize={0.75}
+						// colSize={0.75}
 					/>
 				</QueryFilter>
 				<div className='io-cms-content-list-search-bottom' />
