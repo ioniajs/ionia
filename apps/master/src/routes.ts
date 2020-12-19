@@ -32,10 +32,6 @@ export default {
 			icon: 'icon-content',
 			children: [
 				{
-					path: '/cms/content-operation/blogroll',
-					name: '友情链接',
-				},
-				{
 					path: '/cms/content-operation/content',
 					name: '内容管理',
 				},
@@ -43,6 +39,10 @@ export default {
 				// 	path: '/cms/content-operation/comment',
 				// 	name: '评论管理',
 				// },
+				{
+					path: '/cms/content-operation/blogroll',
+					name: '友情链接',
+				},
 			],
 		},
 		{

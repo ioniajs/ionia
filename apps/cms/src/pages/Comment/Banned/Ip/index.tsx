@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { ProColumns, ActionType } from '@ant-design/pro-table';
-import { Button, DatePicker, Form, Space } from 'antd';
+import { Button, DatePicker, Form, Space, Cascader } from 'antd';
 import { SortOrder } from 'antd/lib/table/interface';
 import { BizTable } from '@ionia/libs';
 import { useHistory } from 'react-router-dom';
@@ -24,6 +24,41 @@ const dataSource = [
 		area: '浙江省杭州市',
 		prohibitedTime: '2019-09-03 14:13:33',
 		operationUser: '珠穆朗玛峰001',
+	},
+];
+
+const options = [
+	{
+		value: 'zhejiang',
+		label: '浙江省',
+		children: [
+			{
+				value: 'Hangzhou',
+				label: '杭州市',
+				children: [
+					{
+						value: 'xihu',
+						label: '西湖区',
+					},
+				],
+			},
+		],
+	},
+	{
+		value: 'jiangsu',
+		label: '江西省',
+		children: [
+			{
+				value: 'nanjing',
+				label: '南昌市',
+				children: [
+					{
+						value: 'zhonghuamen',
+						label: '西湖区',
+					},
+				],
+			},
+		],
 	},
 ];
 
@@ -51,6 +86,16 @@ export const IpChildren = () => {
 			title: '所在地区',
 			key: 'area',
 			dataIndex: 'area',
+			filterDropdown: () => (
+				<Cascader
+					options={options}
+					// showSearch
+					changeOnSelect
+					onChange={(value, selectedOptions) => { console.log(value, selectedOptions) }}
+					style={{ width: '240px', margin: '8px' }}
+					popupPlacement='bottomLeft'
+				/>
+			)
 		},
 		{
 			title: '禁止时间',

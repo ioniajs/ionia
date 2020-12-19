@@ -108,7 +108,12 @@ export default () => {
 					>
 						禁言列表
 					</span>
-					<span className='top-actions-report__span'>举报列表</span>
+					<span
+						className='top-actions-report__span'
+						onClick={() => { history.push('/content-operation/comment/report') }}
+					>
+						举报列表
+					</span>
 				</div>
 				<Search />
 				{/* <div className='io-cms-comment-search__div'>
