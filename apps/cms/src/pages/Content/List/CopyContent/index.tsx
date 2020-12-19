@@ -111,7 +111,7 @@ const treeData = [
 export default ({ contentId, action }: CopyFormProps) => {
 	const ref = useRef<BizModalFormRef>();
 	const [checkedKeys, setCheckedKeys] = useState<string[]>();
-	console.log(checkedKeys, 'onchangeHo');
+	// console.log(checkedKeys, 'onchangeHo');
 	const handleOnCheck = (checkedKeys: any) => {
 		console.log(checkedKeys, 'checked');
 		setCheckedKeys(checkedKeys as string[]);

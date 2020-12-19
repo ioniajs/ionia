@@ -42,7 +42,7 @@ export const CommentItems = ({}: ItemProps) => {
 							>
 								192.168.0.140
 							</a>
-							江西省南昌市】
+							&nbsp; 江西省南昌市】
 						</p>
 						<p className='item-top-time'>2019-11-29 19:17:52</p>
 						<p className='item-top-action-status'>
