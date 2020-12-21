@@ -9,7 +9,7 @@ const request = extend({
 	timeout: 10000,
 	headers: {
 		'Accept-Language': 'zh-CN',
-		'Content-Type': 'application/x-www-form-urlencoded',
+		'Content-Type': 'application/json;charset=UTF-8',
 	},
 	errorHandler: error => {
 		console.error('网络错误：', error.response, error.message, error.data);
@@ -18,14 +18,19 @@ const request = extend({
 });
 
 request.use(async (ctx, next) => {
-	console.log(ctx.req.options.data);
 	try {
-		ctx.req.options.data = Qs.stringify(ctx.req.options.data);
+		if (ctx.req.url.split('/').pop() == 'token') {
+			ctx.req.options.data = Qs.stringify(ctx.req.options.data);
+			ctx.req.options.headers = {
+				'Accept-Language': 'zh-CN',
+				'Content-Type': 'application/x-www-form-urlencoded',
+			};
+		}
 		const token = await localStorage.getItem('token');
 		if (!!token) {
 			ctx.req.options.headers = {
 				...ctx.req.options.headers,
-				Authorization: 'token',
+				Authorization: token,
 			};
 		}
 	} catch (err) {}
