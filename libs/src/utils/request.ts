@@ -1,14 +1,15 @@
 import { extend } from 'umi-request';
 import { configs } from '../configs';
+import Qs from 'qs';
 
 const request = extend({
-	prefix: `${process.env.NODE_ENV === 'development' ? '' : configs.API_HOST}${
+	prefix: `${process.env.NODE_ENV === 'development' ? configs.API_HOST : configs.API_HOST}${
 		configs.API_PREFIX
 	}`,
 	timeout: 10000,
 	headers: {
 		'Accept-Language': 'zh-CN',
-		Authorization: '',
+		'Content-Type': 'application/x-www-form-urlencoded',
 	},
 	errorHandler: error => {
 		console.error('网络错误：', error.response, error.message, error.data);
@@ -17,18 +18,20 @@ const request = extend({
 });
 
 request.use(async (ctx, next) => {
-	// try {
-	//   const token = await AsyncStorage.getItem("token");
-	//   if (!!token) {
-	//     ctx.req.options.headers = {
-	//       ...ctx.req.options.headers,
-	//       Authorization: `Bearer ${token}`,
-	//     };
-	//   }
-	// } catch (err) {}
+	console.log(ctx.req.options.data);
+	try {
+		ctx.req.options.data = Qs.stringify(ctx.req.options.data);
+		const token = await localStorage.getItem('token');
+		if (!!token) {
+			ctx.req.options.headers = {
+				...ctx.req.options.headers,
+				Authorization: 'token',
+			};
+		}
+	} catch (err) {}
 
 	// if (isDev) {
-	//   console.log("REQUEST --->", ctx.req.url, ctx.req.options);
+	// 	console.log('REQUEST --->', ctx.req.url, ctx.req.options);
 	// }
 
 	await next();

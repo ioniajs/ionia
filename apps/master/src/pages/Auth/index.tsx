@@ -38,13 +38,13 @@ const Login = () => {
 			client_secret: 'w0EN3jdQrR3Ux0hNZWDaQ2w79mbv3p2eLvbke4GfzibFT5E',
 			grant_type: 'password',
 		});
-
+		let token = data.token_type + ' ' + data.access_token;
+		localStorage.setItem('token', token);
 		if (code == 200) {
 			setTimeout(() => {
 				setLoginText('登录成功');
 				setStatus('complete');
-
-				location.href = '/';
+				history.push('/');
 			}, 2000);
 		}
 	};
