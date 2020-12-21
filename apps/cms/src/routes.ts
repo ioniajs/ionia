@@ -38,6 +38,7 @@ import CommentsSingleContent from '@/pages/Comment/SingleContent';
 import CommentsSingleUser from '@/pages/Comment/SingleUser';
 import CommentsSingleIp from '@/pages/Comment/SingleIp';
 import CommentsBanned from '@/pages/Comment/Banned';
+import CommentsReport from '@/pages/Comment/Report';
 
 export default [
 	{
@@ -195,6 +196,10 @@ export default [
 	{
 		path: '/content-operation/comment/banned',
 		component: CommentsBanned,
+	},
+	{
+		path: '/content-operation/comment/report',
+		component: CommentsReport,
 	},
 	{
 		path: '/500',

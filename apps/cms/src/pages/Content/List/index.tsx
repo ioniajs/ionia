@@ -271,6 +271,7 @@ export const List = () => {
 	const [siteTree, setSiteTree] = useState<AdminSiteTreeVO[]>();
 	const [stationPushCheckKeys, setStationPushCheckKeys] = useState<string[]>();
 	const [collapsed, SetCollapsed] = useState<boolean>(true); // 查询条件面板是否折叠
+	const [isSorting, setIsSorting] = useState<boolean>(true); // 是否允许拖拽排序
 	console.log(selectedRowKeys, 'rowKrys');
 	// 获取站点树
 	const { run: runsiteTree } = useRequest(gainSiteTree, {
@@ -631,6 +632,7 @@ export const List = () => {
 	const onSortEnd = ({ oldIndex, newIndex }: any) => {
 		setDatas(arrayMove(datas, oldIndex, newIndex));
 	};
+
 	return (
 		<div className='io-cms-content-list-container'>
 			<div className='io-cms-content-list-search'>
@@ -778,9 +780,9 @@ export const List = () => {
 				helperClass='io-sortable-helper'
 				items={datas}
 				onSortEnd={onSortEnd}
-				shouldCancelStart={(e: any) => {
-					console.log(e);
-				}}
+				// updateBeforeSortStart={() => {
+				// 	return false;
+				// }}
 				axis='xy'
 				distance={20}
 			/>

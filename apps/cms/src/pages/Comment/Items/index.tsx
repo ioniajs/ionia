@@ -1,13 +1,19 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { Checkbox, Tooltip, Form, Modal, Input, Button } from 'antd';
+import { BizModalForm, BizModalFormRef } from '@ionia/libs';
 import { useHistory } from 'react-router-dom';
+import MoreInformers from '../MoreInformers';
 import './index.less';
 
-interface ItemProps {}
+interface ItemProps {
+	type?: string;
+	cancelButtonText?: string;
+}
 
-export const CommentItems = ({}: ItemProps) => {
+export const CommentItems = ({ type, cancelButtonText = '取消审核' }: ItemProps) => {
 	const history = useHistory();
 	const [replyForm] = Form.useForm();
+	const ref = useRef<BizModalFormRef>();
 	return (
 		<>
 			<div className='io-cms-comment-content-selectAll__div'>
@@ -16,7 +22,7 @@ export const CommentItems = ({}: ItemProps) => {
 					审核
 				</Button>
 				<Button className='io-cms-comment-content-selectAll-actions__button'>
-					取消审核
+					{cancelButtonText}
 				</Button>
 				<Button className='io-cms-comment-content-selectAll-actions__button'>
 					批量删除
@@ -49,6 +55,44 @@ export const CommentItems = ({}: ItemProps) => {
 							<span className='each-action-status'>已置顶</span>
 							<span>已审核</span>
 						</p>
+						{/* 举报人列表举报人相关信息 */}
+						{type === 'report' && (
+							<p className='item-top-report-detail'>
+								<span className='report-detail-informer'>举报人：匿名用户</span>
+								<span>举报时间：2019-11-29 19:17:52 </span>
+							</p>
+						)}
+						{/* 更多举报人 */}
+						{type === 'report' && (
+							<p className='item-top-more-informers'>
+								<BizModalForm
+									ref={ref}
+									title='举报人'
+									width={538}
+									triggerRender={() => (
+										<i
+											className='iconfont icon-ellipsis'
+											onClick={() => {
+												ref.current?.open();
+											}}
+										/>
+									)}
+									submitterRender={() => (
+										<Button
+											type='primary'
+											onClick={() => {
+												ref.current?.close();
+											}}
+										>
+											关闭
+										</Button>
+									)}
+								>
+									<MoreInformers />
+								</BizModalForm>
+								{/* <i className='iconfont icon-ellipsis' /> */}
+							</p>
+						)}
 					</div>
 					<div className='io-cms-comment-content-item-middle__div'>
 						<div className='item-middle-each-comments-or-replycomment__div'>
@@ -215,6 +259,9 @@ export const CommentItems = ({}: ItemProps) => {
 							<Tooltip title='编辑回复'>
 								<i className='iconfont icon-edit-square' />
 							</Tooltip>
+							<Tooltip title='取消举报'>
+								<i className='iconfont icon-quxiaojubao' />
+							</Tooltip>
 							<Tooltip title='删除'>
 								<i
 									className='iconfont icon-delete'
@@ -229,9 +276,6 @@ export const CommentItems = ({}: ItemProps) => {
 										});
 									}}
 								/>
-							</Tooltip>
-							<Tooltip title='取消举报'>
-								<i className='iconfont icon-quxiaojubao' />
 							</Tooltip>
 						</div>
 					</div>
