@@ -48,6 +48,7 @@
 		"pinyin-engine": "^1.1.0",
 		"pinyin-match": "^1.1.1",
 		"qiankun": "2.3.2",
+		"qs": "^6.9.4",
 		"rc-color-picker": "^1.2.6",
 		"react": "^16.13.1",
 		"react-amap": "^1.2.8",
