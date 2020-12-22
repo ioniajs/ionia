@@ -21,11 +21,16 @@ const userRemove = async (ids: IdsDTO) => {
 };
 
 export default () => {
+	const params = {
+		pageSize: 10,
+		current: 1,
+		keyWord: '',
+	};
 	const history = useHistory();
 	const actionRef = useRef<ActionType>();
 	const [modalVisble, setModalVisble] = useState<boolean>(false);
 	const [userName, setUserName] = useState<string>();
-	const [selectedRowKeys, setSelectedRowKeys] = useState<number[]>([]);
+	const [selectedRowKeys, setSelectedRowKeys] = useState<string[]>([]);
 	const columns: ProColumns<UserPageVO>[] = [
 		{
 			title: '用户名',
@@ -232,14 +237,34 @@ export default () => {
 				)}
 				renderSider={() => <BizTree />}
 				columns={columns}
+				pagination={{
+					current: params.current,
+					pageSize: params.pageSize,
+				}}
 				rowSelection={{
 					selectedRowKeys,
 					onChange: (selectedRowKeys: any) => {
-						setSelectedRowKeys(selectedRowKeys as number[]);
+						setSelectedRowKeys(selectedRowKeys);
 					},
 				}}
+				onRow={record => {
+					return {
+						onClick: () => {
+							const RowKeys = [...selectedRowKeys];
+							if (RowKeys.indexOf(record.id) >= 0) {
+								RowKeys.splice(selectedRowKeys.indexOf(record.id), 1);
+							} else {
+								RowKeys.push(record.id);
+							}
+							setSelectedRowKeys(RowKeys);
+						},
+					};
+				}}
 				request={(params: any, sort: any, filter: any) => {
-					return userPaging({}).then(data => ({ data: data.data.content }));
+					return userPaging({
+						pageNo: params.current,
+						pageSize: params.pageSize,
+					}).then(data => ({ data: data.data.content, total: data.data.total }));
 				}}
 			/>
 			<SetPassword

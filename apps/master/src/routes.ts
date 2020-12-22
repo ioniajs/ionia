@@ -103,6 +103,20 @@ export default {
 					],
 				},
 				{
+					path: '/cms/system-management/menu-management',
+					name: '菜单管理',
+					children: [
+						{
+							path: '/cms/system-management/menu-management/interface',
+							name: '接口管理',
+						},
+						{
+							path: '/cms/system-management/menu-management/menu',
+							name: '菜单管理',
+						},
+					],
+				},
+				{
 					path: '/cms/system-management/setting',
 					name: '系统设置',
 				},

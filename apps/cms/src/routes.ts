@@ -39,7 +39,8 @@ import CommentsSingleUser from '@/pages/Comment/SingleUser';
 import CommentsSingleIp from '@/pages/Comment/SingleIp';
 import CommentsBanned from '@/pages/Comment/Banned';
 import CommentsReport from '@/pages/Comment/Report';
-
+import Interface from '@/pages/MenuManagement/Interface';
+import Menu from '@/pages/MenuManagement/Menu';
 export default [
 	{
 		path: '/',
@@ -164,6 +165,14 @@ export default [
 	{
 		path: '/system-management/memory-management/ftp',
 		component: StorageManagementFTP,
+	},
+	{
+		path: '/system-management/menu-management/interface',
+		component: Interface,
+	},
+	{
+		path: '/system-management/menu-management/menu',
+		component: Menu,
 	},
 	{
 		path: '/system-management/setting',

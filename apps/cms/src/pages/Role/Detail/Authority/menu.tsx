@@ -21,7 +21,9 @@ export default ({ roleId }: any) => {
 		},
 	});
 
-	const { run } = useRequest(() => roleMenuMod({ dataId, id: roleId }));
+	const { run } = useRequest(() => roleMenuMod({ dataId, id: roleId }), {
+		manual: true,
+	});
 
 	const submitData = () => {
 		const ids = getData(tree);
