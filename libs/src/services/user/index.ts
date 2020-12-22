@@ -7,3 +7,4 @@ export * from './menu-management';
 export * from './station-group-permissions';
 export * from './column-permissions';
 export * from './content-permissions';
+export * from './cmsmanager-api';

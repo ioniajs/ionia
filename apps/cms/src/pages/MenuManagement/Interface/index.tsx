@@ -1,11 +1,10 @@
 import { ProColumns, ActionType } from '@ant-design/pro-table';
 import { ExclamationCircleOutlined } from '@ant-design/icons';
-import { BizTable, BizTree, deleteUser, BizPage } from '@ionia/libs';
-import { Button, Modal, Switch } from 'antd';
+import { BizTable, apiDelete, BizPage, ApiIdsDTO } from '@ionia/libs';
+import { Button, Modal, message } from 'antd';
 import React, { useRef, useState } from 'react';
-import UserForm from './Add';
-import { RolePageVO, rolePaging, modUserStatus } from '@ionia/libs/src/services';
-import { IdsDTO } from '@ionia/libs/src/services/common.dto';
+import InterfaceForm from './InterfaceForm';
+import { ApiItemVO, apiPage } from '@ionia/libs/src/services';
 import { useHistory } from 'react-router-dom';
 import './index.less';
 export interface TableListItem {
@@ -22,8 +21,8 @@ const userUpdate = async (id: string, status: number) => {};
 /**
  *  删除用户
  */
-const userRemove = async (ids: IdsDTO) => {
-	const removeRes = await deleteUser(ids);
+const userRemove = async (ids: ApiIdsDTO) => {
+	const removeRes = await apiDelete(ids);
 	return removeRes.code;
 };
 
@@ -45,7 +44,7 @@ function showConfirm() {
 	});
 }
 
-export default () => {
+const InterfaceIndex = () => {
 	const params = {
 		pageSize: 10,
 		current: 1,
@@ -54,36 +53,37 @@ export default () => {
 	const history = useHistory();
 	const actionRef = useRef<ActionType>();
 	const [selectedRowKeys, setSelectedRowKeys] = useState<string[]>([]);
-	const columns: ProColumns<RolePageVO>[] = [
+
+	const columns: ProColumns<ApiItemVO>[] = [
 		{
-			title: '角色名称',
-			key: 'name',
-			dataIndex: 'name',
+			title: '接口名称',
+			key: 'apiName',
+			dataIndex: 'apiName',
 			render: (_, row) => (
 				<a
 					onClick={() => {
 						history.push(`/system-management/role/detail/${row.id}`);
 					}}
 				>
-					{row.name}
+					{row.apiName}
 				</a>
 			),
 		},
 		{
-			title: '所属阵地',
-			key: 'orgName',
-			dataIndex: 'orgName',
+			title: '接口地址',
+			key: 'apiUrl',
+			dataIndex: 'apiUrl',
 		},
 		{
-			title: '最后更新人',
-			key: 'updateUser',
-			dataIndex: 'updateUser',
+			title: '请求方式',
+			key: 'requestMethod',
+			dataIndex: 'requestMethod',
+			render: text => (text == 1 ? 'GET' : 'POST'),
 		},
 		{
-			title: '最后更新时间',
-			key: 'updateTime',
-			dataIndex: 'updateTime',
-			sorter: true,
+			title: '使用场景',
+			key: 'useScene',
+			dataIndex: 'useScene',
 		},
 		{
 			title: '操作',
@@ -102,6 +102,7 @@ export default () => {
 										ids: [row.id],
 									});
 									if (success === 200) {
+										message.success('删除成功');
 										if (success === 200 && actionRef.current) {
 											actionRef.current.reload();
 										}
@@ -125,26 +126,15 @@ export default () => {
 					renderActions={() => (
 						<>
 							<div className='io-space-item'>
-								<UserForm />
-							</div>
-							<div className='io-space-item'>
-								<Button
-									onClick={() =>
-										history.push('/system-management/user/userbatchadd')
-									}
-									type='default'
-								>
-									批量新建
-								</Button>
+								<InterfaceForm />
 							</div>
 							<div className='io-space-item'>
 								<Button onClick={showConfirm} type='default'>
-									批量删除
+									删除
 								</Button>
 							</div>
 						</>
 					)}
-					renderSider={() => <BizTree />}
 					columns={columns}
 					pagination={{
 						current: params.current,
@@ -171,7 +161,10 @@ export default () => {
 					}}
 					// pagination
 					request={(params: any, sort: any, filter: any) => {
-						return rolePaging({
+						console.log('params', params);
+						return apiPage({
+							apiName: '',
+							apiUrl: '',
 							pageNo: params.current,
 							pageSize: params.pageSize,
 						}).then(data => ({
@@ -184,3 +177,5 @@ export default () => {
 		</BizPage>
 	);
 };
+
+export default InterfaceIndex;

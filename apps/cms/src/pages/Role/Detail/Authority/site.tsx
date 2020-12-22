@@ -14,7 +14,9 @@ export default ({ roleId }: any) => {
 			setTree(treeData);
 		},
 	});
-	const { run } = useRequest(() => roleCreateModJurisdiction({ sites: tree, roleId: roleId }));
+	const { run } = useRequest(() => roleCreateModJurisdiction({ sites: tree, roleId: roleId }), {
+		manual: true,
+	});
 	const submitData = () => {
 		confirm({
 			title: '提示',

@@ -1,6 +1,6 @@
 import { DownOutlined } from '@ant-design/icons';
 import { logger, roleDetailTree, roleAddModJurisdiction } from '@ionia/libs';
-import { Affix, Button, Checkbox, message, Modal, Tree } from 'antd';
+import { Affix, Button, Checkbox, message, Modal, Tree, Spin } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { ExclamationCircleOutlined } from '@ant-design/icons';
 import { useRequest } from 'ahooks';
@@ -11,13 +11,18 @@ export default ({ id }: { id: string }) => {
 	useRequest(() => roleDetailTree(id), {
 		onSuccess: data => {
 			const treeData = filterData(data.data.vos);
+			setShow(false);
 			setData(treeData);
+		},
+		onError: err => {
+			setShow(false);
 		},
 	});
 	const { run } = useRequest(() => roleAddModJurisdiction({ roleId: id, siteIds: checkedKeys }), {
 		manual: true,
 	});
 	const [data, setData] = useState([]);
+	const [show, setShow] = useState<boolean>(true);
 	const [expandedKeys, setExpandedKeys] = useState<string[]>([]);
 	const [checkedKeys, setCheckedKeys] = useState<any[]>([]);
 	const [selectedKeys, setSelectedKeys] = useState<string[]>([]);
@@ -165,6 +170,11 @@ export default ({ id }: { id: string }) => {
 					全部展开
 				</Checkbox>
 			</div>
+			{show && (
+				<div className='io-cms-role-authority_example'>
+					<Spin tip='加载中...'></Spin>
+				</div>
+			)}
 			<Tree
 				checkable
 				expandedKeys={expandedKeys}
