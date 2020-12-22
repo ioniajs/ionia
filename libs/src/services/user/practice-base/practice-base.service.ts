@@ -115,7 +115,7 @@ export async function positionDetail(id: string): Promise<JcResult<OrgDetailsVO>
  */
 export interface PositionList {
 	crux?: string; // 阵地名称或编号
-	isAll?: boolean; // 是否包含下级阵地
+	isAll?: boolean | string; // 是否包含下级阵地
 	parentId?: string; // 父级ID
 }
 export async function positionList(params: PositionList): Promise<JcResult<OrgVO[]>> {

@@ -19,13 +19,6 @@ const request = extend({
 
 request.use(async (ctx, next) => {
 	try {
-		if (ctx.req.url.split('/').pop() == 'token') {
-			ctx.req.options.data = Qs.stringify(ctx.req.options.data);
-			ctx.req.options.headers = {
-				'Accept-Language': 'zh-CN',
-				'Content-Type': 'application/x-www-form-urlencoded',
-			};
-		}
 		const token = await localStorage.getItem('token');
 		if (!!token) {
 			ctx.req.options.headers = {

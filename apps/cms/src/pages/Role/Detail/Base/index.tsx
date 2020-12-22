@@ -45,7 +45,7 @@ export default ({ id }: any) => {
 			formData = data.data;
 		},
 	});
-	const secondRequest = useRequest(() => positionList({}), {
+	const secondRequest = useRequest(() => positionList({ crux: '', isAll: '', parentId: '' }), {
 		onSuccess: data => {
 			const tree = filterData(data?.data);
 			setTreeData(tree);
