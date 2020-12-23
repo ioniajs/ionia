@@ -466,7 +466,7 @@ export const List = () => {
 									'deadLine'
 								);
 							},
-							onCancel: () => { },
+							onCancel: () => {},
 						});
 					}}
 				>
@@ -512,7 +512,7 @@ export const List = () => {
 									'deadLine'
 								);
 							},
-							onCancel: () => { },
+							onCancel: () => {},
 						});
 					}}
 				>
@@ -678,7 +678,7 @@ export const List = () => {
 								title: '你确定删除选中内容吗？',
 								content: '删除后可在内容回收站中恢复。',
 								okText: '删除',
-								onOk: () => { },
+								onOk: () => {},
 							});
 						}}
 					>
@@ -761,8 +761,8 @@ export const List = () => {
 				title: '你确定删除选中内容吗？',
 				content: '删除后可在内容回收站中恢复。',
 				okText: '删除',
-				onOk: () => { },
-			})
+				onOk: () => {},
+			});
 		}
 		// 排序
 		if (value === 3) {
@@ -780,9 +780,9 @@ export const List = () => {
 		}
 		// 站群推送
 		if (value === 6) {
-			setStationPushVisible(true)
+			setStationPushVisible(true);
 		}
-	}
+	};
 
 	return (
 		<div className='io-cms-content-list-container'>
@@ -813,7 +813,7 @@ export const List = () => {
 							},
 							getPopupContainer: triggerNode => triggerNode.parentElement,
 						}}
-					// colSize={0.75}
+						// colSize={0.75}
 					/>
 					<ProFormSelect
 						name='contentStatus'
@@ -837,7 +837,7 @@ export const List = () => {
 							},
 							getPopupContainer: triggerNode => triggerNode.parentElement,
 						}}
-					// colSize={0.75}
+						// colSize={0.75}
 					/>
 					<ProFormCheckbox
 						name='showSectionContent'
@@ -869,7 +869,7 @@ export const List = () => {
 						options={contentType}
 						mode='multiple'
 						initialValue={[0]}
-					// colSize={0.75}
+						// colSize={0.75}
 					/>
 					<ProFormSelect
 						name='contentModal'
@@ -877,7 +877,7 @@ export const List = () => {
 						options={contentModal}
 						mode='multiple'
 						initialValue={[0]}
-					// colSize={0.75}
+						// colSize={0.75}
 					/>
 					<ProFormDateTimeRangePicker name='create' label='创建时间' colSize={1.8} />
 					<ProFormDateTimeRangePicker name='publish' label='发布时间' colSize={1.8} />
@@ -888,7 +888,7 @@ export const List = () => {
 						mode='multiple'
 						initialValue={[0]}
 						style={{ paddingLeft: '8px' }}
-					// colSize={0.75}
+						// colSize={0.75}
 					/>
 					<ProFormCheckbox.Group
 						name='showMineCreate'
@@ -906,7 +906,7 @@ export const List = () => {
 							addonBefore: selectBefore,
 							placeholder: `搜素内容${inputPlaceHolder[searchTypesValue]}`,
 						}}
-					// colSize={0.75}
+						// colSize={0.75}
 					/>
 				</QueryFilter>
 				<div className='io-cms-content-list-search-bottom' />
@@ -943,7 +943,7 @@ export const List = () => {
 						allowClear
 						options={changeContentStatus}
 						placeholder='改变内容状态'
-						onChange={(value) => {
+						onChange={value => {
 							handleChangeContent(value);
 						}}
 						getPopupContainer={triggerNode => triggerNode.parentElement}
@@ -959,7 +959,7 @@ export const List = () => {
 						allowClear
 						options={changeOtherActions}
 						placeholder='其他操作'
-						onChange={(value) => handleChangeContent(value)}
+						onChange={value => handleChangeContent(value)}
 						getPopupContainer={triggerNode => triggerNode.parentElement}
 						style={{ width: '224px' }}
 					/>
@@ -1065,7 +1065,7 @@ export const List = () => {
 				width={500}
 				onCancel={() => setAllMoveOrCopyVisible(false)}
 				onOk={() => {
-					console.log(allMoveorCopyCheckedKeys, '选择的值')
+					console.log(allMoveorCopyCheckedKeys, '选择的值');
 				}}
 				className='io-cms-content-list-item-station-group-push-modal'
 			>
@@ -1076,24 +1076,26 @@ export const List = () => {
 							title={
 								<span>
 									复制后将会在所选栏目
-								<br />
-								下新建一篇相同的内容
-							</span>
+									<br />
+									下新建一篇相同的内容
+								</span>
 							}
 							placement='bottom'
 						>
 							<InfoCircleOutlined />
 						</Tooltip>
-					：
+						：
 					</p>
 				) : (
-						<p>移动到栏目：</p>
-					)}
+					<p>移动到栏目：</p>
+				)}
 				<div className='io-cms-content-list-copy-modal-tree-container'>
 					<Tree
 						checkable
 						treeData={treeData}
-						onCheck={checkedKeys => setAllMoveorCopyCheckedKeys(checkedKeys as string[])}
+						onCheck={checkedKeys =>
+							setAllMoveorCopyCheckedKeys(checkedKeys as string[])
+						}
 						defaultExpandAll
 					/>
 				</div>
