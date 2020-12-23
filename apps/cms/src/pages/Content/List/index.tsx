@@ -165,6 +165,104 @@ const dataSource = [
 		id: 3,
 	},
 ];
+const treeData = [
+	{
+		title: '0-0',
+		key: '0-0',
+		children: [
+			{
+				title: '0-0-0',
+				key: '0-0-0',
+				children: [
+					{ title: '0-0-0-0', key: '0-0-0-0' },
+					{ title: '0-0-0-1', key: '0-0-0-1' },
+					{
+						title: '0-0-0-2',
+						key: '0-0-0-2',
+						children: [
+							{ title: '0-0-0-0-0', key: '0-0-0-0-0' },
+							{ title: '0-0-0-0-1', key: '0-0-0-0-1' },
+							{
+								title: '0-0-0-0-2',
+								key: '0-0-0-0-2',
+								children: [
+									{ title: '0-0-0-0-0-0', key: '0-0-0-0-0-0' },
+									{
+										title: '0-0-0-0-0-1',
+										key: '0-0-0-0-0-1',
+										children: [
+											{ title: '0-0-0-0-0-0-00', key: '0-0-0-0-0-0-00' },
+											{
+												title: '0-0-0-0--0-1-1',
+												key: '0-0-0-0-0-1-1',
+												children: [
+													{
+														title: '0-0-0-0-0-0-0',
+														key: '0-0-0-0-0-0-0',
+													},
+													{
+														title: '0-0-0-0-0-0-1',
+														key: '0-0-0-0-0-0-1',
+														children: [
+															{
+																title: '0-0-0-0-0-0-0-0',
+																key: '0-0-0-0-0-0-0-0',
+																children: [
+																	{
+																		title: '0-0-0-0-0-0-0-0-0',
+																		key: '0-0-0-0-0-0-0-0-0',
+																		children: [
+																			{
+																				title:
+																					'0-0-0-0-0-0-0-0-0-00000000',
+																				key:
+																					'0-0-0-0-0-0-0-0-0-000000000',
+																			},
+																		],
+																	},
+																],
+															},
+														],
+													},
+												],
+											},
+										],
+									},
+								],
+							},
+						],
+					},
+				],
+			},
+			{
+				title: '0-0-1',
+				key: '0-0-1',
+				children: [
+					{ title: '0-0-1-0', key: '0-0-1-0' },
+					{ title: '0-0-1-1', key: '0-0-1-1' },
+					{ title: '0-0-1-2', key: '0-0-1-2' },
+				],
+			},
+			{
+				title: '0-0-2',
+				key: '0-0-2',
+			},
+		],
+	},
+	// {
+	//     title: '0-1',
+	//     key: '0-1',
+	//     children: [
+	//         { title: '0-1-0-0', key: '0-1-0-0' },
+	//         { title: '0-1-0-1', key: '0-1-0-1' },
+	//         { title: '0-1-0-2', key: '0-1-0-2' },
+	//     ],
+	// },
+	// {
+	//     title: '0-2',
+	//     key: '0-2',
+	// },
+];
 
 // 下线
 const handleContentOffLine = (id: any) => {
@@ -284,6 +382,9 @@ export const List = () => {
 		contentType: [0],
 		createWay: [0],
 	}); // 存储查询条件
+	const [allMoveorCopyAction, setAllMoveorCopyAction] = useState<string>('');
+	const [allMoveOrCopyVisible, setAllMoveOrCopyVisible] = useState<boolean>(false);
+	const [allMoveorCopyCheckedKeys, setAllMoveorCopyCheckedKeys] = useState<string[]>();
 	console.log(queryOptions, '查询条件');
 	console.log(selectedRowKeys, 'rowKrys');
 	// 获取站点树
@@ -650,6 +751,39 @@ export const List = () => {
 		console.log(queryValues, '函数里面');
 	};
 
+	// 选择内容Item改变内容状态，内容类型等
+	const handleChangeContent = (value: any) => {
+		console.log(value, selectedRowKeys, '全选改变');
+		// 删除
+		if (value === 1) {
+			Modal.confirm({
+				className: 'io-cms-content-item-delete__modal',
+				title: '你确定删除选中内容吗？',
+				content: '删除后可在内容回收站中恢复。',
+				okText: '删除',
+				onOk: () => {},
+			});
+		}
+		// 排序
+		if (value === 3) {
+			modalRef.current?.open();
+		}
+		// 移动
+		if (value === 2) {
+			setAllMoveorCopyAction('move');
+			setAllMoveOrCopyVisible(true);
+		}
+		// 复制
+		if (value === 4) {
+			setAllMoveorCopyAction('copy');
+			setAllMoveOrCopyVisible(true);
+		}
+		// 站群推送
+		if (value === 6) {
+			setStationPushVisible(true);
+		}
+	};
+
 	return (
 		<div className='io-cms-content-list-container'>
 			<div className='io-cms-content-list-search'>
@@ -710,6 +844,7 @@ export const List = () => {
 						label=''
 						// options={[{ label: '显示子栏目内容', value: 1 }]}
 						// layout='vertical'
+						// @ts-ignore
 						colSize={0.6}
 						fieldProps={{
 							checked: queryOptions?.showSectionContent,
@@ -761,6 +896,7 @@ export const List = () => {
 						label=''
 						options={['我创建的']}
 						colon={false}
+						// @ts-ignore
 						colSize={0.6}
 					/>
 
@@ -804,10 +940,14 @@ export const List = () => {
 					style={{ display: 'inline-block', marginLeft: '15px' }}
 				>
 					<Select
+						allowClear
 						options={changeContentStatus}
 						placeholder='改变内容状态'
+						onChange={value => {
+							handleChangeContent(value);
+						}}
+						getPopupContainer={triggerNode => triggerNode.parentElement}
 						style={{ width: '224px' }}
-						allowClear
 					/>
 				</Form.Item>
 				<Form.Item
@@ -816,11 +956,20 @@ export const List = () => {
 					style={{ display: 'inline-block', marginLeft: '24px' }}
 				>
 					<Select
+						allowClear
 						options={changeOtherActions}
 						placeholder='其他操作'
+						onChange={value => handleChangeContent(value)}
+						getPopupContainer={triggerNode => triggerNode.parentElement}
 						style={{ width: '224px' }}
-						allowClear
 					/>
+					{/* <Select.Option value={1}>删除</Select.Option>
+						<Select.Option value={2}>移动</Select.Option>
+						<Select.Option value={3}>排序</Select.Option>
+						<Select.Option value={4}>复制</Select.Option>
+						<Select.Option value={5}>归档</Select.Option>
+						<Select.Option value={6}>站群推送</Select.Option>
+					</Select> */}
 				</Form.Item>
 				<Form.Item
 					label=''
@@ -828,11 +977,12 @@ export const List = () => {
 					style={{ display: 'inline-block', marginLeft: '24px' }}
 				>
 					<Select
+						allowClear
 						options={changeContentTypes}
 						placeholder='改变内容类型'
 						listHeight={200}
+						getPopupContainer={triggerNode => triggerNode.parentElement}
 						style={{ width: '224px' }}
-						allowClear
 					/>
 				</Form.Item>
 			</Form>
@@ -868,6 +1018,7 @@ export const List = () => {
 						console.log(values);
 					});
 				}}
+				className='io-cms-content-list-item-station-group-push-modal'
 			>
 				<Form form={stationPushForm} labelCol={{ span: 4 }} preserve={false}>
 					<Form.Item
@@ -881,6 +1032,7 @@ export const List = () => {
 						name='sectionId'
 						label='选择栏目'
 						rules={[{ required: true, message: '请选择栏目' }]}
+						wrapperCol={{ span: 20 }}
 					>
 						<div className='io-cms-list-item-station-group-push-modal-tree-container'>
 							<Tree
@@ -904,6 +1056,49 @@ export const List = () => {
 						<Input placeholder='请输入密钥' />
 					</Form.Item>
 				</Form>
+			</Modal>
+			{/* 全选处操作其他操作中复制和移动功能 */}
+			<Modal
+				destroyOnClose
+				visible={allMoveOrCopyVisible}
+				title={allMoveorCopyAction === 'copy' ? '复制' : '移动'}
+				width={500}
+				onCancel={() => setAllMoveOrCopyVisible(false)}
+				onOk={() => {
+					console.log(allMoveorCopyCheckedKeys, '选择的值');
+				}}
+				className='io-cms-content-list-item-station-group-push-modal'
+			>
+				{allMoveorCopyAction === 'copy' ? (
+					<p>
+						复制到栏目&nbsp;
+						<Tooltip
+							title={
+								<span>
+									复制后将会在所选栏目
+									<br />
+									下新建一篇相同的内容
+								</span>
+							}
+							placement='bottom'
+						>
+							<InfoCircleOutlined />
+						</Tooltip>
+						：
+					</p>
+				) : (
+					<p>移动到栏目：</p>
+				)}
+				<div className='io-cms-content-list-copy-modal-tree-container'>
+					<Tree
+						checkable
+						treeData={treeData}
+						onCheck={checkedKeys =>
+							setAllMoveorCopyCheckedKeys(checkedKeys as string[])
+						}
+						defaultExpandAll
+					/>
+				</div>
 			</Modal>
 		</div>
 	);
