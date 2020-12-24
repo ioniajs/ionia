@@ -7,8 +7,8 @@ import {
 	ProFormDateTimeRangePicker,
 	ProFormText,
 } from '@ant-design/pro-form';
-import { CommentItems } from '../Items';
-import { Search } from '../Search';
+import { CommentItems } from '../Component/Items';
+import { Search } from '../Component/Search';
 import './index.less';
 
 const sortWay = {
