@@ -1,3 +1,4 @@
+import { message } from 'antd';
 import { rest } from 'msw';
 
 export default [
@@ -735,6 +736,95 @@ export default [
 					status: 0,
 				},
 				message: '成功',
+			})
+		);
+	}),
+
+	rest.get('/module-user/cmsmanager/siteperm/group/organdrole', (req, res, ctx) => {
+		return res(
+			ctx.json({
+				code: 200,
+				data: [
+					{
+						orgId: '1',
+						orgName: 'John Brown sr.',
+						roleId: '',
+						roleName: null,
+						parentId: '',
+						optional: 0,
+						selected: 1,
+						children: [
+							{
+								orgId: '',
+								orgName: '',
+								roleId: '11',
+								roleName: '管理员',
+								parentId: '1',
+								optional: 1,
+								selected: 0,
+							},
+							{
+								orgId: '',
+								orgName: '',
+								roleId: '12',
+								roleName: '测试员',
+								parentId: '1',
+								optional: 1,
+								selected: 0,
+							},
+							{
+								orgId: '13',
+								orgName: 'test1',
+								roleId: '',
+								roleName: null,
+								parentId: '1',
+								optional: 1,
+								selected: 0,
+							},
+							{
+								orgId: '14',
+								orgName: 'test2',
+								roleId: '',
+								roleName: null,
+								parentId: '1',
+								optional: 1,
+								selected: 0,
+								children: [
+									{
+										orgId: '',
+										orgName: null,
+										roleId: '141',
+										roleName: '测试员',
+										parentId: '1',
+										optional: 1,
+										selected: 0,
+									},
+									{
+										orgId: '142',
+										orgName: 'test2-2',
+										roleId: '',
+										roleName: null,
+										parentId: '14',
+										optional: 1,
+										selected: 0,
+										children: [
+											{
+												orgId: '',
+												orgName: null,
+												roleId: '1422',
+												roleName: '测试员',
+												parentId: '142',
+												optional: 1,
+												selected: 0,
+											},
+										],
+									},
+								],
+							},
+						],
+					},
+				],
+				message: '',
 			})
 		);
 	}),

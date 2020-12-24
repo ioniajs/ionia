@@ -5,7 +5,7 @@ import User from './user';
 
 const { TabPane } = Tabs;
 const stationGroup = ({ id }: { id: string }) => {
-	let roleId = id;
+	let siteId = id;
 
 	function callback(key: any) {
 		console.log(key);
@@ -14,7 +14,7 @@ const stationGroup = ({ id }: { id: string }) => {
 	return (
 		<Tabs onChange={callback} type='card' className='io-cms-role-authority_tabs'>
 			<TabPane tab='阵地及角色' key='1'>
-				<Role></Role>
+				<Role siteId={siteId}></Role>
 			</TabPane>
 			<TabPane tab='用户' key='2'>
 				<User></User>

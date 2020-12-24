@@ -23,3 +23,33 @@ export interface AdminDataVO {
 	sites: AdminChildDataVO[]; // 站点权限集合
 }
 //#endregion
+
+export interface SitePermVO {
+	children?: SitePermVO[];
+	optional: number;
+	orgId: string;
+	orgName: string;
+	parentId: string;
+	roleId: string;
+	roleName: string;
+	selected: number;
+}
+
+export interface PageSitePermUserVO {
+	content: SitePermUserVO[];
+	pageNo: number;
+	pageSize: number;
+	pages: number;
+	total: number;
+}
+
+export interface SitePermUserVO {
+	orgName: string;
+	roleName: string;
+	selected: number;
+	userId: string;
+	userName: string;
+}
+export interface SitePermOrgVO {
+	siteId: string;
+}

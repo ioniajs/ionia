@@ -9,7 +9,6 @@ export default ({ match }: any) => {
 	// } = match;
 	const { params } = match;
 	const { id }: { id: string } = params;
-	logger.debug(id);
 	return (
 		<BizPage
 			showActions
