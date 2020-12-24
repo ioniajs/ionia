@@ -101,13 +101,13 @@ export const Search = ({ type, onChange }: SearchProps) => {
 		/>
 	);
 
-	console.log(formValues, 'ffffffffff')
+	console.log(formValues, 'ffffffffff');
 
 	useEffect(() => {
 		if (formValues) {
-			onChange && onChange(formValues)
+			onChange && onChange(formValues);
 		}
-	}, [formValues])
+	}, [formValues]);
 	return (
 		<div className='io-cms-comment-search__div'>
 			<QueryFilter
@@ -116,13 +116,20 @@ export const Search = ({ type, onChange }: SearchProps) => {
 				defaultCollapsed={true}
 				defaultColsNumber={3}
 				onFinish={async values => {
-					setFormValues({ ...formValues, ...values })
+					setFormValues({ ...formValues, ...values });
 				}}
 				onCollapse={collapsed => {
 					// 重置被折叠部分的值，并根据现有的值进行查询
 					if (!collapsed) {
-						form.setFieldsValue({ keyWord: '', section: '', replyStatus: 0, commentTime: undefined, replyTime: undefined, searchKeyWord: '' })
-					};
+						form.setFieldsValue({
+							keyWord: '',
+							section: '',
+							replyStatus: 0,
+							commentTime: undefined,
+							replyTime: undefined,
+							searchKeyWord: '',
+						});
+					}
 					SetCollapsed(collapsed);
 				}}
 			>
@@ -133,7 +140,10 @@ export const Search = ({ type, onChange }: SearchProps) => {
 					initialValue={0}
 					fieldProps={{
 						value: formValues?.sortWay,
-						onChange: (value) => { console.log(value, '选择的值'); setFormValues({ ...formValues, sortWay: value }) },
+						onChange: value => {
+							console.log(value, '选择的值');
+							setFormValues({ ...formValues, sortWay: value });
+						},
 					}}
 				/>
 				<ProFormSelect
@@ -166,8 +176,12 @@ export const Search = ({ type, onChange }: SearchProps) => {
 					colSize={1.4}
 					fieldProps={{
 						onChange: (dates, dateStrings) => {
-							setFormValues({ ...formValues, commentStartTime: dateStrings[0], commentEndTime: dateStrings[1] })
-						}
+							setFormValues({
+								...formValues,
+								commentStartTime: dateStrings[0],
+								commentEndTime: dateStrings[1],
+							});
+						},
 					}}
 				/>
 				<ProFormDateTimeRangePicker
@@ -175,7 +189,9 @@ export const Search = ({ type, onChange }: SearchProps) => {
 					label='回复时间'
 					colSize={1.4}
 					fieldProps={{
-						onChange: (dates, dateStrings) => { console.log(dates, dateStrings, '日期变化') }
+						onChange: (dates, dateStrings) => {
+							console.log(dates, dateStrings, '日期变化');
+						},
 					}}
 				/>
 				<ProFormText
