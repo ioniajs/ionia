@@ -1,7 +1,7 @@
 import React from 'react';
 import { BizPage } from '@ionia/libs';
 import { Pagination } from 'antd';
-import { CommentItems } from '../Items';
+import { CommentItems } from '../Component/Items';
 import './index.less';
 
 export default () => {

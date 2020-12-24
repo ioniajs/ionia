@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Select, TreeSelect, Form } from 'antd';
 import {
 	QueryFilter,
@@ -82,11 +82,14 @@ const inputPlaceHolder = ['', '评论内容', '评论人', '评论IP', '回复�
 
 interface SearchProps {
 	type?: string;
+	onChange?: (values: any) => void;
 }
 
-export const Search = ({ type }: SearchProps) => {
+export const Search = ({ type, onChange }: SearchProps) => {
 	const [collapsed, SetCollapsed] = useState<boolean>(true); // 查询条件面板是否折叠
 	const [searchTypesValue, setSearchTypes] = useState<number>(1);
+	const [form] = Form.useForm();
+	const [formValues, setFormValues] = useState<any>({ sortWay: 0 });
 	const selectBefore = (
 		<Select
 			defaultValue={1}
@@ -97,18 +100,42 @@ export const Search = ({ type }: SearchProps) => {
 			}}
 		/>
 	);
+
+	console.log(formValues, 'ffffffffff')
+
+	useEffect(() => {
+		if (formValues) {
+			onChange && onChange(formValues)
+		}
+	}, [formValues])
 	return (
 		<div className='io-cms-comment-search__div'>
 			<QueryFilter
 				span={5}
+				form={form}
 				defaultCollapsed={true}
 				defaultColsNumber={3}
 				onFinish={async values => {
-					console.log(values);
+					setFormValues({ ...formValues, ...values })
 				}}
-				onCollapse={collapsed => SetCollapsed(collapsed)}
+				onCollapse={collapsed => {
+					// 重置被折叠部分的值，并根据现有的值进行查询
+					if (!collapsed) {
+						form.setFieldsValue({ keyWord: '', section: '', replyStatus: 0, commentTime: undefined, replyTime: undefined, searchKeyWord: '' })
+					};
+					SetCollapsed(collapsed);
+				}}
 			>
-				<ProFormSelect name='sortWay' label='排序方式' options={sortWay} initialValue={0} />
+				<ProFormSelect
+					name='sortWay'
+					label='排序方式'
+					options={sortWay}
+					initialValue={0}
+					fieldProps={{
+						value: formValues?.sortWay,
+						onChange: (value) => { console.log(value, '选择的值'); setFormValues({ ...formValues, sortWay: value }) },
+					}}
+				/>
 				<ProFormSelect
 					name='approvalStatus'
 					label='审核状态'
@@ -133,8 +160,24 @@ export const Search = ({ type }: SearchProps) => {
 					options={replyStatus}
 					initialValue={0}
 				/>
-				<ProFormDateTimeRangePicker name='commentTime' label='评论时间' colSize={1.4} />
-				<ProFormDateTimeRangePicker name='replyTime' label='回复时间' colSize={1.4} />
+				<ProFormDateTimeRangePicker
+					name='commentTime'
+					label='评论时间'
+					colSize={1.4}
+					fieldProps={{
+						onChange: (dates, dateStrings) => {
+							setFormValues({ ...formValues, commentStartTime: dateStrings[0], commentEndTime: dateStrings[1] })
+						}
+					}}
+				/>
+				<ProFormDateTimeRangePicker
+					name='replyTime'
+					label='回复时间'
+					colSize={1.4}
+					fieldProps={{
+						onChange: (dates, dateStrings) => { console.log(dates, dateStrings, '日期变化') }
+					}}
+				/>
 				<ProFormText
 					name='searchKeyWord'
 					fieldProps={{

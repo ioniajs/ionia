@@ -18,8 +18,8 @@ import {
 	ProFormText,
 } from '@ant-design/pro-form';
 import { useHistory } from 'react-router-dom';
-import { CommentItems } from './Items';
-import { Search } from './Search';
+import { CommentItems } from './Component/Items';
+import { Search } from './Component/Search';
 import './index.less';
 
 const sortWay = {
@@ -117,7 +117,7 @@ export default () => {
 						举报列表
 					</span>
 				</div>
-				<Search />
+				<Search onChange={(formValues) => { console.log(formValues, '查询条件') }} />
 				{/* <div className='io-cms-comment-search__div'>
 					<QueryFilter
 						span={6}
@@ -201,7 +201,7 @@ export default () => {
 						批量删除
 					</Button>
 				</div> */}
-				<CommentItems />
+				{/* <CommentItems /> */}
 				{/* <div className='io-cms-comment-content-items__div'> */}
 				{/* <div className='io-cms-comment-content-item__div'>
 						<div className='io-cms-comment-content-item-top__div'>
@@ -396,7 +396,7 @@ export default () => {
 					</div> */}
 				{/* </div> */}
 			</div>
-			<Pagination
+			{/* <Pagination
 				className='io-cms-comment-list-pagination'
 				total={85}
 				showSizeChanger={true}
@@ -406,7 +406,7 @@ export default () => {
 				onChange={(page, pageSize) => {
 					console.log(page, pageSize, 'pagination');
 				}}
-			/>
+			/> */}
 		</BizPage>
 	);
 };

@@ -2,7 +2,7 @@ import React, { useRef } from 'react';
 import { Checkbox, Tooltip, Form, Modal, Input, Button } from 'antd';
 import { BizModalForm, BizModalFormRef } from '@ionia/libs';
 import { useHistory } from 'react-router-dom';
-import MoreInformers from '../MoreInformers';
+import MoreInformers from '../../MoreInformers';
 import './index.less';
 
 interface ItemProps {
