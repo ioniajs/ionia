@@ -35,7 +35,7 @@ export const CommentItems = ({ type, cancelButtonText = '取消审核' }: ItemPr
 						<i className='iconfont icon-user1 item-top-user' />
 						<a
 							className='item-top-username'
-						// onClick={() => history.push('/content-operation/comment/single-user')}
+							// onClick={() => history.push('/content-operation/comment/single-user')}
 						>
 							systemsuperAdmin
 						</a>
