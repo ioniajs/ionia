@@ -467,7 +467,7 @@ export const List = () => {
 									'deadLine'
 								);
 							},
-							onCancel: () => { },
+							onCancel: () => {},
 						});
 					}}
 				>
@@ -513,7 +513,7 @@ export const List = () => {
 									'deadLine'
 								);
 							},
-							onCancel: () => { },
+							onCancel: () => {},
 						});
 					}}
 				>
@@ -679,7 +679,7 @@ export const List = () => {
 								title: '你确定删除选中内容吗？',
 								content: '删除后可在内容回收站中恢复。',
 								okText: '删除',
-								onOk: () => { },
+								onOk: () => {},
 							});
 						}}
 					>
@@ -762,7 +762,7 @@ export const List = () => {
 				title: '你确定删除选中内容吗？',
 				content: '删除后可在内容回收站中恢复。',
 				okText: '删除',
-				onOk: () => { },
+				onOk: () => {},
 			});
 		}
 		// 排序
@@ -809,7 +809,7 @@ export const List = () => {
 								createWay: [0],
 								showMineCreate: 0,
 								searchKeyWord: '',
-								contentTittle: ''
+								contentTittle: '',
 							});
 							const params = queryForm.getFieldsValue();
 							handleQueryFilter({ ...params });
@@ -833,7 +833,7 @@ export const List = () => {
 							},
 							getPopupContainer: triggerNode => triggerNode.parentElement,
 						}}
-					// colSize={0.75}
+						// colSize={0.75}
 					/>
 					<ProFormSelect
 						name='contentStatus'
@@ -856,7 +856,7 @@ export const List = () => {
 							},
 							getPopupContainer: triggerNode => triggerNode.parentElement,
 						}}
-					// colSize={0.75}
+						// colSize={0.75}
 					/>
 					<ProFormCheckbox
 						name='showSectionContent'
@@ -881,30 +881,32 @@ export const List = () => {
 					>
 						显示子栏目内容
 					</ProFormCheckbox>
-					{!!collapsed &&
+					{!!collapsed && (
 						<ProFormText
 							name='contentTittle'
 							placeholder='搜索内容标题'
-							fieldProps={{
-								// onChange: (e) => {
-								// 	if (!e) {
-								// 		setQueryOptions({ ...queryOptions, contentTittle: '' });
-								// 		handleQueryFilter({ ...queryOptions, contentTittle: '' });
-								// 	} else {
-								// 		setQueryOptions({ ...queryOptions, contentTittle: e.target.value });
-								// 		handleQueryFilter({ ...queryOptions, contentTittle: e.target.value });
-								// 	}
-								// }
-							}}
+							fieldProps={
+								{
+									// onChange: (e) => {
+									// 	if (!e) {
+									// 		setQueryOptions({ ...queryOptions, contentTittle: '' });
+									// 		handleQueryFilter({ ...queryOptions, contentTittle: '' });
+									// 	} else {
+									// 		setQueryOptions({ ...queryOptions, contentTittle: e.target.value });
+									// 		handleQueryFilter({ ...queryOptions, contentTittle: e.target.value });
+									// 	}
+									// }
+								}
+							}
 						/>
-					}
+					)}
 					<ProFormSelect
 						name='contentType'
 						label='内容类型'
 						options={contentType}
 						mode='multiple'
 						initialValue={[0]}
-					// colSize={0.75}
+						// colSize={0.75}
 					/>
 					<ProFormSelect
 						name='contentModal'
@@ -912,7 +914,7 @@ export const List = () => {
 						options={contentModal}
 						mode='multiple'
 						initialValue={[0]}
-					// colSize={0.75}
+						// colSize={0.75}
 					/>
 					<ProFormDateTimeRangePicker
 						name='create'
@@ -920,9 +922,17 @@ export const List = () => {
 						colSize={1.8}
 						fieldProps={{
 							onChange: (dates, dateStrings) => {
-								setQueryOptions({ ...queryOptions, createStartTime: dateStrings[0], createEndTime: dateStrings[1] });
-								handleQueryFilter({ ...queryOptions, createStartTime: dateStrings[0], createEndTime: dateStrings[1] });
-							}
+								setQueryOptions({
+									...queryOptions,
+									createStartTime: dateStrings[0],
+									createEndTime: dateStrings[1],
+								});
+								handleQueryFilter({
+									...queryOptions,
+									createStartTime: dateStrings[0],
+									createEndTime: dateStrings[1],
+								});
+							},
 						}}
 					/>
 					<ProFormDateTimeRangePicker
@@ -931,9 +941,17 @@ export const List = () => {
 						colSize={1.8}
 						fieldProps={{
 							onChange: (dates, dateStrings) => {
-								setQueryOptions({ ...queryOptions, publishStartTime: dateStrings[0], publishEndTime: dateStrings[1] });
-								handleQueryFilter({ ...queryOptions, publishStartTime: dateStrings[0], publishEndTime: dateStrings[1] });
-							}
+								setQueryOptions({
+									...queryOptions,
+									publishStartTime: dateStrings[0],
+									publishEndTime: dateStrings[1],
+								});
+								handleQueryFilter({
+									...queryOptions,
+									publishStartTime: dateStrings[0],
+									publishEndTime: dateStrings[1],
+								});
+							},
 						}}
 					/>
 					<ProFormSelect
@@ -943,7 +961,7 @@ export const List = () => {
 						mode='multiple'
 						initialValue={[0]}
 						style={{ paddingLeft: '8px' }}
-					// colSize={0.75}
+						// colSize={0.75}
 					/>
 					<ProFormCheckbox.Group
 						name='showMineCreate'
@@ -961,7 +979,7 @@ export const List = () => {
 							addonBefore: selectBefore,
 							placeholder: `搜素内容${inputPlaceHolder[searchTypesValue]}`,
 						}}
-					// colSize={0.75}
+						// colSize={0.75}
 					/>
 				</QueryFilter>
 				<div className='io-cms-content-list-search-bottom' />
@@ -1142,8 +1160,8 @@ export const List = () => {
 						：
 					</p>
 				) : (
-						<p>移动到栏目：</p>
-					)}
+					<p>移动到栏目：</p>
+				)}
 				<div className='io-cms-content-list-copy-modal-tree-container'>
 					<Tree
 						checkable
