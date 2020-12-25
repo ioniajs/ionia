@@ -116,7 +116,7 @@ export const Search = ({ type, onChange }: SearchProps) => {
 				defaultCollapsed={true}
 				defaultColsNumber={3}
 				onFinish={async values => {
-					setFormValues({ ...formValues, ...values });
+					setFormValues({ ...values });
 				}}
 				onCollapse={collapsed => {
 					// 重置被折叠部分的值，并根据现有的值进行查询

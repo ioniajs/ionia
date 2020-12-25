@@ -104,15 +104,15 @@ export default () => {
 				<div className='io-cms-content-top-actions__div'>
 					<span
 						className='top-actions-mute__span'
-						onClick={() => history.push('/content-operation/comment/banned')}
+						// onClick={() => history.push('/content-operation/comment/banned')}
 					>
 						禁言列表
 					</span>
 					<span
 						className='top-actions-report__span'
-						onClick={() => {
-							history.push('/content-operation/comment/report');
-						}}
+						// onClick={() => {
+						// 	history.push('/content-operation/comment/report');
+						// }}
 					>
 						举报列表
 					</span>
@@ -205,7 +205,7 @@ export default () => {
 						批量删除
 					</Button>
 				</div> */}
-				{/* <CommentItems /> */}
+				<CommentItems />
 				{/* <div className='io-cms-comment-content-items__div'> */}
 				{/* <div className='io-cms-comment-content-item__div'>
 						<div className='io-cms-comment-content-item-top__div'>
@@ -400,7 +400,7 @@ export default () => {
 					</div> */}
 				{/* </div> */}
 			</div>
-			{/* <Pagination
+			<Pagination
 				className='io-cms-comment-list-pagination'
 				total={85}
 				showSizeChanger={true}
@@ -410,7 +410,7 @@ export default () => {
 				onChange={(page, pageSize) => {
 					console.log(page, pageSize, 'pagination');
 				}}
-			/> */}
+			/>
 		</BizPage>
 	);
 };
