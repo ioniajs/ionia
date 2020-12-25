@@ -117,7 +117,11 @@ export default () => {
 						举报列表
 					</span>
 				</div>
-				<Search onChange={(formValues) => { console.log(formValues, '查询条件') }} />
+				<Search
+					onChange={formValues => {
+						console.log(formValues, '查询条件');
+					}}
+				/>
 				{/* <div className='io-cms-comment-search__div'>
 					<QueryFilter
 						span={6}
