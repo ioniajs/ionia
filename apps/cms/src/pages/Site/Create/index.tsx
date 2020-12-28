@@ -3,7 +3,13 @@ import { Button, Form, Input, Switch, Select, Tooltip, TreeSelect, message, Row,
 import { InfoCircleOutlined } from '@ant-design/icons';
 import { BizPage, GobackButton, SaveButton, ImageUpload } from '@ionia/libs';
 import { useMount, useRequest } from '@umijs/hooks';
-import { gainSiteTreeAuth, createAdminSite, AdminSiteDTO, verifySiteName, verifySiteCatalogue } from '@ionia/libs/src/services/kernel';
+import {
+	gainSiteTreeAuth,
+	createAdminSite,
+	AdminSiteDTO,
+	verifySiteName,
+	verifySiteCatalogue,
+} from '@ionia/libs/src/services/kernel';
 import { AdminSiteTreeVO } from '@ionia/libs/src/services/kernel';
 import { useHistory } from 'react-router-dom';
 import './index.less';
@@ -45,10 +51,10 @@ const handleParams = (values: any) => {
 		seoTitle: values.seoTitle || '',
 		seoKeyWord: values.seoKeyWord || '',
 		seoDesc: values.seoDesc || '',
-		orgId: values.orgId
+		orgId: values.orgId,
 	};
 	return param;
-}
+};
 let uniqueNameFlag: any = null;
 export default () => {
 	const [form] = Form.useForm();
@@ -192,13 +198,15 @@ export default () => {
 							async validator(rule, value) {
 								console.log(value);
 								if (!!value) {
-									const success = await verifySiteName({ name: value, siteId: '' }).then(res => res.data);
-									if (success)
-										return Promise.resolve();
+									const success = await verifySiteName({
+										name: value,
+										siteId: '',
+									}).then(res => res.data);
+									if (success) return Promise.resolve();
 									return Promise.reject('站点名称重复');
 								}
-							}
-						})
+							},
+						}),
 					]}
 				>
 					<Input
@@ -217,10 +225,15 @@ export default () => {
 							async validator(rule, value) {
 								if (!!value) {
 									let success = true;
-									success = await verifySiteCatalogue({ dir: value, siteId: '' }).then(res => res.data);
+									success = await verifySiteCatalogue({
+										dir: value,
+										siteId: '',
+									}).then(res => res.data);
 									if (!!value && /^[0-9a-zA-Z]+$/.test(value) && success)
 										return Promise.resolve();
-									return Promise.reject(success ? '请输入英文和数字' : '站点目录重复');
+									return Promise.reject(
+										success ? '请输入英文和数字' : '站点目录重复'
+									);
 								}
 								return Promise.reject('');
 							},
@@ -274,10 +287,10 @@ export default () => {
 														域名
 													</span>
 												) : (
-														<span style={{ display: 'none' }}>
-															添加域名
-														</span>
-													)
+													<span style={{ display: 'none' }}>
+														添加域名
+													</span>
+												)
 											}
 											required={false}
 											key={field.key}
@@ -329,7 +342,7 @@ export default () => {
 										type='dashed'
 										className='io-cms-site-copy-add__but'
 										onClick={() => add()}
-									// style={{ width: '90%' }}
+										// style={{ width: '90%' }}
 									>
 										<i className='iconfont icon-plus-square' />
 										添加

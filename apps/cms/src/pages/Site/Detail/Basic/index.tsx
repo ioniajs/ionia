@@ -116,7 +116,7 @@ export const BasicChildren = ({ id }: BasicChildrenProps) => {
 								seoTitle: values.seoTitle || '',
 								seoKeyWord: values.seoKeyWord || '',
 								seoDesc: values.seoDesc || '',
-								orgId: values.orgId
+								orgId: values.orgId,
 							};
 							const success = await handleUpdateSites(param);
 							if (success.code === 200) {
@@ -275,10 +275,10 @@ export const BasicChildren = ({ id }: BasicChildrenProps) => {
 														域名
 													</span>
 												) : (
-														<span style={{ display: 'none' }}>
-															添加域名
-														</span>
-													)
+													<span style={{ display: 'none' }}>
+														添加域名
+													</span>
+												)
 											}
 											required={false}
 											key={field.key}

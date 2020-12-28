@@ -202,8 +202,8 @@ export async function gainSiteTreeAuth(
 ): Promise<JcResult<AdminSiteTreeAuthVO[]>> {
 	return request.get('/module-kernel/cmsmanager/sites/tree/auth', {
 		params: {
-			searchStr
-		}
+			searchStr,
+		},
 	});
 }
 

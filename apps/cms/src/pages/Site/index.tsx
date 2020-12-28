@@ -14,7 +14,7 @@ import {
 	BizModalForm,
 	BizModalFormRef,
 	gainSiteTreeAuth,
-	sortAdminSite
+	sortAdminSite,
 } from '@ionia/libs';
 import { AdminSiteTreeVO, AdminSiteRecycleSummaryVo } from '@ionia/libs/src/services/kernel';
 import { IdsDTO } from '@ionia/libs/src/services/common.dto';
@@ -105,14 +105,20 @@ export default () => {
 			title: '排序值',
 			key: 'sortNo',
 			dataIndex: 'sortNO',
-			render: (_, row) => <InputNumber onBlur={async (e) => {
-				console.log(e, 'sort');
-				const success = await sortAdminSite({ sorts: [{ id: row.id, sortNum: Number(e.target.value) }] }).then(res => res.code);
-				if (success === 200) {
-					message.success('排序成功');
-					actionRef.current?.reload();
-				}
-			}} />,
+			render: (_, row) => (
+				<InputNumber
+					onBlur={async e => {
+						console.log(e, 'sort');
+						const success = await sortAdminSite({
+							sorts: [{ id: row.id, sortNum: Number(e.target.value) }],
+						}).then(res => res.code);
+						if (success === 200) {
+							message.success('排序成功');
+							actionRef.current?.reload();
+						}
+					}}
+				/>
+			),
 			width: 200,
 		},
 		{
