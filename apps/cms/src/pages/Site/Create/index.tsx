@@ -3,7 +3,7 @@ import { Button, Form, Input, Switch, Select, Tooltip, TreeSelect, message, Row,
 import { InfoCircleOutlined } from '@ant-design/icons';
 import { BizPage, GobackButton, SaveButton, ImageUpload } from '@ionia/libs';
 import { useMount, useRequest } from '@umijs/hooks';
-import { gainSiteTreeAuth, createAdminSite, AdminSiteDTO } from '@ionia/libs/src/services/kernel';
+import { gainSiteTreeAuth, createAdminSite, AdminSiteDTO, verifySiteName, verifySiteCatalogue } from '@ionia/libs/src/services/kernel';
 import { AdminSiteTreeVO } from '@ionia/libs/src/services/kernel';
 import { useHistory } from 'react-router-dom';
 import './index.less';
@@ -31,6 +31,25 @@ const handleCreateSites = async (filed: AdminSiteDTO) => {
 	}
 	return createRef;
 };
+const handleParams = (values: any) => {
+	const param: AdminSiteDTO = {
+		parentId: values.parentId,
+		name: values.name,
+		dir: values.dir,
+		modelPath: values.modelPath,
+		domain: values.domain,
+		desc: values.desc || '',
+		status: !!values.status ? 1 : 0,
+		// favicon: values.favicon || '',
+		favicon: '',
+		seoTitle: values.seoTitle || '',
+		seoKeyWord: values.seoKeyWord || '',
+		seoDesc: values.seoDesc || '',
+		orgId: values.orgId
+	};
+	return param;
+}
+let uniqueNameFlag: any = null;
 export default () => {
 	const [form] = Form.useForm();
 	const history = useHistory();
@@ -72,19 +91,22 @@ export default () => {
 							onSave={async () => {
 								form.validateFields().then(async values => {
 									console.log(values, '保存的数据');
-									const param = {
-										parentId: values.parentId,
-										name: values.name,
-										dir: values.dir,
-										modelPath: values.modelPath,
-										domain: values.domain,
-										desc: values.desc || '',
-										status: !!values.status ? 1 : 0,
-										favicon: values.favicon || '',
-										seoTitle: values.seoTitle || '',
-										seoKeyWord: values.seoKeyWord || '',
-										seoDesc: values.seoDesc || '',
-									};
+									// const param: AdminSiteDTO = {
+									// 	parentId: values.parentId,
+									// 	name: values.name,
+									// 	dir: values.dir,
+									// 	modelPath: values.modelPath,
+									// 	domain: values.domain,
+									// 	desc: values.desc || '',
+									// 	status: !!values.status ? 1 : 0,
+									// 	// favicon: values.favicon || '',
+									// 	favicon: '',
+									// 	seoTitle: values.seoTitle || '',
+									// 	seoKeyWord: values.seoKeyWord || '',
+									// 	seoDesc: values.seoDesc || '',
+									// 	orgId: values.orgId
+									// };
+									const param = handleParams(values);
 									const success = await handleCreateSites(param);
 									if (success.code === 200) {
 										history.goBack();
@@ -96,9 +118,15 @@ export default () => {
 							type='default'
 							className='io-cms-site-save-expand__but'
 							onClick={() => {
-								history.push({
-									pathname: `/system-management/site/detail/${0}`,
-									state: { tabKey: '2' },
+								form.validateFields().then(async values => {
+									const param = handleParams(values);
+									const success = await handleCreateSites(param);
+									if (success.code === 200) {
+										history.push({
+											pathname: `/system-management/site/detail/${0}`,
+											state: { tabKey: '2' },
+										});
+									}
 								});
 							}}
 						>
@@ -109,20 +137,7 @@ export default () => {
 							className='io-cms-site-save-expand__but'
 							onClick={() => {
 								form.validateFields().then(async values => {
-									console.log(values, '保存的数据');
-									const param = {
-										parentId: values.parentId,
-										name: values.name,
-										dir: values.dir,
-										modelPath: values.modelPath,
-										domain: values.domain,
-										desc: values.desc || '',
-										status: !!values.status ? 1 : 0,
-										favicon: values.favicon || '',
-										seoTitle: values.seoTitle || '',
-										seoKeyWord: values.seoKeyWord || '',
-										seoDesc: values.seoDesc || '',
-									};
+									const param = handleParams(values);
 									const success = await handleCreateSites(param);
 									if (success.code === 200) {
 										form.resetFields();
@@ -153,7 +168,7 @@ export default () => {
 					/>
 				</Form.Item>
 				<Form.Item
-					name='practiceId'
+					name='orgId'
 					label='所属阵地'
 					rules={[{ required: true, message: '请选择所属阵地' }]}
 				>
@@ -170,7 +185,21 @@ export default () => {
 				<Form.Item
 					name='name'
 					label='站点名称'
-					rules={[{ required: true, message: '请输入站点名称' }]}
+					validateTrigger={['onBlur']}
+					rules={[
+						{ required: true, message: '请输入站点名称' },
+						() => ({
+							async validator(rule, value) {
+								console.log(value);
+								if (!!value) {
+									const success = await verifySiteName({ name: value, siteId: '' }).then(res => res.data);
+									if (success)
+										return Promise.resolve();
+									return Promise.reject('站点名称重复');
+								}
+							}
+						})
+					]}
 				>
 					<Input
 						placeholder='请输入站点名称'
@@ -181,14 +210,17 @@ export default () => {
 				<Form.Item
 					name='dir'
 					label='站点目录'
+					validateTrigger={['onBlur']}
 					rules={[
 						{ required: true, message: '请输入站点目录' },
 						() => ({
-							validator(rule, value) {
+							async validator(rule, value) {
 								if (!!value) {
-									if (!!value && /^[0-9a-zA-Z]+$/.test(value))
+									let success = true;
+									success = await verifySiteCatalogue({ dir: value, siteId: '' }).then(res => res.data);
+									if (!!value && /^[0-9a-zA-Z]+$/.test(value) && success)
 										return Promise.resolve();
-									return Promise.reject('请输入英文和数字');
+									return Promise.reject(success ? '请输入英文和数字' : '站点目录重复');
 								}
 								return Promise.reject('');
 							},
@@ -242,10 +274,10 @@ export default () => {
 														域名
 													</span>
 												) : (
-													<span style={{ display: 'none' }}>
-														添加域名
-													</span>
-												)
+														<span style={{ display: 'none' }}>
+															添加域名
+														</span>
+													)
 											}
 											required={false}
 											key={field.key}
@@ -297,7 +329,7 @@ export default () => {
 										type='dashed'
 										className='io-cms-site-copy-add__but'
 										onClick={() => add()}
-										// style={{ width: '90%' }}
+									// style={{ width: '90%' }}
 									>
 										<i className='iconfont icon-plus-square' />
 										添加
