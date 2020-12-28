@@ -157,7 +157,7 @@ export async function siteDetail(id: string): Promise<JcResult<AdminSiteDetailVO
  */
 export interface SiteCatalogue {
 	dir: string; //站点目录
-	siteId: string; // 站点id
+	siteId?: string; // 站点id
 }
 export async function verifySiteCatalogue(params: SiteCatalogue): Promise<JcResult<boolean>> {
 	return request.get('/module-kernel/cmsmanager/sites/dir/unique', {
@@ -170,7 +170,7 @@ export async function verifySiteCatalogue(params: SiteCatalogue): Promise<JcResu
  */
 export interface SiteName {
 	name: string; //站点名称
-	siteId: string; // 站点id
+	siteId?: string; // 站点id
 }
 export async function verifySiteName(params: SiteName): Promise<JcResult<boolean>> {
 	return request.get('/module-kernel/cmsmanager/sites/name/unique', {
@@ -200,7 +200,11 @@ export async function gainSiteTreeEnter(searchStr: string): Promise<JcResult<Sit
 export async function gainSiteTreeAuth(
 	searchStr: string
 ): Promise<JcResult<AdminSiteTreeAuthVO[]>> {
-	return request.get('/module-kernel/cmsmanager/sites/tree/auth');
+	return request.get('/module-kernel/cmsmanager/sites/tree/auth', {
+		params: {
+			searchStr,
+		},
+	});
 }
 
 /**

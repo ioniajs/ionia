@@ -14,6 +14,7 @@ import {
 	BizModalForm,
 	BizModalFormRef,
 	gainSiteTreeAuth,
+	sortAdminSite,
 } from '@ionia/libs';
 import { AdminSiteTreeVO, AdminSiteRecycleSummaryVo } from '@ionia/libs/src/services/kernel';
 import { IdsDTO } from '@ionia/libs/src/services/common.dto';
@@ -104,7 +105,20 @@ export default () => {
 			title: '排序值',
 			key: 'sortNo',
 			dataIndex: 'sortNO',
-			render: (_, row) => <InputNumber />,
+			render: (_, row) => (
+				<InputNumber
+					onBlur={async e => {
+						console.log(e, 'sort');
+						const success = await sortAdminSite({
+							sorts: [{ id: row.id, sortNum: Number(e.target.value) }],
+						}).then(res => res.code);
+						if (success === 200) {
+							message.success('排序成功');
+							actionRef.current?.reload();
+						}
+					}}
+				/>
+			),
 			width: 200,
 		},
 		{
@@ -132,7 +146,7 @@ export default () => {
 			title: '操作',
 			key: 'operation',
 			dataIndex: 'operation',
-			render: (_, row) => (
+			render: (_, row, i) => (
 				<>
 					<a
 						onClick={() => {
@@ -151,7 +165,7 @@ export default () => {
 					</div>
 					{/* <a>复制</a> */}
 					<Divider type='vertical' />
-					{Number(row.id) !== 0 && (
+					{!!row.parentId && (
 						<a
 							onClick={async () => {
 								Modal.confirm({
@@ -176,7 +190,7 @@ export default () => {
 							删除
 						</a>
 					)}
-					{Number(row.id) === 0 && <span style={{ color: '#BFBFBF' }}>删除</span>}
+					{!row.parentId && <span style={{ color: '#BFBFBF' }}>删除</span>}
 				</>
 			),
 			width: 300,
