@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { Table, Checkbox, Button } from 'antd';
-import { logger, sitepermGroupOrgandrole } from '@ionia/libs';
+import { Table, Checkbox, Button, message } from 'antd';
+import { logger, sitepermGroupOrgandrole, saveSitepermGroupOrgandrole } from '@ionia/libs';
 import { useRequest } from 'ahooks';
+import '../index.less';
 
 export default ({ siteId }: { siteId: string }) => {
 	console.log('siteId', siteId);
@@ -171,7 +172,7 @@ export default ({ siteId }: { siteId: string }) => {
 		setTree([...tree]);
 	};
 
-	const onSubmit = () => {
+	const onSubmit = async () => {
 		let orgList: any[] = [];
 		let roleList: any[] = [];
 		const loop = (data: any) => {
@@ -179,16 +180,12 @@ export default ({ siteId }: { siteId: string }) => {
 				if (t.orgId) {
 					orgList.push({
 						orgId: t.orgId,
-						orgName: t.orgName,
-						optional: t.optional,
 						selected: t.selected,
 					});
 				}
 				if (t.roleId) {
 					roleList.push({
-						orgId: t.roleId,
-						orgName: t.roleName,
-						optional: t.optional,
+						roleId: t.roleId,
 						selected: t.selected,
 					});
 				}
@@ -198,23 +195,34 @@ export default ({ siteId }: { siteId: string }) => {
 			});
 		};
 		loop(tree);
-		console.log(orgList, roleList);
+		const { code } = await saveSitepermGroupOrgandrole({
+			orgs: orgList,
+			roles: roleList,
+			siteId,
+		});
+		if (code == 200) {
+			message.success('保存成功');
+		}
 	};
 	return (
 		<div>
-			<Button type='primary' onClick={onSubmit}>
+			<Button type='primary' onClick={onSubmit} className='io-cms-site-authority_button'>
 				保存
 			</Button>
-			<Table
-				columns={columns}
-				dataSource={tree}
-				rowSelection={{ ...rowSelection }}
-				pagination={false}
-				loading={load}
-				rowKey={record => {
-					return record.orgId ? record.orgId : record.roleId;
-				}}
-			/>
+
+			{tree.length && (
+				<Table
+					columns={columns}
+					dataSource={tree}
+					rowSelection={{ ...rowSelection }}
+					pagination={false}
+					loading={load}
+					rowKey={record => {
+						return record.orgId ? record.orgId : record.roleId;
+					}}
+					defaultExpandAllRows={true}
+				/>
+			)}
 		</div>
 	);
 };
