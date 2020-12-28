@@ -49,7 +49,36 @@ export interface SitePermUserVO {
 	selected: number;
 	userId: string;
 	userName: string;
+	realName: string;
 }
 export interface SitePermOrgVO {
 	siteId: string;
+}
+
+export interface SiteAuthVO {
+	children: SiteAuthVO[];
+	datas: DataBaseVO;
+	orgId: string; //组织id
+	orgName: string; //组织名称
+	parentId: string; //父级id
+	roleId: string; //角色ID
+	roleName: string; //角色名称
+}
+
+export interface PageSiteAuthUserVO {
+	content: SiteAuthUserVO[];
+	pageNo: number;
+	pageSize: number;
+	pages: number;
+	total: number;
+}
+
+export interface SiteAuthUserVO {
+	datas: DataBaseVO;
+	orgId: string; //组织id
+	orgName: string; //组织名称
+	parentId: string; //父级id
+	roleId: string; //角色ID
+	roleName: string; //角色名称
+	realName: string;
 }

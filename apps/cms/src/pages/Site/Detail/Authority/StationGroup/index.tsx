@@ -17,7 +17,7 @@ const stationGroup = ({ id }: { id: string }) => {
 				<Role siteId={siteId}></Role>
 			</TabPane>
 			<TabPane tab='用户' key='2'>
-				<User></User>
+				<User siteId={siteId}></User>
 			</TabPane>
 		</Tabs>
 	);

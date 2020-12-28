@@ -35,3 +35,51 @@ export interface DataUserDTO {
 	userId: string; // 用户id
 }
 //#endregion
+
+///module-user/cmsmanager/siteperm/group/page
+export interface PageSitePermUserDTO {
+	siteId: string;
+	pageNo?: string;
+	pageSize?: string;
+}
+//保存站群权限---用户
+export interface SiteGroupSiteUserDTO {
+	siteId: string;
+	users: SiteGroupUserChildDTO[];
+}
+
+export interface SiteGroupUserChildDTO {
+	selected: string;
+	userId: string;
+}
+
+export interface SiteGroupOrgChildDTO {
+	orgId: string;
+	selected: number;
+}
+export interface SiteGroupRoleChildDTO {
+	roleId: string;
+	selected: number;
+}
+
+export interface SiteGroupOrgAndRoleDTO {
+	orgs: SiteGroupOrgChildDTO[];
+	roles: SiteGroupRoleChildDTO[];
+	siteId: string;
+}
+
+export interface SiteOrgChildDTO {
+	datas: DataBaseDTO;
+	orgId: string;
+}
+
+export interface SiteRoleChildDTO {
+	datas: DataBaseDTO;
+	roleId: string;
+}
+
+export interface SiteOrgAndRoleDTO {
+	orgs: SiteOrgChildDTO[];
+	roles: SiteRoleChildDTO[];
+	siteId: string;
+}
