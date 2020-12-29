@@ -63,7 +63,13 @@ export default () => {
 					<Tooltip title={`${row.name}`}>
 						<a
 							onClick={() => {
-								history.push(`/system-management/site/detail/${row.id}`);
+								// history.push(`/system-management/site/detail/${row.id}`);
+								history.push({
+									pathname: `/system-management/site/detail/${row.id}`,
+									state: {
+										parentId: row.parentId,
+									},
+								});
 							}}
 						>
 							{row.name}
@@ -161,7 +167,7 @@ export default () => {
 					<a>浏览</a>
 					<Divider type='vertical' />
 					<div style={{ display: 'inline-block' }}>
-						<CopyForm siteId={row.id} />
+						<CopyForm siteId={row.id} source='list' parentId={row.parentId} />
 					</div>
 					{/* <a>复制</a> */}
 					<Divider type='vertical' />
@@ -197,23 +203,6 @@ export default () => {
 		},
 	];
 
-	const recycleColumns: ProColumns<AdminSiteRecycleSummaryVo>[] = [
-		{
-			title: '站点名称',
-			key: 'name',
-			dataIndex: 'name',
-		},
-		{
-			title: '删除人',
-			key: 'operatTime',
-			dataIndex: 'operatTime',
-		},
-		{
-			title: '删除时间',
-			key: 'operator',
-			dataIndex: 'operator',
-		},
-	];
 	return (
 		<BizPage>
 			<BizTable
@@ -248,9 +237,13 @@ export default () => {
 						<div className='io-space-item'>
 							<Button
 								type='default'
-								disabled={selectedRowKeys.length === 0}
+								// disabled={selectedRowKeys.length === 0}
 								onClick={() => {
-									Modal.info({
+									if (selectedRowKeys.length === 0) {
+										message.error('请勾选需要删除的站点');
+										return;
+									}
+									Modal.confirm({
 										title: '你确定删除选中站点吗？',
 										content:
 											'删除站点会同时删除其下级站点，删除可在站点回收站中恢复。',
@@ -299,7 +292,11 @@ export default () => {
 							width={1200}
 							className='io-cms-site-cycle-modal__table'
 						>
-							<RecycleSite />
+							<RecycleSite
+								onClose={() => {
+									modalRef.current?.close();
+								}}
+							/>
 						</BizModalForm>
 					</>
 				)}

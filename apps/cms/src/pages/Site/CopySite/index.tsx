@@ -1,13 +1,19 @@
 import React, { useRef, useState } from 'react';
 import { ProFormText, ProFormCheckbox } from '@ant-design/pro-form';
 import { BizModalForm, gainSiteTree, copySite, SiteCopyDTO, BizModalFormRef } from '@ionia/libs';
-import { AdminSiteTreeVO } from '@ionia/libs/src/services/kernel';
-import { Button, Form, TreeSelect, Select, Input, message } from 'antd';
+import {
+	AdminSiteTreeVO,
+	verifySiteName,
+	verifySiteCatalogue,
+} from '@ionia/libs/src/services/kernel';
+import { Button, Form, TreeSelect, Select, Input, message, Row, Col } from 'antd';
 import { useMount, useRequest } from '@umijs/hooks';
 import './index.less';
 
 interface CopyFormProps {
 	siteId: string;
+	source?: string;
+	parentId?: string;
 }
 
 const copyTypes = [
@@ -40,24 +46,7 @@ const selectBefore = (
 	</Select>
 );
 
-const formItemLayout = {
-	labelCol: {
-		xs: { span: 24 },
-		sm: { span: 4 },
-	},
-	wrapperCol: {
-		xs: { span: 24 },
-		sm: { span: 20 },
-	},
-};
-const formItemLayoutWithOutLabel = {
-	wrapperCol: {
-		xs: { span: 24, offset: 0 },
-		sm: { span: 20, offset: 4 },
-	},
-};
-
-export default ({ siteId }: CopyFormProps) => {
+export default ({ siteId, source, parentId }: CopyFormProps) => {
 	const ref = useRef<BizModalFormRef>();
 	const [form] = Form.useForm();
 	const [siteTree, setSiteTree] = useState<AdminSiteTreeVO[]>();
@@ -95,15 +84,27 @@ export default ({ siteId }: CopyFormProps) => {
 			form={form}
 			title='复制站点'
 			width={580}
-			triggerRender={() => (
-				<a
-					onClick={() => {
-						ref.current?.open();
-					}}
-				>
-					复制
-				</a>
-			)}
+			triggerRender={() =>
+				source === 'list' ? (
+					<a
+						onClick={() => {
+							ref.current?.open();
+						}}
+					>
+						复制
+					</a>
+				) : (
+					<Button
+						type='default'
+						className='io-cms-site-save-expand__but'
+						onClick={() => {
+							ref.current?.open();
+						}}
+					>
+						复制
+					</Button>
+				)
+			}
 			onFinish={async values => {
 				console.log(values);
 				const param = {
@@ -124,6 +125,9 @@ export default ({ siteId }: CopyFormProps) => {
 				name='parentId'
 				label='上级站点'
 				rules={[{ required: true, message: '请选择上级站点' }]}
+				labelCol={{ span: 6 }}
+				wrapperCol={{ span: 14 }}
+				initialValue={parentId}
 			>
 				<TreeSelect
 					showSearch={true}
@@ -134,16 +138,97 @@ export default ({ siteId }: CopyFormProps) => {
 					placeholder='请选择上级站点'
 				/>
 			</Form.Item>
-			<ProFormText
+			<Form.Item
 				name='name'
 				label='站点名称'
+				validateTrigger={['onBlur']}
+				rules={[
+					{ required: true, message: '请输入站点名称' },
+					() => ({
+						async validator(rule, value) {
+							console.log(value);
+							if (!!value) {
+								const success = await verifySiteName({
+									name: value,
+									siteId: siteId,
+								}).then(res => res.data);
+								if (success) return Promise.resolve();
+								return Promise.reject('站点名称重复');
+							}
+						},
+					}),
+				]}
+				labelCol={{ span: 6 }}
+				wrapperCol={{ span: 14 }}
+			>
+				<Input
+					allowClear
+					placeholder='请输入站点名称'
+					maxLength={120}
+					className='io-cms-site-create-form__item'
+				/>
+			</Form.Item>
+			{/* <ProFormText
+				name='name'
+				label='站点名称'
+				validateTrigger={['onBlur']}
 				placeholder='请输入站点名称'
-				rules={[{ required: true }]}
+				rules={[
+					{ required: true },
+					() => ({
+						async validator(rule, value) {
+							if (!!value) {
+								const success = await verifySiteName({
+									name: value,
+									siteId: siteId,
+								}).then(res => res.data);
+								if (success) return Promise.resolve();
+								return Promise.reject('站点名称重复');
+							}
+						}
+					})
+				]}
 				fieldProps={{
 					maxLength: 120,
 				}}
-			/>
-			<ProFormText
+				labelCol={{ span: 6 }}
+				wrapperCol={{ span: 14 }}
+			/> */}
+			<Form.Item
+				name='dir'
+				label='站点目录'
+				validateTrigger={['onBlur']}
+				rules={[
+					{ required: true, message: '请输入站点目录' },
+					() => ({
+						async validator(rule, value) {
+							if (!!value) {
+								let success = true;
+								success = await verifySiteCatalogue({
+									dir: value,
+									siteId: siteId,
+								}).then(res => res.data);
+								if (!!value && /^[0-9a-zA-Z]+$/.test(value) && success)
+									return Promise.resolve();
+								return Promise.reject(
+									success ? '请输入英文和数字' : '站点目录重复'
+								);
+							}
+							return Promise.reject('');
+						},
+					}),
+				]}
+				labelCol={{ span: 6 }}
+				wrapperCol={{ span: 14 }}
+			>
+				<Input
+					allowClear
+					placeholder='请输入站点目录'
+					maxLength={120}
+					className='io-cms-site-create-form__item'
+				/>
+			</Form.Item>
+			{/* <ProFormText
 				name='dir'
 				label='站点目录'
 				placeholder='请输入站点目录'
@@ -163,7 +248,9 @@ export default ({ siteId }: CopyFormProps) => {
 				fieldProps={{
 					maxLength: 120,
 				}}
-			/>
+				labelCol={{ span: 6 }}
+				wrapperCol={{ span: 14 }}
+			/> */}
 			{/* <Row>
                 <Form.Item
                     name='domain'
@@ -185,9 +272,8 @@ export default ({ siteId }: CopyFormProps) => {
 							{fields.map((field, index) => {
 								return (
 									<Form.Item
-										{...(index === 0
-											? formItemLayout
-											: formItemLayoutWithOutLabel)}
+										wrapperCol={{ span: 16 }}
+										labelCol={{ span: 6 }}
 										label={
 											index === 0 ? (
 												<span>
@@ -197,37 +283,45 @@ export default ({ siteId }: CopyFormProps) => {
 													域名
 												</span>
 											) : (
-												''
+												<span style={{ display: 'none' }}>添加域名</span>
 											)
 										}
 										required={false}
 										key={field.key}
+										colon={index === 0}
 									>
-										<Form.Item
-											{...field}
-											validateTrigger={['onChange', 'onBlur']}
-											rules={[
-												{
-													required: true,
-													message: '请输入域名',
-												},
-											]}
-											noStyle
-										>
-											<Input
-												placeholder='请输入域名'
-												style={{ width: '81%' }}
-												addonBefore={selectBefore}
-											/>
-										</Form.Item>
-										{fields.length > 1 && index > 0 ? (
-											<Button
-												className='dynamic-delete-button'
-												onClick={() => remove(field.name)}
-											>
-												删除
-											</Button>
-										) : null}
+										<Row>
+											<Col span={21}>
+												<Form.Item
+													{...field}
+													wrapperCol={{ span: 16 }}
+													labelCol={{ span: 6 }}
+													validateTrigger={['onChange', 'onBlur']}
+													rules={[
+														{
+															required: true,
+															message: '请输入域名',
+														},
+													]}
+													noStyle
+												>
+													<Input
+														placeholder='请输入域名'
+														addonBefore={selectBefore}
+													/>
+												</Form.Item>
+											</Col>
+											<Col span={3}>
+												{fields.length > 1 && index > 0 ? (
+													<Button
+														className='io-cms-site-copysite-domain-delete__but'
+														onClick={() => remove(field.name)}
+													>
+														删除
+													</Button>
+												) : null}
+											</Col>
+										</Row>
 									</Form.Item>
 								);
 							})}
@@ -236,11 +330,14 @@ export default ({ siteId }: CopyFormProps) => {
 								label={<span style={{ display: 'none' }}>添加按钮</span>}
 								colon={false}
 								className='io-cms-site-copy-add__Item'
+								labelCol={{ span: 6 }}
+								wrapperCol={{ span: 14 }}
 							>
 								<Button
 									type='dashed'
 									className='io-cms-site-copy-add__but'
 									onClick={() => add()}
+									style={{ width: '100%' }}
 								>
 									<i className='iconfont icon-plus-square' />
 									添加
@@ -256,6 +353,9 @@ export default ({ siteId }: CopyFormProps) => {
 				options={copyTypes}
 				layout='horizontal'
 				label='要复制的数据'
+				labelCol={{ span: 6 }}
+				wrapperCol={{ span: 18 }}
+				initialValue={[1, 2, 3]}
 			/>
 		</BizModalForm>
 	);
