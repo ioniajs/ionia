@@ -211,13 +211,17 @@ export default ({ onClose }: RecycleProps) => {
 				className='io-cms-site-recycle__modal'
 			>
 				<p>以下站点的上级站点已被删除，无法正常恢复，请选择处理方式：</p>
-				<p>{(checkData || []).map((c: any) => {
-					return (
-						<span>[{c.name}]</span>
-					)
-				})}</p>
+				<p>
+					{(checkData || []).map((c: any) => {
+						return <span>[{c.name}]</span>;
+					})}
+				</p>
 				{/* <p>[站点1]</p> */}
-				<Radio.Group onChange={e => setRevertRadio(e.target.value)} defaultValue={1} style={{ marginBottom: '20px' }}>
+				<Radio.Group
+					onChange={e => setRevertRadio(e.target.value)}
+					defaultValue={1}
+					style={{ marginBottom: '20px' }}
+				>
 					<Radio value={1}>同时恢复所有上级站点</Radio>
 					<Radio value={2}>恢复到其他站点下</Radio>
 				</Radio.Group>
