@@ -83,3 +83,14 @@ export interface SiteOrgAndRoleDTO {
 	roles: SiteRoleChildDTO[];
 	siteId: string;
 }
+
+export interface SiteUserChildDTO {
+	userId: string;
+	selected: number;
+	datas: DataBaseDTO;
+}
+
+export interface SiteUserDTO {
+	siteId: string;
+	users: SiteUserChildDTO[];
+}
