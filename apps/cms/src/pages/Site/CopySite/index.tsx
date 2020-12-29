@@ -1,7 +1,11 @@
 import React, { useRef, useState } from 'react';
 import { ProFormText, ProFormCheckbox } from '@ant-design/pro-form';
 import { BizModalForm, gainSiteTree, copySite, SiteCopyDTO, BizModalFormRef } from '@ionia/libs';
-import { AdminSiteTreeVO, verifySiteName, verifySiteCatalogue } from '@ionia/libs/src/services/kernel';
+import {
+	AdminSiteTreeVO,
+	verifySiteName,
+	verifySiteCatalogue,
+} from '@ionia/libs/src/services/kernel';
 import { Button, Form, TreeSelect, Select, Input, message, Row, Col } from 'antd';
 import { useMount, useRequest } from '@umijs/hooks';
 import './index.less';
@@ -42,7 +46,6 @@ const selectBefore = (
 	</Select>
 );
 
-
 export default ({ siteId, source, parentId }: CopyFormProps) => {
 	const ref = useRef<BizModalFormRef>();
 	const [form] = Form.useForm();
@@ -81,17 +84,27 @@ export default ({ siteId, source, parentId }: CopyFormProps) => {
 			form={form}
 			title='复制站点'
 			width={580}
-			triggerRender={() => (
-				source === 'list' ? <a
-					onClick={() => {
-						ref.current?.open();
-					}}
-				>
-					复制
-				</a> : <Button type='default' className='io-cms-site-save-expand__but' onClick={() => { ref.current?.open() }}>
+			triggerRender={() =>
+				source === 'list' ? (
+					<a
+						onClick={() => {
+							ref.current?.open();
+						}}
+					>
 						复制
-				</Button>
-			)}
+					</a>
+				) : (
+					<Button
+						type='default'
+						className='io-cms-site-save-expand__but'
+						onClick={() => {
+							ref.current?.open();
+						}}
+					>
+						复制
+					</Button>
+				)
+			}
 			onFinish={async values => {
 				console.log(values);
 				const param = {
@@ -270,10 +283,8 @@ export default ({ siteId, source, parentId }: CopyFormProps) => {
 													域名
 												</span>
 											) : (
-													<span style={{ display: 'none' }}>
-														添加域名
-													</span>
-												)
+												<span style={{ display: 'none' }}>添加域名</span>
+											)
 										}
 										required={false}
 										key={field.key}

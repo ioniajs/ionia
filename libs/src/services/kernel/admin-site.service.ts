@@ -142,7 +142,7 @@ export async function gainSiteTree(searchStr?: string): Promise<JcResult<AdminSi
  * 修改站点
  */
 export async function amendSite(data: AdminSiteDTO): Promise<JcResult<object>> {
-	return request.post('/module-kernel/cmsmanager/sites/update', { data});
+	return request.post('/module-kernel/cmsmanager/sites/update', { data });
 }
 
 /**

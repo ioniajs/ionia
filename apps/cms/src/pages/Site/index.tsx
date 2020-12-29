@@ -67,9 +67,9 @@ export default () => {
 								history.push({
 									pathname: `/system-management/site/detail/${row.id}`,
 									state: {
-										parentId: row.parentId
-									}
-								})
+										parentId: row.parentId,
+									},
+								});
 							}}
 						>
 							{row.name}
@@ -292,7 +292,11 @@ export default () => {
 							width={1200}
 							className='io-cms-site-cycle-modal__table'
 						>
-							<RecycleSite onClose={() => { modalRef.current?.close() }} />
+							<RecycleSite
+								onClose={() => {
+									modalRef.current?.close();
+								}}
+							/>
 						</BizModalForm>
 					</>
 				)}

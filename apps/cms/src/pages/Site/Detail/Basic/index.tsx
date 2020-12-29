@@ -3,7 +3,14 @@ import { Button, Form, Input, Switch, Select, Tooltip, TreeSelect, message, Row,
 import { InfoCircleOutlined } from '@ant-design/icons';
 import { BizPage, ImageUpload, BizSection } from '@ionia/libs';
 import { useMount, useRequest } from '@umijs/hooks';
-import { gainSiteTree, siteDetail, amendSite, AdminSiteDTO, verifySiteName, verifySiteCatalogue } from '@ionia/libs/src/services/kernel';
+import {
+	gainSiteTree,
+	siteDetail,
+	amendSite,
+	AdminSiteDTO,
+	verifySiteName,
+	verifySiteCatalogue,
+} from '@ionia/libs/src/services/kernel';
 import { AdminSiteTreeVO, AdminSiteDetailVO } from '@ionia/libs/src/services/kernel';
 import { useHistory } from 'react-router-dom';
 import CopyForm from '../../CopySite';
@@ -320,10 +327,10 @@ export const BasicChildren = ({ id, parentId }: BasicChildrenProps) => {
 														域名
 													</span>
 												) : (
-														<span style={{ display: 'none' }}>
-															添加域名
-														</span>
-													)
+													<span style={{ display: 'none' }}>
+														添加域名
+													</span>
+												)
 											}
 											required={false}
 											key={field.key}

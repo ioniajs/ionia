@@ -7,7 +7,7 @@ import {
 	recycleSiteRestore,
 	SiteRevertDTO,
 	gainSiteTree,
-	recycleRestoreVerify
+	recycleRestoreVerify,
 } from '@ionia/libs/src/services';
 import { AdminSiteRecycleSummaryVo, AdminSiteTreeVO } from '@ionia/libs/src/services/kernel';
 import { IdsDTO } from '@ionia/libs/src/services/common.dto';
@@ -135,7 +135,9 @@ export default ({ onClose }: RecycleProps) => {
 									s.toString()
 								);
 								// 校验是否存在已删除的上级站点
-								const checkRes = await recycleRestoreVerify({ ids: tempSelRowKeys });
+								const checkRes = await recycleRestoreVerify({
+									ids: tempSelRowKeys,
+								});
 								if (checkRes.data.length === 0) {
 									const params: SiteRevertDTO = {
 										siteIds: selectedRowKeys,
