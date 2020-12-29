@@ -9,6 +9,7 @@ import {
 	SiteGroupSiteUserDTO,
 	SiteGroupOrgAndRoleDTO,
 	SiteOrgAndRoleDTO,
+	SiteUserDTO,
 } from './site-permissions.dto';
 import {
 	AdminDataVO,
@@ -136,5 +137,14 @@ export async function sitepermSitePage(
 ): Promise<JcResult<PageSiteAuthUserVO>> {
 	return request.get('/module-user/cmsmanager/siteperm/site/page', {
 		params,
+	});
+}
+
+/**
+ * 保存  站群权限---用户
+ */
+export async function saveSitepermSiteUser(data: SiteUserDTO): Promise<JcResult<boolean>> {
+	return request.post('/module-user/cmsmanager/siteperm/site/user', {
+		data,
 	});
 }
