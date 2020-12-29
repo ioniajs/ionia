@@ -53,6 +53,7 @@ export default ({ onClose }: RecycleProps) => {
 	const [recycleForm] = Form.useForm();
 	const [revertRadio, setRevertRadio] = useState<number>(1);
 	const [visible, setVisible] = useState<boolean>(false);
+	const [checkData, setCheckData] = useState<any>();
 
 	// 获取站点树
 	const { run: runsiteTree } = useRequest(gainSiteTree, {
@@ -138,7 +139,8 @@ export default ({ onClose }: RecycleProps) => {
 								const checkRes = await recycleRestoreVerify({
 									ids: tempSelRowKeys,
 								});
-								if (checkRes.data.length === 0) {
+								setCheckData(checkRes.data);
+								if (checkRes.data.length !== 0) {
 									const params: SiteRevertDTO = {
 										siteIds: selectedRowKeys,
 										type: 0,
@@ -149,7 +151,7 @@ export default ({ onClose }: RecycleProps) => {
 									}
 								} else {
 									setVisible(true);
-									onClose && onClose();
+									// onClose && onClose();
 								}
 							}}
 						>
@@ -206,10 +208,20 @@ export default ({ onClose }: RecycleProps) => {
 				onCancel={() => {
 					setVisible(false);
 				}}
+				className='io-cms-site-recycle__modal'
 			>
 				<p>以下站点的上级站点已被删除，无法正常恢复，请选择处理方式：</p>
-				<p>[站点1]</p>
-				<Radio.Group onChange={e => setRevertRadio(e.target.value)} defaultValue={1}>
+				<p>
+					{(checkData || []).map((c: any) => {
+						return <span>[{c.name}]</span>;
+					})}
+				</p>
+				{/* <p>[站点1]</p> */}
+				<Radio.Group
+					onChange={e => setRevertRadio(e.target.value)}
+					defaultValue={1}
+					style={{ marginBottom: '20px' }}
+				>
 					<Radio value={1}>同时恢复所有上级站点</Radio>
 					<Radio value={2}>恢复到其他站点下</Radio>
 				</Radio.Group>
