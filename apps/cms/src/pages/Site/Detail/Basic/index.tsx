@@ -1,17 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import { Button, Form, Input, Switch, Select, Tooltip, TreeSelect, message, Anchor } from 'antd';
+import { Button, Form, Input, Switch, Select, Tooltip, TreeSelect, message, Row, Col } from 'antd';
 import { InfoCircleOutlined } from '@ant-design/icons';
 import { BizPage, ImageUpload, BizSection } from '@ionia/libs';
 import { useMount, useRequest } from '@umijs/hooks';
-import { gainSiteTree, siteDetail, amendSite, AdminSiteDTO } from '@ionia/libs/src/services/kernel';
+import { gainSiteTree, siteDetail, amendSite, AdminSiteDTO, verifySiteName, verifySiteCatalogue } from '@ionia/libs/src/services/kernel';
 import { AdminSiteTreeVO, AdminSiteDetailVO } from '@ionia/libs/src/services/kernel';
 import { useHistory } from 'react-router-dom';
+import CopyForm from '../../CopySite';
 import './index.less';
 
 const { Option } = Select;
 const layout = {
-	labelCol: { span: 7 },
-	wrapperCol: { span: 12 },
+	labelCol: { span: 6 },
+	wrapperCol: { span: 10 },
 };
 
 const selectBefore = (
@@ -32,8 +33,9 @@ const handleUpdateSites = async (filed: AdminSiteDTO) => {
 };
 interface BasicChildrenProps {
 	id?: string;
+	parentId?: string;
 }
-export const BasicChildren = ({ id }: BasicChildrenProps) => {
+export const BasicChildren = ({ id, parentId }: BasicChildrenProps) => {
 	const history = useHistory();
 	const [basicForm] = Form.useForm();
 	const [expandForm] = Form.useForm();
@@ -112,7 +114,7 @@ export const BasicChildren = ({ id }: BasicChildrenProps) => {
 								domain: values.domain,
 								desc: values.desc || '',
 								status: !!values.status ? 1 : 0,
-								favicon: values.favicon || '',
+								favicon: '',
 								seoTitle: values.seoTitle || '',
 								seoKeyWord: values.seoKeyWord || '',
 								seoDesc: values.seoDesc || '',
@@ -145,13 +147,16 @@ export const BasicChildren = ({ id }: BasicChildrenProps) => {
 				<Button type='default' className='io-cms-site-save-expand__but'>
 					发布静态页
 				</Button>
-				<Button type='default' className='io-cms-site-save-expand__but'>
+				{/* <Button type='default' className='io-cms-site-save-expand__but'>
 					复制
-				</Button>
+				</Button> */}
+				<div style={{ display: 'inline-block' }}>
+					<CopyForm siteId={id || ''} source='detail' parentId={parentId} />
+				</div>
 			</div>
 			<Form form={basicForm} className='io-site__form' {...layout}>
 				<Form.Item name='id' label='站点ID'>
-					<span>{siteDetailData?.id}</span>
+					<span>{id}</span>
 				</Form.Item>
 				<Form.Item
 					name='parentId'
@@ -169,9 +174,40 @@ export const BasicChildren = ({ id }: BasicChildrenProps) => {
 					/>
 				</Form.Item>
 				<Form.Item
+					name='orgId'
+					label='所属阵地'
+					rules={[{ required: true, message: '请选择所属阵地' }]}
+				>
+					<TreeSelect
+						placeholder='请选择所属阵地'
+						treeData={siteTree}
+						showSearch={true}
+						onSearch={e => {
+							runsiteTree(e);
+						}}
+						className='io-cms-site-detail-basic-form__item'
+					/>
+				</Form.Item>
+				<Form.Item
 					name='name'
 					label='站点名称'
-					rules={[{ required: true, message: '请输入站点名称' }]}
+					validateTrigger={['onBlur']}
+					rules={[
+						{ required: true, message: '请输入站点名称' },
+						() => ({
+							async validator(rule, value) {
+								console.log(value);
+								if (!!value) {
+									const success = await verifySiteName({
+										name: value,
+										siteId: id,
+									}).then(res => res.data);
+									if (success) return Promise.resolve();
+									return Promise.reject('站点名称重复');
+								}
+							},
+						}),
+					]}
 				>
 					<Input
 						placeholder='请输入站点名称'
@@ -182,14 +218,22 @@ export const BasicChildren = ({ id }: BasicChildrenProps) => {
 				<Form.Item
 					name='dir'
 					label='站点目录'
+					validateTrigger={['onBlur']}
 					rules={[
 						{ required: true, message: '请输入站点目录' },
 						() => ({
-							validator(rule, value) {
+							async validator(rule, value) {
 								if (!!value) {
-									if (!!value && /^[0-9a-zA-Z]+$/.test(value))
+									let success = true;
+									success = await verifySiteCatalogue({
+										dir: value,
+										siteId: id,
+									}).then(res => res.data);
+									if (!!value && /^[0-9a-zA-Z]+$/.test(value) && success)
 										return Promise.resolve();
-									return Promise.reject('请输入英文和数字');
+									return Promise.reject(
+										success ? '请输入英文和数字' : '站点目录重复'
+									);
 								}
 								return Promise.reject('');
 							},
@@ -265,7 +309,8 @@ export const BasicChildren = ({ id }: BasicChildrenProps) => {
 								{fields.map((field, index) => {
 									return (
 										<Form.Item
-											{...layout}
+											wrapperCol={{ span: 12 }}
+											labelCol={{ span: 6 }}
 											label={
 												index === 0 ? (
 													<span>
@@ -275,40 +320,46 @@ export const BasicChildren = ({ id }: BasicChildrenProps) => {
 														域名
 													</span>
 												) : (
-													<span style={{ display: 'none' }}>
-														添加域名
-													</span>
-												)
+														<span style={{ display: 'none' }}>
+															添加域名
+														</span>
+													)
 											}
 											required={false}
 											key={field.key}
 											colon={index === 0}
 										>
-											<Form.Item
-												{...field}
-												validateTrigger={['onChange', 'onBlur']}
-												rules={[
-													{
-														required: true,
-														message: '请输入域名',
-													},
-												]}
-												noStyle
-											>
-												<Input
-													placeholder='请输入域名'
-													className='io-cms-site-create-form__item'
-													addonBefore={selectBefore}
-												/>
-											</Form.Item>
-											{fields.length > 1 && index > 0 ? (
-												<Button
-													className='io-cms-site-detailbasic-domain-delete__but'
-													onClick={() => remove(field.name)}
-												>
-													删除
-												</Button>
-											) : null}
+											<Row>
+												<Col span={20}>
+													<Form.Item
+														{...field}
+														validateTrigger={['onChange', 'onBlur']}
+														rules={[
+															{
+																required: true,
+																message: '请输入域名',
+															},
+														]}
+														noStyle
+													>
+														<Input
+															placeholder='请输入域名'
+															className='io-cms-site-create-form__item'
+															addonBefore={selectBefore}
+														/>
+													</Form.Item>
+												</Col>
+												<Col span={4}>
+													{fields.length > 1 && index > 0 ? (
+														<Button
+															className='io-cms-site-detailbasic-domain-delete__but'
+															onClick={() => remove(field.name)}
+														>
+															删除
+														</Button>
+													) : null}
+												</Col>
+											</Row>
 										</Form.Item>
 									);
 								})}
@@ -321,7 +372,8 @@ export const BasicChildren = ({ id }: BasicChildrenProps) => {
 									<Button
 										type='dashed'
 										onClick={() => add()}
-										className='io-cms-site-detail-basic-form__item'
+										className='io-cms-site-copy-add__but'
+										style={{ width: '100%' }}
 									>
 										<i className='iconfont icon-plus-square' />
 										添加

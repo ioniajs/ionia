@@ -142,7 +142,7 @@ export async function gainSiteTree(searchStr?: string): Promise<JcResult<AdminSi
  * 修改站点
  */
 export async function amendSite(data: AdminSiteDTO): Promise<JcResult<object>> {
-	return request.post('/module-kernel/cmsmanager/sites/update', {});
+	return request.post('/module-kernel/cmsmanager/sites/update', { data});
 }
 
 /**
@@ -181,7 +181,7 @@ export async function verifySiteName(params: SiteName): Promise<JcResult<boolean
 /**
  * 回收站还原校验,是否存在已删除的上级站点
  */
-export async function recycleRestoreVerify(data: IdsDTO): Promise<JcResult<AdminSiteVO>> {
+export async function recycleRestoreVerify(data: IdsDTO): Promise<JcResult<AdminSiteVO[]>> {
 	return request.post('/module-kernel/cmsmanager/sites/recycle/check', {
 		data,
 	});

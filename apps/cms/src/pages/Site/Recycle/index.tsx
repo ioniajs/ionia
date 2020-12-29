@@ -7,13 +7,17 @@ import {
 	recycleSiteRestore,
 	SiteRevertDTO,
 	gainSiteTree,
+	recycleRestoreVerify
 } from '@ionia/libs/src/services';
 import { AdminSiteRecycleSummaryVo, AdminSiteTreeVO } from '@ionia/libs/src/services/kernel';
 import { IdsDTO } from '@ionia/libs/src/services/common.dto';
 import { message, Modal, Radio, Button, TreeSelect, Form } from 'antd';
 import React, { useRef, useState } from 'react';
-
 import './index.less';
+
+interface RecycleProps {
+	onClose?: () => void;
+}
 
 // 回收站删除
 const handleDeleteRecycle = async (ids: IdsDTO) => {
@@ -42,7 +46,7 @@ const layout = {
 	wrapperCol: { span: 12 },
 };
 
-export default () => {
+export default ({ onClose }: RecycleProps) => {
 	const actionRef = useRef<ActionType>();
 	const [selectedRowKeys, setSelectedRowKeys] = useState<number[]>([]);
 	const [siteTree, setSiteTree] = useState<AdminSiteTreeVO[]>();
@@ -101,6 +105,10 @@ export default () => {
 						<Button
 							type='primary'
 							onClick={async () => {
+								if (selectedRowKeys.length === 0) {
+									message.error('请勾选需要删除的站点');
+									return;
+								}
 								const tempSelRowKeys = selectedRowKeys.map((s: any) =>
 									s.toString()
 								);
@@ -111,17 +119,37 @@ export default () => {
 									actionRef.current?.reload();
 								}
 							}}
-							disabled={selectedRowKeys.length === 0}
+							// disabled={selectedRowKeys.length === 0}
 							className='io-cms-site-recycle-delete__but'
 						>
 							删除
 						</Button>
 						<Button
 							type='default'
-							onClick={() => {
-								setVisible(true);
+							onClick={async () => {
+								if (selectedRowKeys.length === 0) {
+									message.error('请勾选需要恢复的站点');
+									return;
+								}
+								const tempSelRowKeys = selectedRowKeys.map((s: any) =>
+									s.toString()
+								);
+								// 校验是否存在已删除的上级站点
+								const checkRes = await recycleRestoreVerify({ ids: tempSelRowKeys });
+								if (checkRes.data.length === 0) {
+									const params: SiteRevertDTO = {
+										siteIds: selectedRowKeys,
+										type: 0,
+									};
+									const revertRes = await handleRecycleRevert(params);
+									if (revertRes === 200) {
+										onClose && onClose();
+									}
+								} else {
+									setVisible(true);
+									onClose && onClose();
+								}
 							}}
-							disabled={selectedRowKeys.length === 0}
 						>
 							恢复
 						</Button>
@@ -149,12 +177,12 @@ export default () => {
 				title='恢复站点'
 				visible={visible}
 				onOk={async () => {
-					const ids = selectedRowKeys.map(s => Number(s));
+					// const ids = selectedRowKeys.map(s => Number(s));
 					if (revertRadio === 2) {
 						recycleForm.validateFields().then(async values => {
 							const params: SiteRevertDTO = {
 								parentId: values.parentId,
-								siteIds: ids,
+								siteIds: selectedRowKeys,
 								type: revertRadio,
 							};
 							const revertRes = await handleRecycleRevert(params);
@@ -164,7 +192,7 @@ export default () => {
 						});
 					} else {
 						const params: SiteRevertDTO = {
-							siteIds: ids,
+							siteIds: selectedRowKeys,
 							type: revertRadio,
 						};
 						const revertRes = await handleRecycleRevert(params);

@@ -11,7 +11,6 @@ export default ({ match }: any) => {
 		params: { id },
 	} = match;
 	const history = useHistory();
-	console.log(history, 'hhhh');
 	const { location } = history;
 	const { state }: any = location;
 	return (
@@ -22,7 +21,7 @@ export default ({ match }: any) => {
 				{
 					tabKey: '1',
 					tab: '基本信息',
-					children: <BasicChildren id={id} />,
+					children: <BasicChildren id={id} parentId={state?.parentId} />,
 				},
 				{ tabKey: '2', tab: '扩展配置', children: <ExpandChildren id={id} /> },
 			]}

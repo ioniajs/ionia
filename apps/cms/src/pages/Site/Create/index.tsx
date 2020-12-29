@@ -287,10 +287,10 @@ export default () => {
 														域名
 													</span>
 												) : (
-													<span style={{ display: 'none' }}>
-														添加域名
-													</span>
-												)
+														<span style={{ display: 'none' }}>
+															添加域名
+														</span>
+													)
 											}
 											required={false}
 											key={field.key}
@@ -342,7 +342,7 @@ export default () => {
 										type='dashed'
 										className='io-cms-site-copy-add__but'
 										onClick={() => add()}
-										// style={{ width: '90%' }}
+										style={{ width: '100%' }}
 									>
 										<i className='iconfont icon-plus-square' />
 										添加
