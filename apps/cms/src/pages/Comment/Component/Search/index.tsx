@@ -144,6 +144,7 @@ export const Search = ({ type, onChange }: SearchProps) => {
 							console.log(value, '选择的值');
 							setFormValues({ ...formValues, sortWay: value });
 						},
+						getPopupContainer: triggerNode => triggerNode.parentElement,
 					}}
 				/>
 				<ProFormSelect
@@ -151,6 +152,9 @@ export const Search = ({ type, onChange }: SearchProps) => {
 					label='审核状态'
 					options={approvalStatus}
 					initialValue={0}
+					fieldProps={{
+						getPopupContainer: triggerNode => triggerNode.parentElement,
+					}}
 				/>
 				{!!collapsed && (
 					<ProFormText
@@ -161,7 +165,12 @@ export const Search = ({ type, onChange }: SearchProps) => {
 				)}
 				{type !== 'singleContent' && (
 					<Form.Item name='section' label='所属栏目' labelCol={{ span: 6 }}>
-						<TreeSelect treeData={treeData} placeholder='请选择' allowClear />
+						<TreeSelect
+							treeData={treeData}
+							placeholder='请选择'
+							allowClear
+							getPopupContainer={triggerNode => triggerNode.parentElement}
+						/>
 					</Form.Item>
 				)}
 				<ProFormSelect
@@ -169,6 +178,9 @@ export const Search = ({ type, onChange }: SearchProps) => {
 					label='回复状态'
 					options={replyStatus}
 					initialValue={0}
+					fieldProps={{
+						getPopupContainer: triggerNode => triggerNode.parentElement,
+					}}
 				/>
 				<ProFormDateTimeRangePicker
 					name='commentTime'

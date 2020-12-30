@@ -139,7 +139,7 @@ export const CommentItems = ({ type, cancelButtonText = '取消审核' }: ItemPr
 						<a
 							className='item-bottom-check-all-comments'
 							onClick={() => {
-								// history.push('/content-operation/comment/single-content');
+								history.push('/content-operation/comment/single-content');
 							}}
 						>
 							查看全部评论

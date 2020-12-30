@@ -139,19 +139,24 @@ export default ({ onClose }: RecycleProps) => {
 								const checkRes = await recycleRestoreVerify({
 									ids: tempSelRowKeys,
 								});
-								setCheckData(checkRes.data);
-								if (checkRes.data.length !== 0) {
-									const params: SiteRevertDTO = {
-										siteIds: selectedRowKeys,
-										type: 0,
-									};
-									const revertRes = await handleRecycleRevert(params);
-									if (revertRes === 200) {
-										onClose && onClose();
+								if (checkRes.code === 200) {
+									setCheckData(checkRes.data);
+									if (checkRes.data.length === 0) {
+										const params: SiteRevertDTO = {
+											siteIds: selectedRowKeys,
+											type: 0,
+										};
+										const revertRes = await handleRecycleRevert(params);
+										if (revertRes === 200) {
+											onClose && onClose();
+										}
+									} else {
+										setVisible(true);
+										// onClose && onClose();
 									}
 								} else {
-									setVisible(true);
-									// onClose && onClose();
+									message.error('站点恢复校验失败');
+									return;
 								}
 							}}
 						>

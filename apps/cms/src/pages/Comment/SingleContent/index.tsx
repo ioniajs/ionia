@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { BizPage } from '@ionia/libs';
-import { Select, Pagination } from 'antd';
+import { Select, Pagination, Tooltip } from 'antd';
 import {
 	QueryFilter,
 	ProFormSelect,
@@ -77,7 +77,9 @@ export default () => {
 			<div className='io-cms-comment-single-content-container'>
 				<div className='io-cms-comment-single-content-setion__div'>
 					<p>内容：【栏目】</p>
-					<a>昌北机场T1航站楼改造力争月底完工昌北的第三个对手</a>
+					<Tooltip title='昌北机场T1航站楼改造力争月底完工昌北的第三个对手'>
+						<a>昌北机场T1航站楼改造力争月底完工昌北的第三个对手</a>
+					</Tooltip>
 					<p>【&nbsp;全部&nbsp;1（待审核&nbsp;0&nbsp;|&nbsp;已审核&nbsp;1）】</p>
 				</div>
 				<Search type='singleContent' />
