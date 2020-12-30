@@ -74,11 +74,13 @@ const handleSaveUpdateSite = async (fileds: any) => {
 
 export const ExpandChildren = ({ id }: ExpandChildrenProps) => {
 	const [expandForm] = Form.useForm();
-	const [contentSignValue, setContentSignValue] = useState<string>('1'); // 新内容标记
+	const [contentSignValue, setContentSignValue] = useState<boolean>(true); // 新内容标记
 	const [contentSignTypeValue, setContentSignTypeValue] = useState<string>('1'); // 新内容标记方式
 	const [watermarkTypeValue, setWatermarkTypeValue] = useState<string>('1'); // 水印类型
 	const [contentSignColorValue, setContentSignColorValue] = useState<string>(''); // 内容标记文字颜色
 	const [waterMarkColorValue, setWaterMarkColorValue] = useState<string>(''); // 水印文字颜色
+	const [contentDefinitionType, setContentDefinitionType] = useState<string>('2'); // 新内容定义类型
+	const [staticMemoryValue, setStaticMemory] = useState<string>('1'); // 静态文件存储服务器
 	const { data, run } = useRequest(siteConfigDetail, {
 		manual: true,
 	});
@@ -94,7 +96,7 @@ export const ExpandChildren = ({ id }: ExpandChildrenProps) => {
 				...data?.data,
 				staticContent: Number(data?.data?.staticContent),
 			});
-			setContentSignValue(data?.data.contentSign);
+			setContentSignValue(!!data?.data.contentSign);
 			setContentSignTypeValue(data?.data.contentSignType);
 			setWatermarkTypeValue(data?.data.watermarkType);
 		}
@@ -126,10 +128,12 @@ export const ExpandChildren = ({ id }: ExpandChildrenProps) => {
 										sitePush: values.sitePush ? '1' : '0',
 										watermarkLocation: values.watermarkLocation.toString(),
 										contentSignColor: contentSignColorValue,
-										WaterMarkColor: waterMarkColorValue,
+										watermarkColor: waterMarkColorValue,
+										siteId: id,
+										contentDefinitionType,
 									};
 									const saveUpdateRes = await handleSaveUpdateSite(param);
-									if (saveUpdateRes) {
+									if (saveUpdateRes.code === 200) {
 										id !== undefined && run(id);
 									}
 								});
@@ -173,10 +177,11 @@ export const ExpandChildren = ({ id }: ExpandChildrenProps) => {
 								}
 								initialValue={'0'}
 							>
-								<Radio.Group>
-									<Radio value='1'>开启</Radio>
-									<Radio value='0'>不开启</Radio>
-								</Radio.Group>
+								<Switch
+									checkedChildren='开启'
+									unCheckedChildren='关闭'
+									defaultChecked={!!Number(data?.data.contentNotUpdate)}
+								/>
 							</Form.Item>
 							<Form.Item
 								name='contentSign'
@@ -190,16 +195,24 @@ export const ExpandChildren = ({ id }: ExpandChildrenProps) => {
 								}
 								initialValue={'0'}
 							>
-								<Radio.Group
+								{/* <Radio.Group
 									onChange={e => {
 										setContentSignValue(e.target.value);
 									}}
 								>
 									<Radio value='1'>开启</Radio>
 									<Radio value='0'>不开启</Radio>
-								</Radio.Group>
+								</Radio.Group> */}
+								<Switch
+									checkedChildren='开启'
+									unCheckedChildren='关闭'
+									defaultChecked={!!Number(data?.data.contentSign)}
+									onChange={e => {
+										setContentSignValue(e);
+									}}
+								/>
 							</Form.Item>
-							{contentSignValue === '1' && (
+							{!!contentSignValue && (
 								<>
 									<Form.Item
 										name='contentDefinition'
@@ -213,26 +226,27 @@ export const ExpandChildren = ({ id }: ExpandChildrenProps) => {
 										}
 										rules={[
 											{
-												required: contentSignValue === '1',
+												required: contentSignValue,
 												message: '请输入新内容定义时间',
 											},
 										]}
 									>
 										<Input
 											addonAfter={
-												<Form.Item
-													name='contentDefinitionType'
-													label=''
-													colon={false}
-													initialValue={'2'}
-												>
-													<Select className='select-after'>
-														<Option value='1'>分钟</Option>
-														<Option value='2'>小时</Option>
-														<Option value='3'>天</Option>
-													</Select>
-												</Form.Item>
+												// <Form.Item
+												// 	name='contentDefinitionType'
+												// 	label=''
+												// 	colon={false}
+												// 	initialValue={'2'}
+												// >
+												<Select className='select-after' defaultValue={contentDefinitionType} onSelect={(e) => { setContentDefinitionType(e) }}>
+													<Option value='1'>分钟</Option>
+													<Option value='2'>小时</Option>
+													<Option value='3'>天</Option>
+												</Select>
+												// </Form.Item>
 											}
+											min={0}
 										/>
 									</Form.Item>
 									<Form.Item
@@ -489,18 +503,18 @@ export const ExpandChildren = ({ id }: ExpandChildrenProps) => {
 								label='静态文件存储服务器'
 								initialValue={'1'}
 							>
-								<Radio.Group>
+								<Radio.Group onChange={(e) => { setStaticMemory(e.target.value) }}>
 									<Radio value='1'>本地服务器</Radio>
 									<Radio value='2'>FTP</Radio>
 									<Radio value='3'>OSS云存储</Radio>
 								</Radio.Group>
 							</Form.Item>
-							<Form.Item name='staticFtp' label='选择FTP'>
+							{staticMemoryValue === '2' && <Form.Item name='staticFtp' label='选择FTP'>
 								<Select />
-							</Form.Item>
-							<Form.Item name='staticOss' label='选择OSS'>
+							</Form.Item>}
+							{staticMemoryValue === '3' && <Form.Item name='staticOss' label='选择OSS'>
 								<Select />
-							</Form.Item>
+							</Form.Item>}
 							<Form.Item
 								name='staticContent'
 								label='发布内容时自动生成首页静态页'
@@ -510,7 +524,7 @@ export const ExpandChildren = ({ id }: ExpandChildrenProps) => {
 								<Switch
 									checkedChildren='开启'
 									unCheckedChildren='关闭'
-									// defaultChecked={Number(data?.data.staticContent)}
+								// defaultChecked={Number(data?.data.staticContent)}
 								/>
 							</Form.Item>
 							<Form.Item
