@@ -165,7 +165,12 @@ export const Search = ({ type, onChange }: SearchProps) => {
 				)}
 				{type !== 'singleContent' && (
 					<Form.Item name='section' label='所属栏目' labelCol={{ span: 6 }}>
-						<TreeSelect treeData={treeData} placeholder='请选择' allowClear getPopupContainer={triggerNode => triggerNode.parentElement} />
+						<TreeSelect
+							treeData={treeData}
+							placeholder='请选择'
+							allowClear
+							getPopupContainer={triggerNode => triggerNode.parentElement}
+						/>
 					</Form.Item>
 				)}
 				<ProFormSelect

@@ -239,7 +239,13 @@ export const ExpandChildren = ({ id }: ExpandChildrenProps) => {
 												// 	colon={false}
 												// 	initialValue={'2'}
 												// >
-												<Select className='select-after' defaultValue={contentDefinitionType} onSelect={(e) => { setContentDefinitionType(e) }}>
+												<Select
+													className='select-after'
+													defaultValue={contentDefinitionType}
+													onSelect={e => {
+														setContentDefinitionType(e);
+													}}
+												>
 													<Option value='1'>分钟</Option>
 													<Option value='2'>小时</Option>
 													<Option value='3'>天</Option>
@@ -503,18 +509,26 @@ export const ExpandChildren = ({ id }: ExpandChildrenProps) => {
 								label='静态文件存储服务器'
 								initialValue={'1'}
 							>
-								<Radio.Group onChange={(e) => { setStaticMemory(e.target.value) }}>
+								<Radio.Group
+									onChange={e => {
+										setStaticMemory(e.target.value);
+									}}
+								>
 									<Radio value='1'>本地服务器</Radio>
 									<Radio value='2'>FTP</Radio>
 									<Radio value='3'>OSS云存储</Radio>
 								</Radio.Group>
 							</Form.Item>
-							{staticMemoryValue === '2' && <Form.Item name='staticFtp' label='选择FTP'>
-								<Select />
-							</Form.Item>}
-							{staticMemoryValue === '3' && <Form.Item name='staticOss' label='选择OSS'>
-								<Select />
-							</Form.Item>}
+							{staticMemoryValue === '2' && (
+								<Form.Item name='staticFtp' label='选择FTP'>
+									<Select />
+								</Form.Item>
+							)}
+							{staticMemoryValue === '3' && (
+								<Form.Item name='staticOss' label='选择OSS'>
+									<Select />
+								</Form.Item>
+							)}
 							<Form.Item
 								name='staticContent'
 								label='发布内容时自动生成首页静态页'
@@ -524,7 +538,7 @@ export const ExpandChildren = ({ id }: ExpandChildrenProps) => {
 								<Switch
 									checkedChildren='开启'
 									unCheckedChildren='关闭'
-								// defaultChecked={Number(data?.data.staticContent)}
+									// defaultChecked={Number(data?.data.staticContent)}
 								/>
 							</Form.Item>
 							<Form.Item
