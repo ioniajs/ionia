@@ -114,13 +114,15 @@ export default () => {
 			render: (_, row) => (
 				<InputNumber
 					onBlur={async e => {
-						console.log(e, 'sort');
-						const success = await sortAdminSite({
-							sorts: [{ id: row.id, sortNum: Number(e.target.value) }],
-						}).then(res => res.code);
-						if (success === 200) {
-							message.success('排序成功');
-							actionRef.current?.reload();
+						console.log(!!e.target.value, 'sort');
+						if (!!e.target.value) {
+							const success = await sortAdminSite({
+								sorts: [{ id: row.id, sortNum: Number(e.target.value) }],
+							}).then(res => res.code);
+							if (success === 200) {
+								message.success('排序成功');
+								actionRef.current?.reload();
+							}
 						}
 					}}
 				/>
