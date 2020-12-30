@@ -109,9 +109,7 @@ export default () => {
 						initialValue='1'
 						rules={[{ required: true, message: '请选择默认风格' }]}
 					>
-						<Select
-							getPopupContainer={triggerNode => triggerNode.parentElement}
-						>
+						<Select getPopupContainer={triggerNode => triggerNode.parentElement}>
 							{colorStyle.map((item: any) => {
 								return (
 									<Select.Option value={item.value}>{item.label}</Select.Option>
@@ -191,7 +189,12 @@ export default () => {
 				</BizSection>
 				<BizSection title='文件上传设置'>
 					<Form.Item name='allowPicTypes' label='允许上传的图片类型'>
-						<Select placeholder='请选择图片类型' allowClear mode='multiple' getPopupContainer={triggerNode => triggerNode.parentElement}>
+						<Select
+							placeholder='请选择图片类型'
+							allowClear
+							mode='multiple'
+							getPopupContainer={triggerNode => triggerNode.parentElement}
+						>
 							{imageTypes.map((item: any) => {
 								return (
 									<Select.Option value={item.value}>{item.label}</Select.Option>
@@ -214,7 +217,12 @@ export default () => {
 						<Input placeholder='留空为不限制' addonAfter={selectAfter} />
 					</Form.Item>
 					<Form.Item name='allowVideoTypes' label='允许上传的视频类型'>
-						<Select placeholder='请选择视频类型' allowClear mode='multiple' getPopupContainer={triggerNode => triggerNode.parentElement}>
+						<Select
+							placeholder='请选择视频类型'
+							allowClear
+							mode='multiple'
+							getPopupContainer={triggerNode => triggerNode.parentElement}
+						>
 							{videoTypes.map((item: any) => {
 								return (
 									<Select.Option value={item.value}>{item.label}</Select.Option>
@@ -237,7 +245,12 @@ export default () => {
 						<Input placeholder='留空为不限制' addonAfter={selectAfter} />
 					</Form.Item>
 					<Form.Item name='allowAudioTypes' label='允许上传的音频类型'>
-						<Select placeholder='请选择音频类型' allowClear mode='multiple' getPopupContainer={triggerNode => triggerNode.parentElement}>
+						<Select
+							placeholder='请选择音频类型'
+							allowClear
+							mode='multiple'
+							getPopupContainer={triggerNode => triggerNode.parentElement}
+						>
 							{audioTypes.map((item: any) => {
 								return (
 									<Select.Option value={item.value}>{item.label}</Select.Option>
@@ -260,7 +273,12 @@ export default () => {
 						<Input placeholder='留空为不限制' addonAfter={selectAfter} />
 					</Form.Item>
 					<Form.Item name='allowDocTypes' label='允许上传的文档类型'>
-						<Select placeholder='请选择文档类型' allowClear mode='multiple' getPopupContainer={triggerNode => triggerNode.parentElement}>
+						<Select
+							placeholder='请选择文档类型'
+							allowClear
+							mode='multiple'
+							getPopupContainer={triggerNode => triggerNode.parentElement}
+						>
 							{docTypes.map((item: any) => {
 								return (
 									<Select.Option value={item.value}>{item.label}</Select.Option>
