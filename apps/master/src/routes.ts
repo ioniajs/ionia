@@ -24,6 +24,7 @@ export default {
 				{ path: '/cms/demo/modal-transfer', name: '弹窗穿梭框' },
 				{ path: '/cms/demo/dynamic-from-item', name: '动态增减列表' },
 				{ path: '/cms/demo/video-upload', name: '上传组件' },
+				{ path: '/cms/demo/pdf', name: 'PDF在线阅读' },
 			],
 		},
 		{
