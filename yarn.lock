@@ -1922,6 +1922,13 @@
   resolved "https://registry.npm.taobao.org/@react-dnd/shallowequal/download/@react-dnd/shallowequal-2.0.0.tgz#a3031eb54129f2c66b2753f8404266ec7bf67f0a"
   integrity sha1-owMetUEp8sZrJ1P4QEJm7Hv2fwo=
 
+"@react-pdf-viewer/core@2.3.0":
+  version "2.3.0"
+  resolved "https://registry.npmjs.org/@react-pdf-viewer/core/-/core-2.3.0.tgz#25c57715e3648ff176fb0378f7f1b4755ecda888"
+  integrity sha512-w76J+9njA3ReyHVTp6C45nTCkGe0NWrTNKqo2mQ6wnn0mZpkQOK9Vx2aqNg78IfrBkhOqdN9xroT0kAPAWdz5A==
+  dependencies:
+    pdfjs-dist "^2.5.207"
+
 "@sindresorhus/is@^0.14.0":
   version "0.14.0"
   resolved "https://registry.npm.taobao.org/@sindresorhus/is/download/@sindresorhus/is-0.14.0.tgz?cache=0&sync_timestamp=1602540622325&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40sindresorhus%2Fis%2Fdownload%2F%40sindresorhus%2Fis-0.14.0.tgz#9fb3a3cf3132328151f353de4632e01e52102bea"
@@ -11844,6 +11851,11 @@ pbkdf2@^3.0.3:
     ripemd160 "^2.0.1"
     safe-buffer "^5.0.1"
     sha.js "^2.4.8"
+
+pdfjs-dist@2.5.207, pdfjs-dist@^2.5.207:
+  version "2.5.207"
+  resolved "https://registry.npmjs.org/pdfjs-dist/-/pdfjs-dist-2.5.207.tgz#b5e8c19627be64269cd3fb6df3eaaf45ddffe7b6"
+  integrity sha512-xGDUhnCYPfHy+unMXCLCJtlpZaaZ17Ew3WIL0tnSgKFUZXHAPD49GO9xScyszSsQMoutNDgRb+rfBXIaX/lJbw==
 
 performance-now@^2.1.0:
   version "2.1.0"

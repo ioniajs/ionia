@@ -6,6 +6,7 @@ import DemoETable from '@/pages/Demo/ETable';
 import DemoModalTable from '@/pages/Demo/ModalTable';
 import DemoModalTransfer from '@/pages/Demo/ModalTransfer';
 import DemoVideoUpload from '@/pages/Demo/UploadVideo';
+import DemoPdf from '@/pages/Demo/Pdf';
 import Home from '@/pages/Home';
 import PracticeBase from '@/pages/PracticeBase';
 import PracticeBaseBatchCreate from '@/pages/PracticeBase/BatchCreate';
@@ -73,6 +74,10 @@ export default [
 	{
 		path: '/demo/video-upload',
 		component: DemoVideoUpload,
+	},
+	{
+		path: '/demo/pdf',
+		component: DemoPdf,
 	},
 	{
 		path: '/content-operation/blogroll',
