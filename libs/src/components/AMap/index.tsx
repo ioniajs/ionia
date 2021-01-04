@@ -10,22 +10,27 @@ interface Position {
 interface AMapProps {
 	defaultPosition?: Position;
 	onChange?: (position: Position) => void;
+	onGet?: (val: string | undefined) => void;
 }
 
 const pluginProps = {};
 const style = {};
 
-export const AMap = ({ onChange, defaultPosition }: AMapProps) => {
+export const AMap = ({ onChange, defaultPosition, onGet }: AMapProps) => {
 	const [center, setCenter] = useState<Position>(
 		defaultPosition ?? {
 			longitude: 115,
 			latitude: 30,
 		}
 	);
+	const [address, setAddress] = useState<string>();
 
 	useEffect(() => {
 		onChange && onChange(center);
 	}, [center]);
+	useEffect(() => {
+		onGet && onGet(address);
+	}, [address]);
 
 	return (
 		<div className='io-amap'>
@@ -49,6 +54,10 @@ export const AMap = ({ onChange, defaultPosition }: AMapProps) => {
 							longitude: e.poi.location.lng,
 							latitude: e.poi.location.lat,
 						});
+					}}
+					onGetAddress={(val: any) => {
+						console.log(val, 'vavava');
+						setAddress(val);
 					}}
 					style={style}
 					placeholder='搜索'

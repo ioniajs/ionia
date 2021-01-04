@@ -25,9 +25,9 @@ interface PictureCropperProps {
 	onOk?: (imageBase: any) => any;
 }
 
-const defaultSrc =
-	// 'https://raw.githubusercontent.com/roadmanfong/react-cropper/master/example/img/child.jpg';
-	'https://pic.tolvyo.com/zQRoPeX3W-a9796e687f38322f53261bc38d24e0eb.jpg';
+const defaultSrc = '';
+// 'https://raw.githubusercontent.com/roadmanfong/react-cropper/master/example/img/child.jpg';
+// 'https://pic.tolvyo.com/zQRoPeX3W-a9796e687f38322f53261bc38d24e0eb.jpg';
 
 export const PictureCropper: React.FC<PictureCropperProps> = forwardRef((props, ref: any) => {
 	const { src = defaultSrc, visible = false, oncancel, onOk } = props;

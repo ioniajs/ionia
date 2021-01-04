@@ -23,8 +23,10 @@ export interface AdminSiteDTO {
 	dir: string; // 站点目录
 	domain: string[]; // 站点域名
 	favicon: string; // 站点标志资源id
-	id?: string; // 站点id(新建不传,修改必传)
+	id?: number; // 站点id(新建不传,修改必传)
+	modelPath: string; // 模板路径
 	name: string; // 站点名称
+	orgId: string; // 数所阵地id
 	parentId: string; // 上级站点id
 	seoDesc: string; // seo描述
 	seoKeyWord: string; // seo关键字
@@ -33,10 +35,14 @@ export interface AdminSiteDTO {
 }
 //#endregion
 
+export interface SortsDTO {
+	id: string;
+	sortNum: number;
+}
 //#region 站点排序 DTO
 export interface AdminSiteSortDTO {
-	parentId: string; // 父站点id
-	siteIds: string[]; // 站点id集合(按此集合的id的顺序排序)
+	// parentId: string; // 父站点id
+	sorts: SortsDTO[]; // 站点id集合(按此集合的id的顺序排序)
 }
 //#endregion
 

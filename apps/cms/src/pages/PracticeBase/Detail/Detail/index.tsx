@@ -8,9 +8,11 @@ import {
 	modposition,
 	OrgDTO,
 	positionDetail,
+	positionPullList,
+	OrgSmallVO,
 } from '@ionia/libs';
 import { useMount, useRequest } from '@umijs/hooks';
-import { Button, Form, Input, message, TreeSelect } from 'antd';
+import { Button, Form, Input, message, TreeSelect, Select } from 'antd';
 import React, { useRef, useEffect, useState } from 'react';
 import './index.less';
 
@@ -34,9 +36,11 @@ const baseUpdate = async (filed: OrgDTO) => {
 };
 
 export const BaseDetail = ({ id }: BaseDetailProps) => {
-	const [expandForm] = Form.useForm();
+	const [form] = Form.useForm();
 	const ref = useRef<BizModalFormRef>();
 	const [editorState, setEditorState] = useState(); // 获取富文本编辑内容
+	const [codeAdress, setCodeAddress] = useState<string>();
+	const [siteTreeData, setSiteTreeData] = useState<OrgSmallVO[]>();
 	const { data, run } = useRequest(positionDetail, {
 		manual: true,
 	});
@@ -48,12 +52,35 @@ export const BaseDetail = ({ id }: BaseDetailProps) => {
 	});
 	useEffect(() => {
 		if (data?.data) {
-			expandForm.setFieldsValue({
+			form.setFieldsValue({
 				...data?.data,
 			});
 		}
 	}, [data?.data]);
-
+	const { run: runGainSiteTree } = useRequest(positionPullList, {
+		manual: true,
+		onSuccess: result => {
+			const loop = function (data: any) {
+				return data.map((r: any) => {
+					if (r.children) {
+						r.children = loop(r.children);
+					}
+					return {
+						value: r.id,
+						title: r.name,
+						key: r.id,
+						children: r.children,
+						...r,
+					};
+				});
+			};
+			const tempSiteTree = loop(result.data);
+			setSiteTreeData(tempSiteTree);
+		},
+	});
+	useMount(() => {
+		runGainSiteTree({});
+	});
 	const baseTypeTree: any = [
 		{
 			title: '实践中心',
@@ -93,15 +120,15 @@ export const BaseDetail = ({ id }: BaseDetailProps) => {
 			<Button
 				type='primary'
 				onClick={async () => {
-					expandForm.validateFields().then(async values => {
+					form.validateFields().then(async values => {
 						const param = {
+							...values,
 							id,
-							area: values.area,
+							introduce: editorState,
 							name: values.name,
+							area: values.area,
 							parentId: values.parentId,
 							type: values.type,
-							address: values.address || '',
-							introduce: editorState,
 						};
 						const success = await baseUpdate(param);
 						if (success.code === 200) {
@@ -112,7 +139,7 @@ export const BaseDetail = ({ id }: BaseDetailProps) => {
 			>
 				保存
 			</Button>
-			<Form {...layout} className='io-cms-practice-form' form={expandForm}>
+			<Form {...layout} className='io-cms-practice-form' form={form}>
 				<Form.Item
 					name='parentId'
 					label='上级阵地'
@@ -120,7 +147,7 @@ export const BaseDetail = ({ id }: BaseDetailProps) => {
 				>
 					<TreeSelect
 						placeholder='请选择上级阵地'
-						treeData={treeData}
+						treeData={siteTreeData}
 						showSearch={true}
 						style={{ width: 664, height: 32 }}
 					/>
@@ -149,9 +176,9 @@ export const BaseDetail = ({ id }: BaseDetailProps) => {
 					label='阵地类型'
 					rules={[{ required: true, message: '请选择阵地类型' }]}
 				>
-					<TreeSelect
+					<Select
 						placeholder='请选择阵地类型'
-						treeData={baseTypeTree}
+						options={baseTypeTree}
 						showSearch={true}
 						style={{ width: 664, height: 32 }}
 					/>
@@ -162,7 +189,7 @@ export const BaseDetail = ({ id }: BaseDetailProps) => {
 				<Form.Item name='fax' label='传真'>
 					<Input style={{ width: 664 }} placeholder='请输入传真号码' />
 				</Form.Item>
-				<Form.List name='domain'>
+				<Form.List name='linkmanList'>
 					{(fields, { add, remove }, { errors }) => {
 						return (
 							<>
@@ -185,7 +212,7 @@ export const BaseDetail = ({ id }: BaseDetailProps) => {
 												{...field}
 												validateTrigger={['onChange', 'onBlur']}
 												noStyle
-												name='username'
+												name={[field.name, 'username']}
 											>
 												<Input
 													placeholder='请输入姓名'
@@ -196,7 +223,7 @@ export const BaseDetail = ({ id }: BaseDetailProps) => {
 												{...field}
 												validateTrigger={['onChange', 'onBlur']}
 												noStyle
-												name='phone'
+												name={[field.name, 'phone']}
 											>
 												<Input
 													placeholder='请输入手机号或座机号'
@@ -218,7 +245,7 @@ export const BaseDetail = ({ id }: BaseDetailProps) => {
 									{...layout}
 									label={
 										fields.length === 0 ? (
-											<span>日常联系人</span>
+											<span>日常联系人:</span>
 										) : (
 											<span></span>
 										)
@@ -239,8 +266,10 @@ export const BaseDetail = ({ id }: BaseDetailProps) => {
 						);
 					}}
 				</Form.List>
-				<Form.Item style={{ display: 'flex' }} name='code' label='地址'>
-					<Input style={{ width: 604.1 }} placeholder='请手动选择地址' />
+				<div className='io-cms-practice-base-create__div'>
+					<Form.Item name='address' label='地址'>
+						<Input allowClear style={{ width: 604.1 }} placeholder='请手动选择地址' />
+					</Form.Item>
 					<BizModalForm
 						ref={ref}
 						title='选择地点'
@@ -250,20 +279,38 @@ export const BaseDetail = ({ id }: BaseDetailProps) => {
 								onClick={() => {
 									ref.current?.open();
 								}}
-								style={{ width: 60.9, height: 32 }}
+								className='io-cms-practice-base-create__div-button'
 							>
 								选择
 							</Button>
 						)}
+						submitterRender={() => (
+							<>
+								<Button>取消</Button>
+								<Button
+									type='primary'
+									onClick={() => {
+										form.setFieldsValue({ address: codeAdress });
+										ref.current?.close();
+									}}
+								>
+									保存
+								</Button>
+							</>
+						)}
 						width={1000}
 					>
-						<AMap />
+						<AMap
+							onGet={(val?: string) => {
+								setCodeAddress(val);
+							}}
+						/>
 					</BizModalForm>
-				</Form.Item>
+				</div>
 				<Form.Item name='favicon' label='阵地标志'>
 					<ImageUpload />
 				</Form.Item>
-				<Form.Item name='favicon' label='图片展示'>
+				<Form.Item name='picList' label='图片展示'>
 					<Button type='primary' icon={<UploadOutlined />}>
 						批量上传
 					</Button>
@@ -279,7 +326,7 @@ export const BaseDetail = ({ id }: BaseDetailProps) => {
 				</Form.Item>
 				<Form.Item name='introduce' label='阵地介绍'>
 					<div className='io-cms-base-create-from-item__rich-text-editor'>
-						<RichTextEditor onGet={editorState => setEditorState(editorState)} />
+						<RichTextEditor onGet={(editorState: any) => setEditorState(editorState)} />
 					</div>
 				</Form.Item>
 			</Form>

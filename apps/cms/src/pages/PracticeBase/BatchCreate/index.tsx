@@ -1,54 +1,79 @@
-import React from 'react';
-import { BizPage, GobackButton, SaveButton, EditableTable } from '@ionia/libs';
+import React, { useState } from 'react';
+import {
+	BizPage,
+	GobackButton,
+	SaveButton,
+	EditableTable,
+	OrgBatchDTO,
+	addBatchPosition,
+	positionPullList,
+	OrgSmallVO,
+} from '@ionia/libs';
 import { Form, TreeSelect, Tooltip, message, Input, Button } from 'antd';
+import { useRequest, useMount } from '@umijs/hooks';
 import './index.less';
 import shortid from 'shortid';
+
+const handlePracticeBaseSave = async (fileds: OrgBatchDTO) => {
+	const res = await addBatchPosition(fileds);
+	return res;
+};
 
 export default () => {
 	const treeData: any = [
 		{
 			title: 'Node1',
-			value: '0',
+			value: 'Node1',
 			children: [
 				{
 					title: 'Child Node1',
-					value: '1',
+					value: 'Child Node1',
 				},
 				{
 					title: 'Child Node2',
-					value: '2',
+					value: 'Child Node2',
 				},
 			],
 		},
 		{
 			title: 'Node2',
-			value: '3',
+			value: 'Node2',
 		},
 	];
 	const treeBatchCreateData: any = [
 		{
 			title: '实践中心',
-			value: '4',
+			value: '实践中心',
 		},
 		{
 			title: '实践所',
-			value: '4',
+			value: '实践所',
 		},
 		{
 			title: '实践站',
-			value: '4',
+			value: '实践站',
 		},
 	];
 	const columns = [
 		{
-			title: '阵地名称',
+			title: (
+				<span>
+					<span className='io-cms-practice-base-batch-create-columns__span'>*</span>
+					阵地名称
+				</span>
+			),
 			key: 'name',
 			dataIndex: 'name',
 			editable: true,
 			width: 635,
 		},
 		{
-			title: '所属地区',
+			title: (
+				<span>
+					<span className='io-cms-practice-base-batch-create-columns__span'>*</span>
+					所属地区
+				</span>
+			),
 			key: 'area',
 			dataIndex: 'area',
 			editable: true,
@@ -78,6 +103,7 @@ export default () => {
 							// value={uservalue}
 							treeData={treeData}
 							treeDefaultExpandAll
+							onBlur={save}
 							// onChange={() => setUserValue(uservalue)}
 						></TreeSelect>
 					</Form.Item>
@@ -87,7 +113,12 @@ export default () => {
 			},
 		},
 		{
-			title: '阵地类型',
+			title: (
+				<span>
+					<span className='io-cms-practice-base-batch-create-columns__span'>*</span>
+					阵地类型
+				</span>
+			),
 			key: 'type',
 			dataIndex: 'type',
 			editable: true,
@@ -117,6 +148,7 @@ export default () => {
 							// value={uservalue}
 							treeData={treeBatchCreateData}
 							treeDefaultExpandAll
+							onBlur={save}
 							// onChange={() => setUserValue(uservalue)}
 						></TreeSelect>
 					</Form.Item>
@@ -159,6 +191,32 @@ export default () => {
 	];
 
 	const [form] = Form.useForm();
+	const [saveData, setSaveData] = useState<any>([]);
+	const [siteTreeData, setSiteTreeData] = useState<OrgSmallVO[]>();
+	const { run: runGainSiteTree } = useRequest(positionPullList, {
+		manual: true,
+		onSuccess: result => {
+			const loop = function (data: any) {
+				return data.map((r: any) => {
+					if (r.children) {
+						r.children = loop(r.children);
+					}
+					return {
+						value: r.id,
+						title: r.name,
+						key: r.id,
+						children: r.children,
+						...r,
+					};
+				});
+			};
+			const tempSiteTree = loop(result.data);
+			setSiteTreeData(tempSiteTree);
+		},
+	});
+	useMount(() => {
+		runGainSiteTree({ parentId: '' });
+	});
 	return (
 		<BizPage
 			showActions={true}
@@ -167,7 +225,21 @@ export default () => {
 				return (
 					<>
 						<GobackButton />
-						<SaveButton />
+						<SaveButton
+							onSave={async () => {
+								form.validateFields().then(async values => {
+									const param = {
+										parentId: values.parentId,
+										children: saveData,
+									};
+									const saveRes = await handlePracticeBaseSave(param);
+									if (saveRes.code === 200) {
+										message.success('批量新建成功');
+										history.back();
+									}
+								});
+							}}
+						/>
 					</>
 				);
 			}}
@@ -181,8 +253,11 @@ export default () => {
 					>
 						<TreeSelect
 							placeholder='请选择上级阵地'
-							// treeData={baseTypeTree}
+							treeData={siteTreeData}
 							showSearch={true}
+							// onSearch={e => {
+							// 	runGainSiteTree(e);
+							// }}
 							style={{ width: 224, height: 32 }}
 						/>
 					</Form.Item>
@@ -211,7 +286,7 @@ export default () => {
 											];
 											const obj: any = {};
 											const temp = dataSource.concat(a);
-											const temps = temp.reduce((cur, next: any) => {
+											const temps = temp.reduce((cur: any, next: any) => {
 												obj[next.key]
 													? ''
 													: (obj[next.key] = true && cur.push(next));
@@ -263,7 +338,7 @@ export default () => {
 						</>
 					),
 				})}
-				onChange={() => {}}
+				onChange={(data: any) => setSaveData(data)}
 				columns={columns}
 				// dataSource={[
 				// 	{
@@ -293,7 +368,7 @@ export default () => {
 							]);
 						}}
 					>
-						<i className='iconfont icon-plus1' style={{ fontSize: '16px' }} />
+						<i className='iconfont icon-plus1' style={{ fontSize: '14px' }} />
 						添加
 					</Button>
 				)}

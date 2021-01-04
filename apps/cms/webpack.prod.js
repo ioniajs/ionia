@@ -13,6 +13,7 @@ module.exports = merge(commonConfig, {
 		libraryTarget: 'umd',
 		jsonpFunction: `webpackJsonp_${name}`,
 		globalObject: 'window',
+		publicPath: '/slave/cms/',
 	},
 	resolve: {
 		alias: {

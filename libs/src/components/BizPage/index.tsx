@@ -31,7 +31,9 @@ interface BizPageProps {
 	onGoback?: () => void;
 	onSave?: () => void;
 	tabList?: TabPaneProps[];
+	defaultActiveKey?: string;
 	layout?: LayoutProps;
+	goBackAction?: boolean; // 当有面包屑但是无tabList，面包屑前面又要有返回按钮
 }
 
 export const BizPage = ({
@@ -43,6 +45,8 @@ export const BizPage = ({
 	onGoback,
 	onSave,
 	showActions = false,
+	defaultActiveKey = '1',
+	goBackAction = false,
 }: BizPageProps) => {
 	const [activeKey, setActiveKey] = useState<string>();
 	const [tipsVisible, setTipsVisible] = useState<boolean>(true);
@@ -61,7 +65,7 @@ export const BizPage = ({
 					className='io-biz-page__header-container'
 					style={{ marginTop: breadcrumbs ? 24 : 0 }}
 				>
-					{showActions && tabList && (
+					{showActions && (tabList || goBackAction) && (
 						<GobackButton
 							onGoback={onGoback}
 							style={{ marginRight: 32, height: 24, width: 60 }}
@@ -112,7 +116,11 @@ export const BizPage = ({
 			{children && !tabList && <div className='io-biz-page__body'>{children}</div>}
 			{tabList && (
 				<div className='io-biz-page__body--tabs'>
-					<Tabs activeKey={activeKey} onChange={key => setActiveKey(key)}>
+					<Tabs
+						activeKey={activeKey}
+						onChange={key => setActiveKey(key)}
+						defaultActiveKey={defaultActiveKey}
+					>
 						{tabList.map(t => (
 							<TabPane key={t.tabKey} {...t} />
 						))}

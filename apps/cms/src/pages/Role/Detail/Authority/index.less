@@ -1,44 +1,136 @@
 @import '~antd/es/style/themes/default.less';
-.io_cms_role_authority-site {
-	.ant-btn {
-		margin-top: 10px;
-	}
-	.io_cms_role_authority-site_check {
-		margin: 20px 0;
-	}
-	.io_cms_role_authority-site_title {
-		display: flex;
-		align-items: center;
-		i {
-			margin-right: 10px;
-		}
-		.active {
-			color: @primary-color;
-		}
-	}
-}
-.ant-collapse > .ant-collapse-item {
-	// margin-bottom: 20px;
-}
-.ant-collapse-content > .ant-collapse-content-box {
-	display: flex;
-	flex-wrap: nowrap;
-	.ant-row {
-		width: 100%;
+
+.io-cms-role-authority_tabs {
+	.ant-tabs-nav {
+		margin-bottom: 24px;
 	}
 }
 
+.io-cms-role-authority_site-group {
+	.io-cms-role-authority-site_title {
+		display: flex;
+		align-items: center;
+
+		i {
+			margin-right: 10px;
+		}
+	}
+}
+
+.io-cms-role-authority-site_check {
+	margin: 24px 0 20px;
+}
+
+.active {
+	color: @primary-color;
+}
+
+.ant-collapse > .ant-collapse-item {
+	// margin-bottom: 20px;
+}
+
+.ant-collapse-content > .ant-collapse-content-box {
+	display: flex;
+	flex-wrap: nowrap;
+
+	.ant-row {
+		width: 100%;
+		background-color: #fff;
+	}
+}
+.ant-collapse-content > .ant-collapse-content-box {
+	padding: 16px 0;
+}
 .io_cms_role_authority-menu_collapse-panel {
 	padding: 0 !important;
 	height: 220px;
 	background: #ffffff;
 	border: 1px solid #f0f0f0;
 	border-radius: 2px;
+	margin-right: 20px;
+	flex: 0 0 32% !important;
+	max-width: 32% !important;
+	margin-top: 24px;
+
 	.io_cms_role_authority-menu_collapse-panel_title {
-		height: 36px;
+		height: 48px;
 		background: #fafafa;
-		border: 1px solid #f0f0f0;
-		line-height: 36px;
+		border-radius: 2px 2px 0px 0px;
 		padding: 0 17px;
 	}
+	.io_cms_role_authority-menu_collapse {
+		.ant-collapse-header {
+			border: 1px solid #eeeeee !important;
+		}
+		.ant-collapse-content-active {
+			background-color: #fff !important;
+		}
+	}
+
+	.io_cms_role_authority-menu_collapse-panel_name {
+		background: #fafafa;
+		border: 1px solid #f0f0f0;
+		padding: 0 17px;
+		height: 36px;
+		line-height: 36px;
+	}
+	.io-cms-role-authority-menu_content {
+		padding: 0 17px;
+		margin: 0 !important;
+		border-bottom: 1px solid #eee;
+	}
+	.ant-collapse-content-box {
+		.ant-col-8 {
+			flex: 0 0 32% !important;
+			max-width: 32% !important;
+		}
+	}
+	.io-cms-role-authority-menu_content {
+		height: 184px;
+		overflow-y: auto;
+		.io-cms-role-authority-menu_item {
+			display: flex;
+			padding: 0 !important;
+			align-items: center;
+			height: 46px;
+		}
+	}
+}
+
+.io-cms-role-authority-menu_text {
+	overflow: hidden; //超出的文本隐藏
+	text-overflow: ellipsis; //溢出用省略号显示
+	white-space: nowrap;
+	max-width: 56px;
+	display: inline-block;
+}
+
+.io-cms-role-authority-column_header {
+	display: flex;
+	justify-content: space-between;
+	padding-bottom: 24px;
+	align-items: center;
+
+	.io-cms-role-authority-column_tree {
+		margin-left: 20px;
+
+		span {
+			margin-right: 12px;
+		}
+	}
+}
+
+.io-cms-role-authority_site {
+	.ant-table-wrapper {
+		margin-top: 20px;
+	}
+}
+
+.io-cms-role-authority_example {
+	text-align: center;
+	background: rgba(0, 0, 0, 0.05);
+	border-radius: 4px;
+	margin-bottom: 20px;
+	padding: 30px 50px;
+	margin: 20px 0;
 }

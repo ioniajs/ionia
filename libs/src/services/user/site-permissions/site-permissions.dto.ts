@@ -23,7 +23,7 @@ export interface DataRoleDTO {
 
 //#region  新增修改站点权限数据---阵地
 export interface DataOrgDTO {
-	roleId: string; // 组织ID
+	orgId: string; // 组织ID
 	sites: DataSiteBaseDTO[]; // 站点权限集合
 }
 
@@ -35,3 +35,62 @@ export interface DataUserDTO {
 	userId: string; // 用户id
 }
 //#endregion
+
+///module-user/cmsmanager/siteperm/group/page
+export interface PageSitePermUserDTO {
+	siteId: string;
+	pageNo?: string;
+	pageSize?: string;
+}
+//保存站群权限---用户
+export interface SiteGroupSiteUserDTO {
+	siteId: string;
+	users: SiteGroupUserChildDTO[];
+}
+
+export interface SiteGroupUserChildDTO {
+	selected: string;
+	userId: string;
+}
+
+export interface SiteGroupOrgChildDTO {
+	orgId: string;
+	selected: number;
+}
+export interface SiteGroupRoleChildDTO {
+	roleId: string;
+	selected: number;
+}
+
+export interface SiteGroupOrgAndRoleDTO {
+	orgs: SiteGroupOrgChildDTO[];
+	roles: SiteGroupRoleChildDTO[];
+	siteId: string;
+}
+
+export interface SiteOrgChildDTO {
+	datas: DataBaseDTO;
+	orgId: string;
+}
+
+export interface SiteRoleChildDTO {
+	datas: DataBaseDTO;
+	roleId: string;
+}
+
+export interface SiteOrgAndRoleDTO {
+	orgs: SiteOrgChildDTO[];
+	roles: SiteRoleChildDTO[];
+	siteId: string;
+}
+
+export interface SiteUserChildDTO {
+	userId: string;
+	selected: number;
+	datas: DataBaseDTO;
+}
+
+export interface SiteUserDTO {
+	siteId: string;
+	users: SiteUserChildDTO[];
+}

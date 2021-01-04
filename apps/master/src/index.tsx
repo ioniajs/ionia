@@ -1,9 +1,11 @@
-import { isDev, logger, MasterApplication } from '@ionia/libs';
+import { isDev, logger, MasterApplication, configs } from '@ionia/libs';
 import { IoniaApp } from '@ionia/libs/es/core/master-application';
 import * as React from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
 import App from './App';
 import './i18n';
+
+logger.info('NODE_ENV', process.env.NODE_ENV);
 
 if (isDev) {
 	require('../mocks').default.start();
@@ -11,14 +13,8 @@ if (isDev) {
 
 const apps: IoniaApp<{}>[] = [
 	{
-		name: 'auth',
-		entry: '//localhost:7001',
-		activeRule: '/auth',
-		hideInMenu: true,
-	},
-	{
 		name: 'cms',
-		entry: '//localhost:7002',
+		entry: isDev ? '//localhost:7002' : `${configs.DOMAIN}/slave/cms/`,
 		activeRule: '/cms',
 	},
 ];

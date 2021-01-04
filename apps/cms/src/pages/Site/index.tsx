@@ -7,13 +7,14 @@ import { useHistory } from 'react-router-dom';
 // import update from 'immutability-helper';
 import {
 	BizTable,
-	gainSiteTree,
 	disableSite,
 	enableSite,
 	batchDetailSite,
 	BizPage,
 	BizModalForm,
 	BizModalFormRef,
+	gainSiteTreeAuth,
+	sortAdminSite,
 } from '@ionia/libs';
 import { AdminSiteTreeVO, AdminSiteRecycleSummaryVo } from '@ionia/libs/src/services/kernel';
 import { IdsDTO } from '@ionia/libs/src/services/common.dto';
@@ -62,7 +63,13 @@ export default () => {
 					<Tooltip title={`${row.name}`}>
 						<a
 							onClick={() => {
-								history.push(`/site/detail/${row.id}`);
+								// history.push(`/system-management/site/detail/${row.id}`);
+								history.push({
+									pathname: `/system-management/site/detail/${row.id}`,
+									state: {
+										parentId: row.parentId,
+									},
+								});
 							}}
 						>
 							{row.name}
@@ -77,11 +84,13 @@ export default () => {
 			key: 'domain',
 			dataIndex: 'domain',
 			render: (_, row) => {
-				return (
-					<Tooltip title={`${row.domain}`}>
-						<span>{row.domain || '-'}</span>
-					</Tooltip>
-				);
+				return (row.domain || []).map((item: any) => {
+					return (
+						<Tooltip title={`${row.domain}`}>
+							<span>{item ? `${item},` : '-'}</span>
+						</Tooltip>
+					);
+				});
 			},
 			width: 300,
 		},
@@ -102,7 +111,22 @@ export default () => {
 			title: '排序值',
 			key: 'sortNo',
 			dataIndex: 'sortNO',
-			render: (_, row) => <InputNumber />,
+			render: (_, row) => (
+				<InputNumber
+					onBlur={async e => {
+						console.log(!!e.target.value, 'sort');
+						if (!!e.target.value) {
+							const success = await sortAdminSite({
+								sorts: [{ id: row.id, sortNum: Number(e.target.value) }],
+							}).then(res => res.code);
+							if (success === 200) {
+								message.success('排序成功');
+								actionRef.current?.reload();
+							}
+						}
+					}}
+				/>
+			),
 			width: 200,
 		},
 		{
@@ -130,11 +154,11 @@ export default () => {
 			title: '操作',
 			key: 'operation',
 			dataIndex: 'operation',
-			render: (_, row) => (
+			render: (_, row, i) => (
 				<>
 					<a
 						onClick={() => {
-							history.push('/site/publish-statics');
+							history.push('/system-management/site/publish-statics');
 						}}
 					>
 						发布静态页
@@ -145,11 +169,11 @@ export default () => {
 					<a>浏览</a>
 					<Divider type='vertical' />
 					<div style={{ display: 'inline-block' }}>
-						<CopyForm siteId={row.id} />
+						<CopyForm siteId={row.id} source='list' parentId={row.parentId} />
 					</div>
 					{/* <a>复制</a> */}
 					<Divider type='vertical' />
-					{Number(row.id) !== 0 && (
+					{!!row.parentId && (
 						<a
 							onClick={async () => {
 								Modal.confirm({
@@ -174,30 +198,13 @@ export default () => {
 							删除
 						</a>
 					)}
-					{Number(row.id) === 0 && <span style={{ color: '#BFBFBF' }}>删除</span>}
+					{!row.parentId && <span style={{ color: '#BFBFBF' }}>删除</span>}
 				</>
 			),
 			width: 300,
 		},
 	];
 
-	const recycleColumns: ProColumns<AdminSiteRecycleSummaryVo>[] = [
-		{
-			title: '站点名称',
-			key: 'name',
-			dataIndex: 'name',
-		},
-		{
-			title: '删除人',
-			key: 'operatTime',
-			dataIndex: 'operatTime',
-		},
-		{
-			title: '删除时间',
-			key: 'operator',
-			dataIndex: 'operator',
-		},
-	];
 	return (
 		<BizPage>
 			<BizTable
@@ -209,10 +216,13 @@ export default () => {
 							<Button
 								type='primary'
 								onClick={() => {
-									history.push('/site/create');
+									history.push('/system-management/site/create');
 								}}
 							>
-								<i className='iconfont icon-plus1' style={{ fontSize: '16px' }} />
+								<i
+									className='iconfont icon-plus1'
+									style={{ fontSize: '14px', lineHeight: '21px' }}
+								/>
 								新建
 							</Button>
 						</div>
@@ -220,7 +230,7 @@ export default () => {
 							<Button
 								type='default'
 								onClick={() => {
-									history.push('/site/batch-create');
+									history.push('/system-management/site/batch-create');
 								}}
 							>
 								批量新建
@@ -229,9 +239,13 @@ export default () => {
 						<div className='io-space-item'>
 							<Button
 								type='default'
-								disabled={selectedRowKeys.length === 0}
+								// disabled={selectedRowKeys.length === 0}
 								onClick={() => {
-									Modal.info({
+									if (selectedRowKeys.length === 0) {
+										message.error('请勾选需要删除的站点');
+										return;
+									}
+									Modal.confirm({
 										title: '你确定删除选中站点吗？',
 										content:
 											'删除站点会同时删除其下级站点，删除可在站点回收站中恢复。',
@@ -280,17 +294,17 @@ export default () => {
 							width={1200}
 							className='io-cms-site-cycle-modal__table'
 						>
-							<RecycleSite />
+							<RecycleSite
+								onClose={() => {
+									modalRef.current?.close();
+								}}
+							/>
 						</BizModalForm>
 					</>
 				)}
 				inputPlaceholderText={'请输入站点名称/目录'}
 				columns={columns}
-				request={params => {
-					return gainSiteTree(params.keyword || '').then(data => ({
-						data: data.data.list,
-					}));
-				}}
+				request={params => gainSiteTreeAuth(params.keyword || '')}
 				rowSelection={{
 					selectedRowKeys,
 					onChange: selectedRowKeys => {

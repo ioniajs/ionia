@@ -1,40 +1,181 @@
-import { BizPage, GobackButton, SaveButton, EditableTable } from '@ionia/libs';
-import { ProColumns, ActionType } from '@ant-design/pro-table';
-import { UserSaveDTO } from '@ionia/libs/src/services';
-import { Button, Switch } from 'antd';
+import {
+	BizPage,
+	GobackButton,
+	SaveButton,
+	EditableTable,
+	bacthAddUser,
+	UserSaveDTO,
+} from '@ionia/libs';
+import { Button, Switch, TreeSelect, Form, Input, message, Tooltip } from 'antd';
+import { InfoCircleOutlined } from '@ant-design/icons';
 import shortid from 'shortid';
-import React from 'react';
+import React, { useState } from 'react';
 import './index.less';
 
+const handleUserSave = async (fileds: UserSaveDTO[]) => {
+	const res = await bacthAddUser(fileds);
+	return res;
+};
+
 export default () => {
+	const [saveData, setSaveData] = useState<any>([]);
+	const [count, setCount] = useState<number>(1);
+	const [password, setPassword] = useState<string>('123456');
+
+	const treeData: any = [
+		{
+			title: 'Node1',
+			value: 'Node1',
+			children: [
+				{
+					title: 'Child Node1',
+					value: 'Child Node1',
+				},
+				{
+					title: 'Child Node2',
+					value: 'Child Node2',
+				},
+			],
+		},
+		{
+			title: 'Node2',
+			value: 'Node2',
+		},
+	];
+
+	const baseTypeTree: any = [
+		{
+			title: '实践中心',
+			value: '实践中心',
+		},
+		{
+			title: '实践所',
+			value: '实践所',
+		},
+		{
+			title: '实践站',
+			value: '实践站',
+		},
+	];
 	const columns: any = [
 		{
-			title: '用户名',
+			title: (
+				<span>
+					<span className='io-cms-user-batch-create-columns__span'>*</span>用户名
+				</span>
+			),
 			key: 'username',
 			dataIndex: 'username',
 			width: 164,
 			editable: true,
 		},
 		{
-			title: '密码',
+			title: (
+				<span>
+					<span className='io-cms-user-batch-create-columns__span'>*</span>密码
+				</span>
+			),
 			key: 'cipher',
 			dataIndex: 'cipher',
 			width: 164,
 			editable: true,
+			formItemRender: ({ dataIndex, editing, save, toggleEdit, children, ref }: any) => {
+				return editing ? (
+					<Form.Item
+						style={{ margin: 0 }}
+						name={dataIndex}
+						rules={[{ required: true, message: '请输入密码' }]}
+					>
+						<Input
+							ref={ref}
+							onChange={e => setPassword(e.target.value)}
+							onPressEnter={save}
+							onBlur={save}
+						/>
+					</Form.Item>
+				) : (
+					<div onClick={toggleEdit}>{children}</div>
+				);
+			},
 		},
 		{
-			title: '确认密码',
+			title: (
+				<span>
+					<span className='io-cms-user-batch-create-columns__span'>*</span>确认密码
+				</span>
+			),
 			key: 'confirm',
 			dataIndex: 'confirm',
 			width: 164,
 			editable: true,
+			formItemRender: ({ dataIndex, editing, save, toggleEdit, children, ref }: any) => {
+				return editing ? (
+					<Form.Item
+						style={{ margin: 0 }}
+						name={dataIndex}
+						rules={[
+							{ required: true, message: '请输入确认密码' },
+							{
+								validator: (_rule: any, value: string, callback: any) => {
+									if (password !== value) {
+										callback(new Error('两次密码输入不一致'));
+									} else {
+										callback();
+									}
+								},
+							},
+						]}
+					>
+						<Input ref={ref} onPressEnter={save} onBlur={save} />
+					</Form.Item>
+				) : (
+					<div onClick={toggleEdit}>{children}</div>
+				);
+			},
 		},
 		{
-			title: '所属阵地',
+			title: (
+				<span>
+					<span className='io-cms-user-batch-create-columns__span'>*</span>所属阵地
+				</span>
+			),
 			key: 'orgId',
 			dataIndex: 'orgId',
 			width: 164,
 			editable: true,
+			formItemRender: ({
+				title,
+				dataIndex,
+				editing,
+				save,
+				toggleEdit,
+				children,
+				ref,
+			}: any) => {
+				return editing ? (
+					<Form.Item
+						style={{ margin: 0 }}
+						name={dataIndex}
+						// rules={[
+						// 	{
+						// 		required: true,
+						// 		message: `${title}是必填项`,
+						// 	},
+						// ]}
+					>
+						{/* <Input ref={ref} onPressEnter={save} onBlur={save} /> */}
+						<TreeSelect
+							// value={uservalue}
+							treeData={treeData}
+							treeDefaultExpandAll
+							// onChange={() => setUserValue(uservalue)}
+							onBlur={save}
+						></TreeSelect>
+					</Form.Item>
+				) : (
+					<div onClick={toggleEdit}>{children}</div>
+				);
+			},
 		},
 		{
 			title: '所属角色',
@@ -42,6 +183,29 @@ export default () => {
 			dataIndex: 'roleIds',
 			width: 165,
 			editable: true,
+			formItemRender: ({
+				title,
+				dataIndex,
+				editing,
+				save,
+				toggleEdit,
+				children,
+				ref,
+			}: any) => {
+				return editing ? (
+					<Form.Item style={{ margin: 0 }} name={dataIndex}>
+						<TreeSelect
+							// value={uservalue}
+							treeData={baseTypeTree}
+							treeDefaultExpandAll
+							// onChange={() => setUserValue(uservalue)}
+							onBlur={save}
+						></TreeSelect>
+					</Form.Item>
+				) : (
+					<div onClick={toggleEdit}>{children}</div>
+				);
+			},
 		},
 		{
 			title: '姓名',
@@ -49,6 +213,23 @@ export default () => {
 			dataIndex: 'realName',
 			width: 163,
 			editable: true,
+			formItemRender: ({
+				title,
+				dataIndex,
+				editing,
+				save,
+				toggleEdit,
+				children,
+				ref,
+			}: any) => {
+				return editing ? (
+					<Form.Item style={{ margin: 0 }} name={dataIndex}>
+						<Input ref={ref} onPressEnter={save} onBlur={save} />
+					</Form.Item>
+				) : (
+					<div onClick={toggleEdit}>{children}</div>
+				);
+			},
 		},
 		{
 			title: '联系方式',
@@ -56,6 +237,23 @@ export default () => {
 			dataIndex: 'telephone',
 			width: 165,
 			editable: true,
+			formItemRender: ({
+				title,
+				dataIndex,
+				editing,
+				save,
+				toggleEdit,
+				children,
+				ref,
+			}: any) => {
+				return editing ? (
+					<Form.Item style={{ margin: 0 }} name={dataIndex}>
+						<Input ref={ref} onPressEnter={save} onBlur={save} />
+					</Form.Item>
+				) : (
+					<div onClick={toggleEdit}>{children}</div>
+				);
+			},
 		},
 		{
 			title: '电子邮箱',
@@ -63,6 +261,23 @@ export default () => {
 			dataIndex: 'email',
 			width: 205,
 			editable: true,
+			formItemRender: ({
+				title,
+				dataIndex,
+				editing,
+				save,
+				toggleEdit,
+				children,
+				ref,
+			}: any) => {
+				return editing ? (
+					<Form.Item style={{ margin: 0 }} name={dataIndex}>
+						<Input ref={ref} onPressEnter={save} onBlur={save} />
+					</Form.Item>
+				) : (
+					<div onClick={toggleEdit}>{children}</div>
+				);
+			},
 		},
 		{
 			title: '状态',
@@ -74,6 +289,7 @@ export default () => {
 			),
 		},
 	];
+	const [form] = Form.useForm();
 	return (
 		<BizPage
 			showActions
@@ -82,7 +298,17 @@ export default () => {
 				return (
 					<>
 						<GobackButton />
-						<SaveButton />
+						<SaveButton
+							onSave={async () => {
+								form.validateFields().then(async values => {
+									const saveRes = await handleUserSave(saveData);
+									if (saveRes.code === 200) {
+										message.success('批量新建成功');
+										history.back();
+									}
+								});
+							}}
+						/>
 					</>
 				);
 			}}
@@ -103,32 +329,75 @@ export default () => {
 					),
 				})}
 				footerRender={({ dataSource, setDataSource }) => (
-					<Button
-						type='dashed'
-						onClick={() => {
-							const key = shortid.generate();
-							setDataSource([
-								...dataSource,
-								{
-									key: shortid.generate(),
-									username: '江西赵四',
-									cipher: '123456',
-									confirm: '123456',
-									orgId: '0',
-									roleIds: '0',
-									realName: '江西吴彦祖',
-									telephone: 18707062315,
-									email: '2829656235@qq.com',
-									status: 1,
-								},
-							]);
-						}}
-					>
-						<i className='iconfont icon-plus1' style={{ fontSize: '16px' }} />
-						添加
-					</Button>
+					<div className='io-cms-user-batch-create-footer__div'>
+						<Button
+							onClick={() => {
+								const data = [];
+								for (let i = 0; i < count; i++) {
+									data.push({
+										key: shortid.generate(),
+										username: '江西金磊科技',
+										cipher: '123456',
+										confirm: '123456',
+										orgId: '0',
+										roleIds: '实践中心',
+										realName: '金磊科技',
+										telephone: 18707062315,
+										email: '2829656235@qq.com',
+										status: 1,
+									});
+								}
+								setDataSource([...dataSource, ...data]);
+							}}
+						>
+							添加
+						</Button>
+						<div className='io-cms-user-batch-create-footer__div-add'>
+							<span>添加</span>
+							<Input onChange={e => setCount(Number(e.target.value))} />
+							<span>条数据</span>
+						</div>
+						<Form.Item
+							name='orgId'
+							label={
+								<span>
+									阵地&nbsp;
+									<Tooltip title='添加用户时将默认选中右侧设置的阵地'>
+										<InfoCircleOutlined />
+									</Tooltip>
+								</span>
+							}
+						>
+							<TreeSelect
+								className='io-cms-user-batch-create__treeselect'
+								// value={uservalue}
+								treeData={treeData}
+								treeDefaultExpandAll
+								// onChange={() => setUserValue(uservalue)}
+							/>
+						</Form.Item>
+						<Form.Item
+							name='roleIds'
+							label={
+								<span>
+									角色&nbsp;
+									<Tooltip title='添加用户时将默认选中右侧设置的角色'>
+										<InfoCircleOutlined />
+									</Tooltip>
+								</span>
+							}
+						>
+							<TreeSelect
+								className='io-cms-user-batch-create__treeselect'
+								// value={uservalue}
+								treeData={baseTypeTree}
+								treeDefaultExpandAll
+								// onChange={() => setUserValue(uservalue)}
+							></TreeSelect>
+						</Form.Item>
+					</div>
 				)}
-				onChange={() => {}}
+				onChange={(data: any) => setSaveData(data)}
 				columns={columns}
 			/>
 		</BizPage>

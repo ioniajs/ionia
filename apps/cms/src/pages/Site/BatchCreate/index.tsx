@@ -22,41 +22,45 @@ export default () => {
 	const [saveData, setSaveData] = useState<any>([]);
 	const columns = [
 		{
-			title: (
-				<span>
-					<span className='io-cms-site-batch-create-columns__span'>*</span>站点名称
-				</span>
-			),
+			// title: (
+			// 	<span>
+			// 		<span className='io-cms-site-batch-create-columns__span'>*</span>站点名称
+			// 	</span>
+			// ),
+			title: '站点名称',
 			key: 'name',
 			dataIndex: 'name',
 			editable: true,
 		},
 		{
-			title: (
-				<span>
-					<span className='io-cms-site-batch-create-columns__span'>*</span>站点目录
-				</span>
-			),
+			// title: (
+			// 	<span>
+			// 		<span className='io-cms-site-batch-create-columns__span'>*</span>站点目录
+			// 	</span>
+			// ),
+			title: '站点目录',
 			key: 'dir',
 			dataIndex: 'dir',
 			editable: true,
 		},
 		{
-			title: (
-				<span>
-					<span className='io-cms-site-batch-create-columns__span'>*</span>模板路径
-				</span>
-			),
+			// title: (
+			// 	<span>
+			// 		<span className='io-cms-site-batch-create-columns__span'>*</span>模板路径
+			// 	</span>
+			// ),
+			title: '模板路径',
 			key: 'modalPath',
 			dataIndex: 'modalPath',
 			editable: true,
 		},
 		{
-			title: (
-				<span>
-					<span className='io-cms-site-batch-create-columns__span'>*</span>域名
-				</span>
-			),
+			// title: (
+			// 	<span>
+			// 		<span className='io-cms-site-batch-create-columns__span'>*</span>域名
+			// 	</span>
+			// ),
+			title: '域名',
 			key: 'domain',
 			dataIndex: 'domain',
 			editable: true,
@@ -140,9 +144,27 @@ export default () => {
 			breadcrumbs={[{ name: '站点管理' }, { name: '批量新建' }]}
 			onSave={async () => {
 				form.validateFields().then(async values => {
+					const loop = function (data: any) {
+						return data.map((r: any) => {
+							if (r.children) {
+								r.children = loop(r.children);
+							}
+							return {
+								dir: r.dir,
+								domain: r.domain.split(/,|，/),
+								name: r.name,
+								orgId: values.orgId,
+								status: r.status,
+								sortNo: r.sortNo,
+								modalPath: r.modalPath,
+								children: r.children,
+							};
+						});
+					};
+					const temp = loop(saveData);
 					const param = {
 						parentId: values.parentId,
-						children: saveData,
+						children: temp,
 					};
 					const saveRes = await handleSave(param);
 					if (saveRes.code === 200) {
@@ -153,12 +175,7 @@ export default () => {
 			layout={{}}
 		>
 			<div className='io-cms-site-batch-create__div'>
-				<Form
-					form={form}
-					scrollToFirstError
-					labelCol={{ span: 2 }}
-					wrapperCol={{ span: 12 }}
-				>
+				<Form form={form} scrollToFirstError style={{ display: 'flex' }}>
 					<Form.Item
 						name='parentId'
 						label='上级站点'
@@ -172,7 +189,24 @@ export default () => {
 								runGainSiteTree(e);
 							}}
 							className='io-cms-site-batch-create__treeselect'
-							style={{ width: '224px' }}
+							// style={{ width: 224 }}
+							dropdownStyle={{ maxHeight: 520, overflow: 'auto', minWidth: 420 }}
+						/>
+					</Form.Item>
+					<Form.Item
+						name='orgId'
+						label='所属阵地'
+						rules={[{ required: true, message: '请选择所属阵地' }]}
+					>
+						<TreeSelect
+							treeData={siteTreeData}
+							placeholder='请选择所属阵地'
+							showSearch
+							onSearch={e => {
+								runGainSiteTree(e);
+							}}
+							className='io-cms-site-batch-create__treeselect'
+							// style={{ width: 224 }}
 							dropdownStyle={{ maxHeight: 520, overflow: 'auto', minWidth: 420 }}
 						/>
 					</Form.Item>
@@ -195,10 +229,10 @@ export default () => {
 													row.key,
 													{
 														key: shortid.generate(),
-														name: `站点名称同级${shortid.generate()}`,
-														dir: '站点目录同级',
-														modalPath: '模板路径同级',
-														domain: ['192.168.99.55'],
+														name: '站点名称',
+														dir: '站点目录',
+														modalPath: '模板路径',
+														domain: ['域名'],
 														sortNo: 0,
 														status: 1,
 													},
@@ -222,10 +256,10 @@ export default () => {
 													row.parentKey,
 													{
 														key: shortid.generate(),
-														name: '子级同级站点名称',
-														dir: '子级同级站点目录',
-														modalPath: '子级同级模板路径',
-														domain: ['192.168.99.88'],
+														name: '站点名称',
+														dir: '站点目录',
+														modalPath: '模板路径',
+														domain: ['域名'],
 														sortNo: 0,
 														status: 1,
 													},
@@ -247,10 +281,10 @@ export default () => {
 												row.key,
 												{
 													key: shortid.generate(),
-													name: '站点名称1',
-													dir: '站点目录1',
-													modalPath: '模板路径1',
-													domain: ['192.168.99.88'],
+													name: '站点名称',
+													dir: '站点目录',
+													modalPath: '模板路径',
+													domain: ['域名'],
 													sortNo: 0,
 													status: 1,
 													parentKey: row.key,
@@ -285,7 +319,7 @@ export default () => {
 						name: '站点名称',
 						dir: '站点目录',
 						modalPath: '模板路径',
-						domain: ['11111'],
+						domain: ['域名'],
 						sortNo: 0,
 						status: 1,
 					},

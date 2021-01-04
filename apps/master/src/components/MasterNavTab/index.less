@@ -13,29 +13,39 @@
 			.ant-tabs-tab-btn {
 				position: relative;
 				font-size: 14px;
-				font-family: PingFang SC;
+
 				font-weight: 400;
 				color: #8c8c8c;
+			}
+			.icon-close {
+				display: none;
+				position: absolute;
+				top: -7px;
+				right: -15px;
+				font-size: 8px;
+				color: #8c8c8c;
+			}
+
+			&:hover {
 				.icon-close {
-					position: absolute;
-					top: -7px;
-					right: -15px;
-					font-size: 8px;
+					display: block;
+				}
+			}
+			&:first-child {
+				.icon-close {
+					display: none !important;
 				}
 			}
 		}
-		.io-master__nav-tab-pane {
+		.io-master__nav-tab--active {
 			.icon-close {
-				display: none;
+				display: block;
 			}
-		}
-		.ant-tabs-tab:hover .io-master__nav-tab-pane > .icon-close {
-			display: block;
 		}
 		.ant-tabs-tab-active {
 			.ant-tabs-tab-btn {
 				font-size: 14px;
-				font-family: PingFang SC;
+
 				font-weight: 400;
 				color: #262626;
 			}

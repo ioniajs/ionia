@@ -9,41 +9,134 @@ export default {
 	cms: [
 		{
 			path: '/cms',
-			name: '组件演示',
-			children: [
-				{ path: '/cms', name: '基础组件' },
-				{ path: '/cms/detail', name: '详情页' },
-				{ path: '/cms/amap', name: '高德地图' },
-				{ path: '/cms/etable', name: '可编辑表格' },
-				{ path: '/cms/modal-table', name: '弹窗表格' },
-				{ path: '/cms/modal-transfer', name: '弹窗穿梭框' },
-				{ path: '/cms/dynamic-from-item', name: '动态增减列表' },
-			],
-		},
-		{
-			path: '/cms/user',
-			name: '用户列表',
+			name: '首页',
 			icon: 'icon-Column',
 		},
 		{
-			path: '/cms/practice-base',
-			name: '实践阵地',
+			path: '/cms/demo',
+			name: '组件演示',
+			icon: 'icon-Column',
+			children: [
+				{ path: '/cms/demo/detail', name: '详情页' },
+				{ path: '/cms/demo/amap', name: '高德地图' },
+				{ path: '/cms/demo/etable', name: '可编辑表格' },
+				{ path: '/cms/demo/modal-table', name: '弹窗表格' },
+				{ path: '/cms/demo/modal-transfer', name: '弹窗穿梭框' },
+				{ path: '/cms/demo/dynamic-from-item', name: '动态增减列表' },
+				{ path: '/cms/demo/video-upload', name: '上传组件' },
+			],
 		},
 		{
-			path: '/cms/setting',
-			name: '系统设置',
+			path: '/cms/content-operation',
+			name: '内容运营',
+			icon: 'icon-content',
+			children: [
+				{
+					path: '/cms/content-operation/content',
+					name: '内容管理',
+				},
+				{
+					path: '/cms/content-operation/comment',
+					name: '评论管理',
+				},
+				{
+					path: '/cms/content-operation/blogroll',
+					name: '友情链接',
+				},
+			],
 		},
 		{
-			path: '/cms/site',
-			name: '站点管理',
+			path: '/cms/system-management',
+			name: '系统管理',
+			icon: 'icon-Column',
+			children: [
+				{
+					path: '/cms/system-management/site',
+					name: '站点管理',
+				},
+				{
+					path: '/cms/system-management/practice-base',
+					name: '实践阵地',
+				},
+				{
+					path: '/cms/system-management/role',
+					name: '角色管理',
+				},
+				{
+					path: '/cms/system-management/user',
+					name: '用户管理',
+				},
+				{
+					path: '/cms/system-management/model-management',
+					name: '模型管理',
+					children: [
+						{
+							path: '/cms/system-management/model-management/source',
+							name: '来源管理',
+						},
+						{
+							path: '/cms/system-management/model-management/content-type',
+							name: '内容类型',
+						},
+					],
+				},
+				{
+					path: '/cms/system-management/mail-serve',
+					name: '邮件服务',
+				},
+				{
+					path: '/cms/system-management/area-management',
+					name: '区域管理',
+				},
+				{
+					path: '/cms/system-management/memory-management',
+					name: '存储管理',
+					children: [
+						{
+							path: '/cms/system-management/memory-management/oss',
+							name: '储存管理OSS',
+						},
+						{
+							path: '/cms/system-management/memory-management/ftp',
+							name: '储存管理FTP',
+						},
+					],
+				},
+				{
+					path: '/cms/system-management/menu-management',
+					name: '菜单管理',
+					children: [
+						{
+							path: '/cms/system-management/menu-management/interface',
+							name: '接口管理',
+						},
+						{
+							path: '/cms/system-management/menu-management/menu',
+							name: '菜单管理',
+						},
+					],
+				},
+				{
+					path: '/cms/system-management/setting',
+					name: '系统设置',
+				},
+			],
 		},
 		{
-			path: '/cms/role',
-			name: '角色管理',
+			path: 'cms/examination-management',
+			icon: 'icon-Column',
+			name: '考评管理',
+			children: [
+				{
+					path: '/cms/examination-management/test-base-management',
+					name: '题库管理',
+				},
+			],
 		},
 		{
-			path: '/cms/content',
-			name: '内容管理',
+			path: '/cms/system-messages',
+			icon: 'icon-Column',
+			name: '系统消息',
 		},
 	],
 } as Record<string, IoniaMenuRoute[]>;

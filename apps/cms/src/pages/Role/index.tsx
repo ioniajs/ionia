@@ -46,9 +46,14 @@ function showConfirm() {
 }
 
 export default () => {
+	const params = {
+		pageSize: 10,
+		current: 1,
+		keyWord: '',
+	};
 	const history = useHistory();
 	const actionRef = useRef<ActionType>();
-	const [selectedRowKeys, setSelectedRowKeys] = useState<number[]>([]);
+	const [selectedRowKeys, setSelectedRowKeys] = useState<string[]>([]);
 	const columns: ProColumns<RolePageVO>[] = [
 		{
 			title: '角色名称',
@@ -57,7 +62,7 @@ export default () => {
 			render: (_, row) => (
 				<a
 					onClick={() => {
-						history.push(`/role/detail/${row.id}`);
+						history.push(`/system-management/role/detail/${row.id}`);
 					}}
 				>
 					{row.name}
@@ -124,7 +129,9 @@ export default () => {
 							</div>
 							<div className='io-space-item'>
 								<Button
-									onClick={() => history.push('/user/userbatchadd')}
+									onClick={() =>
+										history.push('/system-management/user/userbatchadd')
+									}
 									type='default'
 								>
 									批量新建
@@ -139,15 +146,38 @@ export default () => {
 					)}
 					renderSider={() => <BizTree />}
 					columns={columns}
+					pagination={{
+						current: params.current,
+						pageSize: params.pageSize,
+					}}
 					rowSelection={{
 						selectedRowKeys,
 						onChange: (selectedRowKeys: any) => {
-							setSelectedRowKeys(selectedRowKeys as number[]);
+							setSelectedRowKeys(selectedRowKeys);
 						},
+					}}
+					onRow={record => {
+						return {
+							onClick: () => {
+								const RowKeys = [...selectedRowKeys];
+								if (RowKeys.indexOf(record.id) >= 0) {
+									RowKeys.splice(selectedRowKeys.indexOf(record.id), 1);
+								} else {
+									RowKeys.push(record.id);
+								}
+								setSelectedRowKeys(RowKeys);
+							},
+						};
 					}}
 					// pagination
 					request={(params: any, sort: any, filter: any) => {
-						return rolePaging({}).then(data => ({ data: data.data.content }));
+						return rolePaging({
+							pageNo: params.current,
+							pageSize: params.pageSize,
+						}).then(data => ({
+							data: data.data.content,
+							total: data.data.total,
+						}));
 					}}
 				/>
 			</div>

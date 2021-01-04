@@ -1,11 +1,11 @@
 import { Form, Input } from 'antd';
-import { MutableRefObject, ReactNode, useContext, useEffect, useRef, useState } from 'react';
+import React, { MutableRefObject, ReactNode, useContext, useEffect, useRef, useState } from 'react';
 import EditableContext from '../EditableContext';
 
 interface EditableCellProps {
 	title: ReactNode;
 	editable: boolean;
-	children: ReactNode;
+	children: any;
 	dataIndex: string;
 	record: any;
 	formItemRender?: (params: any) => ReactNode;

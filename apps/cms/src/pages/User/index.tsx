@@ -2,11 +2,13 @@ import { ActionType, ProColumns } from '@ant-design/pro-table';
 import { BizPage, BizTable, BizTree, deleteUser } from '@ionia/libs';
 import { modUserStatus, UserPageVO, userPaging } from '@ionia/libs/src/services';
 import { IdsDTO } from '@ionia/libs/src/services/common.dto';
-import { Button, Divider, message, Modal, Switch } from 'antd';
+import { Button, Divider, message, Modal, Switch, Tooltip } from 'antd';
 import React, { useRef, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import SetPassword from './SetPassword';
 import UserForm from './Form';
+import './index.less';
+import { identity } from 'lodash';
 
 const userRemove = async (ids: IdsDTO) => {
 	const removeRes = await deleteUser(ids);
@@ -19,32 +21,54 @@ const userRemove = async (ids: IdsDTO) => {
 };
 
 export default () => {
+	const params = {
+		pageSize: 10,
+		current: 1,
+		keyWord: '',
+	};
 	const history = useHistory();
 	const actionRef = useRef<ActionType>();
 	const [modalVisble, setModalVisble] = useState<boolean>(false);
 	const [userName, setUserName] = useState<string>();
-	const [selectedRowKeys, setSelectedRowKeys] = useState<number[]>([]);
+	const [selectedRowKeys, setSelectedRowKeys] = useState<string[]>([]);
 	const columns: ProColumns<UserPageVO>[] = [
 		{
 			title: '用户名',
 			key: 'username',
 			dataIndex: 'username',
 			width: 150,
-			render: (_, row) => {
-				return <a onClick={() => history.push(`/user/detail/${row.id}`)}>{row.username}</a>;
-			},
+			render: (_, row) => (
+				<Tooltip title={`${row.username}`}>
+					<a
+						className='io-cms-user__biztable-username'
+						onClick={() => history.push(`/system-management/user/detail/${row.id}`)}
+					>
+						{row.username}
+					</a>
+				</Tooltip>
+			),
 		},
 		{
 			title: '姓名',
 			key: 'realName',
 			dataIndex: 'realName',
 			width: 150,
+			render: (_: any, row: any) => (
+				<Tooltip title={`${row.realName}`}>
+					<span className='io-cms-user__biztable-username'>{row.realName}</span>
+				</Tooltip>
+			),
 		},
 		{
 			title: '所属阵地',
 			key: 'org',
 			dataIndex: 'org',
 			width: 190,
+			render: (_: any, row: any) => (
+				<Tooltip title={`${row.org}`}>
+					<span className='io-cms-user__biztable-username'>{row.org}</span>
+				</Tooltip>
+			),
 		},
 		{
 			title: '所属角色',
@@ -61,14 +85,20 @@ export default () => {
 					value: '信息录入员',
 				},
 			],
+			onFilter: (value, record) => record.roleNames.indexOf(value.toString()) === 0,
 		},
 		{
 			title: '最后登录时间',
 			key: 'lastLoginTime',
 			dataIndex: 'lastLoginTime',
-			sorter: true,
 			width: 210,
-			// render: lastLoginTime => `${lastLoginTime.first} ${lastLoginTime.last}`,
+			sorter: (a, b) => {
+				let atime = new Date(a.lastLoginTime.replace(/-/g, '/')).getTime();
+				let btime = new Date(b.lastLoginTime.replace(/-/g, '/')).getTime();
+				return atime - btime;
+			},
+			sortDirections: ['descend', 'ascend'],
+			defaultSortOrder: 'descend',
 		},
 		{
 			title: '最后登录IP',
@@ -99,14 +129,15 @@ export default () => {
 			),
 			filters: [
 				{
-					value: '1',
+					value: '启用',
 					text: '启用',
 				},
 				{
 					text: '禁用',
-					value: '0',
+					value: '禁用',
 				},
 			],
+			// onFilter: (value, record) => record.status.toString().indexOf(value.toString()) === 0,
 		},
 		{
 			title: '操作',
@@ -163,11 +194,11 @@ export default () => {
 				renderActions={() => (
 					<>
 						<div className='io-space-item'>
-							<UserForm />
+							<UserForm user />
 						</div>
 						<div className='io-space-item'>
 							<Button
-								onClick={() => history.push('/user/batch-create')}
+								onClick={() => history.push('/system-management/user/batch-create')}
 								type='default'
 							>
 								批量新建
@@ -206,14 +237,34 @@ export default () => {
 				)}
 				renderSider={() => <BizTree />}
 				columns={columns}
+				pagination={{
+					current: params.current,
+					pageSize: params.pageSize,
+				}}
 				rowSelection={{
 					selectedRowKeys,
-					onChange: selectedRowKeys => {
-						setSelectedRowKeys(selectedRowKeys as number[]);
+					onChange: (selectedRowKeys: any) => {
+						setSelectedRowKeys(selectedRowKeys);
 					},
 				}}
-				request={(params, sort, filter) => {
-					return userPaging({}).then(data => ({ data: data.data.content }));
+				onRow={record => {
+					return {
+						onClick: () => {
+							const RowKeys = [...selectedRowKeys];
+							if (RowKeys.indexOf(record.id) >= 0) {
+								RowKeys.splice(selectedRowKeys.indexOf(record.id), 1);
+							} else {
+								RowKeys.push(record.id);
+							}
+							setSelectedRowKeys(RowKeys);
+						},
+					};
+				}}
+				request={(params: any, sort: any, filter: any) => {
+					return userPaging({
+						pageNo: params.current,
+						pageSize: params.pageSize,
+					}).then(data => ({ data: data.data.content, total: data.data.total }));
 				}}
 			/>
 			<SetPassword

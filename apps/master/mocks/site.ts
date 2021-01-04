@@ -1,3 +1,4 @@
+import { message } from 'antd';
 import { rest } from 'msw';
 
 export default [
@@ -467,6 +468,244 @@ export default [
 			})
 		);
 	}),
+	rest.get('/module-kernel/cmsmanager/sites/tree/auth', (req, res, ctx) => {
+		return res(
+			ctx.json({
+				code: 200,
+				data: [
+					{
+						children: [
+							{
+								children: [
+									{
+										dir: '',
+										domain: ['192.168.33.22', '198.66.74.23'],
+										id: 11,
+										name: '南昌市人民政府',
+										status: 0,
+										children: [
+											{
+												dir: '',
+												domain: [],
+												id: 111,
+												name: '南昌市人民政府',
+												status: 0,
+												children: [],
+											},
+											{
+												dir: '',
+												domain: [],
+												id: 112,
+												name: '南昌市人民政府',
+												status: 0,
+												children: [],
+											},
+											{
+												dir: '',
+												domain: [],
+												id: 113,
+												name: '南昌市人民政府',
+												status: 0,
+												children: [],
+											},
+											{
+												dir: '',
+												domain: [],
+												id: 114,
+												name: '南昌市人民政府',
+												status: 0,
+												children: [],
+											},
+										],
+									},
+									{
+										dir: '',
+										domain: [],
+										id: 12,
+										name: '九江市人民政府',
+										status: 0,
+									},
+									{
+										dir: '',
+										domain: [],
+										id: 13,
+										name: '景德镇市人民政府',
+										status: 0,
+									},
+									{
+										dir: '',
+										domain: [],
+										id: 14,
+										name: '赣州市人民政府',
+										status: 0,
+									},
+								],
+								dir: '',
+								domain: [],
+								id: 1,
+								name: '江西省人民政府',
+								status: 0,
+							},
+							{
+								children: [
+									{
+										dir: '',
+										domain: [],
+										id: 21,
+										name: '长沙市人民政府',
+										status: 0,
+									},
+									{
+										dir: '',
+										domain: [],
+										id: 22,
+										name: '株洲市人民政府',
+										status: 0,
+									},
+									{
+										dir: '',
+										domain: [],
+										id: 23,
+										name: '景德镇市人民政府',
+										status: 0,
+									},
+									{
+										dir: '',
+										domain: [],
+										id: 24,
+										name: '赣州市人民政府',
+										status: 0,
+									},
+								],
+								dir: '',
+								domain: [],
+								id: 2,
+								name: '湖南省人民政府',
+								status: 0,
+							},
+							{
+								children: [
+									{
+										dir: '',
+										domain: [],
+										id: 31,
+										name: '长沙市人民政府',
+										status: 0,
+									},
+									{
+										dir: '',
+										domain: [],
+										id: 32,
+										name: '株洲市人民政府',
+										status: 0,
+									},
+									{
+										dir: '',
+										domain: [],
+										id: 33,
+										name: '景德镇市人民政府',
+										status: 0,
+									},
+									{
+										dir: '',
+										domain: [],
+										id: 34,
+										name: '赣州市人民政府',
+										status: 0,
+									},
+								],
+								dir: '',
+								domain: [],
+								id: 3,
+								name: '山东省人民政府',
+								status: 0,
+							},
+							{
+								children: [
+									{
+										dir: '',
+										domain: [],
+										id: 41,
+										name: '长沙市人民政府',
+										status: 0,
+									},
+									{
+										dir: '',
+										domain: [],
+										id: 42,
+										name: '株洲市人民政府',
+										status: 0,
+									},
+									{
+										dir: '',
+										domain: [],
+										id: 43,
+										name: '景德镇市人民政府',
+										status: 0,
+									},
+									{
+										dir: '',
+										domain: [],
+										id: 44,
+										name: '赣州市人民政府',
+										status: 0,
+									},
+								],
+								dir: '',
+								domain: [],
+								id: 4,
+								name: '山东省人民政府',
+								status: 0,
+							},
+							{
+								children: [
+									{
+										dir: '',
+										domain: [],
+										id: 51,
+										name: '长沙市人民政府',
+										status: 0,
+									},
+									{
+										dir: '',
+										domain: [],
+										id: 52,
+										name: '株洲市人民政府',
+										status: 0,
+									},
+									{
+										dir: '',
+										domain: [],
+										id: 53,
+										name: '景德镇市人民政府',
+										status: 0,
+									},
+									{
+										dir: '',
+										domain: [],
+										id: 54,
+										name: '赣州市人民政府',
+										status: 0,
+									},
+								],
+								dir: '',
+								domain: [],
+								id: 5,
+								name: '山东省人民政府',
+								status: 0,
+							},
+						],
+						dir: '',
+						domain: [],
+						id: 0,
+						name: '中华人民共和国',
+						status: 0,
+					},
+				],
+				message: '成功',
+			})
+		);
+	}),
 	//修改站点
 	rest.get('/module-kernel/cmsmanager/sites/update', (req, res, ctx) => {
 		return res(
@@ -497,6 +736,95 @@ export default [
 					status: 0,
 				},
 				message: '成功',
+			})
+		);
+	}),
+
+	rest.get('/module-user/cmsmanager/siteperm/group/organdrole', (req, res, ctx) => {
+		return res(
+			ctx.json({
+				code: 200,
+				data: [
+					{
+						orgId: '1',
+						orgName: 'John Brown sr.',
+						roleId: '',
+						roleName: null,
+						parentId: '',
+						optional: 0,
+						selected: 1,
+						children: [
+							{
+								orgId: '',
+								orgName: '',
+								roleId: '11',
+								roleName: '管理员',
+								parentId: '1',
+								optional: 1,
+								selected: 0,
+							},
+							{
+								orgId: '',
+								orgName: '',
+								roleId: '12',
+								roleName: '测试员',
+								parentId: '1',
+								optional: 1,
+								selected: 0,
+							},
+							{
+								orgId: '13',
+								orgName: 'test1',
+								roleId: '',
+								roleName: null,
+								parentId: '1',
+								optional: 1,
+								selected: 0,
+							},
+							{
+								orgId: '14',
+								orgName: 'test2',
+								roleId: '',
+								roleName: null,
+								parentId: '1',
+								optional: 1,
+								selected: 0,
+								children: [
+									{
+										orgId: '',
+										orgName: null,
+										roleId: '141',
+										roleName: '测试员',
+										parentId: '1',
+										optional: 1,
+										selected: 0,
+									},
+									{
+										orgId: '142',
+										orgName: 'test2-2',
+										roleId: '',
+										roleName: null,
+										parentId: '14',
+										optional: 1,
+										selected: 0,
+										children: [
+											{
+												orgId: '',
+												orgName: null,
+												roleId: '1422',
+												roleName: '测试员',
+												parentId: '142',
+												optional: 1,
+												selected: 0,
+											},
+										],
+									},
+								],
+							},
+						],
+					},
+				],
+				message: '',
 			})
 		);
 	}),

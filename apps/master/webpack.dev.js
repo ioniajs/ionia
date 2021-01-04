@@ -11,6 +11,7 @@ const config = merge(commonConfig, {
 	},
 	devtool: 'source-map',
 	devServer: {
+		host: '0.0.0.0',
 		port: 7000,
 		contentBase: './dist',
 		clientLogLevel: 'warning',
@@ -21,6 +22,14 @@ const config = merge(commonConfig, {
 		},
 		historyApiFallback: true,
 		overlay: { warnings: false, errors: true },
+		proxy: {
+			'/module-kernel': {
+				target: 'http://192.168.0.200:29000',
+				// pathRewrite: {'^/module-kernel' : ''},
+				changeOrigin: true,
+				secure: false,
+			},
+		},
 	},
 	resolve: {
 		alias: {

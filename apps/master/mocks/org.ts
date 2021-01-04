@@ -209,7 +209,7 @@ export default [
 										code: '4564987916',
 										createDate: '2020-11-07T09:47:02',
 										fax: '7984564',
-										id: '1324891073327259650',
+										id: '11',
 										linkman: '[{"phone":"13145854856","username":"王姐"}]',
 										name: '赵四阵地',
 										parentId: '1324632722458558466',
@@ -268,7 +268,7 @@ export default [
 						parentId: '',
 					},
 				],
-				message: '删除成功',
+				message: '成功',
 			})
 		);
 	}),
@@ -302,27 +302,27 @@ export default [
 						{
 							id: '1330022626717872130',
 							title: '11',
-							url: '',
+							Image: 'https://pic.tolvyo.com/zoivdxgdh-梅岭漂流1.jpeg',
 						},
 						{
 							id: '1325631386022842369',
 							title: '介绍',
-							url: '',
+							Image: 'https://pic.tolvyo.com/zoivdxgdh-梅岭漂流1.jpeg',
 						},
 						{
 							id: '1325616984309645314',
 							title: '这是阵地标题',
-							url: '',
+							Image: '',
 						},
 						{
 							id: '1325616960389529601',
 							title: '这是阵地标题',
-							url: '',
+							Image: '',
 						},
 						{
 							id: '1325616852080017409',
 							title: '这是阵地标题',
-							url: '',
+							Image: '',
 						},
 					],
 					pageNo: 1,
@@ -418,13 +418,12 @@ export default [
 					area: '西湖区',
 					code: '2001',
 					coordinate: '100',
-					fax: '',
+					fax: '100',
 					id: '121312411212',
-					introduce: 'test',
+					introduce: '<p>test</p>',
 					linkmanList: [
-						{ name: 'test1', parentId: '1213' },
-						{ name: 'test2', parentId: '1212' },
-						{ name: 'test3', parentId: '1211' },
+						{ username: '金磊科技', phone: 1871101101101 },
+						{ username: '金磊科技', phone: 1871101101101 },
 					],
 					name: 'test',
 					parentId: '1210',
@@ -436,6 +435,41 @@ export default [
 					project: 'test',
 					tagId: '12131',
 					type: 'test',
+				},
+				message: '成功',
+			})
+		);
+	}),
+	// 阵地移入用户分页
+	rest.get('/module-user/cmsmanager/org/list/in', (req, res, ctx) => {
+		return res(
+			ctx.json({
+				code: 200,
+				data: {
+					content: [
+						{
+							id: '1324982039954354177',
+							orgName: '金磊科技',
+							realName: '江西金磊科技',
+							username: 'system',
+						},
+						{
+							id: '1324982716730470402',
+							orgName: '江西阵地',
+							realName: '江西金磊科技',
+							username: 'test',
+						},
+						{
+							id: '1324984812695531522',
+							orgName: '沈阳阵地',
+							realName: '江西金磊科技',
+							username: 'test3',
+						},
+					],
+					pageNo: 1,
+					pageSize: 10,
+					pages: 1,
+					total: 5,
 				},
 				message: '成功',
 			})

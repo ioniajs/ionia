@@ -7,13 +7,17 @@ import {
 	recycleSiteRestore,
 	SiteRevertDTO,
 	gainSiteTree,
+	recycleRestoreVerify,
 } from '@ionia/libs/src/services';
 import { AdminSiteRecycleSummaryVo, AdminSiteTreeVO } from '@ionia/libs/src/services/kernel';
 import { IdsDTO } from '@ionia/libs/src/services/common.dto';
 import { message, Modal, Radio, Button, TreeSelect, Form } from 'antd';
 import React, { useRef, useState } from 'react';
-
 import './index.less';
+
+interface RecycleProps {
+	onClose?: () => void;
+}
 
 // 回收站删除
 const handleDeleteRecycle = async (ids: IdsDTO) => {
@@ -42,13 +46,14 @@ const layout = {
 	wrapperCol: { span: 12 },
 };
 
-export default () => {
+export default ({ onClose }: RecycleProps) => {
 	const actionRef = useRef<ActionType>();
 	const [selectedRowKeys, setSelectedRowKeys] = useState<number[]>([]);
 	const [siteTree, setSiteTree] = useState<AdminSiteTreeVO[]>();
 	const [recycleForm] = Form.useForm();
 	const [revertRadio, setRevertRadio] = useState<number>(1);
 	const [visible, setVisible] = useState<boolean>(false);
+	const [checkData, setCheckData] = useState<any>();
 
 	// 获取站点树
 	const { run: runsiteTree } = useRequest(gainSiteTree, {
@@ -101,6 +106,10 @@ export default () => {
 						<Button
 							type='primary'
 							onClick={async () => {
+								if (selectedRowKeys.length === 0) {
+									message.error('请勾选需要删除的站点');
+									return;
+								}
 								const tempSelRowKeys = selectedRowKeys.map((s: any) =>
 									s.toString()
 								);
@@ -111,17 +120,45 @@ export default () => {
 									actionRef.current?.reload();
 								}
 							}}
-							disabled={selectedRowKeys.length === 0}
+							// disabled={selectedRowKeys.length === 0}
 							className='io-cms-site-recycle-delete__but'
 						>
 							删除
 						</Button>
 						<Button
 							type='default'
-							onClick={() => {
-								setVisible(true);
+							onClick={async () => {
+								if (selectedRowKeys.length === 0) {
+									message.error('请勾选需要恢复的站点');
+									return;
+								}
+								const tempSelRowKeys = selectedRowKeys.map((s: any) =>
+									s.toString()
+								);
+								// 校验是否存在已删除的上级站点
+								const checkRes = await recycleRestoreVerify({
+									ids: tempSelRowKeys,
+								});
+								if (checkRes.code === 200) {
+									setCheckData(checkRes.data);
+									if (checkRes.data.length === 0) {
+										const params: SiteRevertDTO = {
+											siteIds: selectedRowKeys,
+											type: 0,
+										};
+										const revertRes = await handleRecycleRevert(params);
+										if (revertRes === 200) {
+											onClose && onClose();
+										}
+									} else {
+										setVisible(true);
+										// onClose && onClose();
+									}
+								} else {
+									message.error('站点恢复校验失败');
+									return;
+								}
 							}}
-							disabled={selectedRowKeys.length === 0}
 						>
 							恢复
 						</Button>
@@ -149,12 +186,12 @@ export default () => {
 				title='恢复站点'
 				visible={visible}
 				onOk={async () => {
-					const ids = selectedRowKeys.map(s => Number(s));
+					// const ids = selectedRowKeys.map(s => Number(s));
 					if (revertRadio === 2) {
 						recycleForm.validateFields().then(async values => {
 							const params: SiteRevertDTO = {
 								parentId: values.parentId,
-								siteIds: ids,
+								siteIds: selectedRowKeys,
 								type: revertRadio,
 							};
 							const revertRes = await handleRecycleRevert(params);
@@ -164,7 +201,7 @@ export default () => {
 						});
 					} else {
 						const params: SiteRevertDTO = {
-							siteIds: ids,
+							siteIds: selectedRowKeys,
 							type: revertRadio,
 						};
 						const revertRes = await handleRecycleRevert(params);
@@ -176,10 +213,20 @@ export default () => {
 				onCancel={() => {
 					setVisible(false);
 				}}
+				className='io-cms-site-recycle__modal'
 			>
 				<p>以下站点的上级站点已被删除，无法正常恢复，请选择处理方式：</p>
-				<p>[站点1]</p>
-				<Radio.Group onChange={e => setRevertRadio(e.target.value)} defaultValue={1}>
+				<p>
+					{(checkData || []).map((c: any) => {
+						return <span>[{c.name}]</span>;
+					})}
+				</p>
+				{/* <p>[站点1]</p> */}
+				<Radio.Group
+					onChange={e => setRevertRadio(e.target.value)}
+					defaultValue={1}
+					style={{ marginBottom: '20px' }}
+				>
 					<Radio value={1}>同时恢复所有上级站点</Radio>
 					<Radio value={2}>恢复到其他站点下</Radio>
 				</Radio.Group>

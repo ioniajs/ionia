@@ -2,7 +2,7 @@ import request from '../../../utils/request';
 import { JcResult, Page } from '../../base';
 import { OrgDTO, OrgBatchDTO, OrgResourceDTO, OrgUserDTO, SortDTO } from './practice-base.dto';
 import { IdsDTO } from '../../common.dto';
-import { OrgResourceVO, OrgDetailsVO, OrgVO, OrgSmallVO } from './practice-base.vo';
+import { OrgResourceVO, OrgDetailsVO, OrgVO, OrgSmallVO, OrgMoveInVO } from './practice-base.vo';
 /**
  *
  * @param data 新建阵地
@@ -115,7 +115,7 @@ export async function positionDetail(id: string): Promise<JcResult<OrgDetailsVO>
  */
 export interface PositionList {
 	crux?: string; // 阵地名称或编号
-	isAll?: boolean; // 是否包含下级阵地
+	isAll?: boolean | string; // 是否包含下级阵地
 	parentId?: string; // 父级ID
 }
 export async function positionList(params: PositionList): Promise<JcResult<OrgVO[]>> {
@@ -128,7 +128,7 @@ export async function positionList(params: PositionList): Promise<JcResult<OrgVO
  * 阵地下拉列表---采用懒加载
  */
 export interface PositionPull {
-	parentId: string; // 父级ID
+	parentId?: string; // 父级ID
 }
 export async function positionPullList(params: PositionPull): Promise<JcResult<OrgSmallVO[]>> {
 	return request.get('/module-user/cmsmanager/org/pull', {
@@ -163,6 +163,24 @@ export async function positionalListPaging(
 	params: PoListPaging
 ): Promise<JcResult<Page<OrgResourceVO>>> {
 	return request.get('/module-user/cmsmanager/org/resource/page', {
+		params,
+	});
+}
+
+/**
+ * 阵地移入用户分页
+ */
+export interface PositionalUserListPaging {
+	name?: string; //用户名/姓名
+	orgId?: string; //组织id
+	pagNo?: number; // 页码。从1开始计数
+	pageSize?: number; // 页面大小
+	pageSort?: string; // 排序字段, 格式: name desc,createTime asc
+}
+export async function positionalUserListPaging(
+	params: PositionalUserListPaging
+): Promise<JcResult<Page<OrgMoveInVO>>> {
+	return request.get('/module-user/cmsmanager/org/list/in', {
 		params,
 	});
 }

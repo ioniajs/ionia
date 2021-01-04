@@ -1,5 +1,6 @@
 // @ts-nocheck
 import React, { useEffect, useState } from 'react';
+import { Input } from 'antd';
 
 export const AMapAutoComplete = ({
 	position,
@@ -8,6 +9,7 @@ export const AMapAutoComplete = ({
 	options,
 	placeholder,
 	style,
+	onGetAddress,
 }: any) => {
 	const [geocoder, setGeocoder] = useState();
 
@@ -49,11 +51,13 @@ export const AMapAutoComplete = ({
 				if (status === 'complete' && result.regeocode) {
 					const address = result.regeocode.formattedAddress;
 					document.getElementById('autoinput').value = address;
+					console.log(address, '-----------');
+					onGetAddress && onGetAddress(address);
 				} else {
 					console.error('根据经纬度查询地址失败');
 				}
 			});
 	}, [position]);
 
-	return <input id='autoinput' placeholder={placeholder} style={style} />;
+	return <Input id='autoinput' placeholder={placeholder} style={style} />;
 };

@@ -10,8 +10,11 @@ import {
 	OrgDTO,
 	RichTextEditor,
 	SaveButton,
+	positionPullList,
+	OrgSmallVO,
 } from '@ionia/libs';
 import { Button, Form, Input, message, TreeSelect } from 'antd';
+import { useRequest, useMount } from '@umijs/hooks';
 import React, { useRef, useState } from 'react';
 import './index.less';
 
@@ -19,10 +22,10 @@ const layout = {
 	labelCol: { span: 7 },
 	wrapperCol: { span: 12 },
 };
-const layout1 = {
-	labelCol: { span: 16 },
-	wrapperCol: { span: 8 },
-};
+// const layout1 = {
+// 	labelCol: { span: 7 },
+// 	wrapperCol: { span: 24 },
+// };
 
 const newPractice = async (filed: OrgDTO) => {
 	const newRef = await addPosition(filed);
@@ -38,7 +41,32 @@ export default () => {
 	const [form] = Form.useForm();
 	const ref = useRef<BizModalFormRef>();
 	const [editorState, setEditorState] = useState(); // 获取富文本编辑内容
-
+	const [codeAdress, setCodeAddress] = useState<string>();
+	const [siteTreeData, setSiteTreeData] = useState<OrgSmallVO[]>();
+	const { run: runGainSiteTree } = useRequest(positionPullList, {
+		manual: true,
+		onSuccess: result => {
+			const loop = function (data: any) {
+				return data.map((r: any) => {
+					if (r.children) {
+						r.children = loop(r.children);
+					}
+					return {
+						value: r.id,
+						title: r.name,
+						key: r.id,
+						children: r.children,
+						...r,
+					};
+				});
+			};
+			const tempSiteTree = loop(result.data);
+			setSiteTreeData(tempSiteTree);
+		},
+	});
+	useMount(() => {
+		runGainSiteTree({});
+	});
 	const baseTypeTree: any = [
 		{
 			title: '实践中心',
@@ -86,16 +114,13 @@ export default () => {
 								onSave={async () => {
 									form.validateFields().then(async values => {
 										const param = {
-											area: values.area,
+											...values,
 											name: values.name,
+											area: values.area,
 											parentId: values.parentId,
 											type: values.type,
-											address: values.address || '',
-											code: values.code || '',
-											coordinate: values.coordinate || '',
-											introduce: editorState,
+											introduce: values.introduce,
 										};
-
 										const success = await newPractice(param);
 										if (success.code === 200) {
 											history.back();
@@ -117,7 +142,7 @@ export default () => {
 					>
 						<TreeSelect
 							placeholder='请选择上级阵地'
-							treeData={treeData}
+							treeData={siteTreeData}
 							showSearch={true}
 							style={{ width: 664, height: 32 }}
 						/>
@@ -137,7 +162,7 @@ export default () => {
 					<Form.Item
 						name='name'
 						label='阵地名称'
-						rules={[{ required: true, message: '请输入阵地名称' }]}
+						rules={[{ required: true, message: '请输入阵地名称', max: 120 }]}
 					>
 						<Input style={{ width: 664 }} placeholder='请输入阵地名称' />
 					</Form.Item>
@@ -153,13 +178,13 @@ export default () => {
 							style={{ width: 664, height: 32 }}
 						/>
 					</Form.Item>
-					<Form.Item name='code' label='阵地编号'>
+					<Form.Item name='code' label='阵地编号' rules={[{ max: 120 }]}>
 						<Input style={{ width: 664 }} placeholder='请输入阵地编号' />
 					</Form.Item>
 					<Form.Item name='fax' label='传真'>
 						<Input style={{ width: 664 }} placeholder='请输入传真号码' />
 					</Form.Item>
-					<Form.List name='domain'>
+					<Form.List name='linkmanList'>
 						{(fields, { add, remove }, { errors }) => {
 							return (
 								<>
@@ -182,6 +207,7 @@ export default () => {
 													{...field}
 													validateTrigger={['onChange', 'onBlur']}
 													noStyle
+													name={[field.name, 'username']}
 												>
 													<Input
 														placeholder='请输入姓名'
@@ -192,6 +218,7 @@ export default () => {
 													{...field}
 													validateTrigger={['onChange', 'onBlur']}
 													noStyle
+													name={[field.name, 'phone']}
 												>
 													<Input
 														placeholder='请输入手机号或座机号'
@@ -213,14 +240,18 @@ export default () => {
 										{...layout}
 										label={
 											fields.length === 0 ? (
-												<span>日常联系人</span>
+												<span>日常联系人:</span>
 											) : (
 												<span></span>
 											)
 										}
 										colon={false}
 									>
-										<Button>
+										<Button
+											type='dashed'
+											style={{ width: 664 }}
+											onClick={() => add()}
+										>
 											<i className='iconfont icon-plus-square' />
 											添加
 										</Button>
@@ -230,8 +261,14 @@ export default () => {
 							);
 						}}
 					</Form.List>
-					<Form.Item style={{ display: 'flex' }} name='code' label='地址'>
-						<Input style={{ width: 604.1 }} placeholder='请手动选择地址' />
+					<div className='io-cms-practice-base-create__div'>
+						<Form.Item name='address' label='地址'>
+							<Input
+								allowClear
+								style={{ width: 604.1 }}
+								placeholder='请手动选择地址'
+							/>
+						</Form.Item>
 						<BizModalForm
 							ref={ref}
 							title='选择地点'
@@ -241,20 +278,39 @@ export default () => {
 									onClick={() => {
 										ref.current?.open();
 									}}
-									style={{ width: 60.9, height: 32 }}
+									className='io-cms-practice-base-create__div-button'
 								>
 									选择
 								</Button>
 							)}
+							submitterRender={() => (
+								<>
+									<Button>取消</Button>
+									<Button
+										type='primary'
+										onClick={() => {
+											form.setFieldsValue({ address: codeAdress });
+											ref.current?.close();
+										}}
+									>
+										保存
+									</Button>
+								</>
+							)}
 							width={1000}
 						>
-							<AMap />
+							<AMap
+								onGet={(val?: string) => {
+									setCodeAddress(val);
+									console.log(val, 'address的值');
+								}}
+							/>
 						</BizModalForm>
-					</Form.Item>
+					</div>
 					<Form.Item name='favicon' label='阵地标志'>
 						<ImageUpload />
 					</Form.Item>
-					<Form.Item name='favicon' label='图片展示'>
+					<Form.Item name='picList' label='图片展示'>
 						<MultiImageUpload />
 					</Form.Item>
 					<Form.Item name='project' label='特色活动项目'>
@@ -268,7 +324,9 @@ export default () => {
 					</Form.Item>
 					<Form.Item name='introduce' label='阵地介绍'>
 						<div className='io-cms-practice-base-create-from-item__rich-text-editor'>
-							<RichTextEditor onGet={editorState => setEditorState(editorState)} />
+							<RichTextEditor
+								onGet={(editorState: any) => setEditorState(editorState)}
+							/>
 						</div>
 					</Form.Item>
 				</Form>

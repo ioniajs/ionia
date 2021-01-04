@@ -1,12 +1,10 @@
 import React, { useRef, useState } from 'react';
-import { BizTable, positionalListPaging, deletePositionResource } from '@ionia/libs';
+import { BizTable, positionalListPaging, deletePositionResource, ImagePreview } from '@ionia/libs';
 import { IdsDTO } from '@ionia/libs/src/services/common.dto';
 import { Button, Modal, message } from 'antd';
 import { ActionType } from '@ant-design/pro-table';
 import './index.less';
-import Update from './Update';
 import CreateForm from './Create';
-
 interface BaseResourceProps {
 	id: string;
 }
@@ -22,30 +20,25 @@ const ResourceRemove = async (ids: IdsDTO) => {
 };
 
 export const BaseResource = ({ id }: BaseResourceProps) => {
-	const [titleShow, setTitleShow] = useState(false);
-	const [title, setTitle] = useState<string>();
 	const columns = [
 		{
 			title: '标题',
 			key: 'title',
 			dataIndex: 'title',
 			width: 800,
-			render: (_: any, row: any) => (
-				<a
-					onClick={() => {
-						setTitleShow(true);
-						setTitle(row.title);
-					}}
-				>
-					{row.title}
-				</a>
-			),
+			render: (_: any, row: any) => <CreateForm row={row} />,
 		},
 		{
 			title: '图片',
-			key: 'url',
-			dataIndex: 'url',
+			key: 'Image',
+			dataIndex: 'Image',
 			width: 660,
+			hideInSearch: true,
+			render: (val: string) => {
+				console.log(val, '------------');
+
+				return <ImagePreview width={72} height={72} src={val as string} />;
+			},
 		},
 		{
 			title: '操作',
@@ -68,6 +61,7 @@ export const BaseResource = ({ id }: BaseResourceProps) => {
 									if (success.code === 200) {
 										if (success.code === 200 && actionRef.current) {
 											actionRef.current.reload();
+											message.success('删除成功');
 										}
 									}
 								},
@@ -124,19 +118,20 @@ export const BaseResource = ({ id }: BaseResourceProps) => {
 				rowKey='id'
 				actionRef={actionRef}
 				inputPlaceholderText={'请输入标题'}
-				columns={columns}
+				columns={columns as any[]}
 				rowSelection={{
 					selectedRowKeys,
-					onChange: selectedRowKeys => {
+					onChange: (selectedRowKeys: any) => {
 						setSelectedRowKeys(selectedRowKeys as number[]);
 					},
 					checkStrictly: false,
 				}}
-				request={async params => {
-					return positionalListPaging({}).then(data => ({ data: data.data.content }));
+				request={async (params: any) => {
+					return positionalListPaging({}).then((data: any) => ({
+						data: data.data.content,
+					}));
 				}}
-			></BizTable>
-			<Update setTitleShow={setTitleShow} titleShow={titleShow} title={title} />
+			/>
 		</div>
 	);
 };

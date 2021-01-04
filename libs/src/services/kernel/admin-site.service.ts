@@ -16,6 +16,9 @@ import {
 	AdminSiteTreeVO,
 	AdminSiteDetailVO,
 	AdminSiteTree,
+	AdminSiteVO,
+	SiteTreeVO,
+	AdminSiteTreeAuthVO,
 } from './admin-site.vo';
 
 /**
@@ -79,7 +82,7 @@ export async function copySite(data: SiteCopyDTO): Promise<JcResult<number>> {
 /**
  * 批量删除(移入回收站)
  */
-export async function batchDetailSite(data: IdsDTO): Promise<JcResult<object>> {
+export async function batchDetailSite(data: IdsDTO): Promise<JcResult<boolean>> {
 	return request.post('/module-kernel/cmsmanager/sites/delete', {
 		data,
 	});
@@ -139,7 +142,7 @@ export async function gainSiteTree(searchStr?: string): Promise<JcResult<AdminSi
  * 修改站点
  */
 export async function amendSite(data: AdminSiteDTO): Promise<JcResult<object>> {
-	return request.post('/module-kernel/cmsmanager/sites/update', {});
+	return request.post('/module-kernel/cmsmanager/sites/update', { data });
 }
 
 /**
@@ -154,7 +157,7 @@ export async function siteDetail(id: string): Promise<JcResult<AdminSiteDetailVO
  */
 export interface SiteCatalogue {
 	dir: string; //站点目录
-	siteId: string; // 站点id
+	siteId?: string; // 站点id
 }
 export async function verifySiteCatalogue(params: SiteCatalogue): Promise<JcResult<boolean>> {
 	return request.get('/module-kernel/cmsmanager/sites/dir/unique', {
@@ -167,10 +170,46 @@ export async function verifySiteCatalogue(params: SiteCatalogue): Promise<JcResu
  */
 export interface SiteName {
 	name: string; //站点名称
-	siteId: string; // 站点id
+	siteId?: string; // 站点id
 }
 export async function verifySiteName(params: SiteName): Promise<JcResult<boolean>> {
 	return request.get('/module-kernel/cmsmanager/sites/name/unique', {
 		params,
 	});
+}
+
+/**
+ * 回收站还原校验,是否存在已删除的上级站点
+ */
+export async function recycleRestoreVerify(data: IdsDTO): Promise<JcResult<AdminSiteVO[]>> {
+	return request.post('/module-kernel/cmsmanager/sites/recycle/check', {
+		data,
+	});
+}
+
+/**
+ * 获取站点树 -- 进群权限
+ */
+export async function gainSiteTreeEnter(searchStr: string): Promise<JcResult<SiteTreeVO>> {
+	return request.get('/module-kernel/cmsmanager/sites/tree');
+}
+
+/**
+ * 获取站点树 -- 站点权限
+ */
+export async function gainSiteTreeAuth(
+	searchStr: string
+): Promise<JcResult<AdminSiteTreeAuthVO[]>> {
+	return request.get('/module-kernel/cmsmanager/sites/tree/auth', {
+		params: {
+			searchStr,
+		},
+	});
+}
+
+/**
+ * 获取站点树 -- 无权限
+ */
+export async function gainSiteTreeNoauth(searchStr: string): Promise<JcResult<AdminSiteTreeVO[]>> {
+	return request.get('/module-kernel/cmsmanager/sites/tree/noauth');
 }

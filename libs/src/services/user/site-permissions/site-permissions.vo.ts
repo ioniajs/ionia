@@ -13,6 +13,7 @@ export interface AdminChildDataVO {
 	parentId: string; // 站点父级ID
 	siteId: string; // 站点ID
 	siteName: string; // 站点名称
+	flag: boolean;
 }
 //#endregion
 
@@ -22,3 +23,62 @@ export interface AdminDataVO {
 	sites: AdminChildDataVO[]; // 站点权限集合
 }
 //#endregion
+
+export interface SitePermVO {
+	children?: SitePermVO[];
+	optional: number;
+	orgId: string;
+	orgName: string;
+	parentId: string;
+	roleId: string;
+	roleName: string;
+	selected: number;
+}
+
+export interface PageSitePermUserVO {
+	content: SitePermUserVO[];
+	pageNo: number;
+	pageSize: number;
+	pages: number;
+	total: number;
+}
+
+export interface SitePermUserVO {
+	orgName: string;
+	roleName: string;
+	selected: number;
+	userId: string;
+	userName: string;
+	realName: string;
+}
+export interface SitePermOrgVO {
+	siteId: string;
+}
+
+export interface SiteAuthVO {
+	children: SiteAuthVO[];
+	datas: DataBaseVO;
+	orgId: string; //组织id
+	orgName: string; //组织名称
+	parentId: string; //父级id
+	roleId: string; //角色ID
+	roleName: string; //角色名称
+}
+
+export interface PageSiteAuthUserVO {
+	content: SiteAuthUserVO[];
+	pageNo: number;
+	pageSize: number;
+	pages: number;
+	total: number;
+}
+
+export interface SiteAuthUserVO {
+	datas: DataBaseVO;
+	orgId: string; //组织id
+	orgName: string; //组织名称
+	parentId: string; //父级id
+	roleId: string; //角色ID
+	roleName: string; //角色名称
+	realName: string;
+}
