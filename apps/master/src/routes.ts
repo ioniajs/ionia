@@ -44,6 +44,14 @@ export default {
 					path: '/cms/content-operation/blogroll',
 					name: '友情链接',
 				},
+				{
+					path: '/cms/content-operation/volunteer',
+					name: '志愿者',
+					children: [{
+						path: '/cms/content-operation/volunteer/manage',
+						name: '志愿者'
+					}]
+				}
 			],
 		},
 		{
