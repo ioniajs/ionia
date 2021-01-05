@@ -78,7 +78,7 @@ export interface VolunteerListVO {
 	email: string; // 邮箱
 	fullName: string; // 姓名
 	gender: string; // 性别
-	id: number; 
+	id: number;
 	idCard: string; // 证件号码
 	occupation: string; // 职业
 	phone: string; // 手机号

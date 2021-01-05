@@ -47,11 +47,13 @@ export default {
 				{
 					path: '/cms/content-operation/volunteer',
 					name: '志愿者',
-					children: [{
-						path: '/cms/content-operation/volunteer/manage',
-						name: '志愿者'
-					}]
-				}
+					children: [
+						{
+							path: '/cms/content-operation/volunteer/manage',
+							name: '志愿者',
+						},
+					],
+				},
 			],
 		},
 		{
