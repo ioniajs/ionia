@@ -1,31 +1,29 @@
 import { ProFormSelect, ProFormTextArea, ProFormText } from '@ant-design/pro-form';
-import { BizModalForm, BizModalFormRef, ApiDTO, addApi } from '@ionia/libs';
-import { addUser, UserSaveDTO } from '@ionia/libs/src/services';
+import { BizModalForm, BizModalFormRef, addApi } from '@ionia/libs';
 import { Button, Form, message } from 'antd';
 import React, { useRef } from 'react';
 import './index.less';
 
-// let apiForm = {
-// 	apiName: '',
-// 	apiUrl: '',
-// 	id: '',
-// 	requestMethod: 1,
-// 	useScene: '',
-// };
-
-export default ({ user }: any) => {
+export default ({ reload }: any) => {
 	const ref = useRef<BizModalFormRef>();
 	const [form] = Form.useForm();
 	const onCreate = () => {
-		form.resetFields();
+		form.validateFields().then(async (values: any) => {
+			const { code } = await addApi({ ...values });
+			if (code == 200) {
+				message.success('提交成功!');
+				form.resetFields();
+				reload();
+			}
+		});
 	};
 	const onFinish = async (values: any) => {
-		console.log(values);
 		const { code } = await addApi({ ...values });
 		if (code == 200) {
 			message.success('提交成功!');
 			form.resetFields();
 			ref.current?.close();
+			reload();
 		}
 	};
 	return (
@@ -33,7 +31,7 @@ export default ({ user }: any) => {
 			className='io-cms-user-form__bizmodalform'
 			ref={ref}
 			form={form}
-			title='新建用户'
+			title='新建'
 			onFinish={onFinish}
 			submitterRender={() => (
 				<div className='btn-submitter'>
@@ -45,7 +43,6 @@ export default ({ user }: any) => {
 					>
 						取消
 					</Button>
-					{user ? <Button type='default'>保存并分配权限</Button> : ''}
 					<Button type='default' onClick={onCreate}>
 						保存并继续新建
 					</Button>

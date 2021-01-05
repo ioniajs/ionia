@@ -30,7 +30,7 @@ export async function rightControlSwitch(data: MenuAuthSwitchDTO): Promise<JcRes
  * 菜单删除
  */
 export async function menuDelete(data: IdsDTO): Promise<JcResult<boolean>> {
-	return request.post(' /module-user/cmsmanager/menu/delete', {
+	return request.post('/module-user/cmsmanager/menu/delete', {
 		data,
 	});
 }

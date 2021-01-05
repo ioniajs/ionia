@@ -43,6 +43,8 @@ import CommentsReport from '@/pages/Comment/Report';
 import Interface from '@/pages/MenuManagement/Interface';
 import Menu from '@/pages/MenuManagement/Menu';
 import Volunteer from '@/pages/Volunteer/Manage';
+import MenuAdd from '@/pages/MenuManagement/Menu/add';
+import MenuDeatil from '@/pages/MenuManagement/Menu/detail';
 export default [
 	{
 		path: '/',
@@ -179,6 +181,14 @@ export default [
 	{
 		path: '/system-management/menu-management/menu',
 		component: Menu,
+	},
+	{
+		path: '/system-management/menu-management/menu/add',
+		component: MenuAdd,
+	},
+	{
+		path: '/system-management/menu-management/menu/detail/:id',
+		component: MenuDeatil,
 	},
 	{
 		path: '/system-management/setting',
