@@ -42,6 +42,7 @@ import CommentsBanned from '@/pages/Comment/Banned';
 import CommentsReport from '@/pages/Comment/Report';
 import Interface from '@/pages/MenuManagement/Interface';
 import Menu from '@/pages/MenuManagement/Menu';
+import Volunteer from '@/pages/Volunteer/Manage';
 import MenuAdd from '@/pages/MenuManagement/Menu/add';
 import MenuDeatil from '@/pages/MenuManagement/Menu/detail';
 export default [
@@ -224,6 +225,10 @@ export default [
 	{
 		path: '/content-operation/comment/report',
 		component: CommentsReport,
+	},
+	{
+		path: '/content-operation/volunteer/manage',
+		component: Volunteer,
 	},
 	{
 		path: '/500',

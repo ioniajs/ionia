@@ -11,3 +11,6 @@ export interface Page<T> {
 	pages: number;
 	total: number;
 }
+export interface List<T> {
+	data: T[];
+}
