@@ -123,7 +123,7 @@ module.exports = {
       <html lang="en">
     	<head>
           	<meta charset="UTF-8" />
-          	<link rel="stylesheet" type="text/css" href="//at.alicdn.com/t/font_2147785_fxbvnkgepit.css" />
+          	<link rel="stylesheet" type="text/css" href="//at.alicdn.com/t/font_2147785_108s979vwe7.css" />
         </head>
 		<body>
 			<div id="app" />
