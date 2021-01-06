@@ -43,7 +43,12 @@ const treeDatas = [
 	},
 ];
 
-export function BizTree({ treeData = treeDatas, onTreeSearch, searchPlaceHolder = 'Search', onSelectTree }: TreeProps) {
+export function BizTree({
+	treeData = treeDatas,
+	onTreeSearch,
+	searchPlaceHolder = 'Search',
+	onSelectTree,
+}: TreeProps) {
 	const onSelect = (selectedKeys: any, info: any) => {
 		onSelectTree && onSelectTree(selectedKeys);
 		console.log('selected', selectedKeys, info);
@@ -57,7 +62,7 @@ export function BizTree({ treeData = treeDatas, onTreeSearch, searchPlaceHolder 
 			<Search
 				style={{ marginBottom: 8 }}
 				placeholder={searchPlaceHolder}
-				onSearch={(value) => onTreeSearch && onTreeSearch(value)}
+				onSearch={value => onTreeSearch && onTreeSearch(value)}
 			/>
 			<Tree
 				defaultExpandedKeys={['1']}

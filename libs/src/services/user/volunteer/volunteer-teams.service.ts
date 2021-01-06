@@ -137,6 +137,8 @@ export async function updateVolunteerTeams(
  * 根据id获取志愿者详情
  * @param id
  */
-export async function volunteersTeamsDetail(id: number): Promise<JcResult<AdminVolunteerTeamDetailVO>> {
+export async function volunteersTeamsDetail(
+	id: number
+): Promise<JcResult<AdminVolunteerTeamDetailVO>> {
 	return request.get(`/module-user/cmsmanager/volunteer/teams/${id}`);
 }

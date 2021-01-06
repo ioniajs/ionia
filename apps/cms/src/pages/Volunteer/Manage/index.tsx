@@ -1,7 +1,12 @@
 import React, { useRef, useState } from 'react';
 import { ProColumns, ActionType, ColumnsState } from '@ant-design/pro-table';
 import { BizPage, BizTable, BizTree } from '@ionia/libs';
-import { volunteerPaging, allTreeTeamsVolunteer, AdminVolunteerTeamTreeVO, VolunteerPageVO } from '@ionia/libs/src/services';
+import {
+	volunteerPaging,
+	allTreeTeamsVolunteer,
+	AdminVolunteerTeamTreeVO,
+	VolunteerPageVO,
+} from '@ionia/libs/src/services';
 import { Button, Form, Input, Space } from 'antd';
 import { SearchOutlined } from '@ant-design/icons';
 import { useMount, useRequest } from '@umijs/hooks';
@@ -13,30 +18,38 @@ export default () => {
 	const [teamsTreeList, setTeamsTreeList] = useState<AdminVolunteerTeamTreeVO>();
 	const [searchParams, setSearchParams] = useState<any>({ pageNo: 1, pageSize: 10 });
 	const [columnsStateMap, setColumnsStateMap] = useState<Record<string, ColumnsState>>({
-		email: { // 邮箱
+		email: {
+			// 邮箱
 			show: false,
 		},
-		clan: { // 民族
+		clan: {
+			// 民族
 			show: false,
 		},
-		birthday: { // 出生日期
-			show: false
-		},
-		domicile: { // 籍贯
+		birthday: {
+			// 出生日期
 			show: false,
 		},
-		education: { // 最高学历
+		domicile: {
+			// 籍贯
 			show: false,
 		},
-		politicalLook: { // 政治面貌
+		education: {
+			// 最高学历
 			show: false,
 		},
-		workUnit: { // 单位
+		politicalLook: {
+			// 政治面貌
 			show: false,
 		},
-		occupation: { // 职业
+		workUnit: {
+			// 单位
 			show: false,
-		}
+		},
+		occupation: {
+			// 职业
+			show: false,
+		},
 	});
 
 	const { run: runAllTreeTeamsVolunteer } = useRequest(allTreeTeamsVolunteer, {
@@ -57,8 +70,8 @@ export default () => {
 				});
 			};
 			const teamsTreeListTemp = loop(result.data);
-			setTeamsTreeList(teamsTreeListTemp)
-		}
+			setTeamsTreeList(teamsTreeListTemp);
+		},
 	});
 
 	useMount(() => {
@@ -69,7 +82,12 @@ export default () => {
 			key: 'username',
 			dataIndex: 'username',
 			title: '用户信息',
-			render: (_, row) => <span>{row.username}{row.phone}</span>
+			render: (_, row) => (
+				<span>
+					{row.username}
+					{row.phone}
+				</span>
+			),
 		},
 		{
 			key: 'code',
@@ -88,7 +106,7 @@ export default () => {
 							onClick={() => {
 								const code = form.getFieldValue('code');
 								console.log(code, '志愿者编号筛选');
-								setSearchParams({ ...searchParams, code: code })
+								setSearchParams({ ...searchParams, code: code });
 							}}
 							icon={<SearchOutlined />}
 							size='small'
@@ -99,7 +117,7 @@ export default () => {
 						<Button
 							onClick={() => {
 								form.setFieldsValue({ code: '' });
-								setSearchParams({ ...searchParams, code: '' })
+								setSearchParams({ ...searchParams, code: '' });
 							}}
 							size='small'
 							style={{ width: 90 }}
@@ -127,7 +145,7 @@ export default () => {
 							onClick={() => {
 								const fullName = form.getFieldValue('fullName');
 								console.log(fullName, '志愿者编号筛选');
-								setSearchParams({ ...searchParams, fullName: fullName })
+								setSearchParams({ ...searchParams, fullName: fullName });
 							}}
 							icon={<SearchOutlined />}
 							size='small'
@@ -138,7 +156,7 @@ export default () => {
 						<Button
 							onClick={() => {
 								form.setFieldsValue({ fullName: '' });
-								setSearchParams({ ...searchParams, fullName: '' })
+								setSearchParams({ ...searchParams, fullName: '' });
 							}}
 							size='small'
 							style={{ width: 90 }}
@@ -236,17 +254,19 @@ export default () => {
 					)}
 					params={searchParams}
 					inputPlaceholderText='请输入志愿者用户名/手机号'
-					renderSider={() =>
+					renderSider={() => (
 						<BizTree
 							treeData={teamsTreeList}
 							searchPlaceHolder='请输入队伍名称进行检索'
-							onTreeSearch={(value) => runAllTreeTeamsVolunteer({ name: value })}
-							onSelectTree={(value) => setSearchParams({ ...searchParams, teamId: value })}
+							onTreeSearch={value => runAllTreeTeamsVolunteer({ name: value })}
+							onSelectTree={value =>
+								setSearchParams({ ...searchParams, teamId: value })
+							}
 						/>
-					}
+					)}
 					columns={columns}
 					columnsStateMap={columnsStateMap}
-					onColumnsStateChange={(map) => setColumnsStateMap(map)}
+					onColumnsStateChange={map => setColumnsStateMap(map)}
 					rowSelection={{}}
 					request={(params: any, sort: any, filter: any) => {
 						return volunteerPaging({
@@ -264,7 +284,8 @@ export default () => {
 						showQuickJumper: true,
 						defaultPageSize: 10,
 						showTotal: total => `共${total}条`,
-						onChange: (page, pageSize) => setSearchParams({ ...searchParams, pageNo: page, pageSize: pageSize })
+						onChange: (page, pageSize) =>
+							setSearchParams({ ...searchParams, pageNo: page, pageSize: pageSize }),
 					}}
 				/>
 			</div>
