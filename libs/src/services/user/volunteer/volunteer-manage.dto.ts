@@ -20,7 +20,7 @@ export interface VolunteerDTO {
 	occupation: number; // 职业
 	phone: string; // 手机号
 	politicalLook: number; // 政治面貌
-	teamId: number; // 支援队伍id
+	teamId: number | string; // 支援队伍id
 	type: number; // 志愿者类型
 	username: string; // 用户名
 	avatarId?: number; // 头像资源id
