@@ -7,6 +7,7 @@ import DemoModalTable from '@/pages/Demo/ModalTable';
 import DemoModalTransfer from '@/pages/Demo/ModalTransfer';
 import DemoVideoUpload from '@/pages/Demo/UploadVideo';
 import DemoPdf from '@/pages/Demo/Pdf';
+import DemoCharts from '@/pages/Demo/Charts';
 import Home from '@/pages/Home';
 import PracticeBase from '@/pages/PracticeBase';
 import PracticeBaseBatchCreate from '@/pages/PracticeBase/BatchCreate';
@@ -78,6 +79,10 @@ export default [
 	{
 		path: '/demo/pdf',
 		component: DemoPdf,
+	},
+	{
+		path: '/demo/charts',
+		component: DemoCharts,
 	},
 	{
 		path: '/content-operation/blogroll',

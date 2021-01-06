@@ -25,6 +25,7 @@ export default {
 				{ path: '/cms/demo/dynamic-from-item', name: '动态增减列表' },
 				{ path: '/cms/demo/video-upload', name: '上传组件' },
 				{ path: '/cms/demo/pdf', name: 'PDF在线阅读' },
+				{ path: '/cms/demo/charts', name: '图表' },
 			],
 		},
 		{
