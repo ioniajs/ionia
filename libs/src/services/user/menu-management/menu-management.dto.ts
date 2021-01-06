@@ -19,7 +19,7 @@ export interface MenuDTO {
 //#region  权限控制开关
 export interface MenuAuthSwitchDTO {
 	id: string; // id
-	showFlag: number; // 1显示 0不显示
+	authFlag: number; // 1显示 0不显示
 }
 //#endregion
 
@@ -32,7 +32,7 @@ export interface MenuDataPermissionDTO {
 
 //#region  显示开关
 export interface MenuShowSwitchDTO {
-	authFlag: number; // 1 控制权限 0不控制权限
+	showFlag: number; // 1 控制权限 0不控制权限
 	id: string; // id
 }
 //#endregion

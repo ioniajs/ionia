@@ -2,7 +2,7 @@ export interface ApiItemVO {
 	apiName: string;
 	apiUrl: string;
 	id: string;
-	requestMethod: number;
+	requestMethod: number | string;
 	useScene: string;
 }
 
