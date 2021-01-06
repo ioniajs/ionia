@@ -2,9 +2,16 @@ import { Tree, Input } from 'antd';
 import React from 'react';
 import './index.less';
 
+interface TreeProps {
+	treeData?: any;
+	onTreeSearch?: (value: any) => void;
+	searchPlaceHolder?: string;
+	onSelectTree?: (value: any) => void;
+}
+
 const { Search } = Input;
 
-const treeData = [
+const treeDatas = [
 	{
 		title: 'parent 1',
 		key: '0-0',
@@ -36,8 +43,14 @@ const treeData = [
 	},
 ];
 
-export function BizTree() {
+export function BizTree({
+	treeData = treeDatas,
+	onTreeSearch,
+	searchPlaceHolder = 'Search',
+	onSelectTree,
+}: TreeProps) {
 	const onSelect = (selectedKeys: any, info: any) => {
+		onSelectTree && onSelectTree(selectedKeys);
 		console.log('selected', selectedKeys, info);
 	};
 
@@ -46,11 +59,15 @@ export function BizTree() {
 	};
 	return (
 		<div>
-			<Search style={{ marginBottom: 8 }} placeholder='Search' />
+			<Search
+				style={{ marginBottom: 8 }}
+				placeholder={searchPlaceHolder}
+				onSearch={value => onTreeSearch && onTreeSearch(value)}
+			/>
 			<Tree
-				defaultExpandedKeys={['0-0-0', '0-0-1']}
-				defaultSelectedKeys={['0-0-0', '0-0-1']}
-				defaultCheckedKeys={['0-0-0', '0-0-1']}
+				defaultExpandedKeys={['1']}
+				// defaultSelectedKeys={['0-0-0', '0-0-1']}
+				// defaultCheckedKeys={['0-0-0', '0-0-1']}
 				onSelect={onSelect}
 				onCheck={onCheck}
 				treeData={treeData}

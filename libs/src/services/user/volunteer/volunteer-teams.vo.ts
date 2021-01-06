@@ -1,3 +1,4 @@
+import { UserDTO } from './volunteer-teams.dto';
 //#region 志愿队伍树列表
 export interface AdminVolunteerTeamTreeVO {
 	address: string; // 地址
@@ -35,11 +36,11 @@ export interface VolunteerTeamCheckPageVO {
 }
 //#endregion
 
-export interface UserDTO {
-	principalPhoneFlag: boolean; // 公开标识 false不公开 true公开
-	name: string; // 用户名
-	phone: string; // 手机号
-}
+// export interface UserDTO {
+// 	principalPhoneFlag: boolean; // 公开标识 false不公开 true公开
+// 	name: string; // 用户名
+// 	phone: string; // 手机号
+// }
 
 //#region 志愿队伍审核编辑
 export interface AdminVolunteerTeamDetailVO {
