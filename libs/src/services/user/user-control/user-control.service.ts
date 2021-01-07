@@ -59,6 +59,13 @@ export async function modUserStatus(data: UserUpdateStatusDTO): Promise<JcResult
 /**
  * 用户详情
  */
+export async function userDetailSelf(): Promise<JcResult<UserViewVO>> {
+	return request.get(`/module-user/cmsmanager/users`);
+}
+
+/**
+ * 用户详情
+ */
 export async function userDetail(id: string): Promise<JcResult<UserViewVO>> {
 	return request.get(`/module-user/cmsmanager/users/${id}`);
 }

@@ -41,7 +41,10 @@ export default () => {
 				<Tooltip title={`${row.username}`}>
 					<a
 						className='io-cms-user__biztable-username'
-						onClick={() => history.push(`/system-management/user/detail/${row.id}`)}
+						onClick={e => {
+							e.stopPropagation();
+							history.push(`/system-management/user/detail/${row.id}`);
+						}}
 					>
 						{row.username}
 					</a>

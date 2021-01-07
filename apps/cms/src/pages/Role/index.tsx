@@ -1,12 +1,12 @@
-import { ProColumns, ActionType } from '@ant-design/pro-table';
 import { ExclamationCircleOutlined } from '@ant-design/icons';
-import { BizTable, BizTree, deleteUser, BizPage } from '@ionia/libs';
-import { Button, Modal, Switch } from 'antd';
-import React, { useRef, useState } from 'react';
-import UserForm from './Add';
-import { RolePageVO, rolePaging, modUserStatus } from '@ionia/libs/src/services';
+import { ActionType, ProColumns } from '@ant-design/pro-table';
+import { BizPage, BizTable, BizTree, deleteUser } from '@ionia/libs';
+import { RolePageVO, rolePaging } from '@ionia/libs/src/services';
 import { IdsDTO } from '@ionia/libs/src/services/common.dto';
+import { Button, Modal } from 'antd';
+import React, { useRef, useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import UserForm from './Add';
 import './index.less';
 export interface TableListItem {
 	key: number;
@@ -14,13 +14,7 @@ export interface TableListItem {
 }
 
 /**
- *
- * @param id 修改用户状态
- */
-const userUpdate = async (id: string, status: number) => {};
-
-/**
- *  删除用户
+ *  删除角色
  */
 const userRemove = async (ids: IdsDTO) => {
 	const removeRes = await deleteUser(ids);
@@ -31,7 +25,7 @@ const { confirm } = Modal;
 
 function showConfirm() {
 	confirm({
-		title: '你确定删除所选用户吗?',
+		title: '你确定删除所选角色吗?',
 		icon: <ExclamationCircleOutlined />,
 		content: '删除后无法恢复，请谨慎操作',
 		okText: '确定',
@@ -61,7 +55,8 @@ export default () => {
 			dataIndex: 'name',
 			render: (_, row) => (
 				<a
-					onClick={() => {
+					onClick={e => {
+						e.stopPropagation();
 						history.push(`/system-management/role/detail/${row.id}`);
 					}}
 				>
@@ -130,7 +125,7 @@ export default () => {
 							<div className='io-space-item'>
 								<Button
 									onClick={() =>
-										history.push('/system-management/user/userbatchadd')
+										history.push('/system-management/role/batch-add')
 									}
 									type='default'
 								>
