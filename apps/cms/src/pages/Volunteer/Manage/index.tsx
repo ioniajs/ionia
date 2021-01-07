@@ -117,8 +117,8 @@ export default () => {
 					</Button>
 				</Space>
 			</div>
-		)
-	}
+		);
+	};
 	const columns: ProColumns<VolunteerPageVO>[] = [
 		{
 			key: 'username',
@@ -135,8 +135,8 @@ export default () => {
 			key: 'code',
 			dataIndex: 'code',
 			title: '志愿者编号',
-			filterDropdown: () => (
-				filterDropdown('code')
+			filterDropdown: () =>
+				filterDropdown('code'),
 				// <div className='io-cms-volunteer-manage-table-filterDropDown'>
 				// 	<Form form={form}>
 				// 		<Form.Item name='code' className='filterDropDown_formItem'>
@@ -169,41 +169,30 @@ export default () => {
 				// 		</Button>
 				// 	</Space>
 				// </div>
-			),
 		},
 		{
 			key: 'fullName',
 			dataIndex: 'fullName',
 			title: '姓名',
-			filterDropdown: () => (
-				filterDropdown('fullName')
-			),
+			filterDropdown: () => filterDropdown('fullName'),
 		},
 		{
 			key: 'email',
 			dataIndex: 'email',
 			title: '邮箱',
-			filterDropdown: () => (
-				filterDropdown('email')
-			)
+			filterDropdown: () => filterDropdown('email'),
 		},
 		{
 			key: 'teamName',
 			dataIndex: 'teamName',
 			title: '所属队伍',
-			filterDropdown: () => (
-				<div>
-
-				</div>
-			)
+			filterDropdown: () => <div></div>,
 		},
 		{
 			key: 'idCard',
 			dataIndex: 'idCard',
 			title: '证件号码',
-			filterDropdown: () => (
-				filterDropdown('idCard')
-			)
+			filterDropdown: () => filterDropdown('idCard'),
 		},
 		{
 			key: 'gender',
@@ -214,9 +203,7 @@ export default () => {
 			key: 'clan',
 			dataIndex: 'clan',
 			title: '民族',
-			filterDropdown: () => (
-				filterDropdown('clan')
-			)
+			filterDropdown: () => filterDropdown('clan'),
 		},
 		{
 			key: 'birthday',
@@ -226,7 +213,7 @@ export default () => {
 				let atime = new Date(a.birthday.replace(/-/g, '/')).getTime();
 				let btime = new Date(b.birthday.replace(/-/g, '/')).getTime();
 				console.log(order, 'dd');
-				setSearchParams({ ...searchParams, birthday: order })
+				setSearchParams({ ...searchParams, birthday: order });
 				return atime - btime;
 			},
 			sortDirections: sortDirections,
@@ -243,8 +230,12 @@ export default () => {
 							type='primary'
 							onClick={() => {
 								const time = form.getFieldValue('birthday');
-								const beginBirthdayTime = moment(time[0]).format('YYYY-MM-DD HH:mm:ss');
-								const endBirthdayTime = moment(time[1]).format('YYYY-MM-DD HH:mm:ss');
+								const beginBirthdayTime = moment(time[0]).format(
+									'YYYY-MM-DD HH:mm:ss'
+								);
+								const endBirthdayTime = moment(time[1]).format(
+									'YYYY-MM-DD HH:mm:ss'
+								);
 								console.log(beginBirthdayTime, endBirthdayTime);
 							}}
 							icon={<SearchOutlined />}
@@ -285,9 +276,7 @@ export default () => {
 			key: 'workUnit',
 			dataIndex: 'workUnit',
 			title: '单位',
-			filterDropdown: () => (
-				filterDropdown('workUnit')
-			)
+			filterDropdown: () => filterDropdown('workUnit'),
 		},
 		{
 			key: 'occupation',
