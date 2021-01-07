@@ -19,7 +19,7 @@ export const ImageUpload = ({
 	title,
 	tips,
 	limit = 1,
-	action = '/module-infra/res/upload',
+	action = 'http://192.168.0.200:29000/module-infra/res/upload',
 	defaultFileList,
 	onChange,
 	...reset

@@ -260,6 +260,15 @@ const InterfaceIndex = () => {
 			),
 		},
 	];
+
+	const pagination = {
+		onChange: (page: any, pageSize: any) => {
+			formParams.current = page;
+			formParams.pageSize = pageSize;
+			setFormParams(formParams);
+			console.log(page, pageSize);
+		},
+	};
 	return (
 		<BizPage>
 			<div className='io-cms-menu-interface_list'>
@@ -282,6 +291,7 @@ const InterfaceIndex = () => {
 					pagination={{
 						current: params.current,
 						pageSize: params.pageSize,
+						...pagination,
 					}}
 					rowSelection={{
 						selectedRowKeys,
