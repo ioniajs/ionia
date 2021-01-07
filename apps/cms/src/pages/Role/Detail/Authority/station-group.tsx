@@ -10,9 +10,14 @@ const { confirm } = Modal;
 export default ({ id }: { id: string }) => {
 	useRequest(() => roleDetailTree(id), {
 		onSuccess: data => {
-			const treeData = filterData(data.data.vos);
-			setShow(false);
-			setData(treeData);
+			if (data.data.vos && data.code == 200) {
+				const treeData = filterData(data.data.vos);
+				setShow(false);
+				setData(treeData);
+			} else {
+				message.error('服务异常');
+				setShow(false);
+			}
 		},
 		onError: err => {
 			setShow(false);

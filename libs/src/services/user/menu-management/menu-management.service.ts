@@ -102,6 +102,15 @@ export async function userMenuShow(params: UserMenuShow): Promise<JcResult<MenuA
 }
 
 /**
+ * 用户下菜单权限修改
+ */
+export async function userMenuMod(data: MenuDataPermissionDTO): Promise<JcResult<boolean>> {
+	return request.post('/module-user/cmsmanager/menu/premiss/user', {
+		data,
+	});
+}
+
+/**
  * 显示开关
  */
 export async function showSwitch(data: MenuShowSwitchDTO): Promise<JcResult<boolean>> {

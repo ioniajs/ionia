@@ -35,14 +35,21 @@ function filterData(data: any) {
 export default ({ id }: any) => {
 	const [value, setValue] = useState('');
 	const [treeData, setTreeData] = useState([]);
+	const [formData, setFormData] = useState({});
+
+	useEffect(() => {
+		form.setFieldsValue({ ...formData });
+	}, [formData]);
 	const onChange = (value: any) => {
 		console.log(value);
 		setValue(value);
 	};
 
-	let firstRequest = useRequest(() => roleDetail(id), {
+	useRequest(() => roleDetail(id), {
 		onSuccess: data => {
-			formData = data.data;
+			if (data.data) {
+				setFormData(data.data);
+			}
 		},
 	});
 	const secondRequest = useRequest(() => positionList({ crux: '', isAll: '', parentId: '' }), {
@@ -52,17 +59,7 @@ export default ({ id }: any) => {
 			logger.debug(tree);
 		},
 	});
-	// const { run } = useRequest(() => modRole({
-	// 	name: formData.name,
-	// 	orgId: formData.orgId,
-	// 	description: formData.description,
-	// 	id: formData.id
-	// }), { manual: true });
-	logger.debug('formData', formData);
 	const [form] = Form.useForm();
-	useEffect(() => {
-		form.setFieldsValue({ ...formData });
-	}, [formData]);
 
 	return (
 		<>
