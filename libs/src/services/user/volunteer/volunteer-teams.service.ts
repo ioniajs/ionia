@@ -10,15 +10,15 @@ import { AdminVolunteerTeamDTO } from './volunteer-teams.dto';
 import { IdsDTO } from '../../common.dto';
 
 export interface AdminVolunteerTeamTreeVOProps {
-	address: string; // 地址
-	beginCheckTime: string; // 开始成立时间
-	code: string; // 队伍编号
-	endCheckTime: string; // 结束成立时间
-	name: string; // 队伍名称
-	orderBy: number; // 排序 : 1队伍规模升序 2队伍规模降序 3成立时间升序 4成立时间降序
-	orgIds: number[]; // 所属阵地
-	principal: string; // 负责人
-	userInfo: string; // 账号信息
+	address?: string; // 地址
+	beginCheckTime?: string; // 开始成立时间
+	code?: string; // 队伍编号
+	endCheckTime?: string; // 结束成立时间
+	name?: string; // 队伍名称
+	orderBy?: number; // 排序 : 1队伍规模升序 2队伍规模降序 3成立时间升序 4成立时间降序
+	orgIds?: number[]; // 所属阵地
+	principal?: string; // 负责人
+	userInfo?: string; // 账号信息
 }
 /**
  * 志愿队伍树列表
@@ -26,7 +26,7 @@ export interface AdminVolunteerTeamTreeVOProps {
  */
 export async function allTreeTeamsVolunteer(
 	params: AdminVolunteerTeamTreeVOProps
-): Promise<JcResult<List<AdminVolunteerTeamTreeVO>>> {
+): Promise<JcResult<AdminVolunteerTeamTreeVO>> {
 	return request.get('/module-user/cmsmanager/volunteer/teams/allTree', {
 		params,
 	});
@@ -137,6 +137,8 @@ export async function updateVolunteerTeams(
  * 根据id获取志愿者详情
  * @param id
  */
-export async function volunteersDetail(id: number): Promise<JcResult<AdminVolunteerTeamDetailVO>> {
+export async function volunteersTeamsDetail(
+	id: number
+): Promise<JcResult<AdminVolunteerTeamDetailVO>> {
 	return request.get(`/module-user/cmsmanager/volunteer/teams/${id}`);
 }

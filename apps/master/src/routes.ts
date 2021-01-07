@@ -50,7 +50,11 @@ export default {
 					children: [
 						{
 							path: '/cms/content-operation/volunteer/manage',
-							name: '志愿者',
+							name: '志愿者管理',
+						},
+						{
+							path: '/cms/content-operation/volunteer/check',
+							name: '志愿者审核',
 						},
 					],
 				},
