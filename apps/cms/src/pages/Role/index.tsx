@@ -13,7 +13,6 @@ export interface TableListItem {
 	name: string;
 }
 
-
 /**
  *  删除角色
  */

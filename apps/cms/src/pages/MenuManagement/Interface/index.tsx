@@ -263,9 +263,9 @@ const InterfaceIndex = () => {
 
 	const pagination = {
 		onChange: (page: any, pageSize: any) => {
-			formParams.current = page
-			formParams.pageSize = pageSize
-			setFormParams(formParams)
+			formParams.current = page;
+			formParams.pageSize = pageSize;
+			setFormParams(formParams);
 			console.log(page, pageSize);
 		},
 	};

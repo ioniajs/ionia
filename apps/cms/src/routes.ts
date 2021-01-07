@@ -13,7 +13,7 @@ import PracticeBaseBatchCreate from '@/pages/PracticeBase/BatchCreate';
 import PracticeBaseCreate from '@/pages/PracticeBase/Create';
 import PracticeBaseDetail from '@/pages/PracticeBase/Detail';
 import Role from '@/pages/Role';
-import RoleBatchAdd from '@/pages/Role/BatchAdd'
+import RoleBatchAdd from '@/pages/Role/BatchAdd';
 import RoleDetail from '@/pages/Role/Detail';
 import Setting from '@/pages/Setting';
 import Site from '@/pages/Site';
