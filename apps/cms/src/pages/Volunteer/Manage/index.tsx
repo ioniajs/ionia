@@ -1,16 +1,20 @@
 import React, { useRef, useState } from 'react';
 import { ProColumns, ActionType, ColumnsState } from '@ant-design/pro-table';
 import { BizPage, BizTable, BizTree } from '@ionia/libs';
+import { SortOrder } from 'antd/lib/table/interface';
 import {
 	volunteerPaging,
 	allTreeTeamsVolunteer,
 	AdminVolunteerTeamTreeVO,
 	VolunteerPageVO,
 } from '@ionia/libs/src/services';
-import { Button, Form, Input, Space } from 'antd';
+import { Button, Form, Input, Space, DatePicker } from 'antd';
 import { SearchOutlined } from '@ant-design/icons';
 import { useMount, useRequest } from '@umijs/hooks';
+import moment from 'moment';
 import './index.less';
+
+const sortDirections: SortOrder[] = ['descend', 'ascend'];
 
 export default () => {
 	const [form] = Form.useForm();
@@ -77,6 +81,44 @@ export default () => {
 	useMount(() => {
 		runAllTreeTeamsVolunteer({});
 	});
+	const filterDropdown = (filter: string) => {
+		return (
+			<div className='io-cms-volunteer-manage-table-filterDropDown'>
+				<Form form={form}>
+					<Form.Item name={filter} className='filterDropDown_formItem'>
+						<Input placeholder='Search' />
+					</Form.Item>
+				</Form>
+				<Space>
+					<Button
+						type='primary'
+						onClick={() => {
+							const param = form.getFieldValue(filter);
+							console.log(param, '志愿者编号筛选');
+							searchParams[filter] = param;
+							setSearchParams({ ...searchParams });
+						}}
+						icon={<SearchOutlined />}
+						size='small'
+						style={{ width: 90 }}
+					>
+						查询
+					</Button>
+					<Button
+						onClick={() => {
+							form.resetFields();
+							searchParams[filter] = '';
+							setSearchParams({ ...searchParams });
+						}}
+						size='small'
+						style={{ width: 90 }}
+					>
+						重置
+					</Button>
+				</Space>
+			</div>
+		)
+	}
 	const columns: ProColumns<VolunteerPageVO>[] = [
 		{
 			key: 'username',
@@ -94,38 +136,39 @@ export default () => {
 			dataIndex: 'code',
 			title: '志愿者编号',
 			filterDropdown: () => (
-				<div className='io-cms-volunteer-manage-table-filterDropDown'>
-					<Form form={form}>
-						<Form.Item name='code' className='filterDropDown_formItem'>
-							<Input placeholder='请输入志愿者编号' />
-						</Form.Item>
-					</Form>
-					<Space>
-						<Button
-							type='primary'
-							onClick={() => {
-								const code = form.getFieldValue('code');
-								console.log(code, '志愿者编号筛选');
-								setSearchParams({ ...searchParams, code: code });
-							}}
-							icon={<SearchOutlined />}
-							size='small'
-							style={{ width: 90 }}
-						>
-							查询
-						</Button>
-						<Button
-							onClick={() => {
-								form.setFieldsValue({ code: '' });
-								setSearchParams({ ...searchParams, code: '' });
-							}}
-							size='small'
-							style={{ width: 90 }}
-						>
-							重置
-						</Button>
-					</Space>
-				</div>
+				filterDropdown('code')
+				// <div className='io-cms-volunteer-manage-table-filterDropDown'>
+				// 	<Form form={form}>
+				// 		<Form.Item name='code' className='filterDropDown_formItem'>
+				// 			<Input placeholder='请输入志愿者编号' />
+				// 		</Form.Item>
+				// 	</Form>
+				// 	<Space>
+				// 		<Button
+				// 			type='primary'
+				// 			onClick={() => {
+				// 				const code = form.getFieldValue('code');
+				// 				console.log(code, '志愿者编号筛选');
+				// 				setSearchParams({ ...searchParams, code: code });
+				// 			}}
+				// 			icon={<SearchOutlined />}
+				// 			size='small'
+				// 			style={{ width: 90 }}
+				// 		>
+				// 			查询
+				// 		</Button>
+				// 		<Button
+				// 			onClick={() => {
+				// 				form.setFieldsValue({ code: '' });
+				// 				setSearchParams({ ...searchParams, code: '' });
+				// 			}}
+				// 			size='small'
+				// 			style={{ width: 90 }}
+				// 		>
+				// 			重置
+				// 		</Button>
+				// 	</Space>
+				// </div>
 			),
 		},
 		{
@@ -133,54 +176,34 @@ export default () => {
 			dataIndex: 'fullName',
 			title: '姓名',
 			filterDropdown: () => (
-				<div className='io-cms-volunteer-manage-table-filterDropDown'>
-					<Form form={form}>
-						<Form.Item name='fullName' className='filterDropDown_formItem'>
-							<Input placeholder='请输入志愿者编号' />
-						</Form.Item>
-					</Form>
-					<Space>
-						<Button
-							type='primary'
-							onClick={() => {
-								const fullName = form.getFieldValue('fullName');
-								console.log(fullName, '志愿者编号筛选');
-								setSearchParams({ ...searchParams, fullName: fullName });
-							}}
-							icon={<SearchOutlined />}
-							size='small'
-							style={{ width: 90 }}
-						>
-							查询
-						</Button>
-						<Button
-							onClick={() => {
-								form.setFieldsValue({ fullName: '' });
-								setSearchParams({ ...searchParams, fullName: '' });
-							}}
-							size='small'
-							style={{ width: 90 }}
-						>
-							重置
-						</Button>
-					</Space>
-				</div>
+				filterDropdown('fullName')
 			),
 		},
 		{
 			key: 'email',
 			dataIndex: 'email',
 			title: '邮箱',
+			filterDropdown: () => (
+				filterDropdown('email')
+			)
 		},
 		{
 			key: 'teamName',
 			dataIndex: 'teamName',
 			title: '所属队伍',
+			filterDropdown: () => (
+				<div>
+
+				</div>
+			)
 		},
 		{
 			key: 'idCard',
 			dataIndex: 'idCard',
 			title: '证件号码',
+			filterDropdown: () => (
+				filterDropdown('idCard')
+			)
 		},
 		{
 			key: 'gender',
@@ -191,11 +214,57 @@ export default () => {
 			key: 'clan',
 			dataIndex: 'clan',
 			title: '民族',
+			filterDropdown: () => (
+				filterDropdown('clan')
+			)
 		},
 		{
 			key: 'birthday',
 			dataIndex: 'birthday',
 			title: '出生日期',
+			sorter: (a: any, b: any, order: any) => {
+				let atime = new Date(a.birthday.replace(/-/g, '/')).getTime();
+				let btime = new Date(b.birthday.replace(/-/g, '/')).getTime();
+				console.log(order, 'dd');
+				setSearchParams({ ...searchParams, birthday: order })
+				return atime - btime;
+			},
+			sortDirections: sortDirections,
+			filterDropdown: () => (
+				<div className='io-cms-cotent-recycle-table-deleteTime-filterDropDown'>
+					<Form form={form}>
+						<Form.Item name='birthday' className='deleteTime-filterDropDown_formItem'>
+							<DatePicker.RangePicker showTime />
+						</Form.Item>
+					</Form>
+					<Space className='deleteTime-filterDropDown__space' size={40}>
+						<Button
+							className='deleteTime-filterDropDown-search__button'
+							type='primary'
+							onClick={() => {
+								const time = form.getFieldValue('birthday');
+								const beginBirthdayTime = moment(time[0]).format('YYYY-MM-DD HH:mm:ss');
+								const endBirthdayTime = moment(time[1]).format('YYYY-MM-DD HH:mm:ss');
+								console.log(beginBirthdayTime, endBirthdayTime);
+							}}
+							icon={<SearchOutlined />}
+							size='small'
+							style={{ width: 120 }}
+						>
+							查询
+						</Button>
+						<Button
+							onClick={() => {
+								form.setFieldsValue({ deleteTime: '' });
+							}}
+							size='small'
+							style={{ width: 120 }}
+						>
+							重置
+						</Button>
+					</Space>
+				</div>
+			),
 		},
 		{
 			key: 'domicile',
@@ -216,6 +285,9 @@ export default () => {
 			key: 'workUnit',
 			dataIndex: 'workUnit',
 			title: '单位',
+			filterDropdown: () => (
+				filterDropdown('workUnit')
+			)
 		},
 		{
 			key: 'occupation',
