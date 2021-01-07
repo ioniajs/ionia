@@ -218,19 +218,17 @@ export default function add() {
 					>
 						<Input placeholder='请输入菜单名称' />
 					</Form.Item>
-					<Form.Item
-						label='菜单标识'
-						name='name'
-						rules={[{ required: true, message: '请输入菜单标识!' }]}
-					>
-						<Input placeholder='请输入菜单标识' />
+					<Form.Item label='权限标识' name='name'>
+						<Input placeholder='请输入权限标识' />
 					</Form.Item>
-					<Form.Item
-						label='路由地址'
-						name='component'
-						rules={[{ required: true, message: '请输入路由地址!' }]}
-					>
+					<Form.Item label='路由地址' name='path'>
 						<Input placeholder='请输入路由地址' />
+					</Form.Item>
+					<Form.Item label='路由标识' name='component'>
+						<Input placeholder='请输入路由标识' />
+					</Form.Item>
+					<Form.Item label='重定向路由标识' name='redirect'>
+						<Input placeholder='请输入重定向路由标识' />
 					</Form.Item>
 					<Form.Item label='是否显示' name='showFlag' valuePropName='checked'>
 						<Switch checkedChildren='显示' unCheckedChildren='隐藏' />
@@ -249,9 +247,9 @@ export default function add() {
 						name='sortNum'
 						rules={[{ required: true, message: '请输入排序值!' }]}
 					>
-						<InputNumber placeholder='请输入排序值' />
+						<InputNumber placeholder='请输入排序值' style={{ width: '200px' }} />
 					</Form.Item>
-					<Form.Item label='Icon图标' name='icon'>
+					<Form.Item label='菜单图标' name='icon'>
 						<Input
 							addonBefore={<i className={`iconfont ` + iconValue}></i>}
 							addonAfter={
