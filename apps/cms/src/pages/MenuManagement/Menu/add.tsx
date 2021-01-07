@@ -266,19 +266,21 @@ export default function add() {
 							}
 						/>
 					</Form.Item>
-					<Form.Item label='API权限' name='sortNum'>
-						<Button
-							type='primary'
-							onClick={() => {
-								setApiVisible(true);
-								run().then(res => {
-									console.log(res);
-									setApiData(res.data);
-								});
-							}}
-						>
-							请选择
-						</Button>
+					<Form.Item label='API权限' name='apiIds'>
+						<Form.Item>
+							<Button
+								type='primary'
+								onClick={() => {
+									setApiVisible(true);
+									run().then(res => {
+										console.log(res);
+										setApiData(res.data);
+									});
+								}}
+							>
+								请选择
+							</Button>
+						</Form.Item>
 						{apiSelectList.map((item: any) => {
 							return (
 								<div key={item.id} className='io-cms-menu-add-api_item'>
