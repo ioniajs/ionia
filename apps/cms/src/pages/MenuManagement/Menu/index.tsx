@@ -53,12 +53,16 @@ const MenuIndex = () => {
 		},
 		{
 			title: '路由地址',
-			dataIndex: 'component',
+			dataIndex: 'path',
 			// width: '12%',
 		},
 		{
 			title: '权限标识',
 			dataIndex: 'name',
+		},
+		{
+			title: '路由标识',
+			dataIndex: 'component',
 		},
 		{
 			title: '类型',

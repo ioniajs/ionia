@@ -151,7 +151,7 @@ export default () => {
 							setSelectedRowKeys(selectedRowKeys);
 						},
 					}}
-					onRow={record => {
+					onRow={(record: any) => {
 						return {
 							onClick: () => {
 								const RowKeys = [...selectedRowKeys];

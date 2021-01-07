@@ -35,7 +35,12 @@ function filterData(data: any) {
 export default ({ id }: any) => {
 	const [value, setValue] = useState('');
 	const [treeData, setTreeData] = useState([]);
-	const [formData, setFormData] = useState({});
+	const [formData, setFormData] = useState({
+		createUser: '',
+		createTime: '',
+		updateUser: '',
+		updateTime: '',
+	});
 
 	useEffect(() => {
 		form.setFieldsValue({ ...formData });
