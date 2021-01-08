@@ -242,6 +242,9 @@ export default [
 		path: '/content-operation/volunteer/check',
 		component: VolunteerCheck,
 	},
+	// {
+
+	// }
 	{
 		path: '/system-management/data-dictionary/type',
 		component: DataDictionaryType,
