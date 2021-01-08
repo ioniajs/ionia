@@ -47,6 +47,8 @@ import VolunteerManage from '@/pages/Volunteer/Manage';
 import VolunteerCheck from '@/pages/Volunteer/Check';
 import MenuAdd from '@/pages/MenuManagement/Menu/add';
 import MenuDeatil from '@/pages/MenuManagement/Menu/detail';
+import DataDictionaryContent from '@/pages/DataDictionary/Content';
+import DataDictionaryType from '@/pages/DataDictionary/Type';
 export default [
 	{
 		path: '/',
@@ -239,6 +241,14 @@ export default [
 	{
 		path: '/content-operation/volunteer/check',
 		component: VolunteerCheck,
+	},
+	{
+		path: '/system-management/data-dictionary/type',
+		component: DataDictionaryType,
+	},
+	{
+		path: '/system-management/data-dictionary/content',
+		component: DataDictionaryContent,
 	},
 	{
 		path: '/500',

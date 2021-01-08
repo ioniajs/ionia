@@ -8,13 +8,33 @@ import {
 	AdminVolunteerTeamTreeVO,
 	VolunteerPageVO,
 } from '@ionia/libs/src/services';
-import { Button, Form, Input, Space, DatePicker } from 'antd';
+import { Button, Form, Input, Space, DatePicker, TreeSelect } from 'antd';
 import { SearchOutlined } from '@ant-design/icons';
 import { useMount, useRequest } from '@umijs/hooks';
 import moment from 'moment';
 import './index.less';
 
 const sortDirections: SortOrder[] = ['descend', 'ascend'];
+const treeData = [
+	{
+		title: 'Node1',
+		value: '0-0',
+		children: [
+			{
+				title: 'Child Node1',
+				value: '0-0-1',
+			},
+			{
+				title: 'Child Node2',
+				value: '0-0-2',
+			},
+		],
+	},
+	{
+		title: 'Node2',
+		value: '0-1',
+	},
+];
 
 export default () => {
 	const [form] = Form.useForm();
@@ -185,7 +205,6 @@ export default () => {
 			key: 'teamName',
 			dataIndex: 'teamName',
 			title: '所属队伍',
-			filterDropdown: () => <div></div>,
 		},
 		{
 			key: 'idCard',
@@ -211,7 +230,7 @@ export default () => {
 			sorter: (a: any, b: any, order: any) => {
 				let atime = new Date(a.birthday.replace(/-/g, '/')).getTime();
 				let btime = new Date(b.birthday.replace(/-/g, '/')).getTime();
-				console.log(order, 'dd');
+				console.log(atime, btime, order, 'dd');
 				setSearchParams({ ...searchParams, birthday: order });
 				return atime - btime;
 			},
@@ -229,6 +248,7 @@ export default () => {
 							type='primary'
 							onClick={() => {
 								const time = form.getFieldValue('birthday');
+								console.log(time, 'timeme')
 								const beginBirthdayTime = moment(time[0]).format(
 									'YYYY-MM-DD HH:mm:ss'
 								);
@@ -236,6 +256,7 @@ export default () => {
 									'YYYY-MM-DD HH:mm:ss'
 								);
 								console.log(beginBirthdayTime, endBirthdayTime);
+								setSearchParams({ ...searchParams, beginBirthdayTime, endBirthdayTime })
 							}}
 							icon={<SearchOutlined />}
 							size='small'
@@ -245,7 +266,8 @@ export default () => {
 						</Button>
 						<Button
 							onClick={() => {
-								form.setFieldsValue({ deleteTime: '' });
+								form.setFieldsValue({ birthday: '' });
+								setSearchParams({ ...searchParams, beginBirthdayTime: '', endBirthdayTime: '' })
 							}}
 							size='small'
 							style={{ width: 120 }}
