@@ -28,6 +28,25 @@ export default {
 			],
 		},
 		{
+			path: '/cms/point-mall',
+			name: '积分商城',
+			icon: 'icon-content',
+			children: [
+				{
+					path: '/cms/point-mall/commodity-category',
+					name: '商品类目',
+				},
+				{
+					path: '/cms/point-mall/commodity-management',
+					name: '商品管理',
+				},
+				{
+					path: '/cms/point-mall/exchange-record',
+					name: '兑换记录',
+				},
+			],
+		},
+		{
 			path: '/cms/content-operation',
 			name: '内容运营',
 			icon: 'icon-content',
