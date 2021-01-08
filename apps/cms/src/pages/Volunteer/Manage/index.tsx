@@ -248,7 +248,7 @@ export default () => {
 							type='primary'
 							onClick={() => {
 								const time = form.getFieldValue('birthday');
-								console.log(time, 'timeme')
+								console.log(time, 'timeme');
 								const beginBirthdayTime = moment(time[0]).format(
 									'YYYY-MM-DD HH:mm:ss'
 								);
@@ -256,7 +256,11 @@ export default () => {
 									'YYYY-MM-DD HH:mm:ss'
 								);
 								console.log(beginBirthdayTime, endBirthdayTime);
-								setSearchParams({ ...searchParams, beginBirthdayTime, endBirthdayTime })
+								setSearchParams({
+									...searchParams,
+									beginBirthdayTime,
+									endBirthdayTime,
+								});
 							}}
 							icon={<SearchOutlined />}
 							size='small'
@@ -267,7 +271,11 @@ export default () => {
 						<Button
 							onClick={() => {
 								form.setFieldsValue({ birthday: '' });
-								setSearchParams({ ...searchParams, beginBirthdayTime: '', endBirthdayTime: '' })
+								setSearchParams({
+									...searchParams,
+									beginBirthdayTime: '',
+									endBirthdayTime: '',
+								});
 							}}
 							size='small'
 							style={{ width: 120 }}
