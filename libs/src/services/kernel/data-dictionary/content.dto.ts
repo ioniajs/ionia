@@ -19,3 +19,7 @@ export interface DataDictionaryUpdateDTO {
 	pictureId?: number; // 字典图id
 	remark?: string; // 备注
 }
+export interface DataDictionaryOperatingDTO {
+	id: number;
+	status: number; //	1启用 0禁用
+}

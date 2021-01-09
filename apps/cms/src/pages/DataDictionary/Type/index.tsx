@@ -7,6 +7,7 @@ import { SearchOutlined } from '@ant-design/icons';
 import { DataDictionaryTypePageVO, dictionaryTypePaing, deleteDictionaryType } from '@ionia/libs';
 import { IdsDTO } from '@ionia/libs/src/services/common.dto';
 import moment from 'moment';
+import { useHistory } from 'react-router-dom';
 import DetailForm from './Detail';
 import './index.less';
 
@@ -24,6 +25,7 @@ export default () => {
 	const actionRef = useRef<ActionType>();
 	const [searchParams, setSearchParams] = useState<any>({ pageNo: 1, pageSize: 10 });
 	const [form] = Form.useForm();
+	const history = useHistory();
 	const columns: ProColumns<DataDictionaryTypePageVO>[] = [
 		{
 			title: '字典类型',
@@ -111,7 +113,14 @@ export default () => {
 			render: (_, row) => {
 				return (
 					<>
-						<a>字典数据</a>
+						<a onClick={() => {
+							history.push({
+								pathname: '/system-management/data-dictionary/content',
+								state: {
+									typeId: row.id
+								}
+							})
+						}}>字典数据</a>
 						<Divider type='vertical' />
 						<div style={{ display: 'inline-block' }}>
 							<DetailForm
