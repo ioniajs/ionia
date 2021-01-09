@@ -4,7 +4,7 @@ import { ProColumns, ActionType } from '@ant-design/pro-table';
 import { SortOrder } from 'antd/lib/table/interface';
 import { Button, Form, Space, DatePicker, Divider, message, Modal } from 'antd';
 import { SearchOutlined } from '@ant-design/icons';
-import { DataDictionaryTypePageVO, dictionaryTypePaing, deleteDictionaryType, } from '@ionia/libs';
+import { DataDictionaryTypePageVO, dictionaryTypePaing, deleteDictionaryType } from '@ionia/libs';
 import { IdsDTO } from '@ionia/libs/src/services/common.dto';
 import moment from 'moment';
 import DetailForm from './Detail';
@@ -19,7 +19,7 @@ const handleDeleteDictionaryType = async (ids: IdsDTO) => {
 		message.success('删除成功');
 	}
 	return deleteRes.code;
-}
+};
 export default () => {
 	const actionRef = useRef<ActionType>();
 	const [searchParams, setSearchParams] = useState<any>({ pageNo: 1, pageSize: 10 });
@@ -113,27 +113,34 @@ export default () => {
 					<>
 						<a>字典数据</a>
 						<Divider type='vertical' />
-						<div style={{ display: 'inline-block' }}><DetailForm id={row.id} reloadTableData={() => actionRef.current?.reload()} /></div>
+						<div style={{ display: 'inline-block' }}>
+							<DetailForm
+								id={row.id}
+								reloadTableData={() => actionRef.current?.reload()}
+							/>
+						</div>
 
 						<Divider type='vertical' />
-						<a onClick={async () => {
-							Modal.confirm({
-								title: '是否确定删除？',
-								content: '删除操作将连同下级字典数据一同删除，确认是否执行？',
-								okText: '确定',
-								cancelText: '取消',
-								onOk: async () => {
-									const success = await handleDeleteDictionaryType({
-										ids: [row.id.toString()],
-									});
-									if (success === 200) {
-										if (success === 200 && actionRef.current) {
-											actionRef.current.reload();
+						<a
+							onClick={async () => {
+								Modal.confirm({
+									title: '是否确定删除？',
+									content: '删除操作将连同下级字典数据一同删除，确认是否执行？',
+									okText: '确定',
+									cancelText: '取消',
+									onOk: async () => {
+										const success = await handleDeleteDictionaryType({
+											ids: [row.id.toString()],
+										});
+										if (success === 200) {
+											if (success === 200 && actionRef.current) {
+												actionRef.current.reload();
+											}
 										}
-									}
-								},
-							})
-						}}>
+									},
+								});
+							}}
+						>
 							删除
 						</a>
 					</>
