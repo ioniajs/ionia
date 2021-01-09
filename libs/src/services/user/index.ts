@@ -9,3 +9,4 @@ export * from './column-permissions';
 export * from './content-permissions';
 export * from './cmsmanager-api';
 export * from './volunteer';
+export * from './integral';
