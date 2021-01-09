@@ -2,13 +2,24 @@ import React, { useRef, useState } from 'react';
 import { BizPage, BizTable } from '@ionia/libs';
 import { ProColumns, ActionType } from '@ant-design/pro-table';
 import { SortOrder } from 'antd/lib/table/interface';
-import { Button, Form, Space, DatePicker, Divider } from 'antd';
+import { Button, Form, Space, DatePicker, Divider, message, Modal } from 'antd';
 import { SearchOutlined } from '@ant-design/icons';
-import { DataDictionaryTypePageVO, dictionaryTypePaing } from '@ionia/libs';
+import { DataDictionaryTypePageVO, dictionaryTypePaing, deleteDictionaryType } from '@ionia/libs';
+import { IdsDTO } from '@ionia/libs/src/services/common.dto';
 import moment from 'moment';
+import DetailForm from './Detail';
 import './index.less';
 
 const sortDirections: SortOrder[] = ['descend', 'ascend'];
+const handleDeleteDictionaryType = async (ids: IdsDTO) => {
+	const deleteRes = await deleteDictionaryType(ids);
+	if (deleteRes.code !== 200) {
+		message.error('删除失败');
+	} else {
+		message.success('删除成功');
+	}
+	return deleteRes.code;
+};
 export default () => {
 	const actionRef = useRef<ActionType>();
 	const [searchParams, setSearchParams] = useState<any>({ pageNo: 1, pageSize: 10 });
@@ -102,9 +113,36 @@ export default () => {
 					<>
 						<a>字典数据</a>
 						<Divider type='vertical' />
-						<a>编辑</a>
+						<div style={{ display: 'inline-block' }}>
+							<DetailForm
+								id={row.id}
+								reloadTableData={() => actionRef.current?.reload()}
+							/>
+						</div>
+
 						<Divider type='vertical' />
-						<a>删除</a>
+						<a
+							onClick={async () => {
+								Modal.confirm({
+									title: '是否确定删除？',
+									content: '删除操作将连同下级字典数据一同删除，确认是否执行？',
+									okText: '确定',
+									cancelText: '取消',
+									onOk: async () => {
+										const success = await handleDeleteDictionaryType({
+											ids: [row.id.toString()],
+										});
+										if (success === 200) {
+											if (success === 200 && actionRef.current) {
+												actionRef.current.reload();
+											}
+										}
+									},
+								});
+							}}
+						>
+							删除
+						</a>
 					</>
 				);
 			},
@@ -120,10 +158,11 @@ export default () => {
 					actionRef={actionRef}
 					renderActions={() => (
 						<div className='io-space-item'>
-							<Button type='primary'>
+							{/* <Button type='primary'>
 								<i className='iconfont icon-plus1' />
 								新建
-							</Button>
+							</Button> */}
+							<DetailForm reloadTableData={() => actionRef.current?.reload()} />
 						</div>
 					)}
 					inputPlaceholderText='请输入字典名称/字典类型'
