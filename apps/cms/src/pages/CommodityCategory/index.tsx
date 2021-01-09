@@ -160,7 +160,7 @@ const CommodityCategoryList = () => {
 					columns={columns}
 					pagination={{
 						pageSize: 10,
-						showQuickJumper:true,
+						showQuickJumper: true,
 					}}
 					rowSelection={{}}
 					params={categoryParams}
