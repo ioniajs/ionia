@@ -249,12 +249,10 @@ export default () => {
 							onClick={() => {
 								const time = form.getFieldValue('birthday');
 								console.log(time, 'timeme');
-								const beginBirthdayTime = moment(time[0]).format(
-									'YYYY-MM-DD'
-								) + ' 00:00:00';
-								const endBirthdayTime = moment(time[1]).format(
-									'YYYY-MM-DD'
-								) + ' 00:00:00';
+								const beginBirthdayTime =
+									moment(time[0]).format('YYYY-MM-DD') + ' 00:00:00';
+								const endBirthdayTime =
+									moment(time[1]).format('YYYY-MM-DD') + ' 00:00:00';
 								console.log(beginBirthdayTime, endBirthdayTime);
 								setSearchParams({
 									...searchParams,

@@ -39,7 +39,10 @@ export default () => {
 			filterDropdown: () => (
 				<div className='io-cms-data-dictionary-filterDropDown'>
 					<Form form={form}>
-						<Form.Item name='updateTime' className='data-dictionary-filterDropDown_formItem'>
+						<Form.Item
+							name='updateTime'
+							className='data-dictionary-filterDropDown_formItem'
+						>
 							<DatePicker.RangePicker />
 						</Form.Item>
 					</Form>

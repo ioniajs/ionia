@@ -160,7 +160,8 @@ export const Recycle = () => {
 							type='primary'
 							onClick={() => {
 								const time = form.getFieldValue('deleteTime');
-								const startTime = moment(time[0]).format('YYYY-MM-DD') + ' 00:00:00';
+								const startTime =
+									moment(time[0]).format('YYYY-MM-DD') + ' 00:00:00';
 								const endTime = moment(time[1]).format('YYYY-MM-DD') + ' 00:00:00';
 								console.log(startTime, endTime);
 							}}
@@ -244,7 +245,7 @@ export const Recycle = () => {
 										title: '你确定删除回收站中的全部栏目及内容吗？',
 										content: '删除后无法恢复。',
 										okText: '删除',
-										onOk: () => { },
+										onOk: () => {},
 									});
 								}}
 							>

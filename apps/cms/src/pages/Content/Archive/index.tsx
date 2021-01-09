@@ -251,7 +251,8 @@ export const Archive = () => {
 							type='primary'
 							onClick={() => {
 								const time = form.getFieldValue('deleteTime');
-								const startTime = moment(time[0]).format('YYYY-MM-DD') + ' 00:00:00';
+								const startTime =
+									moment(time[0]).format('YYYY-MM-DD') + ' 00:00:00';
 								const endTime = moment(time[1]).format('YYYY-MM-DD') + ' 00:00:00';
 								console.log(startTime, endTime);
 							}}
