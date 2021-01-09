@@ -35,7 +35,7 @@ const CommodityCategoryList = () => {
 	const [value, setValue] = useState('');
 	const [id, setId] = useState<string>('');
 	const [categoryParams, setCategoryParams] = useState(params);
-	const [date, setDate] = useState([]);
+	const [selectedRowKeys, setSelectedRowKeys] = useState([]);
 	useEffect(() => {
 		if (id) {
 			console.log(id);
@@ -75,7 +75,11 @@ const CommodityCategoryList = () => {
 		{
 			title: '更新时间',
 			dataIndex: 'updateTime',
-			sorter: (a, b) => new Date(a.updateTime).getTime() - new Date(b.updateTime).getTime(),
+			sorter: (a, b, order) => {
+				let sort = order == 'ascend' ? 'asc' : 'desc';
+				setCategoryParams({ ...categoryParams, pageSort: `updateTime  ${sort}` });
+				return new Date(a.updateTime).getTime() - new Date(b.updateTime).getTime();
+			},
 			filterDropdown: ({ setSelectedKeys, selectedKeys, confirm, clearFilters }) => (
 				<div style={{ padding: 8 }}>
 					<Form form={dateForm}>
@@ -106,11 +110,6 @@ const CommodityCategoryList = () => {
 			render: (row: any) => [<a key='link'>删除</a>],
 		},
 	];
-
-	const onChange = (value: any, dateString: any) => {
-		console.log('Formatted Selected Time: ', dateString);
-		setDate(dateString);
-	};
 
 	const onSearch = () => {
 		const date = dateForm.getFieldValue('date');
@@ -152,6 +151,7 @@ const CommodityCategoryList = () => {
 	const saveData = () => {
 		form.submit();
 	};
+
 	return (
 		<div className='io-cms-commodity-category_container'>
 			<BizPage>
@@ -161,8 +161,20 @@ const CommodityCategoryList = () => {
 					pagination={{
 						pageSize: 10,
 						showQuickJumper: true,
+						onChange: (page: any, pageSize: any) => {
+							setCategoryParams({
+								...categoryParams,
+								pageNo: page,
+								pageSize,
+							});
+						},
 					}}
-					rowSelection={{}}
+					rowSelection={{
+						selectedRowKeys,
+						onChange: (selectedRowKeys: any) => {
+							setSelectedRowKeys(selectedRowKeys);
+						},
+					}}
 					params={categoryParams}
 					request={async (params: any) => {
 						// 这里需要返回一个 Promise,在返回之前你可以进行数据转化
@@ -178,7 +190,6 @@ const CommodityCategoryList = () => {
 							total: data.data.total,
 						};
 					}}
-					scroll={{ x: 1300 }}
 					search={false}
 					rowKey='id'
 					options={{
