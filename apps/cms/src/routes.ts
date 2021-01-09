@@ -47,9 +47,9 @@ import VolunteerManage from '@/pages/Volunteer/Manage';
 import VolunteerCheck from '@/pages/Volunteer/Check';
 import MenuAdd from '@/pages/MenuManagement/Menu/add';
 import MenuDeatil from '@/pages/MenuManagement/Menu/detail';
-import CommodityCategory from '@/pages/CommodityCategory'
-import CommodityManagement from '@/pages/CommodityManagement'
-import ExchangeRecord from '@/pages/ExchangeRecord'
+import CommodityCategory from '@/pages/CommodityCategory';
+import CommodityManagement from '@/pages/CommodityManagement';
+import ExchangeRecord from '@/pages/ExchangeRecord';
 export default [
 	{
 		path: '/',
@@ -246,10 +246,12 @@ export default [
 	{
 		path: '/point-mall/commodity-category',
 		component: CommodityCategory,
-	},{
+	},
+	{
 		path: '/point-mall/commodity-management',
 		component: CommodityManagement,
-	},{
+	},
+	{
 		path: '/point-mall/exchange-record',
 		component: ExchangeRecord,
 	},

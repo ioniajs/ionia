@@ -5,11 +5,10 @@ export interface AdminGoodsCategoryItemVO {
 	updateTime: string;
 }
 
-
-export interface AdminGoodsCategoryVO{
-    content:AdminGoodsCategoryItemVO[];
-    pageNo:number;
-    pageSize:number;
-    pages:number;
-    total:number;
+export interface AdminGoodsCategoryVO {
+	content: AdminGoodsCategoryItemVO[];
+	pageNo: number;
+	pageSize: number;
+	pages: number;
+	total: number;
 }
