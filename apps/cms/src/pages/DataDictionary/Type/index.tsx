@@ -113,14 +113,18 @@ export default () => {
 			render: (_, row) => {
 				return (
 					<>
-						<a onClick={() => {
-							history.push({
-								pathname: '/system-management/data-dictionary/content',
-								state: {
-									typeId: row.id
-								}
-							})
-						}}>字典数据</a>
+						<a
+							onClick={() => {
+								history.push({
+									pathname: '/system-management/data-dictionary/content',
+									state: {
+										typeId: row.id,
+									},
+								});
+							}}
+						>
+							字典数据
+						</a>
 						<Divider type='vertical' />
 						<div style={{ display: 'inline-block' }}>
 							<DetailForm

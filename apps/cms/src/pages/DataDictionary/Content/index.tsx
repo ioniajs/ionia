@@ -2,7 +2,11 @@ import React, { useRef, useState } from 'react';
 import { BizPage, BizTable } from '@ionia/libs';
 import { ProColumns, ActionType } from '@ant-design/pro-table';
 import { Divider, Button, Switch } from 'antd';
-import { DataDictionaryPageVO, dataDictionaryPaging, operatingDataDictionary } from '@ionia/libs/src/services';
+import {
+	DataDictionaryPageVO,
+	dataDictionaryPaging,
+	operatingDataDictionary,
+} from '@ionia/libs/src/services';
 import { useHistory } from 'react-router-dom';
 import './index.less';
 
@@ -10,9 +14,13 @@ export default () => {
 	const history = useHistory();
 	const { location } = history;
 	const { state }: any = location;
-	console.log(state, 'ssss')
+	console.log(state, 'ssss');
 	const actionRef = useRef<ActionType>();
-	const [searchParams, setSearchParams] = useState<any>({ pageNo: 1, pageSize: 10, typeId: state.typeId });
+	const [searchParams, setSearchParams] = useState<any>({
+		pageNo: 1,
+		pageSize: 10,
+		typeId: state.typeId,
+	});
 	const columns: ProColumns<DataDictionaryPageVO>[] = [
 		{
 			title: '字典标签',
@@ -20,8 +28,19 @@ export default () => {
 			dataIndex: 'label',
 			width: 400,
 			render: (_, row) => (
-				<span style={{ display: 'inline-block', minWidth: '200px', maxWidth: '400px', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{row.label}</span>
-			)
+				<span
+					style={{
+						display: 'inline-block',
+						minWidth: '200px',
+						maxWidth: '400px',
+						whiteSpace: 'nowrap',
+						overflow: 'hidden',
+						textOverflow: 'ellipsis',
+					}}
+				>
+					{row.label}
+				</span>
+			),
 		},
 		{
 			title: '字典键值',
@@ -81,14 +100,12 @@ export default () => {
 					<Divider type='vertical' />
 					<a>删除</a>
 				</>
-			)
+			),
 		},
-	]
+	];
 
 	return (
-		<BizPage
-			breadcrumbs={[{ name: '数据字典' }, { name: '字典数据' }]}
-		>
+		<BizPage breadcrumbs={[{ name: '数据字典' }, { name: '字典数据' }]}>
 			<div className='io-cms-system-data-dictionary-container'>
 				<BizTable
 					rowKey='id'
@@ -98,10 +115,20 @@ export default () => {
 					renderActions={() => (
 						<>
 							<div className='io-space-item'>
-								<Button onClick={() => { history.goBack() }}><i className='iconfont icon-left' />&nbsp;返回</Button>
+								<Button
+									onClick={() => {
+										history.goBack();
+									}}
+								>
+									<i className='iconfont icon-left' />
+									&nbsp;返回
+								</Button>
 							</div>
 							<div className='io-space-item'>
-								<Button type='primary'><i className='iconfont icon-plus1' />&nbsp;新建</Button>
+								<Button type='primary'>
+									<i className='iconfont icon-plus1' />
+									&nbsp;新建
+								</Button>
 							</div>
 						</>
 					)}
@@ -112,11 +139,11 @@ export default () => {
 							pageSize: params.pageSize,
 						}).then(data => ({
 							data: data.data.content,
-							total: data.data.total
-						}))
+							total: data.data.total,
+						}));
 					}}
 				/>
 			</div>
 		</BizPage>
-	)
+	);
 };

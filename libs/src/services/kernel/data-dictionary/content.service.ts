@@ -1,4 +1,8 @@
-import { DataDictionarySaveDTO, DataDictionaryUpdateDTO, DataDictionaryOperatingDTO } from './content.dto';
+import {
+	DataDictionarySaveDTO,
+	DataDictionaryUpdateDTO,
+	DataDictionaryOperatingDTO,
+} from './content.dto';
 import { DataDictionaryListVo, DataDictionaryPageVO, DataDictionaryVO } from './content.vo';
 import { IdsDTO } from '../../common.dto';
 import request from '../../../utils/request';
@@ -63,10 +67,12 @@ export async function detailDataDictionary(id: number): Promise<JcResult<DataDic
 }
 /**
  * 启用/禁用
- * @param data 
+ * @param data
  */
-export async function operatingDataDictionary(data:DataDictionaryOperatingDTO): Promise<JcResult<boolean>> {
+export async function operatingDataDictionary(
+	data: DataDictionaryOperatingDTO
+): Promise<JcResult<boolean>> {
 	return request.post('/module-kernel/cmsmanager/dataDictionary/operating', {
-		data
-	})
+		data,
+	});
 }
