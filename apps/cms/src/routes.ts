@@ -47,6 +47,8 @@ import VolunteerManage from '@/pages/Volunteer/Manage';
 import VolunteerCheck from '@/pages/Volunteer/Check';
 import MenuAdd from '@/pages/MenuManagement/Menu/add';
 import MenuDeatil from '@/pages/MenuManagement/Menu/detail';
+import DataDictionaryContent from '@/pages/DataDictionary/Content';
+import DataDictionaryType from '@/pages/DataDictionary/Type';
 import CommodityCategory from '@/pages/CommodityCategory';
 import CommodityManagement from '@/pages/CommodityManagement';
 import ExchangeRecord from '@/pages/ExchangeRecord';
@@ -254,6 +256,14 @@ export default [
 	{
 		path: '/point-mall/exchange-record',
 		component: ExchangeRecord,
+	},
+	{
+		path: '/system-management/data-dictionary/type',
+		component: DataDictionaryType,
+	},
+	{
+		path: '/system-management/data-dictionary/content',
+		component: DataDictionaryContent,
 	},
 	{
 		path: '/500',

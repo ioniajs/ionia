@@ -104,15 +104,15 @@ export default () => {
 				<div className='io-cms-content-top-actions__div'>
 					<span
 						className='top-actions-mute__span'
-						// onClick={() => history.push('/content-operation/comment/banned')}
+						onClick={() => history.push('/content-operation/comment/banned')}
 					>
 						禁言列表
 					</span>
 					<span
 						className='top-actions-report__span'
-						// onClick={() => {
-						// 	history.push('/content-operation/comment/report');
-						// }}
+						onClick={() => {
+							history.push('/content-operation/comment/report');
+						}}
 					>
 						举报列表
 					</span>

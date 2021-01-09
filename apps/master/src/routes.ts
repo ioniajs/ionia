@@ -154,6 +154,20 @@ export default {
 					path: '/cms/system-management/setting',
 					name: '系统设置',
 				},
+				{
+					path: '/cms/system-management/data-dictionary',
+					name: '数据字典',
+					children: [
+						{
+							path: '/cms/system-management/data-dictionary/type',
+							name: '字典类型',
+						},
+						{
+							path: '/cms/system-management/data-dictionary/content',
+							name: '数据字典',
+						},
+					],
+				},
 			],
 		},
 		{
