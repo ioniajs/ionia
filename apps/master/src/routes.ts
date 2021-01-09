@@ -29,6 +29,25 @@ export default {
 			],
 		},
 		{
+			path: '/cms/point-mall',
+			name: '积分商城',
+			icon: 'icon-content',
+			children: [
+				{
+					path: '/cms/point-mall/commodity-category',
+					name: '商品类目',
+				},
+				{
+					path: '/cms/point-mall/commodity-management',
+					name: '商品管理',
+				},
+				{
+					path: '/cms/point-mall/exchange-record',
+					name: '兑换记录',
+				},
+			],
+		},
+		{
 			path: '/cms/content-operation',
 			name: '内容运营',
 			icon: 'icon-content',
@@ -135,6 +154,20 @@ export default {
 				{
 					path: '/cms/system-management/setting',
 					name: '系统设置',
+				},
+				{
+					path: '/cms/system-management/data-dictionary',
+					name: '数据字典',
+					children: [
+						{
+							path: '/cms/system-management/data-dictionary/type',
+							name: '字典类型',
+						},
+						{
+							path: '/cms/system-management/data-dictionary/content',
+							name: '数据字典',
+						},
+					],
 				},
 			],
 		},
