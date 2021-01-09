@@ -236,25 +236,23 @@ export default () => {
 			},
 			sortDirections: sortDirections,
 			filterDropdown: () => (
-				<div className='io-cms-cotent-recycle-table-deleteTime-filterDropDown'>
+				<div className='io-cms-cotent-recycle-table-birthday-filterDropDown'>
 					<Form form={form}>
-						<Form.Item name='birthday' className='deleteTime-filterDropDown_formItem'>
-							<DatePicker.RangePicker showTime />
+						<Form.Item name='birthday' className='birthday-filterDropDown_formItem'>
+							<DatePicker.RangePicker />
 						</Form.Item>
 					</Form>
-					<Space className='deleteTime-filterDropDown__space' size={40}>
+					<Space className='birthday-filterDropDown__space' size={40}>
 						<Button
-							className='deleteTime-filterDropDown-search__button'
+							className='birthday-filterDropDown-search__button'
 							type='primary'
 							onClick={() => {
 								const time = form.getFieldValue('birthday');
 								console.log(time, 'timeme');
-								const beginBirthdayTime = moment(time[0]).format(
-									'YYYY-MM-DD HH:mm:ss'
-								);
-								const endBirthdayTime = moment(time[1]).format(
-									'YYYY-MM-DD HH:mm:ss'
-								);
+								const beginBirthdayTime =
+									moment(time[0]).format('YYYY-MM-DD') + ' 00:00:00';
+								const endBirthdayTime =
+									moment(time[1]).format('YYYY-MM-DD') + ' 00:00:00';
 								console.log(beginBirthdayTime, endBirthdayTime);
 								setSearchParams({
 									...searchParams,

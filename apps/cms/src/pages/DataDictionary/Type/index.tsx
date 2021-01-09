@@ -37,15 +37,18 @@ export default () => {
 			},
 			sortDirections: sortDirections,
 			filterDropdown: () => (
-				<div className='io-cms-cotent-recycle-table-deleteTime-filterDropDown'>
+				<div className='io-cms-data-dictionary-filterDropDown'>
 					<Form form={form}>
-						<Form.Item name='updateTime' className='deleteTime-filterDropDown_formItem'>
+						<Form.Item
+							name='updateTime'
+							className='data-dictionary-filterDropDown_formItem'
+						>
 							<DatePicker.RangePicker />
 						</Form.Item>
 					</Form>
-					<Space className='deleteTime-filterDropDown__space' size={40}>
+					<Space className='data-dictionary-filterDropDown__space' size={40}>
 						<Button
-							className='deleteTime-filterDropDown-search__button'
+							className='data-dictionary-filterDropDown-search__button'
 							type='primary'
 							onClick={() => {
 								const time = form.getFieldValue('updateTime');

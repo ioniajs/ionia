@@ -62,7 +62,7 @@ export const UserChildren = () => {
 							name='prohibitedTime'
 							className='prohibitedTime-filterDropDown_formItem'
 						>
-							<DatePicker.RangePicker showTime />
+							<DatePicker.RangePicker />
 						</Form.Item>
 					</Form>
 					<Space className='prohibitedTime-filterDropDown__space' size={40}>
@@ -73,10 +73,10 @@ export const UserChildren = () => {
 								const prohibitedTime = form.getFieldValue('prohibitedTime');
 								const startTime =
 									prohibitedTime &&
-									moment(prohibitedTime[0]).format('YYYY-MM-DD HH:mm:ss');
+									moment(prohibitedTime[0]).format('YYYY-MM-DD') + ' 00:00:00';
 								const endTime =
 									prohibitedTime &&
-									moment(prohibitedTime[1]).format('YYYY-MM-DD HH:mm:ss');
+									moment(prohibitedTime[1]).format('YYYY-MM-DD') + ' 00:00:00';
 								console.log(startTime, endTime);
 							}}
 							icon={<SearchOutlined />}
