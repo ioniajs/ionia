@@ -49,9 +49,9 @@ import MenuAdd from '@/pages/MenuManagement/Menu/add';
 import MenuDeatil from '@/pages/MenuManagement/Menu/detail';
 import DataDictionaryContent from '@/pages/DataDictionary/Content';
 import DataDictionaryType from '@/pages/DataDictionary/Type';
-import CommodityCategory from '@/pages/CommodityCategory'
-import CommodityManagement from '@/pages/CommodityManagement'
-import ExchangeRecord from '@/pages/ExchangeRecord'
+import CommodityCategory from '@/pages/CommodityCategory';
+import CommodityManagement from '@/pages/CommodityManagement';
+import ExchangeRecord from '@/pages/ExchangeRecord';
 export default [
 	{
 		path: '/',
@@ -248,10 +248,12 @@ export default [
 	{
 		path: '/point-mall/commodity-category',
 		component: CommodityCategory,
-	},{
+	},
+	{
 		path: '/point-mall/commodity-management',
 		component: CommodityManagement,
-	},{
+	},
+	{
 		path: '/point-mall/exchange-record',
 		component: ExchangeRecord,
 	},

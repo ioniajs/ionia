@@ -1,6 +1,6 @@
 import request from '../../../../utils/request';
 import { JcResult } from '../../../base';
-import { IdsDTO } from '../../../common.dto'
+import { IdsDTO } from '../../../common.dto';
 import { AdminGoodsCategoryItemVO, AdminGoodsCategoryVO } from './commodity-category.vo';
 import { AdminGoodsCategoryDTO, goodsCategoryParamsDTO } from './commodity-category.dto';
 
