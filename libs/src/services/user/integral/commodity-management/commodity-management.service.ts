@@ -49,7 +49,7 @@ export async function goodsPage(params: goodsParamsDTO): Promise<JcResult<AdminG
  */
 
 export async function goodsResetStint(data: IdsDTO): Promise<JcResult<boolean>> {
-	return request.post(' /module-user/cmsmanager/goods/resetStint', {
+	return request.post('/module-user/cmsmanager/goods/resetStint', {
 		data,
 	});
 }

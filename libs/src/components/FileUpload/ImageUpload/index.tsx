@@ -52,13 +52,13 @@ export const ImageUpload = ({
 					const formData = new FormData();
 					// @ts-ignore
 					formData.append('files', [file]);
-
+					console.log('formData', formData);
 					axios
 						.post(action, formData, {
 							withCredentials,
 							headers: {
 								'Accept-Language': 'zh-CN',
-								Authorization: `Bearer ${token}`,
+								Authorization: `${token}`,
 								...headers,
 							},
 							onUploadProgress: ({ total, loaded }) => {

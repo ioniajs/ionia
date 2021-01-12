@@ -4312,7 +4312,7 @@ braft-convert@^2.1.10, braft-convert@^2.3.0:
 
 braft-editor@^2.3.9:
   version "2.3.9"
-  resolved "https://registry.yarnpkg.com/braft-editor/-/braft-editor-2.3.9.tgz#fd2b8e23ea71191016579a1ed8231d16ad8f5b4a"
+  resolved "https://registry.npmjs.org/braft-editor/-/braft-editor-2.3.9.tgz#fd2b8e23ea71191016579a1ed8231d16ad8f5b4a"
   integrity sha512-mqdPk/zI2dhFK8tW/A4Qj/AkkARLh5L/niNw+iif5wFqb6zh15rMlrShgz1nWO/QXyAKr8XtDgxiBbR0zWwtRg==
   dependencies:
     "@babel/runtime" "^7.0.0"
