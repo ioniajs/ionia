@@ -81,7 +81,7 @@ export const VideoUpload = ({
 							withCredentials,
 							headers: {
 								'Accept-Language': 'zh-CN',
-								Authorization: `Bearer ${token}`,
+								Authorization: `${token}`,
 								...headers,
 							},
 							onUploadProgress: ({ total, loaded }) => {

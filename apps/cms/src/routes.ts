@@ -51,6 +51,7 @@ import DataDictionaryContent from '@/pages/DataDictionary/Content';
 import DataDictionaryType from '@/pages/DataDictionary/Type';
 import CommodityCategory from '@/pages/CommodityCategory';
 import CommodityManagement from '@/pages/CommodityManagement';
+import CommodityManagementAdd from '@/pages/CommodityManagement/add';
 import ExchangeRecord from '@/pages/ExchangeRecord';
 export default [
 	{
@@ -252,6 +253,10 @@ export default [
 	{
 		path: '/point-mall/commodity-management',
 		component: CommodityManagement,
+	},
+	{
+		path: '/point-mall/commodity-management/add',
+		component: CommodityManagementAdd,
 	},
 	{
 		path: '/point-mall/exchange-record',
