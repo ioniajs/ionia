@@ -6,6 +6,7 @@ import {
 	goodsCategorySave,
 	goodsCategoryUpdate,
 	goodsCategoryInfo,
+	goodsCategoryDelete,
 	logger,
 } from '@ionia/libs';
 import { Button, Form, Input, Modal, Space, DatePicker, message } from 'antd';
@@ -13,7 +14,9 @@ import React, { useRef, useState, useEffect } from 'react';
 import moment from 'moment';
 import './index.less';
 import { useRequest } from 'ahooks';
+import { ExclamationCircleOutlined } from '@ant-design/icons';
 
+const { confirm } = Modal;
 const { RangePicker } = DatePicker;
 const CommodityCategoryList = () => {
 	// const { run } = useRequest(() => goodsCategoryInfo(id), {
@@ -107,7 +110,16 @@ const CommodityCategoryList = () => {
 			title: '操作',
 			key: 'option',
 			valueType: 'option',
-			render: (row: any) => [<a key='link'>删除</a>],
+			render: (row: any, record: any) => [
+				<a
+					key='link'
+					onClick={() => {
+						showDeleteConfirm('single', record.id);
+					}}
+				>
+					删除
+				</a>,
+			],
 		},
 	];
 
@@ -130,6 +142,7 @@ const CommodityCategoryList = () => {
 	const closeModal = () => {
 		setCategoryVisible(false);
 		form.resetFields();
+		setId('');
 	};
 
 	const onFinish = async (values: any) => {
@@ -150,6 +163,38 @@ const CommodityCategoryList = () => {
 
 	const saveData = () => {
 		form.submit();
+	};
+
+	const showDeleteConfirm = (type: string, singleId?: string) => {
+		confirm({
+			title: '确认是否需要删除？',
+			icon: <ExclamationCircleOutlined />,
+			content: '删除操作将连同挂载的商品也一并删除，确认是否执行',
+			okText: '确认',
+			okType: 'danger',
+			cancelText: '取消',
+			onOk() {
+				let ids: any[] = [];
+				if (type == 'single') {
+					ids.push(singleId);
+				} else {
+					ids = [...selectedRowKeys];
+				}
+				return new Promise<void>(async (resolve, reject) => {
+					// setTimeout(Math.random() > 0.5 ? resolve : reject, 1000);
+					const { code } = await goodsCategoryDelete({ ids });
+					if (code == 200) {
+						resolve();
+						setSelectedRowKeys([]);
+						message.success('删除成功');
+						ref.current?.reload();
+					}
+				}).catch(() => console.log('Oops errors!'));
+			},
+			onCancel() {
+				console.log('Cancel');
+			},
+		});
 	};
 
 	return (
@@ -210,7 +255,14 @@ const CommodityCategoryList = () => {
 								>
 									新建
 								</Button>
-								<Button type='default'>删除</Button>
+								<Button
+									type='default'
+									onClick={() => {
+										showDeleteConfirm('multiple');
+									}}
+								>
+									删除
+								</Button>
 							</div>
 						),
 						actions: [

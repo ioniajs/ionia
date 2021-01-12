@@ -20,7 +20,8 @@ const request = extend({
 request.use(async (ctx, next) => {
 	try {
 		const token = await localStorage.getItem('token');
-		if (!!token) {
+		console.log(ctx.req.url.split('/').pop());
+		if (!!token && ctx.req.url.split('/').pop() != 'sysConfig') {
 			ctx.req.options.headers = {
 				...ctx.req.options.headers,
 				Authorization: token,
