@@ -142,8 +142,8 @@ export default ({ id, reloadTableData, source, typeId }: DetailFormProps) => {
 			width={558}
 			className='io-cms-system-data-dictionary-bizmodalform'
 			title={id ? '编辑字典数据' : '添加字典数据'}
-			triggerRender={() =>
-				triggerRender
+			triggerRender={
+				() => triggerRender
 				//     !id ? <Button type='primary' onClick={() => { ref.current?.open() }}>
 				//         <i className='iconfont icon-plus1' />
 				//     &nbsp;新建
