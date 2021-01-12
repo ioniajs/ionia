@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import { ProFormText, ProFormTextArea } from '@ant-design/pro-form';
 import { BizModalForm, BizModalFormRef } from '@ionia/libs';
 import {
@@ -44,17 +44,25 @@ const handleUpdate = async (values: DataDictionaryTypeDTO) => {
 export default ({ id, reloadTableData }: DetailFormProps) => {
 	const ref = useRef<BizModalFormRef>();
 	const [form] = Form.useForm();
+	const [editClick, setEditClick] = useState<boolean>(false); // 是否点击编辑按钮
 	const { run: runDetailDictionaryType } = useRequest(detailDictionaryType, {
 		manual: true,
 		onSuccess: result => {
 			form.setFieldsValue({ ...result.data });
 		},
 	});
-	useMount(() => {
-		if (id) {
+	// useMount(() => {
+	// 	if (id) {
+	// 		runDetailDictionaryType(id);
+	// 	}
+	// });
+
+	// 已点击编辑按钮并且有id就获取字典类型详情
+	useEffect(() => {
+		if (!!editClick && id) {
 			runDetailDictionaryType(id);
 		}
-	});
+	}, [editClick])
 
 	return (
 		<BizModalForm
@@ -74,14 +82,15 @@ export default ({ id, reloadTableData }: DetailFormProps) => {
 						新建
 					</Button>
 				) : (
-					<a
-						onClick={() => {
-							ref.current?.open();
-						}}
-					>
-						编辑
-					</a>
-				)
+						<a
+							onClick={() => {
+								ref.current?.open();
+								setEditClick(true)
+							}}
+						>
+							编辑
+						</a>
+					)
 			}
 			onFinish={async values => {
 				if (!id) {
@@ -90,6 +99,7 @@ export default ({ id, reloadTableData }: DetailFormProps) => {
 						ref.current?.close();
 						form.resetFields(); // 清空表单
 						reloadTableData && reloadTableData();
+						setEditClick(false)
 					}
 				} else {
 					const param = { ...values, id: id };
@@ -98,6 +108,7 @@ export default ({ id, reloadTableData }: DetailFormProps) => {
 						ref.current?.close();
 						form.resetFields(); // 清空表单
 						reloadTableData && reloadTableData();
+						setEditClick(false)
 					}
 				}
 			}}

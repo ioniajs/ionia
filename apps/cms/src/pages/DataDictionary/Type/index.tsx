@@ -41,11 +41,12 @@ export default () => {
 			title: '更新时间',
 			key: 'updateTime',
 			dataIndex: 'updateTime',
+			// sorter: true,
 			sorter: (a: any, b: any, order: any) => {
-				let atime = new Date(a.birthday.replace(/-/g, '/')).getTime();
-				let btime = new Date(b.birthday.replace(/-/g, '/')).getTime();
+				let atime = new Date(a.updateTime.replace(/-/g, '/')).getTime();
+				let btime = new Date(b.updateTime.replace(/-/g, '/')).getTime();
 				console.log(atime, btime, order, 'dd');
-				setSearchParams({ ...searchParams, updateTime: order });
+				setSearchParams({ ...searchParams, pageSort: `updateTime ${order === 'ascend' ? 'asc' : 'desc'}` });
 				return atime - btime;
 			},
 			sortDirections: sortDirections,
@@ -184,6 +185,7 @@ export default () => {
 							...params,
 							pageNo: params.current,
 							pageSize: params.pageSize,
+							// pageSort: JSON.stringify(sort) !== '{}' ? `${Object.keys(sort)[0]} ${Object.values(sort)[0] === 'ascend' ? 'asc ' : 'desc'}` : ''
 						}).then(data => ({
 							data: data.data.content,
 							total: data.data.total,

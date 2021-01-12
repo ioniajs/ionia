@@ -8,7 +8,21 @@ import { IdsDTO } from '../../common.dto';
 import request from '../../../utils/request';
 import { JcResult, Page } from '../../base';
 
+export interface ListProps {
+	typeId: number;
+	status?: number; // 状态(1启用0禁用)
+}
+/**
+ * 列表
+ * @param params 
+ */
+export async function dataDictionaryList(params:ListProps): Promise<JcResult<DataDictionaryListVo[]>> {
+	return request.get('/module-kernel/cmsmanager/dataDictionary', {
+		params
+	})
+}
 export interface DataDictionaryPaging {
+	typeId: number; // 字典数据类型id
 	beginUpdateTime: string; // 开始更新时间
 	endUpdateTime: string; // 结束更新时间
 	label: string; // 字典类型/字典名称

@@ -231,7 +231,8 @@ export default () => {
 				let atime = new Date(a.birthday.replace(/-/g, '/')).getTime();
 				let btime = new Date(b.birthday.replace(/-/g, '/')).getTime();
 				console.log(atime, btime, order, 'dd');
-				setSearchParams({ ...searchParams, birthday: order });
+				const tempOrder = order === 'ascend' ? 'asc' : 'desc';
+				setSearchParams({ ...searchParams, pageSort: `birthday ${tempOrder}` });
 				return atime - btime;
 			},
 			sortDirections: sortDirections,
