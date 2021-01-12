@@ -15,3 +15,7 @@ export async function userLogin(data: UserLoginDto): Promise<JcResult<UserLoginV
 		data: Qs.stringify(data),
 	});
 }
+
+export async function userLogout(): Promise<JcResult<boolean>> {
+	return request.post(`/module-user/logout`);
+}
