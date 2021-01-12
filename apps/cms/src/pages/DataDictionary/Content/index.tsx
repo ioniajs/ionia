@@ -5,8 +5,8 @@ import { SortOrder } from 'antd/lib/table/interface';
 import { Divider, Button, Switch, Modal, message } from 'antd';
 import { IdsDTO } from '@ionia/libs/src/services/common.dto';
 import {
-	DataDictionaryPageVO,
-	dataDictionaryPaging,
+	DataDictionaryTreeVO,
+	dataDictionaryTree,
 	operatingDataDictionary,
 	deleteDataDiactionary,
 } from '@ionia/libs/src/services';
@@ -34,11 +34,9 @@ export default () => {
 	console.log(state, 'ssss');
 	const actionRef = useRef<ActionType>();
 	const [searchParams, setSearchParams] = useState<any>({
-		pageNo: 1,
-		pageSize: 10,
 		typeId: state.typeId,
 	});
-	const columns: ProColumns<DataDictionaryPageVO>[] = [
+	const columns: ProColumns<DataDictionaryTreeVO>[] = [
 		{
 			title: '字典标签',
 			key: 'label',
@@ -203,13 +201,10 @@ export default () => {
 					inputPlaceholderText='请输入字典标签'
 					toolBarRender={false}
 					request={(params: any, sort: any, filter: any) => {
-						return dataDictionaryPaging({
+						return dataDictionaryTree({
 							...params,
-							pageNo: params.current,
-							pageSize: params.pageSize,
 						}).then(data => ({
-							data: data.data.content,
-							total: data.data.total,
+							data: data.data,
 						}));
 					}}
 					pagination={false}

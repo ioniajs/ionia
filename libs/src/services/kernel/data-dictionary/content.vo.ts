@@ -3,7 +3,8 @@ export interface DataDictionaryListVo {
 	label: string; // 标签
 }
 
-export interface DataDictionaryPageVO {
+export interface DataDictionaryTreeVO {
+	children: DataDictionaryTreeVO[];
 	id: number;
 	key: string; // 键值
 	label: string; // 标签
