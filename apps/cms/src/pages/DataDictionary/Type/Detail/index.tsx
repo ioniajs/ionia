@@ -62,7 +62,7 @@ export default ({ id, reloadTableData }: DetailFormProps) => {
 		if (!!editClick && id) {
 			runDetailDictionaryType(id);
 		}
-	}, [editClick])
+	}, [editClick]);
 
 	return (
 		<BizModalForm
@@ -82,15 +82,15 @@ export default ({ id, reloadTableData }: DetailFormProps) => {
 						新建
 					</Button>
 				) : (
-						<a
-							onClick={() => {
-								ref.current?.open();
-								setEditClick(true)
-							}}
-						>
-							编辑
-						</a>
-					)
+					<a
+						onClick={() => {
+							ref.current?.open();
+							setEditClick(true);
+						}}
+					>
+						编辑
+					</a>
+				)
 			}
 			onFinish={async values => {
 				if (!id) {
@@ -99,7 +99,7 @@ export default ({ id, reloadTableData }: DetailFormProps) => {
 						ref.current?.close();
 						form.resetFields(); // 清空表单
 						reloadTableData && reloadTableData();
-						setEditClick(false)
+						setEditClick(false);
 					}
 				} else {
 					const param = { ...values, id: id };
@@ -108,7 +108,7 @@ export default ({ id, reloadTableData }: DetailFormProps) => {
 						ref.current?.close();
 						form.resetFields(); // 清空表单
 						reloadTableData && reloadTableData();
-						setEditClick(false)
+						setEditClick(false);
 					}
 				}
 			}}

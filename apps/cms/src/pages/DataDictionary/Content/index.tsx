@@ -8,7 +8,7 @@ import {
 	DataDictionaryPageVO,
 	dataDictionaryPaging,
 	operatingDataDictionary,
-	deleteDataDiactionary
+	deleteDataDiactionary,
 } from '@ionia/libs/src/services';
 import { useHistory } from 'react-router-dom';
 import DetailForm from './Detail';
@@ -16,7 +16,7 @@ import './index.less';
 
 /**
  * 删除数据字典
- * @param ids 
+ * @param ids
  */
 const handleDeleteDictionary = async (ids: IdsDTO) => {
 	const deleteRes = await deleteDataDiactionary(ids);
@@ -113,11 +113,25 @@ export default () => {
 				<>
 					{/* <a>新增下级</a> */}
 					<div style={{ display: 'inline-block' }}>
-						<DetailForm id={row.id} reloadTableData={() => { actionRef.current?.reload() }} source='createSub' typeId={state.typeId} />
+						<DetailForm
+							id={row.id}
+							reloadTableData={() => {
+								actionRef.current?.reload();
+							}}
+							source='createSub'
+							typeId={state.typeId}
+						/>
 					</div>
 					<Divider type='vertical' />
 					<div style={{ display: 'inline-block' }}>
-						<DetailForm id={row.id} reloadTableData={() => { actionRef.current?.reload() }} source='edit' typeId={state.typeId} />
+						<DetailForm
+							id={row.id}
+							reloadTableData={() => {
+								actionRef.current?.reload();
+							}}
+							source='edit'
+							typeId={state.typeId}
+						/>
 					</div>
 					{/* <a>编辑</a> */}
 					<Divider type='vertical' />
@@ -138,7 +152,7 @@ export default () => {
 										}
 									}
 								},
-							})
+							});
 						}}
 					>
 						删除
@@ -149,27 +163,37 @@ export default () => {
 	];
 
 	return (
-		<BizPage breadcrumbs={[{ name: '数据字典' }, { name: '字典数据' }]} showActions renderActions={() => (
-			<>
-				<div className='io-space-item'>
-					<Button
-						onClick={() => {
-							history.goBack();
-						}}
-					>
-						<i className='iconfont icon-left' />
-									&nbsp;返回
-								</Button>
-				</div>
-				<div className='io-space-item'>
-					<DetailForm reloadTableData={() => { actionRef.current?.reload() }} source='create' typeId={state.typeId} />
-					{/* <Button type='primary'>
+		<BizPage
+			breadcrumbs={[{ name: '数据字典' }, { name: '字典数据' }]}
+			showActions
+			renderActions={() => (
+				<>
+					<div className='io-space-item'>
+						<Button
+							onClick={() => {
+								history.goBack();
+							}}
+						>
+							<i className='iconfont icon-left' />
+							&nbsp;返回
+						</Button>
+					</div>
+					<div className='io-space-item'>
+						<DetailForm
+							reloadTableData={() => {
+								actionRef.current?.reload();
+							}}
+							source='create'
+							typeId={state.typeId}
+						/>
+						{/* <Button type='primary'>
 									<i className='iconfont icon-plus1' />
 									&nbsp;新建
 								</Button> */}
-				</div>
-			</>
-		)}>
+					</div>
+				</>
+			)}
+		>
 			<div className='io-cms-system-data-dictionary-container'>
 				<BizTable
 					rowKey='id'
@@ -178,7 +202,6 @@ export default () => {
 					actionRef={actionRef}
 					inputPlaceholderText='请输入字典标签'
 					toolBarRender={false}
-
 					request={(params: any, sort: any, filter: any) => {
 						return dataDictionaryPaging({
 							...params,

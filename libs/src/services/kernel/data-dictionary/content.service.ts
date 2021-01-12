@@ -14,12 +14,14 @@ export interface ListProps {
 }
 /**
  * 列表
- * @param params 
+ * @param params
  */
-export async function dataDictionaryList(params:ListProps): Promise<JcResult<DataDictionaryListVo[]>> {
+export async function dataDictionaryList(
+	params: ListProps
+): Promise<JcResult<DataDictionaryListVo[]>> {
 	return request.get('/module-kernel/cmsmanager/dataDictionary', {
-		params
-	})
+		params,
+	});
 }
 export interface DataDictionaryPaging {
 	typeId: number; // 字典数据类型id

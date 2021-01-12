@@ -46,7 +46,10 @@ export default () => {
 				let atime = new Date(a.updateTime.replace(/-/g, '/')).getTime();
 				let btime = new Date(b.updateTime.replace(/-/g, '/')).getTime();
 				console.log(atime, btime, order, 'dd');
-				setSearchParams({ ...searchParams, pageSort: `updateTime ${order === 'ascend' ? 'asc' : 'desc'}` });
+				setSearchParams({
+					...searchParams,
+					pageSort: `updateTime ${order === 'ascend' ? 'asc' : 'desc'}`,
+				});
 				return atime - btime;
 			},
 			sortDirections: sortDirections,
