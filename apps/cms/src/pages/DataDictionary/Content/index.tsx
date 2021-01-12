@@ -2,7 +2,7 @@ import React, { useRef, useState } from 'react';
 import { BizPage, BizTable } from '@ionia/libs';
 import { ProColumns, ActionType } from '@ant-design/pro-table';
 import { SortOrder } from 'antd/lib/table/interface';
-import { Divider, Button, Switch, Modal, message } from 'antd';
+import { Divider, Button, Switch, Modal, message, Tooltip } from 'antd';
 import { IdsDTO } from '@ionia/libs/src/services/common.dto';
 import {
 	DataDictionaryTreeVO,
@@ -43,18 +43,20 @@ export default () => {
 			dataIndex: 'label',
 			width: 400,
 			render: (_, row) => (
-				<span
-					style={{
-						display: 'inline-block',
-						minWidth: '200px',
-						maxWidth: '400px',
-						whiteSpace: 'nowrap',
-						overflow: 'hidden',
-						textOverflow: 'ellipsis',
-					}}
-				>
-					{row.label}
-				</span>
+				<Tooltip title={row.label}>
+					<span
+						style={{
+							display: 'inline-block',
+							minWidth: '200px',
+							maxWidth: '250px',
+							whiteSpace: 'nowrap',
+							overflow: 'hidden',
+							textOverflow: 'ellipsis',
+						}}
+					>
+						{row.label}
+					</span>
+				</Tooltip>
 			),
 		},
 		{
