@@ -3,27 +3,37 @@ import {
 	DataDictionaryUpdateDTO,
 	DataDictionaryOperatingDTO,
 } from './content.dto';
-import { DataDictionaryListVo, DataDictionaryPageVO, DataDictionaryVO } from './content.vo';
+import { DataDictionaryListVo, DataDictionaryTreeVO, DataDictionaryVO } from './content.vo';
 import { IdsDTO } from '../../common.dto';
 import request from '../../../utils/request';
 import { JcResult, Page } from '../../base';
 
-export interface DataDictionaryPaging {
-	beginUpdateTime: string; // 开始更新时间
-	endUpdateTime: string; // 结束更新时间
-	label: string; // 字典类型/字典名称
-	pageNo: number; // 页码，从1开始计数
-	pageSize: number; // 页码大小
-	pageSort: string; // 排序字段, 格式: name desc,createTime asc
+export interface ListProps {
+	typeId: number;
+	status?: number; // 状态(1启用0禁用)
 }
 /**
- * 数据字典分页
+ * 列表
  * @param params
  */
-export async function dataDictionaryPaging(
-	params: DataDictionaryPaging
-): Promise<JcResult<Page<DataDictionaryPageVO>>> {
-	return request.get('/module-kernel/cmsmanager/dataDictionary/page', {
+export async function dataDictionaryList(
+	params: ListProps
+): Promise<JcResult<DataDictionaryListVo[]>> {
+	return request.get('/module-kernel/cmsmanager/dataDictionary', {
+		params,
+	});
+}
+export interface DataDictionaryTree {
+	typeId: number; // 字典数据类型id
+}
+/**
+ * 数据字典树结构
+ * @param params
+ */
+export async function dataDictionaryTree(
+	params: DataDictionaryTree
+): Promise<JcResult<DataDictionaryTreeVO[]>> {
+	return request.get('/module-kernel/cmsmanager/dataDictionary/tree', {
 		params,
 	});
 }

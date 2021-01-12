@@ -1,15 +1,32 @@
 import React, { useRef, useState } from 'react';
 import { BizPage, BizTable } from '@ionia/libs';
 import { ProColumns, ActionType } from '@ant-design/pro-table';
-import { Divider, Button, Switch } from 'antd';
+import { SortOrder } from 'antd/lib/table/interface';
+import { Divider, Button, Switch, Modal, message } from 'antd';
+import { IdsDTO } from '@ionia/libs/src/services/common.dto';
 import {
-	DataDictionaryPageVO,
-	dataDictionaryPaging,
+	DataDictionaryTreeVO,
+	dataDictionaryTree,
 	operatingDataDictionary,
+	deleteDataDiactionary,
 } from '@ionia/libs/src/services';
 import { useHistory } from 'react-router-dom';
+import DetailForm from './Detail';
 import './index.less';
 
+/**
+ * 删除数据字典
+ * @param ids
+ */
+const handleDeleteDictionary = async (ids: IdsDTO) => {
+	const deleteRes = await deleteDataDiactionary(ids);
+	if (deleteRes.code !== 200) {
+		message.error('删除失败');
+	} else {
+		message.success('删除成功');
+	}
+	return deleteRes.code;
+};
 export default () => {
 	const history = useHistory();
 	const { location } = history;
@@ -17,11 +34,9 @@ export default () => {
 	console.log(state, 'ssss');
 	const actionRef = useRef<ActionType>();
 	const [searchParams, setSearchParams] = useState<any>({
-		pageNo: 1,
-		pageSize: 10,
 		typeId: state.typeId,
 	});
-	const columns: ProColumns<DataDictionaryPageVO>[] = [
+	const columns: ProColumns<DataDictionaryTreeVO>[] = [
 		{
 			title: '字典标签',
 			key: 'label',
@@ -94,54 +109,105 @@ export default () => {
 			dataIndex: 'operation',
 			render: (_, row) => (
 				<>
-					<a>新增下级</a>
+					{/* <a>新增下级</a> */}
+					<div style={{ display: 'inline-block' }}>
+						<DetailForm
+							id={row.id}
+							reloadTableData={() => {
+								actionRef.current?.reload();
+							}}
+							source='createSub'
+							typeId={state.typeId}
+						/>
+					</div>
 					<Divider type='vertical' />
-					<a>编辑</a>
+					<div style={{ display: 'inline-block' }}>
+						<DetailForm
+							id={row.id}
+							reloadTableData={() => {
+								actionRef.current?.reload();
+							}}
+							source='edit'
+							typeId={state.typeId}
+						/>
+					</div>
+					{/* <a>编辑</a> */}
 					<Divider type='vertical' />
-					<a>删除</a>
+					<a
+						onClick={async () => {
+							Modal.confirm({
+								title: '是否确定删除？',
+								content: '删除操作将连同下级字典数据一同删除，确认是否执行？',
+								okText: '确定',
+								cancelText: '取消',
+								onOk: async () => {
+									const success = await handleDeleteDictionary({
+										ids: [row.id.toString()],
+									});
+									if (success === 200) {
+										if (success === 200 && actionRef.current) {
+											actionRef.current.reload();
+										}
+									}
+								},
+							});
+						}}
+					>
+						删除
+					</a>
 				</>
 			),
 		},
 	];
 
 	return (
-		<BizPage breadcrumbs={[{ name: '数据字典' }, { name: '字典数据' }]}>
+		<BizPage
+			breadcrumbs={[{ name: '数据字典' }, { name: '字典数据' }]}
+			showActions
+			renderActions={() => (
+				<>
+					<div className='io-space-item'>
+						<Button
+							onClick={() => {
+								history.goBack();
+							}}
+						>
+							<i className='iconfont icon-left' />
+							&nbsp;返回
+						</Button>
+					</div>
+					<div className='io-space-item'>
+						<DetailForm
+							reloadTableData={() => {
+								actionRef.current?.reload();
+							}}
+							source='create'
+							typeId={state.typeId}
+						/>
+						{/* <Button type='primary'>
+									<i className='iconfont icon-plus1' />
+									&nbsp;新建
+								</Button> */}
+					</div>
+				</>
+			)}
+		>
 			<div className='io-cms-system-data-dictionary-container'>
 				<BizTable
 					rowKey='id'
 					columns={columns}
 					params={searchParams}
 					actionRef={actionRef}
-					renderActions={() => (
-						<>
-							<div className='io-space-item'>
-								<Button
-									onClick={() => {
-										history.goBack();
-									}}
-								>
-									<i className='iconfont icon-left' />
-									&nbsp;返回
-								</Button>
-							</div>
-							<div className='io-space-item'>
-								<Button type='primary'>
-									<i className='iconfont icon-plus1' />
-									&nbsp;新建
-								</Button>
-							</div>
-						</>
-					)}
+					inputPlaceholderText='请输入字典标签'
+					toolBarRender={false}
 					request={(params: any, sort: any, filter: any) => {
-						return dataDictionaryPaging({
+						return dataDictionaryTree({
 							...params,
-							pageNo: params.current,
-							pageSize: params.pageSize,
 						}).then(data => ({
-							data: data.data.content,
-							total: data.data.total,
+							data: data.data,
 						}));
 					}}
+					pagination={false}
 				/>
 			</div>
 		</BizPage>

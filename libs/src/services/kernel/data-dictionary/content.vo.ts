@@ -3,11 +3,12 @@ export interface DataDictionaryListVo {
 	label: string; // 标签
 }
 
-export interface DataDictionaryPageVO {
+export interface DataDictionaryTreeVO {
+	children: DataDictionaryTreeVO[];
 	id: number;
 	key: string; // 键值
 	label: string; // 标签
-	pictureId: number; // 图片id
+	pictureUrl: number | string; // 图片url
 	remark: string; // 备注
 	sortNum: number; // 排序值
 	status: number; // 状态(1启用0禁用)
