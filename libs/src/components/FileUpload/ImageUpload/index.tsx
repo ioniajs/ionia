@@ -2,6 +2,7 @@ import { Upload } from 'antd';
 import { UploadProps } from 'antd/lib/upload';
 import { UploadFile } from 'antd/lib/upload/interface';
 import axios from 'axios';
+import { values } from 'lodash';
 import React, { ReactElement, useEffect, useState } from 'react';
 import { useLocalStorage } from 'react-use';
 import { UploadButton } from '../UploadButton';
@@ -51,8 +52,7 @@ export const ImageUpload = ({
 				}) => {
 					const formData = new FormData();
 					// @ts-ignore
-					formData.append('files', [file]);
-					console.log('formData', formData);
+					formData.append('files', file);
 					axios
 						.post(action, formData, {
 							withCredentials,
@@ -97,7 +97,16 @@ export const ImageUpload = ({
 				{...reset}
 				fileList={fileList}
 				onChange={info => {
-					setFileList([...info.fileList]);
+					let fileList = [...info.fileList];
+					fileList = fileList.map(file => {
+						if (file.response) {
+							file.url = file.response[0].url;
+							// file.id = file.response.id;
+						}
+						return file;
+					});
+					console.log('fileList', fileList);
+					setFileList([...fileList]);
 				}}
 			>
 				{fileList.length < limit && <UploadButton />}
