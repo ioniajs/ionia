@@ -34,7 +34,7 @@ export const PictureCropper: React.FC<PictureCropperProps> = forwardRef((props, 
 	const [cropForm] = Form.useForm();
 	const [cropper, setCropper] = useState<any>();
 	const [cropData, setCropData] = useState('#');
-	const cropInstance = useRef<any>(null);
+	const cropperRef = useRef<HTMLImageElement>(null);
 	const [addNewCropSize, setAddNewCropSize] = useState<boolean>(false);
 	const [cropBoxList, setCropBoxList] = useState<Array<CropBox>>([{ width: 60, height: 60 }]);
 	return (
@@ -57,7 +57,7 @@ export const PictureCropper: React.FC<PictureCropperProps> = forwardRef((props, 
 				<div className='io-piccropper-container'>
 					<div className='io-picropper-left'>
 						<Cropper
-							ref={cropInstance}
+							ref={cropperRef}
 							style={{ height: 420, width: '100%' }}
 							initialAspectRatio={1}
 							preview='.img-preview'
@@ -71,6 +71,14 @@ export const PictureCropper: React.FC<PictureCropperProps> = forwardRef((props, 
 							checkOrientation={false}
 							onInitialized={instance => {
 								setCropper(instance);
+							}}
+							crop={(cropmove) => {
+								// const imageElement: any = cropperRef?.current;
+								// const cropper: any = imageElement?.cropper;
+								console.log(cropmove);
+								const cropBoxWidth = cropmove.detail.width;
+								const cropBoxHeight = cropmove.detail.height;
+								cropForm.setFieldsValue({ cropBoxWidth: cropBoxWidth, cropBoxHeight: cropBoxHeight })
 							}}
 						/>
 						<div className='io-piccopper-action'>
@@ -119,7 +127,7 @@ export const PictureCropper: React.FC<PictureCropperProps> = forwardRef((props, 
 						<div className='io-piccropper-preview-box'>
 							<div
 								className='img-preview'
-								// style={{ width: '100%', height: '300px', float: 'right', marginRight: '60px' }}
+							// style={{ width: '100%', height: '300px', float: 'right', marginRight: '60px' }}
 							/>
 						</div>
 						<div className='io-piccropper-setting'>
@@ -132,7 +140,7 @@ export const PictureCropper: React.FC<PictureCropperProps> = forwardRef((props, 
 												<Form.Item
 													name='cropBoxWidth'
 													label=''
-													// initialValue={228}
+												// initialValue={228}
 												>
 													<Input
 														className='io-crop-box_input'
@@ -156,12 +164,12 @@ export const PictureCropper: React.FC<PictureCropperProps> = forwardRef((props, 
 															const cropTopValue = Math.round(
 																(containerData.height -
 																	cropHeightValue) /
-																	2
+																2
 															);
 															const cropLefttValue = Math.round(
 																(containerData.width -
 																	cropWidthValue) /
-																	2
+																2
 															);
 															cropper.setCropBoxData({
 																top: cropTopValue,
@@ -184,7 +192,7 @@ export const PictureCropper: React.FC<PictureCropperProps> = forwardRef((props, 
 											<Col>
 												<Form.Item
 													name='cropBoxHeight'
-													// initialValue={228}
+												// initialValue={228}
 												>
 													<Input className='io-crop-box_input' />
 												</Form.Item>
