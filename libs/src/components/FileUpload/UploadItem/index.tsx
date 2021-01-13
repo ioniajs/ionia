@@ -87,7 +87,7 @@ export const UploadItem = ({ file, onRemove }: UploadItemProps) => {
 				oncancel={() => {
 					setPictureCropperVisible(false);
 				}}
-				src={file?.response?.url}
+				src={file?.url}
 				onOk={(imageCropBase: any) => setImageBase(imageCropBase)}
 			/>
 			<div className='io-image-upload__item-action'>
