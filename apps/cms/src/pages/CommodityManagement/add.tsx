@@ -102,7 +102,12 @@ export default function add() {
 						name='atlas'
 						rules={[{ required: true, message: '请上传你的商品相册' }]}
 					>
-						<ImageUpload limit={10} />
+						<ImageUpload
+							limit={10}
+							onChange={(files: any) => {
+								console.log('files', files);
+							}}
+						/>
 					</Form.Item>
 					<Form.Item
 						label='兑换限制'
