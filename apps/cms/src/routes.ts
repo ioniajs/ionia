@@ -44,6 +44,7 @@ import CommentsReport from '@/pages/Comment/Report';
 import Interface from '@/pages/MenuManagement/Interface';
 import Menu from '@/pages/MenuManagement/Menu';
 import VolunteerManage from '@/pages/Volunteer/Manage';
+import VolunteerManageCreate from '@/pages/Volunteer/Manage/Create';
 import VolunteerCheck from '@/pages/Volunteer/Check';
 import MenuAdd from '@/pages/MenuManagement/Menu/add';
 import MenuDeatil from '@/pages/MenuManagement/Menu/detail';
@@ -241,6 +242,10 @@ export default [
 	{
 		path: '/content-operation/volunteer/manage',
 		component: VolunteerManage,
+	},
+	{
+		path: '/content-operation/volunteer/manage/create',
+		component: VolunteerManageCreate,
 	},
 	{
 		path: '/content-operation/volunteer/check',

@@ -11,6 +11,7 @@ import {
 import { Button, Form, Input, Space, DatePicker, TreeSelect } from 'antd';
 import { SearchOutlined } from '@ant-design/icons';
 import { useMount, useRequest } from '@umijs/hooks';
+import { useHistory } from 'react-router-dom';
 import moment from 'moment';
 import './index.less';
 
@@ -37,6 +38,7 @@ const treeData = [
 ];
 
 export default () => {
+	const history = useHistory();
 	const [form] = Form.useForm();
 	const actionRef = useRef<ActionType>();
 	const [teamsTreeList, setTeamsTreeList] = useState<AdminVolunteerTeamTreeVO>();
@@ -388,7 +390,7 @@ export default () => {
 					renderActions={() => (
 						<>
 							<div className='io-space-item'>
-								<Button type='primary'>
+								<Button type='primary' onClick={() => { history.push('/content-operation/volunteer/manage/create') }}>
 									<i className='iconfont icon-plus1' />
 									新建
 								</Button>
