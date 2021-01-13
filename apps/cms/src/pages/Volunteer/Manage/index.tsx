@@ -315,6 +315,63 @@ export default () => {
 			key: 'checkTime',
 			dataIndex: 'checkTime',
 			title: '加入时间',
+			sorter: (a: any, b: any, order: any) => {
+				let atime = new Date(a.checkTime.replace(/-/g, '/')).getTime();
+				let btime = new Date(b.checkTime.replace(/-/g, '/')).getTime();
+				console.log(atime, btime, order, 'dd');
+				const tempOrder = order === 'ascend' ? 'asc' : 'desc';
+				setSearchParams({ ...searchParams, pageSort: `checkTime ${tempOrder}` });
+				return atime - btime;
+			},
+			sortDirections: sortDirections,
+			filterDropdown: () => (
+				<div className='io-cms-cotent-recycle-table-birthday-filterDropDown'>
+					<Form form={form}>
+						<Form.Item name='checkTime' className='birthday-filterDropDown_formItem'>
+							<DatePicker.RangePicker />
+						</Form.Item>
+					</Form>
+					<Space className='birthday-filterDropDown__space' size={40}>
+						<Button
+							className='birthday-filterDropDown-search__button'
+							type='primary'
+							onClick={() => {
+								const time = form.getFieldValue('checkTime');
+								console.log(time, 'timeme');
+								const beginCheckTime =
+									moment(time[0]).format('YYYY-MM-DD') + ' 00:00:00';
+								const endCheckTime =
+									moment(time[1]).format('YYYY-MM-DD') + ' 00:00:00';
+								console.log(beginCheckTime, endCheckTime);
+								setSearchParams({
+									...searchParams,
+									beginCheckTime,
+									endCheckTime,
+								});
+							}}
+							icon={<SearchOutlined />}
+							size='small'
+							style={{ width: 120 }}
+						>
+							查询
+						</Button>
+						<Button
+							onClick={() => {
+								form.setFieldsValue({ checkTime: '' });
+								setSearchParams({
+									...searchParams,
+									beginCheckTime: '',
+									endCheckTime: '',
+								});
+							}}
+							size='small'
+							style={{ width: 120 }}
+						>
+							重置
+						</Button>
+					</Space>
+				</div>
+			),
 		},
 		{
 			key: 'operation',
