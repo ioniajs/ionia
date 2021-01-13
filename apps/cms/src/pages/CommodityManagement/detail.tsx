@@ -1,12 +1,14 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { Form, Input, Select, Button, Radio, InputNumber, message } from 'antd';
+import { UploadFile } from 'antd/lib/upload/interface';
 import {
 	goodsCategoryList,
 	BizPage,
 	ImageUpload,
 	SaveButton,
 	GobackButton,
-	goodsSave,
+	goodsUpdate,
+	goodsInfo,
 } from '@ionia/libs';
 import { InfoCircleOutlined } from '@ant-design/icons';
 // 引入编辑器组件
@@ -20,7 +22,10 @@ const layout = {
 	wrapperCol: { span: 8 },
 };
 const { TextArea } = Input;
-export default function add() {
+const CommodityManagementDetail = ({ match }: any) => {
+	const {
+		params: { id },
+	} = match;
 	useEffect(() => {
 		const getCategoryList = async () => {
 			const { data } = await goodsCategoryList();
@@ -28,6 +33,22 @@ export default function add() {
 		};
 		getCategoryList();
 	}, []);
+
+	useEffect(() => {
+		const getInfo = async () => {
+			const { data } = await goodsInfo(id);
+			form.setFieldsValue({ ...data });
+			setEditorState(BraftEditor.createEditorState(data.content));
+			setStint(data.stint);
+			setStintNum(data.stintNum);
+			let fileList = data.atlas.map((item: any) => {
+				return { uid: item.id, name: item.filename, url: item.url, status: 'done' };
+			});
+			setFiles([...fileList]);
+			fileList ? setFlag(true) : setFlag(false);
+		};
+		getInfo();
+	}, [id]);
 	const [form] = Form.useForm();
 	const history = useHistory();
 	const [categoryList, setCategoryList] = useState<any[]>([]);
@@ -36,6 +57,7 @@ export default function add() {
 	const [stint, setStint] = useState(0);
 	const [stintNum, setStintNum] = useState('');
 	const [files, setFiles] = useState<any[]>([]);
+	const [flag, setFlag] = useState(false);
 	const onFinish = async (values: any) => {
 		let atlas = files.map(item => {
 			return item.uid;
@@ -45,9 +67,10 @@ export default function add() {
 			stintNum: stintNum ? stintNum : '',
 			content: editorState ? editorState.toHTML() : '',
 			atlas: atlas ? atlas : '',
+			id,
 		};
 		console.log('goodsParams', goodsParams);
-		const { code } = await goodsSave({ ...goodsParams });
+		const { code } = await goodsUpdate({ ...goodsParams });
 		if (code == 200) {
 			message.success('添加成功');
 			history.push('/point-mall/commodity-management');
@@ -62,7 +85,6 @@ export default function add() {
 
 	const handleEditorChange = (editorState: any) => {
 		setEditorState(editorState);
-		console.log('editorState', editorState.toHTML().length);
 	};
 	return (
 		<>
@@ -127,13 +149,16 @@ export default function add() {
 						name='atlas'
 						// rules={[{ required: true, message: '请上传你的商品相册' }]}
 					>
-						<ImageUpload
-							limit={10}
-							onChange={(files: any) => {
-								console.log('files', files);
-								setFiles([...files]);
-							}}
-						/>
+						{flag && (
+							<ImageUpload
+								limit={10}
+								defaultFileList={files}
+								onChange={(files: any) => {
+									console.log('files', files);
+									setFiles([...files]);
+								}}
+							/>
+						)}
 					</Form.Item>
 					<Form.Item
 						label='兑换限制'
@@ -219,4 +244,6 @@ export default function add() {
 			</BizPage>
 		</>
 	);
-}
+};
+
+export default CommodityManagementDetail;

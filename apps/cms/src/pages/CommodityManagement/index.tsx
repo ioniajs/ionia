@@ -28,6 +28,12 @@ const { confirm } = Modal;
 const { RangePicker } = DatePicker;
 const CommodityManagementList = () => {
 	const history = useHistory();
+
+	useEffect(() => {
+		if (ref.current) {
+			ref.current.reload();
+		}
+	}, [history.location]);
 	const ref = useRef<ActionType>();
 	const [form] = Form.useForm();
 	const [dateForm] = Form.useForm();
@@ -69,18 +75,17 @@ const CommodityManagementList = () => {
 			title: '商品名称',
 			dataIndex: 'name',
 			render: (_: any, row: any) => (
-				<a
-					onClick={() => {
-						console.log(row);
-						setId(row.id);
-					}}
-				>
-					<Image
-						width={72}
-						src='https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png'
-					/>
-					{_}
-				</a>
+				<div>
+					<Image width={72} src={row.coverResId} />
+					<a
+						style={{ marginLeft: '7px' }}
+						onClick={() => {
+							history.push(`/point-mall/commodity-management/detail/${row.id}`);
+						}}
+					>
+						{_}
+					</a>
+				</div>
 			),
 		},
 		{
