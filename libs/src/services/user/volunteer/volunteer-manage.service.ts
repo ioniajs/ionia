@@ -36,7 +36,7 @@ export interface VolunteerPaging {
 export async function volunteerPaging(
 	params: VolunteerPaging
 ): Promise<JcResult<Page<VolunteerPageVO>>> {
-	return request.post('/module-user/cmsmanager/volunteers/check/page', {
+	return request.post('/module-user/cmsmanager/volunteers/page', {
 		params,
 	});
 }
@@ -99,7 +99,7 @@ export async function uniquePhoneVolunteers(params: VolunteersPhone): Promise<Jc
 	});
 }
 export interface VolunteersUserName {
-	phone: string; // 手机号
+	username: string; // 手机号
 	id?: number; // 志愿者ID
 }
 /**
@@ -109,7 +109,7 @@ export interface VolunteersUserName {
 export async function uniqueUserNameVolunteers(
 	params: VolunteersUserName
 ): Promise<JcResult<boolean>> {
-	return request.get('/module-user/cmsmanager/volunteers/phone/unique', {
+	return request.get('/module-user/cmsmanager/volunteers/username/unique', {
 		params,
 	});
 }
@@ -133,7 +133,7 @@ export async function VolunteerPraiseSelectList(
  * 重置密码
  * @param id
  */
-export async function resetCipherVolunteers(id: number): Promise<JcResult<object>> {
+export async function resetCipherVolunteers(id: number | string): Promise<JcResult<object>> {
 	return request.post(`/module-user/cmsmanager/volunteers/resetCipher/${id}`);
 }
 /**

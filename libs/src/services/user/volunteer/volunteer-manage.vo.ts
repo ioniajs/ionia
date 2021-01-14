@@ -1,5 +1,6 @@
 //#region  志愿者管理分页VO
 export interface VolunteerPageVO {
+	avatar: string; // 头像url
 	birthday: string; // 出生日期
 	checkStatus: number; // 审核状态
 	checkTime: string; // 加入时间/审核时间
