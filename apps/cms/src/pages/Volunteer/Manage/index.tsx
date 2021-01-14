@@ -46,7 +46,7 @@ const handleResetCipher = async (filed: number) => {
 		message.error('重置密码失败');
 	}
 	return resetRes.code;
-}
+};
 
 export default () => {
 	const history = useHistory();
@@ -117,7 +117,7 @@ export default () => {
 
 	useEffect(() => {
 		actionRef.current?.reload();
-	}, [history.location])
+	}, [history.location]);
 	const filterDropdown = (filter: string) => {
 		return (
 			<div className='io-cms-volunteer-manage-table-filterDropDown'>
@@ -166,11 +166,33 @@ export default () => {
 				<div>
 					<Avatar src={row.avatar} />
 					<span>
-						<a className='io-cms-volunteer-table-username' style={{ width: '83px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', position: 'absolute', left: '48px', top: '7px' }}>{row.username}</a>
-						<span className='io-cms-volunteer-table-phone' style={{ display: 'inline-block', position: 'absolute', top: '28px', left: '45px' }}>{row.phone}</span>
+						<a
+							className='io-cms-volunteer-table-username'
+							style={{
+								width: '83px',
+								overflow: 'hidden',
+								textOverflow: 'ellipsis',
+								whiteSpace: 'nowrap',
+								position: 'absolute',
+								left: '48px',
+								top: '7px',
+							}}
+						>
+							{row.username}
+						</a>
+						<span
+							className='io-cms-volunteer-table-phone'
+							style={{
+								display: 'inline-block',
+								position: 'absolute',
+								top: '28px',
+								left: '45px',
+							}}
+						>
+							{row.phone}
+						</span>
 					</span>
 				</div>
-
 			),
 		},
 		{
@@ -404,7 +426,9 @@ export default () => {
 					<Popconfirm
 						title={
 							<span>
-								<div style={{ fontSize: '16px', fontWeight: 'bold' }}>确认是否重置密码？</div>
+								<div style={{ fontSize: '16px', fontWeight: 'bold' }}>
+									确认是否重置密码？
+								</div>
 								<div>操作成功后系统将随机生成6位数密码通知志愿者</div>
 							</span>
 						}
@@ -414,19 +438,17 @@ export default () => {
 						onConfirm={async () => {
 							const success = await handleResetCipher(row.id);
 							if (success === 200 && actionRef.current) {
-								actionRef.current.reload()
+								actionRef.current.reload();
 							}
 						}}
 					>
-						<a>
-							重置密码
-					</a>
+						<a>重置密码</a>
 					</Popconfirm>
 
 					<Divider type='vertical' />
 					<a>删除</a>
 				</>
-			)
+			),
 		},
 	];
 	return (
@@ -444,13 +466,13 @@ export default () => {
 										history.push({
 											pathname: '/content-operation/volunteer/manage/create',
 											state: {
-												teamsTreeList
-											}
+												teamsTreeList,
+											},
 										});
 									}}
 								>
-									<i className='iconfont icon-plus1' />&nbsp;
-									新建
+									<i className='iconfont icon-plus1' />
+									&nbsp; 新建
 								</Button>
 							</div>
 							<div className='io-space-item'>

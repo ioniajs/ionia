@@ -10,7 +10,13 @@ import {
 } from '@ant-design/pro-form';
 import moment from 'moment';
 import { useHistory } from 'react-router-dom';
-import { saveVolunteers, VolunteerDTO, uniqueEmailVolunteers, uniquePhoneVolunteers, uniqueUserNameVolunteers } from '@ionia/libs/src/services';
+import {
+	saveVolunteers,
+	VolunteerDTO,
+	uniqueEmailVolunteers,
+	uniquePhoneVolunteers,
+	uniqueUserNameVolunteers,
+} from '@ionia/libs/src/services';
 import './index.less';
 
 const layout = {
@@ -37,7 +43,7 @@ const handleSave = async (flieds: VolunteerDTO) => {
 		message.error('新建失败');
 	}
 	return saveRes.code;
-}
+};
 
 export default () => {
 	const [form] = Form.useForm();
@@ -50,13 +56,13 @@ export default () => {
 			breadcrumbs={[{ name: '志愿者' }, { name: '新建' }]}
 			onSave={() => {
 				form.validateFields().then(async values => {
-					console.log(values, '新增保存的值')
+					console.log(values, '新增保存的值');
 					const params = {
 						...values,
 						avatarId: values.avatarId[0]?.uid,
 						birthday: moment(values.birthday).format('YYYY-MM-DD'),
 						domicile: values.domicile[0],
-						checkStatus: 0
+						checkStatus: 0,
 					};
 					const success = await handleSave(params as VolunteerDTO);
 					if (success === 200) {
@@ -77,10 +83,14 @@ export default () => {
 						() => ({
 							async validator(rule, value) {
 								if (!!value) {
-									const flag = await uniqueUserNameVolunteers({ username: value }).then(res => res.data)
+									const flag = await uniqueUserNameVolunteers({
+										username: value,
+									}).then(res => res.data);
 									if (!!value && /^[0-9a-zA-Z_]+$/.test(value) && flag)
 										return Promise.resolve();
-									return Promise.reject(flag ? '请输入数字、大小写字母、英文下划线' : '用户名重复');
+									return Promise.reject(
+										flag ? '请输入数字、大小写字母、英文下划线' : '用户名重复'
+									);
 								}
 								return Promise.reject('');
 							},
@@ -98,10 +108,14 @@ export default () => {
 						() => ({
 							async validator(rule, value) {
 								if (!!value) {
-									const flag = await uniquePhoneVolunteers({ phone: value }).then(res => res.data);
+									const flag = await uniquePhoneVolunteers({ phone: value }).then(
+										res => res.data
+									);
 									if (!!value && /^1\d{10}$/.test(value) && flag)
 										return Promise.resolve();
-									return Promise.reject(flag ? '请输入正确的手机号码' : '手机号重复');
+									return Promise.reject(
+										flag ? '请输入正确的手机号码' : '手机号重复'
+									);
 								}
 								return Promise.reject('');
 							},
@@ -144,7 +158,11 @@ export default () => {
 					name='type'
 					label='志愿者类型'
 					rules={[{ required: true }]}
-					options={[{ value: '1', label: '党员干部志愿者' }, { value: '2', label: '文艺志愿者' }, { value: '3', label: '社会志愿者' }]}
+					options={[
+						{ value: '1', label: '党员干部志愿者' },
+						{ value: '2', label: '文艺志愿者' },
+						{ value: '3', label: '社会志愿者' },
+					]}
 					fieldProps={{ getPopupContainer: triggerNode => triggerNode.parentElement }}
 				/>
 				<Form.Item
@@ -156,17 +174,21 @@ export default () => {
 						() => ({
 							async validator(rule, value) {
 								if (!!value) {
-									console.log(value, '邮箱校验')
+									console.log(value, '邮箱校验');
 									const reg = /^([a-zA-Z]|[0-9])(\w|\-)+@[a-zA-Z0-9]+\.([a-zA-Z]{2,4})$/;
-									const flag = await uniqueEmailVolunteers({ email: value }).then(res => res.data);
-									if (!!value && reg.test(value) && flag) return Promise.resolve();
-									return Promise.reject(flag ? '请输入正确的邮箱格式' : '邮箱重复');
+									const flag = await uniqueEmailVolunteers({ email: value }).then(
+										res => res.data
+									);
+									if (!!value && reg.test(value) && flag)
+										return Promise.resolve();
+									return Promise.reject(
+										flag ? '请输入正确的邮箱格式' : '邮箱重复'
+									);
 								}
 								return Promise.reject('');
 							},
 						}),
 					]}
-
 				>
 					<Input maxLength={100} />
 				</Form.Item>
@@ -203,7 +225,10 @@ export default () => {
 				<ProFormRadio.Group
 					name='gender'
 					label='性别'
-					options={[{ value: 1, label: '男' }, { value: 2, label: '女' }]}
+					options={[
+						{ value: 1, label: '男' },
+						{ value: 2, label: '女' },
+					]}
 					rules={[{ required: true }]}
 					initialValue={1}
 				/>
@@ -211,7 +236,12 @@ export default () => {
 					name='clan'
 					label='民族'
 					rules={[{ required: true }]}
-					options={[{ value: 1, label: '汉族' }, { value: 2, label: '维吾尔族' }, { value: 3, label: '蒙古族' }, { value: 4, label: '傣族' }]}
+					options={[
+						{ value: 1, label: '汉族' },
+						{ value: 2, label: '维吾尔族' },
+						{ value: 3, label: '蒙古族' },
+						{ value: 4, label: '傣族' },
+					]}
 					fieldProps={{ getPopupContainer: triggerNode => triggerNode.parentElement }}
 				/>
 				<ProFormDatePicker
@@ -231,28 +261,49 @@ export default () => {
 					name='education'
 					label='最高学历'
 					rules={[{ required: true }]}
-					options={[{ value: 1, label: '中专' }, { value: 2, label: '大专' }, { value: 3, label: '本科' }, { value: 4, label: '硕士' }, { value: 5, label: '博士' }]}
+					options={[
+						{ value: 1, label: '中专' },
+						{ value: 2, label: '大专' },
+						{ value: 3, label: '本科' },
+						{ value: 4, label: '硕士' },
+						{ value: 5, label: '博士' },
+					]}
 					fieldProps={{ getPopupContainer: triggerNode => triggerNode.parentElement }}
 				/>
 				<ProFormSelect
 					name='politicalLook'
 					label='政治面貌'
 					rules={[{ required: true }]}
-					options={[{ value: 1, label: '群众' }, { value: 2, label: '团员' }, { value: 3, label: '预备党员' }, { value: 4, label: '党员' }]}
+					options={[
+						{ value: 1, label: '群众' },
+						{ value: 2, label: '团员' },
+						{ value: 3, label: '预备党员' },
+						{ value: 4, label: '党员' },
+					]}
 					fieldProps={{ getPopupContainer: triggerNode => triggerNode.parentElement }}
 				/>
 				<ProFormSelect
 					name='occupation'
 					label='职业'
 					rules={[{ required: true }]}
-					options={[{ value: 1, label: '党政机构从业人员' }, { value: 2, label: '公益组织人员' }, { value: 3, label: '医生' }]}
+					options={[
+						{ value: 1, label: '党政机构从业人员' },
+						{ value: 2, label: '公益组织人员' },
+						{ value: 3, label: '医生' },
+					]}
 					fieldProps={{ getPopupContainer: triggerNode => triggerNode.parentElement }}
 				/>
 				<ProFormText name='workUnit' label='单位' fieldProps={{ maxLength: 100 }} />
 				<ProFormSelect
 					name='strongPoint'
 					label='擅长服务'
-					options={[{ value: 1, label: '科普宣传' }, { value: 2, label: '法律服务' }, { value: 3, label: '文体教育' }, { value: 4, label: '社区服务' }, { value: 5, label: '环保宣传' }]}
+					options={[
+						{ value: 1, label: '科普宣传' },
+						{ value: 2, label: '法律服务' },
+						{ value: 3, label: '文体教育' },
+						{ value: 4, label: '社区服务' },
+						{ value: 5, label: '环保宣传' },
+					]}
 					fieldProps={{
 						mode: 'multiple',
 						maxTagCount: 5,
