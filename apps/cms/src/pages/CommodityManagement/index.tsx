@@ -78,7 +78,7 @@ const CommodityManagementList = () => {
 				<div>
 					<Image width={72} src={row.coverResId} />
 					<a
-						style={{ marginLeft: '7px' }}
+						className='io-cms-commdity-management-good_name'
 						onClick={() => {
 							history.push(`/point-mall/commodity-management/detail/${row.id}`);
 						}}
@@ -92,28 +92,22 @@ const CommodityManagementList = () => {
 			title: '商品类目',
 			dataIndex: 'categoryName',
 			filters: categoryList,
+			sorter: true,
 		},
 		{
 			title: '积分价格',
 			dataIndex: 'integral',
-			sorter: (a: any, b: any, order: any) => {
-				let sort = order == 'ascend' ? 'asc' : 'desc';
-				setGoodsParams({ ...goodsParams, pageSort: `integral  ${sort}` });
-				return a.integral - b.integral;
-			},
+			sorter: true,
 		},
 		{
 			title: '库存',
 			dataIndex: 'inventory',
-			sorter: (a: any, b: any, order: any) => {
-				let sort = order == 'ascend' ? 'asc' : 'desc';
-				setGoodsParams({ ...goodsParams, pageSort: `inventory  ${sort}` });
-				return a.inventory - b.inventory;
-			},
+			sorter: true,
 		},
 		{
 			title: '累计兑换量',
 			dataIndex: 'totalConvertNum',
+			sorter: true,
 		},
 		{
 			title: '状态',
@@ -126,20 +120,34 @@ const CommodityManagementList = () => {
 				},
 				{
 					text: '已下架',
-					value: 0,
+					value: 2,
 				},
 			],
-			onFilter: (value: any, record: any) => {
-				// setGoodsParams({ ...setGoodsParams, status: value });
-				return [record.status].indexOf(value) === 0;
-			},
+			sorter: true,
+		},
 
-			// sorter: (a: any, b: any, order: any) => {
-			// 	console.log(a, b, order, 'a');
-			// 	let sort = order == 'ascend' ? 'asc' : 'desc';
-			// 	setGoodsParams({ ...goodsParams, pageSort: `goodsNum  ${sort}` });
-			// 	return a.goodsNum - b.goodsNum;
-			// },
+		{
+			title: '兑换限制',
+			dataIndex: 'stint',
+			render: (row: any, record: any) => {
+				return (
+					<div>
+						<p>{record.stint == 0 ? `无限制` : `单人限兑 ${record.stintNum}`}</p>
+						{record.stint == 1 && <p>已于{record.resetTime}重置</p>}
+					</div>
+				);
+			},
+			filters: [
+				{
+					text: '无限制',
+					value: 0,
+				},
+				{
+					text: '单人限量',
+					value: 1,
+				},
+			],
+			sorter: true,
 		},
 
 		{
@@ -214,20 +222,24 @@ const CommodityManagementList = () => {
 						下架
 					</a>
 				),
-				<a
-					key='reset'
-					onClick={() => {
-						showTypeConfirm(
-							'确认是否充值兑换限制？',
-							'重置兑换限制，将对用户兑换商品的次数清零，兑换限制将重新计算',
-							'reset',
-							'single',
-							record.id
-						);
-					}}
-				>
-					重置兑换限制
-				</a>,
+				record.stint == 1 ? (
+					<a
+						key='reset'
+						onClick={() => {
+							showTypeConfirm(
+								'确认是否充值兑换限制？',
+								'重置兑换限制，将对用户兑换商品的次数清零，兑换限制将重新计算',
+								'reset',
+								'single',
+								record.id
+							);
+						}}
+					>
+						重置兑换限制
+					</a>
+				) : (
+					<span>重置兑换限制</span>
+				),
 				<a
 					key='delete'
 					onClick={() => {
@@ -374,19 +386,25 @@ const CommodityManagementList = () => {
 					}}
 					// scroll={{ x: 1300 }}
 					params={goodsParams}
-					request={async (params: any) => {
-						// 这里需要返回一个 Promise,在返回之前你可以进行数据转化
-						// 如果需要转化参数可以在这里进行修改
-						console.log('params', params);
-						const data = await goodsPage({ ...goodsParams });
-						return {
+					request={(params: any, sort: any, filter: any) => {
+						let sortkey =
+							Object.keys(sort)[0] == 'categoryName'
+								? 'categoryId'
+								: Object.keys(sort)[0];
+						let sortValue = Object.values(sort)[0] == 'ascend' ? 'asc' : 'desc';
+						let pageSort = Object.keys(sort)[0] ? `${sortkey} ${sortValue}` : '';
+						const { categoryName, status, stint } = filter;
+						return goodsPage({
+							...goodsParams,
+							status,
+							categoryId: categoryName,
+							stint,
+							pageSort,
+							// sorted,
+						}).then((data: any) => ({
 							data: data.data.content,
-							// success 请返回 true，
-							// 不然 table 会停止解析数据，即使有数据
-							success: true,
-							// 不传会使用 data 的长度，如果是分页一定要传
 							total: data.data.total,
-						};
+						}));
 					}}
 					search={false}
 					rowKey='id'
