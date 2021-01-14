@@ -144,8 +144,7 @@ export default () => {
 							validator(rule, value) {
 								if (!!value) {
 									const reg = /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/;
-									if (!!value && reg.test(value))
-										return Promise.resolve();
+									if (!!value && reg.test(value)) return Promise.resolve();
 									return Promise.reject('请输入正确的证件号码');
 								}
 								return Promise.reject();
@@ -165,7 +164,16 @@ export default () => {
 					rules={[{ required: true }]}
 					fieldProps={{ getPopupContainer: triggerNode => triggerNode.parentElement }}
 				/>
-				<ProFormDatePicker name='birthday' label='出生日期' rules={[{ required: true }]} fieldProps={{ disabledDate: (current) => { return current && current < moment('1900-12-31').endOf('day'); } }} />
+				<ProFormDatePicker
+					name='birthday'
+					label='出生日期'
+					rules={[{ required: true }]}
+					fieldProps={{
+						disabledDate: current => {
+							return current && current < moment('1900-12-31').endOf('day');
+						},
+					}}
+				/>
 				<Form.Item name='domicile' label='籍贯' rules={[{ required: true }]}>
 					<Cascader />
 				</Form.Item>
