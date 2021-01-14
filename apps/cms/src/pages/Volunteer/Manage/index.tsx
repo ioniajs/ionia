@@ -390,7 +390,12 @@ export default () => {
 					renderActions={() => (
 						<>
 							<div className='io-space-item'>
-								<Button type='primary' onClick={() => { history.push('/content-operation/volunteer/manage/create') }}>
+								<Button
+									type='primary'
+									onClick={() => {
+										history.push('/content-operation/volunteer/manage/create');
+									}}
+								>
 									<i className='iconfont icon-plus1' />
 									新建
 								</Button>
