@@ -11,6 +11,8 @@ export interface AdminGoodsPageItemVO {
 	stintNum: number;
 	totalConvertNum: number;
 	updateTime: string;
+	atlas?: any[];
+	content: string;
 }
 
 export interface AdminGoodsPageVO {

@@ -51,7 +51,7 @@ export const UploadItem = ({ file, onRemove }: UploadItemProps) => {
 	if (file.status === 'done') {
 		item = (
 			<>
-				<Image src={file.url && file.thumbUrl} />
+				<Image src={file.url ?? file.thumbUrl} />
 			</>
 		);
 	}
@@ -74,13 +74,14 @@ export const UploadItem = ({ file, onRemove }: UploadItemProps) => {
 			} ${isError ? 'io-image-upload__item--error' : ''}`}
 		>
 			{item}
+			{/* <Image src={file.url}/> */}
 			<BizModalForm
 				ref={previewModalRef}
 				title={file.name}
 				triggerRender={() => null}
 				submitterRender={() => null}
 			>
-				<Image src={file.url && file.thumbUrl} preview={false} />
+				<Image src={file.url || file.thumbUrl} preview={false} />
 			</BizModalForm>
 			<PictureCropper
 				visible={pictureCropperVisible}

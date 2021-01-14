@@ -8,11 +8,13 @@ import { useLocalStorage } from 'react-use';
 import { UploadButton } from '../UploadButton';
 import { UploadItem } from '../UploadItem';
 import './index.less';
+import { configs } from '../../../configs';
 
 interface ImageUploadProps extends UploadProps {
 	title?: string;
 	tips?: string;
 	limit?: number;
+	defaultFileList?: UploadFile<any>[];
 	onChange?: (files: any) => void;
 }
 
@@ -20,7 +22,9 @@ export const ImageUpload = ({
 	title,
 	tips,
 	limit = 1,
-	action = 'http://192.168.0.200:29000/module-infra/res/upload',
+	action = `${process.env.NODE_ENV === 'development' ? configs.API_HOST : configs.API_HOST}${
+		configs.API_PREFIX
+	}/module-infra/res/upload`,
 	defaultFileList,
 	onChange,
 	...reset
@@ -101,7 +105,7 @@ export const ImageUpload = ({
 					fileList = fileList.map(file => {
 						if (file.response) {
 							file.url = file.response[0].url;
-							// file.id = file.response.id;
+							file.uid = file.response[0].id;
 						}
 						return file;
 					});
