@@ -163,10 +163,10 @@ export default {
 							path: '/cms/system-management/data-dictionary/type',
 							name: '字典类型',
 						},
-						{
-							path: '/cms/system-management/data-dictionary/content',
-							name: '数据字典',
-						},
+						// {
+						// 	path: '/cms/system-management/data-dictionary/content',
+						// 	name: '数据字典',
+						// },
 					],
 				},
 			],

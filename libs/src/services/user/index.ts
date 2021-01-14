@@ -9,4 +9,5 @@ export * from './column-permissions';
 export * from './content-permissions';
 export * from './cmsmanager-api';
 export * from './volunteer';
-export * from './integral';
+export * from './integral/commodity-category';
+export * from './integral/commodity-management';

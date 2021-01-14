@@ -2,16 +2,19 @@ import { Upload } from 'antd';
 import { UploadProps } from 'antd/lib/upload';
 import { UploadFile } from 'antd/lib/upload/interface';
 import axios from 'axios';
+import { values } from 'lodash';
 import React, { ReactElement, useEffect, useState } from 'react';
 import { useLocalStorage } from 'react-use';
 import { UploadButton } from '../UploadButton';
 import { UploadItem } from '../UploadItem';
 import './index.less';
+import { configs } from '../../../configs';
 
 interface ImageUploadProps extends UploadProps {
 	title?: string;
 	tips?: string;
 	limit?: number;
+	defaultFileList?: UploadFile<any>[];
 	onChange?: (files: any) => void;
 }
 
@@ -19,7 +22,9 @@ export const ImageUpload = ({
 	title,
 	tips,
 	limit = 1,
-	action = 'http://192.168.0.200:29000/module-infra/res/upload',
+	action = `${process.env.NODE_ENV === 'development' ? configs.API_HOST : configs.API_HOST}${
+		configs.API_PREFIX
+	}/module-infra/res/upload`,
 	defaultFileList,
 	onChange,
 	...reset
@@ -51,14 +56,13 @@ export const ImageUpload = ({
 				}) => {
 					const formData = new FormData();
 					// @ts-ignore
-					formData.append('files', [file]);
-
+					formData.append('files', file);
 					axios
 						.post(action, formData, {
 							withCredentials,
 							headers: {
 								'Accept-Language': 'zh-CN',
-								Authorization: `Bearer ${token}`,
+								Authorization: `${token}`,
 								...headers,
 							},
 							onUploadProgress: ({ total, loaded }) => {
@@ -97,7 +101,16 @@ export const ImageUpload = ({
 				{...reset}
 				fileList={fileList}
 				onChange={info => {
-					setFileList([...info.fileList]);
+					let fileList = [...info.fileList];
+					fileList = fileList.map(file => {
+						if (file.response) {
+							file.url = file.response[0].url;
+							file.uid = file.response[0].id;
+						}
+						return file;
+					});
+					console.log('fileList', fileList);
+					setFileList([...fileList]);
 				}}
 			>
 				{fileList.length < limit && <UploadButton />}

@@ -7,6 +7,7 @@ import { SearchOutlined } from '@ant-design/icons';
 import { DataDictionaryTypePageVO, dictionaryTypePaing, deleteDictionaryType } from '@ionia/libs';
 import { IdsDTO } from '@ionia/libs/src/services/common.dto';
 import moment from 'moment';
+import { useHistory } from 'react-router-dom';
 import DetailForm from './Detail';
 import './index.less';
 
@@ -24,6 +25,7 @@ export default () => {
 	const actionRef = useRef<ActionType>();
 	const [searchParams, setSearchParams] = useState<any>({ pageNo: 1, pageSize: 10 });
 	const [form] = Form.useForm();
+	const history = useHistory();
 	const columns: ProColumns<DataDictionaryTypePageVO>[] = [
 		{
 			title: '字典类型',
@@ -39,11 +41,15 @@ export default () => {
 			title: '更新时间',
 			key: 'updateTime',
 			dataIndex: 'updateTime',
+			// sorter: true,
 			sorter: (a: any, b: any, order: any) => {
-				let atime = new Date(a.birthday.replace(/-/g, '/')).getTime();
-				let btime = new Date(b.birthday.replace(/-/g, '/')).getTime();
+				let atime = new Date(a.updateTime.replace(/-/g, '/')).getTime();
+				let btime = new Date(b.updateTime.replace(/-/g, '/')).getTime();
 				console.log(atime, btime, order, 'dd');
-				setSearchParams({ ...searchParams, updateTime: order });
+				setSearchParams({
+					...searchParams,
+					pageSort: `updateTime ${order === 'ascend' ? 'asc' : 'desc'}`,
+				});
 				return atime - btime;
 			},
 			sortDirections: sortDirections,
@@ -111,7 +117,18 @@ export default () => {
 			render: (_, row) => {
 				return (
 					<>
-						<a>字典数据</a>
+						<a
+							onClick={() => {
+								history.push({
+									pathname: '/system-management/data-dictionary/content',
+									state: {
+										typeId: row.id,
+									},
+								});
+							}}
+						>
+							字典数据
+						</a>
 						<Divider type='vertical' />
 						<div style={{ display: 'inline-block' }}>
 							<DetailForm
@@ -171,6 +188,7 @@ export default () => {
 							...params,
 							pageNo: params.current,
 							pageSize: params.pageSize,
+							// pageSort: JSON.stringify(sort) !== '{}' ? `${Object.keys(sort)[0]} ${Object.values(sort)[0] === 'ascend' ? 'asc ' : 'desc'}` : ''
 						}).then(data => ({
 							data: data.data.content,
 							total: data.data.total,
