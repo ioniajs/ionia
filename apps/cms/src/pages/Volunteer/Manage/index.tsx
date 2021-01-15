@@ -8,11 +8,24 @@ import {
 	AdminVolunteerTeamTreeVO,
 	VolunteerPageVO,
 	resetCipherVolunteers,
+	deleteVolunteers,
 } from '@ionia/libs/src/services';
-import { Button, Form, Input, Space, DatePicker, Divider, Avatar, message, Popconfirm } from 'antd';
+import {
+	Button,
+	Form,
+	Input,
+	Space,
+	DatePicker,
+	Divider,
+	Avatar,
+	message,
+	Popconfirm,
+	Modal,
+} from 'antd';
 import { SearchOutlined } from '@ant-design/icons';
 import { useMount, useRequest } from '@umijs/hooks';
 import { useHistory } from 'react-router-dom';
+import { IdsDTO } from '@ionia/libs/src/services/common.dto';
 import moment from 'moment';
 import './index.less';
 
@@ -38,7 +51,11 @@ const treeData = [
 	},
 ];
 
-const handleResetCipher = async (filed: number) => {
+/**
+ * 重置密码
+ * @param filed
+ */
+const handleResetCipher = async (filed: string) => {
 	const resetRes = await resetCipherVolunteers(filed);
 	if (resetRes.code === 200) {
 		message.success('重置密码成功');
@@ -48,12 +65,28 @@ const handleResetCipher = async (filed: number) => {
 	return resetRes.code;
 };
 
+/**
+ * 删除志愿者
+ * @param filed
+ */
+const handleDeleteVolunteer = async (filed: IdsDTO) => {
+	const deleteRes = await deleteVolunteers(filed);
+	if (deleteRes.code === 200) {
+		message.success('删除成功');
+	} else {
+		message.error('删除失败');
+	}
+	return deleteRes.code;
+};
+
 export default () => {
 	const history = useHistory();
 	const [form] = Form.useForm();
 	const actionRef = useRef<ActionType>();
 	const [teamsTreeList, setTeamsTreeList] = useState<AdminVolunteerTeamTreeVO>();
 	const [searchParams, setSearchParams] = useState<any>({ pageNo: 1, pageSize: 10 });
+	const [selectedRowKeys, setSelectedRowKeys] = useState<string[]>([]);
+	console.log(selectedRowKeys, 'selectedRowKeys');
 	const [columnsStateMap, setColumnsStateMap] = useState<Record<string, ColumnsState>>({
 		email: {
 			// 邮箱
@@ -98,11 +131,11 @@ export default () => {
 						r.children = loop(r.children);
 					}
 					return {
-						value: r.id.toString(),
+						...r,
+						value: r.id,
 						title: r.name,
 						key: r.id.toString(),
 						children: r.children,
-						...r,
 					};
 				});
 			};
@@ -176,6 +209,14 @@ export default () => {
 								position: 'absolute',
 								left: '48px',
 								top: '7px',
+							}}
+							onClick={() => {
+								history.push({
+									pathname: `/volunteer/manage/detail/${row.id}`,
+									state: {
+										teamsTreeList,
+									},
+								});
 							}}
 						>
 							{row.username}
@@ -426,10 +467,10 @@ export default () => {
 					<Popconfirm
 						title={
 							<span>
-								<div style={{ fontSize: '16px', fontWeight: 'bold' }}>
-									确认是否重置密码？
+								<div style={{ fontWeight: 'bold' }}>确认是否重置密码？</div>
+								<div style={{ fontSize: '12px', color: '#8C8C8C' }}>
+									操作成功后系统将随机生成6位数密码通知志愿者
 								</div>
-								<div>操作成功后系统将随机生成6位数密码通知志愿者</div>
 							</span>
 						}
 						placement='leftBottom'
@@ -444,9 +485,30 @@ export default () => {
 					>
 						<a>重置密码</a>
 					</Popconfirm>
-
 					<Divider type='vertical' />
-					<a>删除</a>
+					<Popconfirm
+						title={
+							<span>
+								<div style={{ fontWeight: 'bold' }}>确认是否需要删除？</div>
+								<div style={{ fontSize: '12px', color: '#8C8C8C' }}>
+									信息删除后将无法找回，此操作不可逆
+								</div>
+							</span>
+						}
+						placement='leftBottom'
+						okText='确认'
+						cancelText='取消'
+						onConfirm={async () => {
+							const success = await handleDeleteVolunteer({
+								ids: [row.id.toString()],
+							});
+							if (success === 200 && actionRef.current) {
+								actionRef.current.reload();
+							}
+						}}
+					>
+						<a>删除</a>
+					</Popconfirm>
 				</>
 			),
 		},
@@ -464,7 +526,7 @@ export default () => {
 									type='primary'
 									onClick={() => {
 										history.push({
-											pathname: '/content-operation/volunteer/manage/create',
+											pathname: '/volunteer/manage/add',
 											state: {
 												teamsTreeList,
 											},
@@ -476,7 +538,30 @@ export default () => {
 								</Button>
 							</div>
 							<div className='io-space-item'>
-								<Button>删除</Button>
+								<Button
+									onClick={() => {
+										if (selectedRowKeys.length === 0) {
+											message.error('请选择要删除的数据');
+											return;
+										}
+										Modal.confirm({
+											title: '确认是否需要删除？',
+											content: '信息删除后将无法找回，此操作不可逆',
+											okText: '确定',
+											cancelText: '取消',
+											onOk: async () => {
+												const success = await handleDeleteVolunteer({
+													ids: selectedRowKeys,
+												});
+												if (success === 200 && actionRef.current) {
+													actionRef.current.reload();
+												}
+											},
+										});
+									}}
+								>
+									删除
+								</Button>
 							</div>
 						</>
 					)}
@@ -495,7 +580,12 @@ export default () => {
 					columns={columns}
 					columnsStateMap={columnsStateMap}
 					onColumnsStateChange={map => setColumnsStateMap(map)}
-					rowSelection={{}}
+					rowSelection={{
+						selectedRowKeys,
+						onChange: (selectedRowKeys: any) => {
+							setSelectedRowKeys(selectedRowKeys as string[]);
+						},
+					}}
 					request={(params: any, sort: any, filter: any) => {
 						return volunteerPaging({
 							...params,

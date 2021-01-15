@@ -61,7 +61,7 @@ export default () => {
 						...values,
 						avatarId: values.avatarId[0]?.uid,
 						birthday: moment(values.birthday).format('YYYY-MM-DD'),
-						domicile: values.domicile[0],
+						domicileId: values.domicileId[0],
 						checkStatus: 0,
 					};
 					const success = await handleSave(params as VolunteerDTO);
@@ -155,7 +155,7 @@ export default () => {
 					fieldProps={{ maxLength: 50 }}
 				/>
 				<ProFormSelect
-					name='type'
+					name='typeId'
 					label='志愿者类型'
 					rules={[{ required: true }]}
 					options={[
@@ -223,7 +223,7 @@ export default () => {
 					]}
 				/>
 				<ProFormRadio.Group
-					name='gender'
+					name='genderId'
 					label='性别'
 					options={[
 						{ value: 1, label: '男' },
@@ -233,7 +233,7 @@ export default () => {
 					initialValue={1}
 				/>
 				<ProFormSelect
-					name='clan'
+					name='clanId'
 					label='民族'
 					rules={[{ required: true }]}
 					options={[
@@ -252,13 +252,16 @@ export default () => {
 						disabledDate: current => {
 							return current && current < moment('1900-12-31').endOf('day');
 						},
+						style: {
+							width: '100%',
+						},
 					}}
 				/>
-				<Form.Item name='domicile' label='籍贯' rules={[{ required: true }]}>
+				<Form.Item name='domicileId' label='籍贯' rules={[{ required: true }]}>
 					<Cascader options={domicileOptions} />
 				</Form.Item>
 				<ProFormSelect
-					name='education'
+					name='educationId'
 					label='最高学历'
 					rules={[{ required: true }]}
 					options={[
@@ -271,7 +274,7 @@ export default () => {
 					fieldProps={{ getPopupContainer: triggerNode => triggerNode.parentElement }}
 				/>
 				<ProFormSelect
-					name='politicalLook'
+					name='politicalLookId'
 					label='政治面貌'
 					rules={[{ required: true }]}
 					options={[
@@ -283,7 +286,7 @@ export default () => {
 					fieldProps={{ getPopupContainer: triggerNode => triggerNode.parentElement }}
 				/>
 				<ProFormSelect
-					name='occupation'
+					name='occupationId'
 					label='职业'
 					rules={[{ required: true }]}
 					options={[
