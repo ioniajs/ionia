@@ -22,7 +22,8 @@ export const ImageUpload = ({
 	title,
 	tips,
 	limit = 1,
-	action = `${process.env.NODE_ENV === 'development' ? configs.API_HOST : configs.API_HOST}${configs.API_PREFIX
+	action = `${process.env.NODE_ENV === 'development' ? configs.API_HOST : configs.API_HOST}${
+		configs.API_PREFIX
 	}/module-infra/res/upload`,
 	defaultFileList,
 	onChange,

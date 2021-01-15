@@ -8,9 +8,20 @@ import {
 	AdminVolunteerTeamTreeVO,
 	VolunteerPageVO,
 	resetCipherVolunteers,
-	deleteVolunteers
+	deleteVolunteers,
 } from '@ionia/libs/src/services';
-import { Button, Form, Input, Space, DatePicker, Divider, Avatar, message, Popconfirm, Modal } from 'antd';
+import {
+	Button,
+	Form,
+	Input,
+	Space,
+	DatePicker,
+	Divider,
+	Avatar,
+	message,
+	Popconfirm,
+	Modal,
+} from 'antd';
 import { SearchOutlined } from '@ant-design/icons';
 import { useMount, useRequest } from '@umijs/hooks';
 import { useHistory } from 'react-router-dom';
@@ -42,7 +53,7 @@ const treeData = [
 
 /**
  * 重置密码
- * @param filed 
+ * @param filed
  */
 const handleResetCipher = async (filed: string) => {
 	const resetRes = await resetCipherVolunteers(filed);
@@ -56,7 +67,7 @@ const handleResetCipher = async (filed: string) => {
 
 /**
  * 删除志愿者
- * @param filed 
+ * @param filed
  */
 const handleDeleteVolunteer = async (filed: IdsDTO) => {
 	const deleteRes = await deleteVolunteers(filed);
@@ -66,7 +77,7 @@ const handleDeleteVolunteer = async (filed: IdsDTO) => {
 		message.error('删除失败');
 	}
 	return deleteRes.code;
-}
+};
 
 export default () => {
 	const history = useHistory();
@@ -75,7 +86,7 @@ export default () => {
 	const [teamsTreeList, setTeamsTreeList] = useState<AdminVolunteerTeamTreeVO>();
 	const [searchParams, setSearchParams] = useState<any>({ pageNo: 1, pageSize: 10 });
 	const [selectedRowKeys, setSelectedRowKeys] = useState<string[]>([]);
-	console.log(selectedRowKeys, 'selectedRowKeys')
+	console.log(selectedRowKeys, 'selectedRowKeys');
 	const [columnsStateMap, setColumnsStateMap] = useState<Record<string, ColumnsState>>({
 		email: {
 			// 邮箱
@@ -201,10 +212,11 @@ export default () => {
 							}}
 							onClick={() => {
 								history.push({
-									pathname: `/volunteer/manage/detail/${row.id}`, state: {
+									pathname: `/volunteer/manage/detail/${row.id}`,
+									state: {
 										teamsTreeList,
 									},
-								})
+								});
 							}}
 						>
 							{row.username}
@@ -455,10 +467,10 @@ export default () => {
 					<Popconfirm
 						title={
 							<span>
-								<div style={{ fontWeight: 'bold' }}>
-									确认是否重置密码？
+								<div style={{ fontWeight: 'bold' }}>确认是否重置密码？</div>
+								<div style={{ fontSize: '12px', color: '#8C8C8C' }}>
+									操作成功后系统将随机生成6位数密码通知志愿者
 								</div>
-								<div style={{ fontSize: '12px', color: '#8C8C8C' }}>操作成功后系统将随机生成6位数密码通知志愿者</div>
 							</span>
 						}
 						placement='leftBottom'
@@ -478,14 +490,18 @@ export default () => {
 						title={
 							<span>
 								<div style={{ fontWeight: 'bold' }}>确认是否需要删除？</div>
-								<div style={{ fontSize: '12px', color: '#8C8C8C' }}>信息删除后将无法找回，此操作不可逆</div>
+								<div style={{ fontSize: '12px', color: '#8C8C8C' }}>
+									信息删除后将无法找回，此操作不可逆
+								</div>
 							</span>
 						}
 						placement='leftBottom'
 						okText='确认'
 						cancelText='取消'
 						onConfirm={async () => {
-							const success = await handleDeleteVolunteer({ ids: [row.id.toString()] });
+							const success = await handleDeleteVolunteer({
+								ids: [row.id.toString()],
+							});
 							if (success === 200 && actionRef.current) {
 								actionRef.current.reload();
 							}
@@ -522,24 +538,28 @@ export default () => {
 								</Button>
 							</div>
 							<div className='io-space-item'>
-								<Button onClick={() => {
-									if (selectedRowKeys.length === 0) {
-										message.error('请选择要删除的数据');
-										return;
-									}
-									Modal.confirm({
-										title: '确认是否需要删除？',
-										content: '信息删除后将无法找回，此操作不可逆',
-										okText: '确定',
-										cancelText: '取消',
-										onOk: async () => {
-											const success = await handleDeleteVolunteer({ ids: selectedRowKeys });
-											if (success === 200 && actionRef.current) {
-												actionRef.current.reload();
-											}
+								<Button
+									onClick={() => {
+										if (selectedRowKeys.length === 0) {
+											message.error('请选择要删除的数据');
+											return;
 										}
-									})
-								}}>
+										Modal.confirm({
+											title: '确认是否需要删除？',
+											content: '信息删除后将无法找回，此操作不可逆',
+											okText: '确定',
+											cancelText: '取消',
+											onOk: async () => {
+												const success = await handleDeleteVolunteer({
+													ids: selectedRowKeys,
+												});
+												if (success === 200 && actionRef.current) {
+													actionRef.current.reload();
+												}
+											},
+										});
+									}}
+								>
 									删除
 								</Button>
 							</div>

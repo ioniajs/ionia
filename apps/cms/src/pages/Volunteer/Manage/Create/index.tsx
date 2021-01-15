@@ -253,8 +253,8 @@ export default () => {
 							return current && current < moment('1900-12-31').endOf('day');
 						},
 						style: {
-							width: '100%'
-						}
+							width: '100%',
+						},
 					}}
 				/>
 				<Form.Item name='domicileId' label='籍贯' rules={[{ required: true }]}>
