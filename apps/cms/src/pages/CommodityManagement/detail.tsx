@@ -147,7 +147,7 @@ const CommodityManagementDetail = ({ match }: any) => {
 					<Form.Item
 						label='商品相册'
 						name='atlas'
-						// rules={[{ required: true, message: '请上传你的商品相册' }]}
+					// rules={[{ required: true, message: '请上传你的商品相册' }]}
 					>
 						{flag && (
 							<ImageUpload

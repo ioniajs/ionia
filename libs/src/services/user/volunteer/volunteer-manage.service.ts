@@ -133,7 +133,7 @@ export async function VolunteerPraiseSelectList(
  * 重置密码
  * @param id
  */
-export async function resetCipherVolunteers(id: number | string): Promise<JcResult<object>> {
+export async function resetCipherVolunteers(id: string): Promise<JcResult<object>> {
 	return request.post(`/module-user/cmsmanager/volunteers/resetCipher/${id}`);
 }
 /**

@@ -22,8 +22,7 @@ export const ImageUpload = ({
 	title,
 	tips,
 	limit = 1,
-	action = `${process.env.NODE_ENV === 'development' ? configs.API_HOST : configs.API_HOST}${
-		configs.API_PREFIX
+	action = `${process.env.NODE_ENV === 'development' ? configs.API_HOST : configs.API_HOST}${configs.API_PREFIX
 	}/module-infra/res/upload`,
 	defaultFileList,
 	onChange,
@@ -32,7 +31,6 @@ export const ImageUpload = ({
 	// const [token] = useLocalStorage('io-token');
 	const token = localStorage.getItem('token');
 	const [fileList, setFileList] = useState<UploadFile<any>[]>(defaultFileList ?? []);
-
 	useEffect(() => {
 		onChange && onChange(fileList);
 	}, [fileList]);

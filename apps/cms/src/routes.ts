@@ -45,6 +45,7 @@ import Interface from '@/pages/MenuManagement/Interface';
 import Menu from '@/pages/MenuManagement/Menu';
 import VolunteerManage from '@/pages/Volunteer/Manage';
 import VolunteerManageCreate from '@/pages/Volunteer/Manage/Create';
+import VolunteerManageDetail from '@/pages/Volunteer/Manage/Detail';
 import VolunteerCheck from '@/pages/Volunteer/Check';
 import MenuAdd from '@/pages/MenuManagement/Menu/add';
 import MenuDeatil from '@/pages/MenuManagement/Menu/detail';
@@ -241,15 +242,19 @@ export default [
 		component: CommentsReport,
 	},
 	{
-		path: '/content-operation/volunteer/manage',
+		path: '/volunteer/manage',
 		component: VolunteerManage,
 	},
 	{
-		path: '/content-operation/volunteer/manage/create',
+		path: '/volunteer/manage/add',
 		component: VolunteerManageCreate,
 	},
 	{
-		path: '/content-operation/volunteer/check',
+		path: '/volunteer/manage/detail/:id',
+		component: VolunteerManageDetail,
+	},
+	{
+		path: '/volunteer/check',
 		component: VolunteerCheck,
 	},
 	{
