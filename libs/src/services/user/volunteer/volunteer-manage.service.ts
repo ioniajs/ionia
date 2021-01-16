@@ -53,12 +53,14 @@ export async function checkVolunteers(data: VolunteerCheckDTO): Promise<JcResult
 
 /**
  * 志愿者审核分页列表
- * @param params 
+ * @param params
  */
-export async function checkVolunteerPaging(params:VolunteerPaging): Promise<JcResult<Page<VolunteerPageVO>>> {
+export async function checkVolunteerPaging(
+	params: VolunteerPaging
+): Promise<JcResult<Page<VolunteerPageVO>>> {
 	return request.post('/module-user/cmsmanager/volunteers/check/page', {
-		params
-	})
+		params,
+	});
 }
 
 /**

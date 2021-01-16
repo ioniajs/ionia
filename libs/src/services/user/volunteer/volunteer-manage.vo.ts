@@ -3,7 +3,7 @@ export interface VolunteerPageVO {
 	avatar: string; // 头像url
 	birthday: string; // 出生日期
 	checkStatus: number; // 审核状态
-	notPassReason:string; // 未通过原因
+	notPassReason: string; // 未通过原因
 	checkTime: string; // 加入时间/审核时间
 	clan: string; // 民族
 	code: string; // 志愿者编号

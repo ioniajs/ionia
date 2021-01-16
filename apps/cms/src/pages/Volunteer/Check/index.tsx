@@ -2,7 +2,12 @@ import React, { useRef, useState } from 'react';
 import { BizPage, BizTable } from '@ionia/libs';
 import { ActionType, ProColumns, ColumnsState } from '@ant-design/pro-table';
 import { Button, Form, Input, Space, DatePicker, Avatar, Tooltip, Divider, TreeSelect } from 'antd';
-import { checkVolunteerPaging, VolunteerPageVO, AdminVolunteerTeamTreeVO, allTreeTeamsVolunteer } from '@ionia/libs/src/services';
+import {
+	checkVolunteerPaging,
+	VolunteerPageVO,
+	AdminVolunteerTeamTreeVO,
+	allTreeTeamsVolunteer,
+} from '@ionia/libs/src/services';
 import { SearchOutlined } from '@ant-design/icons';
 import { useHistory } from 'react-router-dom';
 import moment from 'moment';
@@ -45,8 +50,8 @@ export default () => {
 		},
 		checkTime: {
 			//审核时间
-			show: true
-		}
+			show: true,
+		},
 	});
 	const { run: runAllTreeTeamsVolunteer } = useRequest(allTreeTeamsVolunteer, {
 		manual: true,
@@ -166,14 +171,16 @@ export default () => {
 			width: 200,
 			// filterDropdown: () => filterDropdown('fullName'),
 			render: (_, row) => (
-				<span style={{
-					overflow: 'hidden',
-					textOverflow: 'ellipsis',
-					whiteSpace: 'nowrap',
-				}}>
+				<span
+					style={{
+						overflow: 'hidden',
+						textOverflow: 'ellipsis',
+						whiteSpace: 'nowrap',
+					}}
+				>
 					{row.fullName}
 				</span>
-			)
+			),
 		},
 		{
 			key: 'email',
@@ -188,22 +195,33 @@ export default () => {
 			title: '所属队伍',
 			width: 200,
 			render: (_, row) => (
-				<span style={{
-					overflow: 'hidden',
-					textOverflow: 'ellipsis',
-					whiteSpace: 'nowrap',
-				}}>
+				<span
+					style={{
+						overflow: 'hidden',
+						textOverflow: 'ellipsis',
+						whiteSpace: 'nowrap',
+					}}
+				>
 					{row.teamName}
 				</span>
 			),
 			filterDropdown: () => (
-				<div className='io-cms-volunteer-check-team-filterDropDown' style={{ width: '300px' }}>
+				<div
+					className='io-cms-volunteer-check-team-filterDropDown'
+					style={{ width: '300px' }}
+				>
 					<Form form={form}>
 						<Form.Item name='teamIds' className='team-filterDropDown_formItem'>
 							<TreeSelect
 								treeDefaultExpandedKeys={[1]}
 								placeholder='请选择'
-								treeData={teamsTreeList} multiple allowClear onChange={(value) => { setTeamIds(value) }} />
+								treeData={teamsTreeList}
+								multiple
+								allowClear
+								onChange={value => {
+									setTeamIds(value);
+								}}
+							/>
 						</Form.Item>
 						<Space className='team-filterDropDown_space' size={40}>
 							<Button
@@ -216,11 +234,13 @@ export default () => {
 							>
 								确定
 							</Button>
-							<Button size='small' type='link' style={{ width: 120 }}>重置</Button>
+							<Button size='small' type='link' style={{ width: 120 }}>
+								重置
+							</Button>
 						</Space>
 					</Form>
 				</div>
-			)
+			),
 		},
 		{
 			key: 'idCard',
@@ -240,7 +260,7 @@ export default () => {
 			dataIndex: 'clan',
 			title: '民族',
 			filterDropdown: () => filterDropdown('clan'),
-			width: 100
+			width: 100,
 		},
 		{
 			key: 'birthday',
@@ -321,11 +341,13 @@ export default () => {
 			title: '单位',
 			width: 200,
 			render: (_, row) => (
-				<span style={{
-					overflow: 'hidden',
-					textOverflow: 'ellipsis',
-					whiteSpace: 'nowrap',
-				}}>
+				<span
+					style={{
+						overflow: 'hidden',
+						textOverflow: 'ellipsis',
+						whiteSpace: 'nowrap',
+					}}
+				>
 					{row.teamName}
 				</span>
 			),
@@ -463,17 +485,26 @@ export default () => {
 			filters: [
 				{
 					value: 2,
-					text: '待审核'
+					text: '待审核',
 				},
 				{
 					value: 3,
-					text: '审核未通过'
-				}
+					text: '审核未通过',
+				},
 			],
 			render: (_, row) => (
 				<>
-					<span style={{ color: row.checkStatus === 2 ? '#FAAD14' : '#FF4D4F' }}>{checkStatusArr[row.checkStatus]}</span>&nbsp;&nbsp;
-					{row.checkStatus === 3 ? <Tooltip title={row.notPassReason}><i className='iconfont icon-info-circle' /></Tooltip> : <span />}
+					<span style={{ color: row.checkStatus === 2 ? '#FAAD14' : '#FF4D4F' }}>
+						{checkStatusArr[row.checkStatus]}
+					</span>
+					&nbsp;&nbsp;
+					{row.checkStatus === 3 ? (
+						<Tooltip title={row.notPassReason}>
+							<i className='iconfont icon-info-circle' />
+						</Tooltip>
+					) : (
+						<span />
+					)}
 				</>
 			),
 		},
@@ -489,7 +520,7 @@ export default () => {
 					<Divider type='vertical' />
 					<a>删除</a>
 				</>
-			)
+			),
 		},
 	];
 	return (
@@ -517,7 +548,8 @@ export default () => {
 					request={(params: any, sort: any, filter: any) => {
 						let tempPageSort = '';
 						if (JSON.stringify(sort) !== '{}') {
-							const sorterValue = Object.values(sort)[0] === 'ascend' ? 'asc' : 'desc';
+							const sorterValue =
+								Object.values(sort)[0] === 'ascend' ? 'asc' : 'desc';
 							tempPageSort = `${Object.keys(sort)[0]} ${sorterValue}`;
 						}
 						return checkVolunteerPaging({
@@ -538,9 +570,9 @@ export default () => {
 						onChange: (page, pageSize) =>
 							setSearchParams({ ...searchParams, pageNo: page, pageSize: pageSize }),
 					}}
-				// scroll={{ x: 1500 }}
+					// scroll={{ x: 1500 }}
 				/>
 			</div>
 		</BizPage>
-	)
+	);
 };
