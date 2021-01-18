@@ -1,7 +1,7 @@
 //#region 志愿者审核
 export interface VolunteerCheckDTO {
 	checkStatus: number; // 审核状态 1审核通过 3审核未通过
-	id: number;
+	id: string;
 	notPassReason: string; // 审核未通过原因
 }
 //#endregion

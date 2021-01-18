@@ -1,7 +1,7 @@
 import React, { useRef, useState } from 'react';
-import { BizPage, BizTable } from '@ionia/libs';
+import { BizPage, BizTable, BizModalForm, BizModalFormRef } from '@ionia/libs';
 import { ActionType, ProColumns, ColumnsState } from '@ant-design/pro-table';
-import { Button, Form, Input, Space, DatePicker, Avatar, Tooltip, Divider, TreeSelect } from 'antd';
+import { Button, Form, Input, Space, DatePicker, Avatar, Tooltip, Divider, TreeSelect, Modal, message, Radio } from 'antd';
 import {
 	checkVolunteerPaging,
 	VolunteerPageVO,
@@ -12,16 +12,20 @@ import { SearchOutlined } from '@ant-design/icons';
 import { useHistory } from 'react-router-dom';
 import moment from 'moment';
 import { useRequest, useMount } from '@umijs/hooks';
+import CheckForm from '../Check/CheckForm';
+import BatchCheckForm from '../Check/BatchCheckForm';
 import './index.less';
 
-const checkStatusArr = ['', '审核通过', '待审核', '审核未通过'];
+const checkStatusArr = ['', '审核通过', '待审核', '未通过'];
 export default () => {
 	const actionRef = useRef<ActionType>();
+	const modalRef = useRef<BizModalFormRef>();
 	const [form] = Form.useForm();
 	const history = useHistory();
 	const [teamsTreeList, setTeamsTreeList] = useState<AdminVolunteerTeamTreeVO[]>();
 	const [searchParams, setSearchParams] = useState<any>({ pageNo: 1, pageSize: 10 });
 	const [selectedRowKeys, setSelectedRowKeys] = useState<string[]>([]);
+	const [selectedRows, setSelectedRows] = useState<any>();
 	const [teamIds, setTeamIds] = useState<any>();
 	const [columnsStateMap, setColumnsStateMap] = useState<Record<string, ColumnsState>>({
 		email: {
@@ -213,7 +217,8 @@ export default () => {
 					<Form form={form}>
 						<Form.Item name='teamIds' className='team-filterDropDown_formItem'>
 							<TreeSelect
-								treeDefaultExpandedKeys={[1]}
+								// treeDefaultExpandedKeys={[1]}
+								treeDefaultExpandAll
 								placeholder='请选择'
 								treeData={teamsTreeList}
 								multiple
@@ -221,6 +226,9 @@ export default () => {
 								onChange={value => {
 									setTeamIds(value);
 								}}
+								showSearch={true}
+								dropdownStyle={{ maxHeight: 400, overflow: 'auto', top: '0px' }}
+							// onSearch={value => runAllTreeTeamsVolunteer({ name: value })}
 							/>
 						</Form.Item>
 						<Space className='team-filterDropDown_space' size={40}>
@@ -372,7 +380,7 @@ export default () => {
 			dataIndex: 'createTime',
 			title: '申请时间',
 			sorter: true,
-			width: 150,
+			width: 200,
 			filterDropdown: () => (
 				<div className='io-cms-cotent-recycle-table-birthday-filterDropDown'>
 					<Form form={form}>
@@ -435,7 +443,7 @@ export default () => {
 			dataIndex: 'checkTime',
 			title: '审核时间',
 			sorter: true,
-			width: 180,
+			width: 200,
 			filterDropdown: () => (
 				<div className='io-cms-cotent-recycle-table-birthday-filterDropDown'>
 					<Form form={form}>
@@ -489,7 +497,7 @@ export default () => {
 			key: 'checkStatus',
 			dataIndex: 'checkStatus',
 			title: '状态',
-			width: 100,
+			width: 150,
 			filters: [
 				{
 					value: 2,
@@ -497,7 +505,7 @@ export default () => {
 				},
 				{
 					value: 3,
-					text: '审核未通过',
+					text: '未通过',
 				},
 			],
 			render: (_, row) => (
@@ -511,8 +519,8 @@ export default () => {
 							<i className='iconfont icon-info-circle' />
 						</Tooltip>
 					) : (
-						<span />
-					)}
+							<span />
+						)}
 				</>
 			),
 		},
@@ -524,7 +532,7 @@ export default () => {
 			width: 150,
 			render: (_, row) => (
 				<>
-					<a>审核</a>
+					{row.checkStatus !== 3 ? <div className='io-cms-volunteer-check-bizform' style={{ display: 'inline-block' }}><CheckForm id={row.id} reloadData={() => actionRef.current?.reload()} /></div> : <span style={{ color: '#D9D9D9', cursor: 'default' }}>审核</span>}
 					<Divider type='vertical' />
 					<a>删除</a>
 				</>
@@ -539,7 +547,22 @@ export default () => {
 					actionRef={actionRef}
 					renderActions={() => (
 						<div className='io-space-item'>
-							<Button type='primary'>审核</Button>
+							<BizModalForm
+								ref={modalRef}
+								title='志愿者审核'
+								triggerRender={() => (
+									<Button type='primary' onClick={() => { modalRef.current?.open() }}>审核</Button>
+								)}
+								submitterRender={() => (
+									<>
+										<Button>取消</Button>
+										<Button type='primary'>确定</Button>
+									</>
+								)}
+								width={660}
+							>
+								<BatchCheckForm selectedInfos={selectedRows} />
+							</BizModalForm>
 						</div>
 					)}
 					columns={columns}
@@ -548,8 +571,9 @@ export default () => {
 					params={searchParams}
 					rowSelection={{
 						selectedRowKeys,
-						onChange: (selectedRowKeys: any) => {
+						onChange: (selectedRowKeys: any, selectedRows: any) => {
 							setSelectedRowKeys(selectedRowKeys as string[]);
+							setSelectedRows(selectedRows);
 						},
 					}}
 					inputPlaceholderText='请输入志愿者用户名/姓名/手机号'
@@ -578,7 +602,7 @@ export default () => {
 						onChange: (page, pageSize) =>
 							setSearchParams({ ...searchParams, pageNo: page, pageSize: pageSize }),
 					}}
-					// scroll={{ x: 1500 }}
+				// scroll={{ x: 1500 }}
 				/>
 			</div>
 		</BizPage>
