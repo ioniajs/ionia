@@ -235,10 +235,12 @@ export default () => {
 								确定
 							</Button>
 							<Button
-								size='small' type='link' style={{ width: 120 }}
+								size='small'
+								type='link'
+								style={{ width: 120 }}
 								onClick={() => {
 									form.setFieldsValue({ teamIds: [] });
-									setSearchParams({ ...searchParams, teamIds: [] })
+									setSearchParams({ ...searchParams, teamIds: [] });
 								}}
 							>
 								重置
@@ -509,8 +511,8 @@ export default () => {
 							<i className='iconfont icon-info-circle' />
 						</Tooltip>
 					) : (
-							<span />
-						)}
+						<span />
+					)}
 				</>
 			),
 		},
@@ -576,7 +578,7 @@ export default () => {
 						onChange: (page, pageSize) =>
 							setSearchParams({ ...searchParams, pageNo: page, pageSize: pageSize }),
 					}}
-				// scroll={{ x: 1500 }}
+					// scroll={{ x: 1500 }}
 				/>
 			</div>
 		</BizPage>
