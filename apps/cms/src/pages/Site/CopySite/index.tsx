@@ -24,7 +24,7 @@ const copyTypes = [
 	{
 		value: 2,
 		label: '栏目',
-	}
+	},
 ];
 const { Option } = Select;
 const selectBefore = (
@@ -86,16 +86,16 @@ export default ({ siteId, source, parentId }: CopyFormProps) => {
 						复制
 					</a>
 				) : (
-						<Button
-							type='default'
-							className='io-cms-site-save-expand__but'
-							onClick={() => {
-								ref.current?.open();
-							}}
-						>
-							复制
-						</Button>
-					)
+					<Button
+						type='default'
+						className='io-cms-site-save-expand__but'
+						onClick={() => {
+							ref.current?.open();
+						}}
+					>
+						复制
+					</Button>
+				)
 			}
 			onFinish={async values => {
 				console.log(values);
@@ -275,8 +275,8 @@ export default ({ siteId, source, parentId }: CopyFormProps) => {
 													域名
 												</span>
 											) : (
-													<span style={{ display: 'none' }}>添加域名</span>
-												)
+												<span style={{ display: 'none' }}>添加域名</span>
+											)
 										}
 										required={false}
 										key={field.key}

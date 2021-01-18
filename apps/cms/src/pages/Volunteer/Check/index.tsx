@@ -1,7 +1,20 @@
 import React, { useRef, useState } from 'react';
 import { BizPage, BizTable, BizModalForm, BizModalFormRef } from '@ionia/libs';
 import { ActionType, ProColumns, ColumnsState } from '@ant-design/pro-table';
-import { Button, Form, Input, Space, DatePicker, Avatar, Tooltip, Divider, TreeSelect, Modal, message, Radio } from 'antd';
+import {
+	Button,
+	Form,
+	Input,
+	Space,
+	DatePicker,
+	Avatar,
+	Tooltip,
+	Divider,
+	TreeSelect,
+	Modal,
+	message,
+	Radio,
+} from 'antd';
 import {
 	checkVolunteerPaging,
 	VolunteerPageVO,
@@ -228,7 +241,7 @@ export default () => {
 								}}
 								showSearch={true}
 								dropdownStyle={{ maxHeight: 400, overflow: 'auto', top: '0px' }}
-							// onSearch={value => runAllTreeTeamsVolunteer({ name: value })}
+								// onSearch={value => runAllTreeTeamsVolunteer({ name: value })}
 							/>
 						</Form.Item>
 						<Space className='team-filterDropDown_space' size={40}>
@@ -519,8 +532,8 @@ export default () => {
 							<i className='iconfont icon-info-circle' />
 						</Tooltip>
 					) : (
-							<span />
-						)}
+						<span />
+					)}
 				</>
 			),
 		},
@@ -532,7 +545,16 @@ export default () => {
 			width: 150,
 			render: (_, row) => (
 				<>
-					{row.checkStatus !== 3 ? <div className='io-cms-volunteer-check-bizform' style={{ display: 'inline-block' }}><CheckForm id={row.id} reloadData={() => actionRef.current?.reload()} /></div> : <span style={{ color: '#D9D9D9', cursor: 'default' }}>审核</span>}
+					{row.checkStatus !== 3 ? (
+						<div
+							className='io-cms-volunteer-check-bizform'
+							style={{ display: 'inline-block' }}
+						>
+							<CheckForm id={row.id} reloadData={() => actionRef.current?.reload()} />
+						</div>
+					) : (
+						<span style={{ color: '#D9D9D9', cursor: 'default' }}>审核</span>
+					)}
 					<Divider type='vertical' />
 					<a>删除</a>
 				</>
@@ -551,7 +573,14 @@ export default () => {
 								ref={modalRef}
 								title='志愿者审核'
 								triggerRender={() => (
-									<Button type='primary' onClick={() => { modalRef.current?.open() }}>审核</Button>
+									<Button
+										type='primary'
+										onClick={() => {
+											modalRef.current?.open();
+										}}
+									>
+										审核
+									</Button>
 								)}
 								submitterRender={() => (
 									<>
@@ -602,7 +631,7 @@ export default () => {
 						onChange: (page, pageSize) =>
 							setSearchParams({ ...searchParams, pageNo: page, pageSize: pageSize }),
 					}}
-				// scroll={{ x: 1500 }}
+					// scroll={{ x: 1500 }}
 				/>
 			</div>
 		</BizPage>
