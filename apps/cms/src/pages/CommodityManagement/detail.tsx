@@ -41,11 +41,13 @@ const CommodityManagementDetail = ({ match }: any) => {
 			setEditorState(BraftEditor.createEditorState(data.content));
 			setStint(data.stint);
 			setStintNum(data.stintNum);
-			let fileList = data.atlas.map((item: any) => {
-				return { uid: item.id, name: item.filename, url: item.url, status: 'done' };
-			});
-			setFiles([...fileList]);
-			fileList ? setFlag(true) : setFlag(false);
+			if (data.atlas) {
+				let fileList = data.atlas?.map((item: any) => {
+					return { uid: item.id, name: item.filename, url: item.url, status: 'done' };
+				});
+				setFiles([...fileList]);
+				fileList ? setFlag(true) : setFlag(false);
+			}
 		};
 		getInfo();
 	}, [id]);
@@ -55,7 +57,7 @@ const CommodityManagementDetail = ({ match }: any) => {
 	const [editorState, setEditorState] = useState<any>('');
 	const [virtualFlag, setVirtualFlag] = useState(0);
 	const [stint, setStint] = useState(0);
-	const [stintNum, setStintNum] = useState('');
+	const [stintNum, setStintNum] = useState<string | number>('');
 	const [files, setFiles] = useState<any[]>([]);
 	const [flag, setFlag] = useState(false);
 	const onFinish = async (values: any) => {
@@ -90,7 +92,7 @@ const CommodityManagementDetail = ({ match }: any) => {
 		<>
 			<BizPage
 				showActions
-				breadcrumbs={[{ name: '组件演示' }, { name: '详情页' }]}
+				breadcrumbs={[{ name: '商品管理' }, { name: '详情页' }]}
 				renderActions={() => {
 					return (
 						<>
