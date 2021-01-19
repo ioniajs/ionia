@@ -42,7 +42,11 @@ module.exports = {
 								],
 								'@babel/preset-react',
 							],
-							plugins: ['@babel/transform-runtime', 'react-hot-loader/babel'],
+							plugins: [
+								'dynamic-import-webpack',
+								'@babel/transform-runtime',
+								'react-hot-loader/babel',
+							],
 						},
 					},
 				],
@@ -156,11 +160,11 @@ module.exports = {
 				},
 			},
 		},
-		// minimize: true,
-		// minimizer: [
-		// 	new TerserPlugin({
-		// 		parallel: true,
-		// 	}),
-		// ],
+		minimize: true,
+		minimizer: [
+			new TerserPlugin({
+				parallel: true,
+			}),
+		],
 	},
 };
