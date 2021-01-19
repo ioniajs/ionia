@@ -20,6 +20,8 @@ import {
 	VolunteerPageVO,
 	AdminVolunteerTeamTreeVO,
 	allTreeTeamsVolunteer,
+	checkVolunteers,
+	VolunteerCheckDTO,
 } from '@ionia/libs/src/services';
 import { SearchOutlined } from '@ant-design/icons';
 import { useHistory } from 'react-router-dom';
@@ -30,6 +32,20 @@ import BatchCheckForm from '../Check/BatchCheckForm';
 import './index.less';
 
 const checkStatusArr = ['', '审核通过', '待审核', '未通过'];
+/**
+ * 志愿者审核
+ * @param filed
+ */
+const handleCheck = async (filed: VolunteerCheckDTO[]) => {
+	const checkRes = await checkVolunteers(filed);
+	if (checkRes.code === 200) {
+		message.success('审核成功');
+	} else {
+		message.error('审核失败');
+	}
+	return checkRes.code;
+};
+
 export default () => {
 	const actionRef = useRef<ActionType>();
 	const modalRef = useRef<BizModalFormRef>();
@@ -41,6 +57,7 @@ export default () => {
 	const [selectedRows, setSelectedRows] = useState<any>();
 	const [teamIds, setTeamIds] = useState<any>();
 	const [batchCheckForm] = Form.useForm();
+	const [batchCheckValues, setBatchCheckValues] = useState<any>();
 	const [columnsStateMap, setColumnsStateMap] = useState<Record<string, ColumnsState>>({
 		email: {
 			// 邮箱
@@ -109,7 +126,6 @@ export default () => {
 						type='primary'
 						onClick={() => {
 							const param = form.getFieldValue(filter);
-							console.log(param, '志愿者编号筛选');
 							searchParams[filter] = param;
 							setSearchParams({ ...searchParams });
 						}}
@@ -589,14 +605,24 @@ export default () => {
 										<Button
 											type='primary'
 											onClick={() => {
+												if (selectedRowKeys.length === 0) {
+													message.error('请选择要审核的数据');
+													return;
+												}
 												batchCheckForm
 													.validateFields()
-													.then(async values =>
-														console.log(
-															values,
-															'能不能拿到弹窗表格的值'
-														)
-													);
+													.then(async values => {
+														const success = await handleCheck(
+															batchCheckValues
+														);
+														// 批量审核通过
+														if (success === 200 && actionRef.current) {
+															modalRef.current?.close();
+															actionRef.current?.reload();
+															setSelectedRowKeys([]);
+															setSelectedRows([]);
+														}
+													});
 											}}
 										>
 											确定
@@ -608,6 +634,7 @@ export default () => {
 								<BatchCheckForm
 									selectedInfos={selectedRows}
 									form={batchCheckForm}
+									onGetValues={value => setBatchCheckValues(value)}
 								/>
 							</BizModalForm>
 						</div>
@@ -622,6 +649,9 @@ export default () => {
 							setSelectedRowKeys(selectedRowKeys as string[]);
 							setSelectedRows(selectedRows);
 						},
+						getCheckboxProps: record => ({
+							// disabled: record.checkStatus === 3
+						}),
 					}}
 					inputPlaceholderText='请输入志愿者用户名/姓名/手机号'
 					request={(params: any, sort: any, filter: any) => {
