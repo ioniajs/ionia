@@ -17,7 +17,7 @@ import {
 	uniqueEmailVolunteers,
 	uniquePhoneVolunteers,
 	uniqueUserNameVolunteers,
-	updateCheckVolunteers
+	updateCheckVolunteers,
 } from '@ionia/libs/src/services';
 import { useRequest, useMount } from 'ahooks';
 
@@ -116,7 +116,10 @@ export default ({ match }: any) => {
 							// politicalLook: values.politicalLookId, // 政治面貌
 							// education: values.educationId, // 学历
 						};
-						const success = await handleUpdateVolunteer(param as VolunteerDTO, `${state.source}`);
+						const success = await handleUpdateVolunteer(
+							param as VolunteerDTO,
+							`${state.source}`
+						);
 						if (success === 200) {
 							history.goBack();
 						}
@@ -156,7 +159,9 @@ export default ({ match }: any) => {
 											if (!!value && /^[0-9a-zA-Z_]+$/.test(value) && flag)
 												return Promise.resolve();
 											return Promise.reject(
-												flag ? '请输入数字、大小写字母、英文下划线' : '用户名重复'
+												flag
+													? '请输入数字、大小写字母、英文下划线'
+													: '用户名重复'
 											);
 										}
 										return Promise.reject('');
@@ -175,12 +180,15 @@ export default ({ match }: any) => {
 								() => ({
 									async validator(rule, value) {
 										if (!!value) {
-											const flag = await uniquePhoneVolunteers({ phone: value, id: id }).then(
-												res => res.data
-											);
+											const flag = await uniquePhoneVolunteers({
+												phone: value,
+												id: id,
+											}).then(res => res.data);
 											if (!!value && /^1\d{10}$/.test(value) && flag)
 												return Promise.resolve();
-											return Promise.reject(flag ? '请输入正确的手机号码' : '手机号重复');
+											return Promise.reject(
+												flag ? '请输入正确的手机号码' : '手机号重复'
+											);
 										}
 										return Promise.reject('');
 									},
@@ -218,12 +226,15 @@ export default ({ match }: any) => {
 									async validator(rule, value) {
 										if (!!value) {
 											const reg = /^([a-zA-Z]|[0-9])(\w|\-)+@[a-zA-Z0-9]+\.([a-zA-Z]{2,4})$/;
-											const flag = await uniqueEmailVolunteers({ email: value, id: id }).then(
-												res => res.data
-											);
+											const flag = await uniqueEmailVolunteers({
+												email: value,
+												id: id,
+											}).then(res => res.data);
 											if (!!value && reg.test(value) && flag)
 												return Promise.resolve();
-											return Promise.reject(flag ? '请输入正确的邮箱格式' : '邮箱重复');
+											return Promise.reject(
+												flag ? '请输入正确的邮箱格式' : '邮箱重复'
+											);
 										}
 										return Promise.reject('');
 									},
@@ -368,69 +379,79 @@ export default ({ match }: any) => {
 							placeholder='请输入志愿者简介（仅限300字）'
 							fieldProps={{ maxLength: 300, showCount: true }}
 						/>
-						{state.source !== 'check' && <>
-							<Form.Item name='checkTime' label='加入时间'>
-								<span>{datas?.checkTime}</span>
+						{state.source !== 'check' && (
+							<>
+								<Form.Item name='checkTime' label='加入时间'>
+									<span>{datas?.checkTime}</span>
+								</Form.Item>
+								<Form.Item name='code' label='志愿者编号'>
+									<span>{datas?.code}</span>
+								</Form.Item>
+							</>
+						)}
+						{state.source === 'check' && (
+							<Form.Item name='createTime' label='申请时间'>
+								<span>{datas?.createTime}</span>
 							</Form.Item>
-							<Form.Item name='code' label='志愿者编号'>
-								<span>{datas?.code}</span>
-							</Form.Item>
-						</>}
-						{state.source === 'check' && <Form.Item name='createTime' label='申请时间'>
-							<span>{datas?.createTime}</span>
-						</Form.Item>}
+						)}
 					</Form>
 				</BizSection>
 				{/* 志愿者审核详情不显示 */}
-				{state.source !== 'check' && <BizSection title='综合表现'>
-					<Form
-						form={onlyReadForm}
-						{...layout}
-						className='io-cms-volunteer-detail-form-container'
-					>
-						<Form.Item name='totalVolunteerHour' label='服务总时长'>
-							<span>{datas?.totalVolunteerHour}小时</span>
-						</Form.Item>
-						<Form.Item name='totalIntegral' label='总积分'>
-							<span>{datas?.totalIntegral}</span>
-						</Form.Item>
-						<Form.Item name='praiseVOS' label='志愿者表彰称号'>
-							{(datas?.praiseVOS || []).map((p: any, i: number) => {
-								return (
-									<Tag color={praiseVOSTagColors[i]}>十佳志愿者（{p.num}）</Tag>
-								);
-							})}
-						</Form.Item>
-						<Form.Item name='skillScore' label='综合评价'>
-							<Rate value={datas?.skillScore} disabled={true} />
-							&nbsp;专业技能
-							<span style={{ display: 'inline-block', marginRight: '40px' }} />
-							<Rate value={datas?.attitudeScore} disabled={true} />
-							&nbsp;服务态度
-							<span style={{ display: 'inline-block', marginRight: '40px' }} />
-							<Rate value={datas?.punctualityScore} disabled={true} />
-							&nbsp;守时程度
-						</Form.Item>
-					</Form>
-				</BizSection>}
+				{state.source !== 'check' && (
+					<BizSection title='综合表现'>
+						<Form
+							form={onlyReadForm}
+							{...layout}
+							className='io-cms-volunteer-detail-form-container'
+						>
+							<Form.Item name='totalVolunteerHour' label='服务总时长'>
+								<span>{datas?.totalVolunteerHour}小时</span>
+							</Form.Item>
+							<Form.Item name='totalIntegral' label='总积分'>
+								<span>{datas?.totalIntegral}</span>
+							</Form.Item>
+							<Form.Item name='praiseVOS' label='志愿者表彰称号'>
+								{(datas?.praiseVOS || []).map((p: any, i: number) => {
+									return (
+										<Tag color={praiseVOSTagColors[i]}>
+											十佳志愿者（{p.num}）
+										</Tag>
+									);
+								})}
+							</Form.Item>
+							<Form.Item name='skillScore' label='综合评价'>
+								<Rate value={datas?.skillScore} disabled={true} />
+								&nbsp;专业技能
+								<span style={{ display: 'inline-block', marginRight: '40px' }} />
+								<Rate value={datas?.attitudeScore} disabled={true} />
+								&nbsp;服务态度
+								<span style={{ display: 'inline-block', marginRight: '40px' }} />
+								<Rate value={datas?.punctualityScore} disabled={true} />
+								&nbsp;守时程度
+							</Form.Item>
+						</Form>
+					</BizSection>
+				)}
 				{/* 志愿者审核详情才显示 */}
-				{state.source === 'check' && <BizSection title='审核结果'>
-					<Form
-						form={form}
-						{...layout}
-						className='io-cms-volunteer-detail-form-container'
-					>
-						<Form.Item name='checkStatus' label='审核结果'>
-							<Radio.Group>
-								<Radio value={1}>通过</Radio>
-								<Radio value={3}>未通过</Radio>
-							</Radio.Group>
-						</Form.Item>
-						<Form.Item name='checkTime' label='审核时间'>
-							<span>{datas?.checkTime}</span>
-						</Form.Item>
-					</Form>
-				</BizSection>}
+				{state.source === 'check' && (
+					<BizSection title='审核结果'>
+						<Form
+							form={form}
+							{...layout}
+							className='io-cms-volunteer-detail-form-container'
+						>
+							<Form.Item name='checkStatus' label='审核结果'>
+								<Radio.Group>
+									<Radio value={1}>通过</Radio>
+									<Radio value={3}>未通过</Radio>
+								</Radio.Group>
+							</Form.Item>
+							<Form.Item name='checkTime' label='审核时间'>
+								<span>{datas?.checkTime}</span>
+							</Form.Item>
+						</Form>
+					</BizSection>
+				)}
 			</BizPage>
 		</Spin>
 	);

@@ -8,7 +8,12 @@ interface SaveButtonProps {
 
 export const SaveButton = ({ onSave, saveButDisabled = false }: SaveButtonProps) => {
 	return (
-		<Button style={{ marginLeft: 8 }} type='primary' onClick={() => onSave && onSave()} disabled={saveButDisabled}>
+		<Button
+			style={{ marginLeft: 8 }}
+			type='primary'
+			onClick={() => onSave && onSave()}
+			disabled={saveButDisabled}
+		>
 			保存
 		</Button>
 	);

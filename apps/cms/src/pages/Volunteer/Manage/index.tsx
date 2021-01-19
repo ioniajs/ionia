@@ -215,7 +215,7 @@ export default () => {
 									state: {
 										teamsTreeList,
 										source: 'manage',
-										checkStatus: row.checkStatus
+										checkStatus: row.checkStatus,
 									},
 								});
 							}}

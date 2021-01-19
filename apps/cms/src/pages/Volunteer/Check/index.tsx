@@ -12,7 +12,7 @@ import {
 	Divider,
 	TreeSelect,
 	message,
-	Popconfirm
+	Popconfirm,
 } from 'antd';
 import {
 	checkVolunteerPaging,
@@ -21,7 +21,7 @@ import {
 	allTreeTeamsVolunteer,
 	checkVolunteers,
 	VolunteerCheckDTO,
-	deleteVolunteers
+	deleteVolunteers,
 } from '@ionia/libs/src/services';
 import { SearchOutlined } from '@ant-design/icons';
 import { useHistory } from 'react-router-dom';
@@ -194,7 +194,7 @@ export default () => {
 									state: {
 										teamsTreeList,
 										source: 'check',
-										checkStatus: row.checkStatus
+										checkStatus: row.checkStatus,
 									},
 								});
 							}}
@@ -277,7 +277,7 @@ export default () => {
 								}}
 								showSearch={true}
 								dropdownStyle={{ maxHeight: 400, overflow: 'auto', top: '0px' }}
-							// onSearch={value => runAllTreeTeamsVolunteer({ name: value })}
+								// onSearch={value => runAllTreeTeamsVolunteer({ name: value })}
 							/>
 						</Form.Item>
 						<Space className='team-filterDropDown_space' size={40}>
@@ -568,8 +568,8 @@ export default () => {
 							<i className='iconfont icon-info-circle' />
 						</Tooltip>
 					) : (
-							<span />
-						)}
+						<span />
+					)}
 				</>
 			),
 		},
@@ -589,8 +589,8 @@ export default () => {
 							<CheckForm id={row.id} reloadData={() => actionRef.current?.reload()} />
 						</div>
 					) : (
-							<span style={{ color: '#D9D9D9', cursor: 'default' }}>审核</span>
-						)}
+						<span style={{ color: '#D9D9D9', cursor: 'default' }}>审核</span>
+					)}
 					<Divider type='vertical' />
 					<Popconfirm
 						title={
@@ -690,9 +690,9 @@ export default () => {
 							setSelectedRowKeys(selectedRowKeys as string[]);
 							setSelectedRows(selectedRows);
 						},
-						getCheckboxProps: (record) => ({
-							disabled: record.checkStatus === 3
-						})
+						getCheckboxProps: record => ({
+							disabled: record.checkStatus === 3,
+						}),
 					}}
 					inputPlaceholderText='请输入志愿者用户名/姓名/手机号'
 					request={(params: any, sort: any, filter: any) => {
@@ -720,7 +720,7 @@ export default () => {
 						onChange: (page, pageSize) =>
 							setSearchParams({ ...searchParams, pageNo: page, pageSize: pageSize }),
 					}}
-				// scroll={{ x: 1500 }}
+					// scroll={{ x: 1500 }}
 				/>
 			</div>
 		</BizPage>
