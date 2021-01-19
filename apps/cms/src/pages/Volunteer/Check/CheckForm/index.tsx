@@ -9,7 +9,7 @@ interface CheckFormProps {
 }
 /**
  * 志愿者审核
- * @param filed 
+ * @param filed
  */
 const handleCheck = async (filed: VolunteerCheckDTO[]) => {
 	const checkRes = await checkVolunteers(filed);
