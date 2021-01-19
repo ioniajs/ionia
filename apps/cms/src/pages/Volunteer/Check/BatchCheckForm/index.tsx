@@ -3,23 +3,40 @@ import { BizTable } from '@ionia/libs';
 import { Radio, Input, Form } from 'antd';
 
 interface SelectedInfos {
-	id?: string;
+	id: string;
 	avatar?: string;
 	username?: string;
 	phone?: string;
+	checkStatus: number;
+	notPassReason?: string;
 }
-
+interface RowsValueProps {
+	id: string;
+	checkStatus: number;
+	notPassReason?: string;
+}
 interface BatchCheckFormProps {
-	selectedInfos?: SelectedInfos[];
+	selectedInfos: SelectedInfos[];
 	onConfirm?: () => void;
 	form?: any;
+	onGetValues?: (value: RowsValueProps[]) => void;
 }
 
-export default ({ selectedInfos, form }: BatchCheckFormProps) => {
+export default ({ selectedInfos, form, onGetValues }: BatchCheckFormProps) => {
 	// const [form] = Form.useForm();
 	const [checkStatusValue, setCheckStatusValue] = useState<number>(1);
 	const [notPassReasonValue, setNotPassReasonValue] = useState<string>('');
-	useEffect(() => {}, [checkStatusValue, notPassReasonValue]);
+	const [rowsValue, setRowsValue] = useState<RowsValueProps[]>(selectedInfos);
+	useEffect(() => {
+		if (rowsValue) {
+			const tempVal = rowsValue.map((r: any) => ({
+				id: r.id,
+				checkStatus: r.checkStatus,
+				notPassReason: r.notPassReason,
+			}));
+			onGetValues && onGetValues(tempVal);
+		}
+	}, [rowsValue, checkStatusValue, notPassReasonValue]);
 	const columns = [
 		{
 			title: '用户信息',
@@ -41,7 +58,15 @@ export default ({ selectedInfos, form }: BatchCheckFormProps) => {
 						>
 							<Radio.Group
 								style={{ display: 'inline-block' }}
-								onChange={e => setCheckStatusValue(e.target.value)}
+								onChange={e => {
+									const tempCheckStatus = e.target.value;
+									rowsValue[index].checkStatus = tempCheckStatus;
+									rowsValue[index].id = row.id;
+									rowsValue[index].notPassReason = '';
+									setCheckStatusValue(tempCheckStatus);
+									setRowsValue(rowsValue);
+									form.setFieldsValue({ [`notPassReason_${index}`]: '' });
+								}}
 							>
 								<Radio value={1}>通过</Radio>
 								<Radio value={3}>未通过</Radio>
@@ -58,7 +83,11 @@ export default ({ selectedInfos, form }: BatchCheckFormProps) => {
 									placeholder='请输入未通过原因'
 									maxLength={50}
 									onChange={e => {
-										setNotPassReasonValue(e.target.value);
+										const tempNotPassValue = e.target.value;
+										rowsValue[index].notPassReason = tempNotPassValue;
+										rowsValue[index].id = row.id;
+										setNotPassReasonValue(tempNotPassValue);
+										setRowsValue(rowsValue);
 									}}
 									style={{ display: 'inline-block', width: '200px' }}
 								/>
@@ -72,6 +101,7 @@ export default ({ selectedInfos, form }: BatchCheckFormProps) => {
 
 	return (
 		<BizTable
+			rowKey='id'
 			toolBarRender={false}
 			dataSource={selectedInfos}
 			columns={columns}

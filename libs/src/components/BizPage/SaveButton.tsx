@@ -3,11 +3,17 @@ import React from 'react';
 
 interface SaveButtonProps {
 	onSave?: () => void;
+	saveButDisabled?: boolean;
 }
 
-export const SaveButton = ({ onSave }: SaveButtonProps) => {
+export const SaveButton = ({ onSave, saveButDisabled = false }: SaveButtonProps) => {
 	return (
-		<Button style={{ marginLeft: 8 }} type='primary' onClick={() => onSave && onSave()}>
+		<Button
+			style={{ marginLeft: 8 }}
+			type='primary'
+			onClick={() => onSave && onSave()}
+			disabled={saveButDisabled}
+		>
 			保存
 		</Button>
 	);

@@ -34,6 +34,7 @@ interface BizPageProps {
 	defaultActiveKey?: string;
 	layout?: LayoutProps;
 	goBackAction?: boolean; // 当有面包屑但是无tabList，面包屑前面又要有返回按钮
+	saveButDisabled?: boolean; // 保存按钮是否置灰
 }
 
 export const BizPage = ({
@@ -47,6 +48,7 @@ export const BizPage = ({
 	showActions = false,
 	defaultActiveKey = '1',
 	goBackAction = false,
+	saveButDisabled = false,
 }: BizPageProps) => {
 	const [activeKey, setActiveKey] = useState<string>();
 	const [tipsVisible, setTipsVisible] = useState<boolean>(true);
@@ -54,7 +56,7 @@ export const BizPage = ({
 	const defaultRenderActions = () => (
 		<>
 			<GobackButton onGoback={onGoback} />
-			<SaveButton onSave={onSave} />
+			<SaveButton onSave={onSave} saveButDisabled={saveButDisabled} />
 		</>
 	);
 
