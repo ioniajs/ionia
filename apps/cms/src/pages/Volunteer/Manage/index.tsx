@@ -86,7 +86,6 @@ export default () => {
 	const [teamsTreeList, setTeamsTreeList] = useState<AdminVolunteerTeamTreeVO>();
 	const [searchParams, setSearchParams] = useState<any>({ pageNo: 1, pageSize: 10 });
 	const [selectedRowKeys, setSelectedRowKeys] = useState<string[]>([]);
-	console.log(selectedRowKeys, 'selectedRowKeys');
 	const [columnsStateMap, setColumnsStateMap] = useState<Record<string, ColumnsState>>({
 		email: {
 			// 邮箱
@@ -215,6 +214,8 @@ export default () => {
 									pathname: `/volunteer/manage/detail/${row.id}`,
 									state: {
 										teamsTreeList,
+										source: 'manage',
+										checkStatus: row.checkStatus
 									},
 								});
 							}}

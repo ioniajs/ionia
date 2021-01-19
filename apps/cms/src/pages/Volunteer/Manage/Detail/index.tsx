@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { BizPage, BizSection, ImageUpload } from '@ionia/libs';
-import { Form, TreeSelect, Cascader, message, Input, Rate, Spin, Tag } from 'antd';
+import { Form, TreeSelect, Cascader, message, Input, Rate, Spin, Tag, Radio } from 'antd';
 import {
 	ProFormText,
 	ProFormTextArea,
@@ -17,9 +17,9 @@ import {
 	uniqueEmailVolunteers,
 	uniquePhoneVolunteers,
 	uniqueUserNameVolunteers,
+	updateCheckVolunteers
 } from '@ionia/libs/src/services';
-import { useRequest, useMount } from '@umijs/hooks';
-import { values } from 'lodash';
+import { useRequest, useMount } from 'ahooks';
 
 const layout = {
 	labelCol: { span: 6 },
@@ -40,8 +40,13 @@ const domicileOptions = [
 // 志愿者表彰tag颜色值变化
 const praiseVOSTagColors = ['#f50', '#2db7f5', '#87d068', '#108ee9'];
 
-const handleUpdateVolunteer = async (fildes: VolunteerDTO) => {
-	const updataRes = await updateVolunteers(fildes);
+const handleUpdateVolunteer = async (fildes: VolunteerDTO, source: string) => {
+	let updataRes: any;
+	if (source === 'manage') {
+		updataRes = await updateVolunteers(fildes);
+	} else {
+		updataRes = await updateCheckVolunteers(fildes);
+	}
 	if (updataRes.code === 200) {
 		message.success('修改成功');
 	} else {
@@ -63,6 +68,7 @@ export default ({ match }: any) => {
 	const [renderAvatarFlag, setRenderAvatarFlag] = useState<boolean>(false);
 	const [datas, setDatas] = useState<any>();
 	const [spinLoading, setSpinLoading] = useState<boolean>(true); // 页面加载中
+	const disabledFlag = state.checkStatus === 3;
 	const { run: runGetDetail } = useRequest(volunteersDetail, {
 		manual: true,
 		onSuccess: result => {
@@ -97,7 +103,7 @@ export default ({ match }: any) => {
 				showActions
 				onSave={() => {
 					form.validateFields().then(async values => {
-						console.log(values, '志愿者编辑数据');
+						// console.log(values, '志愿者编辑数据');
 						const param = {
 							...values,
 							id: id,
@@ -110,12 +116,13 @@ export default ({ match }: any) => {
 							// politicalLook: values.politicalLookId, // 政治面貌
 							// education: values.educationId, // 学历
 						};
-						const success = await handleUpdateVolunteer(param as VolunteerDTO);
+						const success = await handleUpdateVolunteer(param as VolunteerDTO, `${state.source}`);
 						if (success === 200) {
 							history.goBack();
 						}
 					});
 				}}
+				saveButDisabled={disabledFlag}
 			>
 				<BizSection title='基本信息'>
 					<Form
@@ -142,13 +149,14 @@ export default ({ match }: any) => {
 								() => ({
 									async validator(rule, value) {
 										if (!!value) {
-											// const flag = await uniqueUserNameVolunteers({
-											//     username: value,
-											// }).then(res => res.data);
-											if (!!value && /^[0-9a-zA-Z_]+$/.test(value))
+											const flag = await uniqueUserNameVolunteers({
+												username: value,
+												id: id,
+											}).then(res => res.data);
+											if (!!value && /^[0-9a-zA-Z_]+$/.test(value) && flag)
 												return Promise.resolve();
 											return Promise.reject(
-												'请输入数字、大小写字母、英文下划线'
+												flag ? '请输入数字、大小写字母、英文下划线' : '用户名重复'
 											);
 										}
 										return Promise.reject('');
@@ -167,12 +175,12 @@ export default ({ match }: any) => {
 								() => ({
 									async validator(rule, value) {
 										if (!!value) {
-											// const flag = await uniquePhoneVolunteers({ phone: value }).then(
-											//     res => res.data
-											// );
-											if (!!value && /^1\d{10}$/.test(value))
+											const flag = await uniquePhoneVolunteers({ phone: value, id: id }).then(
+												res => res.data
+											);
+											if (!!value && /^1\d{10}$/.test(value) && flag)
 												return Promise.resolve();
-											return Promise.reject('请输入正确的手机号码');
+											return Promise.reject(flag ? '请输入正确的手机号码' : '手机号重复');
 										}
 										return Promise.reject('');
 									},
@@ -210,12 +218,12 @@ export default ({ match }: any) => {
 									async validator(rule, value) {
 										if (!!value) {
 											const reg = /^([a-zA-Z]|[0-9])(\w|\-)+@[a-zA-Z0-9]+\.([a-zA-Z]{2,4})$/;
-											// const flag = await uniqueEmailVolunteers({ email: value }).then(
-											//     res => res.data
-											// );
-											if (!!value && reg.test(value))
+											const flag = await uniqueEmailVolunteers({ email: value, id: id }).then(
+												res => res.data
+											);
+											if (!!value && reg.test(value) && flag)
 												return Promise.resolve();
-											return Promise.reject('请输入正确的邮箱格式');
+											return Promise.reject(flag ? '请输入正确的邮箱格式' : '邮箱重复');
 										}
 										return Promise.reject('');
 									},
@@ -360,15 +368,21 @@ export default ({ match }: any) => {
 							placeholder='请输入志愿者简介（仅限300字）'
 							fieldProps={{ maxLength: 300, showCount: true }}
 						/>
-						<Form.Item name='checkTime' label='加入时间'>
-							<span>{datas?.checkTime}</span>
-						</Form.Item>
-						<Form.Item name='code' label='志愿者编号'>
-							<span>{datas?.code}</span>
-						</Form.Item>
+						{state.source !== 'check' && <>
+							<Form.Item name='checkTime' label='加入时间'>
+								<span>{datas?.checkTime}</span>
+							</Form.Item>
+							<Form.Item name='code' label='志愿者编号'>
+								<span>{datas?.code}</span>
+							</Form.Item>
+						</>}
+						{state.source === 'check' && <Form.Item name='createTime' label='申请时间'>
+							<span>{datas?.createTime}</span>
+						</Form.Item>}
 					</Form>
 				</BizSection>
-				<BizSection title='综合表现'>
+				{/* 志愿者审核详情不显示 */}
+				{state.source !== 'check' && <BizSection title='综合表现'>
 					<Form
 						form={onlyReadForm}
 						{...layout}
@@ -398,7 +412,25 @@ export default ({ match }: any) => {
 							&nbsp;守时程度
 						</Form.Item>
 					</Form>
-				</BizSection>
+				</BizSection>}
+				{/* 志愿者审核详情才显示 */}
+				{state.source === 'check' && <BizSection title='审核结果'>
+					<Form
+						form={form}
+						{...layout}
+						className='io-cms-volunteer-detail-form-container'
+					>
+						<Form.Item name='checkStatus' label='审核结果'>
+							<Radio.Group>
+								<Radio value={1}>通过</Radio>
+								<Radio value={3}>未通过</Radio>
+							</Radio.Group>
+						</Form.Item>
+						<Form.Item name='checkTime' label='审核时间'>
+							<span>{datas?.checkTime}</span>
+						</Form.Item>
+					</Form>
+				</BizSection>}
 			</BizPage>
 		</Spin>
 	);
