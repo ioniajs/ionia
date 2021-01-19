@@ -45,7 +45,7 @@ export async function volunteerPaging(
  * 志愿者审核
  * @param data
  */
-export async function checkVolunteers(data: VolunteerCheckDTO): Promise<JcResult<boolean>> {
+export async function checkVolunteers(data: VolunteerCheckDTO[]): Promise<JcResult<boolean>> {
 	return request.post('/module-user/cmsmanager/volunteers/check', {
 		data,
 	});
