@@ -7,7 +7,10 @@ interface CheckFormProps {
 	id: string;
 	reloadData?: () => void;
 }
-
+/**
+ * 志愿者审核
+ * @param filed 
+ */
 const handleCheck = async (filed: VolunteerCheckDTO[]) => {
 	const checkRes = await checkVolunteers(filed);
 	if (checkRes.code === 200) {

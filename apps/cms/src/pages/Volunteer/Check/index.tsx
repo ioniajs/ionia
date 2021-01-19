@@ -20,6 +20,8 @@ import {
 	VolunteerPageVO,
 	AdminVolunteerTeamTreeVO,
 	allTreeTeamsVolunteer,
+	checkVolunteers,
+	VolunteerCheckDTO
 } from '@ionia/libs/src/services';
 import { SearchOutlined } from '@ant-design/icons';
 import { useHistory } from 'react-router-dom';
@@ -30,6 +32,20 @@ import BatchCheckForm from '../Check/BatchCheckForm';
 import './index.less';
 
 const checkStatusArr = ['', '审核通过', '待审核', '未通过'];
+/**
+ * 志愿者审核
+ * @param filed 
+ */
+const handleCheck = async (filed: VolunteerCheckDTO[]) => {
+	const checkRes = await checkVolunteers(filed);
+	if (checkRes.code === 200) {
+		message.success('审核成功');
+	} else {
+		message.error('审核失败');
+	}
+	return checkRes.code;
+};
+
 export default () => {
 	const actionRef = useRef<ActionType>();
 	const modalRef = useRef<BizModalFormRef>();
@@ -41,6 +57,7 @@ export default () => {
 	const [selectedRows, setSelectedRows] = useState<any>();
 	const [teamIds, setTeamIds] = useState<any>();
 	const [batchCheckForm] = Form.useForm();
+	const [batchCheckValues, setBatchCheckValues] = useState<any>();
 	const [columnsStateMap, setColumnsStateMap] = useState<Record<string, ColumnsState>>({
 		email: {
 			// 邮箱
@@ -109,7 +126,6 @@ export default () => {
 						type='primary'
 						onClick={() => {
 							const param = form.getFieldValue(filter);
-							console.log(param, '志愿者编号筛选');
 							searchParams[filter] = param;
 							setSearchParams({ ...searchParams });
 						}}
@@ -242,7 +258,7 @@ export default () => {
 								}}
 								showSearch={true}
 								dropdownStyle={{ maxHeight: 400, overflow: 'auto', top: '0px' }}
-								// onSearch={value => runAllTreeTeamsVolunteer({ name: value })}
+							// onSearch={value => runAllTreeTeamsVolunteer({ name: value })}
 							/>
 						</Form.Item>
 						<Space className='team-filterDropDown_space' size={40}>
@@ -533,8 +549,8 @@ export default () => {
 							<i className='iconfont icon-info-circle' />
 						</Tooltip>
 					) : (
-						<span />
-					)}
+							<span />
+						)}
 				</>
 			),
 		},
@@ -554,8 +570,8 @@ export default () => {
 							<CheckForm id={row.id} reloadData={() => actionRef.current?.reload()} />
 						</div>
 					) : (
-						<span style={{ color: '#D9D9D9', cursor: 'default' }}>审核</span>
-					)}
+							<span style={{ color: '#D9D9D9', cursor: 'default' }}>审核</span>
+						)}
 					<Divider type='vertical' />
 					<a>删除</a>
 				</>
@@ -591,11 +607,13 @@ export default () => {
 											onClick={() => {
 												batchCheckForm
 													.validateFields()
-													.then(async values =>
-														console.log(
-															values,
-															'能不能拿到弹窗表格的值'
-														)
+													.then(async values => {
+														const success = await handleCheck(batchCheckValues);
+														if (success === 200 && actionRef.current) {
+															modalRef.current?.close();
+															actionRef.current?.reload();
+														}
+													}
 													);
 											}}
 										>
@@ -608,6 +626,7 @@ export default () => {
 								<BatchCheckForm
 									selectedInfos={selectedRows}
 									form={batchCheckForm}
+									onGetValues={(value) => setBatchCheckValues(value)}
 								/>
 							</BizModalForm>
 						</div>
@@ -649,7 +668,7 @@ export default () => {
 						onChange: (page, pageSize) =>
 							setSearchParams({ ...searchParams, pageNo: page, pageSize: pageSize }),
 					}}
-					// scroll={{ x: 1500 }}
+				// scroll={{ x: 1500 }}
 				/>
 			</div>
 		</BizPage>
