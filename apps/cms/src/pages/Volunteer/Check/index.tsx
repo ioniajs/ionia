@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { BizPage, BizTable, BizModalForm, BizModalFormRef } from '@ionia/libs';
 import { ActionType, ProColumns, ColumnsState } from '@ant-design/pro-table';
 import {
@@ -11,9 +11,8 @@ import {
 	Tooltip,
 	Divider,
 	TreeSelect,
-	Modal,
 	message,
-	Radio,
+	Popconfirm,
 } from 'antd';
 import {
 	checkVolunteerPaging,
@@ -22,11 +21,13 @@ import {
 	allTreeTeamsVolunteer,
 	checkVolunteers,
 	VolunteerCheckDTO,
+	deleteVolunteers,
 } from '@ionia/libs/src/services';
 import { SearchOutlined } from '@ant-design/icons';
 import { useHistory } from 'react-router-dom';
 import moment from 'moment';
 import { useRequest, useMount } from '@umijs/hooks';
+import { IdsDTO } from '@ionia/libs/src/services/common.dto';
 import CheckForm from '../Check/CheckForm';
 import BatchCheckForm from '../Check/BatchCheckForm';
 import './index.less';
@@ -44,6 +45,19 @@ const handleCheck = async (filed: VolunteerCheckDTO[]) => {
 		message.error('审核失败');
 	}
 	return checkRes.code;
+};
+/**
+ * 删除志愿者
+ * @param filed
+ */
+const handleDeleteVolunteer = async (filed: IdsDTO) => {
+	const deleteRes = await deleteVolunteers(filed);
+	if (deleteRes.code === 200) {
+		message.success('删除成功');
+	} else {
+		message.error('删除失败');
+	}
+	return deleteRes.code;
 };
 
 export default () => {
@@ -113,6 +127,9 @@ export default () => {
 	useMount(() => {
 		runAllTreeTeamsVolunteer({});
 	});
+	useEffect(() => {
+		actionRef.current?.reload();
+	}, [history.location]);
 	const filterDropdown = (filter: string) => {
 		return (
 			<div className='io-cms-volunteer-manage-table-filterDropDown'>
@@ -173,9 +190,11 @@ export default () => {
 							}}
 							onClick={() => {
 								history.push({
-									pathname: `/volunteer/check/detail/${row.id}`,
+									pathname: `/volunteer/manage/detail/${row.id}`,
 									state: {
 										teamsTreeList,
+										source: 'check',
+										checkStatus: row.checkStatus,
 									},
 								});
 							}}
@@ -573,7 +592,29 @@ export default () => {
 						<span style={{ color: '#D9D9D9', cursor: 'default' }}>审核</span>
 					)}
 					<Divider type='vertical' />
-					<a>删除</a>
+					<Popconfirm
+						title={
+							<span>
+								<div style={{ fontWeight: 'bold' }}>确认是否需要删除？</div>
+								<div style={{ fontSize: '12px', color: '#8C8C8C' }}>
+									信息删除后将无法找回，此操作不可逆
+								</div>
+							</span>
+						}
+						placement='leftBottom'
+						okText='确认'
+						cancelText='取消'
+						onConfirm={async () => {
+							const success = await handleDeleteVolunteer({
+								ids: [row.id.toString()],
+							});
+							if (success === 200 && actionRef.current) {
+								actionRef.current.reload();
+							}
+						}}
+					>
+						<a>删除</a>
+					</Popconfirm>
 				</>
 			),
 		},
@@ -650,7 +691,7 @@ export default () => {
 							setSelectedRows(selectedRows);
 						},
 						getCheckboxProps: record => ({
-							// disabled: record.checkStatus === 3
+							disabled: record.checkStatus === 3,
 						}),
 					}}
 					inputPlaceholderText='请输入志愿者用户名/姓名/手机号'
