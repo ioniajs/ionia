@@ -40,6 +40,7 @@ export default () => {
 	const [selectedRowKeys, setSelectedRowKeys] = useState<string[]>([]);
 	const [selectedRows, setSelectedRows] = useState<any>();
 	const [teamIds, setTeamIds] = useState<any>();
+	const [batchCheckForm] = Form.useForm();
 	const [columnsStateMap, setColumnsStateMap] = useState<Record<string, ColumnsState>>({
 		email: {
 			// 邮箱
@@ -241,7 +242,7 @@ export default () => {
 								}}
 								showSearch={true}
 								dropdownStyle={{ maxHeight: 400, overflow: 'auto', top: '0px' }}
-								// onSearch={value => runAllTreeTeamsVolunteer({ name: value })}
+							// onSearch={value => runAllTreeTeamsVolunteer({ name: value })}
 							/>
 						</Form.Item>
 						<Space className='team-filterDropDown_space' size={40}>
@@ -532,8 +533,8 @@ export default () => {
 							<i className='iconfont icon-info-circle' />
 						</Tooltip>
 					) : (
-						<span />
-					)}
+							<span />
+						)}
 				</>
 			),
 		},
@@ -553,8 +554,8 @@ export default () => {
 							<CheckForm id={row.id} reloadData={() => actionRef.current?.reload()} />
 						</div>
 					) : (
-						<span style={{ color: '#D9D9D9', cursor: 'default' }}>审核</span>
-					)}
+							<span style={{ color: '#D9D9D9', cursor: 'default' }}>审核</span>
+						)}
 					<Divider type='vertical' />
 					<a>删除</a>
 				</>
@@ -585,12 +586,20 @@ export default () => {
 								submitterRender={() => (
 									<>
 										<Button>取消</Button>
-										<Button type='primary'>确定</Button>
+										<Button
+											type='primary'
+											onClick={
+												() => {
+													batchCheckForm.validateFields().then(async values => console.log(values, '能不能拿到弹窗表格的值'));
+												}
+											}>
+											确定
+											</Button>
 									</>
 								)}
 								width={660}
 							>
-								<BatchCheckForm selectedInfos={selectedRows} />
+								<BatchCheckForm selectedInfos={selectedRows} form={batchCheckForm} />
 							</BizModalForm>
 						</div>
 					)}
@@ -631,7 +640,7 @@ export default () => {
 						onChange: (page, pageSize) =>
 							setSearchParams({ ...searchParams, pageNo: page, pageSize: pageSize }),
 					}}
-					// scroll={{ x: 1500 }}
+				// scroll={{ x: 1500 }}
 				/>
 			</div>
 		</BizPage>
