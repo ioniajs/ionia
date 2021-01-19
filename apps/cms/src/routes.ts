@@ -254,7 +254,7 @@ export default [
 		component: VolunteerManageDetail,
 	},
 	{
-		path: '/volunteer/check',
+		path: '/volunteer/manage-check',
 		component: VolunteerCheck,
 	},
 	{
