@@ -1,52 +1,40 @@
-import { ExclamationCircleOutlined } from '@ant-design/icons';
+import { ExclamationCircleOutlined, SearchOutlined } from '@ant-design/icons';
 import { ActionType, ProColumns } from '@ant-design/pro-table';
-import { BizPage, BizTable, BizTree, deleteUser } from '@ionia/libs';
+import { BizPage, BizTable, BizTree, deleteRole, logger } from '@ionia/libs';
 import { RolePageVO, rolePaging } from '@ionia/libs/src/services';
 import { IdsDTO } from '@ionia/libs/src/services/common.dto';
-import { Button, Modal } from 'antd';
-import React, { useRef, useState } from 'react';
+import { Button, Modal, Input, Space, Form, message, DatePicker } from 'antd';
+import React, { useRef, useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
-import UserForm from './Add';
+import RoleForm from './Add';
+import moment from 'moment';
 import './index.less';
 export interface TableListItem {
 	key: number;
 	name: string;
 }
 
-/**
- *  删除角色
- */
-const userRemove = async (ids: IdsDTO) => {
-	const removeRes = await deleteUser(ids);
-	return removeRes.code;
-};
-
 const { confirm } = Modal;
-
-function showConfirm() {
-	confirm({
-		title: '你确定删除所选角色吗?',
-		icon: <ExclamationCircleOutlined />,
-		content: '删除后无法恢复，请谨慎操作',
-		okText: '确定',
-		cancelText: '取消',
-		onOk() {
-			console.log('OK');
-		},
-		onCancel() {
-			console.log('Cancel');
-		},
-	});
-}
-
+const { RangePicker } = DatePicker;
 export default () => {
-	const params = {
-		pageSize: 10,
-		current: 1,
-		keyWord: '',
-	};
 	const history = useHistory();
 	const actionRef = useRef<ActionType>();
+	const params = {
+		pageSize: 10,
+		pageNo: 1,
+		updateUser: '',
+		beginUpdateTime: '',
+		endUpdateTime: '',
+		name: '',
+		orgId: '',
+	};
+	const [searchForm] = Form.useForm();
+	const [dateForm] = Form.useForm();
+	useEffect(() => {
+		// 刷新
+		actionRef?.current?.reload();
+	}, [history.location]);
+	const [formParams, setFormParams] = useState(params);
 	const [selectedRowKeys, setSelectedRowKeys] = useState<string[]>([]);
 	const columns: ProColumns<RolePageVO>[] = [
 		{
@@ -73,12 +61,76 @@ export default () => {
 			title: '最后更新人',
 			key: 'updateUser',
 			dataIndex: 'updateUser',
+			filterDropdown: ({ confirm, clearFilters }) => (
+				<div style={{ padding: 8 }}>
+					<Form form={searchForm} className='io-cms-menu_form'>
+						<Form.Item name='apiName'>
+							<Input
+								style={{ width: 188, marginBottom: 8, display: 'block' }}
+								placeholder='请输入更新人名称'
+							/>
+						</Form.Item>
+					</Form>
+					<Space>
+						<Button
+							type='primary'
+							onClick={() => {
+								handleSearch(confirm);
+							}}
+							icon={<SearchOutlined />}
+							size='small'
+							style={{ width: 90 }}
+						>
+							搜索
+						</Button>
+						<Button
+							onClick={() => {
+								handleReset(clearFilters);
+							}}
+							size='small'
+							style={{ width: 90 }}
+						>
+							重置
+						</Button>
+					</Space>
+				</div>
+			),
+			filterIcon: filtered => (
+				<SearchOutlined style={{ color: filtered ? '#1890ff' : undefined }} />
+			),
 		},
 		{
 			title: '最后更新时间',
 			key: 'updateTime',
 			dataIndex: 'updateTime',
 			sorter: true,
+			filterDropdown: ({}) => (
+				<div style={{ padding: 8 }}>
+					<Form form={dateForm}>
+						<Form.Item name='date'>
+							<RangePicker format='YYYY-MM-DD' allowClear />
+						</Form.Item>
+					</Form>
+					<Space />
+					<div className='io-cms-commodity-category-container_search'>
+						<Button type='primary' onClick={onSearch}>
+							查询
+						</Button>
+						<Button
+							onClick={() => {
+								dateForm.resetFields();
+								setFormParams({
+									...formParams,
+									beginUpdateTime: '',
+									endUpdateTime: '',
+								});
+							}}
+						>
+							重置
+						</Button>
+					</div>
+				</div>
+			),
 		},
 		{
 			title: '操作',
@@ -93,12 +145,14 @@ export default () => {
 								okText: '确定',
 								cancelText: '取消',
 								onOk: async () => {
-									const success = await userRemove({
+									const { code } = await deleteRole({
 										ids: [row.id],
 									});
-									if (success === 200) {
-										if (success === 200 && actionRef.current) {
+									if (code === 200) {
+										if (code === 200 && actionRef.current) {
+											message.success('删除成功');
 											actionRef.current.reload();
+											setSelectedRowKeys([]);
 										}
 									}
 								},
@@ -111,16 +165,79 @@ export default () => {
 			),
 		},
 	];
+
+	/**
+	 * 批量删除
+	 */
+	const showConfirm = () => {
+		confirm({
+			title: '你确定删除所选角色吗?',
+			icon: <ExclamationCircleOutlined />,
+			content: '删除后无法恢复，请谨慎操作',
+			okText: '确定',
+			cancelText: '取消',
+			onOk: async () => {
+				const { code } = await deleteRole({
+					ids: [...selectedRowKeys],
+				});
+				if (code === 200) {
+					if (code === 200 && actionRef.current) {
+						message.success('删除成功');
+						actionRef.current.reload();
+						setSelectedRowKeys([]);
+					}
+				}
+			},
+			onCancel() {
+				console.log('Cancel');
+			},
+		});
+	};
+
+	const onSearch = () => {
+		const date = dateForm.getFieldValue('date');
+		const startTime = moment(date[0]).format('YYYY-MM-DD') + ' 00:00:00';
+		const endTime = moment(date[1]).format('YYYY-MM-DD') + ' 00:00:00';
+		logger.debug('startTime', startTime, 'endTime', endTime);
+		setFormParams({
+			...formParams,
+			beginUpdateTime: startTime,
+			endUpdateTime: endTime,
+		});
+	};
+
+	const handleSearch = (confirm: any) => {
+		let value = searchForm.getFieldValue('apiName');
+		params.updateUser = value;
+		setFormParams(params);
+		confirm();
+	};
+
+	const handleReset = (clearFilters: any) => {
+		clearFilters();
+		params.updateUser = '';
+		searchForm.setFieldsValue({ updateUser: '' });
+		setFormParams(params);
+	};
+	/**
+	 * 刷新列表
+	 */
+	const reload = () => {
+		if (actionRef.current) {
+			actionRef.current.reload();
+		}
+	};
 	return (
 		<BizPage>
-			<div className='io-cms-user'>
+			<div className='io-cms-role'>
 				<BizTable
 					rowKey='id'
 					actionRef={actionRef}
+					inputPlaceholderText='请输入角色名称'
 					renderActions={() => (
 						<>
 							<div className='io-space-item'>
-								<UserForm />
+								<RoleForm reload={reload} />
 							</div>
 							<div className='io-space-item'>
 								<Button
@@ -133,7 +250,11 @@ export default () => {
 								</Button>
 							</div>
 							<div className='io-space-item'>
-								<Button onClick={showConfirm} type='default'>
+								<Button
+									onClick={showConfirm}
+									type='default'
+									disabled={selectedRowKeys.length < 1}
+								>
 									批量删除
 								</Button>
 							</div>
@@ -142,8 +263,15 @@ export default () => {
 					renderSider={() => <BizTree />}
 					columns={columns}
 					pagination={{
-						current: params.current,
-						pageSize: params.pageSize,
+						pageSize: 10,
+						showQuickJumper: true,
+						onChange: (page: any, pageSize: any) => {
+							setFormParams({
+								...formParams,
+								pageNo: page,
+								pageSize,
+							});
+						},
 					}}
 					rowSelection={{
 						selectedRowKeys,
@@ -165,10 +293,16 @@ export default () => {
 						};
 					}}
 					// pagination
+					params={formParams}
 					request={(params: any, sort: any, filter: any) => {
+						console.log('filter', filter);
+						logger.debug('sort', sort);
+						let sortkey = Object.keys(sort)[0];
+						let sortValue = Object.values(sort)[0] == 'ascend' ? 'asc' : 'desc';
+						let pageSort = Object.keys(sort)[0] ? `${sortkey} ${sortValue}` : '';
 						return rolePaging({
-							pageNo: params.current,
-							pageSize: params.pageSize,
+							...formParams,
+							pageSort,
 						}).then(data => ({
 							data: data.data.content,
 							total: data.data.total,

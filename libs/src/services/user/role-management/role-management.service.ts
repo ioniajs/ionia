@@ -68,8 +68,8 @@ export async function roleDetail(id: string): Promise<JcResult<RoleViewVO>> {
  * 检验名称是否可用 true 可用 false 不可用
  */
 export interface VerifyRole {
-	id: string; //id
-	name: string; //name
+	id?: string; //id
+	name?: string; //name
 }
 export async function roleVerifyName(params: VerifyRole): Promise<JcResult<boolean>> {
 	return request.get('/module-user/cmsmanager/roles/unique/name', {

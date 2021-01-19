@@ -6,72 +6,54 @@ import {
 	BizModalFormRef,
 	UserSaveDTO,
 	roleVerifyName,
+	positionList,
 } from '@ionia/libs';
 import { Button, TreeSelect, Form, message } from 'antd';
 import React, { useEffect, useState, useRef } from 'react';
+import { useRequest } from 'ahooks';
 import './index.less';
 
-const options = [
-	{
-		value: '1',
-		label: '审核员',
-	},
-	{
-		value: '1326402331541061633',
-		label: '系统管理员',
-	},
-	{
-		value: '3',
-		label: '信息录入员',
-	},
-];
+interface optionItem {
+	value: string;
+	label: string;
+}
 
-const treeData = [
-	{
-		title: 'Node1',
-		value: '1',
-		children: [
-			{
-				title: 'Child Node1',
-				value: '11',
-			},
-			{
-				title: 'Child Node2',
-				value: '12',
-			},
-		],
-	},
-	{
-		title: 'Node2',
-		value: '2',
-	},
-	{
-		title: 'Node1',
-		value: '3',
-		children: [
-			{
-				title: 'Child Node1',
-				value: '31',
-			},
-			{
-				title: 'Child Node2',
-				value: '32',
-			},
-		],
-	},
-];
-
-export default (props: any) => {
-	logger.debug(props);
-	const { roleId, orgId } = props;
+export default ({ roleId, orgId, reload, name }: any) => {
+	useRequest(() => positionList({ crux: '', isAll: true, parentId: '' }), {
+		onSuccess: data => {
+			console.log('data', data);
+			console.log(loop(data.data));
+			if (data.data) {
+				setTreeData([...loop(data.data)]);
+			}
+		},
+	});
 	const [form] = Form.useForm();
 	const [value, setValue] = useState(undefined);
+	const [treeData, setTreeData] = useState<any[]>([]);
+	const [options, setoptions] = useState<optionItem[]>([]);
 	const ref = useRef<BizModalFormRef>();
 	useEffect(() => {
 		if (roleId && orgId) {
 			form.setFieldsValue({ orgId: orgId, roleIds: roleId });
+
+			options.push({ value: roleId, label: name });
+			setoptions([...options]);
 		}
 	}, [roleId, orgId]);
+
+	const loop = (data: any) => {
+		return data.map((item: any) => {
+			return { title: item.name, value: item.id, children: loop(item.children) };
+		});
+	};
+	const onreload = () => {
+		ref.current?.close();
+		form.resetFields();
+		form.setFieldsValue({ orgId: orgId, roleIds: roleId });
+		reload();
+	};
+
 	return (
 		<BizModalForm
 			form={form}
@@ -82,14 +64,7 @@ export default (props: any) => {
 			}}
 			submitterRender={({ close }: any) => (
 				<div className='btn-submitter'>
-					<Button
-						type='default'
-						onClick={() => {
-							close();
-							form.resetFields();
-							form.setFieldsValue({ orgId: orgId, roleIds: roleId });
-						}}
-					>
+					<Button type='default' onClick={onreload}>
 						取消
 					</Button>
 					<Button
@@ -102,6 +77,7 @@ export default (props: any) => {
 								message.success('提交成功！');
 								form.resetFields();
 								form.setFieldsValue({ orgId: orgId, roleIds: roleId });
+								reload();
 							}
 						}}
 					>
@@ -115,9 +91,7 @@ export default (props: any) => {
 							const { code } = await addUser(formData as UserSaveDTO);
 							if (code == 200) {
 								message.success('提交成功！');
-								form.resetFields();
-								form.setFieldsValue({ orgId: orgId, roleIds: roleId });
-								close();
+								onreload();
 							}
 						}}
 					>
