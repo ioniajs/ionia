@@ -32,7 +32,6 @@ export const ImageUpload = ({
 	// const [token] = useLocalStorage('io-token');
 	const token = localStorage.getItem('token');
 	const [fileList, setFileList] = useState<UploadFile<any>[]>(defaultFileList ?? []);
-
 	useEffect(() => {
 		onChange && onChange(fileList);
 	}, [fileList]);

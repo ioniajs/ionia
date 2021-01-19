@@ -48,6 +48,21 @@ export default {
 			],
 		},
 		{
+			path: '/cms/volunteer',
+			name: '志愿者',
+			icon: 'icon-content',
+			children: [
+				{
+					path: '/cms/volunteer/manage',
+					name: '志愿者管理',
+				},
+				{
+					path: '/cms/volunteer/check',
+					name: '志愿者审核',
+				},
+			],
+		},
+		{
 			path: '/cms/content-operation',
 			name: '内容运营',
 			icon: 'icon-content',
@@ -63,20 +78,6 @@ export default {
 				{
 					path: '/cms/content-operation/blogroll',
 					name: '友情链接',
-				},
-				{
-					path: '/cms/content-operation/volunteer',
-					name: '志愿者',
-					children: [
-						{
-							path: '/cms/content-operation/volunteer/manage',
-							name: '志愿者管理',
-						},
-						{
-							path: '/cms/content-operation/volunteer/check',
-							name: '志愿者审核',
-						},
-					],
 				},
 			],
 		},

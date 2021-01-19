@@ -1,7 +1,9 @@
 //#region  志愿者管理分页VO
 export interface VolunteerPageVO {
+	avatar: string; // 头像url
 	birthday: string; // 出生日期
 	checkStatus: number; // 审核状态
+	notPassReason: string; // 未通过原因
 	checkTime: string; // 加入时间/审核时间
 	clan: string; // 民族
 	code: string; // 志愿者编号
@@ -11,7 +13,7 @@ export interface VolunteerPageVO {
 	email: string; // 邮箱
 	fullName: string; // 姓名
 	gender: string; // 性别
-	id: number; // id
+	id: string; // id
 	idCard: string; // 证件号码
 	occupation: string; // 职业
 	phone: string; // 手机号
@@ -29,9 +31,16 @@ export interface PraiseVO {
 }
 //#endregion
 
+export interface AvatarResProps {
+	filename?: string; // 图片名称
+	id?: string; // 资源id
+	url?: string; // 资源url
+}
+
 //#region 志愿者详情
 export interface VolunteerDetailVO {
 	attitudeScore: number; // 服务态度评分
+	avatarRes?: AvatarResProps; // 头像资源
 	avatarId: number; // 头像资源id
 	birthday: string; // 出生日期
 	checkStatus: number; // 审核状态
@@ -59,7 +68,7 @@ export interface VolunteerDetailVO {
 	teamId: number; // 队伍id
 	totalIntegral: number; // 总积分
 	totalVolunteerHour: number; // 总服务时长
-	typeId: number; // 志愿者类型
+	typeId: string; // 志愿者类型
 	username: string; // 用户名
 	workUnit: string; // 工作单位
 }

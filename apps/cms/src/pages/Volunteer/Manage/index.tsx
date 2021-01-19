@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { ProColumns, ActionType, ColumnsState } from '@ant-design/pro-table';
 import { BizPage, BizTable, BizTree } from '@ionia/libs';
 import { SortOrder } from 'antd/lib/table/interface';
@@ -7,10 +7,25 @@ import {
 	allTreeTeamsVolunteer,
 	AdminVolunteerTeamTreeVO,
 	VolunteerPageVO,
+	resetCipherVolunteers,
+	deleteVolunteers,
 } from '@ionia/libs/src/services';
-import { Button, Form, Input, Space, DatePicker, TreeSelect } from 'antd';
+import {
+	Button,
+	Form,
+	Input,
+	Space,
+	DatePicker,
+	Divider,
+	Avatar,
+	message,
+	Popconfirm,
+	Modal,
+} from 'antd';
 import { SearchOutlined } from '@ant-design/icons';
 import { useMount, useRequest } from '@umijs/hooks';
+import { useHistory } from 'react-router-dom';
+import { IdsDTO } from '@ionia/libs/src/services/common.dto';
 import moment from 'moment';
 import './index.less';
 
@@ -36,11 +51,42 @@ const treeData = [
 	},
 ];
 
+/**
+ * 重置密码
+ * @param filed
+ */
+const handleResetCipher = async (filed: string) => {
+	const resetRes = await resetCipherVolunteers(filed);
+	if (resetRes.code === 200) {
+		message.success('重置密码成功');
+	} else {
+		message.error('重置密码失败');
+	}
+	return resetRes.code;
+};
+
+/**
+ * 删除志愿者
+ * @param filed
+ */
+const handleDeleteVolunteer = async (filed: IdsDTO) => {
+	const deleteRes = await deleteVolunteers(filed);
+	if (deleteRes.code === 200) {
+		message.success('删除成功');
+	} else {
+		message.error('删除失败');
+	}
+	return deleteRes.code;
+};
+
 export default () => {
+	const history = useHistory();
 	const [form] = Form.useForm();
 	const actionRef = useRef<ActionType>();
 	const [teamsTreeList, setTeamsTreeList] = useState<AdminVolunteerTeamTreeVO>();
 	const [searchParams, setSearchParams] = useState<any>({ pageNo: 1, pageSize: 10 });
+	const [selectedRowKeys, setSelectedRowKeys] = useState<string[]>([]);
+	console.log(selectedRowKeys, 'selectedRowKeys');
 	const [columnsStateMap, setColumnsStateMap] = useState<Record<string, ColumnsState>>({
 		email: {
 			// 邮箱
@@ -85,11 +131,11 @@ export default () => {
 						r.children = loop(r.children);
 					}
 					return {
-						value: r.id.toString(),
+						...r,
+						value: r.id,
 						title: r.name,
 						key: r.id.toString(),
 						children: r.children,
-						...r,
 					};
 				});
 			};
@@ -101,6 +147,10 @@ export default () => {
 	useMount(() => {
 		runAllTreeTeamsVolunteer({});
 	});
+
+	useEffect(() => {
+		actionRef.current?.reload();
+	}, [history.location]);
 	const filterDropdown = (filter: string) => {
 		return (
 			<div className='io-cms-volunteer-manage-table-filterDropDown'>
@@ -144,11 +194,46 @@ export default () => {
 			key: 'username',
 			dataIndex: 'username',
 			title: '用户信息',
+			width: 180,
 			render: (_, row) => (
-				<span>
-					{row.username}
-					{row.phone}
-				</span>
+				<div>
+					<Avatar src={row.avatar} />
+					<span>
+						<a
+							className='io-cms-volunteer-table-username'
+							style={{
+								width: '83px',
+								overflow: 'hidden',
+								textOverflow: 'ellipsis',
+								whiteSpace: 'nowrap',
+								position: 'absolute',
+								left: '48px',
+								top: '7px',
+							}}
+							onClick={() => {
+								history.push({
+									pathname: `/volunteer/manage/detail/${row.id}`,
+									state: {
+										teamsTreeList,
+									},
+								});
+							}}
+						>
+							{row.username}
+						</a>
+						<span
+							className='io-cms-volunteer-table-phone'
+							style={{
+								display: 'inline-block',
+								position: 'absolute',
+								top: '28px',
+								left: '45px',
+							}}
+						>
+							{row.phone}
+						</span>
+					</span>
+				</div>
 			),
 		},
 		{
@@ -377,6 +462,55 @@ export default () => {
 			key: 'operation',
 			dataIndex: 'operation',
 			title: '操作',
+			render: (_, row) => (
+				<>
+					<Popconfirm
+						title={
+							<span>
+								<div style={{ fontWeight: 'bold' }}>确认是否重置密码？</div>
+								<div style={{ fontSize: '12px', color: '#8C8C8C' }}>
+									操作成功后系统将随机生成6位数密码通知志愿者
+								</div>
+							</span>
+						}
+						placement='leftBottom'
+						okText='确认'
+						cancelText='取消'
+						onConfirm={async () => {
+							const success = await handleResetCipher(row.id);
+							if (success === 200 && actionRef.current) {
+								actionRef.current.reload();
+							}
+						}}
+					>
+						<a>重置密码</a>
+					</Popconfirm>
+					<Divider type='vertical' />
+					<Popconfirm
+						title={
+							<span>
+								<div style={{ fontWeight: 'bold' }}>确认是否需要删除？</div>
+								<div style={{ fontSize: '12px', color: '#8C8C8C' }}>
+									信息删除后将无法找回，此操作不可逆
+								</div>
+							</span>
+						}
+						placement='leftBottom'
+						okText='确认'
+						cancelText='取消'
+						onConfirm={async () => {
+							const success = await handleDeleteVolunteer({
+								ids: [row.id.toString()],
+							});
+							if (success === 200 && actionRef.current) {
+								actionRef.current.reload();
+							}
+						}}
+					>
+						<a>删除</a>
+					</Popconfirm>
+				</>
+			),
 		},
 	];
 	return (
@@ -388,13 +522,46 @@ export default () => {
 					renderActions={() => (
 						<>
 							<div className='io-space-item'>
-								<Button type='primary'>
+								<Button
+									type='primary'
+									onClick={() => {
+										history.push({
+											pathname: '/volunteer/manage/add',
+											state: {
+												teamsTreeList,
+											},
+										});
+									}}
+								>
 									<i className='iconfont icon-plus1' />
-									新建
+									&nbsp; 新建
 								</Button>
 							</div>
 							<div className='io-space-item'>
-								<Button>删除</Button>
+								<Button
+									onClick={() => {
+										if (selectedRowKeys.length === 0) {
+											message.error('请选择要删除的数据');
+											return;
+										}
+										Modal.confirm({
+											title: '确认是否需要删除？',
+											content: '信息删除后将无法找回，此操作不可逆',
+											okText: '确定',
+											cancelText: '取消',
+											onOk: async () => {
+												const success = await handleDeleteVolunteer({
+													ids: selectedRowKeys,
+												});
+												if (success === 200 && actionRef.current) {
+													actionRef.current.reload();
+												}
+											},
+										});
+									}}
+								>
+									删除
+								</Button>
 							</div>
 						</>
 					)}
@@ -413,7 +580,12 @@ export default () => {
 					columns={columns}
 					columnsStateMap={columnsStateMap}
 					onColumnsStateChange={map => setColumnsStateMap(map)}
-					rowSelection={{}}
+					rowSelection={{
+						selectedRowKeys,
+						onChange: (selectedRowKeys: any) => {
+							setSelectedRowKeys(selectedRowKeys as string[]);
+						},
+					}}
 					request={(params: any, sort: any, filter: any) => {
 						return volunteerPaging({
 							...params,
@@ -425,11 +597,9 @@ export default () => {
 						}));
 					}}
 					pagination={{
-						total: 85,
 						showSizeChanger: true,
 						showQuickJumper: true,
 						defaultPageSize: 10,
-						showTotal: total => `共${total}条`,
 						onChange: (page, pageSize) =>
 							setSearchParams({ ...searchParams, pageNo: page, pageSize: pageSize }),
 					}}

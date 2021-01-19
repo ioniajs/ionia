@@ -23,14 +23,6 @@ const copyTypes = [
 	},
 	{
 		value: 2,
-		label: '模板文件',
-	},
-	{
-		value: 3,
-		label: '消息模板',
-	},
-	{
-		value: 4,
 		label: '栏目',
 	},
 ];
@@ -355,7 +347,7 @@ export default ({ siteId, source, parentId }: CopyFormProps) => {
 				label='要复制的数据'
 				labelCol={{ span: 6 }}
 				wrapperCol={{ span: 18 }}
-				initialValue={[1, 2, 3]}
+				initialValue={[1, 2]}
 			/>
 		</BizModalForm>
 	);
