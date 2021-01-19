@@ -68,7 +68,7 @@ export default function add() {
 		<>
 			<BizPage
 				showActions
-				breadcrumbs={[{ name: '组件演示' }, { name: '详情页' }]}
+				breadcrumbs={[{ name: '商品管理' }, { name: '详情页' }]}
 				renderActions={() => {
 					return (
 						<>

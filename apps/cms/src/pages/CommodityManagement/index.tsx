@@ -75,7 +75,7 @@ const CommodityManagementList = () => {
 			title: '商品名称',
 			dataIndex: 'name',
 			render: (_: any, row: any) => (
-				<div>
+				<div className='io-cms-commdity-management-good_image'>
 					<Image width={72} src={row.coverResId} />
 					<a
 						className='io-cms-commdity-management-good_name'
@@ -132,8 +132,12 @@ const CommodityManagementList = () => {
 			render: (row: any, record: any) => {
 				return (
 					<div>
-						<p>{record.stint == 0 ? `无限制` : `单人限兑 ${record.stintNum}`}</p>
-						{record.stint == 1 && <p>已于{record.resetTime}重置</p>}
+						<p style={{ marginBottom: '0px' }}>
+							{record.stint == 0 ? `无限制` : `单人限兑 ${record.stintNum}`}
+						</p>
+						{record.stint == 1 && (
+							<p style={{ marginTop: '10px' }}>已于{record.resetTime}重置</p>
+						)}
 					</div>
 				);
 			},
@@ -407,7 +411,7 @@ const CommodityManagementList = () => {
 						}));
 					}}
 					search={false}
-					rowKey='id'
+					rowKey={record => record.id}
 					options={{
 						reload: true,
 						density: false,
