@@ -1,12 +1,13 @@
 import { ProColumns, ActionType } from '@ant-design/pro-table';
+import { ExclamationCircleOutlined, SearchOutlined } from '@ant-design/icons';
 import { BizTable, deleteUser, logger, roleDetail } from '@ionia/libs';
-import { Button, Modal, Switch, message, Divider } from 'antd';
-import React, { useRef, useState } from 'react';
+import { Button, Modal, Switch, message, Divider, Form, Space, Input } from 'antd';
+import React, { useRef, useState, useEffect } from 'react';
 import { UserPageVO, userPaging, modUserStatus } from '@ionia/libs/src/services';
 import { IdsDTO } from '@ionia/libs/src/services/common.dto';
 import { useHistory } from 'react-router-dom';
 import './index.less';
-import Form from './Form';
+import MemberForm from './Form';
 import { useRequest } from 'ahooks';
 import Move from './Move';
 
@@ -26,16 +27,27 @@ const userRemove = async (ids: IdsDTO) => {
 };
 export default ({ id }: any) => {
 	const roleId = id;
+	const Params = {
+		pageNo: 1,
+		pageSize: 10,
+		roleId: [id],
+		status: [],
+		telephone: '',
+		updateUser: '',
+		email: '',
+	};
 	const { data } = useRequest(() => roleDetail(roleId));
 	logger.debug(data);
 	const orgId = data?.data.orgId;
+	const name = data?.data.name;
 	// const roleId = data?.data.id;
 	const history = useHistory();
+	const [searchForm] = Form.useForm();
+	const [searchEmailForm] = Form.useForm();
 	const [visible, setVisible] = useState<boolean>(false);
 	const actionRef = useRef<ActionType>();
-	const [modalVisble, setModalVisble] = useState<boolean>(false);
-	const [userName, setUserName] = useState<string>();
 	const [selectedRowKeys, setSelectedRowKeys] = useState<number[]>([]);
+	const [userParams, setUserParams] = useState(Params);
 	const columns: ProColumns<UserPageVO>[] = [
 		{
 			title: '用户名',
@@ -73,18 +85,89 @@ export default ({ id }: any) => {
 			],
 		},
 		{
-			title: '最后登录时间',
-			key: 'lastLoginTime',
-			dataIndex: 'lastLoginTime',
+			title: '联系方式',
+			dataIndex: 'telephone',
 			sorter: true,
 			width: 210,
-			// render: lastLoginTime => `${lastLoginTime.first} ${lastLoginTime.last}`,
+			filterDropdown: ({ confirm, clearFilters }) => (
+				<div style={{ padding: 8 }}>
+					<Form form={searchForm} className='io-cms-menu_form'>
+						<Form.Item name='telephone'>
+							<Input
+								style={{ width: 188, marginBottom: 8, display: 'block' }}
+								placeholder='请输入联系方式'
+							/>
+						</Form.Item>
+					</Form>
+					<Space>
+						<Button
+							type='primary'
+							onClick={() => {
+								handleSearch(confirm);
+							}}
+							icon={<SearchOutlined />}
+							size='small'
+							style={{ width: 90 }}
+						>
+							搜索
+						</Button>
+						<Button
+							onClick={() => {
+								handleReset(clearFilters);
+							}}
+							size='small'
+							style={{ width: 90 }}
+						>
+							重置
+						</Button>
+					</Space>
+				</div>
+			),
+			filterIcon: filtered => (
+				<SearchOutlined style={{ color: filtered ? '#1890ff' : undefined }} />
+			),
 		},
 		{
-			title: '最后登录IP',
-			key: 'lastLoginIp',
-			dataIndex: 'lastLoginIp',
+			title: '电子邮箱',
+			dataIndex: 'email',
 			width: 170,
+			filterDropdown: ({ confirm, clearFilters }) => (
+				<div style={{ padding: 8 }}>
+					<Form form={searchEmailForm} className='io-cms-menu_form'>
+						<Form.Item name='email'>
+							<Input
+								style={{ width: 188, marginBottom: 8, display: 'block' }}
+								placeholder='请输入邮箱'
+							/>
+						</Form.Item>
+					</Form>
+					<Space>
+						<Button
+							type='primary'
+							onClick={() => {
+								handleEmailSearch(confirm);
+							}}
+							icon={<SearchOutlined />}
+							size='small'
+							style={{ width: 90 }}
+						>
+							搜索
+						</Button>
+						<Button
+							onClick={() => {
+								handleEmailReset(clearFilters);
+							}}
+							size='small'
+							style={{ width: 90 }}
+						>
+							重置
+						</Button>
+					</Space>
+				</div>
+			),
+			filterIcon: filtered => (
+				<SearchOutlined style={{ color: filtered ? '#1890ff' : undefined }} />
+			),
 		},
 		{
 			title: '状态',
@@ -102,7 +185,7 @@ export default ({ id }: any) => {
 							status: value ? 1 : 0,
 						});
 						if (success.code === 200 && actionRef.current) {
-							actionRef.current.reload();
+							reload();
 						}
 					}}
 				/>
@@ -125,14 +208,6 @@ export default ({ id }: any) => {
 			width: 130,
 			render: (_, row) => (
 				<>
-					<a
-						onClick={() => {
-							setModalVisble(true);
-							setUserName(row.username);
-						}}
-					>
-						修改密码
-					</a>
 					<Divider type='vertical' />
 					<a
 						onClick={async () => {
@@ -147,7 +222,7 @@ export default ({ id }: any) => {
 										});
 										if (success === 200) {
 											if (success === 200 && actionRef.current) {
-												actionRef.current.reload();
+												reload();
 											}
 										}
 									},
@@ -161,16 +236,45 @@ export default ({ id }: any) => {
 			),
 		},
 	];
+	const handleSearch = (confirm: any) => {
+		let value = searchForm.getFieldValue('telephone');
+		console.log('value', value);
+		// userParams.telephone = value;
+		setUserParams({ ...userParams, telephone: value });
+		confirm();
+	};
+
+	const handleReset = (clearFilters: any) => {
+		clearFilters();
+		setUserParams({ ...userParams, telephone: '' });
+	};
+
+	const handleEmailSearch = (confirm: any) => {
+		let value = searchEmailForm.getFieldValue('email');
+		console.log('value', value);
+		// userParams.telephone = value;
+		setUserParams({ ...userParams, email: value });
+		confirm();
+	};
+
+	const handleEmailReset = (clearFilters: any) => {
+		clearFilters();
+		setUserParams({ ...userParams, email: '' });
+	};
+	const reload = () => {
+		actionRef?.current?.reload();
+	};
 	return (
 		<div className='io-cms-role_detail_member'>
 			<BizTable
+				inputPlaceholderText='请输入用户名/姓名'
 				rowKey='id'
 				actionRef={actionRef}
 				renderActions={() => (
 					<>
 						<Move visible={visible} setVisible={setVisible} />
 						<div className='io-space-item'>
-							<Form roleId={roleId} orgId={orgId} />
+							<MemberForm roleId={roleId} orgId={orgId} reload={reload} name={name} />
 						</div>
 						<div className='io-space-item'>
 							<Button onClick={() => setVisible(true)} type='default'>
@@ -196,7 +300,7 @@ export default ({ id }: any) => {
 											});
 											if (listDelRes === 200) {
 												if (listDelRes === 200 && actionRef.current) {
-													actionRef.current.reload();
+													reload();
 												}
 											}
 										},
@@ -209,6 +313,17 @@ export default ({ id }: any) => {
 					</>
 				)}
 				columns={columns}
+				pagination={{
+					pageSize: 10,
+					showQuickJumper: true,
+					onChange: (page: any, pageSize: any) => {
+						setUserParams({
+							...userParams,
+							pageNo: page,
+							pageSize,
+						});
+					},
+				}}
 				rowSelection={{
 					selectedRowKeys,
 					onChange: (selectedRowKeys: any) => {
@@ -216,10 +331,14 @@ export default ({ id }: any) => {
 					},
 				}}
 				// pagination
+				params={userParams}
 				request={(params: any, sort: any, filter: any) => {
+					logger.debug('sort', sort);
+					logger.debug('filter', filter);
 					return userPaging({
-						roleId,
-					}).then(data => ({ data: data.data.content }));
+						...userParams,
+						...filter,
+					}).then(data => ({ data: data.data.content, total: data.data.total }));
 				}}
 			/>
 		</div>
