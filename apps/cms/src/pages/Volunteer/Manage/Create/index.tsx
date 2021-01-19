@@ -62,7 +62,7 @@ export default () => {
 						avatarId: values.avatarId[0]?.uid,
 						birthday: moment(values.birthday).format('YYYY-MM-DD'),
 						domicileId: values.domicileId[0],
-						checkStatus: 2,
+						checkStatus: 0,
 					};
 					const success = await handleSave(params as VolunteerDTO);
 					if (success === 200) {
