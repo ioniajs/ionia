@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Table, Button, Switch, Popconfirm, message } from 'antd';
-import { menuList, menuDelete, showSwitch, rightControlSwitch } from '@ionia/libs';
+import { menuList, menuDelete, showSwitch, rightControlSwitch, BizPage } from '@ionia/libs';
 import { useHistory } from 'react-router-dom';
 import './index.less';
 
@@ -154,7 +154,7 @@ const MenuIndex = () => {
 		},
 	];
 	return (
-		<div>
+		<BizPage>
 			<Button
 				className='io-cms-menu-list_button'
 				onClick={() => {
@@ -165,7 +165,7 @@ const MenuIndex = () => {
 				新增
 			</Button>
 			<Table columns={columns} dataSource={list} rowKey='id' pagination={false} />
-		</div>
+		</BizPage>
 	);
 };
 export default MenuIndex;
