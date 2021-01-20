@@ -13,7 +13,7 @@ import Content from '@/pages/Content';
 import ContentType from '@/pages/ContentType';
 import DataDictionaryContent from '@/pages/DataDictionary/Content';
 import DataDictionaryType from '@/pages/DataDictionary/Type';
-import ExchangeRecord from '@/pages/ExchangeRecord';
+import CommodityOrder from '@/pages/CommodityOrder';
 import MailServe from '@/pages/MailServe';
 import Interface from '@/pages/MenuManagement/Interface';
 import Menu from '@/pages/MenuManagement/Menu';
@@ -236,8 +236,8 @@ export default [
 		component: CommodityManagementDetail,
 	},
 	{
-		path: '/point-mall/exchange-record',
-		component: ExchangeRecord,
+		path: '/point-mall/commodity-order',
+		component: CommodityOrder,
 	},
 	{
 		path: '/system-management/data-dictionary/type',

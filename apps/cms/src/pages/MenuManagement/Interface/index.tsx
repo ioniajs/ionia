@@ -291,6 +291,7 @@ const InterfaceIndex = () => {
 					pagination={{
 						current: params.current,
 						pageSize: params.pageSize,
+						showQuickJumper: true,
 						...pagination,
 					}}
 					rowSelection={{
