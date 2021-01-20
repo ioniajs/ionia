@@ -1,13 +1,24 @@
+import AreaManagement from '@/pages/AreaManagement';
+import Comment from '@/pages/Comment';
+import CommentsBanned from '@/pages/Comment/Banned';
+import CommentsReport from '@/pages/Comment/Report';
+import CommentsSingleContent from '@/pages/Comment/SingleContent';
+import CommentsSingleIp from '@/pages/Comment/SingleIp';
+import CommentsSingleUser from '@/pages/Comment/SingleUser';
+import CommodityCategory from '@/pages/CommodityCategory';
+import CommodityManagement from '@/pages/CommodityManagement';
+import CommodityManagementAdd from '@/pages/CommodityManagement/add';
+import CommodityManagementDetail from '@/pages/CommodityManagement/detail';
 import Content from '@/pages/Content';
-import DemoAMap from '@/pages/Demo/AMap';
-import DemoDetail from '@/pages/Demo/Detail';
-import DemoDynamicFormItem from '@/pages/Demo/DynamicFormItem';
-import DemoETable from '@/pages/Demo/ETable';
-import DemoModalTable from '@/pages/Demo/ModalTable';
-import DemoModalTransfer from '@/pages/Demo/ModalTransfer';
-import DemoVideoUpload from '@/pages/Demo/UploadVideo';
-import DemoPdf from '@/pages/Demo/Pdf';
-import Home from '@/pages/Home';
+import ContentType from '@/pages/ContentType';
+import DataDictionaryContent from '@/pages/DataDictionary/Content';
+import DataDictionaryType from '@/pages/DataDictionary/Type';
+import ExchangeRecord from '@/pages/ExchangeRecord';
+import MailServe from '@/pages/MailServe';
+import Interface from '@/pages/MenuManagement/Interface';
+import Menu from '@/pages/MenuManagement/Menu';
+import MenuAdd from '@/pages/MenuManagement/Menu/add';
+import MenuDeatil from '@/pages/MenuManagement/Menu/detail';
 import PracticeBase from '@/pages/PracticeBase';
 import PracticeBaseBatchCreate from '@/pages/PracticeBase/BatchCreate';
 import PracticeBaseCreate from '@/pages/PracticeBase/Create';
@@ -22,80 +33,31 @@ import SiteCreate from '@/pages/Site/Create';
 import SiteDetail from '@/pages/Site/Detail';
 import SiteDetailAuthority from '@/pages/Site/Detail/Authority';
 import SitePublishStatics from '@/pages/Site/PublishStatics';
+import Source from '@/pages/Source';
+import StorageManagementFTP from '@/pages/StorageManagementFTP';
+import StorageManagementOSS from '@/pages/StorageManagementOSS';
+import SystemMessages from '@/pages/SystemMessages';
+import TestBaseManagement from '@/pages/TestBaseManagement';
 import User from '@/pages/User';
 import UserBatchCreate from '@/pages/User/BatchCreate';
 import UserDetail from '@/pages/User/Detail';
-import { ExceptionPage } from '@ionia/libs';
-import SystemMessages from '@/pages/SystemMessages';
-import MailServe from '@/pages/MailServe';
-import AreaManagement from '@/pages/AreaManagement';
-import Blogroll from '@/pages/Blogroll';
-import Source from '@/pages/Source';
-import ContentType from '@/pages/ContentType';
-import StorageManagementOSS from '@/pages/StorageManagementOSS';
-import StorageManagementFTP from '@/pages/StorageManagementFTP';
-import TestBaseManagement from '@/pages/TestBaseManagement';
-import Comment from '@/pages/Comment';
-import CommentsSingleContent from '@/pages/Comment/SingleContent';
-import CommentsSingleUser from '@/pages/Comment/SingleUser';
-import CommentsSingleIp from '@/pages/Comment/SingleIp';
-import CommentsBanned from '@/pages/Comment/Banned';
-import CommentsReport from '@/pages/Comment/Report';
-import Interface from '@/pages/MenuManagement/Interface';
-import Menu from '@/pages/MenuManagement/Menu';
+import VolunteerCheck from '@/pages/Volunteer/Check';
 import VolunteerManage from '@/pages/Volunteer/Manage';
 import VolunteerManageCreate from '@/pages/Volunteer/Manage/Create';
 import VolunteerManageDetail from '@/pages/Volunteer/Manage/Detail';
-import VolunteerCheck from '@/pages/Volunteer/Check';
-import MenuAdd from '@/pages/MenuManagement/Menu/add';
-import MenuDeatil from '@/pages/MenuManagement/Menu/detail';
-import DataDictionaryContent from '@/pages/DataDictionary/Content';
-import DataDictionaryType from '@/pages/DataDictionary/Type';
-import CommodityCategory from '@/pages/CommodityCategory';
-import CommodityManagement from '@/pages/CommodityManagement';
-import CommodityManagementAdd from '@/pages/CommodityManagement/add';
-import CommodityManagementDetail from '@/pages/CommodityManagement/detail';
-import ExchangeRecord from '@/pages/ExchangeRecord';
+import { ExceptionPage } from '@ionia/libs';
+import { lazy } from 'react';
+
 export default [
 	{
 		path: '/',
-		component: Home,
-	},
-	{
-		path: '/demo/detail',
-		component: DemoDetail,
-	},
-	{
-		path: '/demo/amap',
-		component: DemoAMap,
-	},
-	{
-		path: '/demo/etable',
-		component: DemoETable,
-	},
-	{
-		path: '/demo/modal-table',
-		component: DemoModalTable,
-	},
-	{
-		path: '/demo/modal-transfer',
-		component: DemoModalTransfer,
-	},
-	{
-		path: '/demo/dynamic-from-item',
-		component: DemoDynamicFormItem,
-	},
-	{
-		path: '/demo/video-upload',
-		component: DemoVideoUpload,
-	},
-	{
-		path: '/demo/pdf',
-		component: DemoPdf,
+		// @ts-ignore
+		component: lazy(() => import('@/pages/Home')),
 	},
 	{
 		path: '/content-operation/blogroll',
-		component: Blogroll,
+		// @ts-ignore
+		component: lazy(() => import('@/pages/Blogroll')),
 	},
 	{
 		path: '/content-operation/content',

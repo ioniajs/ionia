@@ -51,7 +51,6 @@ export function BizTable<T, U extends ParamsType>({
 						key='search-button'
 						type='primary'
 						onClick={() => {
-							console.log(actionRef.current, 'ssss');
 							actionRef?.current?.reload();
 						}}
 					>

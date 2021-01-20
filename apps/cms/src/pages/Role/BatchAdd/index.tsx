@@ -3,44 +3,31 @@ import {
 	GobackButton,
 	SaveButton,
 	EditableTable,
-	bacthAddUser,
-	UserSaveDTO,
+	batchAddRole,
+	positionList,
 } from '@ionia/libs';
 import { Button, Switch, TreeSelect, Form, Input, message, Tooltip } from 'antd';
 import { InfoCircleOutlined } from '@ant-design/icons';
 import shortid from 'shortid';
 import React, { useState } from 'react';
 import './index.less';
-
-const handleUserSave = async (fileds: UserSaveDTO[]) => {
-	const res = await bacthAddUser(fileds);
-	return res;
-};
+import { useRequest } from 'ahooks';
 
 export default () => {
+	useRequest(() => positionList({ crux: '', isAll: true, parentId: '' }), {
+		onSuccess: data => {
+			setTreeData([...loop(data.data)]);
+		},
+	});
 	const [saveData, setSaveData] = useState<any>([]);
 	const [count, setCount] = useState<number>(1);
-
-	const treeData: any = [
-		{
-			title: 'Node1',
-			value: 'Node1',
-			children: [
-				{
-					title: 'Child Node1',
-					value: 'Child Node1',
-				},
-				{
-					title: 'Child Node2',
-					value: 'Child Node2',
-				},
-			],
-		},
-		{
-			title: 'Node2',
-			value: 'Node2',
-		},
-	];
+	const [orgValue, setOrgValue] = useState(undefined);
+	const [treeData, setTreeData] = useState<any[]>([]);
+	const loop = (data: any) => {
+		return data.map((item: any) => {
+			return { title: item.name, value: item.id, children: loop(item.children) };
+		});
+	};
 	const columns: any = [
 		{
 			title: (
@@ -48,6 +35,7 @@ export default () => {
 					<span className='io-cms-user-batch-create-columns__span'>*</span>角色名称
 				</span>
 			),
+			key: 'name',
 			dataIndex: 'name',
 			editable: true,
 		},
@@ -70,13 +58,22 @@ export default () => {
 				ref,
 			}: any) => {
 				return editing ? (
-					<Form.Item style={{ margin: 0 }} name={dataIndex}>
+					<Form.Item
+						style={{ margin: 0 }}
+						name={dataIndex}
+						// rules={[
+						// 	{
+						// 		required: true,
+						// 		message: `${title}是必填项`,
+						// 	},
+						// ]}
+					>
 						{/* <Input ref={ref} onPressEnter={save} onBlur={save} /> */}
 						<TreeSelect
-							// value={uservalue}
+							value={orgValue}
 							treeData={treeData}
 							treeDefaultExpandAll
-							// onChange={() => setUserValue(uservalue)}
+							onChange={(value: any) => setOrgValue(value)}
 							onBlur={save}
 						></TreeSelect>
 					</Form.Item>
@@ -86,20 +83,34 @@ export default () => {
 			},
 		},
 		{
-			title: (
-				<span>
-					<span className='io-cms-user-batch-create-columns__span'>*</span>描述
-				</span>
-			),
+			title: '描述',
+			key: 'description',
 			dataIndex: 'description',
 			editable: true,
+			formItemRender: ({
+				title,
+				dataIndex,
+				editing,
+				save,
+				toggleEdit,
+				children,
+				ref,
+			}: any) => {
+				return editing ? (
+					<Form.Item style={{ margin: 0 }} name={dataIndex}>
+						<Input ref={ref} onPressEnter={save} onBlur={save} />
+					</Form.Item>
+				) : (
+					<div onClick={toggleEdit}>{children}</div>
+				);
+			},
 		},
 	];
 	const [form] = Form.useForm();
 	return (
 		<BizPage
 			showActions
-			breadcrumbs={[{ name: '角色' }, { name: '批量新建' }]}
+			breadcrumbs={[{ name: '用户管理' }, { name: '批量新建' }]}
 			renderActions={() => {
 				return (
 					<>
@@ -107,7 +118,7 @@ export default () => {
 						<SaveButton
 							onSave={async () => {
 								form.validateFields().then(async values => {
-									const saveRes = await handleUserSave(saveData);
+									const saveRes = await batchAddRole(saveData);
 									if (saveRes.code === 200) {
 										message.success('批量新建成功');
 										history.back();
@@ -121,7 +132,7 @@ export default () => {
 		>
 			<EditableTable
 				style={{ marginTop: 24 }}
-				operationRender={({ dataSource, setDataSource, changeData, deleteData }) => ({
+				operationRender={({ dataSource, setDataSource, changeData, deleteData }: any) => ({
 					title: '操作',
 					dataIndex: 'operation',
 					render: (_: any, row: any, index: number) => (
@@ -134,7 +145,7 @@ export default () => {
 						</a>
 					),
 				})}
-				footerRender={({ dataSource, setDataSource }) => (
+				footerRender={({ dataSource, setDataSource }: any) => (
 					<div className='io-cms-user-batch-create-footer__div'>
 						<Button
 							onClick={() => {
@@ -142,9 +153,9 @@ export default () => {
 								for (let i = 0; i < count; i++) {
 									data.push({
 										key: shortid.generate(),
-										name: '',
-										orgId: '0',
-										description: '',
+										name: '江西金磊科技',
+										orgId: orgValue || '0',
+										description: '测试',
 									});
 								}
 								setDataSource([...dataSource, ...data]);
@@ -159,11 +170,11 @@ export default () => {
 						</div>
 						<Form.Item
 							name='orgId'
-							style={{ width: '500px' }}
+							style={{ width: '300px' }}
 							label={
 								<span>
 									阵地&nbsp;
-									<Tooltip title='添加角色时将默认选中右侧设置的阵地'>
+									<Tooltip title='添加用户时将默认选中右侧设置的阵地'>
 										<InfoCircleOutlined />
 									</Tooltip>
 								</span>
@@ -171,11 +182,10 @@ export default () => {
 						>
 							<TreeSelect
 								className='io-cms-user-batch-create__treeselect'
-								placeholder='请选择角色所属阵地'
-								// value={uservalue}
+								value={orgValue}
 								treeData={treeData}
 								treeDefaultExpandAll
-								// onChange={() => setUserValue(uservalue)}
+								onChange={(value: any) => setOrgValue(value)}
 							/>
 						</Form.Item>
 					</div>

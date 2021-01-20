@@ -6,7 +6,9 @@ import App from './App';
 const app = new Application(
 	(
 		<Router basename={'/cms'}>
-			<App />
+			<React.Suspense fallback={<div>loading...</div>}>
+				<App />
+			</React.Suspense>
 		</Router>
 	)
 );

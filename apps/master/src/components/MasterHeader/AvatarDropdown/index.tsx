@@ -57,10 +57,7 @@ const AvatarDropdown: React.FC<AvatarDropdownProps> = () => {
 		<>
 			<Dropdown overlay={menus} visible={visible} onVisibleChange={onVisibleChange}>
 				<span className='io-master__header--item'>
-					<Avatar
-						size={24}
-						src={'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png'}
-					/>
+					<Avatar size={24} src={''} />
 					<span className='io-user-name'>超级管理员</span>
 				</span>
 			</Dropdown>

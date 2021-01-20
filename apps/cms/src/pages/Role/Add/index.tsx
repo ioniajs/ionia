@@ -1,8 +1,16 @@
 import { ProFormText, ProFormTextArea } from '@ant-design/pro-form';
-import { BizModalForm, addRole, RoleOperatingDTO, BizModalFormRef } from '@ionia/libs';
+import {
+	BizModalForm,
+	addRole,
+	RoleOperatingDTO,
+	BizModalFormRef,
+	positionList,
+	roleVerifyName,
+} from '@ionia/libs';
 import { Button, Form, message, TreeSelect } from 'antd';
 import React, { useRef, useState } from 'react';
 import './index.less';
+import { useRequest } from 'ahooks';
 
 // interface roleForm{
 // 	description?: string; //描述
@@ -10,53 +18,58 @@ import './index.less';
 // 	name: string; //角色名称
 // 	orgId: string[];
 // }
-const treeData = [
-	{
-		title: 'Node1',
-		value: 1,
-		children: [
-			{
-				title: 'Child Node1',
-				value: 11,
-			},
-			{
-				title: 'Child Node2',
-				value: 12,
-			},
-		],
-	},
-	{
-		title: 'Node2',
-		value: 2,
-	},
-	{
-		title: 'Node1',
-		value: 3,
-		children: [
-			{
-				title: 'Child Node1',
-				value: 31,
-			},
-			{
-				title: 'Child Node2',
-				value: 32,
-			},
-		],
-	},
-];
 
-export default () => {
+export default ({ reload }: any) => {
+	useRequest(() => positionList({ crux: '', isAll: true, parentId: '' }), {
+		onSuccess: data => {
+			console.log('data', data);
+			console.log(loop(data.data));
+			if (data.data) {
+				setTreeData([...loop(data.data)]);
+			}
+		},
+	});
 	const ref = useRef<BizModalFormRef>();
 	const [form] = Form.useForm();
-	const onCreate = () => {
-		form.resetFields();
-	};
 
 	const [value, setValue] = useState(undefined);
-
+	const [treeData, setTreeData] = useState<any[]>([]);
 	const onChange = (value: any) => {
 		console.log(value);
 		setValue(value);
+	};
+
+	const loop = (data: any) => {
+		return data.map((item: any) => {
+			return { title: item.name, value: item.id, children: loop(item.children) };
+		});
+	};
+	/**
+	 *
+	 * @param values
+	 * 保存
+	 */
+	const onFinish = async (values: any) => {
+		const { data, code } = await addRole({ ...values });
+		if (code == 200) {
+			message.success('提交成功!');
+			form.resetFields();
+			ref.current?.close();
+			reload();
+		}
+	};
+	/**
+	 * 保存并新建
+	 */
+	const onCreate = () => {
+		form.validateFields().then(async (values: any) => {
+			const { code } = await addRole({ ...values });
+			if (code == 200) {
+				message.success('提交成功!');
+				form.resetFields();
+				reload();
+			}
+		});
 	};
 	return (
 		<BizModalForm
@@ -64,15 +77,7 @@ export default () => {
 			form={form}
 			title='新建用户'
 			className='io-cms-role_form'
-			onFinish={async values => {
-				console.log(values);
-				const { data, code } = await addRole(values as RoleOperatingDTO);
-				if (code == 200) {
-					message.success('提交成功!');
-					form.resetFields();
-					// close();
-				}
-			}}
+			onFinish={onFinish}
 			submitterRender={() => (
 				<div className='btn-submitter'>
 					<Button type='default' onClick={() => ref.current?.close()}>
@@ -92,7 +97,23 @@ export default () => {
 				name='name'
 				label='角色名称'
 				placeholder='请输入角色名称'
-				rules={[{ required: true }]}
+				rules={[
+					{
+						required: true,
+					},
+					({ getFieldValue }) => ({
+						async validator(_, value) {
+							if (value) {
+								const { data } = await roleVerifyName({ name: value });
+								if (data == true) {
+									return Promise.resolve();
+								} else {
+									return Promise.reject('该角色名称已存在!');
+								}
+							}
+						},
+					}),
+				]}
 			/>
 			<Form.Item name='orgId' label='所属阵地' rules={[{ required: true }]}>
 				<TreeSelect
