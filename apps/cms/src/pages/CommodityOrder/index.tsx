@@ -253,9 +253,7 @@ const ExchangeRecordList = () => {
 						// let sortValue = Object.values(sort)[0] == 'ascend' ? 'asc' : 'desc';
 						// let pageSort = Object.keys(sort)[0] ? `${sortkey} ${sortValue}` : '';
 						// const { categoryName, status, stint } = filter;
-						return goodsOrdersPage({
-							...orderParams,
-						}).then((data: any) => ({
+						return goodsOrdersPage({ ...orderParams }).then((data: any) => ({
 							data: data.data.content,
 							total: data.data.total,
 						}));

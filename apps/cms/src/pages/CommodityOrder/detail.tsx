@@ -2,7 +2,10 @@ import React, { useRef } from 'react';
 import { BizPage, GobackButton } from '@ionia/libs';
 import { Button, Row, Col } from 'antd';
 import './index.less';
-export default function detail() {
+export default function detail({ match }: any) {
+	const {
+		param: { id },
+	} = match;
 	return (
 		<>
 			<BizPage
