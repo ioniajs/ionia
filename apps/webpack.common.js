@@ -26,7 +26,7 @@ module.exports = {
 	module: {
 		rules: [
 			{
-				test: /\.jsx?$/,
+				test: /\.(js|ts)x?$/,
 				use: [
 					// {
 					// 	loader: 'thread-loader',
@@ -44,6 +44,7 @@ module.exports = {
 									},
 								],
 								'@babel/preset-react',
+								'@babel/preset-typescript',
 							],
 							plugins: [
 								'@babel/plugin-syntax-dynamic-import',
@@ -55,11 +56,11 @@ module.exports = {
 				],
 				exclude: /node_modules/,
 			},
-			{
-				test: /\.tsx?$/,
-				use: ['ts-loader'],
-				exclude: /node_modules/,
-			},
+			// {
+			// 	test: /\.tsx?$/,
+			// 	use: ['ts-loader'],
+			// 	exclude: /node_modules/,
+			// },
 			// {
 			// 	test: /\.jsx?$/,
 			// 	loader: 'esbuild-loader',
@@ -79,25 +80,22 @@ module.exports = {
 			// 	},
 			// 	exclude: /node_modules/,
 			// },
-			// {
-			// 	test: /\.css$/,
-			// 	use: [
-			// 		'style-loader',
-			// 		MiniCssExtractPlugin.loader,
-			// 		{
-			// 			loader: 'css-loader',
-			// 			options: {
-			// 				importLoaders: 1,
-			// 			},
-			// 		},
-			// 		'postcss-loader',
-			// 	],
-			// 	exclude: /\.module\.css$/,
-			// },
 			{
-				test: /\.(css|less)$/,
+				test: /\.css$/,
 				use: [
-					'style-loader',
+					MiniCssExtractPlugin.loader,
+					{
+						loader: 'css-loader',
+						options: {
+							importLoaders: 1,
+						},
+					},
+					'postcss-loader',
+				],
+			},
+			{
+				test: /\.less$/,
+				use: [
 					MiniCssExtractPlugin.loader,
 					'css-loader',
 					'postcss-loader',
@@ -122,6 +120,7 @@ module.exports = {
 						outputPath: 'images/',
 					},
 				},
+				exclude: /node_modules/,
 			},
 			// {
 			// 	test: /\.(ttf|ttc|eot|woff|woff2)/,
@@ -178,7 +177,7 @@ module.exports = {
 			// chunks: 'all',
 			cacheGroups: {
 				vendor: {
-					test: /[\\/]node_modules[\\/]/,
+					test: /node_modules/,
 					name: 'vendors',
 					chunks: 'all',
 				},

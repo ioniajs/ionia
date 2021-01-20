@@ -16,5 +16,6 @@
 			"@/*": ["src/*"]
 		}
 	},
-	"include": ["./src/**/*", "../../libs/src/contexts", "mocks"]
+	"include": ["./src/**/*", "../../libs/src/contexts", "mocks"],
+	"exclude": ["node_modules"]
 }
