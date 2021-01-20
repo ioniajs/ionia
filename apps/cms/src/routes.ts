@@ -200,7 +200,7 @@ export default [
 	},
 	{
 		path: '/point-mall/commodity-order',
-		component: lazy(() => import('@/pages/CommodityOrder'))
+		component: lazy(() => import('@/pages/CommodityOrder')),
 	},
 	{
 		path: '/system-management/data-dictionary/type',
