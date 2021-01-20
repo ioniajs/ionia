@@ -42,7 +42,7 @@ export default {
 					name: '商品管理',
 				},
 				{
-					path: '/cms/point-mall/exchange-record',
+					path: '/cms/point-mall/commodity-order',
 					name: '兑换记录',
 				},
 			],

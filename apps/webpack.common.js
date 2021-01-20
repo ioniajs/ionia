@@ -3,10 +3,12 @@ const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const ProgressBarPlugin = require('progress-bar-webpack-plugin');
+const NyanProgressPlugin = require('nyan-progress-webpack-plugin');
 const LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 const threadLoader = require('thread-loader');
 const os = require('os');
+const { ESBuildPlugin, ESBuildMinifyPlugin } = require('esbuild-loader');
 
 // const threadPool = {
 // 	// 产生的 worker 的数量
@@ -24,7 +26,7 @@ module.exports = {
 	module: {
 		rules: [
 			{
-				test: /\.(js|jsx)$/,
+				test: /\.(js|ts)x?$/,
 				use: [
 					// {
 					// 	loader: 'thread-loader',
@@ -33,6 +35,7 @@ module.exports = {
 					{
 						loader: 'babel-loader',
 						options: {
+							cacheDirectory: true,
 							presets: [
 								[
 									'@babel/preset-env',
@@ -41,9 +44,10 @@ module.exports = {
 									},
 								],
 								'@babel/preset-react',
+								'@babel/preset-typescript',
 							],
 							plugins: [
-								'dynamic-import-webpack',
+								'@babel/plugin-syntax-dynamic-import',
 								'@babel/transform-runtime',
 								'react-hot-loader/babel',
 							],
@@ -52,6 +56,30 @@ module.exports = {
 				],
 				exclude: /node_modules/,
 			},
+			// {
+			// 	test: /\.tsx?$/,
+			// 	use: ['ts-loader'],
+			// 	exclude: /node_modules/,
+			// },
+			// {
+			// 	test: /\.jsx?$/,
+			// 	loader: 'esbuild-loader',
+			// 	options: {
+			// 		loader: 'jsx', // Remove this if you're not using JSX
+			// 		target: 'es2015', // Syntax to compile to (see options below for possible values)
+			// 	},
+			// 	exclude: /node_modules/,
+			// },
+			// {
+			// 	test: /\.tsx?$/,
+			// 	loader: 'esbuild-loader',
+			// 	options: {
+			// 		loader: 'tsx', // Or 'ts' if you don't need tsx
+			// 		target: 'es2015',
+			// 		tsconfigRaw: require('./tsconfig.json'),
+			// 	},
+			// 	exclude: /node_modules/,
+			// },
 			{
 				test: /\.css$/,
 				use: [
@@ -64,13 +92,13 @@ module.exports = {
 					},
 					'postcss-loader',
 				],
-				exclude: /\.module\.css$/,
 			},
 			{
 				test: /\.less$/,
 				use: [
 					MiniCssExtractPlugin.loader,
 					'css-loader',
+					'postcss-loader',
 					{
 						loader: 'less-loader',
 						options: {
@@ -80,15 +108,6 @@ module.exports = {
 						},
 					},
 				],
-			},
-			{
-				test: /\.ts(x)?$/,
-				use: [
-					{
-						loader: 'ts-loader',
-					},
-				],
-				exclude: /node_modules/,
 			},
 			{
 				test: /\.(jpg|jpeg|gif|png|svg)$/,
@@ -101,19 +120,20 @@ module.exports = {
 						outputPath: 'images/',
 					},
 				},
+				exclude: /node_modules/,
 			},
-			{
-				test: /\.(ttf|ttc|eot|woff|woff2)/,
-				use: {
-					loader: 'url-loader',
-					options: {
-						esModule: false,
-						limit: 1024 * 1,
-						name: '[name].[hash:8].[ext]',
-						outputPath: 'fonts/',
-					},
-				},
-			},
+			// {
+			// 	test: /\.(ttf|ttc|eot|woff|woff2)/,
+			// 	use: {
+			// 		loader: 'url-loader',
+			// 		options: {
+			// 			esModule: false,
+			// 			limit: 1024 * 1,
+			// 			name: '[name].[hash:8].[ext]',
+			// 			outputPath: 'fonts/',
+			// 		},
+			// 	},
+			// },
 		],
 	},
 	resolve: {
@@ -133,28 +153,31 @@ module.exports = {
 			<div id="app" />
         </body>
       </html>`,
-			minify: {
-				removeComments: true,
-				collapseWhitespace: true,
-				minifyCSS: true,
-			},
+			// minify: {
+			// 	removeComments: true,
+			// 	collapseWhitespace: true,
+			// 	minifyCSS: true,
+			// },
 		}),
-		new BundleAnalyzerPlugin({
-			analyzerMode: 'static',
-			openAnalyzer: false,
-		}),
+		// new BundleAnalyzerPlugin({
+		// 	analyzerMode: 'static',
+		// 	openAnalyzer: false,
+		// }),
 		new MiniCssExtractPlugin(),
 		new CleanWebpackPlugin(),
 		new ProgressBarPlugin(),
-		new LodashModuleReplacementPlugin(),
+		// new LodashModuleReplacementPlugin(),
+		// new ESBuildPlugin(),
+		// new NyanProgressPlugin(),
 	],
 	optimization: {
+		usedExports: true,
 		runtimeChunk: 'single',
 		splitChunks: {
 			// chunks: 'all',
 			cacheGroups: {
 				vendor: {
-					test: /[\\/]node_modules[\\/]/,
+					test: /node_modules/,
 					name: 'vendors',
 					chunks: 'all',
 				},
@@ -165,6 +188,9 @@ module.exports = {
 			new TerserPlugin({
 				parallel: true,
 			}),
+			// new ESBuildMinifyPlugin({
+			// 	target: 'es2015', // Syntax to compile to (see options below for possible values)
+			// }),
 		],
 	},
 };

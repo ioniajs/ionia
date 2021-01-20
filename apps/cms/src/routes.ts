@@ -1,261 +1,225 @@
-import AreaManagement from '@/pages/AreaManagement';
-import Comment from '@/pages/Comment';
-import CommentsBanned from '@/pages/Comment/Banned';
-import CommentsReport from '@/pages/Comment/Report';
-import CommentsSingleContent from '@/pages/Comment/SingleContent';
-import CommentsSingleIp from '@/pages/Comment/SingleIp';
-import CommentsSingleUser from '@/pages/Comment/SingleUser';
-import CommodityCategory from '@/pages/CommodityCategory';
-import CommodityManagement from '@/pages/CommodityManagement';
-import CommodityManagementAdd from '@/pages/CommodityManagement/add';
-import CommodityManagementDetail from '@/pages/CommodityManagement/detail';
-import Content from '@/pages/Content';
-import ContentType from '@/pages/ContentType';
-import DataDictionaryContent from '@/pages/DataDictionary/Content';
-import DataDictionaryType from '@/pages/DataDictionary/Type';
-import ExchangeRecord from '@/pages/ExchangeRecord';
-import MailServe from '@/pages/MailServe';
-import Interface from '@/pages/MenuManagement/Interface';
-import Menu from '@/pages/MenuManagement/Menu';
-import MenuAdd from '@/pages/MenuManagement/Menu/add';
-import MenuDeatil from '@/pages/MenuManagement/Menu/detail';
-import PracticeBase from '@/pages/PracticeBase';
-import PracticeBaseBatchCreate from '@/pages/PracticeBase/BatchCreate';
-import PracticeBaseCreate from '@/pages/PracticeBase/Create';
-import PracticeBaseDetail from '@/pages/PracticeBase/Detail';
-import Role from '@/pages/Role';
-import RoleBatchAdd from '@/pages/Role/BatchAdd';
-import RoleDetail from '@/pages/Role/Detail';
-import Setting from '@/pages/Setting';
-import Site from '@/pages/Site';
-import SiteBatchCreate from '@/pages/Site/BatchCreate';
-import SiteCreate from '@/pages/Site/Create';
-import SiteDetail from '@/pages/Site/Detail';
-import SiteDetailAuthority from '@/pages/Site/Detail/Authority';
-import SitePublishStatics from '@/pages/Site/PublishStatics';
-import Source from '@/pages/Source';
-import StorageManagementFTP from '@/pages/StorageManagementFTP';
-import StorageManagementOSS from '@/pages/StorageManagementOSS';
-import SystemMessages from '@/pages/SystemMessages';
-import TestBaseManagement from '@/pages/TestBaseManagement';
-import User from '@/pages/User';
-import UserBatchCreate from '@/pages/User/BatchCreate';
-import UserDetail from '@/pages/User/Detail';
-import VolunteerCheck from '@/pages/Volunteer/Check';
-import VolunteerManage from '@/pages/Volunteer/Manage';
-import VolunteerManageCreate from '@/pages/Volunteer/Manage/Create';
-import VolunteerManageDetail from '@/pages/Volunteer/Manage/Detail';
-import VolunteerTeams from '@/pages/Volunteer/Teams';
-import VolunteerTeamsCreate from '@/pages/Volunteer/Teams/Create';
+// @ts-nocheck
 import { ExceptionPage } from '@ionia/libs';
 import { lazy } from 'react';
 
 export default [
 	{
 		path: '/',
-		// @ts-ignore
 		component: lazy(() => import('@/pages/Home')),
 	},
 	{
 		path: '/content-operation/blogroll',
-		// @ts-ignore
 		component: lazy(() => import('@/pages/Blogroll')),
 	},
 	{
 		path: '/content-operation/content',
-		component: Content,
+		component: lazy(() => import('@/pages/Content')),
 	},
 	{
 		path: '/system-management/site',
-		component: Site,
+		component: lazy(() => import('@/pages/Site')),
 	},
 	{
 		path: '/system-management/site/create',
-		component: SiteCreate,
+		component: lazy(() => import('@/pages/Site/Create')),
 	},
 	{
 		path: '/system-management/site/detail/:id',
-		component: SiteDetail,
+		component: lazy(() => import('@/pages/Site/Detail')),
 	},
 	{
 		path: '/system-management/site/detail/authority/:id',
-		component: SiteDetailAuthority,
+		component: lazy(() => import('@/pages/Site/Detail/Authority')),
 	},
 	{
 		path: '/system-management/site/batch-create',
-		component: SiteBatchCreate,
+		component: lazy(() => import('@/pages/Site/BatchCreate')),
 	},
 	{
 		path: '/system-management/site/publish-statics',
-		component: SitePublishStatics,
+		component: lazy(() => import('@/pages/Site/PublishStatics')),
 	},
 	{
 		path: '/system-management/practice-base',
-		component: PracticeBase,
+		component: lazy(() => import('@/pages/PracticeBase')),
 	},
 	{
 		path: '/system-management/practice-base/create',
-		component: PracticeBaseCreate,
+		component: lazy(() => import('@/pages/PracticeBase/Create')),
 	},
 	{
 		path: '/system-management/practice-base/detail/:id',
-		component: PracticeBaseDetail,
+		component: lazy(() => import('@/pages/PracticeBase/Detail')),
 	},
 	{
 		path: '/system-management/practice-base/batch-create',
-		component: PracticeBaseBatchCreate,
+		component: lazy(() => import('@/pages/PracticeBase/BatchCreate')),
 	},
 	{
 		path: '/system-management/role',
-		component: Role,
+		component: lazy(() => import('@/pages/Role')),
 	},
 	{
 		path: '/system-management/role/batch-add',
-		component: RoleBatchAdd,
+		component: lazy(() => import('@/pages/Role/BatchAdd')),
 	},
 	{
 		path: '/system-management/role/detail/:id',
-		component: RoleDetail,
+		component: lazy(() => import('@/pages/Role/Detail')),
 	},
 	{
 		path: '/system-management/user',
-		component: User,
+		component: lazy(() => import('@/pages/User')),
 	},
 	{
 		path: '/system-management/user/batch-create',
-		component: UserBatchCreate,
+		component: lazy(() => import('@/pages/User/BatchCreate')),
 	},
 	{
 		path: '/system-management/user/detail/:id',
-		component: UserDetail,
+		component: lazy(() => import('@/pages/User/Detail')),
 	},
 	{
 		path: '/system-management/model-management/source',
-		component: Source,
+		component: lazy(() => import('@/pages/Source')),
 	},
 	{
 		path: '/system-management/model-management/content-type',
-		component: ContentType,
+		component: lazy(() => import('@/pages/ContentType')),
 	},
 	{
 		path: '/system-management/mail-serve',
-		component: MailServe,
+		component: lazy(() => import('@/pages/MailServe')),
 	},
 	{
 		path: '/system-management/area-management',
-		component: AreaManagement,
+		component: lazy(() => import('@/pages/AreaManagement')),
 	},
 	{
 		path: '/system-management/memory-management/oss',
-		component: StorageManagementOSS,
+		component: lazy(() => import('@/pages/StorageManagementOSS')),
 	},
 	{
 		path: '/system-management/memory-management/ftp',
-		component: StorageManagementFTP,
+		component: lazy(() => import('@/pages/StorageManagementFTP')),
 	},
 	{
 		path: '/system-management/menu-management/interface',
-		component: Interface,
+		component: lazy(() => import('@/pages/MenuManagement/Interface')),
 	},
 	{
 		path: '/system-management/menu-management/menu',
-		component: Menu,
+		component: lazy(() => import('@/pages/MenuManagement/Menu')),
 	},
 	{
 		path: '/system-management/menu-management/menu/add',
-		component: MenuAdd,
+		component: lazy(() => import('@/pages/MenuManagement/Menu/add')),
 	},
 	{
 		path: '/system-management/menu-management/menu/detail/:id',
-		component: MenuDeatil,
+		component: lazy(() => import('@/pages/MenuManagement/Menu/detail')),
 	},
 	{
 		path: '/system-management/setting',
-		component: Setting,
+		component: lazy(() => import('@/pages/Setting')),
 	},
 	{
 		path: '/examination-management/test-base-management',
-		component: TestBaseManagement,
+		component: lazy(() => import('@/pages/TestBaseManagement')),
 	},
 	{
 		path: '/system-messages',
-		component: SystemMessages,
+		component: lazy(() => import('@/pages/SystemMessages')),
 	},
 	{
 		path: '/content-operation/comment',
-		component: Comment,
+		component: lazy(() => import('@/pages/Comment')),
 	},
 	{
 		path: '/content-operation/comment/single-content',
-		component: CommentsSingleContent,
+		component: lazy(() => import('@/pages/Comment/SingleContent')),
 	},
 	{
 		path: '/content-operation/comment/single-user',
-		component: CommentsSingleUser,
+		component: lazy(() => import('@/pages/Comment/SingleUser')),
 	},
 	{
 		path: '/content-operation/comment/single-ip',
-		component: CommentsSingleIp,
+
+		component: lazy(() => import('@/pages/Comment/SingleIp')),
 	},
 	{
 		path: '/content-operation/comment/banned',
-		component: CommentsBanned,
+
+		component: lazy(() => import('@/pages/Comment/Banned')),
 	},
 	{
 		path: '/content-operation/comment/report',
-		component: CommentsReport,
+
+		component: lazy(() => import('@/pages/Comment/Report')),
 	},
 	{
 		path: '/volunteer/manage',
-		component: VolunteerManage,
+
+		component: lazy(() => import('@/pages/Volunteer/Manage')),
 	},
 	{
 		path: '/volunteer/manage/add',
-		component: VolunteerManageCreate,
+
+		component: lazy(() => import('@/pages/Volunteer/Manage/Create')),
 	},
 	{
 		path: '/volunteer/manage/detail/:id',
-		component: VolunteerManageDetail,
+
+		component: lazy(() => import('@/pages/Volunteer/Manage/Detail')),
 	},
 	{
 		path: '/volunteer/manage-check',
-		component: VolunteerCheck,
+
+		component: lazy(() => import('@/pages/Volunteer/Check')),
 	},
 	{
 		path: '/volunteer/teams',
-		component: VolunteerTeams,
+
+		component: lazy(() => import('@/pages/Volunteer/Teams')),
 	},
 	{
 		path: '/volunteer/teams/add',
-		component: VolunteerTeamsCreate,
+		component: lazy(() => import('@/pages/Volunteer/Teams/Create')),
 	},
 	{
 		path: '/point-mall/commodity-category',
-		component: CommodityCategory,
+
+		component: lazy(() => import('@/pages/CommodityCategory')),
 	},
 	{
 		path: '/point-mall/commodity-management',
-		component: CommodityManagement,
+
+		component: lazy(() => import('@/pages/CommodityManagement')),
 	},
 	{
 		path: '/point-mall/commodity-management/add',
-		component: CommodityManagementAdd,
+
+		component: lazy(() => import('@/pages/CommodityManagement/add')),
 	},
 	{
 		path: '/point-mall/commodity-management/detail/:id',
-		component: CommodityManagementDetail,
+
+		component: lazy(() => import('@/pages/CommodityManagement/detail')),
 	},
 	{
-		path: '/point-mall/exchange-record',
-		component: ExchangeRecord,
+		path: '/point-mall/commodity-order',
+		component: lazy(() => import('@/pages/CommodityOrder')),
 	},
 	{
 		path: '/system-management/data-dictionary/type',
-		component: DataDictionaryType,
+
+		component: lazy(() => import('@/pages/DataDictionary/Type')),
 	},
 	{
 		path: '/system-management/data-dictionary/content',
-		component: DataDictionaryContent,
+
+		component: lazy(() => import('@/pages/DataDictionary/Content')),
 	},
 	{
 		path: '/500',

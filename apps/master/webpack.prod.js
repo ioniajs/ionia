@@ -18,5 +18,5 @@ const config = merge(commonConfig, {
 	},
 });
 
-// module.exports = smp.wrap(config);
-module.exports = config;
+module.exports = smp.wrap(config);
+// module.exports = config;
