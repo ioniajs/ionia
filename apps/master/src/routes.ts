@@ -62,8 +62,8 @@ export default {
 				},
 				{
 					path: '/cms/volunteer/teams',
-					name: '志愿队伍'
-				}
+					name: '志愿队伍',
+				},
 			],
 		},
 		{

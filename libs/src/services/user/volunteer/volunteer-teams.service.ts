@@ -4,7 +4,7 @@ import {
 	AdminVolunteerTeamTreeVO,
 	VolunteerTeamCheckPageVO,
 	AdminVolunteerTeamDetailVO,
-	AdminVolunteerTeamListVO
+	AdminVolunteerTeamListVO,
 } from './volunteer-teams.vo';
 import { VolunteerCheckDTO } from './volunteer-manage.dto';
 import { AdminVolunteerTeamDTO } from './volunteer-teams.dto';
@@ -70,7 +70,9 @@ export async function volunteerTeamsCheckPaging(
  * 志愿队伍审核编辑
  * @param data
  */
-export async function updateVolunteerTeamsCheck(data: AdminVolunteerTeamDTO): Promise<JcResult<boolean>> {
+export async function updateVolunteerTeamsCheck(
+	data: AdminVolunteerTeamDTO
+): Promise<JcResult<boolean>> {
 	return request.post('/module-user/cmsmanager/volunteer/teams/check/update', {
 		data,
 	});
@@ -113,12 +115,14 @@ export interface VolunteerTeamsListProps {
 }
 /**
  * 支援队伍列表
- * @param params 
+ * @param params
  */
-export async function volunteerTeamsList(params:VolunteerTeamsListProps): Promise<JcResult<AdminVolunteerTeamListVO[]>> {
+export async function volunteerTeamsList(
+	params: VolunteerTeamsListProps
+): Promise<JcResult<AdminVolunteerTeamListVO[]>> {
 	return request.get('/module-user/cmsmanager/volunteer/teams/list', {
-		params
-	})
+		params,
+	});
 }
 export interface VolunteersTeamsUserName {
 	username: string; // 邮箱
