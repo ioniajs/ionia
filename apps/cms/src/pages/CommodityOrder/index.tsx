@@ -1,40 +1,36 @@
+import { ExclamationCircleOutlined } from '@ant-design/icons';
 import ProTable, { ActionType, ProColumns } from '@ant-design/pro-table';
 import {
 	AdminGoodsCategoryItemVO,
 	BizPage,
-	goodsOrdersPage,
 	goodsOrdersDelete,
+	goodsOrdersPage,
 	logger,
 } from '@ionia/libs';
-import { Button, Form, Input, Modal, Space, DatePicker, message, Image } from 'antd';
-import React, { useRef, useState, useEffect } from 'react';
+import { Button, DatePicker, Form, Image, Input, message, Modal, Space } from 'antd';
 import moment from 'moment';
+import React, { useRef, useState } from 'react';
 import './index.less';
-import { useRequest } from 'ahooks';
-import { ExclamationCircleOutlined } from '@ant-design/icons';
-
+import { useHistory } from 'react-router-dom';
 const { confirm } = Modal;
 const { RangePicker } = DatePicker;
 const ExchangeRecordList = () => {
-	// const { run } = useRequest(() => goodsCategoryInfo(id), {
-	// 	manual: true,
-	// });
+	const history = useHistory();
 	const ref = useRef<ActionType>();
 	const [form] = Form.useForm();
 	const [dateForm] = Form.useForm();
 	const params = {
 		pageNo: 1,
 		pageSize: 10,
-		name: '',
+		code: '',
 		pageSort: '',
-		beginUpdateTime: '',
-		endUpdateTime: '',
+		beginCashTime: '',
+		beginCreateTime: '',
+		endCashTime: '',
+		endCreateTime: '',
 	};
-	const [categoryVisible, setCategoryVisible] = useState<boolean>(false);
-	const [title, setTitle] = useState<string>('');
 	const [value, setValue] = useState('');
-	const [id, setId] = useState<string>('');
-	const [categoryParams, setCategoryParams] = useState(params);
+	const [orderParams, setCategoryParams] = useState(params);
 	const [selectedRowKeys, setSelectedRowKeys] = useState([]);
 	const columns: ProColumns<AdminGoodsCategoryItemVO>[] = [
 		{
@@ -43,9 +39,7 @@ const ExchangeRecordList = () => {
 			render: (_: any, row: any) => (
 				<a
 					onClick={() => {
-						console.log(row);
-						setId(row.id);
-						openModal('edit');
+						history.push(`/point-mall/commodity-order/detail/${row.id}`);
 					}}
 				>
 					{_}
@@ -95,7 +89,7 @@ const ExchangeRecordList = () => {
 			dataIndex: 'createTime',
 			sorter: (a, b, order) => {
 				let sort = order == 'ascend' ? 'asc' : 'desc';
-				setCategoryParams({ ...categoryParams, pageSort: `updateTime  ${sort}` });
+				setCategoryParams({ ...orderParams, pageSort: `updateTime  ${sort}` });
 				return new Date(a.updateTime).getTime() - new Date(b.updateTime).getTime();
 			},
 			filterDropdown: ({ setSelectedKeys, selectedKeys, confirm, clearFilters }) => (
@@ -126,7 +120,7 @@ const ExchangeRecordList = () => {
 			dataIndex: 'cashTime',
 			sorter: (a, b, order) => {
 				let sort = order == 'ascend' ? 'asc' : 'desc';
-				setCategoryParams({ ...categoryParams, pageSort: `updateTime  ${sort}` });
+				setCategoryParams({ ...orderParams, pageSort: `updateTime  ${sort}` });
 				return new Date(a.updateTime).getTime() - new Date(b.updateTime).getTime();
 			},
 			filterDropdown: ({ setSelectedKeys, selectedKeys, confirm, clearFilters }) => (
@@ -187,40 +181,10 @@ const ExchangeRecordList = () => {
 		const endTime = moment(date[1]).format('YYYY-MM-DD') + ' 00:00:00';
 		logger.debug('startTime', startTime, 'endTime', endTime);
 		setCategoryParams({
-			...categoryParams,
-			beginUpdateTime: startTime,
-			endUpdateTime: endTime,
+			...orderParams,
+			beginCashTime: startTime,
+			endCreateTime: endTime,
 		});
-	};
-	const openModal = (type: any) => {
-		setCategoryVisible(true);
-		type == 'add' ? setTitle('添加商品类目') : setTitle('编辑商品类目');
-	};
-
-	const closeModal = () => {
-		setCategoryVisible(false);
-		form.resetFields();
-		setId('');
-	};
-
-	const onFinish = async (values: any) => {
-		if (id) {
-			const { code } = await goodsCategoryUpdate({ ...values, id });
-			if (code == 200) {
-				message.success('修改成功');
-			}
-		} else {
-			const { code } = await goodsCategorySave({ ...values });
-			if (code == 200) {
-				message.success('添加成功');
-			}
-		}
-		ref.current?.reload();
-		closeModal();
-	};
-
-	const saveData = () => {
-		form.submit();
 	};
 
 	const showDeleteConfirm = (type: string, singleId?: string) => {
@@ -266,7 +230,7 @@ const ExchangeRecordList = () => {
 						showQuickJumper: true,
 						onChange: (page: any, pageSize: any) => {
 							setCategoryParams({
-								...categoryParams,
+								...orderParams,
 								pageNo: page,
 								pageSize,
 							});
@@ -278,20 +242,23 @@ const ExchangeRecordList = () => {
 							setSelectedRowKeys(selectedRowKeys);
 						},
 					}}
-					params={categoryParams}
-					request={async (params: any) => {
-						// 这里需要返回一个 Promise,在返回之前你可以进行数据转化
-						// 如果需要转化参数可以在这里进行修改
-						console.log('params', params);
-						const data = await goodsOrdersPage({ ...categoryParams });
-						return {
+					params={orderParams}
+					request={(params: any, sort: any, filter: any) => {
+						console.log('sort', sort);
+						console.log('filter', filter);
+						// let sortkey =
+						// 	Object.keys(sort)[0] == 'categoryName'
+						// 		? 'categoryId'
+						// 		: Object.keys(sort)[0];
+						// let sortValue = Object.values(sort)[0] == 'ascend' ? 'asc' : 'desc';
+						// let pageSort = Object.keys(sort)[0] ? `${sortkey} ${sortValue}` : '';
+						// const { categoryName, status, stint } = filter;
+						return goodsOrdersPage({
+							...orderParams,
+						}).then((data: any) => ({
 							data: data.data.content,
-							// success 请返回 true，
-							// 不然 table 会停止解析数据，即使有数据
-							success: true,
-							// 不传会使用 data 的长度，如果是分页一定要传
 							total: data.data.total,
-						};
+						}));
 					}}
 					search={false}
 					rowKey='id'
@@ -319,7 +286,7 @@ const ExchangeRecordList = () => {
 								key='search'
 								style={{ width: 208 }}
 								allowClear
-								placeholder='请输入商品类目名称'
+								placeholder='请输入订单号'
 								onChange={e => {
 									setValue(e.target.value);
 								}}
@@ -328,7 +295,7 @@ const ExchangeRecordList = () => {
 								key='search-button'
 								type='primary'
 								onClick={() => {
-									setCategoryParams({ ...categoryParams, name: value });
+									setCategoryParams({ ...orderParams, code: value });
 								}}
 							>
 								查询
@@ -339,22 +306,6 @@ const ExchangeRecordList = () => {
 						],
 					}}
 				/>
-				<Modal
-					visible={categoryVisible}
-					onCancel={closeModal}
-					title={title}
-					onOk={saveData}
-				>
-					<Form form={form} onFinish={onFinish}>
-						<Form.Item
-							label='商品类目'
-							name='name'
-							rules={[{ required: true, message: '请输入商品类目!' }]}
-						>
-							<Input placeholder='请输入商品类目' />
-						</Form.Item>
-					</Form>
-				</Modal>
 			</BizPage>
 		</div>
 	);

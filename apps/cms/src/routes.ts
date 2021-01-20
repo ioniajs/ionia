@@ -129,11 +129,11 @@ export default [
 	},
 	{
 		path: '/system-messages',
-		component: lazy(() => import('@/pages/SystemMessage')),
+		component: lazy(() => import('@/pages/SystemMessages')),
 	},
 	{
 		path: '/content-operation/comment',
-		component: lazy(() => import('@/pages/Comment/Comment')),
+		component: lazy(() => import('@/pages/Comment')),
 	},
 	{
 		path: '/content-operation/comment/single-content',
@@ -201,6 +201,10 @@ export default [
 	{
 		path: '/point-mall/commodity-order',
 		component: lazy(() => import('@/pages/CommodityOrder')),
+	},
+	{
+		path: '/point-mall/commodity-order/detail/:id',
+		component: lazy(() => import('@/pages/CommodityOrder/detail')),
 	},
 	{
 		path: '/system-management/data-dictionary/type',
