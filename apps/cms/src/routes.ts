@@ -199,9 +199,8 @@ export default [
 		component: lazy(() => import('@/pages/CommodityManagement/detail')),
 	},
 	{
-		path: '/point-mall/exchange-record',
-
-		component: lazy(() => import('@/pages/ExchangeRecord')),
+		path: '/point-mall/commodity-order',
+		component: lazy(() => import('@/pages/CommodityOrder'))
 	},
 	{
 		path: '/system-management/data-dictionary/type',

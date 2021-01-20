@@ -11,3 +11,4 @@ export * from './cmsmanager-api';
 export * from './volunteer';
 export * from './integral/commodity-category';
 export * from './integral/commodity-management';
+export * from './integral/commodity-orders';
