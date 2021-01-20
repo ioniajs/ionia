@@ -17,7 +17,5 @@
 		}
 	},
 	"include": ["./src/**/*", "../../libs/src/contexts", "mocks"],
-	"exclude": [
-        "node_modules",
-    ]
+	"exclude": ["node_modules"]
 }
