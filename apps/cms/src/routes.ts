@@ -45,6 +45,8 @@ import VolunteerCheck from '@/pages/Volunteer/Check';
 import VolunteerManage from '@/pages/Volunteer/Manage';
 import VolunteerManageCreate from '@/pages/Volunteer/Manage/Create';
 import VolunteerManageDetail from '@/pages/Volunteer/Manage/Detail';
+import VolunteerTeams from '@/pages/Volunteer/Teams';
+import VolunteerTeamsCreate from '@/pages/Volunteer/Teams/Create';
 import { ExceptionPage } from '@ionia/libs';
 import { lazy } from 'react';
 
@@ -218,6 +220,14 @@ export default [
 	{
 		path: '/volunteer/manage-check',
 		component: VolunteerCheck,
+	},
+	{
+		path: '/volunteer/teams',
+		component: VolunteerTeams,
+	},
+	{
+		path: '/volunteer/teams/add',
+		component: VolunteerTeamsCreate,
 	},
 	{
 		path: '/point-mall/commodity-category',

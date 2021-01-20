@@ -60,6 +60,10 @@ export default {
 					path: '/cms/volunteer/manage-check',
 					name: '志愿者审核',
 				},
+				{
+					path: '/cms/volunteer/teams',
+					name: '志愿队伍'
+				}
 			],
 		},
 		{

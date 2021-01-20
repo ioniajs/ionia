@@ -73,3 +73,22 @@ export interface AdminVolunteerTeamDetailVO {
 	username: string; // 用户名
 }
 //#endregion
+
+//#region 志愿队伍列表
+export interface AdminVolunteerTeamListVO {
+	address: string; // 地址
+	children: AdminVolunteerTeamListVO[]; // 下级队伍
+	code: string; // 队伍编号
+	coordinate: string; // 坐标
+	email: string; // 邮箱
+	id: string; // id
+	logo: string; // 支援队伍图标
+	memberNum: number; // 队伍规模
+	name: string; // 队伍名称
+	orgName: string; // 阵地名称
+	principalName: string; // 负责人名称
+	principalPhone: string; // 负责人电话
+	time: string; // 成立时间
+	username: string; // 用户名
+}
+//#endregion
