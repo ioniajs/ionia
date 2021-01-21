@@ -174,9 +174,18 @@ export default [
 		component: lazy(() => import('@/pages/Volunteer/Manage/Detail')),
 	},
 	{
-		path: '/volunteer/check',
+		path: '/volunteer/manage-check',
 
 		component: lazy(() => import('@/pages/Volunteer/Check')),
+	},
+	{
+		path: '/volunteer/teams',
+
+		component: lazy(() => import('@/pages/Volunteer/Teams')),
+	},
+	{
+		path: '/volunteer/teams/add',
+		component: lazy(() => import('@/pages/Volunteer/Teams/Create')),
 	},
 	{
 		path: '/point-mall/commodity-category',
