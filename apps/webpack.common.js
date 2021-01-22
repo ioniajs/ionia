@@ -8,6 +8,7 @@ const LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 const threadLoader = require('thread-loader');
 const os = require('os');
+const path = require('path');
 const { ESBuildPlugin, ESBuildMinifyPlugin } = require('esbuild-loader');
 
 // const threadPool = {
@@ -47,14 +48,15 @@ module.exports = {
 								'@babel/preset-typescript',
 							],
 							plugins: [
+								'dynamic-import-node',
 								'@babel/plugin-syntax-dynamic-import',
-								'@babel/transform-runtime',
+								'@babel/plugin-transform-runtime',
 								'react-hot-loader/babel',
 							],
 						},
 					},
 				],
-				exclude: /node_modules/,
+				exclude: [/node_modules/],
 			},
 			// {
 			// 	test: /\.tsx?$/,
@@ -80,21 +82,21 @@ module.exports = {
 			// 	},
 			// 	exclude: /node_modules/,
 			// },
+			// {
+			// 	test: /\.css$/,
+			// 	use: [
+			// 		// MiniCssExtractPlugin.loader,
+			// 		{
+			// 			loader: 'css-loader',
+			// 			options: {
+			// 				importLoaders: 1,
+			// 			},
+			// 		},
+			// 		'postcss-loader',
+			// 	],
+			// },
 			{
-				test: /\.css$/,
-				use: [
-					MiniCssExtractPlugin.loader,
-					{
-						loader: 'css-loader',
-						options: {
-							importLoaders: 1,
-						},
-					},
-					'postcss-loader',
-				],
-			},
-			{
-				test: /\.less$/,
+				test: /\.(css|less)$/,
 				use: [
 					MiniCssExtractPlugin.loader,
 					'css-loader',
@@ -108,6 +110,8 @@ module.exports = {
 						},
 					},
 				],
+				// include: path.join(__dirname, '../', 'node_modules/antd'),
+				// exclude: [/node_modules/, /libs/],
 			},
 			{
 				test: /\.(jpg|jpeg|gif|png|svg)$/,
@@ -153,11 +157,11 @@ module.exports = {
 			<div id="app" />
         </body>
       </html>`,
-			// minify: {
-			// 	removeComments: true,
-			// 	collapseWhitespace: true,
-			// 	minifyCSS: true,
-			// },
+			minify: {
+				removeComments: true,
+				collapseWhitespace: true,
+				minifyCSS: true,
+			},
 		}),
 		// new BundleAnalyzerPlugin({
 		// 	analyzerMode: 'static',
@@ -166,7 +170,7 @@ module.exports = {
 		new MiniCssExtractPlugin(),
 		new CleanWebpackPlugin(),
 		new ProgressBarPlugin(),
-		// new LodashModuleReplacementPlugin(),
+		new LodashModuleReplacementPlugin(),
 		// new ESBuildPlugin(),
 		// new NyanProgressPlugin(),
 	],
@@ -186,7 +190,15 @@ module.exports = {
 		minimize: true,
 		minimizer: [
 			new TerserPlugin({
+				extractComments: true,
+				cache: true,
 				parallel: true,
+				sourceMap: true, // Must be set to true if using source-maps in production
+				terserOptions: {
+					// https://github.com/webpack-contrib/terser-webpack-plugin#terseroptions
+					extractComments: 'all',
+					compress: { pure_funcs: ['console.info', 'console.debug', 'console.warn'] },
+				},
 			}),
 			// new ESBuildMinifyPlugin({
 			// 	target: 'es2015', // Syntax to compile to (see options below for possible values)

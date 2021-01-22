@@ -3,7 +3,11 @@ const { resolve } = require('path');
 const { merge } = require('webpack-merge');
 const commonConfig = require('../webpack.common.js');
 
-module.exports = merge(commonConfig, {
+const SpeedMeasurePlugin = require('speed-measure-webpack-plugin');
+
+const smp = new SpeedMeasurePlugin();
+
+const config = merge(commonConfig, {
 	mode: 'production',
 	entry: resolve(__dirname, './src/index.tsx'),
 	output: {
@@ -21,3 +25,6 @@ module.exports = merge(commonConfig, {
 		},
 	},
 });
+
+// module.exports = smp.wrap(config);
+module.exports = config;

@@ -13,7 +13,7 @@ const config = merge(commonConfig, {
 		jsonpFunction: `webpackJsonp_${name}`,
 		globalObject: 'window',
 	},
-	devtool: 'source-map',
+	// devtool: 'source-map',
 	devServer: {
 		contentBase: './dist',
 		host: '0.0.0.0',
