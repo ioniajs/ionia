@@ -129,11 +129,11 @@ export default [
 	},
 	{
 		path: '/system-messages',
-		component: lazy(() => import('@/pages/SystemMessage')),
+		component: lazy(() => import('@/pages/SystemMessages')),
 	},
 	{
 		path: '/content-operation/comment',
-		component: lazy(() => import('@/pages/Comment/Comment')),
+		component: lazy(() => import('@/pages/Comment')),
 	},
 	{
 		path: '/content-operation/comment/single-content',
@@ -174,9 +174,18 @@ export default [
 		component: lazy(() => import('@/pages/Volunteer/Manage/Detail')),
 	},
 	{
-		path: '/volunteer/check',
+		path: '/volunteer/manage-check',
 
 		component: lazy(() => import('@/pages/Volunteer/Check')),
+	},
+	{
+		path: '/volunteer/teams',
+
+		component: lazy(() => import('@/pages/Volunteer/Teams')),
+	},
+	{
+		path: '/volunteer/teams/add',
+		component: lazy(() => import('@/pages/Volunteer/Teams/Create')),
 	},
 	{
 		path: '/point-mall/commodity-category',
@@ -201,6 +210,10 @@ export default [
 	{
 		path: '/point-mall/commodity-order',
 		component: lazy(() => import('@/pages/CommodityOrder')),
+	},
+	{
+		path: '/point-mall/commodity-order/detail/:id',
+		component: lazy(() => import('@/pages/CommodityOrder/detail')),
 	},
 	{
 		path: '/system-management/data-dictionary/type',

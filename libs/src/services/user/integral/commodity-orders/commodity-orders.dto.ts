@@ -7,15 +7,15 @@ export interface AdminGoodsOrderCashDTO {
 //#endregion
 
 export interface AdminGoodsOrderParamsDTO {
-	beginUpdateTime?: string;
-	endUpdateTime?: string;
+	beginCashTime?: string;
+	beginCreateTime?: string;
 	code?: string;
 	endCashTime?: string;
 	endCreateTime?: string;
-	goodsInfo: string;
+	goodsInfo?: string;
 	status?: string[];
 	pageNo?: number;
 	pageSize?: number;
 	pageSort?: string;
-	userInfo: string;
+	userInfo?: string;
 }

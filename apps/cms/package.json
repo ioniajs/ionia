@@ -10,6 +10,7 @@
 		"start": "webpack-dev-server --hot --config webpack.dev.js"
 	},
 	"dependencies": {
+		"@ant-design/pro-descriptions": "^1.4.9",
 		"@ant-design/pro-table": "^2.7.1",
 		"ahooks": "^2.5.0",
 		"braft-editor": "^2.3.9",

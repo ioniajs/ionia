@@ -21,7 +21,7 @@ export interface AdminVolunteerTeamDTO {
 	id?: number;
 	introduce?: string; // 队伍简介
 	linkmanList?: UserDTO[]; // 联系人
-	logoId?: number; // 队伍logo
+	logoId?: string; // 队伍logo
 	notPassReason?: string; // 审核未通过原因
 	parentId?: number; // 上级队伍
 	strongPoint?: number[]; // 擅长服务

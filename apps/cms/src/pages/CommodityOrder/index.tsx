@@ -1,51 +1,56 @@
+import { ExclamationCircleOutlined } from '@ant-design/icons';
 import ProTable, { ActionType, ProColumns } from '@ant-design/pro-table';
 import {
-	AdminGoodsCategoryItemVO,
+	AdminGoodsOrderItemVO,
 	BizPage,
-	goodsOrdersPage,
 	goodsOrdersDelete,
+	goodsOrdersPage,
 	logger,
+	AdminGoodsOrderCashDTO,
+	goodsOrdersCash,
 } from '@ionia/libs';
-import { Button, Form, Input, Modal, Space, DatePicker, message, Image } from 'antd';
-import React, { useRef, useState, useEffect } from 'react';
+import { Button, DatePicker, Form, Image, Input, message, Modal, Space } from 'antd';
 import moment from 'moment';
+import React, { useRef, useState } from 'react';
 import './index.less';
-import { useRequest } from 'ahooks';
-import { ExclamationCircleOutlined } from '@ant-design/icons';
+import { useHistory } from 'react-router-dom';
 
 const { confirm } = Modal;
 const { RangePicker } = DatePicker;
+const { TextArea } = Input;
 const ExchangeRecordList = () => {
-	// const { run } = useRequest(() => goodsCategoryInfo(id), {
-	// 	manual: true,
-	// });
+	const history = useHistory();
 	const ref = useRef<ActionType>();
-	const [form] = Form.useForm();
-	const [dateForm] = Form.useForm();
+	const [goodsNameForm] = Form.useForm();
+	const [usernameForm] = Form.useForm();
+	const [createTimeForm] = Form.useForm();
+	const [cashTimeForm] = Form.useForm();
+	const [cashForm] = Form.useForm();
 	const params = {
 		pageNo: 1,
 		pageSize: 10,
-		name: '',
+		code: '',
 		pageSort: '',
-		beginUpdateTime: '',
-		endUpdateTime: '',
+		beginCashTime: '',
+		beginCreateTime: '',
+		endCashTime: '',
+		endCreateTime: '',
+		userInfo: '',
+		goodsInfo: '',
 	};
-	const [categoryVisible, setCategoryVisible] = useState<boolean>(false);
-	const [title, setTitle] = useState<string>('');
 	const [value, setValue] = useState('');
-	const [id, setId] = useState<string>('');
-	const [categoryParams, setCategoryParams] = useState(params);
+	const [orderParams, setCategoryParams] = useState(params);
 	const [selectedRowKeys, setSelectedRowKeys] = useState([]);
-	const columns: ProColumns<AdminGoodsCategoryItemVO>[] = [
+	const [cashVisible, setCashVisible] = useState<boolean>(false);
+	const [id, setId] = useState<string>('');
+	const columns: ProColumns<AdminGoodsOrderItemVO>[] = [
 		{
 			title: '订单号',
 			dataIndex: 'code',
 			render: (_: any, row: any) => (
 				<a
 					onClick={() => {
-						console.log(row);
-						setId(row.id);
-						openModal('edit');
+						history.push(`/point-mall/commodity-order/detail/${row.id}`);
 					}}
 				>
 					{_}
@@ -55,10 +60,38 @@ const ExchangeRecordList = () => {
 		{
 			title: '兑换用户',
 			dataIndex: 'username',
+			width: 100,
+			ellipsis: true,
 			render: (_: any, row: any) => (
 				<div>
 					<p>{row.username}</p>
 					<p>{row.fullName}</p>
+				</div>
+			),
+			filterDropdown: ({ setSelectedKeys, selectedKeys, confirm, clearFilters }) => (
+				<div style={{ padding: 8 }}>
+					<Form form={usernameForm}>
+						<Form.Item name='username'>
+							<Input />
+						</Form.Item>
+					</Form>
+					<Space />
+					<div className='io-cms-commodity-category-container_search'>
+						<Button type='primary' onClick={onUserNameSearch}>
+							查询
+						</Button>
+						<Button
+							onClick={() => {
+								usernameForm.resetFields();
+								setCategoryParams({
+									...orderParams,
+									userInfo: '',
+								});
+							}}
+						>
+							重置
+						</Button>
+					</div>
 				</div>
 			),
 		},
@@ -69,6 +102,32 @@ const ExchangeRecordList = () => {
 				<div className='io-cms-commdity-management-good_image'>
 					<Image width={72} src={row.coverResId} />
 					<span>{_}</span>
+				</div>
+			),
+			filterDropdown: ({ setSelectedKeys, selectedKeys, confirm, clearFilters }) => (
+				<div style={{ padding: 8 }}>
+					<Form form={goodsNameForm}>
+						<Form.Item name='goodsInfo'>
+							<Input />
+						</Form.Item>
+					</Form>
+					<Space />
+					<div className='io-cms-commodity-category-container_search'>
+						<Button type='primary' onClick={onGoodsInfoSearch}>
+							查询
+						</Button>
+						<Button
+							onClick={() => {
+								cashTimeForm.resetFields();
+								setCategoryParams({
+									...orderParams,
+									goodsInfo: '',
+								});
+							}}
+						>
+							重置
+						</Button>
+					</div>
 				</div>
 			),
 		},
@@ -84,23 +143,30 @@ const ExchangeRecordList = () => {
 		},
 		{
 			title: '状态',
-			dataIndex: 'num',
+			dataIndex: 'status',
 			render: (_, row) => {
 				return _ == 1 ? '待兑现' : '兑现成功';
 			},
+			sorter: true,
+			filters: [
+				{
+					text: '待兑现',
+					value: 1,
+				},
+				{
+					text: '兑现成功',
+					value: 2,
+				},
+			],
 		},
 
 		{
 			title: '兑换时间',
 			dataIndex: 'createTime',
-			sorter: (a, b, order) => {
-				let sort = order == 'ascend' ? 'asc' : 'desc';
-				setCategoryParams({ ...categoryParams, pageSort: `updateTime  ${sort}` });
-				return new Date(a.updateTime).getTime() - new Date(b.updateTime).getTime();
-			},
+			sorter: true,
 			filterDropdown: ({ setSelectedKeys, selectedKeys, confirm, clearFilters }) => (
 				<div style={{ padding: 8 }}>
-					<Form form={dateForm}>
+					<Form form={createTimeForm}>
 						<Form.Item name='date'>
 							<RangePicker format='YYYY-MM-DD' allowClear />
 						</Form.Item>
@@ -112,7 +178,12 @@ const ExchangeRecordList = () => {
 						</Button>
 						<Button
 							onClick={() => {
-								dateForm.resetFields();
+								createTimeForm.resetFields();
+								setCategoryParams({
+									...orderParams,
+									beginCreateTime: '',
+									endCreateTime: '',
+								});
 							}}
 						>
 							重置
@@ -124,26 +195,27 @@ const ExchangeRecordList = () => {
 		{
 			title: '兑现时间',
 			dataIndex: 'cashTime',
-			sorter: (a, b, order) => {
-				let sort = order == 'ascend' ? 'asc' : 'desc';
-				setCategoryParams({ ...categoryParams, pageSort: `updateTime  ${sort}` });
-				return new Date(a.updateTime).getTime() - new Date(b.updateTime).getTime();
-			},
+			sorter: true,
 			filterDropdown: ({ setSelectedKeys, selectedKeys, confirm, clearFilters }) => (
 				<div style={{ padding: 8 }}>
-					<Form form={dateForm}>
+					<Form form={cashTimeForm}>
 						<Form.Item name='date'>
 							<RangePicker format='YYYY-MM-DD' allowClear />
 						</Form.Item>
 					</Form>
 					<Space />
 					<div className='io-cms-commodity-category-container_search'>
-						<Button type='primary' onClick={onSearch}>
+						<Button type='primary' onClick={onSearchCash}>
 							查询
 						</Button>
 						<Button
 							onClick={() => {
-								dateForm.resetFields();
+								cashTimeForm.resetFields();
+								setCategoryParams({
+									...orderParams,
+									beginCashTime: '',
+									endCashTime: '',
+								});
 							}}
 						>
 							重置
@@ -157,17 +229,18 @@ const ExchangeRecordList = () => {
 			key: 'option',
 			valueType: 'option',
 			render: (row: any, record: any) => [
-				row.status == 1 ? (
-					<span>兑现</span>
-				) : (
+				record.status == 1 ? (
 					<a
 						key='cash'
 						onClick={() => {
-							showDeleteConfirm('single', record.id);
+							setId(record.id);
+							setCashVisible(true);
 						}}
 					>
 						兑现
 					</a>
+				) : (
+					<span>兑现</span>
 				),
 				<a
 					key='link'
@@ -180,47 +253,53 @@ const ExchangeRecordList = () => {
 			],
 		},
 	];
-
+	/**
+	 * 用户信息
+	 */
+	const onUserNameSearch = () => {
+		const username = usernameForm.getFieldValue('username');
+		setCategoryParams({
+			...orderParams,
+			userInfo: username,
+		});
+	};
+	/**
+	 * 商品信息
+	 */
+	const onGoodsInfoSearch = () => {
+		const goodsInfo = goodsNameForm.getFieldValue('goodsInfo');
+		setCategoryParams({
+			...orderParams,
+			goodsInfo,
+		});
+	};
+	/**
+	 * 兑换时间
+	 */
 	const onSearch = () => {
-		const date = dateForm.getFieldValue('date');
+		const date = cashTimeForm.getFieldValue('date');
 		const startTime = moment(date[0]).format('YYYY-MM-DD') + ' 00:00:00';
 		const endTime = moment(date[1]).format('YYYY-MM-DD') + ' 00:00:00';
 		logger.debug('startTime', startTime, 'endTime', endTime);
 		setCategoryParams({
-			...categoryParams,
-			beginUpdateTime: startTime,
-			endUpdateTime: endTime,
+			...orderParams,
+			beginCreateTime: startTime,
+			endCreateTime: endTime,
 		});
 	};
-	const openModal = (type: any) => {
-		setCategoryVisible(true);
-		type == 'add' ? setTitle('添加商品类目') : setTitle('编辑商品类目');
-	};
-
-	const closeModal = () => {
-		setCategoryVisible(false);
-		form.resetFields();
-		setId('');
-	};
-
-	const onFinish = async (values: any) => {
-		if (id) {
-			const { code } = await goodsCategoryUpdate({ ...values, id });
-			if (code == 200) {
-				message.success('修改成功');
-			}
-		} else {
-			const { code } = await goodsCategorySave({ ...values });
-			if (code == 200) {
-				message.success('添加成功');
-			}
-		}
-		ref.current?.reload();
-		closeModal();
-	};
-
-	const saveData = () => {
-		form.submit();
+	/**
+	 * 兑现时间
+	 */
+	const onSearchCash = () => {
+		const date = cashTimeForm.getFieldValue('date');
+		const startTime = moment(date[0]).format('YYYY-MM-DD') + ' 00:00:00';
+		const endTime = moment(date[1]).format('YYYY-MM-DD') + ' 00:00:00';
+		logger.debug('startTime', startTime, 'endTime', endTime);
+		setCategoryParams({
+			...orderParams,
+			beginCashTime: startTime,
+			endCashTime: endTime,
+		});
 	};
 
 	const showDeleteConfirm = (type: string, singleId?: string) => {
@@ -255,10 +334,24 @@ const ExchangeRecordList = () => {
 		});
 	};
 
+	/**
+	 *
+	 * @param values
+	 * 兑换
+	 */
+	const handleCash = async (values: AdminGoodsOrderCashDTO) => {
+		const { code } = await goodsOrdersCash({ ...values, id });
+		if (code == 200) {
+			message.success('兑现成功');
+			setId('');
+			ref.current?.reload();
+			setCashVisible(false);
+		}
+	};
 	return (
 		<div className='io-cms-commodity-category_container'>
 			<BizPage>
-				<ProTable<AdminGoodsCategoryItemVO>
+				<ProTable<AdminGoodsOrderItemVO>
 					actionRef={ref}
 					columns={columns}
 					pagination={{
@@ -266,7 +359,7 @@ const ExchangeRecordList = () => {
 						showQuickJumper: true,
 						onChange: (page: any, pageSize: any) => {
 							setCategoryParams({
-								...categoryParams,
+								...orderParams,
 								pageNo: page,
 								pageSize,
 							});
@@ -278,20 +371,20 @@ const ExchangeRecordList = () => {
 							setSelectedRowKeys(selectedRowKeys);
 						},
 					}}
-					params={categoryParams}
-					request={async (params: any) => {
-						// 这里需要返回一个 Promise,在返回之前你可以进行数据转化
-						// 如果需要转化参数可以在这里进行修改
-						console.log('params', params);
-						const data = await goodsOrdersPage({ ...categoryParams });
-						return {
-							data: data.data.content,
-							// success 请返回 true，
-							// 不然 table 会停止解析数据，即使有数据
-							success: true,
-							// 不传会使用 data 的长度，如果是分页一定要传
-							total: data.data.total,
-						};
+					params={orderParams}
+					request={(params: any, sort: any, filter: any) => {
+						console.log('sort', sort);
+						console.log('filter', filter);
+						let sortkey = Object.keys(sort)[0];
+						let sortValue = Object.values(sort)[0] == 'ascend' ? 'asc' : 'desc';
+						let pageSort = Object.keys(sort)[0] ? `${sortkey} ${sortValue}` : '';
+						const { status } = filter;
+						return goodsOrdersPage({ ...orderParams, pageSort, status }).then(
+							(data: any) => ({
+								data: data.data.content,
+								total: data.data.total,
+							})
+						);
 					}}
 					search={false}
 					rowKey='id'
@@ -319,7 +412,7 @@ const ExchangeRecordList = () => {
 								key='search'
 								style={{ width: 208 }}
 								allowClear
-								placeholder='请输入商品类目名称'
+								placeholder='请输入订单号'
 								onChange={e => {
 									setValue(e.target.value);
 								}}
@@ -328,7 +421,7 @@ const ExchangeRecordList = () => {
 								key='search-button'
 								type='primary'
 								onClick={() => {
-									setCategoryParams({ ...categoryParams, name: value });
+									setCategoryParams({ ...orderParams, code: value });
 								}}
 							>
 								查询
@@ -340,18 +433,27 @@ const ExchangeRecordList = () => {
 					}}
 				/>
 				<Modal
-					visible={categoryVisible}
-					onCancel={closeModal}
-					title={title}
-					onOk={saveData}
+					visible={cashVisible}
+					title='兑换'
+					onOk={() => {
+						cashForm.submit();
+					}}
+					onCancel={() => {
+						setId('');
+						ref.current?.reload();
+						setCashVisible(false);
+					}}
 				>
-					<Form form={form} onFinish={onFinish}>
+					<Form form={cashForm} onFinish={handleCash}>
 						<Form.Item
-							label='商品类目'
-							name='name'
-							rules={[{ required: true, message: '请输入商品类目!' }]}
+							label='兑换结果'
+							name='cashResult'
+							rules={[{ required: true, message: '请输入兑换结果' }]}
 						>
-							<Input placeholder='请输入商品类目' />
+							<TextArea
+								rows={4}
+								placeholder='请输入兑现结果，如为实物商品可输入发货物流等信息；反之为虚拟商品，可输入兑换途径'
+							/>
 						</Form.Item>
 					</Form>
 				</Modal>

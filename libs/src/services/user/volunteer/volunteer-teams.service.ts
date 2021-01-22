@@ -4,6 +4,7 @@ import {
 	AdminVolunteerTeamTreeVO,
 	VolunteerTeamCheckPageVO,
 	AdminVolunteerTeamDetailVO,
+	AdminVolunteerTeamListVO,
 } from './volunteer-teams.vo';
 import { VolunteerCheckDTO } from './volunteer-manage.dto';
 import { AdminVolunteerTeamDTO } from './volunteer-teams.dto';
@@ -69,7 +70,9 @@ export async function volunteerTeamsCheckPaging(
  * 志愿队伍审核编辑
  * @param data
  */
-export async function name(data: AdminVolunteerTeamDTO): Promise<JcResult<boolean>> {
+export async function updateVolunteerTeamsCheck(
+	data: AdminVolunteerTeamDTO
+): Promise<JcResult<boolean>> {
 	return request.post('/module-user/cmsmanager/volunteer/teams/check/update', {
 		data,
 	});
@@ -98,7 +101,30 @@ export async function uniqueEmailVolunteersTeams(
 		params,
 	});
 }
-export interface VolunteersTeamsEmail {
+
+export interface VolunteerTeamsListProps {
+	address: string; // 地址
+	beginCheckTime: string; // 开始成立时间
+	code: string; // 队伍编码
+	endCheckTime: string; // 结束成立时间
+	name: string; // 队伍名称
+	orderBy: number; // 排序 : 1队伍规模升序 2队伍规模降序 3成立时间升序 4成立时间降序
+	orgIds: number[]; // 所属阵地
+	principal: string; // 负责人
+	userInfo: string; // 账号信息
+}
+/**
+ * 支援队伍列表
+ * @param params
+ */
+export async function volunteerTeamsList(
+	params: VolunteerTeamsListProps
+): Promise<JcResult<AdminVolunteerTeamListVO[]>> {
+	return request.get('/module-user/cmsmanager/volunteer/teams/list', {
+		params,
+	});
+}
+export interface VolunteersTeamsUserName {
 	username: string; // 邮箱
 	id?: number;
 }
@@ -107,7 +133,7 @@ export interface VolunteersTeamsEmail {
  * @param params
  */
 export async function uniqueUserNameVolunteersTeams(
-	params: VolunteersTeamsEmail
+	params: VolunteersTeamsUserName
 ): Promise<JcResult<boolean>> {
 	return request.get('/module-user/cmsmanager/volunteer/teams/username/unique', {
 		params,
